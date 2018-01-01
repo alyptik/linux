@@ -228,7 +228,7 @@ static inline const char *kbasename(const char *path)
 #define __FORTIFY_INLINE extern __always_inline __attribute__((gnu_inline))
 #define __RENAME(x) __asm__(#x)
 
-void fortify_panic(const char *name) __noreturn __cold;
+void __noreturn __cold fortify_panic(const char *name);
 void __read_overflow(void) __compiletime_error("detected read beyond size of object passed as 1st parameter");
 void __read_overflow2(void) __compiletime_error("detected read beyond size of object passed as 2nd parameter");
 void __read_overflow3(void) __compiletime_error("detected read beyond size of object passed as 3rd parameter");
