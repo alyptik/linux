@@ -154,8 +154,8 @@ void kvm_async_pf_task_wait(u32 token, int interrupt_kernel)
 
 	for (;;) {
 		if (!n.halted)
-			prepare_to_swait(&n.wq, &wait, TASK_UNINTERRUPTIBLE);
-		if (hlist_unhashed(&n.link))
+			prepare_to_swait(&n.wq, &wait, TASK_KILLABLE);
+		if (hlist_unhashed(&n.link) || fatal_signal_pending(current))
 			break;
 
 		rcu_irq_exit();
