@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  iptables module to match inet_addr_type() of an ip.
  *
@@ -125,6 +126,7 @@ static inline bool match_type(struct net *net, const struct net_device *dev,
 static bool
 addrtype_mt_v0(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_addrtype.c: line 129 \n"); 
 	struct net *net = par->net;
 	const struct xt_addrtype_info *info = par->matchinfo;
 	const struct iphdr *iph = ip_hdr(skb);

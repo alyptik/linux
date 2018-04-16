@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/ematch.c		Extended Match API
  *
@@ -95,6 +96,7 @@ static DEFINE_RWLOCK(ematch_mod_lock);
 
 static struct tcf_ematch_ops *tcf_em_lookup(u16 kind)
 {
+	panic("We reached unpopular paths in net/sched/ematch.c: line 99 \n"); 
 	struct tcf_ematch_ops *e = NULL;
 
 	read_lock(&ematch_mod_lock);
@@ -157,6 +159,7 @@ EXPORT_SYMBOL(tcf_em_register);
  */
 void tcf_em_unregister(struct tcf_ematch_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/ematch.c: line 162 \n"); 
 	write_lock(&ematch_mod_lock);
 	list_del(&ops->link);
 	write_unlock(&ematch_mod_lock);
@@ -166,6 +169,7 @@ EXPORT_SYMBOL(tcf_em_unregister);
 static inline struct tcf_ematch *tcf_em_get_match(struct tcf_ematch_tree *tree,
 						  int index)
 {
+	panic("We reached unpopular paths in net/sched/ematch.c: line 172 \n"); 
 	return &tree->matches[index];
 }
 
@@ -174,6 +178,7 @@ static int tcf_em_validate(struct tcf_proto *tp,
 			   struct tcf_ematch_tree_hdr *tree_hdr,
 			   struct tcf_ematch *em, struct nlattr *nla, int idx)
 {
+	panic("We reached unpopular paths in net/sched/ematch.c: line 181 \n"); 
 	int err = -EINVAL;
 	struct tcf_ematch_hdr *em_hdr = nla_data(nla);
 	int data_len = nla_len(nla) - sizeof(*em_hdr);
@@ -304,6 +309,7 @@ static const struct nla_policy em_policy[TCA_EMATCH_TREE_MAX + 1] = {
 int tcf_em_tree_validate(struct tcf_proto *tp, struct nlattr *nla,
 			 struct tcf_ematch_tree *tree)
 {
+	panic("We reached unpopular paths in net/sched/ematch.c: line 312 \n"); 
 	int idx, list_len, matches_len, err;
 	struct nlattr *tb[TCA_EMATCH_TREE_MAX + 1];
 	struct nlattr *rt_match, *rt_hdr, *rt_list;
@@ -398,6 +404,7 @@ EXPORT_SYMBOL(tcf_em_tree_validate);
  */
 void tcf_em_tree_destroy(struct tcf_ematch_tree *tree)
 {
+	panic("We reached unpopular paths in net/sched/ematch.c: line 407 \n"); 
 	int i;
 
 	if (tree->matches == NULL)
@@ -435,6 +442,7 @@ EXPORT_SYMBOL(tcf_em_tree_destroy);
  */
 int tcf_em_tree_dump(struct sk_buff *skb, struct tcf_ematch_tree *tree, int tlv)
 {
+	panic("We reached unpopular paths in net/sched/ematch.c: line 445 \n"); 
 	int i;
 	u8 *tail;
 	struct nlattr *top_start;
@@ -490,6 +498,7 @@ EXPORT_SYMBOL(tcf_em_tree_dump);
 static inline int tcf_em_match(struct sk_buff *skb, struct tcf_ematch *em,
 			       struct tcf_pkt_info *info)
 {
+	panic("We reached unpopular paths in net/sched/ematch.c: line 501 \n"); 
 	int r = em->ops->match(skb, em, info);
 
 	return tcf_em_is_inverted(em) ? !r : r;
@@ -499,6 +508,7 @@ static inline int tcf_em_match(struct sk_buff *skb, struct tcf_ematch *em,
 int __tcf_em_tree_match(struct sk_buff *skb, struct tcf_ematch_tree *tree,
 			struct tcf_pkt_info *info)
 {
+	panic("We reached unpopular paths in net/sched/ematch.c: line 511 \n"); 
 	int stackp = 0, match_idx = 0, res = 0;
 	struct tcf_ematch *cur_match;
 	int stack[CONFIG_NET_EMATCH_STACK];

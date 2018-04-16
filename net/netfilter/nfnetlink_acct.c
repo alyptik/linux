@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 2011 Pablo Neira Ayuso <pablo@netfilter.org>
  * (C) 2011 Intra2net AG <http://www.intra2net.com>
@@ -50,6 +51,7 @@ static int nfnl_acct_new(struct net *net, struct sock *nfnl,
 			 struct sk_buff *skb, const struct nlmsghdr *nlh,
 			 const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 54 \n"); 
 	struct nf_acct *nfacct, *matching = NULL;
 	char *acct_name;
 	unsigned int size = 0;
@@ -132,6 +134,7 @@ static int
 nfnl_acct_fill_info(struct sk_buff *skb, u32 portid, u32 seq, u32 type,
 		   int event, struct nf_acct *acct)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 137 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 	unsigned int flags = portid ? NLM_F_MULTI : 0;
@@ -188,6 +191,7 @@ nla_put_failure:
 static int
 nfnl_acct_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 194 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct nf_acct *cur, *last;
 	const struct nfacct_filter *filter = cb->data;
@@ -227,6 +231,7 @@ nfnl_acct_dump(struct sk_buff *skb, struct netlink_callback *cb)
 
 static int nfnl_acct_done(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 234 \n"); 
 	kfree(cb->data);
 	return 0;
 }
@@ -239,6 +244,7 @@ static const struct nla_policy filter_policy[NFACCT_FILTER_MAX + 1] = {
 static struct nfacct_filter *
 nfacct_filter_alloc(const struct nlattr * const attr)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 247 \n"); 
 	struct nfacct_filter *filter;
 	struct nlattr *tb[NFACCT_FILTER_MAX + 1];
 	int err;
@@ -264,6 +270,7 @@ static int nfnl_acct_get(struct net *net, struct sock *nfnl,
 			 struct sk_buff *skb, const struct nlmsghdr *nlh,
 			 const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 273 \n"); 
 	int ret = -ENOENT;
 	struct nf_acct *cur;
 	char *acct_name;
@@ -324,6 +331,7 @@ static int nfnl_acct_get(struct net *net, struct sock *nfnl,
 /* try to delete object, fail if it is still in use. */
 static int nfnl_acct_try_del(struct nf_acct *cur)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 334 \n"); 
 	int ret = 0;
 
 	/* We want to avoid races with nfnl_acct_put. So only when the current
@@ -343,6 +351,7 @@ static int nfnl_acct_del(struct net *net, struct sock *nfnl,
 			 struct sk_buff *skb, const struct nlmsghdr *nlh,
 			 const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 354 \n"); 
 	struct nf_acct *cur, *tmp;
 	int ret = -ENOENT;
 	char *acct_name;
@@ -403,6 +412,7 @@ MODULE_ALIAS_NFNL_SUBSYS(NFNL_SUBSYS_ACCT);
 
 struct nf_acct *nfnl_acct_find_get(struct net *net, const char *acct_name)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 415 \n"); 
 	struct nf_acct *cur, *acct = NULL;
 
 	rcu_read_lock();
@@ -429,6 +439,7 @@ EXPORT_SYMBOL_GPL(nfnl_acct_find_get);
 
 void nfnl_acct_put(struct nf_acct *acct)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 442 \n"); 
 	if (atomic_dec_and_test(&acct->refcnt))
 		kfree_rcu(acct, rcu_head);
 
@@ -438,6 +449,7 @@ EXPORT_SYMBOL_GPL(nfnl_acct_put);
 
 void nfnl_acct_update(const struct sk_buff *skb, struct nf_acct *nfacct)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 452 \n"); 
 	atomic64_inc(&nfacct->pkts);
 	atomic64_add(skb->len, &nfacct->bytes);
 }
@@ -445,6 +457,7 @@ EXPORT_SYMBOL_GPL(nfnl_acct_update);
 
 static void nfnl_overquota_report(struct net *net, struct nf_acct *nfacct)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 460 \n"); 
 	int ret;
 	struct sk_buff *skb;
 
@@ -465,6 +478,7 @@ static void nfnl_overquota_report(struct net *net, struct nf_acct *nfacct)
 int nfnl_acct_overquota(struct net *net, const struct sk_buff *skb,
 			struct nf_acct *nfacct)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_acct.c: line 481 \n"); 
 	u64 now;
 	u64 *quota;
 	int ret = NFACCT_UNDERQUOTA;

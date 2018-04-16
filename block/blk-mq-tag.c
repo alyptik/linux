@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Tag allocation using scalable bitmaps. Uses active queue tracking to support
  * fairer distribution of tags between multiple submitters when a shared tag map
@@ -15,6 +16,7 @@
 
 bool blk_mq_has_free_tags(struct blk_mq_tags *tags)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 19 \n"); 
 	if (!tags)
 		return true;
 
@@ -26,6 +28,7 @@ bool blk_mq_has_free_tags(struct blk_mq_tags *tags)
  */
 bool __blk_mq_tag_busy(struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 31 \n"); 
 	if (!test_bit(BLK_MQ_S_TAG_ACTIVE, &hctx->state) &&
 	    !test_and_set_bit(BLK_MQ_S_TAG_ACTIVE, &hctx->state))
 		atomic_inc(&hctx->tags->active_queues);
@@ -38,6 +41,7 @@ bool __blk_mq_tag_busy(struct blk_mq_hw_ctx *hctx)
  */
 void blk_mq_tag_wakeup_all(struct blk_mq_tags *tags, bool include_reserve)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 44 \n"); 
 	sbitmap_queue_wake_all(&tags->bitmap_tags);
 	if (include_reserve)
 		sbitmap_queue_wake_all(&tags->breserved_tags);
@@ -49,6 +53,7 @@ void blk_mq_tag_wakeup_all(struct blk_mq_tags *tags, bool include_reserve)
  */
 void __blk_mq_tag_idle(struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 56 \n"); 
 	struct blk_mq_tags *tags = hctx->tags;
 
 	if (!test_and_clear_bit(BLK_MQ_S_TAG_ACTIVE, &hctx->state))
@@ -66,6 +71,7 @@ void __blk_mq_tag_idle(struct blk_mq_hw_ctx *hctx)
 static inline bool hctx_may_queue(struct blk_mq_hw_ctx *hctx,
 				  struct sbitmap_queue *bt)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 74 \n"); 
 	unsigned int depth, users;
 
 	if (!hctx || !(hctx->flags & BLK_MQ_F_TAG_SHARED))
@@ -92,6 +98,7 @@ static inline bool hctx_may_queue(struct blk_mq_hw_ctx *hctx,
 
 static int __bt_get(struct blk_mq_hw_ctx *hctx, struct sbitmap_queue *bt)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 101 \n"); 
 	if (!hctx_may_queue(hctx, bt))
 		return -1;
 	return __sbitmap_queue_get(bt);
@@ -100,6 +107,7 @@ static int __bt_get(struct blk_mq_hw_ctx *hctx, struct sbitmap_queue *bt)
 static int bt_get(struct blk_mq_alloc_data *data, struct sbitmap_queue *bt,
 		  struct blk_mq_hw_ctx *hctx, struct blk_mq_tags *tags)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 110 \n"); 
 	struct sbq_wait_state *ws;
 	DEFINE_WAIT(wait);
 	int tag;
@@ -158,6 +166,7 @@ static int bt_get(struct blk_mq_alloc_data *data, struct sbitmap_queue *bt,
 
 static unsigned int __blk_mq_get_tag(struct blk_mq_alloc_data *data)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 169 \n"); 
 	int tag;
 
 	tag = bt_get(data, &data->hctx->tags->bitmap_tags, data->hctx,
@@ -170,6 +179,7 @@ static unsigned int __blk_mq_get_tag(struct blk_mq_alloc_data *data)
 
 static unsigned int __blk_mq_get_reserved_tag(struct blk_mq_alloc_data *data)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 182 \n"); 
 	int tag;
 
 	if (unlikely(!data->hctx->tags->nr_reserved_tags)) {
@@ -187,6 +197,7 @@ static unsigned int __blk_mq_get_reserved_tag(struct blk_mq_alloc_data *data)
 
 unsigned int blk_mq_get_tag(struct blk_mq_alloc_data *data)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 200 \n"); 
 	if (data->flags & BLK_MQ_REQ_RESERVED)
 		return __blk_mq_get_reserved_tag(data);
 	return __blk_mq_get_tag(data);
@@ -195,6 +206,7 @@ unsigned int blk_mq_get_tag(struct blk_mq_alloc_data *data)
 void blk_mq_put_tag(struct blk_mq_hw_ctx *hctx, struct blk_mq_ctx *ctx,
 		    unsigned int tag)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 209 \n"); 
 	struct blk_mq_tags *tags = hctx->tags;
 
 	if (tag >= tags->nr_reserved_tags) {
@@ -217,6 +229,7 @@ struct bt_iter_data {
 
 static bool bt_iter(struct sbitmap *bitmap, unsigned int bitnr, void *data)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 232 \n"); 
 	struct bt_iter_data *iter_data = data;
 	struct blk_mq_hw_ctx *hctx = iter_data->hctx;
 	struct blk_mq_tags *tags = hctx->tags;
@@ -235,6 +248,7 @@ static bool bt_iter(struct sbitmap *bitmap, unsigned int bitnr, void *data)
 static void bt_for_each(struct blk_mq_hw_ctx *hctx, struct sbitmap_queue *bt,
 			busy_iter_fn *fn, void *data, bool reserved)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 251 \n"); 
 	struct bt_iter_data iter_data = {
 		.hctx = hctx,
 		.fn = fn,
@@ -254,6 +268,7 @@ struct bt_tags_iter_data {
 
 static bool bt_tags_iter(struct sbitmap *bitmap, unsigned int bitnr, void *data)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 271 \n"); 
 	struct bt_tags_iter_data *iter_data = data;
 	struct blk_mq_tags *tags = iter_data->tags;
 	bool reserved = iter_data->reserved;
@@ -270,6 +285,7 @@ static bool bt_tags_iter(struct sbitmap *bitmap, unsigned int bitnr, void *data)
 static void bt_tags_for_each(struct blk_mq_tags *tags, struct sbitmap_queue *bt,
 			     busy_tag_iter_fn *fn, void *data, bool reserved)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 288 \n"); 
 	struct bt_tags_iter_data iter_data = {
 		.tags = tags,
 		.fn = fn,
@@ -284,6 +300,7 @@ static void bt_tags_for_each(struct blk_mq_tags *tags, struct sbitmap_queue *bt,
 static void blk_mq_all_tag_busy_iter(struct blk_mq_tags *tags,
 		busy_tag_iter_fn *fn, void *priv)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 303 \n"); 
 	if (tags->nr_reserved_tags)
 		bt_tags_for_each(tags, &tags->breserved_tags, fn, priv, true);
 	bt_tags_for_each(tags, &tags->bitmap_tags, fn, priv, false);
@@ -292,6 +309,7 @@ static void blk_mq_all_tag_busy_iter(struct blk_mq_tags *tags,
 void blk_mq_tagset_busy_iter(struct blk_mq_tag_set *tagset,
 		busy_tag_iter_fn *fn, void *priv)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 312 \n"); 
 	int i;
 
 	for (i = 0; i < tagset->nr_hw_queues; i++) {
@@ -303,6 +321,7 @@ EXPORT_SYMBOL(blk_mq_tagset_busy_iter);
 
 int blk_mq_reinit_tagset(struct blk_mq_tag_set *set)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 324 \n"); 
 	int i, j, ret = 0;
 
 	if (!set->ops->reinit_request)
@@ -333,6 +352,7 @@ EXPORT_SYMBOL_GPL(blk_mq_reinit_tagset);
 void blk_mq_queue_tag_busy_iter(struct request_queue *q, busy_iter_fn *fn,
 		void *priv)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 355 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	int i;
 
@@ -356,6 +376,7 @@ void blk_mq_queue_tag_busy_iter(struct request_queue *q, busy_iter_fn *fn,
 
 static unsigned int bt_unused_tags(const struct sbitmap_queue *bt)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 379 \n"); 
 	return bt->sb.depth - sbitmap_weight(&bt->sb);
 }
 
@@ -409,6 +430,7 @@ struct blk_mq_tags *blk_mq_init_tags(unsigned int total_tags,
 
 void blk_mq_free_tags(struct blk_mq_tags *tags)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 433 \n"); 
 	sbitmap_queue_free(&tags->bitmap_tags);
 	sbitmap_queue_free(&tags->breserved_tags);
 	kfree(tags);
@@ -416,6 +438,7 @@ void blk_mq_free_tags(struct blk_mq_tags *tags)
 
 int blk_mq_tag_update_depth(struct blk_mq_tags *tags, unsigned int tdepth)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 441 \n"); 
 	tdepth -= tags->nr_reserved_tags;
 	if (tdepth > tags->nr_tags)
 		return -EINVAL;
@@ -444,6 +467,7 @@ int blk_mq_tag_update_depth(struct blk_mq_tags *tags, unsigned int tdepth)
  */
 u32 blk_mq_unique_tag(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 470 \n"); 
 	struct request_queue *q = rq->q;
 	struct blk_mq_hw_ctx *hctx;
 	int hwq = 0;
@@ -460,6 +484,7 @@ EXPORT_SYMBOL(blk_mq_unique_tag);
 
 ssize_t blk_mq_tag_sysfs_show(struct blk_mq_tags *tags, char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-tag.c: line 487 \n"); 
 	char *orig_page = page;
 	unsigned int free, res;
 

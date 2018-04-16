@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/kernel.h>
 #include <linux/init.h>
 #include <linux/module.h>
@@ -17,6 +18,7 @@ static LIST_HEAD(nf_sockopts);
 /* Do exclusive ranges overlap? */
 static inline int overlap(int min1, int max1, int min2, int max2)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/netfilter/nf_sockopt.c: line 21 \n"); 
 	return max1 > min2 && min1 < max2;
 }
 
@@ -52,6 +54,7 @@ EXPORT_SYMBOL(nf_register_sockopt);
 
 void nf_unregister_sockopt(struct nf_sockopt_ops *reg)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_sockopt.c: line 57 \n"); 
 	mutex_lock(&nf_sockopt_mutex);
 	list_del(&reg->list);
 	mutex_unlock(&nf_sockopt_mutex);

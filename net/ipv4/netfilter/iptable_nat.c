@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2006 Netfilter Core Team <coreteam@netfilter.org>
  * (C) 2011 Patrick McHardy <kaber@trash.net>

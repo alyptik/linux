@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPv6 raw table, a port of the IPv4 raw table to IPv6
  *

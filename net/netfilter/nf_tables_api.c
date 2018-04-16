@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2007-2009 Patrick McHardy <kaber@trash.net>
  *
@@ -61,6 +62,7 @@ EXPORT_SYMBOL_GPL(nft_unregister_afinfo);
 
 static struct nft_af_info *nft_afinfo_lookup(struct net *net, int family)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 65 \n"); 
 	struct nft_af_info *afi;
 
 	list_for_each_entry(afi, &net->nft.af_info, list) {
@@ -73,6 +75,7 @@ static struct nft_af_info *nft_afinfo_lookup(struct net *net, int family)
 static struct nft_af_info *
 nf_tables_afinfo_lookup(struct net *net, int family, bool autoload)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 78 \n"); 
 	struct nft_af_info *afi;
 
 	afi = nft_afinfo_lookup(net, family);
@@ -100,6 +103,7 @@ static void nft_ctx_init(struct nft_ctx *ctx,
 			 struct nft_chain *chain,
 			 const struct nlattr * const *nla)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 106 \n"); 
 	ctx->net	= net;
 	ctx->afi	= afi;
 	ctx->table	= table;
@@ -113,6 +117,7 @@ static void nft_ctx_init(struct nft_ctx *ctx,
 static struct nft_trans *nft_trans_alloc(struct nft_ctx *ctx, int msg_type,
 					 u32 size)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 120 \n"); 
 	struct nft_trans *trans;
 
 	trans = kzalloc(sizeof(struct nft_trans) + size, GFP_KERNEL);
@@ -127,6 +132,7 @@ static struct nft_trans *nft_trans_alloc(struct nft_ctx *ctx, int msg_type,
 
 static void nft_trans_destroy(struct nft_trans *trans)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 135 \n"); 
 	list_del(&trans->list);
 	kfree(trans);
 }
@@ -136,6 +142,7 @@ static int nf_tables_register_hooks(struct net *net,
 				    struct nft_chain *chain,
 				    unsigned int hook_nops)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 145 \n"); 
 	if (table->flags & NFT_TABLE_F_DORMANT ||
 	    !(chain->flags & NFT_BASE_CHAIN))
 		return 0;
@@ -149,6 +156,7 @@ static void nf_tables_unregister_hooks(struct net *net,
 				       struct nft_chain *chain,
 				       unsigned int hook_nops)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 159 \n"); 
 	if (table->flags & NFT_TABLE_F_DORMANT ||
 	    !(chain->flags & NFT_BASE_CHAIN))
 		return;
@@ -158,6 +166,7 @@ static void nf_tables_unregister_hooks(struct net *net,
 
 static int nft_trans_table_add(struct nft_ctx *ctx, int msg_type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 169 \n"); 
 	struct nft_trans *trans;
 
 	trans = nft_trans_alloc(ctx, msg_type, sizeof(struct nft_trans_table));
@@ -173,6 +182,7 @@ static int nft_trans_table_add(struct nft_ctx *ctx, int msg_type)
 
 static int nft_deltable(struct nft_ctx *ctx)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 185 \n"); 
 	int err;
 
 	err = nft_trans_table_add(ctx, NFT_MSG_DELTABLE);
@@ -185,6 +195,7 @@ static int nft_deltable(struct nft_ctx *ctx)
 
 static int nft_trans_chain_add(struct nft_ctx *ctx, int msg_type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 198 \n"); 
 	struct nft_trans *trans;
 
 	trans = nft_trans_alloc(ctx, msg_type, sizeof(struct nft_trans_chain));
@@ -200,6 +211,7 @@ static int nft_trans_chain_add(struct nft_ctx *ctx, int msg_type)
 
 static int nft_delchain(struct nft_ctx *ctx)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 214 \n"); 
 	int err;
 
 	err = nft_trans_chain_add(ctx, NFT_MSG_DELCHAIN);
@@ -215,6 +227,7 @@ static int nft_delchain(struct nft_ctx *ctx)
 static int
 nf_tables_delrule_deactivate(struct nft_ctx *ctx, struct nft_rule *rule)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 230 \n"); 
 	/* You cannot delete the same rule twice */
 	if (nft_is_active_next(ctx->net, rule)) {
 		nft_deactivate_next(ctx->net, rule);
@@ -227,6 +240,7 @@ nf_tables_delrule_deactivate(struct nft_ctx *ctx, struct nft_rule *rule)
 static struct nft_trans *nft_trans_rule_add(struct nft_ctx *ctx, int msg_type,
 					    struct nft_rule *rule)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 243 \n"); 
 	struct nft_trans *trans;
 
 	trans = nft_trans_alloc(ctx, msg_type, sizeof(struct nft_trans_rule));
@@ -241,6 +255,7 @@ static struct nft_trans *nft_trans_rule_add(struct nft_ctx *ctx, int msg_type,
 
 static int nft_delrule(struct nft_ctx *ctx, struct nft_rule *rule)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 258 \n"); 
 	struct nft_trans *trans;
 	int err;
 
@@ -259,6 +274,7 @@ static int nft_delrule(struct nft_ctx *ctx, struct nft_rule *rule)
 
 static int nft_delrule_by_chain(struct nft_ctx *ctx)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 277 \n"); 
 	struct nft_rule *rule;
 	int err;
 
@@ -273,6 +289,7 @@ static int nft_delrule_by_chain(struct nft_ctx *ctx)
 static int nft_trans_set_add(struct nft_ctx *ctx, int msg_type,
 			     struct nft_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 292 \n"); 
 	struct nft_trans *trans;
 
 	trans = nft_trans_alloc(ctx, msg_type, sizeof(struct nft_trans_set));
@@ -292,6 +309,7 @@ static int nft_trans_set_add(struct nft_ctx *ctx, int msg_type,
 
 static int nft_delset(struct nft_ctx *ctx, struct nft_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 312 \n"); 
 	int err;
 
 	err = nft_trans_set_add(ctx, NFT_MSG_DELSET, set);
@@ -312,6 +330,7 @@ static struct nft_table *nft_table_lookup(const struct nft_af_info *afi,
 					  const struct nlattr *nla,
 					  u8 genmask)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 333 \n"); 
 	struct nft_table *table;
 
 	list_for_each_entry(table, &afi->tables, list) {
@@ -326,6 +345,7 @@ static struct nft_table *nf_tables_table_lookup(const struct nft_af_info *afi,
 						const struct nlattr *nla,
 						u8 genmask)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 348 \n"); 
 	struct nft_table *table;
 
 	if (nla == NULL)
@@ -340,6 +360,7 @@ static struct nft_table *nf_tables_table_lookup(const struct nft_af_info *afi,
 
 static inline u64 nf_tables_alloc_handle(struct nft_table *table)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 363 \n"); 
 	return ++table->hgenerator;
 }
 
@@ -348,6 +369,7 @@ static const struct nf_chain_type *chain_type[AF_MAX][NFT_CHAIN_T_MAX];
 static const struct nf_chain_type *
 __nf_tables_chain_type_lookup(int family, const struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 372 \n"); 
 	int i;
 
 	for (i = 0; i < NFT_CHAIN_T_MAX; i++) {
@@ -363,6 +385,7 @@ nf_tables_chain_type_lookup(const struct nft_af_info *afi,
 			    const struct nlattr *nla,
 			    bool autoload)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 388 \n"); 
 	const struct nf_chain_type *type;
 
 	type = __nf_tables_chain_type_lookup(afi->family, nla);
@@ -392,6 +415,7 @@ static int nf_tables_fill_table_info(struct sk_buff *skb, struct net *net,
 				     u32 portid, u32 seq, int event, u32 flags,
 				     int family, const struct nft_table *table)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 418 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 
@@ -420,6 +444,7 @@ nla_put_failure:
 
 static int nf_tables_table_notify(const struct nft_ctx *ctx, int event)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 447 \n"); 
 	struct sk_buff *skb;
 	int err;
 
@@ -452,6 +477,7 @@ err:
 static int nf_tables_dump_tables(struct sk_buff *skb,
 				 struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 480 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(cb->nlh);
 	const struct nft_af_info *afi;
 	const struct nft_table *table;
@@ -497,6 +523,7 @@ static int nf_tables_gettable(struct net *net, struct sock *nlsk,
 			      struct sk_buff *skb, const struct nlmsghdr *nlh,
 			      const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 526 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u8 genmask = nft_genmask_cur(net);
 	const struct nft_af_info *afi;
@@ -541,6 +568,7 @@ static int nf_tables_table_enable(struct net *net,
 				  const struct nft_af_info *afi,
 				  struct nft_table *table)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 571 \n"); 
 	struct nft_chain *chain;
 	int err, i = 0;
 
@@ -578,6 +606,7 @@ static void nf_tables_table_disable(struct net *net,
 				    const struct nft_af_info *afi,
 				    struct nft_table *table)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 609 \n"); 
 	struct nft_chain *chain;
 
 	list_for_each_entry(chain, &table->chains, list) {
@@ -593,6 +622,7 @@ static void nf_tables_table_disable(struct net *net,
 
 static int nf_tables_updtable(struct nft_ctx *ctx)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 625 \n"); 
 	struct nft_trans *trans;
 	u32 flags;
 	int ret = 0;
@@ -638,6 +668,7 @@ static int nf_tables_newtable(struct net *net, struct sock *nlsk,
 			      struct sk_buff *skb, const struct nlmsghdr *nlh,
 			      const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 671 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u8 genmask = nft_genmask_next(net);
 	const struct nlattr *name;
@@ -707,6 +738,7 @@ err1:
 
 static int nft_flush_table(struct nft_ctx *ctx)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 741 \n"); 
 	int err;
 	struct nft_chain *chain, *nc;
 	struct nft_set *set, *ns;
@@ -753,6 +785,7 @@ out:
 
 static int nft_flush(struct nft_ctx *ctx, int family)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 788 \n"); 
 	struct nft_af_info *afi;
 	struct nft_table *table, *nt;
 	const struct nlattr * const *nla = ctx->nla;
@@ -786,6 +819,7 @@ static int nf_tables_deltable(struct net *net, struct sock *nlsk,
 			      struct sk_buff *skb, const struct nlmsghdr *nlh,
 			      const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 822 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u8 genmask = nft_genmask_next(net);
 	struct nft_af_info *afi;
@@ -813,6 +847,7 @@ static int nf_tables_deltable(struct net *net, struct sock *nlsk,
 
 static void nf_tables_table_destroy(struct nft_ctx *ctx)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 850 \n"); 
 	BUG_ON(ctx->table->use > 0);
 
 	kfree(ctx->table);
@@ -837,6 +872,7 @@ EXPORT_SYMBOL_GPL(nft_register_chain_type);
 
 void nft_unregister_chain_type(const struct nf_chain_type *ctype)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 875 \n"); 
 	nfnl_lock(NFNL_SUBSYS_NFTABLES);
 	chain_type[ctype->family][ctype->type] = NULL;
 	nfnl_unlock(NFNL_SUBSYS_NFTABLES);
@@ -851,6 +887,7 @@ static struct nft_chain *
 nf_tables_chain_lookup_byhandle(const struct nft_table *table, u64 handle,
 				u8 genmask)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 890 \n"); 
 	struct nft_chain *chain;
 
 	list_for_each_entry(chain, &table->chains, list) {
@@ -866,6 +903,7 @@ static struct nft_chain *nf_tables_chain_lookup(const struct nft_table *table,
 						const struct nlattr *nla,
 						u8 genmask)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 906 \n"); 
 	struct nft_chain *chain;
 
 	if (nla == NULL)
@@ -939,6 +977,7 @@ static int nf_tables_fill_chain_info(struct sk_buff *skb, struct net *net,
 				     int family, const struct nft_table *table,
 				     const struct nft_chain *chain)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 980 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 
@@ -1001,6 +1040,7 @@ nla_put_failure:
 
 static int nf_tables_chain_notify(const struct nft_ctx *ctx, int event)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1043 \n"); 
 	struct sk_buff *skb;
 	int err;
 
@@ -1034,6 +1074,7 @@ err:
 static int nf_tables_dump_chains(struct sk_buff *skb,
 				 struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1077 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(cb->nlh);
 	const struct nft_af_info *afi;
 	const struct nft_table *table;
@@ -1082,6 +1123,7 @@ static int nf_tables_getchain(struct net *net, struct sock *nlsk,
 			      struct sk_buff *skb, const struct nlmsghdr *nlh,
 			      const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1126 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u8 genmask = nft_genmask_cur(net);
 	const struct nft_af_info *afi;
@@ -1181,6 +1223,7 @@ static void nft_chain_stats_replace(struct nft_base_chain *chain,
 
 static void nf_tables_chain_destroy(struct nft_chain *chain)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1226 \n"); 
 	BUG_ON(chain->use > 0);
 
 	if (chain->flags & NFT_BASE_CHAIN) {
@@ -1208,6 +1251,7 @@ static int nft_chain_parse_hook(struct net *net,
 				struct nft_af_info *afi,
 				struct nft_chain_hook *hook, bool create)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1254 \n"); 
 	struct nlattr *ha[NFTA_HOOK_MAX + 1];
 	const struct nf_chain_type *type;
 	struct net_device *dev;
@@ -1268,6 +1312,7 @@ static int nft_chain_parse_hook(struct net *net,
 
 static void nft_chain_release_hook(struct nft_chain_hook *hook)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1315 \n"); 
 	module_put(hook->type->owner);
 	if (hook->dev != NULL)
 		dev_put(hook->dev);
@@ -1277,6 +1322,7 @@ static int nf_tables_newchain(struct net *net, struct sock *nlsk,
 			      struct sk_buff *skb, const struct nlmsghdr *nlh,
 			      const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1325 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	const struct nlattr * uninitialized_var(name);
 	struct nft_af_info *afi;
@@ -1515,6 +1561,7 @@ static int nf_tables_delchain(struct net *net, struct sock *nlsk,
 			      struct sk_buff *skb, const struct nlmsghdr *nlh,
 			      const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1564 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u8 genmask = nft_genmask_next(net);
 	struct nft_af_info *afi;
@@ -1573,6 +1620,7 @@ EXPORT_SYMBOL_GPL(nft_register_expr);
  */
 void nft_unregister_expr(struct nft_expr_type *type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1623 \n"); 
 	nfnl_lock(NFNL_SUBSYS_NFTABLES);
 	list_del_rcu(&type->list);
 	nfnl_unlock(NFNL_SUBSYS_NFTABLES);
@@ -1582,6 +1630,7 @@ EXPORT_SYMBOL_GPL(nft_unregister_expr);
 static const struct nft_expr_type *__nft_expr_type_get(u8 family,
 						       struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1633 \n"); 
 	const struct nft_expr_type *type;
 
 	list_for_each_entry(type, &nf_tables_expressions, list) {
@@ -1595,6 +1644,7 @@ static const struct nft_expr_type *__nft_expr_type_get(u8 family,
 static const struct nft_expr_type *nft_expr_type_get(u8 family,
 						     struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1647 \n"); 
 	const struct nft_expr_type *type;
 
 	if (nla == NULL)
@@ -1632,6 +1682,7 @@ static const struct nla_policy nft_expr_policy[NFTA_EXPR_MAX + 1] = {
 static int nf_tables_fill_expr_info(struct sk_buff *skb,
 				    const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1685 \n"); 
 	if (nla_put_string(skb, NFTA_EXPR_NAME, expr->ops->type->name))
 		goto nla_put_failure;
 
@@ -1653,6 +1704,7 @@ nla_put_failure:
 int nft_expr_dump(struct sk_buff *skb, unsigned int attr,
 		  const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1707 \n"); 
 	struct nlattr *nest;
 
 	nest = nla_nest_start(skb, attr);
@@ -1676,6 +1728,7 @@ static int nf_tables_expr_parse(const struct nft_ctx *ctx,
 				const struct nlattr *nla,
 				struct nft_expr_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1731 \n"); 
 	const struct nft_expr_type *type;
 	const struct nft_expr_ops *ops;
 	struct nlattr *tb[NFTA_EXPR_MAX + 1];
@@ -1719,6 +1772,7 @@ static int nf_tables_newexpr(const struct nft_ctx *ctx,
 			     const struct nft_expr_info *info,
 			     struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1775 \n"); 
 	const struct nft_expr_ops *ops = info->ops;
 	int err;
 
@@ -1739,6 +1793,7 @@ err1:
 static void nf_tables_expr_destroy(const struct nft_ctx *ctx,
 				   struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1796 \n"); 
 	if (expr->ops->destroy)
 		expr->ops->destroy(ctx, expr);
 	module_put(expr->ops->type->owner);
@@ -1747,6 +1802,7 @@ static void nf_tables_expr_destroy(const struct nft_ctx *ctx,
 struct nft_expr *nft_expr_init(const struct nft_ctx *ctx,
 			       const struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1805 \n"); 
 	struct nft_expr_info info;
 	struct nft_expr *expr;
 	int err;
@@ -1775,6 +1831,7 @@ err1:
 
 void nft_expr_destroy(const struct nft_ctx *ctx, struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1834 \n"); 
 	nf_tables_expr_destroy(ctx, expr);
 	kfree(expr);
 }
@@ -1786,6 +1843,7 @@ void nft_expr_destroy(const struct nft_ctx *ctx, struct nft_expr *expr)
 static struct nft_rule *__nf_tables_rule_lookup(const struct nft_chain *chain,
 						u64 handle)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1846 \n"); 
 	struct nft_rule *rule;
 
 	// FIXME: this sucks
@@ -1800,6 +1858,7 @@ static struct nft_rule *__nf_tables_rule_lookup(const struct nft_chain *chain,
 static struct nft_rule *nf_tables_rule_lookup(const struct nft_chain *chain,
 					      const struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1861 \n"); 
 	if (nla == NULL)
 		return ERR_PTR(-EINVAL);
 
@@ -1825,6 +1884,7 @@ static int nf_tables_fill_rule_info(struct sk_buff *skb, struct net *net,
 				    const struct nft_chain *chain,
 				    const struct nft_rule *rule)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1887 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 	const struct nft_expr *expr, *next;
@@ -1886,6 +1946,7 @@ static int nf_tables_rule_notify(const struct nft_ctx *ctx,
 				 const struct nft_rule *rule,
 				 int event)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1949 \n"); 
 	struct sk_buff *skb;
 	int err;
 
@@ -1924,6 +1985,7 @@ struct nft_rule_dump_ctx {
 static int nf_tables_dump_rules(struct sk_buff *skb,
 				struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 1988 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(cb->nlh);
 	const struct nft_rule_dump_ctx *ctx = cb->data;
 	const struct nft_af_info *afi;
@@ -1982,6 +2044,7 @@ done:
 
 static int nf_tables_dump_rules_done(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2047 \n"); 
 	kfree(cb->data);
 	return 0;
 }
@@ -1990,6 +2053,7 @@ static int nf_tables_getrule(struct net *net, struct sock *nlsk,
 			     struct sk_buff *skb, const struct nlmsghdr *nlh,
 			     const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2056 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u8 genmask = nft_genmask_cur(net);
 	const struct nft_af_info *afi;
@@ -2061,6 +2125,7 @@ err:
 static void nf_tables_rule_destroy(const struct nft_ctx *ctx,
 				   struct nft_rule *rule)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2128 \n"); 
 	struct nft_expr *expr;
 
 	/*
@@ -2083,6 +2148,7 @@ static int nf_tables_newrule(struct net *net, struct sock *nlsk,
 			     struct sk_buff *skb, const struct nlmsghdr *nlh,
 			     const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2151 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u8 genmask = nft_genmask_next(net);
 	struct nft_af_info *afi;
@@ -2249,6 +2315,7 @@ static int nf_tables_delrule(struct net *net, struct sock *nlsk,
 			     struct sk_buff *skb, const struct nlmsghdr *nlh,
 			     const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2318 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u8 genmask = nft_genmask_next(net);
 	struct nft_af_info *afi;
@@ -2309,6 +2376,7 @@ static LIST_HEAD(nf_tables_set_ops);
 
 int nft_register_set(struct nft_set_ops *ops)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2379 \n"); 
 	nfnl_lock(NFNL_SUBSYS_NFTABLES);
 	list_add_tail_rcu(&ops->list, &nf_tables_set_ops);
 	nfnl_unlock(NFNL_SUBSYS_NFTABLES);
@@ -2318,6 +2386,7 @@ EXPORT_SYMBOL_GPL(nft_register_set);
 
 void nft_unregister_set(struct nft_set_ops *ops)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2389 \n"); 
 	nfnl_lock(NFNL_SUBSYS_NFTABLES);
 	list_del_rcu(&ops->list);
 	nfnl_unlock(NFNL_SUBSYS_NFTABLES);
@@ -2334,6 +2403,7 @@ nft_select_set_ops(const struct nlattr * const nla[],
 		   const struct nft_set_desc *desc,
 		   enum nft_set_policies policy)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2406 \n"); 
 	const struct nft_set_ops *ops, *bops;
 	struct nft_set_estimate est, best;
 	u32 features;
@@ -2423,6 +2493,7 @@ static int nft_ctx_init_from_setattr(struct nft_ctx *ctx, struct net *net,
 				     const struct nlattr * const nla[],
 				     u8 genmask)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2496 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	struct nft_af_info *afi = NULL;
 	struct nft_table *table = NULL;
@@ -2450,6 +2521,7 @@ static int nft_ctx_init_from_setattr(struct nft_ctx *ctx, struct net *net,
 struct nft_set *nf_tables_set_lookup(const struct nft_table *table,
 				     const struct nlattr *nla, u8 genmask)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2524 \n"); 
 	struct nft_set *set;
 
 	if (nla == NULL)
@@ -2467,6 +2539,7 @@ struct nft_set *nf_tables_set_lookup_byid(const struct net *net,
 					  const struct nlattr *nla,
 					  u8 genmask)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2542 \n"); 
 	struct nft_trans *trans;
 	u32 id = ntohl(nla_get_be32(nla));
 
@@ -2484,6 +2557,7 @@ struct nft_set *nf_tables_set_lookup_byid(const struct net *net,
 static int nf_tables_set_alloc_name(struct nft_ctx *ctx, struct nft_set *set,
 				    const char *name)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2560 \n"); 
 	const struct nft_set *i;
 	const char *p;
 	unsigned long *inuse;
@@ -2533,6 +2607,7 @@ cont:
 static int nf_tables_fill_set(struct sk_buff *skb, const struct nft_ctx *ctx,
 			      const struct nft_set *set, u16 event, u16 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2610 \n"); 
 	struct nfgenmsg *nfmsg;
 	struct nlmsghdr *nlh;
 	struct nlattr *desc;
@@ -2606,6 +2681,7 @@ static int nf_tables_set_notify(const struct nft_ctx *ctx,
 				const struct nft_set *set,
 				int event, gfp_t gfp_flags)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2684 \n"); 
 	struct sk_buff *skb;
 	u32 portid = ctx->portid;
 	int err;
@@ -2635,6 +2711,7 @@ err:
 
 static int nf_tables_dump_sets(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2714 \n"); 
 	const struct nft_set *set;
 	unsigned int idx, s_idx = cb->args[0];
 	struct nft_af_info *afi;
@@ -2703,6 +2780,7 @@ done:
 
 static int nf_tables_dump_sets_done(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2783 \n"); 
 	kfree(cb->data);
 	return 0;
 }
@@ -2711,6 +2789,7 @@ static int nf_tables_getset(struct net *net, struct sock *nlsk,
 			    struct sk_buff *skb, const struct nlmsghdr *nlh,
 			    const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2792 \n"); 
 	u8 genmask = nft_genmask_cur(net);
 	const struct nft_set *set;
 	struct nft_ctx ctx;
@@ -2769,6 +2848,7 @@ static int nf_tables_set_desc_parse(const struct nft_ctx *ctx,
 				    struct nft_set_desc *desc,
 				    const struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2851 \n"); 
 	struct nlattr *da[NFTA_SET_DESC_MAX + 1];
 	int err;
 
@@ -2786,6 +2866,7 @@ static int nf_tables_newset(struct net *net, struct sock *nlsk,
 			    struct sk_buff *skb, const struct nlmsghdr *nlh,
 			    const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 2869 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u8 genmask = nft_genmask_next(net);
 	const struct nft_set_ops *ops;
@@ -2975,6 +3056,7 @@ err1:
 
 static void nft_set_destroy(struct nft_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3059 \n"); 
 	set->ops->destroy(set);
 	module_put(set->ops->owner);
 	kfree(set);
@@ -2982,6 +3064,7 @@ static void nft_set_destroy(struct nft_set *set)
 
 static void nf_tables_set_destroy(const struct nft_ctx *ctx, struct nft_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3067 \n"); 
 	list_del_rcu(&set->list);
 	nf_tables_set_notify(ctx, set, NFT_MSG_DELSET, GFP_ATOMIC);
 	nft_set_destroy(set);
@@ -2991,6 +3074,7 @@ static int nf_tables_delset(struct net *net, struct sock *nlsk,
 			    struct sk_buff *skb, const struct nlmsghdr *nlh,
 			    const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3077 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u8 genmask = nft_genmask_next(net);
 	struct nft_set *set;
@@ -3020,6 +3104,7 @@ static int nf_tables_bind_check_setelem(const struct nft_ctx *ctx,
 					const struct nft_set_iter *iter,
 					const struct nft_set_elem *elem)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3107 \n"); 
 	const struct nft_set_ext *ext = nft_set_elem_ext(set, elem->priv);
 	enum nft_registers dreg;
 
@@ -3033,6 +3118,7 @@ static int nf_tables_bind_check_setelem(const struct nft_ctx *ctx,
 int nf_tables_bind_set(const struct nft_ctx *ctx, struct nft_set *set,
 		       struct nft_set_binding *binding)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3121 \n"); 
 	struct nft_set_binding *i;
 	struct nft_set_iter iter;
 
@@ -3068,6 +3154,7 @@ bind:
 void nf_tables_unbind_set(const struct nft_ctx *ctx, struct nft_set *set,
 			  struct nft_set_binding *binding)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3157 \n"); 
 	list_del_rcu(&binding->list);
 
 	if (list_empty(&set->bindings) && set->flags & NFT_SET_ANONYMOUS &&
@@ -3130,6 +3217,7 @@ static int nft_ctx_init_from_elemattr(struct nft_ctx *ctx, struct net *net,
 				      const struct nlattr * const nla[],
 				      u8 genmask)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3220 \n"); 
 	const struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	struct nft_af_info *afi;
 	struct nft_table *table;
@@ -3151,6 +3239,7 @@ static int nf_tables_fill_setelem(struct sk_buff *skb,
 				  const struct nft_set *set,
 				  const struct nft_set_elem *elem)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3242 \n"); 
 	const struct nft_set_ext *ext = nft_set_elem_ext(set, elem->priv);
 	unsigned char *b = skb_tail_pointer(skb);
 	struct nlattr *nest;
@@ -3228,6 +3317,7 @@ static int nf_tables_dump_setelem(const struct nft_ctx *ctx,
 				  const struct nft_set_iter *iter,
 				  const struct nft_set_elem *elem)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3320 \n"); 
 	struct nft_set_dump_args *args;
 
 	args = container_of(iter, struct nft_set_dump_args, iter);
@@ -3236,6 +3326,7 @@ static int nf_tables_dump_setelem(const struct nft_ctx *ctx,
 
 static int nf_tables_dump_set(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3329 \n"); 
 	struct net *net = sock_net(skb->sk);
 	u8 genmask = nft_genmask_cur(net);
 	const struct nft_set *set;
@@ -3315,6 +3406,7 @@ static int nf_tables_getsetelem(struct net *net, struct sock *nlsk,
 				struct sk_buff *skb, const struct nlmsghdr *nlh,
 				const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3409 \n"); 
 	u8 genmask = nft_genmask_cur(net);
 	const struct nft_set *set;
 	struct nft_ctx ctx;
@@ -3344,6 +3436,7 @@ static int nf_tables_fill_setelem_info(struct sk_buff *skb,
 				       const struct nft_set *set,
 				       const struct nft_set_elem *elem)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3439 \n"); 
 	struct nfgenmsg *nfmsg;
 	struct nlmsghdr *nlh;
 	struct nlattr *nest;
@@ -3388,6 +3481,7 @@ static int nf_tables_setelem_notify(const struct nft_ctx *ctx,
 				    const struct nft_set_elem *elem,
 				    int event, u16 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3484 \n"); 
 	struct net *net = ctx->net;
 	u32 portid = ctx->portid;
 	struct sk_buff *skb;
@@ -3420,6 +3514,7 @@ static struct nft_trans *nft_trans_elem_alloc(struct nft_ctx *ctx,
 					      int msg_type,
 					      struct nft_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3517 \n"); 
 	struct nft_trans *trans;
 
 	trans = nft_trans_alloc(ctx, msg_type, sizeof(struct nft_trans_elem));
@@ -3435,6 +3530,7 @@ void *nft_set_elem_init(const struct nft_set *set,
 			const u32 *key, const u32 *data,
 			u64 timeout, gfp_t gfp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3533 \n"); 
 	struct nft_set_ext *ext;
 	void *elem;
 
@@ -3460,6 +3556,7 @@ void *nft_set_elem_init(const struct nft_set *set,
 void nft_set_elem_destroy(const struct nft_set *set, void *elem,
 			  bool destroy_expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3559 \n"); 
 	struct nft_set_ext *ext = nft_set_elem_ext(set, elem);
 
 	nft_data_uninit(nft_set_ext_key(ext), NFT_DATA_VALUE);
@@ -3475,6 +3572,7 @@ EXPORT_SYMBOL_GPL(nft_set_elem_destroy);
 static int nft_setelem_parse_flags(const struct nft_set *set,
 				   const struct nlattr *attr, u32 *flags)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3575 \n"); 
 	if (attr == NULL)
 		return 0;
 
@@ -3491,6 +3589,7 @@ static int nft_setelem_parse_flags(const struct nft_set *set,
 static int nft_add_set_elem(struct nft_ctx *ctx, struct nft_set *set,
 			    const struct nlattr *attr, u32 nlmsg_flags)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3592 \n"); 
 	struct nlattr *nla[NFTA_SET_ELEM_MAX + 1];
 	struct nft_data_desc d1, d2;
 	struct nft_set_ext_tmpl tmpl;
@@ -3666,6 +3765,7 @@ static int nf_tables_newsetelem(struct net *net, struct sock *nlsk,
 				struct sk_buff *skb, const struct nlmsghdr *nlh,
 				const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3768 \n"); 
 	u8 genmask = nft_genmask_next(net);
 	const struct nlattr *attr;
 	struct nft_set *set;
@@ -3705,6 +3805,7 @@ static int nf_tables_newsetelem(struct net *net, struct sock *nlsk,
 static int nft_del_setelem(struct nft_ctx *ctx, struct nft_set *set,
 			   const struct nlattr *attr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3808 \n"); 
 	struct nlattr *nla[NFTA_SET_ELEM_MAX + 1];
 	struct nft_set_ext_tmpl tmpl;
 	struct nft_data_desc desc;
@@ -3785,6 +3886,7 @@ static int nf_tables_delsetelem(struct net *net, struct sock *nlsk,
 				struct sk_buff *skb, const struct nlmsghdr *nlh,
 				const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3889 \n"); 
 	u8 genmask = nft_genmask_next(net);
 	const struct nlattr *attr;
 	struct nft_set *set;
@@ -3817,6 +3919,7 @@ static int nf_tables_delsetelem(struct net *net, struct sock *nlsk,
 
 void nft_set_gc_batch_release(struct rcu_head *rcu)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3922 \n"); 
 	struct nft_set_gc_batch *gcb;
 	unsigned int i;
 
@@ -3830,6 +3933,7 @@ EXPORT_SYMBOL_GPL(nft_set_gc_batch_release);
 struct nft_set_gc_batch *nft_set_gc_batch_alloc(const struct nft_set *set,
 						gfp_t gfp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3936 \n"); 
 	struct nft_set_gc_batch *gcb;
 
 	gcb = kzalloc(sizeof(*gcb), gfp);
@@ -3843,6 +3947,7 @@ EXPORT_SYMBOL_GPL(nft_set_gc_batch_alloc);
 static int nf_tables_fill_gen_info(struct sk_buff *skb, struct net *net,
 				   u32 portid, u32 seq)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3950 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 	int event = (NFNL_SUBSYS_NFTABLES << 8) | NFT_MSG_NEWGEN;
@@ -3869,6 +3974,7 @@ nla_put_failure:
 
 static int nf_tables_gen_notify(struct net *net, struct sk_buff *skb, int event)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 3977 \n"); 
 	struct nlmsghdr *nlh = nlmsg_hdr(skb);
 	struct sk_buff *skb2;
 	int err;
@@ -3903,6 +4009,7 @@ static int nf_tables_getgen(struct net *net, struct sock *nlsk,
 			    struct sk_buff *skb, const struct nlmsghdr *nlh,
 			    const struct nlattr * const nla[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4012 \n"); 
 	struct sk_buff *skb2;
 	int err;
 
@@ -4004,6 +4111,7 @@ static const struct nfnl_callback nf_tables_cb[NFT_MSG_MAX] = {
 
 static void nft_chain_commit_update(struct nft_trans *trans)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4114 \n"); 
 	struct nft_base_chain *basechain;
 
 	if (nft_trans_chain_name(trans)[0])
@@ -4025,6 +4133,7 @@ static void nft_chain_commit_update(struct nft_trans *trans)
 
 static void nf_tables_commit_release(struct nft_trans *trans)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4136 \n"); 
 	switch (trans->msg_type) {
 	case NFT_MSG_DELTABLE:
 		nf_tables_table_destroy(&trans->ctx);
@@ -4048,6 +4157,7 @@ static void nf_tables_commit_release(struct nft_trans *trans)
 
 static int nf_tables_commit(struct net *net, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4160 \n"); 
 	struct nft_trans *trans, *next;
 	struct nft_trans_elem *te;
 
@@ -4166,6 +4276,7 @@ static int nf_tables_commit(struct net *net, struct sk_buff *skb)
 
 static void nf_tables_abort_release(struct nft_trans *trans)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4279 \n"); 
 	switch (trans->msg_type) {
 	case NFT_MSG_NEWTABLE:
 		nf_tables_table_destroy(&trans->ctx);
@@ -4189,6 +4300,7 @@ static void nf_tables_abort_release(struct nft_trans *trans)
 
 static int nf_tables_abort(struct net *net, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4303 \n"); 
 	struct nft_trans *trans, *next;
 	struct nft_trans_elem *te;
 
@@ -4289,6 +4401,7 @@ static const struct nfnetlink_subsystem nf_tables_subsys = {
 int nft_chain_validate_dependency(const struct nft_chain *chain,
 				  enum nft_chain_type type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4404 \n"); 
 	const struct nft_base_chain *basechain;
 
 	if (chain->flags & NFT_BASE_CHAIN) {
@@ -4303,6 +4416,7 @@ EXPORT_SYMBOL_GPL(nft_chain_validate_dependency);
 int nft_chain_validate_hooks(const struct nft_chain *chain,
 			     unsigned int hook_flags)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4419 \n"); 
 	struct nft_base_chain *basechain;
 
 	if (chain->flags & NFT_BASE_CHAIN) {
@@ -4335,6 +4449,7 @@ static int nf_tables_loop_check_setelem(const struct nft_ctx *ctx,
 					const struct nft_set_iter *iter,
 					const struct nft_set_elem *elem)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4452 \n"); 
 	const struct nft_set_ext *ext = nft_set_elem_ext(set, elem->priv);
 	const struct nft_data *data;
 
@@ -4355,6 +4470,7 @@ static int nf_tables_loop_check_setelem(const struct nft_ctx *ctx,
 static int nf_tables_check_loops(const struct nft_ctx *ctx,
 				 const struct nft_chain *chain)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4473 \n"); 
 	const struct nft_rule *rule;
 	const struct nft_expr *expr, *last;
 	const struct nft_set *set;
@@ -4433,6 +4549,7 @@ static int nf_tables_check_loops(const struct nft_ctx *ctx,
  */
 int nft_parse_u32_check(const struct nlattr *attr, int max, u32 *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4552 \n"); 
 	u32 val;
 
 	val = ntohl(nla_get_be32(attr));
@@ -4455,6 +4572,7 @@ EXPORT_SYMBOL_GPL(nft_parse_u32_check);
  */
 unsigned int nft_parse_register(const struct nlattr *attr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4575 \n"); 
 	unsigned int reg;
 
 	reg = ntohl(nla_get_be32(attr));
@@ -4480,6 +4598,7 @@ EXPORT_SYMBOL_GPL(nft_parse_register);
  */
 int nft_dump_register(struct sk_buff *skb, unsigned int attr, unsigned int reg)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4601 \n"); 
 	if (reg % (NFT_REG_SIZE / NFT_REG32_SIZE) == 0)
 		reg = reg / (NFT_REG_SIZE / NFT_REG32_SIZE);
 	else
@@ -4500,6 +4619,7 @@ EXPORT_SYMBOL_GPL(nft_dump_register);
  */
 int nft_validate_register_load(enum nft_registers reg, unsigned int len)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4622 \n"); 
 	if (reg < NFT_REG_1 * NFT_REG_SIZE / NFT_REG32_SIZE)
 		return -EINVAL;
 	if (len == 0)
@@ -4530,6 +4650,7 @@ int nft_validate_register_store(const struct nft_ctx *ctx,
 				const struct nft_data *data,
 				enum nft_data_types type, unsigned int len)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4653 \n"); 
 	int err;
 
 	switch (reg) {
@@ -4578,6 +4699,7 @@ static const struct nla_policy nft_verdict_policy[NFTA_VERDICT_MAX + 1] = {
 static int nft_verdict_init(const struct nft_ctx *ctx, struct nft_data *data,
 			    struct nft_data_desc *desc, const struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4702 \n"); 
 	u8 genmask = nft_genmask_next(ctx->net);
 	struct nlattr *tb[NFTA_VERDICT_MAX + 1];
 	struct nft_chain *chain;
@@ -4629,6 +4751,7 @@ static int nft_verdict_init(const struct nft_ctx *ctx, struct nft_data *data,
 
 static void nft_verdict_uninit(const struct nft_data *data)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4754 \n"); 
 	switch (data->verdict.code) {
 	case NFT_JUMP:
 	case NFT_GOTO:
@@ -4639,6 +4762,7 @@ static void nft_verdict_uninit(const struct nft_data *data)
 
 int nft_verdict_dump(struct sk_buff *skb, int type, const struct nft_verdict *v)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4765 \n"); 
 	struct nlattr *nest;
 
 	nest = nla_nest_start(skb, type);
@@ -4666,6 +4790,7 @@ static int nft_value_init(const struct nft_ctx *ctx,
 			  struct nft_data *data, unsigned int size,
 			  struct nft_data_desc *desc, const struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4793 \n"); 
 	unsigned int len;
 
 	len = nla_len(nla);
@@ -4683,6 +4808,7 @@ static int nft_value_init(const struct nft_ctx *ctx,
 static int nft_value_dump(struct sk_buff *skb, const struct nft_data *data,
 			  unsigned int len)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4811 \n"); 
 	return nla_put(skb, NFTA_DATA_VALUE, len, data->data);
 }
 
@@ -4710,6 +4836,7 @@ int nft_data_init(const struct nft_ctx *ctx,
 		  struct nft_data *data, unsigned int size,
 		  struct nft_data_desc *desc, const struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4839 \n"); 
 	struct nlattr *tb[NFTA_DATA_MAX + 1];
 	int err;
 
@@ -4737,6 +4864,7 @@ EXPORT_SYMBOL_GPL(nft_data_init);
  */
 void nft_data_uninit(const struct nft_data *data, enum nft_data_types type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4867 \n"); 
 	if (type < NFT_DATA_VERDICT)
 		return;
 	switch (type) {
@@ -4751,6 +4879,7 @@ EXPORT_SYMBOL_GPL(nft_data_uninit);
 int nft_data_dump(struct sk_buff *skb, int attr, const struct nft_data *data,
 		  enum nft_data_types type, unsigned int len)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4882 \n"); 
 	struct nlattr *nest;
 	int err;
 
@@ -4785,6 +4914,7 @@ static int __net_init nf_tables_init_net(struct net *net)
 
 int __nft_release_basechain(struct nft_ctx *ctx)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_api.c: line 4917 \n"); 
 	struct nft_rule *rule, *nr;
 
 	BUG_ON(!(ctx->chain->flags & NFT_BASE_CHAIN));

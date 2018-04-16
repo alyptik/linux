@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * ip_vs_ftp.c: IPVS ftp application module
  *
@@ -65,6 +66,7 @@ static int ip_vs_ftp_pasv;
 static int
 ip_vs_ftp_init_conn(struct ip_vs_app *app, struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ftp.c: line 69 \n"); 
 	/* We use connection tracking for the command connection */
 	cp->flags |= IP_VS_CONN_F_NFCT;
 	return 0;
@@ -74,6 +76,7 @@ ip_vs_ftp_init_conn(struct ip_vs_app *app, struct ip_vs_conn *cp)
 static int
 ip_vs_ftp_done_conn(struct ip_vs_app *app, struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ftp.c: line 79 \n"); 
 	return 0;
 }
 
@@ -90,6 +93,7 @@ static int ip_vs_ftp_get_addrport(char *data, char *data_limit,
 				  __be32 *addr, __be16 *port,
 				  char **start, char **end)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ftp.c: line 96 \n"); 
 	char *s, c;
 	unsigned char p[6];
 	int i = 0;
@@ -169,6 +173,7 @@ static int ip_vs_ftp_get_addrport(char *data, char *data_limit,
 static int ip_vs_ftp_out(struct ip_vs_app *app, struct ip_vs_conn *cp,
 			 struct sk_buff *skb, int *diff)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ftp.c: line 176 \n"); 
 	struct iphdr *iph;
 	struct tcphdr *th;
 	char *data, *data_limit;
@@ -311,6 +316,7 @@ static int ip_vs_ftp_out(struct ip_vs_app *app, struct ip_vs_conn *cp,
 static int ip_vs_ftp_in(struct ip_vs_app *app, struct ip_vs_conn *cp,
 			struct sk_buff *skb, int *diff)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ftp.c: line 319 \n"); 
 	struct iphdr *iph;
 	struct tcphdr *th;
 	char *data, *data_start, *data_limit;

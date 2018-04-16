@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Functions related to segment and merge handling
  */
@@ -16,6 +17,7 @@ static struct bio *blk_bio_discard_split(struct request_queue *q,
 					 struct bio_set *bs,
 					 unsigned *nsegs)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 20 \n"); 
 	unsigned int max_discard_sectors, granularity;
 	int alignment;
 	sector_t tmp;
@@ -59,6 +61,7 @@ static struct bio *blk_bio_write_same_split(struct request_queue *q,
 					    struct bio_set *bs,
 					    unsigned *nsegs)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 64 \n"); 
 	*nsegs = 1;
 
 	if (!q->limits.max_write_same_sectors)
@@ -73,6 +76,7 @@ static struct bio *blk_bio_write_same_split(struct request_queue *q,
 static inline unsigned get_max_io_size(struct request_queue *q,
 				       struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 79 \n"); 
 	unsigned sectors = blk_max_size_offset(q, bio->bi_iter.bi_sector);
 	unsigned mask = queue_logical_block_size(q) - 1;
 
@@ -87,6 +91,7 @@ static struct bio *blk_bio_segment_split(struct request_queue *q,
 					 struct bio_set *bs,
 					 unsigned *segs)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 94 \n"); 
 	struct bio_vec bv, bvprv, *bvprvp = NULL;
 	struct bvec_iter iter;
 	unsigned seg_size = 0, nsegs = 0, sectors = 0;
@@ -191,6 +196,7 @@ split:
 void blk_queue_split(struct request_queue *q, struct bio **bio,
 		     struct bio_set *bs)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 199 \n"); 
 	struct bio *split, *res;
 	unsigned nsegs;
 
@@ -296,6 +302,7 @@ new_segment:
 
 void blk_recalc_rq_segments(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 305 \n"); 
 	bool no_sg_merge = !!test_bit(QUEUE_FLAG_NO_SG_MERGE,
 			&rq->q->queue_flags);
 
@@ -331,6 +338,7 @@ EXPORT_SYMBOL(blk_recount_segments);
 static int blk_phys_contig_segment(struct request_queue *q, struct bio *bio,
 				   struct bio *nxt)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 341 \n"); 
 	struct bio_vec end_bv = { NULL }, nxt_bv;
 
 	if (!blk_queue_cluster(q))
@@ -496,6 +504,7 @@ static inline int ll_new_hw_segment(struct request_queue *q,
 				    struct request *req,
 				    struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 507 \n"); 
 	int nr_phys_segs = bio_phys_segments(q, bio);
 
 	if (req->nr_phys_segments + nr_phys_segs > queue_max_segments(q))
@@ -521,6 +530,7 @@ no_merge:
 int ll_back_merge_fn(struct request_queue *q, struct request *req,
 		     struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 533 \n"); 
 	if (req_gap_back_merge(req, bio))
 		return 0;
 	if (blk_integrity_rq(req) &&
@@ -544,6 +554,7 @@ int ll_back_merge_fn(struct request_queue *q, struct request *req,
 int ll_front_merge_fn(struct request_queue *q, struct request *req,
 		      struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 557 \n"); 
 
 	if (req_gap_front_merge(req, bio))
 		return 0;
@@ -571,6 +582,7 @@ int ll_front_merge_fn(struct request_queue *q, struct request *req,
  */
 static bool req_no_special_merge(struct request *req)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 585 \n"); 
 	struct request_queue *q = req->q;
 
 	return !q->mq_ops && req->special;
@@ -579,6 +591,7 @@ static bool req_no_special_merge(struct request *req)
 static int ll_merge_requests_fn(struct request_queue *q, struct request *req,
 				struct request *next)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 594 \n"); 
 	int total_phys_segments;
 	unsigned int seg_size =
 		req->biotail->bi_seg_back_size + next->bio->bi_seg_front_size;
@@ -631,6 +644,7 @@ static int ll_merge_requests_fn(struct request_queue *q, struct request *req,
  */
 void blk_rq_set_mixed_merge(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 647 \n"); 
 	unsigned int ff = rq->cmd_flags & REQ_FAILFAST_MASK;
 	struct bio *bio;
 
@@ -652,6 +666,7 @@ void blk_rq_set_mixed_merge(struct request *rq)
 
 static void blk_account_io_merge(struct request *req)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 669 \n"); 
 	if (blk_do_io_stat(req)) {
 		struct hd_struct *part;
 		int cpu;
@@ -673,6 +688,7 @@ static void blk_account_io_merge(struct request *req)
 static int attempt_merge(struct request_queue *q, struct request *req,
 			  struct request *next)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 691 \n"); 
 	if (!rq_mergeable(req) || !rq_mergeable(next))
 		return 0;
 
@@ -749,6 +765,7 @@ static int attempt_merge(struct request_queue *q, struct request *req,
 
 int attempt_back_merge(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 768 \n"); 
 	struct request *next = elv_latter_request(q, rq);
 
 	if (next)
@@ -759,6 +776,7 @@ int attempt_back_merge(struct request_queue *q, struct request *rq)
 
 int attempt_front_merge(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 779 \n"); 
 	struct request *prev = elv_former_request(q, rq);
 
 	if (prev)
@@ -770,6 +788,7 @@ int attempt_front_merge(struct request_queue *q, struct request *rq)
 int blk_attempt_req_merge(struct request_queue *q, struct request *rq,
 			  struct request *next)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 791 \n"); 
 	struct elevator_queue *e = q->elevator;
 
 	if (e->type->ops.elevator_allow_rq_merge_fn)
@@ -781,6 +800,7 @@ int blk_attempt_req_merge(struct request_queue *q, struct request *rq,
 
 bool blk_rq_merge_ok(struct request *rq, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 803 \n"); 
 	if (!rq_mergeable(rq) || !bio_mergeable(bio))
 		return false;
 
@@ -809,6 +829,7 @@ bool blk_rq_merge_ok(struct request *rq, struct bio *bio)
 
 int blk_try_merge(struct request *rq, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-merge.c: line 832 \n"); 
 	if (blk_rq_pos(rq) + blk_rq_sectors(rq) == bio->bi_iter.bi_sector)
 		return ELEVATOR_BACK_MERGE;
 	else if (blk_rq_pos(rq) - bio_sectors(bio) == bio->bi_iter.bi_sector)

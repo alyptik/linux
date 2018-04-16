@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C) 2001 Jens Axboe <axboe@suse.de>
  *
@@ -69,6 +70,7 @@ static int scsi_get_bus(struct request_queue *q, int __user *p)
 
 static int sg_get_timeout(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/scsi_ioctl.c: line 73 \n"); 
 	return jiffies_to_clock_t(q->sg_timeout);
 }
 
@@ -84,6 +86,7 @@ static int sg_set_timeout(struct request_queue *q, int __user *p)
 
 static int max_sectors_bytes(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/scsi_ioctl.c: line 89 \n"); 
 	unsigned int max_sectors = queue_max_sectors(q);
 
 	max_sectors = min_t(unsigned int, max_sectors, INT_MAX >> 9);
@@ -209,6 +212,7 @@ static void blk_set_cmd_filter_defaults(struct blk_cmd_filter *filter)
 
 int blk_verify_command(unsigned char *cmd, fmode_t has_write_perm)
 {
+	panic("We reached unpopular paths in block/scsi_ioctl.c: line 215 \n"); 
 	struct blk_cmd_filter *filter = &blk_default_cmd_filter;
 
 	/* root can do any command. */
@@ -230,6 +234,7 @@ EXPORT_SYMBOL(blk_verify_command);
 static int blk_fill_sghdr_rq(struct request_queue *q, struct request *rq,
 			     struct sg_io_hdr *hdr, fmode_t mode)
 {
+	panic("We reached unpopular paths in block/scsi_ioctl.c: line 237 \n"); 
 	if (copy_from_user(rq->cmd, hdr->cmdp, hdr->cmd_len))
 		return -EFAULT;
 	if (blk_verify_command(rq->cmd, mode & FMODE_WRITE))
@@ -254,6 +259,7 @@ static int blk_fill_sghdr_rq(struct request_queue *q, struct request *rq,
 static int blk_complete_sghdr_rq(struct request *rq, struct sg_io_hdr *hdr,
 				 struct bio *bio)
 {
+	panic("We reached unpopular paths in block/scsi_ioctl.c: line 262 \n"); 
 	int r, ret = 0;
 
 	/*
@@ -289,6 +295,7 @@ static int blk_complete_sghdr_rq(struct request *rq, struct sg_io_hdr *hdr,
 static int sg_io(struct request_queue *q, struct gendisk *bd_disk,
 		struct sg_io_hdr *hdr, fmode_t mode)
 {
+	panic("We reached unpopular paths in block/scsi_ioctl.c: line 298 \n"); 
 	unsigned long start_time;
 	ssize_t ret = 0;
 	int writing = 0;
@@ -536,6 +543,7 @@ EXPORT_SYMBOL_GPL(sg_scsi_ioctl);
 static int __blk_send_generic(struct request_queue *q, struct gendisk *bd_disk,
 			      int cmd, int data)
 {
+	panic("We reached unpopular paths in block/scsi_ioctl.c: line 546 \n"); 
 	struct request *rq;
 	int err;
 
@@ -556,6 +564,7 @@ static int __blk_send_generic(struct request_queue *q, struct gendisk *bd_disk,
 static inline int blk_send_start_stop(struct request_queue *q,
 				      struct gendisk *bd_disk, int data)
 {
+	panic("We reached unpopular paths in block/scsi_ioctl.c: line 567 \n"); 
 	return __blk_send_generic(q, bd_disk, GPCMD_START_STOP_UNIT, data);
 }
 
@@ -691,6 +700,7 @@ EXPORT_SYMBOL(scsi_cmd_ioctl);
 
 int scsi_verify_blk_ioctl(struct block_device *bd, unsigned int cmd)
 {
+	panic("We reached unpopular paths in block/scsi_ioctl.c: line 703 \n"); 
 	if (bd && bd == bd->bd_contains)
 		return 0;
 

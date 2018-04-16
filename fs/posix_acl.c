@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C) 2002,2003 by Andreas Gruenbacher <a.gruenbacher@computer.org>
  *
@@ -71,6 +72,7 @@ EXPORT_SYMBOL(set_cached_acl);
 
 static void __forget_cached_acl(struct posix_acl **p)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 75 \n"); 
 	struct posix_acl *old;
 
 	old = xchg(p, ACL_NOT_CACHED);
@@ -80,12 +82,14 @@ static void __forget_cached_acl(struct posix_acl **p)
 
 void forget_cached_acl(struct inode *inode, int type)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 85 \n"); 
 	__forget_cached_acl(acl_by_type(inode, type));
 }
 EXPORT_SYMBOL(forget_cached_acl);
 
 void forget_all_cached_acls(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 92 \n"); 
 	__forget_cached_acl(&inode->i_acl);
 	__forget_cached_acl(&inode->i_default_acl);
 }
@@ -163,6 +167,7 @@ EXPORT_SYMBOL(get_acl);
 void
 posix_acl_init(struct posix_acl *acl, int count)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 170 \n"); 
 	atomic_set(&acl->a_refcount, 1);
 	acl->a_count = count;
 }
@@ -189,6 +194,7 @@ EXPORT_SYMBOL(posix_acl_alloc);
 static struct posix_acl *
 posix_acl_clone(const struct posix_acl *acl, gfp_t flags)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 197 \n"); 
 	struct posix_acl *clone = NULL;
 
 	if (acl) {
@@ -207,6 +213,7 @@ posix_acl_clone(const struct posix_acl *acl, gfp_t flags)
 int
 posix_acl_valid(struct user_namespace *user_ns, const struct posix_acl *acl)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 216 \n"); 
 	const struct posix_acl_entry *pa, *pe;
 	int state = ACL_USER_OBJ;
 	int needs_mask = 0;
@@ -276,6 +283,7 @@ EXPORT_SYMBOL(posix_acl_valid);
 int
 posix_acl_equiv_mode(const struct posix_acl *acl, umode_t *mode_p)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 286 \n"); 
 	const struct posix_acl_entry *pa, *pe;
 	umode_t mode = 0;
 	int not_equiv = 0;
@@ -322,6 +330,7 @@ EXPORT_SYMBOL(posix_acl_equiv_mode);
 struct posix_acl *
 posix_acl_from_mode(umode_t mode, gfp_t flags)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 333 \n"); 
 	struct posix_acl *acl = posix_acl_alloc(3, flags);
 	if (!acl)
 		return ERR_PTR(-ENOMEM);
@@ -345,6 +354,7 @@ EXPORT_SYMBOL(posix_acl_from_mode);
 int
 posix_acl_permission(struct inode *inode, const struct posix_acl *acl, int want)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 357 \n"); 
 	const struct posix_acl_entry *pa, *pe, *mask_obj;
 	int found = 0;
 
@@ -413,6 +423,7 @@ check_perm:
  */
 static int posix_acl_create_masq(struct posix_acl *acl, umode_t *mode_p)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 426 \n"); 
 	struct posix_acl_entry *pa, *pe;
 	struct posix_acl_entry *group_obj = NULL, *mask_obj = NULL;
 	umode_t mode = *mode_p;
@@ -470,6 +481,7 @@ static int posix_acl_create_masq(struct posix_acl *acl, umode_t *mode_p)
  */
 static int __posix_acl_chmod_masq(struct posix_acl *acl, umode_t mode)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 484 \n"); 
 	struct posix_acl_entry *group_obj = NULL, *mask_obj = NULL;
 	struct posix_acl_entry *pa, *pe;
 
@@ -516,6 +528,7 @@ static int __posix_acl_chmod_masq(struct posix_acl *acl, umode_t mode)
 int
 __posix_acl_create(struct posix_acl **acl, gfp_t gfp, umode_t *mode_p)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 531 \n"); 
 	struct posix_acl *clone = posix_acl_clone(*acl, gfp);
 	int err = -ENOMEM;
 	if (clone) {
@@ -534,6 +547,7 @@ EXPORT_SYMBOL(__posix_acl_create);
 int
 __posix_acl_chmod(struct posix_acl **acl, gfp_t gfp, umode_t mode)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 550 \n"); 
 	struct posix_acl *clone = posix_acl_clone(*acl, gfp);
 	int err = -ENOMEM;
 	if (clone) {
@@ -642,6 +656,7 @@ EXPORT_SYMBOL_GPL(posix_acl_create);
 int posix_acl_update_mode(struct inode *inode, umode_t *mode_p,
 			  struct posix_acl **acl)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 659 \n"); 
 	umode_t mode = inode->i_mode;
 	int error;
 
@@ -665,6 +680,7 @@ static void posix_acl_fix_xattr_userns(
 	struct user_namespace *to, struct user_namespace *from,
 	void *value, size_t size)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 683 \n"); 
 	struct posix_acl_xattr_header *header = value;
 	struct posix_acl_xattr_entry *entry = (void *)(header + 1), *end;
 	int count;
@@ -710,6 +726,7 @@ void posix_acl_fix_xattr_from_user(void *value, size_t size)
 
 void posix_acl_fix_xattr_to_user(void *value, size_t size)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 729 \n"); 
 	struct user_namespace *user_ns = current_user_ns();
 	if (user_ns == &init_user_ns)
 		return;
@@ -792,6 +809,7 @@ int
 posix_acl_to_xattr(struct user_namespace *user_ns, const struct posix_acl *acl,
 		   void *buffer, size_t size)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 812 \n"); 
 	struct posix_acl_xattr_header *ext_acl = buffer;
 	struct posix_acl_xattr_entry *ext_entry;
 	int real_size, n;
@@ -832,6 +850,7 @@ posix_acl_xattr_get(const struct xattr_handler *handler,
 		    struct dentry *unused, struct inode *inode,
 		    const char *name, void *value, size_t size)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 853 \n"); 
 	struct posix_acl *acl;
 	int error;
 
@@ -855,6 +874,7 @@ posix_acl_xattr_get(const struct xattr_handler *handler,
 int
 set_posix_acl(struct inode *inode, int type, struct posix_acl *acl)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 877 \n"); 
 	if (!IS_POSIXACL(inode))
 		return -EOPNOTSUPP;
 	if (!inode->i_op->set_acl)
@@ -880,6 +900,7 @@ posix_acl_xattr_set(const struct xattr_handler *handler,
 		    const char *name, const void *value,
 		    size_t size, int flags)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 903 \n"); 
 	struct posix_acl *acl = NULL;
 	int ret;
 
@@ -896,6 +917,7 @@ posix_acl_xattr_set(const struct xattr_handler *handler,
 static bool
 posix_acl_xattr_list(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 920 \n"); 
 	return IS_POSIXACL(d_backing_inode(dentry));
 }
 
@@ -919,6 +941,7 @@ EXPORT_SYMBOL_GPL(posix_acl_default_xattr_handler);
 
 int simple_set_acl(struct inode *inode, struct posix_acl *acl, int type)
 {
+	panic("We reached unpopular paths in fs/posix_acl.c: line 944 \n"); 
 	int error;
 
 	if (type == ACL_TYPE_ACCESS) {

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  Copyright (C) 2007 IBM Corporation
  *

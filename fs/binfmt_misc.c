@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * binfmt_misc.c
  *
@@ -254,6 +255,7 @@ error:
  */
 static char *scanarg(char *s, char del)
 {
+	panic("We reached unpopular paths in fs/binfmt_misc.c: line 258 \n"); 
 	char c;
 
 	while ((c = *s++) != del) {
@@ -271,6 +273,7 @@ static char *scanarg(char *s, char del)
 
 static char *check_special_flags(char *sfs, Node *e)
 {
+	panic("We reached unpopular paths in fs/binfmt_misc.c: line 276 \n"); 
 	char *p = sfs;
 	int cont = 1;
 
@@ -537,6 +540,7 @@ static int parse_command(const char __user *buffer, size_t count)
 
 static void entry_status(Node *e, char *page)
 {
+	panic("We reached unpopular paths in fs/binfmt_misc.c: line 543 \n"); 
 	char *dp = page;
 	const char *status = "disabled";
 
@@ -578,6 +582,7 @@ static void entry_status(Node *e, char *page)
 
 static struct inode *bm_get_inode(struct super_block *sb, int mode)
 {
+	panic("We reached unpopular paths in fs/binfmt_misc.c: line 585 \n"); 
 	struct inode *inode = new_inode(sb);
 
 	if (inode) {
@@ -591,12 +596,14 @@ static struct inode *bm_get_inode(struct super_block *sb, int mode)
 
 static void bm_evict_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/binfmt_misc.c: line 599 \n"); 
 	clear_inode(inode);
 	kfree(inode->i_private);
 }
 
 static void kill_node(Node *e)
 {
+	panic("We reached unpopular paths in fs/binfmt_misc.c: line 606 \n"); 
 	struct dentry *dentry;
 
 	write_lock(&entries_lock);

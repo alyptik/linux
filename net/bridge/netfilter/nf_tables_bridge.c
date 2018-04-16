@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008 Patrick McHardy <kaber@trash.net>
  * Copyright (c) 2013 Pablo Neira Ayuso <pablo@netfilter.org>
@@ -23,6 +24,7 @@ nft_do_chain_bridge(void *priv,
 		    struct sk_buff *skb,
 		    const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nf_tables_bridge.c: line 27 \n"); 
 	struct nft_pktinfo pkt;
 
 	switch (eth_hdr(skb)->h_proto) {
@@ -97,17 +99,20 @@ static const struct nf_chain_type filter_bridge = {
 static void nf_br_saveroute(const struct sk_buff *skb,
 			    struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nf_tables_bridge.c: line 102 \n"); 
 }
 
 static int nf_br_reroute(struct net *net, struct sk_buff *skb,
 			 const struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nf_tables_bridge.c: line 108 \n"); 
 	return 0;
 }
 
 static __sum16 nf_br_checksum(struct sk_buff *skb, unsigned int hook,
 			      unsigned int dataoff, u_int8_t protocol)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nf_tables_bridge.c: line 115 \n"); 
 	return 0;
 }
 
@@ -115,6 +120,7 @@ static __sum16 nf_br_checksum_partial(struct sk_buff *skb, unsigned int hook,
 				      unsigned int dataoff, unsigned int len,
 				      u_int8_t protocol)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nf_tables_bridge.c: line 123 \n"); 
 	return 0;
 }
 

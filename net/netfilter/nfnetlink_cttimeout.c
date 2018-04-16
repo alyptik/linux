@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 2012 by Pablo Neira Ayuso <pablo@netfilter.org>
  * (C) 2012 by Vyatta Inc. <http://www.vyatta.com>
@@ -50,6 +51,7 @@ static int
 ctnl_timeout_parse_policy(void *timeouts, struct nf_conntrack_l4proto *l4proto,
 			  struct net *net, const struct nlattr *attr)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_cttimeout.c: line 54 \n"); 
 	int ret = 0;
 
 	if (likely(l4proto->ctnl_timeout.nlattr_to_obj)) {
@@ -70,6 +72,7 @@ static int cttimeout_new_timeout(struct net *net, struct sock *ctnl,
 				 const struct nlmsghdr *nlh,
 				 const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_cttimeout.c: line 75 \n"); 
 	__u16 l3num;
 	__u8 l4num;
 	struct nf_conntrack_l4proto *l4proto;
@@ -153,6 +156,7 @@ static int
 ctnl_timeout_fill_info(struct sk_buff *skb, u32 portid, u32 seq, u32 type,
 		       int event, struct ctnl_timeout *timeout)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_cttimeout.c: line 159 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 	unsigned int flags = portid ? NLM_F_MULTI : 0;
@@ -203,6 +207,7 @@ nla_put_failure:
 static int
 ctnl_timeout_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_cttimeout.c: line 210 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct ctnl_timeout *cur, *last;
 
@@ -240,6 +245,7 @@ static int cttimeout_get_timeout(struct net *net, struct sock *ctnl,
 				 const struct nlmsghdr *nlh,
 				 const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_cttimeout.c: line 248 \n"); 
 	int ret = -ENOENT;
 	char *name;
 	struct ctnl_timeout *cur;
@@ -334,6 +340,7 @@ restart:
 /* try to delete object, fail if it is still in use. */
 static int ctnl_timeout_try_del(struct net *net, struct ctnl_timeout *timeout)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_cttimeout.c: line 343 \n"); 
 	int ret = 0;
 
 	/* We want to avoid races with ctnl_timeout_put. So only when the
@@ -356,6 +363,7 @@ static int cttimeout_del_timeout(struct net *net, struct sock *ctnl,
 				 const struct nlmsghdr *nlh,
 				 const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_cttimeout.c: line 366 \n"); 
 	struct ctnl_timeout *cur, *tmp;
 	int ret = -ENOENT;
 	char *name;
@@ -387,6 +395,7 @@ static int cttimeout_default_set(struct net *net, struct sock *ctnl,
 				 const struct nlmsghdr *nlh,
 				 const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_cttimeout.c: line 398 \n"); 
 	__u16 l3num;
 	__u8 l4num;
 	struct nf_conntrack_l4proto *l4proto;
@@ -427,6 +436,7 @@ cttimeout_default_fill_info(struct net *net, struct sk_buff *skb, u32 portid,
 			    u32 seq, u32 type, int event,
 			    struct nf_conntrack_l4proto *l4proto)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_cttimeout.c: line 439 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 	unsigned int flags = portid ? NLM_F_MULTI : 0;
@@ -476,6 +486,7 @@ static int cttimeout_default_get(struct net *net, struct sock *ctnl,
 				 const struct nlmsghdr *nlh,
 				 const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_cttimeout.c: line 489 \n"); 
 	__u16 l3num;
 	__u8 l4num;
 	struct nf_conntrack_l4proto *l4proto;

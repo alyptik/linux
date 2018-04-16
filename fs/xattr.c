@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
   File: fs/xattr.c
 
@@ -267,6 +268,7 @@ ssize_t
 vfs_getxattr_alloc(struct dentry *dentry, const char *name, char **xattr_value,
 		   size_t xattr_size, gfp_t flags)
 {
+	panic("We reached unpopular paths in fs/xattr.c: line 271 \n"); 
 	const struct xattr_handler *handler;
 	struct inode *inode = dentry->d_inode;
 	char *value = *xattr_value;
@@ -753,6 +755,7 @@ SYSCALL_DEFINE2(fremovexattr, int, fd, const char __user *, name)
 ssize_t
 generic_listxattr(struct dentry *dentry, char *buffer, size_t buffer_size)
 {
+	panic("We reached unpopular paths in fs/xattr.c: line 758 \n"); 
 	const struct xattr_handler *handler, **handlers = dentry->d_sb->s_xattr;
 	unsigned int size = 0;
 
@@ -924,6 +927,7 @@ out:
 
 static bool xattr_is_trusted(const char *name)
 {
+	panic("We reached unpopular paths in fs/xattr.c: line 930 \n"); 
 	return !strncmp(name, XATTR_TRUSTED_PREFIX, XATTR_TRUSTED_PREFIX_LEN);
 }
 
@@ -988,6 +992,7 @@ ssize_t simple_xattr_list(struct inode *inode, struct simple_xattrs *xattrs,
 void simple_xattr_list_add(struct simple_xattrs *xattrs,
 			   struct simple_xattr *new_xattr)
 {
+	panic("We reached unpopular paths in fs/xattr.c: line 995 \n"); 
 	spin_lock(&xattrs->lock);
 	list_add(&new_xattr->list, &xattrs->head);
 	spin_unlock(&xattrs->lock);

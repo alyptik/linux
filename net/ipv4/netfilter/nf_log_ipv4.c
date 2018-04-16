@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2004 Netfilter Core Team <coreteam@netfilter.org>
  *
@@ -39,6 +40,7 @@ static void dump_ipv4_packet(struct nf_log_buf *m,
 			     const struct nf_loginfo *info,
 			     const struct sk_buff *skb, unsigned int iphoff)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_log_ipv4.c: line 43 \n"); 
 	struct iphdr _iph;
 	const struct iphdr *ih;
 	unsigned int logflags;
@@ -276,6 +278,7 @@ static void dump_ipv4_mac_header(struct nf_log_buf *m,
 			    const struct nf_loginfo *info,
 			    const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_log_ipv4.c: line 281 \n"); 
 	struct net_device *dev = skb->dev;
 	unsigned int logflags = 0;
 
@@ -316,6 +319,7 @@ static void nf_log_ip_packet(struct net *net, u_int8_t pf,
 			     const struct nf_loginfo *loginfo,
 			     const char *prefix)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_log_ipv4.c: line 322 \n"); 
 	struct nf_log_buf *m;
 
 	/* FIXME: Disabled from containers until syslog ns is supported */

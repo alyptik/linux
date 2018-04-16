@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Basic authentication token and access key management
  *
  * Copyright (C) 2004-2008 Red Hat, Inc. All Rights Reserved.
@@ -405,6 +406,7 @@ EXPORT_SYMBOL(key_payload_reserve);
  */
 static void mark_key_instantiated(struct key *key, int reject_error)
 {
+	// [blacklist] panic("We reached unpopular paths in security/keys/key.c: line 409 \n"); 
 	/* Commit the payload before setting the state; barrier versus
 	 * key_read_state().
 	 */
@@ -564,6 +566,7 @@ int key_reject_and_link(struct key *key,
 			struct key *keyring,
 			struct key *authkey)
 {
+	panic("We reached unpopular paths in security/keys/key.c: line 569 \n"); 
 	struct assoc_array_edit *edit;
 	struct timespec now;
 	int ret, awaken, link_ret = 0;
@@ -688,6 +691,7 @@ error:
  */
 struct key_type *key_type_lookup(const char *type)
 {
+	panic("We reached unpopular paths in security/keys/key.c: line 694 \n"); 
 	struct key_type *ktype;
 
 	down_read(&key_types_sem);
@@ -708,6 +712,7 @@ found_kernel_type:
 
 void key_set_timeout(struct key *key, unsigned timeout)
 {
+	panic("We reached unpopular paths in security/keys/key.c: line 715 \n"); 
 	struct timespec now;
 	time_t expiry = 0;
 
@@ -731,6 +736,7 @@ EXPORT_SYMBOL_GPL(key_set_timeout);
  */
 void key_type_put(struct key_type *ktype)
 {
+	panic("We reached unpopular paths in security/keys/key.c: line 739 \n"); 
 	up_read(&key_types_sem);
 }
 
@@ -743,6 +749,7 @@ void key_type_put(struct key_type *ktype)
 static inline key_ref_t __key_update(key_ref_t key_ref,
 				     struct key_preparsed_payload *prep)
 {
+	panic("We reached unpopular paths in security/keys/key.c: line 752 \n"); 
 	struct key *key = key_ref_to_ptr(key_ref);
 	int ret;
 
@@ -808,6 +815,7 @@ key_ref_t key_create_or_update(key_ref_t keyring_ref,
 			       key_perm_t perm,
 			       unsigned long flags)
 {
+	panic("We reached unpopular paths in security/keys/key.c: line 818 \n"); 
 	struct keyring_index_key index_key = {
 		.description	= description,
 	};
@@ -974,6 +982,7 @@ EXPORT_SYMBOL(key_create_or_update);
  */
 int key_update(key_ref_t key_ref, const void *payload, size_t plen)
 {
+	panic("We reached unpopular paths in security/keys/key.c: line 985 \n"); 
 	struct key_preparsed_payload prep;
 	struct key *key = key_ref_to_ptr(key_ref);
 	int ret;
@@ -1027,6 +1036,7 @@ EXPORT_SYMBOL(key_update);
  */
 void key_revoke(struct key *key)
 {
+	panic("We reached unpopular paths in security/keys/key.c: line 1039 \n"); 
 	struct timespec now;
 	time_t time;
 
@@ -1063,6 +1073,7 @@ EXPORT_SYMBOL(key_revoke);
  */
 void key_invalidate(struct key *key)
 {
+	panic("We reached unpopular paths in security/keys/key.c: line 1076 \n"); 
 	kenter("%d", key_serial(key));
 
 	key_check(key);
@@ -1088,6 +1099,7 @@ EXPORT_SYMBOL(key_invalidate);
  */
 int generic_key_instantiate(struct key *key, struct key_preparsed_payload *prep)
 {
+	panic("We reached unpopular paths in security/keys/key.c: line 1102 \n"); 
 	int ret;
 
 	pr_devel("==>%s()\n", __func__);
@@ -1154,6 +1166,7 @@ EXPORT_SYMBOL(register_key_type);
  */
 void unregister_key_type(struct key_type *ktype)
 {
+	panic("We reached unpopular paths in security/keys/key.c: line 1169 \n"); 
 	down_write(&key_types_sem);
 	list_del_init(&ktype->link);
 	downgrade_write(&key_types_sem);

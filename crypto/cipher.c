@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -23,6 +24,7 @@
 static int setkey_unaligned(struct crypto_tfm *tfm, const u8 *key,
 			    unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/cipher.c: line 27 \n"); 
 	struct cipher_alg *cia = &tfm->__crt_alg->cra_cipher;
 	unsigned long alignmask = crypto_tfm_alg_alignmask(tfm);
 	int ret;
@@ -45,6 +47,7 @@ static int setkey_unaligned(struct crypto_tfm *tfm, const u8 *key,
 
 static int setkey(struct crypto_tfm *tfm, const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/cipher.c: line 50 \n"); 
 	struct cipher_alg *cia = &tfm->__crt_alg->cra_cipher;
 	unsigned long alignmask = crypto_tfm_alg_alignmask(tfm);
 
@@ -65,6 +68,7 @@ static void cipher_crypt_unaligned(void (*fn)(struct crypto_tfm *, u8 *,
 				   struct crypto_tfm *tfm,
 				   u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/cipher.c: line 71 \n"); 
 	unsigned long alignmask = crypto_tfm_alg_alignmask(tfm);
 	unsigned int size = crypto_tfm_alg_blocksize(tfm);
 	u8 buffer[size + alignmask];
@@ -78,6 +82,7 @@ static void cipher_crypt_unaligned(void (*fn)(struct crypto_tfm *, u8 *,
 static void cipher_encrypt_unaligned(struct crypto_tfm *tfm,
 				     u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/cipher.c: line 85 \n"); 
 	unsigned long alignmask = crypto_tfm_alg_alignmask(tfm);
 	struct cipher_alg *cipher = &tfm->__crt_alg->cra_cipher;
 
@@ -92,6 +97,7 @@ static void cipher_encrypt_unaligned(struct crypto_tfm *tfm,
 static void cipher_decrypt_unaligned(struct crypto_tfm *tfm,
 				     u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/cipher.c: line 100 \n"); 
 	unsigned long alignmask = crypto_tfm_alg_alignmask(tfm);
 	struct cipher_alg *cipher = &tfm->__crt_alg->cra_cipher;
 

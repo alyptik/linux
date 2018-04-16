@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * "splice": joining two ropes together by interweaving their strands.
  *
@@ -43,6 +44,7 @@
 static int page_cache_pipe_buf_steal(struct pipe_inode_info *pipe,
 				     struct pipe_buffer *buf)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 47 \n"); 
 	struct page *page = buf->page;
 	struct address_space *mapping;
 
@@ -145,6 +147,7 @@ const struct pipe_buf_operations page_cache_pipe_buf_ops = {
 static int user_page_pipe_buf_steal(struct pipe_inode_info *pipe,
 				    struct pipe_buffer *buf)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 150 \n"); 
 	if (!(buf->flags & PIPE_BUF_FLAG_GIFT))
 		return 1;
 
@@ -162,6 +165,7 @@ static const struct pipe_buf_operations user_page_pipe_buf_ops = {
 
 static void wakeup_pipe_readers(struct pipe_inode_info *pipe)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 168 \n"); 
 	smp_mb();
 	if (waitqueue_active(&pipe->wait))
 		wake_up_interruptible(&pipe->wait);
@@ -182,6 +186,7 @@ static void wakeup_pipe_readers(struct pipe_inode_info *pipe)
 ssize_t splice_to_pipe(struct pipe_inode_info *pipe,
 		       struct splice_pipe_desc *spd)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 189 \n"); 
 	unsigned int spd_pages = spd->nr_pages;
 	int ret = 0, page_nr = 0;
 
@@ -226,6 +231,7 @@ EXPORT_SYMBOL_GPL(splice_to_pipe);
 
 ssize_t add_to_pipe(struct pipe_inode_info *pipe, struct pipe_buffer *buf)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 234 \n"); 
 	int ret;
 
 	if (unlikely(!pipe->readers)) {
@@ -246,6 +252,7 @@ EXPORT_SYMBOL(add_to_pipe);
 
 void spd_release_page(struct splice_pipe_desc *spd, unsigned int i)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 255 \n"); 
 	put_page(spd->pages[i]);
 }
 
@@ -255,6 +262,7 @@ void spd_release_page(struct splice_pipe_desc *spd, unsigned int i)
  */
 int splice_grow_spd(const struct pipe_inode_info *pipe, struct splice_pipe_desc *spd)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 265 \n"); 
 	unsigned int buffers = ACCESS_ONCE(pipe->buffers);
 
 	spd->nr_pages_max = buffers;
@@ -274,6 +282,7 @@ int splice_grow_spd(const struct pipe_inode_info *pipe, struct splice_pipe_desc 
 
 void splice_shrink_spd(struct splice_pipe_desc *spd)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 285 \n"); 
 	if (spd->nr_pages_max <= PIPE_DEF_BUFFERS)
 		return;
 
@@ -337,6 +346,7 @@ const struct pipe_buf_operations default_pipe_buf_ops = {
 static int generic_pipe_buf_nosteal(struct pipe_inode_info *pipe,
 				    struct pipe_buffer *buf)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 349 \n"); 
 	return 1;
 }
 
@@ -369,6 +379,7 @@ static ssize_t kernel_readv(struct file *file, const struct kvec *vec,
 ssize_t kernel_write(struct file *file, const char *buf, size_t count,
 			    loff_t pos)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 382 \n"); 
 	mm_segment_t old_fs;
 	ssize_t res;
 
@@ -473,6 +484,7 @@ static int pipe_to_sendpage(struct pipe_inode_info *pipe,
 
 static void wakeup_pipe_writers(struct pipe_inode_info *pipe)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 487 \n"); 
 	smp_mb();
 	if (waitqueue_active(&pipe->wait))
 		wake_up_interruptible(&pipe->wait);
@@ -599,6 +611,7 @@ static int splice_from_pipe_next(struct pipe_inode_info *pipe, struct splice_des
  */
 static void splice_from_pipe_begin(struct splice_desc *sd)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/splice.c: line 614 \n"); 
 	sd->num_spliced = 0;
 	sd->need_wakeup = false;
 }
@@ -1087,6 +1100,7 @@ EXPORT_SYMBOL(do_splice_direct);
 
 static int wait_for_space(struct pipe_inode_info *pipe, unsigned flags)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 1103 \n"); 
 	for (;;) {
 		if (unlikely(!pipe->readers)) {
 			send_sig(SIGPIPE, current, 0);
@@ -1208,6 +1222,7 @@ static int iter_to_pipe(struct iov_iter *from,
 			struct pipe_inode_info *pipe,
 			unsigned flags)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 1225 \n"); 
 	struct pipe_buffer buf = {
 		.ops = &user_page_pipe_buf_ops,
 		.flags = flags
@@ -1253,6 +1268,7 @@ static int iter_to_pipe(struct iov_iter *from,
 static int pipe_to_user(struct pipe_inode_info *pipe, struct pipe_buffer *buf,
 			struct splice_desc *sd)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 1271 \n"); 
 	int n = copy_page_to_iter(buf->page, buf->offset, sd->len, sd->u.data);
 	return n == sd->len ? n : -EFAULT;
 }
@@ -1430,6 +1446,7 @@ SYSCALL_DEFINE6(splice, int, fd_in, loff_t __user *, off_in,
  */
 static int ipipe_prep(struct pipe_inode_info *pipe, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 1449 \n"); 
 	int ret;
 
 	/*
@@ -1468,6 +1485,7 @@ static int ipipe_prep(struct pipe_inode_info *pipe, unsigned int flags)
  */
 static int opipe_prep(struct pipe_inode_info *pipe, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 1488 \n"); 
 	int ret;
 
 	/*
@@ -1510,6 +1528,7 @@ static int splice_pipe_to_pipe(struct pipe_inode_info *ipipe,
 			       struct pipe_inode_info *opipe,
 			       size_t len, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 1531 \n"); 
 	struct pipe_buffer *ibuf, *obuf;
 	int ret = 0, nbuf;
 	bool input_wakeup = false;
@@ -1625,6 +1644,7 @@ static int link_pipe(struct pipe_inode_info *ipipe,
 		     struct pipe_inode_info *opipe,
 		     size_t len, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 1647 \n"); 
 	struct pipe_buffer *ibuf, *obuf;
 	int ret = 0, i = 0, nbuf;
 
@@ -1705,6 +1725,7 @@ static int link_pipe(struct pipe_inode_info *ipipe,
 static long do_tee(struct file *in, struct file *out, size_t len,
 		   unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/splice.c: line 1728 \n"); 
 	struct pipe_inode_info *ipipe = get_pipe_info(in);
 	struct pipe_inode_info *opipe = get_pipe_info(out);
 	int ret = -EINVAL;

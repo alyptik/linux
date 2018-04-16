@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2014 Red Hat, Inc.
  * All Rights Reserved.
@@ -27,12 +28,14 @@ extern struct kobj_type xfs_stats_ktype;	/* stats */
 static inline struct xfs_kobj *
 to_kobj(struct kobject *kobject)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_sysfs.h: line 31 \n"); 
 	return container_of(kobject, struct xfs_kobj, kobject);
 }
 
 static inline void
 xfs_sysfs_release(struct kobject *kobject)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_sysfs.h: line 38 \n"); 
 	struct xfs_kobj *kobj = to_kobj(kobject);
 	complete(&kobj->complete);
 }
@@ -44,6 +47,7 @@ xfs_sysfs_init(
 	struct xfs_kobj		*parent_kobj,
 	const char		*name)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/xfs/xfs_sysfs.h: line 50 \n"); 
 	init_completion(&kobj->complete);
 	return kobject_init_and_add(&kobj->kobject, ktype,
 				    &parent_kobj->kobject, "%s", name);
@@ -53,6 +57,7 @@ static inline void
 xfs_sysfs_del(
 	struct xfs_kobj	*kobj)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_sysfs.h: line 60 \n"); 
 	kobject_del(&kobj->kobject);
 	kobject_put(&kobj->kobject);
 	wait_for_completion(&kobj->complete);

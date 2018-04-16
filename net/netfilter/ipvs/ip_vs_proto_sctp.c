@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/kernel.h>
 #include <linux/ip.h>
 #include <linux/sctp.h>
@@ -14,6 +15,7 @@ sctp_conn_schedule(struct netns_ipvs *ipvs, int af, struct sk_buff *skb,
 		   int *verdict, struct ip_vs_conn **cpp,
 		   struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_sctp.c: line 18 \n"); 
 	struct ip_vs_service *svc;
 	sctp_chunkhdr_t _schunkh, *sch;
 	sctp_sctphdr_t *sh, _sctph;
@@ -80,6 +82,7 @@ sctp_conn_schedule(struct netns_ipvs *ipvs, int af, struct sk_buff *skb,
 static void sctp_nat_csum(struct sk_buff *skb, sctp_sctphdr_t *sctph,
 			  unsigned int sctphoff)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_sctp.c: line 85 \n"); 
 	sctph->checksum = sctp_compute_cksum(skb, sctphoff);
 	skb->ip_summed = CHECKSUM_UNNECESSARY;
 }
@@ -88,6 +91,7 @@ static int
 sctp_snat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
 		  struct ip_vs_conn *cp, struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_sctp.c: line 94 \n"); 
 	sctp_sctphdr_t *sctph;
 	unsigned int sctphoff = iph->len;
 	bool payload_csum = false;
@@ -135,6 +139,7 @@ static int
 sctp_dnat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
 		  struct ip_vs_conn *cp, struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_sctp.c: line 142 \n"); 
 	sctp_sctphdr_t *sctph;
 	unsigned int sctphoff = iph->len;
 	bool payload_csum = false;
@@ -182,6 +187,7 @@ sctp_dnat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
 static int
 sctp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_sctp.c: line 190 \n"); 
 	unsigned int sctphoff;
 	struct sctphdr *sh, _sctph;
 	__le32 cmp, val;
@@ -367,6 +373,7 @@ static const char *sctp_state_name_table[IP_VS_SCTP_S_LAST + 1] = {
 
 static const char *sctp_state_name(int state)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_sctp.c: line 376 \n"); 
 	if (state >= IP_VS_SCTP_S_LAST)
 		return "ERR!";
 	if (sctp_state_name_table[state])
@@ -378,6 +385,7 @@ static inline void
 set_sctp_state(struct ip_vs_proto_data *pd, struct ip_vs_conn *cp,
 		int direction, const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_sctp.c: line 388 \n"); 
 	sctp_chunkhdr_t _sctpch, *sch;
 	unsigned char chunk_type;
 	int event, next_state;
@@ -472,6 +480,7 @@ static void
 sctp_state_transition(struct ip_vs_conn *cp, int direction,
 		const struct sk_buff *skb, struct ip_vs_proto_data *pd)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_sctp.c: line 483 \n"); 
 	spin_lock_bh(&cp->lock);
 	set_sctp_state(pd, cp, direction, skb);
 	spin_unlock_bh(&cp->lock);
@@ -479,12 +488,14 @@ sctp_state_transition(struct ip_vs_conn *cp, int direction,
 
 static inline __u16 sctp_app_hashkey(__be16 port)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_sctp.c: line 491 \n"); 
 	return (((__force u16)port >> SCTP_APP_TAB_BITS) ^ (__force u16)port)
 		& SCTP_APP_TAB_MASK;
 }
 
 static int sctp_register_app(struct netns_ipvs *ipvs, struct ip_vs_app *inc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_sctp.c: line 498 \n"); 
 	struct ip_vs_app *i;
 	__u16 hash;
 	__be16 port = inc->port;
@@ -508,6 +519,7 @@ out:
 
 static void sctp_unregister_app(struct netns_ipvs *ipvs, struct ip_vs_app *inc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_sctp.c: line 522 \n"); 
 	struct ip_vs_proto_data *pd = ip_vs_proto_data_get(ipvs, IPPROTO_SCTP);
 
 	atomic_dec(&pd->appcnt);
@@ -516,6 +528,7 @@ static void sctp_unregister_app(struct netns_ipvs *ipvs, struct ip_vs_app *inc)
 
 static int sctp_app_conn_bind(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_sctp.c: line 531 \n"); 
 	struct netns_ipvs *ipvs = cp->ipvs;
 	int hash;
 	struct ip_vs_app *inc;

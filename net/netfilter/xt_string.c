@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* String matching match for iptables
  *
  * (C) 2005 Pablo Neira Ayuso <pablo@eurodev.net>
@@ -25,6 +26,7 @@ MODULE_ALIAS("ip6t_string");
 static bool
 string_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_string.c: line 29 \n"); 
 	const struct xt_string_info *conf = par->matchinfo;
 	bool invert;
 
@@ -39,6 +41,7 @@ string_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int string_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_string.c: line 44 \n"); 
 	struct xt_string_info *conf = par->matchinfo;
 	struct ts_config *ts_conf;
 	int flags = TS_AUTOLOAD;
@@ -66,6 +69,7 @@ static int string_mt_check(const struct xt_mtchk_param *par)
 
 static void string_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_string.c: line 72 \n"); 
 	textsearch_destroy(STRING_TEXT_PRIV(par->matchinfo)->config);
 }
 

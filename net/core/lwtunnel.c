@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * lwtunnel	Infrastructure for light weight tunnels like mpls
  *
@@ -55,6 +56,7 @@ static const char *lwtunnel_encap_str(enum lwtunnel_encap_types encap_type)
 
 struct lwtunnel_state *lwtunnel_state_alloc(int encap_len)
 {
+	panic("We reached unpopular paths in net/core/lwtunnel.c: line 59 \n"); 
 	struct lwtunnel_state *lws;
 
 	lws = kzalloc(sizeof(*lws) + encap_len, GFP_ATOMIC);
@@ -68,6 +70,7 @@ static const struct lwtunnel_encap_ops __rcu *
 
 void lwtstate_free(struct lwtunnel_state *lws)
 {
+	panic("We reached unpopular paths in net/core/lwtunnel.c: line 73 \n"); 
 	const struct lwtunnel_encap_ops *ops = lwtun_encaps[lws->type];
 
 	kfree(lws);
@@ -90,6 +93,7 @@ EXPORT_SYMBOL(lwtunnel_encap_add_ops);
 int lwtunnel_encap_del_ops(const struct lwtunnel_encap_ops *ops,
 			   unsigned int encap_type)
 {
+	panic("We reached unpopular paths in net/core/lwtunnel.c: line 96 \n"); 
 	int ret;
 
 	if (encap_type == LWTUNNEL_ENCAP_NONE ||
@@ -110,6 +114,7 @@ int lwtunnel_build_state(struct net_device *dev, u16 encap_type,
 			 struct nlattr *encap, unsigned int family,
 			 const void *cfg, struct lwtunnel_state **lws)
 {
+	panic("We reached unpopular paths in net/core/lwtunnel.c: line 117 \n"); 
 	const struct lwtunnel_encap_ops *ops;
 	int ret = -EINVAL;
 
@@ -133,6 +138,7 @@ EXPORT_SYMBOL(lwtunnel_build_state);
 
 int lwtunnel_valid_encap_type(u16 encap_type)
 {
+	panic("We reached unpopular paths in net/core/lwtunnel.c: line 141 \n"); 
 	const struct lwtunnel_encap_ops *ops;
 	int ret = -EINVAL;
 
@@ -164,6 +170,7 @@ EXPORT_SYMBOL(lwtunnel_valid_encap_type);
 
 int lwtunnel_valid_encap_type_attr(struct nlattr *attr, int remaining)
 {
+	panic("We reached unpopular paths in net/core/lwtunnel.c: line 173 \n"); 
 	struct rtnexthop *rtnh = (struct rtnexthop *)attr;
 	struct nlattr *nla_entype;
 	struct nlattr *attrs;
@@ -281,6 +288,7 @@ EXPORT_SYMBOL(lwtunnel_cmp_encap);
 
 int lwtunnel_output(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/lwtunnel.c: line 291 \n"); 
 	struct dst_entry *dst = skb_dst(skb);
 	const struct lwtunnel_encap_ops *ops;
 	struct lwtunnel_state *lwtstate;
@@ -315,6 +323,7 @@ EXPORT_SYMBOL(lwtunnel_output);
 
 int lwtunnel_xmit(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/lwtunnel.c: line 326 \n"); 
 	struct dst_entry *dst = skb_dst(skb);
 	const struct lwtunnel_encap_ops *ops;
 	struct lwtunnel_state *lwtstate;
@@ -350,6 +359,7 @@ EXPORT_SYMBOL(lwtunnel_xmit);
 
 int lwtunnel_input(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/lwtunnel.c: line 362 \n"); 
 	struct dst_entry *dst = skb_dst(skb);
 	const struct lwtunnel_encap_ops *ops;
 	struct lwtunnel_state *lwtstate;

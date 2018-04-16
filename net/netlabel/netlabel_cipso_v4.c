@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NetLabel CIPSO/IPv4 Support
  *
@@ -100,6 +101,7 @@ static const struct nla_policy netlbl_cipsov4_genl_policy[NLBL_CIPSOV4_A_MAX + 1
 static int netlbl_cipsov4_add_common(struct genl_info *info,
 				     struct cipso_v4_doi *doi_def)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_cipso_v4.c: line 104 \n"); 
 	struct nlattr *nla;
 	int nla_rem;
 	u32 iter = 0;
@@ -141,6 +143,7 @@ static int netlbl_cipsov4_add_common(struct genl_info *info,
 static int netlbl_cipsov4_add_std(struct genl_info *info,
 				  struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_cipso_v4.c: line 146 \n"); 
 	int ret_val = -EINVAL;
 	struct cipso_v4_doi *doi_def = NULL;
 	struct nlattr *nla_a;
@@ -342,6 +345,7 @@ add_std_failure:
 static int netlbl_cipsov4_add_pass(struct genl_info *info,
 				   struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_cipso_v4.c: line 348 \n"); 
 	int ret_val;
 	struct cipso_v4_doi *doi_def = NULL;
 
@@ -381,6 +385,7 @@ add_pass_failure:
 static int netlbl_cipsov4_add_local(struct genl_info *info,
 				    struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_cipso_v4.c: line 388 \n"); 
 	int ret_val;
 	struct cipso_v4_doi *doi_def = NULL;
 
@@ -419,6 +424,7 @@ add_local_failure:
 static int netlbl_cipsov4_add(struct sk_buff *skb, struct genl_info *info)
 
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_cipso_v4.c: line 427 \n"); 
 	int ret_val = -EINVAL;
 	struct netlbl_audit audit_info;
 
@@ -463,6 +469,7 @@ static int netlbl_cipsov4_add(struct sk_buff *skb, struct genl_info *info)
  */
 static int netlbl_cipsov4_list(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_cipso_v4.c: line 472 \n"); 
 	int ret_val;
 	struct sk_buff *ans_skb = NULL;
 	u32 nlsze_mult = 1;
@@ -621,6 +628,7 @@ list_failure:
  */
 static int netlbl_cipsov4_listall_cb(struct cipso_v4_doi *doi_def, void *arg)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_cipso_v4.c: line 631 \n"); 
 	int ret_val = -ENOMEM;
 	struct netlbl_cipsov4_doiwalk_arg *cb_arg = arg;
 	void *data;
@@ -661,6 +669,7 @@ listall_cb_failure:
 static int netlbl_cipsov4_listall(struct sk_buff *skb,
 				  struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_cipso_v4.c: line 672 \n"); 
 	struct netlbl_cipsov4_doiwalk_arg cb_arg;
 	u32 doi_skip = cb->args[0];
 
@@ -688,6 +697,7 @@ static int netlbl_cipsov4_listall(struct sk_buff *skb,
  */
 static int netlbl_cipsov4_remove_cb(struct netlbl_dom_map *entry, void *arg)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_cipso_v4.c: line 700 \n"); 
 	struct netlbl_domhsh_walk_arg *cb_arg = arg;
 
 	if (entry->def.type == NETLBL_NLTYPE_CIPSOV4 &&
@@ -709,6 +719,7 @@ static int netlbl_cipsov4_remove_cb(struct netlbl_dom_map *entry, void *arg)
  */
 static int netlbl_cipsov4_remove(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_cipso_v4.c: line 722 \n"); 
 	int ret_val = -EINVAL;
 	struct netlbl_domhsh_walk_arg cb_arg;
 	struct netlbl_audit audit_info;

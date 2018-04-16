@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* xfrm_user.c: User interface to configure xfrm engine.
  *
  * Copyright (C) 2002 David S. Miller (davem@redhat.com)
@@ -35,6 +36,7 @@
 
 static int verify_one_alg(struct nlattr **attrs, enum xfrm_attr_type_t type)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 39 \n"); 
 	struct nlattr *rt = attrs[type];
 	struct xfrm_algo *algp;
 
@@ -61,6 +63,7 @@ static int verify_one_alg(struct nlattr **attrs, enum xfrm_attr_type_t type)
 
 static int verify_auth_trunc(struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 66 \n"); 
 	struct nlattr *rt = attrs[XFRMA_ALG_AUTH_TRUNC];
 	struct xfrm_algo_auth *algp;
 
@@ -77,6 +80,7 @@ static int verify_auth_trunc(struct nlattr **attrs)
 
 static int verify_aead(struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 83 \n"); 
 	struct nlattr *rt = attrs[XFRMA_ALG_AEAD];
 	struct xfrm_algo_aead *algp;
 
@@ -94,6 +98,7 @@ static int verify_aead(struct nlattr **attrs)
 static void verify_one_addr(struct nlattr **attrs, enum xfrm_attr_type_t type,
 			   xfrm_address_t **addrp)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 101 \n"); 
 	struct nlattr *rt = attrs[type];
 
 	if (rt && addrp)
@@ -102,6 +107,7 @@ static void verify_one_addr(struct nlattr **attrs, enum xfrm_attr_type_t type,
 
 static inline int verify_sec_ctx_len(struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 110 \n"); 
 	struct nlattr *rt = attrs[XFRMA_SEC_CTX];
 	struct xfrm_user_sec_ctx *uctx;
 
@@ -118,6 +124,7 @@ static inline int verify_sec_ctx_len(struct nlattr **attrs)
 static inline int verify_replay(struct xfrm_usersa_info *p,
 				struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 127 \n"); 
 	struct nlattr *rt = attrs[XFRMA_REPLAY_ESN_VAL];
 	struct xfrm_replay_state_esn *rs;
 
@@ -151,6 +158,7 @@ static inline int verify_replay(struct xfrm_usersa_info *p,
 static int verify_newsa_info(struct xfrm_usersa_info *p,
 			     struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 161 \n"); 
 	int err;
 
 	err = -EINVAL;
@@ -268,6 +276,7 @@ static int attach_one_algo(struct xfrm_algo **algpp, u8 *props,
 			   struct xfrm_algo_desc *(*get_byname)(const char *, int),
 			   struct nlattr *rta)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 279 \n"); 
 	struct xfrm_algo *p, *ualg;
 	struct xfrm_algo_desc *algo;
 
@@ -292,6 +301,7 @@ static int attach_one_algo(struct xfrm_algo **algpp, u8 *props,
 
 static int attach_crypt(struct xfrm_state *x, struct nlattr *rta)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 304 \n"); 
 	struct xfrm_algo *p, *ualg;
 	struct xfrm_algo_desc *algo;
 
@@ -318,6 +328,7 @@ static int attach_crypt(struct xfrm_state *x, struct nlattr *rta)
 static int attach_auth(struct xfrm_algo_auth **algpp, u8 *props,
 		       struct nlattr *rta)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 331 \n"); 
 	struct xfrm_algo *ualg;
 	struct xfrm_algo_auth *p;
 	struct xfrm_algo_desc *algo;
@@ -348,6 +359,7 @@ static int attach_auth(struct xfrm_algo_auth **algpp, u8 *props,
 static int attach_auth_trunc(struct xfrm_algo_auth **algpp, u8 *props,
 			     struct nlattr *rta)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 362 \n"); 
 	struct xfrm_algo_auth *p, *ualg;
 	struct xfrm_algo_desc *algo;
 
@@ -377,6 +389,7 @@ static int attach_auth_trunc(struct xfrm_algo_auth **algpp, u8 *props,
 
 static int attach_aead(struct xfrm_state *x, struct nlattr *rta)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 392 \n"); 
 	struct xfrm_algo_aead *p, *ualg;
 	struct xfrm_algo_desc *algo;
 
@@ -403,6 +416,7 @@ static int attach_aead(struct xfrm_state *x, struct nlattr *rta)
 static inline int xfrm_replay_verify_len(struct xfrm_replay_state_esn *replay_esn,
 					 struct nlattr *rp)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 419 \n"); 
 	struct xfrm_replay_state_esn *up;
 	int ulen;
 
@@ -429,6 +443,7 @@ static int xfrm_alloc_replay_state_esn(struct xfrm_replay_state_esn **replay_esn
 				       struct xfrm_replay_state_esn **preplay_esn,
 				       struct nlattr *rta)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 446 \n"); 
 	struct xfrm_replay_state_esn *p, *pp, *up;
 	int klen, ulen;
 
@@ -460,6 +475,7 @@ static int xfrm_alloc_replay_state_esn(struct xfrm_replay_state_esn **replay_esn
 
 static inline int xfrm_user_sec_ctx_size(struct xfrm_sec_ctx *xfrm_ctx)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 478 \n"); 
 	int len = 0;
 
 	if (xfrm_ctx) {
@@ -471,6 +487,7 @@ static inline int xfrm_user_sec_ctx_size(struct xfrm_sec_ctx *xfrm_ctx)
 
 static void copy_from_user_state(struct xfrm_state *x, struct xfrm_usersa_info *p)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 490 \n"); 
 	memcpy(&x->id, &p->id, sizeof(x->id));
 	memcpy(&x->sel, &p->sel, sizeof(x->sel));
 	memcpy(&x->lft, &p->lft, sizeof(x->lft));
@@ -494,6 +511,7 @@ static void copy_from_user_state(struct xfrm_state *x, struct xfrm_usersa_info *
 static void xfrm_update_ae_params(struct xfrm_state *x, struct nlattr **attrs,
 				  int update_esn)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 514 \n"); 
 	struct nlattr *rp = attrs[XFRMA_REPLAY_VAL];
 	struct nlattr *re = update_esn ? attrs[XFRMA_REPLAY_ESN_VAL] : NULL;
 	struct nlattr *lt = attrs[XFRMA_LTIME_VAL];
@@ -537,6 +555,7 @@ static struct xfrm_state *xfrm_state_construct(struct net *net,
 					       struct nlattr **attrs,
 					       int *errp)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 558 \n"); 
 	struct xfrm_state *x = xfrm_state_alloc(net);
 	int err = -ENOMEM;
 
@@ -623,6 +642,7 @@ error_no_put:
 static int xfrm_add_sa(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 645 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_usersa_info *p = nlmsg_data(nlh);
 	struct xfrm_state *x;
@@ -666,6 +686,7 @@ static struct xfrm_state *xfrm_user_state_lookup(struct net *net,
 						 struct nlattr **attrs,
 						 int *errp)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 689 \n"); 
 	struct xfrm_state *x = NULL;
 	struct xfrm_mark m;
 	int err;
@@ -698,6 +719,7 @@ static struct xfrm_state *xfrm_user_state_lookup(struct net *net,
 static int xfrm_del_sa(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 722 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_state *x;
 	int err = -ESRCH;
@@ -734,6 +756,7 @@ out:
 
 static void copy_to_user_state(struct xfrm_state *x, struct xfrm_usersa_info *p)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 759 \n"); 
 	memset(p, 0, sizeof(*p));
 	memcpy(&p->id, &x->id, sizeof(p->id));
 	memcpy(&p->sel, &x->sel, sizeof(p->sel));
@@ -760,6 +783,7 @@ struct xfrm_dump_info {
 
 static int copy_sec_ctx(struct xfrm_sec_ctx *s, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 786 \n"); 
 	struct xfrm_user_sec_ctx *uctx;
 	struct nlattr *attr;
 	int ctx_size = sizeof(*uctx) + s->ctx_len;
@@ -781,6 +805,7 @@ static int copy_sec_ctx(struct xfrm_sec_ctx *s, struct sk_buff *skb)
 
 static int copy_to_user_auth(struct xfrm_algo_auth *auth, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 808 \n"); 
 	struct xfrm_algo *algo;
 	struct nlattr *nla;
 
@@ -802,6 +827,7 @@ static int copy_to_user_state_extra(struct xfrm_state *x,
 				    struct xfrm_usersa_info *p,
 				    struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 830 \n"); 
 	int ret = 0;
 
 	copy_to_user_state(x, p);
@@ -877,6 +903,7 @@ out:
 
 static int dump_one_state(struct xfrm_state *x, int count, void *ptr)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 906 \n"); 
 	struct xfrm_dump_info *sp = ptr;
 	struct sk_buff *in_skb = sp->in_skb;
 	struct sk_buff *skb = sp->out_skb;
@@ -902,6 +929,7 @@ static int dump_one_state(struct xfrm_state *x, int count, void *ptr)
 
 static int xfrm_dump_sa_done(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 932 \n"); 
 	struct xfrm_state_walk *walk = (struct xfrm_state_walk *) &cb->args[1];
 	struct sock *sk = cb->skb->sk;
 	struct net *net = sock_net(sk);
@@ -914,6 +942,7 @@ static int xfrm_dump_sa_done(struct netlink_callback *cb)
 static const struct nla_policy xfrma_policy[XFRMA_MAX+1];
 static int xfrm_dump_sa(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 945 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_state_walk *walk = (struct xfrm_state_walk *) &cb->args[1];
 	struct xfrm_dump_info info;
@@ -959,6 +988,7 @@ static int xfrm_dump_sa(struct sk_buff *skb, struct netlink_callback *cb)
 static struct sk_buff *xfrm_state_netlink(struct sk_buff *in_skb,
 					  struct xfrm_state *x, u32 seq)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 991 \n"); 
 	struct xfrm_dump_info info;
 	struct sk_buff *skb;
 	int err;
@@ -987,6 +1017,7 @@ static struct sk_buff *xfrm_state_netlink(struct sk_buff *in_skb,
 static inline int xfrm_nlmsg_multicast(struct net *net, struct sk_buff *skb,
 				       u32 pid, unsigned int group)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1020 \n"); 
 	struct sock *nlsk = rcu_dereference(net->xfrm.nlsk);
 
 	if (nlsk)
@@ -997,6 +1028,7 @@ static inline int xfrm_nlmsg_multicast(struct net *net, struct sk_buff *skb,
 
 static inline size_t xfrm_spdinfo_msgsize(void)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1031 \n"); 
 	return NLMSG_ALIGN(4)
 	       + nla_total_size(sizeof(struct xfrmu_spdinfo))
 	       + nla_total_size(sizeof(struct xfrmu_spdhinfo))
@@ -1007,6 +1039,7 @@ static inline size_t xfrm_spdinfo_msgsize(void)
 static int build_spdinfo(struct sk_buff *skb, struct net *net,
 			 u32 portid, u32 seq, u32 flags)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1042 \n"); 
 	struct xfrmk_spdinfo si;
 	struct xfrmu_spdinfo spc;
 	struct xfrmu_spdhinfo sph;
@@ -1060,6 +1093,7 @@ static int build_spdinfo(struct sk_buff *skb, struct net *net,
 static int xfrm_set_spdinfo(struct sk_buff *skb, struct nlmsghdr *nlh,
 			    struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1096 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrmu_spdhthresh *thresh4 = NULL;
 	struct xfrmu_spdhthresh *thresh6 = NULL;
@@ -1105,6 +1139,7 @@ static int xfrm_set_spdinfo(struct sk_buff *skb, struct nlmsghdr *nlh,
 static int xfrm_get_spdinfo(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1142 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct sk_buff *r_skb;
 	u32 *flags = nlmsg_data(nlh);
@@ -1123,6 +1158,7 @@ static int xfrm_get_spdinfo(struct sk_buff *skb, struct nlmsghdr *nlh,
 
 static inline size_t xfrm_sadinfo_msgsize(void)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1161 \n"); 
 	return NLMSG_ALIGN(4)
 	       + nla_total_size(sizeof(struct xfrmu_sadhinfo))
 	       + nla_total_size(4); /* XFRMA_SAD_CNT */
@@ -1131,6 +1167,7 @@ static inline size_t xfrm_sadinfo_msgsize(void)
 static int build_sadinfo(struct sk_buff *skb, struct net *net,
 			 u32 portid, u32 seq, u32 flags)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1170 \n"); 
 	struct xfrmk_sadinfo si;
 	struct xfrmu_sadhinfo sh;
 	struct nlmsghdr *nlh;
@@ -1163,6 +1200,7 @@ static int build_sadinfo(struct sk_buff *skb, struct net *net,
 static int xfrm_get_sadinfo(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1203 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct sk_buff *r_skb;
 	u32 *flags = nlmsg_data(nlh);
@@ -1182,6 +1220,7 @@ static int xfrm_get_sadinfo(struct sk_buff *skb, struct nlmsghdr *nlh,
 static int xfrm_get_sa(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1223 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_usersa_id *p = nlmsg_data(nlh);
 	struct xfrm_state *x;
@@ -1206,6 +1245,7 @@ out_noput:
 static int xfrm_alloc_userspi(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1248 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_state *x;
 	struct xfrm_userspi_info *p;
@@ -1264,6 +1304,7 @@ out_noput:
 
 static int verify_policy_dir(u8 dir)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1307 \n"); 
 	switch (dir) {
 	case XFRM_POLICY_IN:
 	case XFRM_POLICY_OUT:
@@ -1279,6 +1320,7 @@ static int verify_policy_dir(u8 dir)
 
 static int verify_policy_type(u8 type)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1323 \n"); 
 	switch (type) {
 	case XFRM_POLICY_TYPE_MAIN:
 #ifdef CONFIG_XFRM_SUB_POLICY
@@ -1295,6 +1337,7 @@ static int verify_policy_type(u8 type)
 
 static int verify_newpolicy_info(struct xfrm_userpolicy_info *p)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1340 \n"); 
 	int ret;
 
 	switch (p->share) {
@@ -1343,6 +1386,7 @@ static int verify_newpolicy_info(struct xfrm_userpolicy_info *p)
 
 static int copy_from_user_sec_ctx(struct xfrm_policy *pol, struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1389 \n"); 
 	struct nlattr *rt = attrs[XFRMA_SEC_CTX];
 	struct xfrm_user_sec_ctx *uctx;
 
@@ -1356,6 +1400,7 @@ static int copy_from_user_sec_ctx(struct xfrm_policy *pol, struct nlattr **attrs
 static void copy_templates(struct xfrm_policy *xp, struct xfrm_user_tmpl *ut,
 			   int nr)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1403 \n"); 
 	int i;
 
 	xp->xfrm_nr = nr;
@@ -1380,6 +1425,7 @@ static void copy_templates(struct xfrm_policy *xp, struct xfrm_user_tmpl *ut,
 
 static int validate_tmpl(int nr, struct xfrm_user_tmpl *ut, u16 family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1428 \n"); 
 	u16 prev_family;
 	int i;
 
@@ -1437,6 +1483,7 @@ static int validate_tmpl(int nr, struct xfrm_user_tmpl *ut, u16 family)
 
 static int copy_from_user_tmpl(struct xfrm_policy *pol, struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1486 \n"); 
 	struct nlattr *rt = attrs[XFRMA_TMPL];
 
 	if (!rt) {
@@ -1457,6 +1504,7 @@ static int copy_from_user_tmpl(struct xfrm_policy *pol, struct nlattr **attrs)
 
 static int copy_from_user_policy_type(u8 *tp, struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1507 \n"); 
 	struct nlattr *rt = attrs[XFRMA_POLICY_TYPE];
 	struct xfrm_userpolicy_type *upt;
 	u8 type = XFRM_POLICY_TYPE_MAIN;
@@ -1477,6 +1525,7 @@ static int copy_from_user_policy_type(u8 *tp, struct nlattr **attrs)
 
 static void copy_from_user_policy(struct xfrm_policy *xp, struct xfrm_userpolicy_info *p)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1528 \n"); 
 	xp->priority = p->priority;
 	xp->index = p->index;
 	memcpy(&xp->selector, &p->sel, sizeof(xp->selector));
@@ -1489,6 +1538,7 @@ static void copy_from_user_policy(struct xfrm_policy *xp, struct xfrm_userpolicy
 
 static void copy_to_user_policy(struct xfrm_policy *xp, struct xfrm_userpolicy_info *p, int dir)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1541 \n"); 
 	memset(p, 0, sizeof(*p));
 	memcpy(&p->sel, &xp->selector, sizeof(p->sel));
 	memcpy(&p->lft, &xp->lft, sizeof(p->lft));
@@ -1504,6 +1554,7 @@ static void copy_to_user_policy(struct xfrm_policy *xp, struct xfrm_userpolicy_i
 
 static struct xfrm_policy *xfrm_policy_construct(struct net *net, struct xfrm_userpolicy_info *p, struct nlattr **attrs, int *errp)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1557 \n"); 
 	struct xfrm_policy *xp = xfrm_policy_alloc(net, GFP_KERNEL);
 	int err;
 
@@ -1536,6 +1587,7 @@ static struct xfrm_policy *xfrm_policy_construct(struct net *net, struct xfrm_us
 static int xfrm_add_policy(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1590 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_userpolicy_info *p = nlmsg_data(nlh);
 	struct xfrm_policy *xp;
@@ -1580,6 +1632,7 @@ static int xfrm_add_policy(struct sk_buff *skb, struct nlmsghdr *nlh,
 
 static int copy_to_user_tmpl(struct xfrm_policy *xp, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1635 \n"); 
 	struct xfrm_user_tmpl vec[XFRM_MAX_DEPTH];
 	int i;
 
@@ -1609,6 +1662,7 @@ static int copy_to_user_tmpl(struct xfrm_policy *xp, struct sk_buff *skb)
 
 static inline int copy_to_user_state_sec_ctx(struct xfrm_state *x, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1665 \n"); 
 	if (x->security) {
 		return copy_sec_ctx(x->security, skb);
 	}
@@ -1617,12 +1671,14 @@ static inline int copy_to_user_state_sec_ctx(struct xfrm_state *x, struct sk_buf
 
 static inline int copy_to_user_sec_ctx(struct xfrm_policy *xp, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1674 \n"); 
 	if (xp->security)
 		return copy_sec_ctx(xp->security, skb);
 	return 0;
 }
 static inline size_t userpolicy_type_attrsize(void)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1681 \n"); 
 #ifdef CONFIG_XFRM_SUB_POLICY
 	return nla_total_size(sizeof(struct xfrm_userpolicy_type));
 #else
@@ -1643,12 +1699,14 @@ static int copy_to_user_policy_type(u8 type, struct sk_buff *skb)
 #else
 static inline int copy_to_user_policy_type(u8 type, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1702 \n"); 
 	return 0;
 }
 #endif
 
 static int dump_one_policy(struct xfrm_policy *xp, int dir, int count, void *ptr)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1709 \n"); 
 	struct xfrm_dump_info *sp = ptr;
 	struct xfrm_userpolicy_info *p;
 	struct sk_buff *in_skb = sp->in_skb;
@@ -1680,6 +1738,7 @@ static int dump_one_policy(struct xfrm_policy *xp, int dir, int count, void *ptr
 
 static int xfrm_dump_policy_done(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1741 \n"); 
 	struct xfrm_policy_walk *walk = (struct xfrm_policy_walk *)cb->args;
 	struct net *net = sock_net(cb->skb->sk);
 
@@ -1689,6 +1748,7 @@ static int xfrm_dump_policy_done(struct netlink_callback *cb)
 
 static int xfrm_dump_policy_start(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1751 \n"); 
 	struct xfrm_policy_walk *walk = (struct xfrm_policy_walk *)cb->args;
 
 	BUILD_BUG_ON(sizeof(*walk) > sizeof(cb->args));
@@ -1699,6 +1759,7 @@ static int xfrm_dump_policy_start(struct netlink_callback *cb)
 
 static int xfrm_dump_policy(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1762 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_policy_walk *walk = (struct xfrm_policy_walk *)cb->args;
 	struct xfrm_dump_info info;
@@ -1717,6 +1778,7 @@ static struct sk_buff *xfrm_policy_netlink(struct sk_buff *in_skb,
 					  struct xfrm_policy *xp,
 					  int dir, u32 seq)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1781 \n"); 
 	struct xfrm_dump_info info;
 	struct sk_buff *skb;
 	int err;
@@ -1742,6 +1804,7 @@ static struct sk_buff *xfrm_policy_netlink(struct sk_buff *in_skb,
 static int xfrm_get_policy(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1807 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_policy *xp;
 	struct xfrm_userpolicy_id *p;
@@ -1821,6 +1884,7 @@ out:
 static int xfrm_flush_sa(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1887 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct km_event c;
 	struct xfrm_usersa_flush *p = nlmsg_data(nlh);
@@ -1844,6 +1908,7 @@ static int xfrm_flush_sa(struct sk_buff *skb, struct nlmsghdr *nlh,
 
 static inline size_t xfrm_aevent_msgsize(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1911 \n"); 
 	size_t replay_size = x->replay_esn ?
 			      xfrm_replay_state_esn_len(x->replay_esn) :
 			      sizeof(struct xfrm_replay_state);
@@ -1858,6 +1923,7 @@ static inline size_t xfrm_aevent_msgsize(struct xfrm_state *x)
 
 static int build_aevent(struct sk_buff *skb, struct xfrm_state *x, const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1926 \n"); 
 	struct xfrm_aevent_id *id;
 	struct nlmsghdr *nlh;
 	int err;
@@ -1916,6 +1982,7 @@ out_cancel:
 static int xfrm_get_ae(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 1985 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_state *x;
 	struct sk_buff *r_skb;
@@ -1959,6 +2026,7 @@ static int xfrm_get_ae(struct sk_buff *skb, struct nlmsghdr *nlh,
 static int xfrm_new_ae(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2029 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_state *x;
 	struct km_event c;
@@ -2010,6 +2078,7 @@ out:
 static int xfrm_flush_policy(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2081 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct km_event c;
 	u8 type = XFRM_POLICY_TYPE_MAIN;
@@ -2038,6 +2107,7 @@ static int xfrm_flush_policy(struct sk_buff *skb, struct nlmsghdr *nlh,
 static int xfrm_add_pol_expire(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2110 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_policy *xp;
 	struct xfrm_user_polexpire *up = nlmsg_data(nlh);
@@ -2098,6 +2168,7 @@ out:
 static int xfrm_add_sa_expire(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2171 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_state *x;
 	int err;
@@ -2132,6 +2203,7 @@ out:
 static int xfrm_add_acquire(struct sk_buff *skb, struct nlmsghdr *nlh,
 		struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2206 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct xfrm_policy *xp;
 	struct xfrm_user_tmpl *ut;
@@ -2266,6 +2338,7 @@ static int xfrm_do_migrate(struct sk_buff *skb, struct nlmsghdr *nlh,
 static int xfrm_do_migrate(struct sk_buff *skb, struct nlmsghdr *nlh,
 			   struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2341 \n"); 
 	return -ENOPROTOOPT;
 }
 #endif
@@ -2373,6 +2446,7 @@ static int xfrm_send_migrate(const struct xfrm_selector *sel, u8 dir, u8 type,
 			     const struct xfrm_migrate *m, int num_migrate,
 			     const struct xfrm_kmaddress *k)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2449 \n"); 
 	return -ENOPROTOOPT;
 }
 #endif
@@ -2478,6 +2552,7 @@ static const struct xfrm_link {
 
 static int xfrm_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2555 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct nlattr *attrs[XFRMA_MAX+1];
 	const struct xfrm_link *link;
@@ -2529,6 +2604,7 @@ static int xfrm_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh)
 
 static void xfrm_netlink_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2607 \n"); 
 	struct net *net = sock_net(skb->sk);
 
 	mutex_lock(&net->xfrm.xfrm_cfg_mutex);
@@ -2538,12 +2614,14 @@ static void xfrm_netlink_rcv(struct sk_buff *skb)
 
 static inline size_t xfrm_expire_msgsize(void)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2617 \n"); 
 	return NLMSG_ALIGN(sizeof(struct xfrm_user_expire))
 	       + nla_total_size(sizeof(struct xfrm_mark));
 }
 
 static int build_expire(struct sk_buff *skb, struct xfrm_state *x, const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2624 \n"); 
 	struct xfrm_user_expire *ue;
 	struct nlmsghdr *nlh;
 	int err;
@@ -2566,6 +2644,7 @@ static int build_expire(struct sk_buff *skb, struct xfrm_state *x, const struct 
 
 static int xfrm_exp_state_notify(struct xfrm_state *x, const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2647 \n"); 
 	struct net *net = xs_net(x);
 	struct sk_buff *skb;
 
@@ -2583,6 +2662,7 @@ static int xfrm_exp_state_notify(struct xfrm_state *x, const struct km_event *c)
 
 static int xfrm_aevent_state_notify(struct xfrm_state *x, const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2665 \n"); 
 	struct net *net = xs_net(x);
 	struct sk_buff *skb;
 
@@ -2598,6 +2678,7 @@ static int xfrm_aevent_state_notify(struct xfrm_state *x, const struct km_event 
 
 static int xfrm_notify_sa_flush(const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2681 \n"); 
 	struct net *net = c->net;
 	struct xfrm_usersa_flush *p;
 	struct nlmsghdr *nlh;
@@ -2624,6 +2705,7 @@ static int xfrm_notify_sa_flush(const struct km_event *c)
 
 static inline size_t xfrm_sa_len(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2708 \n"); 
 	size_t l = 0;
 	if (x->aead)
 		l += nla_total_size(aead_len(x->aead));
@@ -2660,6 +2742,7 @@ static inline size_t xfrm_sa_len(struct xfrm_state *x)
 
 static int xfrm_notify_sa(struct xfrm_state *x, const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2745 \n"); 
 	struct net *net = xs_net(x);
 	struct xfrm_usersa_info *p;
 	struct xfrm_usersa_id *id;
@@ -2717,6 +2800,7 @@ out_free_skb:
 
 static int xfrm_send_state_notify(struct xfrm_state *x, const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2803 \n"); 
 
 	switch (c->event) {
 	case XFRM_MSG_EXPIRE:
@@ -2742,6 +2826,7 @@ static int xfrm_send_state_notify(struct xfrm_state *x, const struct km_event *c
 static inline size_t xfrm_acquire_msgsize(struct xfrm_state *x,
 					  struct xfrm_policy *xp)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2829 \n"); 
 	return NLMSG_ALIGN(sizeof(struct xfrm_user_acquire))
 	       + nla_total_size(sizeof(struct xfrm_user_tmpl) * xp->xfrm_nr)
 	       + nla_total_size(sizeof(struct xfrm_mark))
@@ -2752,6 +2837,7 @@ static inline size_t xfrm_acquire_msgsize(struct xfrm_state *x,
 static int build_acquire(struct sk_buff *skb, struct xfrm_state *x,
 			 struct xfrm_tmpl *xt, struct xfrm_policy *xp)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2840 \n"); 
 	__u32 seq = xfrm_get_acqseq();
 	struct xfrm_user_acquire *ua;
 	struct nlmsghdr *nlh;
@@ -2790,6 +2876,7 @@ static int build_acquire(struct sk_buff *skb, struct xfrm_state *x,
 static int xfrm_send_acquire(struct xfrm_state *x, struct xfrm_tmpl *xt,
 			     struct xfrm_policy *xp)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2879 \n"); 
 	struct net *net = xs_net(x);
 	struct sk_buff *skb;
 
@@ -2809,6 +2896,7 @@ static int xfrm_send_acquire(struct xfrm_state *x, struct xfrm_tmpl *xt,
 static struct xfrm_policy *xfrm_compile_policy(struct sock *sk, int opt,
 					       u8 *data, int len, int *dir)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2899 \n"); 
 	struct net *net = sock_net(sk);
 	struct xfrm_userpolicy_info *p = (struct xfrm_userpolicy_info *)data;
 	struct xfrm_user_tmpl *ut = (struct xfrm_user_tmpl *) (p + 1);
@@ -2865,6 +2953,7 @@ static struct xfrm_policy *xfrm_compile_policy(struct sock *sk, int opt,
 
 static inline size_t xfrm_polexpire_msgsize(struct xfrm_policy *xp)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2956 \n"); 
 	return NLMSG_ALIGN(sizeof(struct xfrm_user_polexpire))
 	       + nla_total_size(sizeof(struct xfrm_user_tmpl) * xp->xfrm_nr)
 	       + nla_total_size(xfrm_user_sec_ctx_size(xp->security))
@@ -2875,6 +2964,7 @@ static inline size_t xfrm_polexpire_msgsize(struct xfrm_policy *xp)
 static int build_polexpire(struct sk_buff *skb, struct xfrm_policy *xp,
 			   int dir, const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2967 \n"); 
 	struct xfrm_user_polexpire *upe;
 	int hard = c->data.hard;
 	struct nlmsghdr *nlh;
@@ -2905,6 +2995,7 @@ static int build_polexpire(struct sk_buff *skb, struct xfrm_policy *xp,
 
 static int xfrm_exp_policy_notify(struct xfrm_policy *xp, int dir, const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 2998 \n"); 
 	struct net *net = xp_net(xp);
 	struct sk_buff *skb;
 
@@ -2920,6 +3011,7 @@ static int xfrm_exp_policy_notify(struct xfrm_policy *xp, int dir, const struct 
 
 static int xfrm_notify_policy(struct xfrm_policy *xp, int dir, const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 3014 \n"); 
 	int len = nla_total_size(sizeof(struct xfrm_user_tmpl) * xp->xfrm_nr);
 	struct net *net = xp_net(xp);
 	struct xfrm_userpolicy_info *p;
@@ -2986,6 +3078,7 @@ out_free_skb:
 
 static int xfrm_notify_policy_flush(const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 3081 \n"); 
 	struct net *net = c->net;
 	struct nlmsghdr *nlh;
 	struct sk_buff *skb;
@@ -3014,6 +3107,7 @@ out_free_skb:
 
 static int xfrm_send_policy_notify(struct xfrm_policy *xp, int dir, const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 3110 \n"); 
 
 	switch (c->event) {
 	case XFRM_MSG_NEWPOLICY:
@@ -3035,12 +3129,14 @@ static int xfrm_send_policy_notify(struct xfrm_policy *xp, int dir, const struct
 
 static inline size_t xfrm_report_msgsize(void)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 3132 \n"); 
 	return NLMSG_ALIGN(sizeof(struct xfrm_user_report));
 }
 
 static int build_report(struct sk_buff *skb, u8 proto,
 			struct xfrm_selector *sel, xfrm_address_t *addr)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 3139 \n"); 
 	struct xfrm_user_report *ur;
 	struct nlmsghdr *nlh;
 
@@ -3066,6 +3162,7 @@ static int build_report(struct sk_buff *skb, u8 proto,
 static int xfrm_send_report(struct net *net, u8 proto,
 			    struct xfrm_selector *sel, xfrm_address_t *addr)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 3165 \n"); 
 	struct sk_buff *skb;
 
 	skb = nlmsg_new(xfrm_report_msgsize(), GFP_ATOMIC);
@@ -3080,12 +3177,14 @@ static int xfrm_send_report(struct net *net, u8 proto,
 
 static inline size_t xfrm_mapping_msgsize(void)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 3180 \n"); 
 	return NLMSG_ALIGN(sizeof(struct xfrm_user_mapping));
 }
 
 static int build_mapping(struct sk_buff *skb, struct xfrm_state *x,
 			 xfrm_address_t *new_saddr, __be16 new_sport)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 3187 \n"); 
 	struct xfrm_user_mapping *um;
 	struct nlmsghdr *nlh;
 
@@ -3112,6 +3211,7 @@ static int build_mapping(struct sk_buff *skb, struct xfrm_state *x,
 static int xfrm_send_mapping(struct xfrm_state *x, xfrm_address_t *ipaddr,
 			     __be16 sport)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 3214 \n"); 
 	struct net *net = xs_net(x);
 	struct sk_buff *skb;
 
@@ -3133,6 +3233,7 @@ static int xfrm_send_mapping(struct xfrm_state *x, xfrm_address_t *ipaddr,
 
 static bool xfrm_is_alive(const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_user.c: line 3236 \n"); 
 	return (bool)xfrm_acquire_is_on(c->net);
 }
 

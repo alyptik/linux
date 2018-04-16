@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2001-2005 Silicon Graphics, Inc.
  * All Rights Reserved.
@@ -239,5 +240,6 @@ xfs_sysctl_register(void)
 void
 xfs_sysctl_unregister(void)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_sysctl.c: line 243 \n"); 
 	unregister_sysctl_table(xfs_table_header);
 }

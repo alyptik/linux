@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/bad_inode.c
  *
@@ -17,6 +18,7 @@
 
 static int bad_file_open(struct inode *inode, struct file *filp)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 21 \n"); 
 	return -EIO;
 }
 
@@ -28,46 +30,54 @@ static const struct file_operations bad_file_ops =
 static int bad_inode_create (struct inode *dir, struct dentry *dentry,
 		umode_t mode, bool excl)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 33 \n"); 
 	return -EIO;
 }
 
 static struct dentry *bad_inode_lookup(struct inode *dir,
 			struct dentry *dentry, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 40 \n"); 
 	return ERR_PTR(-EIO);
 }
 
 static int bad_inode_link (struct dentry *old_dentry, struct inode *dir,
 		struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 47 \n"); 
 	return -EIO;
 }
 
 static int bad_inode_unlink(struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 53 \n"); 
 	return -EIO;
 }
 
 static int bad_inode_symlink (struct inode *dir, struct dentry *dentry,
 		const char *symname)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 60 \n"); 
 	return -EIO;
 }
 
 static int bad_inode_mkdir(struct inode *dir, struct dentry *dentry,
 			umode_t mode)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 67 \n"); 
 	return -EIO;
 }
 
 static int bad_inode_rmdir (struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 73 \n"); 
 	return -EIO;
 }
 
 static int bad_inode_mknod (struct inode *dir, struct dentry *dentry,
 			umode_t mode, dev_t rdev)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 80 \n"); 
 	return -EIO;
 }
 
@@ -75,6 +85,7 @@ static int bad_inode_rename2(struct inode *old_dir, struct dentry *old_dentry,
 			     struct inode *new_dir, struct dentry *new_dentry,
 			     unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 88 \n"); 
 	return -EIO;
 }
 
@@ -86,23 +97,27 @@ static int bad_inode_readlink(struct dentry *dentry, char __user *buffer,
 
 static int bad_inode_permission(struct inode *inode, int mask)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 100 \n"); 
 	return -EIO;
 }
 
 static int bad_inode_getattr(struct vfsmount *mnt, struct dentry *dentry,
 			struct kstat *stat)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 107 \n"); 
 	return -EIO;
 }
 
 static int bad_inode_setattr(struct dentry *direntry, struct iattr *attrs)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 113 \n"); 
 	return -EIO;
 }
 
 static ssize_t bad_inode_listxattr(struct dentry *dentry, char *buffer,
 			size_t buffer_size)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 120 \n"); 
 	return -EIO;
 }
 
@@ -110,11 +125,13 @@ static const char *bad_inode_get_link(struct dentry *dentry,
 				      struct inode *inode,
 				      struct delayed_call *done)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 128 \n"); 
 	return ERR_PTR(-EIO);
 }
 
 static struct posix_acl *bad_inode_get_acl(struct inode *inode, int type)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 134 \n"); 
 	return ERR_PTR(-EIO);
 }
 
@@ -122,12 +139,14 @@ static int bad_inode_fiemap(struct inode *inode,
 			    struct fiemap_extent_info *fieinfo, u64 start,
 			    u64 len)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 142 \n"); 
 	return -EIO;
 }
 
 static int bad_inode_update_time(struct inode *inode, struct timespec *time,
 				 int flags)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 149 \n"); 
 	return -EIO;
 }
 
@@ -135,18 +154,21 @@ static int bad_inode_atomic_open(struct inode *inode, struct dentry *dentry,
 				 struct file *file, unsigned int open_flag,
 				 umode_t create_mode, int *opened)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 157 \n"); 
 	return -EIO;
 }
 
 static int bad_inode_tmpfile(struct inode *inode, struct dentry *dentry,
 			     umode_t mode)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 164 \n"); 
 	return -EIO;
 }
 
 static int bad_inode_set_acl(struct inode *inode, struct posix_acl *acl,
 			     int type)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 171 \n"); 
 	return -EIO;
 }
 
@@ -196,6 +218,7 @@ static const struct inode_operations bad_inode_ops =
  
 void make_bad_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 221 \n"); 
 	remove_inode_hash(inode);
 
 	inode->i_mode = S_IFREG;
@@ -235,6 +258,7 @@ EXPORT_SYMBOL(is_bad_inode);
  */
 void iget_failed(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/bad_inode.c: line 261 \n"); 
 	make_bad_inode(inode);
 	unlock_new_inode(inode);
 	iput(inode);

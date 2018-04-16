@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2013 Patrick McHardy <kaber@trash.net>
  *
@@ -24,6 +25,7 @@ synproxy_build_ip(struct net *net, struct sk_buff *skb,
 		  const struct in6_addr *saddr,
 		  const struct in6_addr *daddr)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_SYNPROXY.c: line 28 \n"); 
 	struct ipv6hdr *iph;
 
 	skb_reset_network_header(skb);
@@ -44,6 +46,7 @@ synproxy_send_tcp(struct net *net,
 		  struct ipv6hdr *niph, struct tcphdr *nth,
 		  unsigned int tcp_hdr_size)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_SYNPROXY.c: line 49 \n"); 
 	struct dst_entry *dst;
 	struct flowi6 fl6;
 
@@ -88,6 +91,7 @@ synproxy_send_client_synack(struct net *net,
 			    const struct sk_buff *skb, const struct tcphdr *th,
 			    const struct synproxy_options *opts)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_SYNPROXY.c: line 94 \n"); 
 	struct sk_buff *nskb;
 	struct ipv6hdr *iph, *niph;
 	struct tcphdr *nth;
@@ -130,6 +134,7 @@ synproxy_send_server_syn(struct net *net,
 			 const struct sk_buff *skb, const struct tcphdr *th,
 			 const struct synproxy_options *opts, u32 recv_seq)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_SYNPROXY.c: line 137 \n"); 
 	struct synproxy_net *snet = synproxy_pernet(net);
 	struct sk_buff *nskb;
 	struct ipv6hdr *iph, *niph;
@@ -176,6 +181,7 @@ synproxy_send_server_ack(struct net *net,
 			 const struct sk_buff *skb, const struct tcphdr *th,
 			 const struct synproxy_options *opts)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_SYNPROXY.c: line 184 \n"); 
 	struct sk_buff *nskb;
 	struct ipv6hdr *iph, *niph;
 	struct tcphdr *nth;
@@ -214,6 +220,7 @@ synproxy_send_client_ack(struct net *net,
 			 const struct sk_buff *skb, const struct tcphdr *th,
 			 const struct synproxy_options *opts)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_SYNPROXY.c: line 223 \n"); 
 	struct sk_buff *nskb;
 	struct ipv6hdr *iph, *niph;
 	struct tcphdr *nth;
@@ -253,6 +260,7 @@ synproxy_recv_client_ack(struct net *net,
 			 const struct sk_buff *skb, const struct tcphdr *th,
 			 struct synproxy_options *opts, u32 recv_seq)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_SYNPROXY.c: line 263 \n"); 
 	struct synproxy_net *snet = synproxy_pernet(net);
 	int mss;
 
@@ -276,6 +284,7 @@ synproxy_recv_client_ack(struct net *net,
 static unsigned int
 synproxy_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_SYNPROXY.c: line 287 \n"); 
 	const struct xt_synproxy_info *info = par->targinfo;
 	struct net *net = par->net;
 	struct synproxy_net *snet = synproxy_pernet(net);
@@ -433,6 +442,7 @@ static unsigned int ipv6_synproxy_hook(void *priv,
 
 static int synproxy_tg6_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_SYNPROXY.c: line 445 \n"); 
 	const struct ip6t_entry *e = par->entryinfo;
 
 	if (!(e->ipv6.flags & IP6T_F_PROTO) ||
@@ -445,6 +455,7 @@ static int synproxy_tg6_check(const struct xt_tgchk_param *par)
 
 static void synproxy_tg6_destroy(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_SYNPROXY.c: line 458 \n"); 
 	nf_ct_l3proto_module_put(par->family);
 }
 

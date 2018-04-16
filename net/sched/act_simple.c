@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/act_simple.c	Simple example of an action
  *
@@ -33,6 +34,7 @@ static struct tc_action_ops act_simp_ops;
 static int tcf_simp(struct sk_buff *skb, const struct tc_action *a,
 		    struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/act_simple.c: line 37 \n"); 
 	struct tcf_defact *d = to_defact(a);
 
 	spin_lock(&d->tcf_lock);
@@ -51,12 +53,14 @@ static int tcf_simp(struct sk_buff *skb, const struct tc_action *a,
 
 static void tcf_simp_release(struct tc_action *a, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_simple.c: line 56 \n"); 
 	struct tcf_defact *d = to_defact(a);
 	kfree(d->tcfd_defdata);
 }
 
 static int alloc_defdata(struct tcf_defact *d, char *defdata)
 {
+	panic("We reached unpopular paths in net/sched/act_simple.c: line 63 \n"); 
 	d->tcfd_defdata = kzalloc(SIMP_MAX_DATA, GFP_KERNEL);
 	if (unlikely(!d->tcfd_defdata))
 		return -ENOMEM;
@@ -67,6 +71,7 @@ static int alloc_defdata(struct tcf_defact *d, char *defdata)
 static void reset_policy(struct tcf_defact *d, char *defdata,
 			 struct tc_defact *p)
 {
+	panic("We reached unpopular paths in net/sched/act_simple.c: line 74 \n"); 
 	spin_lock_bh(&d->tcf_lock);
 	d->tcf_action = p->action;
 	memset(d->tcfd_defdata, 0, SIMP_MAX_DATA);
@@ -83,6 +88,7 @@ static int tcf_simp_init(struct net *net, struct nlattr *nla,
 			 struct nlattr *est, struct tc_action **a,
 			 int ovr, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_simple.c: line 91 \n"); 
 	struct tc_action_net *tn = net_generic(net, simp_net_id);
 	struct nlattr *tb[TCA_DEF_MAX + 1];
 	struct tc_defact *parm;
@@ -146,6 +152,7 @@ static int tcf_simp_init(struct net *net, struct nlattr *nla,
 static int tcf_simp_dump(struct sk_buff *skb, struct tc_action *a,
 			 int bind, int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_simple.c: line 155 \n"); 
 	unsigned char *b = skb_tail_pointer(skb);
 	struct tcf_defact *d = to_defact(a);
 	struct tc_defact opt = {
@@ -174,6 +181,7 @@ static int tcf_simp_walker(struct net *net, struct sk_buff *skb,
 			   struct netlink_callback *cb, int type,
 			   const struct tc_action_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_simple.c: line 184 \n"); 
 	struct tc_action_net *tn = net_generic(net, simp_net_id);
 
 	return tcf_generic_walker(tn, skb, cb, type, ops);
@@ -181,6 +189,7 @@ static int tcf_simp_walker(struct net *net, struct sk_buff *skb,
 
 static int tcf_simp_search(struct net *net, struct tc_action **a, u32 index)
 {
+	panic("We reached unpopular paths in net/sched/act_simple.c: line 192 \n"); 
 	struct tc_action_net *tn = net_generic(net, simp_net_id);
 
 	return tcf_hash_search(tn, a, index);

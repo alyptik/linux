@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/crypto.h>
 #include <linux/err.h>
 #include <linux/init.h>
@@ -17,6 +18,7 @@ static DEFINE_SPINLOCK(tcp_fastopen_ctx_lock);
 
 void tcp_fastopen_init_key_once(bool publish)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_fastopen.c: line 21 \n"); 
 	static u8 key[TCP_FASTOPEN_KEY_LENGTH];
 
 	/* tcp_fastopen_reset_cipher publishes the new context
@@ -31,6 +33,7 @@ void tcp_fastopen_init_key_once(bool publish)
 
 static void tcp_fastopen_ctx_free(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_fastopen.c: line 36 \n"); 
 	struct tcp_fastopen_context *ctx =
 	    container_of(head, struct tcp_fastopen_context, rcu);
 	crypto_free_cipher(ctx->tfm);
@@ -39,6 +42,7 @@ static void tcp_fastopen_ctx_free(struct rcu_head *head)
 
 int tcp_fastopen_reset_cipher(void *key, unsigned int len)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_fastopen.c: line 45 \n"); 
 	int err;
 	struct tcp_fastopen_context *ctx, *octx;
 
@@ -76,6 +80,7 @@ error:		kfree(ctx);
 static bool __tcp_fastopen_cookie_gen(const void *path,
 				      struct tcp_fastopen_cookie *foc)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_fastopen.c: line 83 \n"); 
 	struct tcp_fastopen_context *ctx;
 	bool ok = false;
 
@@ -100,6 +105,7 @@ static bool tcp_fastopen_cookie_gen(struct request_sock *req,
 				    struct sk_buff *syn,
 				    struct tcp_fastopen_cookie *foc)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_fastopen.c: line 108 \n"); 
 	if (req->rsk_ops->family == AF_INET) {
 		const struct iphdr *iph = ip_hdr(syn);
 
@@ -131,6 +137,7 @@ static bool tcp_fastopen_cookie_gen(struct request_sock *req,
  */
 void tcp_fastopen_add_skb(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_fastopen.c: line 140 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 
 	if (TCP_SKB_CB(skb)->end_seq == tp->rcv_nxt)
@@ -174,6 +181,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
 					      struct dst_entry *dst,
 					      struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_fastopen.c: line 184 \n"); 
 	struct tcp_sock *tp;
 	struct request_sock_queue *queue = &inet_csk(sk)->icsk_accept_queue;
 	struct sock *child;
@@ -237,6 +245,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
 
 static bool tcp_fastopen_queue_check(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_fastopen.c: line 248 \n"); 
 	struct fastopen_queue *fastopenq;
 
 	/* Make sure the listener has enabled fastopen, and we don't

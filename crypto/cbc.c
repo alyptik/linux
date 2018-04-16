@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * CBC: Cipher Block Chaining mode
  *
@@ -26,6 +27,7 @@ struct crypto_cbc_ctx {
 static int crypto_cbc_setkey(struct crypto_tfm *parent, const u8 *key,
 			     unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/cbc.c: line 30 \n"); 
 	struct crypto_cbc_ctx *ctx = crypto_tfm_ctx(parent);
 	struct crypto_cipher *child = ctx->child;
 	int err;
@@ -43,6 +45,7 @@ static int crypto_cbc_encrypt_segment(struct blkcipher_desc *desc,
 				      struct blkcipher_walk *walk,
 				      struct crypto_cipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/cbc.c: line 48 \n"); 
 	void (*fn)(struct crypto_tfm *, u8 *, const u8 *) =
 		crypto_cipher_alg(tfm)->cia_encrypt;
 	int bsize = crypto_cipher_blocksize(tfm);
@@ -67,6 +70,7 @@ static int crypto_cbc_encrypt_inplace(struct blkcipher_desc *desc,
 				      struct blkcipher_walk *walk,
 				      struct crypto_cipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/cbc.c: line 73 \n"); 
 	void (*fn)(struct crypto_tfm *, u8 *, const u8 *) =
 		crypto_cipher_alg(tfm)->cia_encrypt;
 	int bsize = crypto_cipher_blocksize(tfm);
@@ -91,6 +95,7 @@ static int crypto_cbc_encrypt(struct blkcipher_desc *desc,
 			      struct scatterlist *dst, struct scatterlist *src,
 			      unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/cbc.c: line 98 \n"); 
 	struct blkcipher_walk walk;
 	struct crypto_blkcipher *tfm = desc->tfm;
 	struct crypto_cbc_ctx *ctx = crypto_blkcipher_ctx(tfm);
@@ -115,6 +120,7 @@ static int crypto_cbc_decrypt_segment(struct blkcipher_desc *desc,
 				      struct blkcipher_walk *walk,
 				      struct crypto_cipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/cbc.c: line 123 \n"); 
 	void (*fn)(struct crypto_tfm *, u8 *, const u8 *) =
 		crypto_cipher_alg(tfm)->cia_decrypt;
 	int bsize = crypto_cipher_blocksize(tfm);
@@ -141,6 +147,7 @@ static int crypto_cbc_decrypt_inplace(struct blkcipher_desc *desc,
 				      struct blkcipher_walk *walk,
 				      struct crypto_cipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/cbc.c: line 150 \n"); 
 	void (*fn)(struct crypto_tfm *, u8 *, const u8 *) =
 		crypto_cipher_alg(tfm)->cia_decrypt;
 	int bsize = crypto_cipher_blocksize(tfm);
@@ -170,6 +177,7 @@ static int crypto_cbc_decrypt(struct blkcipher_desc *desc,
 			      struct scatterlist *dst, struct scatterlist *src,
 			      unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/cbc.c: line 180 \n"); 
 	struct blkcipher_walk walk;
 	struct crypto_blkcipher *tfm = desc->tfm;
 	struct crypto_cbc_ctx *ctx = crypto_blkcipher_ctx(tfm);
@@ -263,6 +271,7 @@ out_put_alg:
 
 static void crypto_cbc_free(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/cbc.c: line 274 \n"); 
 	crypto_drop_spawn(crypto_instance_ctx(inst));
 	kfree(inst);
 }

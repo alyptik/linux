@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  inode.c - part of tracefs, a pseudo file system for activating tracing
  *
@@ -57,6 +58,7 @@ static struct tracefs_dir_ops {
 
 static char *get_dname(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/tracefs/inode.c: line 61 \n"); 
 	const char *dname;
 	char *name;
 	int len = dentry->d_name.len;
@@ -72,6 +74,7 @@ static char *get_dname(struct dentry *dentry)
 
 static int tracefs_syscall_mkdir(struct inode *inode, struct dentry *dentry, umode_t mode)
 {
+	panic("We reached unpopular paths in fs/tracefs/inode.c: line 77 \n"); 
 	char *name;
 	int ret;
 
@@ -95,6 +98,7 @@ static int tracefs_syscall_mkdir(struct inode *inode, struct dentry *dentry, umo
 
 static int tracefs_syscall_rmdir(struct inode *inode, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/tracefs/inode.c: line 101 \n"); 
 	char *name;
 	int ret;
 
@@ -227,6 +231,7 @@ static int tracefs_apply_options(struct super_block *sb)
 
 static int tracefs_remount(struct super_block *sb, int *flags, char *data)
 {
+	panic("We reached unpopular paths in fs/tracefs/inode.c: line 234 \n"); 
 	int err;
 	struct tracefs_fs_info *fsi = sb->s_fs_info;
 
@@ -243,6 +248,7 @@ fail:
 
 static int tracefs_show_options(struct seq_file *m, struct dentry *root)
 {
+	panic("We reached unpopular paths in fs/tracefs/inode.c: line 251 \n"); 
 	struct tracefs_fs_info *fsi = root->d_sb->s_fs_info;
 	struct tracefs_mount_opts *opts = &fsi->mount_opts;
 
@@ -351,6 +357,7 @@ static struct dentry *start_creating(const char *name, struct dentry *parent)
 
 static struct dentry *failed_creating(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/tracefs/inode.c: line 360 \n"); 
 	inode_unlock(dentry->d_parent->d_inode);
 	dput(dentry);
 	simple_release_fs(&tracefs_mount, &tracefs_mount_count);
@@ -502,6 +509,7 @@ struct dentry *tracefs_create_instance_dir(const char *name, struct dentry *pare
 
 static int __tracefs_remove(struct dentry *dentry, struct dentry *parent)
 {
+	panic("We reached unpopular paths in fs/tracefs/inode.c: line 512 \n"); 
 	int ret = 0;
 
 	if (simple_positive(dentry)) {
@@ -534,6 +542,7 @@ static int __tracefs_remove(struct dentry *dentry, struct dentry *parent)
  */
 void tracefs_remove(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/tracefs/inode.c: line 545 \n"); 
 	struct dentry *parent;
 	int ret;
 
@@ -558,6 +567,7 @@ void tracefs_remove(struct dentry *dentry)
  */
 void tracefs_remove_recursive(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/tracefs/inode.c: line 570 \n"); 
 	struct dentry *child, *parent;
 
 	if (IS_ERR_OR_NULL(dentry))

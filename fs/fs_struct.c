@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/export.h>
 #include <linux/sched.h>
 #include <linux/fs.h>
@@ -130,6 +131,7 @@ struct fs_struct *copy_fs_struct(struct fs_struct *old)
 
 int unshare_fs_struct(void)
 {
+	panic("We reached unpopular paths in fs/fs_struct.c: line 134 \n"); 
 	struct fs_struct *fs = current->fs;
 	struct fs_struct *new_fs = copy_fs_struct(fs);
 	int kill;

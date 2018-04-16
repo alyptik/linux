@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IPv6 input
  *	Linux INET6 implementation
@@ -49,6 +50,7 @@
 
 int ip6_rcv_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_input.c: line 53 \n"); 
 	/* if ingress device is enslaved to an L3 master device pass the
 	 * skb to its handler for processing
 	 */
@@ -218,6 +220,7 @@ drop:
 
 static int ip6_input_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_input.c: line 223 \n"); 
 	const struct inet6_protocol *ipprot;
 	struct inet6_dev *idev;
 	unsigned int nhoff;
@@ -319,6 +322,7 @@ discard:
 
 int ip6_input(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_input.c: line 325 \n"); 
 	return NF_HOOK(NFPROTO_IPV6, NF_INET_LOCAL_IN,
 		       dev_net(skb->dev), NULL, skb, skb->dev, NULL,
 		       ip6_input_finish);
@@ -327,6 +331,7 @@ EXPORT_SYMBOL_GPL(ip6_input);
 
 int ip6_mc_input(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_input.c: line 334 \n"); 
 	const struct ipv6hdr *hdr;
 	bool deliver;
 

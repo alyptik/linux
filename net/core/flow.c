@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* flow.c: Generic flow cache.
  *
  * Copyright (C) 2003 Alexey N. Kuznetsov (kuznet@ms2.inr.ac.ru)
@@ -65,6 +66,7 @@ static void flow_cache_new_hashrnd(unsigned long arg)
 static int flow_entry_valid(struct flow_cache_entry *fle,
 				struct netns_xfrm *xfrm)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 69 \n"); 
 	if (atomic_read(&xfrm->flow_cache_genid) != fle->genid)
 		return 0;
 	if (fle->object && !fle->object->ops->check(fle->object))
@@ -75,6 +77,7 @@ static int flow_entry_valid(struct flow_cache_entry *fle,
 static void flow_entry_kill(struct flow_cache_entry *fle,
 				struct netns_xfrm *xfrm)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 80 \n"); 
 	if (fle->object)
 		fle->object->ops->delete(fle->object);
 	kmem_cache_free(flow_cachep, fle);
@@ -82,6 +85,7 @@ static void flow_entry_kill(struct flow_cache_entry *fle,
 
 static void flow_cache_gc_task(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 88 \n"); 
 	struct list_head gc_list;
 	struct flow_cache_entry *fce, *n;
 	struct netns_xfrm *xfrm = container_of(work, struct netns_xfrm,
@@ -102,6 +106,7 @@ static void flow_cache_queue_garbage(struct flow_cache_percpu *fcp,
 				     int deleted, struct list_head *gc_list,
 				     struct netns_xfrm *xfrm)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 109 \n"); 
 	if (deleted) {
 		atomic_add(deleted, &xfrm->flow_cache_gc_count);
 		fcp->hash_count -= deleted;
@@ -116,6 +121,7 @@ static void __flow_cache_shrink(struct flow_cache *fc,
 				struct flow_cache_percpu *fcp,
 				int shrink_to)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 124 \n"); 
 	struct flow_cache_entry *fle;
 	struct hlist_node *tmp;
 	LIST_HEAD(gc_list);
@@ -145,6 +151,7 @@ static void __flow_cache_shrink(struct flow_cache *fc,
 static void flow_cache_shrink(struct flow_cache *fc,
 			      struct flow_cache_percpu *fcp)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 154 \n"); 
 	int shrink_to = fc->low_watermark / flow_cache_hash_size(fc);
 
 	__flow_cache_shrink(fc, fcp, shrink_to);
@@ -153,6 +160,7 @@ static void flow_cache_shrink(struct flow_cache *fc,
 static void flow_new_hash_rnd(struct flow_cache *fc,
 			      struct flow_cache_percpu *fcp)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 163 \n"); 
 	get_random_bytes(&fcp->hash_rnd, sizeof(u32));
 	fcp->hash_rnd_recalc = 0;
 	__flow_cache_shrink(fc, fcp, 0);
@@ -163,6 +171,7 @@ static u32 flow_hash_code(struct flow_cache *fc,
 			  const struct flowi *key,
 			  size_t keysize)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 174 \n"); 
 	const u32 *k = (const u32 *) key;
 	const u32 length = keysize * sizeof(flow_compare_t) / sizeof(u32);
 
@@ -176,6 +185,7 @@ static u32 flow_hash_code(struct flow_cache *fc,
 static int flow_key_compare(const struct flowi *key1, const struct flowi *key2,
 			    size_t keysize)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 188 \n"); 
 	const flow_compare_t *k1, *k1_lim, *k2;
 
 	k1 = (const flow_compare_t *) key1;
@@ -195,6 +205,7 @@ struct flow_cache_object *
 flow_cache_lookup(struct net *net, const struct flowi *key, u16 family, u8 dir,
 		  flow_resolve_t resolver, void *ctx)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 208 \n"); 
 	struct flow_cache *fc = &net->xfrm.flow_cache_global;
 	struct flow_cache_percpu *fcp;
 	struct flow_cache_entry *fle, *tfle;
@@ -289,6 +300,7 @@ EXPORT_SYMBOL(flow_cache_lookup);
 
 static void flow_cache_flush_tasklet(unsigned long data)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 303 \n"); 
 	struct flow_flush_info *info = (void *)data;
 	struct flow_cache *fc = info->cache;
 	struct flow_cache_percpu *fcp;
@@ -338,6 +350,7 @@ static int flow_cache_percpu_empty(struct flow_cache *fc, int cpu)
 
 static void flow_cache_flush_per_cpu(void *data)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 353 \n"); 
 	struct flow_flush_info *info = data;
 	struct tasklet_struct *tasklet;
 
@@ -387,6 +400,7 @@ done:
 
 static void flow_cache_flush_task(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 403 \n"); 
 	struct netns_xfrm *xfrm = container_of(work, struct netns_xfrm,
 						flow_cache_flush_work);
 	struct net *net = container_of(xfrm, struct net, xfrm);
@@ -396,6 +410,7 @@ static void flow_cache_flush_task(struct work_struct *work)
 
 void flow_cache_flush_deferred(struct net *net)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 413 \n"); 
 	schedule_work(&net->xfrm.flow_cache_flush_work);
 }
 
@@ -421,6 +436,7 @@ static int flow_cache_cpu(struct notifier_block *nfb,
 			  unsigned long action,
 			  void *hcpu)
 {
+	panic("We reached unpopular paths in net/core/flow.c: line 439 \n"); 
 	struct flow_cache *fc = container_of(nfb, struct flow_cache,
 						hotcpu_notifier);
 	int res, cpu = (unsigned long) hcpu;

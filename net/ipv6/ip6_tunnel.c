@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IPv6 tunneling device
  *	Linux INET6 implementation
@@ -74,6 +75,7 @@ MODULE_PARM_DESC(log_ecn_error, "Log packets received with corrupted ECN");
 
 static u32 HASH(const struct in6_addr *addr1, const struct in6_addr *addr2)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 78 \n"); 
 	u32 hash = ipv6_addr_hash(addr1) ^ ipv6_addr_hash(addr2);
 
 	return hash_32(hash, IP6_TUNNEL_HASH_SIZE_SHIFT);
@@ -141,6 +143,7 @@ static struct net_device_stats *ip6_get_stats(struct net_device *dev)
 static struct ip6_tnl *
 ip6_tnl_lookup(struct net *net, const struct in6_addr *remote, const struct in6_addr *local)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 146 \n"); 
 	unsigned int hash = HASH(remote, local);
 	struct ip6_tnl *t;
 	struct ip6_tnl_net *ip6n = net_generic(net, ip6_tnl_net_id);
@@ -215,6 +218,7 @@ ip6_tnl_bucket(struct ip6_tnl_net *ip6n, const struct __ip6_tnl_parm *p)
 static void
 ip6_tnl_link(struct ip6_tnl_net *ip6n, struct ip6_tnl *t)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 221 \n"); 
 	struct ip6_tnl __rcu **tp = ip6_tnl_bucket(ip6n, &t->parms);
 
 	if (t->parms.collect_md)
@@ -231,6 +235,7 @@ ip6_tnl_link(struct ip6_tnl_net *ip6n, struct ip6_tnl *t)
 static void
 ip6_tnl_unlink(struct ip6_tnl_net *ip6n, struct ip6_tnl *t)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 238 \n"); 
 	struct ip6_tnl __rcu **tp;
 	struct ip6_tnl *iter;
 
@@ -259,6 +264,7 @@ static void ip6_dev_free(struct net_device *dev)
 
 static int ip6_tnl_create2(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 267 \n"); 
 	struct ip6_tnl *t = netdev_priv(dev);
 	struct net *net = dev_net(dev);
 	struct ip6_tnl_net *ip6n = net_generic(net, ip6_tnl_net_id);
@@ -295,6 +301,7 @@ out:
 
 static struct ip6_tnl *ip6_tnl_create(struct net *net, struct __ip6_tnl_parm *p)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 304 \n"); 
 	struct net_device *dev;
 	struct ip6_tnl *t;
 	char name[IFNAMSIZ];
@@ -344,6 +351,7 @@ failed:
 static struct ip6_tnl *ip6_tnl_locate(struct net *net,
 		struct __ip6_tnl_parm *p, int create)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 354 \n"); 
 	const struct in6_addr *remote = &p->raddr;
 	const struct in6_addr *local = &p->laddr;
 	struct ip6_tnl __rcu **tp;
@@ -400,6 +408,7 @@ ip6_tnl_dev_uninit(struct net_device *dev)
 
 __u16 ip6_tnl_parse_tlv_enc_lim(struct sk_buff *skb, __u8 *raw)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 411 \n"); 
 	const struct ipv6hdr *ipv6h = (const struct ipv6hdr *)raw;
 	unsigned int nhoff = raw - skb->data;
 	unsigned int off = nhoff + sizeof(*ipv6h);
@@ -472,6 +481,7 @@ static int
 ip6_tnl_err(struct sk_buff *skb, __u8 ipproto, struct inet6_skb_parm *opt,
 	    u8 *type, u8 *code, int *msg, __u32 *info, int offset)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 484 \n"); 
 	const struct ipv6hdr *ipv6h = (const struct ipv6hdr *) skb->data;
 	struct ip6_tnl *t;
 	int rel_msg = 0;
@@ -560,6 +570,7 @@ static int
 ip4ip6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 	   u8 type, u8 code, int offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 573 \n"); 
 	int rel_msg = 0;
 	u8 rel_type = type;
 	u8 rel_code = code;
@@ -666,6 +677,7 @@ static int
 ip6ip6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 	   u8 type, u8 code, int offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 680 \n"); 
 	int rel_msg = 0;
 	u8 rel_type = type;
 	u8 rel_code = code;
@@ -709,6 +721,7 @@ static int ip4ip6_dscp_ecn_decapsulate(const struct ip6_tnl *t,
 				       const struct ipv6hdr *ipv6h,
 				       struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 724 \n"); 
 	__u8 dsfield = ipv6_get_dsfield(ipv6h) & ~INET_ECN_MASK;
 
 	if (t->parms.flags & IP6_TNL_F_RCV_DSCP_COPY)
@@ -721,6 +734,7 @@ static int ip6ip6_dscp_ecn_decapsulate(const struct ip6_tnl *t,
 				       const struct ipv6hdr *ipv6h,
 				       struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 737 \n"); 
 	if (t->parms.flags & IP6_TNL_F_RCV_DSCP_COPY)
 		ipv6_copy_dscp(ipv6_get_dsfield(ipv6h), ipv6_hdr(skb));
 
@@ -756,6 +770,7 @@ int ip6_tnl_rcv_ctl(struct ip6_tnl *t,
 				  const struct in6_addr *laddr,
 				  const struct in6_addr *raddr)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 773 \n"); 
 	struct __ip6_tnl_parm *p = &t->parms;
 	int ret = 0;
 	struct net *net = t->net;
@@ -785,6 +800,7 @@ static int __ip6_tnl_rcv(struct ip6_tnl *tunnel, struct sk_buff *skb,
 						struct sk_buff *skb),
 			 bool log_ecn_err)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 803 \n"); 
 	struct pcpu_sw_netstats *tstats;
 	const struct ipv6hdr *ipv6h = ipv6_hdr(skb);
 	int err;
@@ -868,6 +884,7 @@ int ip6_tnl_rcv(struct ip6_tnl *t, struct sk_buff *skb,
 		struct metadata_dst *tun_dst,
 		bool log_ecn_err)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 887 \n"); 
 	return __ip6_tnl_rcv(t, skb, tpi, NULL, ip6ip6_dscp_ecn_decapsulate,
 			     log_ecn_err);
 }
@@ -889,6 +906,7 @@ static int ipxip6_rcv(struct sk_buff *skb, u8 ipproto,
 						  const struct ipv6hdr *ipv6h,
 						  struct sk_buff *skb))
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 909 \n"); 
 	struct ip6_tnl *t;
 	const struct ipv6hdr *ipv6h = ipv6_hdr(skb);
 	struct metadata_dst *tun_dst = NULL;
@@ -929,12 +947,14 @@ drop:
 
 static int ip4ip6_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 950 \n"); 
 	return ipxip6_rcv(skb, IPPROTO_IPIP, &tpi_v4,
 			  ip4ip6_dscp_ecn_decapsulate);
 }
 
 static int ip6ip6_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 957 \n"); 
 	return ipxip6_rcv(skb, IPPROTO_IPV6, &tpi_v6,
 			  ip6ip6_dscp_ecn_decapsulate);
 }
@@ -946,6 +966,7 @@ struct ipv6_tel_txoption {
 
 static void init_tel_txopt(struct ipv6_tel_txoption *opt, __u8 encap_limit)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 969 \n"); 
 	memset(opt, 0, sizeof(struct ipv6_tel_txoption));
 
 	opt->dst_opt[2] = IPV6_TLV_TNL_ENCAP_LIMIT;
@@ -975,6 +996,7 @@ static void init_tel_txopt(struct ipv6_tel_txoption *opt, __u8 encap_limit)
 static inline bool
 ip6_tnl_addr_conflict(const struct ip6_tnl *t, const struct ipv6hdr *hdr)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 999 \n"); 
 	return ipv6_addr_equal(&t->parms.raddr, &hdr->saddr);
 }
 
@@ -982,6 +1004,7 @@ int ip6_tnl_xmit_ctl(struct ip6_tnl *t,
 		     const struct in6_addr *laddr,
 		     const struct in6_addr *raddr)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1007 \n"); 
 	struct __ip6_tnl_parm *p = &t->parms;
 	int ret = 0;
 	struct net *net = t->net;
@@ -1034,6 +1057,7 @@ int ip6_tnl_xmit(struct sk_buff *skb, struct net_device *dev, __u8 dsfield,
 		 struct flowi6 *fl6, int encap_limit, __u32 *pmtu,
 		 __u8 proto)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1060 \n"); 
 	struct ip6_tnl *t = netdev_priv(dev);
 	struct net *net = t->net;
 	struct net_device_stats *stats = &t->dev->stats;
@@ -1223,6 +1247,7 @@ EXPORT_SYMBOL(ip6_tnl_xmit);
 static inline int
 ip4ip6_tnl_xmit(struct sk_buff *skb, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1250 \n"); 
 	struct ip6_tnl *t = netdev_priv(dev);
 	const struct iphdr  *iph = ip_hdr(skb);
 	int encap_limit = -1;
@@ -1290,6 +1315,7 @@ ip4ip6_tnl_xmit(struct sk_buff *skb, struct net_device *dev)
 static inline int
 ip6ip6_tnl_xmit(struct sk_buff *skb, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1318 \n"); 
 	struct ip6_tnl *t = netdev_priv(dev);
 	struct ipv6hdr *ipv6h = ipv6_hdr(skb);
 	int encap_limit = -1;
@@ -1371,6 +1397,7 @@ ip6ip6_tnl_xmit(struct sk_buff *skb, struct net_device *dev)
 static netdev_tx_t
 ip6_tnl_start_xmit(struct sk_buff *skb, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1400 \n"); 
 	struct ip6_tnl *t = netdev_priv(dev);
 	struct net_device_stats *stats = &t->dev->stats;
 	int ret;
@@ -1469,6 +1496,7 @@ static void ip6_tnl_link_config(struct ip6_tnl *t)
 static int
 ip6_tnl_change(struct ip6_tnl *t, const struct __ip6_tnl_parm *p)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1499 \n"); 
 	t->parms.laddr = p->laddr;
 	t->parms.raddr = p->raddr;
 	t->parms.flags = p->flags;
@@ -1484,6 +1512,7 @@ ip6_tnl_change(struct ip6_tnl *t, const struct __ip6_tnl_parm *p)
 
 static int ip6_tnl_update(struct ip6_tnl *t, struct __ip6_tnl_parm *p)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1515 \n"); 
 	struct net *net = t->net;
 	struct ip6_tnl_net *ip6n = net_generic(net, ip6_tnl_net_id);
 	int err;
@@ -1498,6 +1527,7 @@ static int ip6_tnl_update(struct ip6_tnl *t, struct __ip6_tnl_parm *p)
 
 static int ip6_tnl0_update(struct ip6_tnl *t, struct __ip6_tnl_parm *p)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1530 \n"); 
 	/* for default tnl0 device allow to change only the proto */
 	t->parms.proto = p->proto;
 	netdev_state_change(t->dev);
@@ -1507,6 +1537,7 @@ static int ip6_tnl0_update(struct ip6_tnl *t, struct __ip6_tnl_parm *p)
 static void
 ip6_tnl_parm_from_user(struct __ip6_tnl_parm *p, const struct ip6_tnl_parm *u)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1540 \n"); 
 	p->laddr = u->laddr;
 	p->raddr = u->raddr;
 	p->flags = u->flags;
@@ -1521,6 +1552,7 @@ ip6_tnl_parm_from_user(struct __ip6_tnl_parm *p, const struct ip6_tnl_parm *u)
 static void
 ip6_tnl_parm_to_user(struct ip6_tnl_parm *u, const struct __ip6_tnl_parm *p)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1555 \n"); 
 	u->laddr = p->laddr;
 	u->raddr = p->raddr;
 	u->flags = p->flags;
@@ -1563,6 +1595,7 @@ ip6_tnl_parm_to_user(struct ip6_tnl_parm *u, const struct __ip6_tnl_parm *p)
 static int
 ip6_tnl_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1598 \n"); 
 	int err = 0;
 	struct ip6_tnl_parm p;
 	struct __ip6_tnl_parm p1;
@@ -1668,6 +1701,7 @@ ip6_tnl_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
 
 int ip6_tnl_change_mtu(struct net_device *dev, int new_mtu)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1704 \n"); 
 	struct ip6_tnl *tnl = netdev_priv(dev);
 
 	if (tnl->parms.proto == IPPROTO_IPIP) {
@@ -1707,6 +1741,7 @@ EXPORT_SYMBOL(ip6_tnl_encap_add_ops);
 int ip6_tnl_encap_del_ops(const struct ip6_tnl_encap_ops *ops,
 			  unsigned int num)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1744 \n"); 
 	int ret;
 
 	if (num >= MAX_IPTUN_ENCAP_OPS)
@@ -1725,6 +1760,7 @@ EXPORT_SYMBOL(ip6_tnl_encap_del_ops);
 int ip6_tnl_encap_setup(struct ip6_tnl *t,
 			struct ip_tunnel_encap *ipencap)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1763 \n"); 
 	int hlen;
 
 	memset(&t->encap, 0, sizeof(t->encap));
@@ -1878,6 +1914,7 @@ static int __net_init ip6_fb_tnl_dev_init(struct net_device *dev)
 
 static int ip6_tnl_validate(struct nlattr *tb[], struct nlattr *data[])
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1917 \n"); 
 	u8 proto;
 
 	if (!data || !data[IFLA_IPTUN_PROTO])
@@ -1895,6 +1932,7 @@ static int ip6_tnl_validate(struct nlattr *tb[], struct nlattr *data[])
 static void ip6_tnl_netlink_parms(struct nlattr *data[],
 				  struct __ip6_tnl_parm *parms)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1935 \n"); 
 	memset(parms, 0, sizeof(*parms));
 
 	if (!data)
@@ -1931,6 +1969,7 @@ static void ip6_tnl_netlink_parms(struct nlattr *data[],
 static bool ip6_tnl_netlink_encap_parms(struct nlattr *data[],
 					struct ip_tunnel_encap *ipencap)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 1972 \n"); 
 	bool ret = false;
 
 	memset(ipencap, 0, sizeof(*ipencap));
@@ -1964,6 +2003,7 @@ static bool ip6_tnl_netlink_encap_parms(struct nlattr *data[],
 static int ip6_tnl_newlink(struct net *src_net, struct net_device *dev,
 			   struct nlattr *tb[], struct nlattr *data[])
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 2006 \n"); 
 	struct net *net = dev_net(dev);
 	struct ip6_tnl_net *ip6n = net_generic(net, ip6_tnl_net_id);
 	struct ip6_tnl *nt, *t;
@@ -1995,6 +2035,7 @@ static int ip6_tnl_newlink(struct net *src_net, struct net_device *dev,
 static int ip6_tnl_changelink(struct net_device *dev, struct nlattr *tb[],
 			      struct nlattr *data[])
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 2038 \n"); 
 	struct ip6_tnl *t = netdev_priv(dev);
 	struct __ip6_tnl_parm p;
 	struct net *net = t->net;
@@ -2026,6 +2067,7 @@ static int ip6_tnl_changelink(struct net_device *dev, struct nlattr *tb[],
 
 static void ip6_tnl_dellink(struct net_device *dev, struct list_head *head)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_tunnel.c: line 2070 \n"); 
 	struct net *net = dev_net(dev);
 	struct ip6_tnl_net *ip6n = net_generic(net, ip6_tnl_net_id);
 

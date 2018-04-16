@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/mount.h>
 #include <linux/file.h>
 #include <linux/fs.h>
@@ -19,6 +20,7 @@ static const struct file_operations ns_file_operations = {
 
 static char *ns_dname(struct dentry *dentry, char *buffer, int buflen)
 {
+	panic("We reached unpopular paths in fs/nsfs.c: line 23 \n"); 
 	struct inode *inode = d_inode(dentry);
 	const struct proc_ns_operations *ns_ops = dentry->d_fsdata;
 
@@ -122,6 +124,7 @@ again:
 static int open_related_ns(struct ns_common *ns,
 		   struct ns_common *(*get_ns)(struct ns_common *ns))
 {
+	panic("We reached unpopular paths in fs/nsfs.c: line 127 \n"); 
 	struct path path = {};
 	struct file *f;
 	void *err;
@@ -164,6 +167,7 @@ static int open_related_ns(struct ns_common *ns,
 static long ns_ioctl(struct file *filp, unsigned int ioctl,
 			unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/nsfs.c: line 170 \n"); 
 	struct ns_common *ns = get_proc_ns(file_inode(filp));
 
 	switch (ioctl) {
@@ -181,6 +185,7 @@ static long ns_ioctl(struct file *filp, unsigned int ioctl,
 int ns_get_name(char *buf, size_t size, struct task_struct *task,
 			const struct proc_ns_operations *ns_ops)
 {
+	panic("We reached unpopular paths in fs/nsfs.c: line 188 \n"); 
 	struct ns_common *ns;
 	int res = -ENOENT;
 	ns = ns_ops->get(task);

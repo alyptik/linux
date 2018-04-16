@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Functions related to io context handling
  */
@@ -23,6 +24,7 @@ static struct kmem_cache *iocontext_cachep;
  */
 void get_io_context(struct io_context *ioc)
 {
+	panic("We reached unpopular paths in block/blk-ioc.c: line 27 \n"); 
 	BUG_ON(atomic_long_read(&ioc->refcount) <= 0);
 	atomic_long_inc(&ioc->refcount);
 }
@@ -30,6 +32,7 @@ EXPORT_SYMBOL(get_io_context);
 
 static void icq_free_icq_rcu(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in block/blk-ioc.c: line 35 \n"); 
 	struct io_cq *icq = container_of(head, struct io_cq, __rcu_head);
 
 	kmem_cache_free(icq->__rcu_icq_cache, icq);
@@ -38,6 +41,7 @@ static void icq_free_icq_rcu(struct rcu_head *head)
 /* Exit an icq. Called with both ioc and q locked. */
 static void ioc_exit_icq(struct io_cq *icq)
 {
+	panic("We reached unpopular paths in block/blk-ioc.c: line 44 \n"); 
 	struct elevator_type *et = icq->q->elevator->type;
 
 	if (icq->flags & ICQ_EXITED)
@@ -52,6 +56,7 @@ static void ioc_exit_icq(struct io_cq *icq)
 /* Release an icq.  Called with both ioc and q locked. */
 static void ioc_destroy_icq(struct io_cq *icq)
 {
+	panic("We reached unpopular paths in block/blk-ioc.c: line 59 \n"); 
 	struct io_context *ioc = icq->ioc;
 	struct request_queue *q = icq->q;
 	struct elevator_type *et = q->elevator->type;
@@ -87,6 +92,7 @@ static void ioc_destroy_icq(struct io_cq *icq)
  */
 static void ioc_release_fn(struct work_struct *work)
 {
+	panic("We reached unpopular paths in block/blk-ioc.c: line 95 \n"); 
 	struct io_context *ioc = container_of(work, struct io_context,
 					      release_work);
 	unsigned long flags;
@@ -218,6 +224,7 @@ void exit_io_context(struct task_struct *task)
  */
 void ioc_clear_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-ioc.c: line 227 \n"); 
 	lockdep_assert_held(q->queue_lock);
 
 	while (!list_empty(&q->icq_list)) {
@@ -287,6 +294,7 @@ int create_task_io_context(struct task_struct *task, gfp_t gfp_flags, int node)
 struct io_context *get_task_io_context(struct task_struct *task,
 				       gfp_t gfp_flags, int node)
 {
+	panic("We reached unpopular paths in block/blk-ioc.c: line 297 \n"); 
 	struct io_context *ioc;
 
 	might_sleep_if(gfpflags_allow_blocking(gfp_flags));
@@ -316,6 +324,7 @@ EXPORT_SYMBOL(get_task_io_context);
  */
 struct io_cq *ioc_lookup_icq(struct io_context *ioc, struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-ioc.c: line 327 \n"); 
 	struct io_cq *icq;
 
 	lockdep_assert_held(q->queue_lock);
@@ -357,6 +366,7 @@ EXPORT_SYMBOL(ioc_lookup_icq);
 struct io_cq *ioc_create_icq(struct io_context *ioc, struct request_queue *q,
 			     gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in block/blk-ioc.c: line 369 \n"); 
 	struct elevator_type *et = q->elevator->type;
 	struct io_cq *icq;
 

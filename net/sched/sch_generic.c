@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/sch_generic.c	Generic packet scheduler routines.
  *
@@ -47,6 +48,7 @@ EXPORT_SYMBOL(default_qdisc_ops);
 
 static inline int dev_requeue_skb(struct sk_buff *skb, struct Qdisc *q)
 {
+	panic("We reached unpopular paths in net/sched/sch_generic.c: line 51 \n"); 
 	q->gso_skb = skb;
 	q->qstats.requeues++;
 	qdisc_qstats_backlog_inc(q, skb);
@@ -61,6 +63,7 @@ static void try_bulk_dequeue_skb(struct Qdisc *q,
 				 const struct netdev_queue *txq,
 				 int *packets)
 {
+	panic("We reached unpopular paths in net/sched/sch_generic.c: line 66 \n"); 
 	int bytelimit = qdisc_avail_bulklimit(txq) - skb->len;
 
 	while (bytelimit > 0) {
@@ -84,6 +87,7 @@ static void try_bulk_dequeue_skb_slow(struct Qdisc *q,
 				      struct sk_buff *skb,
 				      int *packets)
 {
+	panic("We reached unpopular paths in net/sched/sch_generic.c: line 90 \n"); 
 	int mapping = skb_get_queue_mapping(skb);
 	struct sk_buff *nskb;
 	int cnt = 0;
@@ -268,6 +272,7 @@ void __qdisc_run(struct Qdisc *q)
 
 unsigned long dev_trans_start(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/sched/sch_generic.c: line 275 \n"); 
 	unsigned long val, res;
 	unsigned int i;
 
@@ -286,6 +291,7 @@ EXPORT_SYMBOL(dev_trans_start);
 
 static void dev_watchdog(unsigned long arg)
 {
+	panic("We reached unpopular paths in net/sched/sch_generic.c: line 294 \n"); 
 	struct net_device *dev = (struct net_device *)arg;
 
 	netif_tx_lock(dev);
@@ -340,6 +346,7 @@ void __netdev_watchdog_up(struct net_device *dev)
 
 static void dev_watchdog_up(struct net_device *dev)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/sched/sch_generic.c: line 349 \n"); 
 	__netdev_watchdog_up(dev);
 }
 
@@ -480,12 +487,14 @@ static const int bitmap2band[] = {-1, 0, 1, 0, 2, 0, 1, 0};
 static inline struct qdisc_skb_head *band2list(struct pfifo_fast_priv *priv,
 					     int band)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/sched/sch_generic.c: line 490 \n"); 
 	return priv->q + band;
 }
 
 static int pfifo_fast_enqueue(struct sk_buff *skb, struct Qdisc *qdisc,
 			      struct sk_buff **to_free)
 {
+	panic("We reached unpopular paths in net/sched/sch_generic.c: line 497 \n"); 
 	if (qdisc->q.qlen < qdisc_dev(qdisc)->tx_queue_len) {
 		int band = prio2band[skb->priority & TC_PRIO_MAX];
 		struct pfifo_fast_priv *priv = qdisc_priv(qdisc);
@@ -501,6 +510,7 @@ static int pfifo_fast_enqueue(struct sk_buff *skb, struct Qdisc *qdisc,
 
 static struct sk_buff *pfifo_fast_dequeue(struct Qdisc *qdisc)
 {
+	panic("We reached unpopular paths in net/sched/sch_generic.c: line 513 \n"); 
 	struct pfifo_fast_priv *priv = qdisc_priv(qdisc);
 	int band = bitmap2band[priv->bitmap];
 
@@ -525,6 +535,7 @@ static struct sk_buff *pfifo_fast_dequeue(struct Qdisc *qdisc)
 
 static struct sk_buff *pfifo_fast_peek(struct Qdisc *qdisc)
 {
+	panic("We reached unpopular paths in net/sched/sch_generic.c: line 538 \n"); 
 	struct pfifo_fast_priv *priv = qdisc_priv(qdisc);
 	int band = bitmap2band[priv->bitmap];
 
@@ -539,6 +550,7 @@ static struct sk_buff *pfifo_fast_peek(struct Qdisc *qdisc)
 
 static void pfifo_fast_reset(struct Qdisc *qdisc)
 {
+	panic("We reached unpopular paths in net/sched/sch_generic.c: line 553 \n"); 
 	int prio;
 	struct pfifo_fast_priv *priv = qdisc_priv(qdisc);
 
@@ -552,6 +564,7 @@ static void pfifo_fast_reset(struct Qdisc *qdisc)
 
 static int pfifo_fast_dump(struct Qdisc *qdisc, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/sch_generic.c: line 567 \n"); 
 	struct tc_prio_qopt opt = { .bands = PFIFO_FAST_BANDS };
 
 	memcpy(&opt.priomap, prio2band, TC_PRIO_MAX + 1);
@@ -733,6 +746,7 @@ EXPORT_SYMBOL(qdisc_destroy);
 struct Qdisc *dev_graft_qdisc(struct netdev_queue *dev_queue,
 			      struct Qdisc *qdisc)
 {
+	panic("We reached unpopular paths in net/sched/sch_generic.c: line 749 \n"); 
 	struct Qdisc *oqdisc = dev_queue->qdisc_sleeping;
 	spinlock_t *root_lock;
 
@@ -989,6 +1003,7 @@ void psched_ratecfg_precompute(struct psched_ratecfg *r,
 			       const struct tc_ratespec *conf,
 			       u64 rate64)
 {
+	panic("We reached unpopular paths in net/sched/sch_generic.c: line 1006 \n"); 
 	memset(r, 0, sizeof(*r));
 	r->overhead = conf->overhead;
 	r->rate_bytes_ps = max_t(u64, conf->rate, rate64);

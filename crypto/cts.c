@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * CTS: Cipher Text Stealing mode
  *
@@ -62,6 +63,7 @@ struct crypto_cts_reqctx {
 
 static inline u8 *crypto_cts_reqctx_space(struct skcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 66 \n"); 
 	struct crypto_cts_reqctx *rctx = skcipher_request_ctx(req);
 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
 	struct crypto_cts_ctx *ctx = crypto_skcipher_ctx(tfm);
@@ -74,6 +76,7 @@ static inline u8 *crypto_cts_reqctx_space(struct skcipher_request *req)
 static int crypto_cts_setkey(struct crypto_skcipher *parent, const u8 *key,
 			     unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 79 \n"); 
 	struct crypto_cts_ctx *ctx = crypto_skcipher_ctx(parent);
 	struct crypto_skcipher *child = ctx->child;
 	int err;
@@ -89,6 +92,7 @@ static int crypto_cts_setkey(struct crypto_skcipher *parent, const u8 *key,
 
 static void cts_cbc_crypt_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 95 \n"); 
 	struct skcipher_request *req = areq->data;
 
 	if (err == -EINPROGRESS)
@@ -99,6 +103,7 @@ static void cts_cbc_crypt_done(struct crypto_async_request *areq, int err)
 
 static int cts_cbc_encrypt(struct skcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 106 \n"); 
 	struct crypto_cts_reqctx *rctx = skcipher_request_ctx(req);
 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
 	struct skcipher_request *subreq = &rctx->subreq;
@@ -129,6 +134,7 @@ static int cts_cbc_encrypt(struct skcipher_request *req)
 
 static void crypto_cts_encrypt_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 137 \n"); 
 	struct skcipher_request *req = areq->data;
 
 	if (err)
@@ -145,6 +151,7 @@ out:
 
 static int crypto_cts_encrypt(struct skcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 154 \n"); 
 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
 	struct crypto_cts_reqctx *rctx = skcipher_request_ctx(req);
 	struct crypto_cts_ctx *ctx = crypto_skcipher_ctx(tfm);
@@ -179,6 +186,7 @@ static int crypto_cts_encrypt(struct skcipher_request *req)
 
 static int cts_cbc_decrypt(struct skcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 189 \n"); 
 	struct crypto_cts_reqctx *rctx = skcipher_request_ctx(req);
 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
 	struct skcipher_request *subreq = &rctx->subreq;
@@ -222,6 +230,7 @@ static int cts_cbc_decrypt(struct skcipher_request *req)
 
 static void crypto_cts_decrypt_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 233 \n"); 
 	struct skcipher_request *req = areq->data;
 
 	if (err)
@@ -238,6 +247,7 @@ out:
 
 static int crypto_cts_decrypt(struct skcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 250 \n"); 
 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
 	struct crypto_cts_reqctx *rctx = skcipher_request_ctx(req);
 	struct crypto_cts_ctx *ctx = crypto_skcipher_ctx(tfm);
@@ -282,6 +292,7 @@ static int crypto_cts_decrypt(struct skcipher_request *req)
 
 static int crypto_cts_init_tfm(struct crypto_skcipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 295 \n"); 
 	struct skcipher_instance *inst = skcipher_alg_instance(tfm);
 	struct crypto_skcipher_spawn *spawn = skcipher_instance_ctx(inst);
 	struct crypto_cts_ctx *ctx = crypto_skcipher_ctx(tfm);
@@ -310,6 +321,7 @@ static int crypto_cts_init_tfm(struct crypto_skcipher *tfm)
 
 static void crypto_cts_exit_tfm(struct crypto_skcipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 324 \n"); 
 	struct crypto_cts_ctx *ctx = crypto_skcipher_ctx(tfm);
 
 	crypto_free_skcipher(ctx->child);
@@ -317,12 +329,14 @@ static void crypto_cts_exit_tfm(struct crypto_skcipher *tfm)
 
 static void crypto_cts_free(struct skcipher_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 332 \n"); 
 	crypto_drop_skcipher(skcipher_instance_ctx(inst));
 	kfree(inst);
 }
 
 static int crypto_cts_create(struct crypto_template *tmpl, struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/cts.c: line 339 \n"); 
 	struct crypto_skcipher_spawn *spawn;
 	struct skcipher_instance *inst;
 	struct crypto_attr_type *algt;

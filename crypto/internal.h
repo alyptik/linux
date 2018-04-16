@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -61,11 +62,13 @@ static inline void crypto_exit_proc(void)
 
 static inline unsigned int crypto_cipher_ctxsize(struct crypto_alg *alg)
 {
+	// [blacklist] panic("We reached unpopular paths in crypto/internal.h: line 65 \n"); 
 	return alg->cra_ctxsize;
 }
 
 static inline unsigned int crypto_compress_ctxsize(struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/internal.h: line 71 \n"); 
 	return alg->cra_ctxsize;
 }
 
@@ -121,26 +124,31 @@ static inline void crypto_alg_put(struct crypto_alg *alg)
 
 static inline int crypto_tmpl_get(struct crypto_template *tmpl)
 {
+	// [blacklist] panic("We reached unpopular paths in crypto/internal.h: line 127 \n"); 
 	return try_module_get(tmpl->module);
 }
 
 static inline void crypto_tmpl_put(struct crypto_template *tmpl)
 {
+	// [blacklist] panic("We reached unpopular paths in crypto/internal.h: line 133 \n"); 
 	module_put(tmpl->module);
 }
 
 static inline int crypto_is_larval(struct crypto_alg *alg)
 {
+	// [blacklist] panic("We reached unpopular paths in crypto/internal.h: line 139 \n"); 
 	return alg->cra_flags & CRYPTO_ALG_LARVAL;
 }
 
 static inline int crypto_is_dead(struct crypto_alg *alg)
 {
+	// [blacklist] panic("We reached unpopular paths in crypto/internal.h: line 145 \n"); 
 	return alg->cra_flags & CRYPTO_ALG_DEAD;
 }
 
 static inline int crypto_is_moribund(struct crypto_alg *alg)
 {
+	// [blacklist] panic("We reached unpopular paths in crypto/internal.h: line 151 \n"); 
 	return alg->cra_flags & (CRYPTO_ALG_DEAD | CRYPTO_ALG_DYING);
 }
 

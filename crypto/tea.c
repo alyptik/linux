@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* 
  * Cryptographic API.
  *
@@ -47,6 +48,7 @@ struct xtea_ctx {
 static int tea_setkey(struct crypto_tfm *tfm, const u8 *in_key,
 		      unsigned int key_len)
 {
+	panic("We reached unpopular paths in crypto/tea.c: line 51 \n"); 
 	struct tea_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __le32 *key = (const __le32 *)in_key;
 
@@ -61,6 +63,7 @@ static int tea_setkey(struct crypto_tfm *tfm, const u8 *in_key,
 
 static void tea_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/tea.c: line 66 \n"); 
 	u32 y, z, n, sum = 0;
 	u32 k0, k1, k2, k3;
 	struct tea_ctx *ctx = crypto_tfm_ctx(tfm);
@@ -89,6 +92,7 @@ static void tea_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 
 static void tea_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/tea.c: line 95 \n"); 
 	u32 y, z, n, sum;
 	u32 k0, k1, k2, k3;
 	struct tea_ctx *ctx = crypto_tfm_ctx(tfm);
@@ -120,6 +124,7 @@ static void tea_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 static int xtea_setkey(struct crypto_tfm *tfm, const u8 *in_key,
 		       unsigned int key_len)
 {
+	panic("We reached unpopular paths in crypto/tea.c: line 127 \n"); 
 	struct xtea_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __le32 *key = (const __le32 *)in_key;
 
@@ -134,6 +139,7 @@ static int xtea_setkey(struct crypto_tfm *tfm, const u8 *in_key,
 
 static void xtea_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/tea.c: line 142 \n"); 
 	u32 y, z, sum = 0;
 	u32 limit = XTEA_DELTA * XTEA_ROUNDS;
 	struct xtea_ctx *ctx = crypto_tfm_ctx(tfm);
@@ -155,6 +161,7 @@ static void xtea_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 
 static void xtea_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/tea.c: line 164 \n"); 
 	u32 y, z, sum;
 	struct tea_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __le32 *in = (const __le32 *)src;
@@ -178,6 +185,7 @@ static void xtea_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 
 static void xeta_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/tea.c: line 188 \n"); 
 	u32 y, z, sum = 0;
 	u32 limit = XTEA_DELTA * XTEA_ROUNDS;
 	struct xtea_ctx *ctx = crypto_tfm_ctx(tfm);
@@ -199,6 +207,7 @@ static void xeta_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 
 static void xeta_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/tea.c: line 210 \n"); 
 	u32 y, z, sum;
 	struct tea_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __le32 *in = (const __le32 *)src;

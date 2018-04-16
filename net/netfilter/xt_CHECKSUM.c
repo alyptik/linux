@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* iptables module for the packet checksum mangling
  *
  * (C) 2002 by Harald Welte <laforge@netfilter.org>
@@ -25,6 +26,7 @@ MODULE_ALIAS("ip6t_CHECKSUM");
 static unsigned int
 checksum_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CHECKSUM.c: line 29 \n"); 
 	if (skb->ip_summed == CHECKSUM_PARTIAL)
 		skb_checksum_help(skb);
 
@@ -33,6 +35,7 @@ checksum_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int checksum_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CHECKSUM.c: line 38 \n"); 
 	const struct xt_CHECKSUM_info *einfo = par->targinfo;
 
 	if (einfo->operation & ~XT_CHECKSUM_OP_FILL) {

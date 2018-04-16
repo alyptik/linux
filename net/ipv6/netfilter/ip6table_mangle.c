@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPv6 packet mangling table, a port of the IPv4 mangle table to IPv6
  *

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_among
  *
@@ -18,6 +19,7 @@
 static bool ebt_mac_wormhash_contains(const struct ebt_mac_wormhash *wh,
 				      const char *mac, __be32 ip)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_among.c: line 22 \n"); 
 	/* You may be puzzled as to how this code works.
 	 * Some tricks were used, refer to
 	 * 	include/linux/netfilter_bridge/ebt_among.h
@@ -52,6 +54,7 @@ static bool ebt_mac_wormhash_contains(const struct ebt_mac_wormhash *wh,
 static int ebt_mac_wormhash_check_integrity(const struct ebt_mac_wormhash
 					    *wh)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_among.c: line 57 \n"); 
 	int i;
 
 	for (i = 0; i < 256; i++) {
@@ -69,6 +72,7 @@ static int ebt_mac_wormhash_check_integrity(const struct ebt_mac_wormhash
 
 static int get_ip_dst(const struct sk_buff *skb, __be32 *addr)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_among.c: line 75 \n"); 
 	if (eth_hdr(skb)->h_proto == htons(ETH_P_IP)) {
 		const struct iphdr *ih;
 		struct iphdr _iph;
@@ -100,6 +104,7 @@ static int get_ip_dst(const struct sk_buff *skb, __be32 *addr)
 
 static int get_ip_src(const struct sk_buff *skb, __be32 *addr)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_among.c: line 107 \n"); 
 	if (eth_hdr(skb)->h_proto == htons(ETH_P_IP)) {
 		const struct iphdr *ih;
 		struct iphdr _iph;
@@ -131,6 +136,7 @@ static int get_ip_src(const struct sk_buff *skb, __be32 *addr)
 static bool
 ebt_among_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_among.c: line 139 \n"); 
 	const struct ebt_among_info *info = par->matchinfo;
 	const char *dmac, *smac;
 	const struct ebt_mac_wormhash *wh_dst, *wh_src;
@@ -174,6 +180,7 @@ ebt_among_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ebt_among_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_among.c: line 183 \n"); 
 	const struct ebt_among_info *info = par->matchinfo;
 	const struct ebt_entry_match *em =
 		container_of(par->matchinfo, const struct ebt_entry_match, data);

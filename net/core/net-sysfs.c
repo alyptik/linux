@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net-sysfs.c - network device class and attributes
  *
@@ -1423,6 +1424,7 @@ static const void *net_initial_ns(void)
 
 static const void *net_netlink_ns(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/net-sysfs.c: line 1427 \n"); 
 	return sock_net(sk);
 }
 
@@ -1583,6 +1585,7 @@ int netdev_register_kobject(struct net_device *ndev)
 int netdev_class_create_file_ns(struct class_attribute *class_attr,
 				const void *ns)
 {
+	panic("We reached unpopular paths in net/core/net-sysfs.c: line 1588 \n"); 
 	return class_create_file_ns(&net_class, class_attr, ns);
 }
 EXPORT_SYMBOL(netdev_class_create_file_ns);
@@ -1590,6 +1593,7 @@ EXPORT_SYMBOL(netdev_class_create_file_ns);
 void netdev_class_remove_file_ns(struct class_attribute *class_attr,
 				 const void *ns)
 {
+	panic("We reached unpopular paths in net/core/net-sysfs.c: line 1596 \n"); 
 	class_remove_file_ns(&net_class, class_attr, ns);
 }
 EXPORT_SYMBOL(netdev_class_remove_file_ns);

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/syscalls.h>
 #include <linux/export.h>
 #include <linux/fs.h>
@@ -215,6 +216,7 @@ SYSCALL_DEFINE3(fstatfs64, unsigned int, fd, size_t, sz, struct statfs64 __user 
 
 int vfs_ustat(dev_t dev, struct kstatfs *sbuf)
 {
+	panic("We reached unpopular paths in fs/statfs.c: line 219 \n"); 
 	struct super_block *s = user_get_super(dev);
 	int err;
 	if (!s)

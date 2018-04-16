@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/cls_route.c	ROUTE4 classifier.
  *
@@ -64,6 +65,7 @@ struct route4_filter {
 
 static inline int route4_fastmap_hash(u32 id, int iif)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 68 \n"); 
 	return id & 0xF;
 }
 
@@ -71,6 +73,7 @@ static DEFINE_SPINLOCK(fastmap_lock);
 static void
 route4_reset_fastmap(struct route4_head *head)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 76 \n"); 
 	spin_lock_bh(&fastmap_lock);
 	memset(head->fastmap, 0, sizeof(head->fastmap));
 	spin_unlock_bh(&fastmap_lock);
@@ -80,6 +83,7 @@ static void
 route4_set_fastmap(struct route4_head *head, u32 id, int iif,
 		   struct route4_filter *f)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 86 \n"); 
 	int h = route4_fastmap_hash(id, iif);
 
 	/* fastmap updates must look atomic to aling id, iff, filter */
@@ -92,21 +96,25 @@ route4_set_fastmap(struct route4_head *head, u32 id, int iif,
 
 static inline int route4_hash_to(u32 id)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 99 \n"); 
 	return id & 0xFF;
 }
 
 static inline int route4_hash_from(u32 id)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 105 \n"); 
 	return (id >> 16) & 0xF;
 }
 
 static inline int route4_hash_iif(int iif)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 111 \n"); 
 	return 16 + ((iif >> 16) & 0xF);
 }
 
 static inline int route4_hash_wild(void)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 117 \n"); 
 	return 32;
 }
 
@@ -128,6 +136,7 @@ static inline int route4_hash_wild(void)
 static int route4_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 			   struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 139 \n"); 
 	struct route4_head *head = rcu_dereference_bh(tp->root);
 	struct dst_entry *dst;
 	struct route4_bucket *b;
@@ -207,6 +216,7 @@ old_method:
 
 static inline u32 to_hash(u32 id)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 219 \n"); 
 	u32 h = id & 0xFF;
 
 	if (id & 0x8000)
@@ -216,6 +226,7 @@ static inline u32 to_hash(u32 id)
 
 static inline u32 from_hash(u32 id)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 229 \n"); 
 	id &= 0xFFFF;
 	if (id == 0xFFFF)
 		return 32;
@@ -229,6 +240,7 @@ static inline u32 from_hash(u32 id)
 
 static unsigned long route4_get(struct tcf_proto *tp, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 243 \n"); 
 	struct route4_head *head = rtnl_dereference(tp->root);
 	struct route4_bucket *b;
 	struct route4_filter *f;
@@ -258,6 +270,7 @@ static unsigned long route4_get(struct tcf_proto *tp, u32 handle)
 
 static int route4_init(struct tcf_proto *tp)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 273 \n"); 
 	struct route4_head *head;
 
 	head = kzalloc(sizeof(struct route4_head), GFP_KERNEL);
@@ -270,6 +283,7 @@ static int route4_init(struct tcf_proto *tp)
 
 static void route4_delete_filter(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 286 \n"); 
 	struct route4_filter *f = container_of(head, struct route4_filter, rcu);
 
 	tcf_exts_destroy(&f->exts);
@@ -278,6 +292,7 @@ static void route4_delete_filter(struct rcu_head *head)
 
 static bool route4_destroy(struct tcf_proto *tp, bool force)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 295 \n"); 
 	struct route4_head *head = rtnl_dereference(tp->root);
 	int h1, h2;
 
@@ -319,6 +334,7 @@ static bool route4_destroy(struct tcf_proto *tp, bool force)
 
 static int route4_delete(struct tcf_proto *tp, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 337 \n"); 
 	struct route4_head *head = rtnl_dereference(tp->root);
 	struct route4_filter *f = (struct route4_filter *)arg;
 	struct route4_filter __rcu **fp;
@@ -476,6 +492,7 @@ static int route4_change(struct net *net, struct sk_buff *in_skb,
 			 struct tcf_proto *tp, unsigned long base, u32 handle,
 			 struct nlattr **tca, unsigned long *arg, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 495 \n"); 
 	struct route4_head *head = rtnl_dereference(tp->root);
 	struct route4_filter __rcu **fp;
 	struct route4_filter *fold, *f1, *pfp, *f = NULL;
@@ -567,6 +584,7 @@ errout:
 
 static void route4_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 587 \n"); 
 	struct route4_head *head = rtnl_dereference(tp->root);
 	unsigned int h, h1;
 
@@ -604,6 +622,7 @@ static void route4_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 static int route4_dump(struct net *net, struct tcf_proto *tp, unsigned long fh,
 		       struct sk_buff *skb, struct tcmsg *t)
 {
+	panic("We reached unpopular paths in net/sched/cls_route.c: line 625 \n"); 
 	struct route4_filter *f = (struct route4_filter *)fh;
 	struct nlattr *nest;
 	u32 id;

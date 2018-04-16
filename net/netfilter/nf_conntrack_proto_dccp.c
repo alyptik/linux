@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * DCCP connection tracking protocol helper
  *
@@ -400,6 +401,7 @@ static inline struct dccp_net *dccp_pernet(struct net *net)
 static bool dccp_pkt_to_tuple(const struct sk_buff *skb, unsigned int dataoff,
 			      struct net *net, struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_dccp.c: line 404 \n"); 
 	struct dccp_hdr _hdr, *dh;
 
 	/* Actually only need first 4 bytes to get ports. */
@@ -415,6 +417,7 @@ static bool dccp_pkt_to_tuple(const struct sk_buff *skb, unsigned int dataoff,
 static bool dccp_invert_tuple(struct nf_conntrack_tuple *inv,
 			      const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_dccp.c: line 420 \n"); 
 	inv->src.u.dccp.port = tuple->dst.u.dccp.port;
 	inv->dst.u.dccp.port = tuple->src.u.dccp.port;
 	return true;
@@ -423,6 +426,7 @@ static bool dccp_invert_tuple(struct nf_conntrack_tuple *inv,
 static bool dccp_new(struct nf_conn *ct, const struct sk_buff *skb,
 		     unsigned int dataoff, unsigned int *timeouts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_dccp.c: line 429 \n"); 
 	struct net *net = nf_ct_net(ct);
 	struct dccp_net *dn;
 	struct dccp_hdr _dh, *dh;
@@ -464,6 +468,7 @@ out_invalid:
 
 static u64 dccp_ack_seq(const struct dccp_hdr *dh)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_dccp.c: line 471 \n"); 
 	const struct dccp_hdr_ack_bits *dhack;
 
 	dhack = (void *)dh + __dccp_basic_hdr_len(dh);
@@ -473,6 +478,7 @@ static u64 dccp_ack_seq(const struct dccp_hdr *dh)
 
 static unsigned int *dccp_get_timeouts(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_dccp.c: line 481 \n"); 
 	return dccp_pernet(net)->dccp_timeout;
 }
 
@@ -481,6 +487,7 @@ static int dccp_packet(struct nf_conn *ct, const struct sk_buff *skb,
 		       u_int8_t pf, unsigned int hooknum,
 		       unsigned int *timeouts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_dccp.c: line 490 \n"); 
 	struct net *net = nf_ct_net(ct);
 	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);
 	struct dccp_hdr _dh, *dh;
@@ -573,6 +580,7 @@ static int dccp_error(struct net *net, struct nf_conn *tmpl,
 		      enum ip_conntrack_info *ctinfo,
 		      u_int8_t pf, unsigned int hooknum)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_dccp.c: line 583 \n"); 
 	struct dccp_hdr _dh, *dh;
 	unsigned int dccp_len = skb->len - dataoff;
 	unsigned int cscov;
@@ -622,6 +630,7 @@ out_invalid:
 static void dccp_print_tuple(struct seq_file *s,
 			     const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_dccp.c: line 633 \n"); 
 	seq_printf(s, "sport=%hu dport=%hu ",
 		   ntohs(tuple->src.u.dccp.port),
 		   ntohs(tuple->dst.u.dccp.port));
@@ -629,6 +638,7 @@ static void dccp_print_tuple(struct seq_file *s,
 
 static void dccp_print_conntrack(struct seq_file *s, struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_dccp.c: line 641 \n"); 
 	seq_printf(s, "%s ", dccp_state_names[ct->proto.dccp.state]);
 }
 

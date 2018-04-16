@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	"TEE" target extension for Xtables
  *	Copyright © Sebastian Claßen, 2007
@@ -30,6 +31,7 @@ static const union nf_inet_addr tee_zero_address;
 static unsigned int
 tee_tg4(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TEE.c: line 34 \n"); 
 	const struct xt_tee_tginfo *info = par->targinfo;
 	int oif = info->priv ? info->priv->oif : 0;
 
@@ -80,6 +82,7 @@ static int tee_netdev_event(struct notifier_block *this, unsigned long event,
 
 static int tee_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TEE.c: line 85 \n"); 
 	struct xt_tee_tginfo *info = par->targinfo;
 	struct xt_tee_priv *priv;
 
@@ -117,6 +120,7 @@ static int tee_tg_check(const struct xt_tgchk_param *par)
 
 static void tee_tg_destroy(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TEE.c: line 123 \n"); 
 	struct xt_tee_tginfo *info = par->targinfo;
 
 	if (info->priv) {

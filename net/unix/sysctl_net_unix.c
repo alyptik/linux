@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NET4:	Sysctl interface to net af_unix subsystem.
  *

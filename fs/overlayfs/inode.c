@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *
  * Copyright (C) 2011 Novell Inc.

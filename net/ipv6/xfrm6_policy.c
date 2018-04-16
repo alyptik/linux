@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * xfrm6_policy.c: based on xfrm4_policy.c
  *
@@ -31,6 +32,7 @@ static struct dst_entry *xfrm6_dst_lookup(struct net *net, int tos, int oif,
 					  const xfrm_address_t *saddr,
 					  const xfrm_address_t *daddr)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 35 \n"); 
 	struct flowi6 fl6;
 	struct dst_entry *dst;
 	int err;
@@ -56,6 +58,7 @@ static struct dst_entry *xfrm6_dst_lookup(struct net *net, int tos, int oif,
 static int xfrm6_get_saddr(struct net *net, int oif,
 			   xfrm_address_t *saddr, xfrm_address_t *daddr)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 61 \n"); 
 	struct dst_entry *dst;
 	struct net_device *dev;
 
@@ -71,12 +74,14 @@ static int xfrm6_get_saddr(struct net *net, int oif,
 
 static int xfrm6_get_tos(const struct flowi *fl)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 77 \n"); 
 	return 0;
 }
 
 static int xfrm6_init_path(struct xfrm_dst *path, struct dst_entry *dst,
 			   int nfheader_len)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 84 \n"); 
 	if (dst->ops->family == AF_INET6) {
 		struct rt6_info *rt = (struct rt6_info *)dst;
 		path->path_cookie = rt6_get_cookie(rt);
@@ -90,6 +95,7 @@ static int xfrm6_init_path(struct xfrm_dst *path, struct dst_entry *dst,
 static int xfrm6_fill_dst(struct xfrm_dst *xdst, struct net_device *dev,
 			  const struct flowi *fl)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 98 \n"); 
 	struct rt6_info *rt = (struct rt6_info *)xdst->route;
 
 	xdst->u.dst.dev = dev;
@@ -118,6 +124,7 @@ static int xfrm6_fill_dst(struct xfrm_dst *xdst, struct net_device *dev,
 static inline void
 _decode_session6(struct sk_buff *skb, struct flowi *fl, int reverse)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 127 \n"); 
 	struct flowi6 *fl6 = &fl->u.ip6;
 	int onlyproto = 0;
 	const struct ipv6hdr *hdr = ipv6_hdr(skb);
@@ -218,6 +225,7 @@ _decode_session6(struct sk_buff *skb, struct flowi *fl, int reverse)
 
 static inline int xfrm6_garbage_collect(struct dst_ops *ops)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 228 \n"); 
 	struct net *net = container_of(ops, struct net, xfrm.xfrm6_dst_ops);
 
 	xfrm6_policy_afinfo.garbage_collect(net);
@@ -227,6 +235,7 @@ static inline int xfrm6_garbage_collect(struct dst_ops *ops)
 static void xfrm6_update_pmtu(struct dst_entry *dst, struct sock *sk,
 			      struct sk_buff *skb, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 238 \n"); 
 	struct xfrm_dst *xdst = (struct xfrm_dst *)dst;
 	struct dst_entry *path = xdst->route;
 
@@ -236,6 +245,7 @@ static void xfrm6_update_pmtu(struct dst_entry *dst, struct sock *sk,
 static void xfrm6_redirect(struct dst_entry *dst, struct sock *sk,
 			   struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 248 \n"); 
 	struct xfrm_dst *xdst = (struct xfrm_dst *)dst;
 	struct dst_entry *path = xdst->route;
 
@@ -244,6 +254,7 @@ static void xfrm6_redirect(struct dst_entry *dst, struct sock *sk,
 
 static void xfrm6_dst_destroy(struct dst_entry *dst)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 257 \n"); 
 	struct xfrm_dst *xdst = (struct xfrm_dst *)dst;
 
 	if (likely(xdst->u.rt6.rt6i_idev))
@@ -255,6 +266,7 @@ static void xfrm6_dst_destroy(struct dst_entry *dst)
 static void xfrm6_dst_ifdown(struct dst_entry *dst, struct net_device *dev,
 			     int unregister)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 269 \n"); 
 	struct xfrm_dst *xdst;
 
 	if (!unregister)
@@ -310,6 +322,7 @@ static int __init xfrm6_policy_init(void)
 
 static void xfrm6_policy_fini(void)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 325 \n"); 
 	xfrm_policy_unregister_afinfo(&xfrm6_policy_afinfo);
 }
 
@@ -368,11 +381,13 @@ static void __net_exit xfrm6_net_sysctl_exit(struct net *net)
 #else /* CONFIG_SYSCTL */
 static inline int xfrm6_net_sysctl_init(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 384 \n"); 
 	return 0;
 }
 
 static inline void xfrm6_net_sysctl_exit(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 390 \n"); 
 }
 #endif
 
@@ -431,6 +446,7 @@ out_policy:
 
 void xfrm6_fini(void)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_policy.c: line 449 \n"); 
 	unregister_pernet_subsys(&xfrm6_net_ops);
 	xfrm6_protocol_fini();
 	xfrm6_policy_fini();

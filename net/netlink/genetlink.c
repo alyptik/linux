@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NETLINK      Generic Netlink Family
  *
@@ -92,11 +93,13 @@ static int genl_ctrl_event(int event, struct genl_family *family,
 
 static inline unsigned int genl_family_hash(unsigned int id)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/netlink/genetlink.c: line 96 \n"); 
 	return id & GENL_FAM_TAB_MASK;
 }
 
 static inline struct list_head *genl_family_chain(unsigned int id)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/netlink/genetlink.c: line 102 \n"); 
 	return &family_ht[genl_family_hash(id)];
 }
 
@@ -297,6 +300,7 @@ static int genl_validate_assign_mc_groups(struct genl_family *family)
 
 static void genl_unregister_mc_groups(struct genl_family *family)
 {
+	panic("We reached unpopular paths in net/netlink/genetlink.c: line 303 \n"); 
 	struct net *net;
 	int i;
 
@@ -436,6 +440,7 @@ EXPORT_SYMBOL(__genl_register_family);
  */
 int genl_unregister_family(struct genl_family *family)
 {
+	panic("We reached unpopular paths in net/netlink/genetlink.c: line 443 \n"); 
 	struct genl_family *rc;
 
 	genl_lock_all();
@@ -497,6 +502,7 @@ EXPORT_SYMBOL(genlmsg_put);
 
 static int genl_lock_start(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netlink/genetlink.c: line 505 \n"); 
 	/* our ops are always const - netlink API doesn't propagate that */
 	const struct genl_ops *ops = cb->data;
 	int rc = 0;
@@ -511,6 +517,7 @@ static int genl_lock_start(struct netlink_callback *cb)
 
 static int genl_lock_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netlink/genetlink.c: line 520 \n"); 
 	/* our ops are always const - netlink API doesn't propagate that */
 	const struct genl_ops *ops = cb->data;
 	int rc;
@@ -523,6 +530,7 @@ static int genl_lock_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
 
 static int genl_lock_done(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netlink/genetlink.c: line 533 \n"); 
 	/* our ops are always const - netlink API doesn't propagate that */
 	const struct genl_ops *ops = cb->data;
 	int rc = 0;
@@ -814,6 +822,7 @@ nla_put_failure:
 
 static int ctrl_dumpfamily(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netlink/genetlink.c: line 825 \n"); 
 
 	int i, n = 0;
 	struct genl_family *rt;
@@ -994,6 +1003,7 @@ static const struct genl_multicast_group genl_ctrl_groups[] = {
 
 static int genl_bind(struct net *net, int group)
 {
+	panic("We reached unpopular paths in net/netlink/genetlink.c: line 1006 \n"); 
 	int i, err = -ENOENT;
 
 	down_read(&cb_lock);
@@ -1022,6 +1032,7 @@ static int genl_bind(struct net *net, int group)
 
 static void genl_unbind(struct net *net, int group)
 {
+	panic("We reached unpopular paths in net/netlink/genetlink.c: line 1035 \n"); 
 	int i;
 
 	down_read(&cb_lock);
@@ -1140,6 +1151,7 @@ EXPORT_SYMBOL(genlmsg_multicast_allns);
 void genl_notify(struct genl_family *family, struct sk_buff *skb,
 		 struct genl_info *info, u32 group, gfp_t flags)
 {
+	panic("We reached unpopular paths in net/netlink/genetlink.c: line 1154 \n"); 
 	struct net *net = genl_info_net(info);
 	struct sock *sk = net->genl_sock;
 	int report = 0;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/cls_flow.c		Generic flow classifier
  *
@@ -62,6 +63,7 @@ struct flow_filter {
 
 static inline u32 addr_fold(void *addr)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 66 \n"); 
 	unsigned long a = (unsigned long)addr;
 
 	return (a & 0xFFFFFFFF) ^ (BITS_PER_LONG > 32 ? a >> 32 : 0);
@@ -69,6 +71,7 @@ static inline u32 addr_fold(void *addr)
 
 static u32 flow_get_src(const struct sk_buff *skb, const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 74 \n"); 
 	__be32 src = flow_get_u32_src(flow);
 
 	if (src)
@@ -79,6 +82,7 @@ static u32 flow_get_src(const struct sk_buff *skb, const struct flow_keys *flow)
 
 static u32 flow_get_dst(const struct sk_buff *skb, const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 85 \n"); 
 	__be32 dst = flow_get_u32_dst(flow);
 
 	if (dst)
@@ -90,12 +94,14 @@ static u32 flow_get_dst(const struct sk_buff *skb, const struct flow_keys *flow)
 static u32 flow_get_proto(const struct sk_buff *skb,
 			  const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 97 \n"); 
 	return flow->basic.ip_proto;
 }
 
 static u32 flow_get_proto_src(const struct sk_buff *skb,
 			      const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 104 \n"); 
 	if (flow->ports.ports)
 		return ntohs(flow->ports.src);
 
@@ -105,6 +111,7 @@ static u32 flow_get_proto_src(const struct sk_buff *skb,
 static u32 flow_get_proto_dst(const struct sk_buff *skb,
 			      const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 114 \n"); 
 	if (flow->ports.ports)
 		return ntohs(flow->ports.dst);
 
@@ -113,21 +120,25 @@ static u32 flow_get_proto_dst(const struct sk_buff *skb,
 
 static u32 flow_get_iif(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 123 \n"); 
 	return skb->skb_iif;
 }
 
 static u32 flow_get_priority(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 129 \n"); 
 	return skb->priority;
 }
 
 static u32 flow_get_mark(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 135 \n"); 
 	return skb->mark;
 }
 
 static u32 flow_get_nfct(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 141 \n"); 
 #if IS_ENABLED(CONFIG_NF_CONNTRACK)
 	return addr_fold(skb->nfct);
 #else
@@ -155,6 +166,7 @@ static u32 flow_get_nfct(const struct sk_buff *skb)
 static u32 flow_get_nfct_src(const struct sk_buff *skb,
 			     const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 169 \n"); 
 	switch (tc_skb_protocol(skb)) {
 	case htons(ETH_P_IP):
 		return ntohl(CTTUPLE(skb, src.u3.ip));
@@ -168,6 +180,7 @@ fallback:
 static u32 flow_get_nfct_dst(const struct sk_buff *skb,
 			     const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 183 \n"); 
 	switch (tc_skb_protocol(skb)) {
 	case htons(ETH_P_IP):
 		return ntohl(CTTUPLE(skb, dst.u3.ip));
@@ -181,6 +194,7 @@ fallback:
 static u32 flow_get_nfct_proto_src(const struct sk_buff *skb,
 				   const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 197 \n"); 
 	return ntohs(CTTUPLE(skb, src.u.all));
 fallback:
 	return flow_get_proto_src(skb, flow);
@@ -189,6 +203,7 @@ fallback:
 static u32 flow_get_nfct_proto_dst(const struct sk_buff *skb,
 				   const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 206 \n"); 
 	return ntohs(CTTUPLE(skb, dst.u.all));
 fallback:
 	return flow_get_proto_dst(skb, flow);
@@ -196,6 +211,7 @@ fallback:
 
 static u32 flow_get_rtclassid(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 214 \n"); 
 #ifdef CONFIG_IP_ROUTE_CLASSID
 	if (skb_dst(skb))
 		return skb_dst(skb)->tclassid;
@@ -205,6 +221,7 @@ static u32 flow_get_rtclassid(const struct sk_buff *skb)
 
 static u32 flow_get_skuid(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 224 \n"); 
 	struct sock *sk = skb_to_full_sk(skb);
 
 	if (sk && sk->sk_socket && sk->sk_socket->file) {
@@ -217,6 +234,7 @@ static u32 flow_get_skuid(const struct sk_buff *skb)
 
 static u32 flow_get_skgid(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 237 \n"); 
 	struct sock *sk = skb_to_full_sk(skb);
 
 	if (sk && sk->sk_socket && sk->sk_socket->file) {
@@ -229,6 +247,7 @@ static u32 flow_get_skgid(const struct sk_buff *skb)
 
 static u32 flow_get_vlan_tag(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 250 \n"); 
 	u16 uninitialized_var(tag);
 
 	if (vlan_get_tag(skb, &tag) < 0)
@@ -238,11 +257,13 @@ static u32 flow_get_vlan_tag(const struct sk_buff *skb)
 
 static u32 flow_get_rxhash(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 260 \n"); 
 	return skb_get_hash(skb);
 }
 
 static u32 flow_key_get(struct sk_buff *skb, int key, struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 266 \n"); 
 	switch (key) {
 	case FLOW_KEY_SRC:
 		return flow_get_src(skb, flow);
@@ -299,6 +320,7 @@ static u32 flow_key_get(struct sk_buff *skb, int key, struct flow_keys *flow)
 static int flow_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 			 struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 323 \n"); 
 	struct flow_head *head = rcu_dereference_bh(tp->root);
 	struct flow_filter *f;
 	u32 keymask;
@@ -347,6 +369,7 @@ static int flow_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 
 static void flow_perturbation(unsigned long arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 372 \n"); 
 	struct flow_filter *f = (struct flow_filter *)arg;
 
 	get_random_bytes(&f->hashrnd, 4);
@@ -371,6 +394,7 @@ static const struct nla_policy flow_policy[TCA_FLOW_MAX + 1] = {
 
 static void flow_destroy_filter(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 397 \n"); 
 	struct flow_filter *f = container_of(head, struct flow_filter, rcu);
 
 	del_timer_sync(&f->perturb_timer);
@@ -384,6 +408,7 @@ static int flow_change(struct net *net, struct sk_buff *in_skb,
 		       u32 handle, struct nlattr **tca,
 		       unsigned long *arg, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 411 \n"); 
 	struct flow_head *head = rtnl_dereference(tp->root);
 	struct flow_filter *fold, *fnew;
 	struct nlattr *opt = tca[TCA_OPTIONS];
@@ -565,6 +590,7 @@ err1:
 
 static int flow_delete(struct tcf_proto *tp, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 593 \n"); 
 	struct flow_filter *f = (struct flow_filter *)arg;
 
 	list_del_rcu(&f->list);
@@ -574,6 +600,7 @@ static int flow_delete(struct tcf_proto *tp, unsigned long arg)
 
 static int flow_init(struct tcf_proto *tp)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 603 \n"); 
 	struct flow_head *head;
 
 	head = kzalloc(sizeof(*head), GFP_KERNEL);
@@ -586,6 +613,7 @@ static int flow_init(struct tcf_proto *tp)
 
 static bool flow_destroy(struct tcf_proto *tp, bool force)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 616 \n"); 
 	struct flow_head *head = rtnl_dereference(tp->root);
 	struct flow_filter *f, *next;
 
@@ -602,6 +630,7 @@ static bool flow_destroy(struct tcf_proto *tp, bool force)
 
 static unsigned long flow_get(struct tcf_proto *tp, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 633 \n"); 
 	struct flow_head *head = rtnl_dereference(tp->root);
 	struct flow_filter *f;
 
@@ -614,6 +643,7 @@ static unsigned long flow_get(struct tcf_proto *tp, u32 handle)
 static int flow_dump(struct net *net, struct tcf_proto *tp, unsigned long fh,
 		     struct sk_buff *skb, struct tcmsg *t)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 646 \n"); 
 	struct flow_filter *f = (struct flow_filter *)fh;
 	struct nlattr *nest;
 
@@ -674,6 +704,7 @@ nla_put_failure:
 
 static void flow_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_flow.c: line 707 \n"); 
 	struct flow_head *head = rtnl_dereference(tp->root);
 	struct flow_filter *f;
 

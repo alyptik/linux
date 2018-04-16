@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match AH parameters. */
 
 /* (C) 2001-2002 Andras Kis-Szabo <kisza@sch.bme.hu>
@@ -27,6 +28,7 @@ MODULE_AUTHOR("Andras Kis-Szabo <kisza@sch.bme.hu>");
 static inline bool
 spi_match(u_int32_t min, u_int32_t max, u_int32_t spi, bool invert)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_ah.c: line 31 \n"); 
 	bool r;
 
 	pr_debug("spi_match:%c 0x%x <= 0x%x <= 0x%x\n",
@@ -38,6 +40,7 @@ spi_match(u_int32_t min, u_int32_t max, u_int32_t spi, bool invert)
 
 static bool ah_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_ah.c: line 43 \n"); 
 	struct ip_auth_hdr _ah;
 	const struct ip_auth_hdr *ah;
 	const struct ip6t_ah *ahinfo = par->matchinfo;
@@ -89,6 +92,7 @@ static bool ah_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ah_mt6_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_ah.c: line 95 \n"); 
 	const struct ip6t_ah *ahinfo = par->matchinfo;
 
 	if (ahinfo->invflags & ~IP6T_AH_INV_MASK) {

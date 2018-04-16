@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/block_dev.c
  *
@@ -43,17 +44,20 @@ static const struct address_space_operations def_blk_aops;
 
 static inline struct bdev_inode *BDEV_I(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 47 \n"); 
 	return container_of(inode, struct bdev_inode, vfs_inode);
 }
 
 struct block_device *I_BDEV(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 53 \n"); 
 	return &BDEV_I(inode)->bdev;
 }
 EXPORT_SYMBOL(I_BDEV);
 
 void __vfs_msg(struct super_block *sb, const char *prefix, const char *fmt, ...)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 60 \n"); 
 	struct va_format vaf;
 	va_list args;
 
@@ -66,6 +70,7 @@ void __vfs_msg(struct super_block *sb, const char *prefix, const char *fmt, ...)
 
 static void bdev_write_inode(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 73 \n"); 
 	struct inode *inode = bdev->bd_inode;
 	int ret;
 
@@ -87,6 +92,7 @@ static void bdev_write_inode(struct block_device *bdev)
 /* Kill _all_ buffers and pagecache , dirty or not.. */
 void kill_bdev(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 95 \n"); 
 	struct address_space *mapping = bdev->bd_inode->i_mapping;
 
 	if (mapping->nrpages == 0 && mapping->nrexceptional == 0)
@@ -100,6 +106,7 @@ EXPORT_SYMBOL(kill_bdev);
 /* Invalidate clean unused buffers and pagecache. */
 void invalidate_bdev(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 109 \n"); 
 	struct address_space *mapping = bdev->bd_inode->i_mapping;
 
 	if (mapping->nrpages) {
@@ -116,6 +123,7 @@ EXPORT_SYMBOL(invalidate_bdev);
 
 int set_blocksize(struct block_device *bdev, int size)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 126 \n"); 
 	/* Size must be a power of two, and between 512 and PAGE_SIZE */
 	if (size > PAGE_SIZE || size < 512 || !is_power_of_2(size))
 		return -EINVAL;
@@ -138,6 +146,7 @@ EXPORT_SYMBOL(set_blocksize);
 
 int sb_set_blocksize(struct super_block *sb, int size)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 149 \n"); 
 	if (set_blocksize(sb->s_bdev, size))
 		return 0;
 	/* If we get here, we know size is power of two
@@ -151,6 +160,7 @@ EXPORT_SYMBOL(sb_set_blocksize);
 
 int sb_min_blocksize(struct super_block *sb, int size)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 163 \n"); 
 	int minsize = bdev_logical_block_size(sb->s_bdev);
 	if (size < minsize)
 		size = minsize;
@@ -163,6 +173,7 @@ static int
 blkdev_get_block(struct inode *inode, sector_t iblock,
 		struct buffer_head *bh, int create)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 176 \n"); 
 	bh->b_bdev = I_BDEV(inode);
 	bh->b_blocknr = iblock;
 	set_buffer_mapped(bh);
@@ -171,12 +182,14 @@ blkdev_get_block(struct inode *inode, sector_t iblock,
 
 static struct inode *bdev_file_inode(struct file *file)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 185 \n"); 
 	return file->f_mapping->host;
 }
 
 static ssize_t
 blkdev_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 192 \n"); 
 	struct file *file = iocb->ki_filp;
 	struct inode *inode = bdev_file_inode(file);
 
@@ -200,6 +213,7 @@ int __sync_blockdev(struct block_device *bdev, int wait)
  */
 int sync_blockdev(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 216 \n"); 
 	return __sync_blockdev(bdev, 1);
 }
 EXPORT_SYMBOL(sync_blockdev);
@@ -211,6 +225,7 @@ EXPORT_SYMBOL(sync_blockdev);
  */
 int fsync_bdev(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 228 \n"); 
 	struct super_block *sb = get_super(bdev);
 	if (sb) {
 		int res = sync_filesystem(sb);
@@ -235,6 +250,7 @@ EXPORT_SYMBOL(fsync_bdev);
  */
 struct super_block *freeze_bdev(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 253 \n"); 
 	struct super_block *sb;
 	int error = 0;
 
@@ -282,6 +298,7 @@ EXPORT_SYMBOL(freeze_bdev);
  */
 int thaw_bdev(struct block_device *bdev, struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 301 \n"); 
 	int error = -EINVAL;
 
 	mutex_lock(&bdev->bd_fsfreeze_mutex);
@@ -309,17 +326,20 @@ EXPORT_SYMBOL(thaw_bdev);
 
 static int blkdev_writepage(struct page *page, struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 329 \n"); 
 	return block_write_full_page(page, blkdev_get_block, wbc);
 }
 
 static int blkdev_readpage(struct file * file, struct page * page)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 335 \n"); 
 	return block_read_full_page(page, blkdev_get_block);
 }
 
 static int blkdev_readpages(struct file *file, struct address_space *mapping,
 			struct list_head *pages, unsigned nr_pages)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 342 \n"); 
 	return mpage_readpages(mapping, pages, nr_pages, blkdev_get_block);
 }
 
@@ -327,6 +347,7 @@ static int blkdev_write_begin(struct file *file, struct address_space *mapping,
 			loff_t pos, unsigned len, unsigned flags,
 			struct page **pagep, void **fsdata)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 350 \n"); 
 	return block_write_begin(mapping, pos, len, flags, pagep,
 				 blkdev_get_block);
 }
@@ -335,6 +356,7 @@ static int blkdev_write_end(struct file *file, struct address_space *mapping,
 			loff_t pos, unsigned len, unsigned copied,
 			struct page *page, void *fsdata)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 359 \n"); 
 	int ret;
 	ret = block_write_end(file, mapping, pos, len, copied, page, fsdata);
 
@@ -351,6 +373,7 @@ static int blkdev_write_end(struct file *file, struct address_space *mapping,
  */
 static loff_t block_llseek(struct file *file, loff_t offset, int whence)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 376 \n"); 
 	struct inode *bd_inode = bdev_file_inode(file);
 	loff_t retval;
 
@@ -362,6 +385,7 @@ static loff_t block_llseek(struct file *file, loff_t offset, int whence)
 	
 int blkdev_fsync(struct file *filp, loff_t start, loff_t end, int datasync)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 388 \n"); 
 	struct inode *bd_inode = bdev_file_inode(filp);
 	struct block_device *bdev = I_BDEV(bd_inode);
 	int error;
@@ -402,6 +426,7 @@ EXPORT_SYMBOL(blkdev_fsync);
 int bdev_read_page(struct block_device *bdev, sector_t sector,
 			struct page *page)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 429 \n"); 
 	const struct block_device_operations *ops = bdev->bd_disk->fops;
 	int result = -EOPNOTSUPP;
 
@@ -439,6 +464,7 @@ EXPORT_SYMBOL_GPL(bdev_read_page);
 int bdev_write_page(struct block_device *bdev, sector_t sector,
 			struct page *page, struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 467 \n"); 
 	int result;
 	const struct block_device_operations *ops = bdev->bd_disk->fops;
 
@@ -477,6 +503,7 @@ EXPORT_SYMBOL_GPL(bdev_write_page);
  */
 long bdev_direct_access(struct block_device *bdev, struct blk_dax_ctl *dax)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 506 \n"); 
 	sector_t sector = dax->sector;
 	long avail, size = dax->size;
 	const struct block_device_operations *ops = bdev->bd_disk->fops;
@@ -518,6 +545,7 @@ EXPORT_SYMBOL_GPL(bdev_direct_access);
  */
 int bdev_dax_supported(struct super_block *sb, int blocksize)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 548 \n"); 
 	struct blk_dax_ctl dax = {
 		.sector = 0,
 		.size = PAGE_SIZE,
@@ -557,6 +585,7 @@ EXPORT_SYMBOL_GPL(bdev_dax_supported);
  */
 bool bdev_dax_capable(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 588 \n"); 
 	struct blk_dax_ctl dax = {
 		.size = PAGE_SIZE,
 	};
@@ -592,6 +621,7 @@ static struct inode *bdev_alloc_inode(struct super_block *sb)
 
 static void bdev_i_callback(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 624 \n"); 
 	struct inode *inode = container_of(head, struct inode, i_rcu);
 	struct bdev_inode *bdi = BDEV_I(inode);
 
@@ -600,6 +630,7 @@ static void bdev_i_callback(struct rcu_head *head)
 
 static void bdev_destroy_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 633 \n"); 
 	call_rcu(&inode->i_rcu, bdev_i_callback);
 }
 
@@ -621,6 +652,7 @@ static void init_once(void *foo)
 
 static void bdev_evict_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 655 \n"); 
 	struct block_device *bdev = &BDEV_I(inode)->bdev;
 	truncate_inode_pages_final(&inode->i_data);
 	invalidate_inode_buffers(inode); /* is it needed here? */
@@ -682,16 +714,19 @@ void __init bdev_cache_init(void)
  */
 static inline unsigned long hash(dev_t dev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 717 \n"); 
 	return MAJOR(dev)+MINOR(dev);
 }
 
 static int bdev_test(struct inode *inode, void *data)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 723 \n"); 
 	return BDEV_I(inode)->bdev.bd_dev == *(dev_t *)data;
 }
 
 static int bdev_set(struct inode *inode, void *data)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 729 \n"); 
 	BDEV_I(inode)->bdev.bd_dev = *(dev_t *)data;
 	return 0;
 }
@@ -700,6 +735,7 @@ static LIST_HEAD(all_bdevs);
 
 struct block_device *bdget(dev_t dev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 738 \n"); 
 	struct block_device *bdev;
 	struct inode *inode;
 
@@ -739,6 +775,7 @@ EXPORT_SYMBOL(bdget);
  */
 struct block_device *bdgrab(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 778 \n"); 
 	ihold(bdev->bd_inode);
 	return bdev;
 }
@@ -758,6 +795,7 @@ long nr_blockdev_pages(void)
 
 void bdput(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 798 \n"); 
 	iput(bdev->bd_inode);
 }
 
@@ -765,6 +803,7 @@ EXPORT_SYMBOL(bdput);
  
 static struct block_device *bd_acquire(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 806 \n"); 
 	struct block_device *bdev;
 
 	spin_lock(&bdev_lock);
@@ -799,6 +838,7 @@ static struct block_device *bd_acquire(struct inode *inode)
 
 void bd_forget(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 841 \n"); 
 	struct block_device *bdev = NULL;
 
 	spin_lock(&bdev_lock);
@@ -829,6 +869,7 @@ void bd_forget(struct inode *inode)
 static bool bd_may_claim(struct block_device *bdev, struct block_device *whole,
 			 void *holder)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 872 \n"); 
 	if (bdev->bd_holder == holder)
 		return true;	 /* already a holder */
 	else if (bdev->bd_holder != NULL)
@@ -865,6 +906,7 @@ static bool bd_may_claim(struct block_device *bdev, struct block_device *whole,
 static int bd_prepare_to_claim(struct block_device *bdev,
 			       struct block_device *whole, void *holder)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 909 \n"); 
 retry:
 	/* if someone else claimed, fail */
 	if (!bd_may_claim(bdev, whole, holder))
@@ -913,6 +955,7 @@ retry:
 static struct block_device *bd_start_claiming(struct block_device *bdev,
 					      void *holder)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 958 \n"); 
 	struct gendisk *disk;
 	struct block_device *whole;
 	int partno, err;
@@ -1115,6 +1158,7 @@ EXPORT_SYMBOL_GPL(bd_unlink_disk_holder);
  */
 static void flush_disk(struct block_device *bdev, bool kill_dirty)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1161 \n"); 
 	if (__invalidate_device(bdev, kill_dirty)) {
 		printk(KERN_WARNING "VFS: busy inodes on changed media or "
 		       "resized disk %s\n",
@@ -1137,6 +1181,7 @@ static void flush_disk(struct block_device *bdev, bool kill_dirty)
  */
 void check_disk_size_change(struct gendisk *disk, struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1184 \n"); 
 	loff_t disk_size, bdev_size;
 
 	disk_size = (loff_t)get_capacity(disk) << 9;
@@ -1161,6 +1206,7 @@ EXPORT_SYMBOL(check_disk_size_change);
  */
 int revalidate_disk(struct gendisk *disk)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1209 \n"); 
 	struct block_device *bdev;
 	int ret = 0;
 
@@ -1190,6 +1236,7 @@ EXPORT_SYMBOL(revalidate_disk);
  */
 int check_disk_change(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1239 \n"); 
 	struct gendisk *disk = bdev->bd_disk;
 	const struct block_device_operations *bdops = disk->fops;
 	unsigned int events;
@@ -1209,6 +1256,7 @@ EXPORT_SYMBOL(check_disk_change);
 
 void bd_set_size(struct block_device *bdev, loff_t size)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1259 \n"); 
 	unsigned bsize = bdev_logical_block_size(bdev);
 
 	inode_lock(bdev->bd_inode);
@@ -1235,6 +1283,7 @@ static void __blkdev_put(struct block_device *bdev, fmode_t mode, int for_part);
 
 static int __blkdev_get(struct block_device *bdev, fmode_t mode, int for_part)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1286 \n"); 
 	struct gendisk *disk;
 	struct module *owner;
 	int ret;
@@ -1400,6 +1449,7 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode, int for_part)
  */
 int blkdev_get(struct block_device *bdev, fmode_t mode, void *holder)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1452 \n"); 
 	struct block_device *whole = NULL;
 	int res;
 
@@ -1484,6 +1534,7 @@ EXPORT_SYMBOL(blkdev_get);
 struct block_device *blkdev_get_by_path(const char *path, fmode_t mode,
 					void *holder)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1537 \n"); 
 	struct block_device *bdev;
 	int err;
 
@@ -1528,6 +1579,7 @@ EXPORT_SYMBOL(blkdev_get_by_path);
  */
 struct block_device *blkdev_get_by_dev(dev_t dev, fmode_t mode, void *holder)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1582 \n"); 
 	struct block_device *bdev;
 	int err;
 
@@ -1545,6 +1597,7 @@ EXPORT_SYMBOL(blkdev_get_by_dev);
 
 static int blkdev_open(struct inode * inode, struct file * filp)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1600 \n"); 
 	struct block_device *bdev;
 
 	/*
@@ -1573,6 +1626,7 @@ static int blkdev_open(struct inode * inode, struct file * filp)
 
 static void __blkdev_put(struct block_device *bdev, fmode_t mode, int for_part)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1629 \n"); 
 	struct gendisk *disk = bdev->bd_disk;
 	struct block_device *victim = NULL;
 
@@ -1618,6 +1672,7 @@ static void __blkdev_put(struct block_device *bdev, fmode_t mode, int for_part)
 
 void blkdev_put(struct block_device *bdev, fmode_t mode)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1675 \n"); 
 	mutex_lock(&bdev->bd_mutex);
 
 	if (mode & FMODE_EXCL) {
@@ -1666,6 +1721,7 @@ EXPORT_SYMBOL(blkdev_put);
 
 static int blkdev_close(struct inode * inode, struct file * filp)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1724 \n"); 
 	struct block_device *bdev = I_BDEV(bdev_file_inode(filp));
 	blkdev_put(bdev, filp->f_mode);
 	return 0;
@@ -1673,6 +1729,7 @@ static int blkdev_close(struct inode * inode, struct file * filp)
 
 static long block_ioctl(struct file *file, unsigned cmd, unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1732 \n"); 
 	struct block_device *bdev = I_BDEV(bdev_file_inode(file));
 	fmode_t mode = file->f_mode;
 
@@ -1697,6 +1754,7 @@ static long block_ioctl(struct file *file, unsigned cmd, unsigned long arg)
  */
 ssize_t blkdev_write_iter(struct kiocb *iocb, struct iov_iter *from)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1757 \n"); 
 	struct file *file = iocb->ki_filp;
 	struct inode *bd_inode = bdev_file_inode(file);
 	loff_t size = i_size_read(bd_inode);
@@ -1725,6 +1783,7 @@ EXPORT_SYMBOL_GPL(blkdev_write_iter);
 
 ssize_t blkdev_read_iter(struct kiocb *iocb, struct iov_iter *to)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1786 \n"); 
 	struct file *file = iocb->ki_filp;
 	struct inode *bd_inode = bdev_file_inode(file);
 	loff_t size = i_size_read(bd_inode);
@@ -1745,6 +1804,7 @@ EXPORT_SYMBOL_GPL(blkdev_read_iter);
  */
 static int blkdev_releasepage(struct page *page, gfp_t wait)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1807 \n"); 
 	struct super_block *super = BDEV_I(page->mapping->host)->bdev.bd_super;
 
 	if (super && super->s_op->bdev_try_to_free_page)
@@ -1756,6 +1816,7 @@ static int blkdev_releasepage(struct page *page, gfp_t wait)
 static int blkdev_writepages(struct address_space *mapping,
 			     struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1819 \n"); 
 	if (dax_mapping(mapping)) {
 		struct block_device *bdev = I_BDEV(mapping->host);
 
@@ -1783,6 +1844,7 @@ static const struct address_space_operations def_blk_aops = {
 static long blkdev_fallocate(struct file *file, int mode, loff_t start,
 			     loff_t len)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1847 \n"); 
 	struct block_device *bdev = I_BDEV(bdev_file_inode(file));
 	struct request_queue *q = bdev_get_queue(bdev);
 	struct address_space *mapping;
@@ -1870,6 +1932,7 @@ const struct file_operations def_blk_fops = {
 
 int ioctl_by_bdev(struct block_device *bdev, unsigned cmd, unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1935 \n"); 
 	int res;
 	mm_segment_t old_fs = get_fs();
 	set_fs(KERNEL_DS);
@@ -1890,6 +1953,7 @@ EXPORT_SYMBOL(ioctl_by_bdev);
  */
 struct block_device *lookup_bdev(const char *pathname)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1956 \n"); 
 	struct block_device *bdev;
 	struct inode *inode;
 	struct path path;
@@ -1924,6 +1988,7 @@ EXPORT_SYMBOL(lookup_bdev);
 
 int __invalidate_device(struct block_device *bdev, bool kill_dirty)
 {
+	panic("We reached unpopular paths in fs/block_dev.c: line 1991 \n"); 
 	struct super_block *sb = get_super(bdev);
 	int res = 0;
 
@@ -1945,6 +2010,7 @@ EXPORT_SYMBOL(__invalidate_device);
 
 void iterate_bdevs(void (*func)(struct block_device *, void *), void *arg)
 {
+	// [blacklist] panic("We reached unpopular paths in fs/block_dev.c: line 2013 \n"); 
 	struct inode *inode, *old_inode = NULL;
 
 	spin_lock(&blockdev_superblock->s_inode_list_lock);

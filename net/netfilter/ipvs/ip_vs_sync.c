@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS         An implementation of the IP virtual server support for the
  *              LINUX operating system.  IPVS is now implemented as a module
@@ -283,6 +284,7 @@ struct ip_vs_sync_buff {
  */
 static void ntoh_seq(struct ip_vs_seq *no, struct ip_vs_seq *ho)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 287 \n"); 
 	memset(ho, 0, sizeof(*ho));
 	ho->init_seq       = get_unaligned_be32(&no->init_seq);
 	ho->delta          = get_unaligned_be32(&no->delta);
@@ -295,6 +297,7 @@ static void ntoh_seq(struct ip_vs_seq *no, struct ip_vs_seq *ho)
  */
 static void hton_seq(struct ip_vs_seq *ho, struct ip_vs_seq *no)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 300 \n"); 
 	put_unaligned_be32(ho->init_seq, &no->init_seq);
 	put_unaligned_be32(ho->delta, &no->delta);
 	put_unaligned_be32(ho->previous_delta, &no->previous_delta);
@@ -303,6 +306,7 @@ static void hton_seq(struct ip_vs_seq *ho, struct ip_vs_seq *no)
 static inline struct ip_vs_sync_buff *
 sb_dequeue(struct netns_ipvs *ipvs, struct ipvs_master_sync_state *ms)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 309 \n"); 
 	struct ip_vs_sync_buff *sb;
 
 	spin_lock_bh(&ipvs->sync_lock);
@@ -328,6 +332,7 @@ sb_dequeue(struct netns_ipvs *ipvs, struct ipvs_master_sync_state *ms)
 static inline struct ip_vs_sync_buff *
 ip_vs_sync_buff_create(struct netns_ipvs *ipvs, unsigned int len)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 335 \n"); 
 	struct ip_vs_sync_buff *sb;
 
 	if (!(sb=kmalloc(sizeof(struct ip_vs_sync_buff), GFP_ATOMIC)))
@@ -355,6 +360,7 @@ ip_vs_sync_buff_create(struct netns_ipvs *ipvs, unsigned int len)
 
 static inline void ip_vs_sync_buff_release(struct ip_vs_sync_buff *sb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 363 \n"); 
 	kfree(sb->mesg);
 	kfree(sb);
 }
@@ -362,6 +368,7 @@ static inline void ip_vs_sync_buff_release(struct ip_vs_sync_buff *sb)
 static inline void sb_queue_tail(struct netns_ipvs *ipvs,
 				 struct ipvs_master_sync_state *ms)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 371 \n"); 
 	struct ip_vs_sync_buff *sb = ms->sync_buff;
 
 	spin_lock(&ipvs->sync_lock);
@@ -387,6 +394,7 @@ static inline struct ip_vs_sync_buff *
 get_curr_sync_buff(struct netns_ipvs *ipvs, struct ipvs_master_sync_state *ms,
 		   unsigned long time)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 397 \n"); 
 	struct ip_vs_sync_buff *sb;
 
 	spin_lock_bh(&ipvs->sync_buff_lock);
@@ -403,6 +411,7 @@ get_curr_sync_buff(struct netns_ipvs *ipvs, struct ipvs_master_sync_state *ms,
 static inline int
 select_master_thread_id(struct netns_ipvs *ipvs, struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 414 \n"); 
 	return ((long) cp >> (1 + ilog2(sizeof(*cp)))) & ipvs->threads_mask;
 }
 
@@ -412,6 +421,7 @@ select_master_thread_id(struct netns_ipvs *ipvs, struct ip_vs_conn *cp)
 static inline struct ip_vs_sync_buff *
 ip_vs_sync_buff_create_v0(struct netns_ipvs *ipvs, unsigned int len)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 424 \n"); 
 	struct ip_vs_sync_buff *sb;
 	struct ip_vs_sync_mesg_v0 *mesg;
 
@@ -438,6 +448,7 @@ ip_vs_sync_buff_create_v0(struct netns_ipvs *ipvs, unsigned int len)
 /* Check if connection is controlled by persistence */
 static inline bool in_persistence(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 451 \n"); 
 	for (cp = cp->control; cp; cp = cp->control) {
 		if (cp->flags & IP_VS_CONN_F_TEMPLATE)
 			return true;
@@ -457,6 +468,7 @@ static inline bool in_persistence(struct ip_vs_conn *cp)
 static int ip_vs_sync_conn_needed(struct netns_ipvs *ipvs,
 				  struct ip_vs_conn *cp, int pkts)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 471 \n"); 
 	unsigned long orig = ACCESS_ONCE(cp->sync_endtime);
 	unsigned long now = jiffies;
 	unsigned long n = (now + cp->timeout) & ~3UL;
@@ -537,6 +549,7 @@ set:
 static void ip_vs_sync_conn_v0(struct netns_ipvs *ipvs, struct ip_vs_conn *cp,
 			       int pkts)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 552 \n"); 
 	struct ip_vs_sync_mesg_v0 *m;
 	struct ip_vs_sync_conn_v0 *s;
 	struct ip_vs_sync_buff *buff;
@@ -626,6 +639,7 @@ static void ip_vs_sync_conn_v0(struct netns_ipvs *ipvs, struct ip_vs_conn *cp,
  */
 void ip_vs_sync_conn(struct netns_ipvs *ipvs, struct ip_vs_conn *cp, int pkts)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 642 \n"); 
 	struct ip_vs_sync_mesg *m;
 	union ip_vs_sync_conn *s;
 	struct ip_vs_sync_buff *buff;
@@ -788,6 +802,7 @@ ip_vs_conn_fill_param_sync(struct netns_ipvs *ipvs, int af, union ip_vs_sync_con
 			   __u8 *pe_data, unsigned int pe_data_len,
 			   __u8 *pe_name, unsigned int pe_name_len)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 805 \n"); 
 #ifdef CONFIG_IP_VS_IPV6
 	if (af == AF_INET6)
 		ip_vs_conn_fill_param(ipvs, af, sc->v6.protocol,
@@ -843,6 +858,7 @@ static void ip_vs_proc_conn(struct netns_ipvs *ipvs, struct ip_vs_conn_param *pa
 			    unsigned long timeout, __u32 fwmark,
 			    struct ip_vs_sync_conn_options *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 861 \n"); 
 	struct ip_vs_dest *dest;
 	struct ip_vs_conn *cp;
 
@@ -956,6 +972,7 @@ static void ip_vs_proc_conn(struct netns_ipvs *ipvs, struct ip_vs_conn_param *pa
 static void ip_vs_process_message_v0(struct netns_ipvs *ipvs, const char *buffer,
 				     const size_t buflen)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 975 \n"); 
 	struct ip_vs_sync_mesg_v0 *m = (struct ip_vs_sync_mesg_v0 *)buffer;
 	struct ip_vs_sync_conn_v0 *s;
 	struct ip_vs_sync_conn_options *opt;
@@ -1029,6 +1046,7 @@ static inline int ip_vs_proc_seqopt(__u8 *p, unsigned int plen,
 				    __u32 *opt_flags,
 				    struct ip_vs_sync_conn_options *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1049 \n"); 
 	struct ip_vs_sync_conn_options *topt;
 
 	topt = (struct ip_vs_sync_conn_options *)p;
@@ -1051,6 +1069,7 @@ static int ip_vs_proc_str(__u8 *p, unsigned int plen, unsigned int *data_len,
 			  __u8 **data, unsigned int maxlen,
 			  __u32 *opt_flags, __u32 flag)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1072 \n"); 
 	if (plen > maxlen) {
 		IP_VS_DBG(2, "BACKUP, bogus par.data len > %d\n", maxlen);
 		return -EINVAL;
@@ -1069,6 +1088,7 @@ static int ip_vs_proc_str(__u8 *p, unsigned int plen, unsigned int *data_len,
  */
 static inline int ip_vs_proc_sync_conn(struct netns_ipvs *ipvs, __u8 *p, __u8 *msg_end)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1091 \n"); 
 	struct ip_vs_sync_conn_options opt;
 	union  ip_vs_sync_conn *s;
 	struct ip_vs_protocol *pp;
@@ -1207,6 +1227,7 @@ out:
 static void ip_vs_process_message(struct netns_ipvs *ipvs, __u8 *buffer,
 				  const size_t buflen)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1230 \n"); 
 	struct ip_vs_sync_mesg *m2 = (struct ip_vs_sync_mesg *)buffer;
 	__u8 *p, *msg_end;
 	int i, nr_conns;
@@ -1278,6 +1299,7 @@ static void ip_vs_process_message(struct netns_ipvs *ipvs, __u8 *buffer,
  */
 static void set_sock_size(struct sock *sk, int mode, int val)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1302 \n"); 
 	/* setsockopt(sock, SOL_SOCKET, SO_SNDBUF, &val, sizeof(val)); */
 	/* setsockopt(sock, SOL_SOCKET, SO_RCVBUF, &val, sizeof(val)); */
 	lock_sock(sk);
@@ -1300,6 +1322,7 @@ static void set_sock_size(struct sock *sk, int mode, int val)
  */
 static void set_mcast_loop(struct sock *sk, u_char loop)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1325 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 
 	/* setsockopt(sock, SOL_IP, IP_MULTICAST_LOOP, &loop, sizeof(loop)); */
@@ -1321,6 +1344,7 @@ static void set_mcast_loop(struct sock *sk, u_char loop)
  */
 static void set_mcast_ttl(struct sock *sk, u_char ttl)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1347 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 
 	/* setsockopt(sock, SOL_IP, IP_MULTICAST_TTL, &ttl, sizeof(ttl)); */
@@ -1340,6 +1364,7 @@ static void set_mcast_ttl(struct sock *sk, u_char ttl)
 /* Control fragmentation of messages */
 static void set_mcast_pmtudisc(struct sock *sk, int val)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1367 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 
 	/* setsockopt(sock, SOL_IP, IP_MTU_DISCOVER, &val, sizeof(val)); */
@@ -1361,6 +1386,7 @@ static void set_mcast_pmtudisc(struct sock *sk, int val)
  */
 static int set_mcast_if(struct sock *sk, char *ifname)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1389 \n"); 
 	struct net_device *dev;
 	struct inet_sock *inet = inet_sk(sk);
 	struct net *net = sock_net(sk);
@@ -1397,6 +1423,7 @@ static int set_mcast_if(struct sock *sk, char *ifname)
 static int
 join_mcast_group(struct sock *sk, struct in_addr *addr, char *ifname)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1426 \n"); 
 	struct net *net = sock_net(sk);
 	struct ip_mreqn mreq;
 	struct net_device *dev;
@@ -1444,6 +1471,7 @@ static int join_mcast_group6(struct sock *sk, struct in6_addr *addr,
 
 static int bind_mcastif_addr(struct socket *sock, char *ifname)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1474 \n"); 
 	struct net *net = sock_net(sock->sk);
 	struct net_device *dev;
 	__be32 addr;
@@ -1472,6 +1500,7 @@ static int bind_mcastif_addr(struct socket *sock, char *ifname)
 static void get_mcast_sockaddr(union ipvs_sockaddr *sa, int *salen,
 			       struct ipvs_sync_daemon_cfg *c, int id)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1503 \n"); 
 	if (AF_INET6 == c->mcast_af) {
 		sa->in6 = (struct sockaddr_in6) {
 			.sin6_family = AF_INET6,
@@ -1494,6 +1523,7 @@ static void get_mcast_sockaddr(union ipvs_sockaddr *sa, int *salen,
  */
 static struct socket *make_send_sock(struct netns_ipvs *ipvs, int id)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1526 \n"); 
 	/* multicast addr */
 	union ipvs_sockaddr mcast_addr;
 	struct socket *sock;
@@ -1551,6 +1581,7 @@ error:
 static struct socket *make_receive_sock(struct netns_ipvs *ipvs, int id,
 					int ifindex)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1584 \n"); 
 	/* multicast addr */
 	union ipvs_sockaddr mcast_addr;
 	struct socket *sock;
@@ -1602,6 +1633,7 @@ error:
 static int
 ip_vs_send_async(struct socket *sock, const char *buffer, const size_t length)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1636 \n"); 
 	struct msghdr	msg = {.msg_flags = MSG_DONTWAIT|MSG_NOSIGNAL};
 	struct kvec	iov;
 	int		len;
@@ -1619,6 +1651,7 @@ ip_vs_send_async(struct socket *sock, const char *buffer, const size_t length)
 static int
 ip_vs_send_sync_msg(struct socket *sock, struct ip_vs_sync_mesg *msg)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1654 \n"); 
 	int msize;
 	int ret;
 
@@ -1634,6 +1667,7 @@ ip_vs_send_sync_msg(struct socket *sock, struct ip_vs_sync_mesg *msg)
 static int
 ip_vs_receive(struct socket *sock, char *buffer, const size_t buflen)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1670 \n"); 
 	struct msghdr		msg = {NULL,};
 	struct kvec		iov;
 	int			len;
@@ -1656,6 +1690,7 @@ ip_vs_receive(struct socket *sock, char *buffer, const size_t buflen)
 /* Wakeup the master thread for sending */
 static void master_wakeup_work_handler(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1693 \n"); 
 	struct ipvs_master_sync_state *ms =
 		container_of(work, struct ipvs_master_sync_state,
 			     master_wakeup_work.work);
@@ -1674,6 +1709,7 @@ static void master_wakeup_work_handler(struct work_struct *work)
 static inline struct ip_vs_sync_buff *
 next_sync_buff(struct netns_ipvs *ipvs, struct ipvs_master_sync_state *ms)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1712 \n"); 
 	struct ip_vs_sync_buff *sb;
 
 	sb = sb_dequeue(ipvs, ms);
@@ -1685,6 +1721,7 @@ next_sync_buff(struct netns_ipvs *ipvs, struct ipvs_master_sync_state *ms)
 
 static int sync_thread_master(void *data)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1724 \n"); 
 	struct ip_vs_sync_thread_data *tinfo = data;
 	struct netns_ipvs *ipvs = tinfo->ipvs;
 	struct ipvs_master_sync_state *ms = &ipvs->ms[tinfo->id];
@@ -1741,6 +1778,7 @@ done:
 
 static int sync_thread_backup(void *data)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1781 \n"); 
 	struct ip_vs_sync_thread_data *tinfo = data;
 	struct netns_ipvs *ipvs = tinfo->ipvs;
 	int len;
@@ -1780,6 +1818,7 @@ static int sync_thread_backup(void *data)
 int start_sync_thread(struct netns_ipvs *ipvs, struct ipvs_sync_daemon_cfg *c,
 		      int state)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sync.c: line 1821 \n"); 
 	struct ip_vs_sync_thread_data *tinfo;
 	struct task_struct **array = NULL, *task;
 	struct socket *sock;

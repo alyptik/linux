@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/em_text.c	Textsearch ematch
  *
@@ -32,6 +33,7 @@ struct text_match {
 static int em_text_match(struct sk_buff *skb, struct tcf_ematch *m,
 			 struct tcf_pkt_info *info)
 {
+	panic("We reached unpopular paths in net/sched/em_text.c: line 36 \n"); 
 	struct text_match *tm = EM_TEXT_PRIV(m);
 	int from, to;
 
@@ -47,6 +49,7 @@ static int em_text_match(struct sk_buff *skb, struct tcf_ematch *m,
 static int em_text_change(struct net *net, void *data, int len,
 			  struct tcf_ematch *m)
 {
+	panic("We reached unpopular paths in net/sched/em_text.c: line 52 \n"); 
 	struct text_match *tm;
 	struct tcf_em_text *conf = data;
 	struct ts_config *ts_conf;
@@ -101,12 +104,14 @@ retry:
 
 static void em_text_destroy(struct tcf_ematch *m)
 {
+	panic("We reached unpopular paths in net/sched/em_text.c: line 107 \n"); 
 	if (EM_TEXT_PRIV(m) && EM_TEXT_PRIV(m)->config)
 		textsearch_destroy(EM_TEXT_PRIV(m)->config);
 }
 
 static int em_text_dump(struct sk_buff *skb, struct tcf_ematch *m)
 {
+	panic("We reached unpopular paths in net/sched/em_text.c: line 114 \n"); 
 	struct text_match *tm = EM_TEXT_PRIV(m);
 	struct tcf_em_text conf;
 

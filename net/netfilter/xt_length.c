@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match packet length. */
 /* (C) 1999-2001 James Morris <jmorros@intercode.com.au>
  *
@@ -23,6 +24,7 @@ MODULE_ALIAS("ip6t_length");
 static bool
 length_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_length.c: line 27 \n"); 
 	const struct xt_length_info *info = par->matchinfo;
 	u_int16_t pktlen = ntohs(ip_hdr(skb)->tot_len);
 
@@ -32,6 +34,7 @@ length_mt(const struct sk_buff *skb, struct xt_action_param *par)
 static bool
 length_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_length.c: line 37 \n"); 
 	const struct xt_length_info *info = par->matchinfo;
 	const u_int16_t pktlen = ntohs(ipv6_hdr(skb)->payload_len) +
 				 sizeof(struct ipv6hdr);

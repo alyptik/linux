@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* IP tables module for matching IPsec policy
  *
  * Copyright (c) 2004,2005 Patrick McHardy, <kaber@trash.net>
@@ -25,6 +26,7 @@ static inline bool
 xt_addr_cmp(const union nf_inet_addr *a1, const union nf_inet_addr *m,
 	    const union nf_inet_addr *a2, unsigned short family)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_policy.c: line 29 \n"); 
 	switch (family) {
 	case NFPROTO_IPV4:
 		return ((a1->ip ^ a2->ip) & m->ip) == 0;
@@ -38,6 +40,7 @@ static bool
 match_xfrm_state(const struct xfrm_state *x, const struct xt_policy_elem *e,
 		 unsigned short family)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_policy.c: line 43 \n"); 
 #define MATCH_ADDR(x,y,z)	(!e->match.x ||			       \
 				 (xt_addr_cmp(&e->x, &e->y, (const union nf_inet_addr *)(z), family) \
 				  ^ e->invert.x))
@@ -55,6 +58,7 @@ static int
 match_policy_in(const struct sk_buff *skb, const struct xt_policy_info *info,
 		unsigned short family)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_policy.c: line 61 \n"); 
 	const struct xt_policy_elem *e;
 	const struct sec_path *sp = skb->sp;
 	int strict = info->flags & XT_POLICY_MATCH_STRICT;
@@ -85,6 +89,7 @@ static int
 match_policy_out(const struct sk_buff *skb, const struct xt_policy_info *info,
 		 unsigned short family)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_policy.c: line 92 \n"); 
 	const struct xt_policy_elem *e;
 	const struct dst_entry *dst = skb_dst(skb);
 	int strict = info->flags & XT_POLICY_MATCH_STRICT;
@@ -112,6 +117,7 @@ match_policy_out(const struct sk_buff *skb, const struct xt_policy_info *info,
 static bool
 policy_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_policy.c: line 120 \n"); 
 	const struct xt_policy_info *info = par->matchinfo;
 	int ret;
 
@@ -130,6 +136,7 @@ policy_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int policy_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_policy.c: line 139 \n"); 
 	const struct xt_policy_info *info = par->matchinfo;
 
 	if (!(info->flags & (XT_POLICY_MATCH_IN|XT_POLICY_MATCH_OUT))) {

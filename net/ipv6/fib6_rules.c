@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/ipv6/fib6_rules.c	IPv6 Routing Policy Rules
  *
@@ -190,6 +191,7 @@ static int fib6_rule_configure(struct fib_rule *rule, struct sk_buff *skb,
 			       struct fib_rule_hdr *frh,
 			       struct nlattr **tb)
 {
+	panic("We reached unpopular paths in net/ipv6/fib6_rules.c: line 194 \n"); 
 	int err = -EINVAL;
 	struct net *net = sock_net(skb->sk);
 	struct fib6_rule *rule6 = (struct fib6_rule *) rule;
@@ -222,6 +224,7 @@ errout:
 static int fib6_rule_compare(struct fib_rule *rule, struct fib_rule_hdr *frh,
 			     struct nlattr **tb)
 {
+	panic("We reached unpopular paths in net/ipv6/fib6_rules.c: line 227 \n"); 
 	struct fib6_rule *rule6 = (struct fib6_rule *) rule;
 
 	if (frh->src_len && (rule6->src.plen != frh->src_len))
@@ -247,6 +250,7 @@ static int fib6_rule_compare(struct fib_rule *rule, struct fib_rule_hdr *frh,
 static int fib6_rule_fill(struct fib_rule *rule, struct sk_buff *skb,
 			  struct fib_rule_hdr *frh)
 {
+	panic("We reached unpopular paths in net/ipv6/fib6_rules.c: line 253 \n"); 
 	struct fib6_rule *rule6 = (struct fib6_rule *) rule;
 
 	frh->dst_len = rule6->dst.plen;
@@ -266,6 +270,7 @@ nla_put_failure:
 
 static size_t fib6_rule_nlmsg_payload(struct fib_rule *rule)
 {
+	panic("We reached unpopular paths in net/ipv6/fib6_rules.c: line 273 \n"); 
 	return nla_total_size(16) /* dst */
 	       + nla_total_size(16); /* src */
 }
@@ -333,5 +338,6 @@ int __init fib6_rules_init(void)
 
 void fib6_rules_cleanup(void)
 {
+	panic("We reached unpopular paths in net/ipv6/fib6_rules.c: line 341 \n"); 
 	unregister_pernet_subsys(&fib6_rules_net_ops);
 }

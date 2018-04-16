@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* XTS: as defined in IEEE1619/D16
  *	http://grouper.ieee.org/groups/1619/email/pdf00086.pdf
  *	(sector sizes which are not a multiple of 16 bytes are,
@@ -33,6 +34,7 @@ struct priv {
 static int setkey(struct crypto_tfm *parent, const u8 *key,
 		  unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/xts.c: line 37 \n"); 
 	struct priv *ctx = crypto_tfm_ctx(parent);
 	struct crypto_cipher *child = ctx->tweak;
 	int err;
@@ -80,6 +82,7 @@ struct sinfo {
 
 static inline void xts_round(struct sinfo *s, void *dst, const void *src)
 {
+	panic("We reached unpopular paths in crypto/xts.c: line 85 \n"); 
 	be128_xor(dst, s->t, src);		/* PP <- T xor P */
 	s->fn(s->tfm, dst, dst);		/* CC <- E(Key1,PP) */
 	be128_xor(dst, dst, s->t);		/* C <- T xor CC */
@@ -90,6 +93,7 @@ static int crypt(struct blkcipher_desc *d,
 		 void (*tw)(struct crypto_tfm *, u8 *, const u8 *),
 		 void (*fn)(struct crypto_tfm *, u8 *, const u8 *))
 {
+	panic("We reached unpopular paths in crypto/xts.c: line 96 \n"); 
 	int err;
 	unsigned int avail;
 	const int bs = XTS_BLOCK_SIZE;
@@ -142,6 +146,7 @@ first:
 static int encrypt(struct blkcipher_desc *desc, struct scatterlist *dst,
 		   struct scatterlist *src, unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/xts.c: line 149 \n"); 
 	struct priv *ctx = crypto_blkcipher_ctx(desc->tfm);
 	struct blkcipher_walk w;
 
@@ -153,6 +158,7 @@ static int encrypt(struct blkcipher_desc *desc, struct scatterlist *dst,
 static int decrypt(struct blkcipher_desc *desc, struct scatterlist *dst,
 		   struct scatterlist *src, unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/xts.c: line 161 \n"); 
 	struct priv *ctx = crypto_blkcipher_ctx(desc->tfm);
 	struct blkcipher_walk w;
 
@@ -165,6 +171,7 @@ int xts_crypt(struct blkcipher_desc *desc, struct scatterlist *sdst,
 	      struct scatterlist *ssrc, unsigned int nbytes,
 	      struct xts_crypt_req *req)
 {
+	panic("We reached unpopular paths in crypto/xts.c: line 174 \n"); 
 	const unsigned int bsize = XTS_BLOCK_SIZE;
 	const unsigned int max_blks = req->tbuflen / bsize;
 	struct blkcipher_walk walk;
@@ -235,6 +242,7 @@ EXPORT_SYMBOL_GPL(xts_crypt);
 
 static int init_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/xts.c: line 245 \n"); 
 	struct crypto_cipher *cipher;
 	struct crypto_instance *inst = (void *)tfm->__crt_alg;
 	struct crypto_spawn *spawn = crypto_instance_ctx(inst);
@@ -274,6 +282,7 @@ static int init_tfm(struct crypto_tfm *tfm)
 
 static void exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/xts.c: line 285 \n"); 
 	struct priv *ctx = crypto_tfm_ctx(tfm);
 	crypto_free_cipher(ctx->child);
 	crypto_free_cipher(ctx->tweak);
@@ -281,6 +290,7 @@ static void exit_tfm(struct crypto_tfm *tfm)
 
 static struct crypto_instance *alloc(struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/xts.c: line 293 \n"); 
 	struct crypto_instance *inst;
 	struct crypto_alg *alg;
 	int err;
@@ -331,6 +341,7 @@ out_put_alg:
 
 static void free(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/xts.c: line 344 \n"); 
 	crypto_drop_spawn(crypto_instance_ctx(inst));
 	kfree(inst);
 }

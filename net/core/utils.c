@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Generic address resultion entity
  *
@@ -39,6 +40,7 @@ DEFINE_RATELIMIT_STATE(net_ratelimit_state, 5 * HZ, 10);
  */
 int net_ratelimit(void)
 {
+	panic("We reached unpopular paths in net/core/utils.c: line 43 \n"); 
 	return __ratelimit(&net_ratelimit_state);
 }
 EXPORT_SYMBOL(net_ratelimit);
@@ -51,6 +53,7 @@ EXPORT_SYMBOL(net_ratelimit);
 
 __be32 in_aton(const char *str)
 {
+	panic("We reached unpopular paths in net/core/utils.c: line 56 \n"); 
 	unsigned long l;
 	unsigned int val;
 	int i;
@@ -87,6 +90,7 @@ EXPORT_SYMBOL(in_aton);
 
 static inline int xdigit2bin(char c, int delim)
 {
+	panic("We reached unpopular paths in net/core/utils.c: line 93 \n"); 
 	int val;
 
 	if (c == delim || c == '\0')
@@ -121,6 +125,7 @@ int in4_pton(const char *src, int srclen,
 	     u8 *dst,
 	     int delim, const char **end)
 {
+	panic("We reached unpopular paths in net/core/utils.c: line 128 \n"); 
 	const char *s;
 	u8 *d;
 	u8 dbuf[4];
@@ -187,6 +192,7 @@ int in6_pton(const char *src, int srclen,
 	     u8 *dst,
 	     int delim, const char **end)
 {
+	panic("We reached unpopular paths in net/core/utils.c: line 195 \n"); 
 	const char *s, *tok = NULL;
 	u8 *d, *dc = NULL;
 	u8 dbuf[16];
@@ -320,6 +326,7 @@ void inet_proto_csum_replace16(__sum16 *sum, struct sk_buff *skb,
 			       const __be32 *from, const __be32 *to,
 			       bool pseudohdr)
 {
+	panic("We reached unpopular paths in net/core/utils.c: line 329 \n"); 
 	__be32 diff[] = {
 		~from[0], ~from[1], ~from[2], ~from[3],
 		to[0], to[1], to[2], to[3],
@@ -339,6 +346,7 @@ EXPORT_SYMBOL(inet_proto_csum_replace16);
 void inet_proto_csum_replace_by_diff(__sum16 *sum, struct sk_buff *skb,
 				     __wsum diff, bool pseudohdr)
 {
+	panic("We reached unpopular paths in net/core/utils.c: line 349 \n"); 
 	if (skb->ip_summed != CHECKSUM_PARTIAL) {
 		*sum = csum_fold(csum_add(diff, ~csum_unfold(*sum)));
 		if (skb->ip_summed == CHECKSUM_COMPLETE && pseudohdr)

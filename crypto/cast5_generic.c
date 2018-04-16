@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel cryptographic api.
 * cast5.c - Cast5 cipher algorithm (rfc2144).
 *
@@ -310,6 +311,7 @@ static const u32 sb8[256] = {
 
 void __cast5_encrypt(struct cast5_ctx *c, u8 *outbuf, const u8 *inbuf)
 {
+	panic("We reached unpopular paths in crypto/cast5_generic.c: line 314 \n"); 
 	const __be32 *src = (const __be32 *)inbuf;
 	__be32 *dst = (__be32 *)outbuf;
 	u32 l, r, t;
@@ -362,11 +364,13 @@ EXPORT_SYMBOL_GPL(__cast5_encrypt);
 
 static void cast5_encrypt(struct crypto_tfm *tfm, u8 *outbuf, const u8 *inbuf)
 {
+	panic("We reached unpopular paths in crypto/cast5_generic.c: line 367 \n"); 
 	__cast5_encrypt(crypto_tfm_ctx(tfm), outbuf, inbuf);
 }
 
 void __cast5_decrypt(struct cast5_ctx *c, u8 *outbuf, const u8 *inbuf)
 {
+	panic("We reached unpopular paths in crypto/cast5_generic.c: line 373 \n"); 
 	const __be32 *src = (const __be32 *)inbuf;
 	__be32 *dst = (__be32 *)outbuf;
 	u32 l, r, t;
@@ -406,11 +410,13 @@ EXPORT_SYMBOL_GPL(__cast5_decrypt);
 
 static void cast5_decrypt(struct crypto_tfm *tfm, u8 *outbuf, const u8 *inbuf)
 {
+	panic("We reached unpopular paths in crypto/cast5_generic.c: line 413 \n"); 
 	__cast5_decrypt(crypto_tfm_ctx(tfm), outbuf, inbuf);
 }
 
 static void key_schedule(u32 *x, u32 *z, u32 *k)
 {
+	panic("We reached unpopular paths in crypto/cast5_generic.c: line 419 \n"); 
 
 #define xi(i)   ((x[(i)/4] >> (8*(3-((i)%4)))) & 0xff)
 #define zi(i)   ((z[(i)/4] >> (8*(3-((i)%4)))) & 0xff)
@@ -486,6 +492,7 @@ static void key_schedule(u32 *x, u32 *z, u32 *k)
 
 int cast5_setkey(struct crypto_tfm *tfm, const u8 *key, unsigned int key_len)
 {
+	panic("We reached unpopular paths in crypto/cast5_generic.c: line 495 \n"); 
 	struct cast5_ctx *c = crypto_tfm_ctx(tfm);
 	int i;
 	u32 x[4];

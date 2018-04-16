@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match the bridge port in and
  * out device for IP packets coming into contact with a bridge. */
 
@@ -25,6 +26,7 @@ MODULE_ALIAS("ip6t_physdev");
 static bool
 physdev_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_physdev.c: line 29 \n"); 
 	const struct xt_physdev_info *info = par->matchinfo;
 	const struct net_device *physdev;
 	unsigned long ret;
@@ -95,6 +97,7 @@ match_outdev:
 
 static int physdev_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_physdev.c: line 100 \n"); 
 	const struct xt_physdev_info *info = par->matchinfo;
 
 	br_netfilter_enable();

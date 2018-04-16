@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/cls_cgroup.c	Control Group Classifier
  *
@@ -29,6 +30,7 @@ struct cls_cgroup_head {
 static int cls_cgroup_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 			       struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/cls_cgroup.c: line 33 \n"); 
 	struct cls_cgroup_head *head = rcu_dereference_bh(tp->root);
 	u32 classid = task_get_classid(skb);
 
@@ -45,11 +47,13 @@ static int cls_cgroup_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 
 static unsigned long cls_cgroup_get(struct tcf_proto *tp, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_cgroup.c: line 50 \n"); 
 	return 0UL;
 }
 
 static int cls_cgroup_init(struct tcf_proto *tp)
 {
+	panic("We reached unpopular paths in net/sched/cls_cgroup.c: line 56 \n"); 
 	return 0;
 }
 
@@ -59,6 +63,7 @@ static const struct nla_policy cgroup_policy[TCA_CGROUP_MAX + 1] = {
 
 static void cls_cgroup_destroy_rcu(struct rcu_head *root)
 {
+	panic("We reached unpopular paths in net/sched/cls_cgroup.c: line 66 \n"); 
 	struct cls_cgroup_head *head = container_of(root,
 						    struct cls_cgroup_head,
 						    rcu);
@@ -73,6 +78,7 @@ static int cls_cgroup_change(struct net *net, struct sk_buff *in_skb,
 			     u32 handle, struct nlattr **tca,
 			     unsigned long *arg, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_cgroup.c: line 81 \n"); 
 	struct nlattr *tb[TCA_CGROUP_MAX + 1];
 	struct cls_cgroup_head *head = rtnl_dereference(tp->root);
 	struct cls_cgroup_head *new;
@@ -133,6 +139,7 @@ errout:
 
 static bool cls_cgroup_destroy(struct tcf_proto *tp, bool force)
 {
+	panic("We reached unpopular paths in net/sched/cls_cgroup.c: line 142 \n"); 
 	struct cls_cgroup_head *head = rtnl_dereference(tp->root);
 
 	if (!force)
@@ -146,11 +153,13 @@ static bool cls_cgroup_destroy(struct tcf_proto *tp, bool force)
 
 static int cls_cgroup_delete(struct tcf_proto *tp, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_cgroup.c: line 156 \n"); 
 	return -EOPNOTSUPP;
 }
 
 static void cls_cgroup_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_cgroup.c: line 162 \n"); 
 	struct cls_cgroup_head *head = rtnl_dereference(tp->root);
 
 	if (arg->count < arg->skip)
@@ -167,6 +176,7 @@ skip:
 static int cls_cgroup_dump(struct net *net, struct tcf_proto *tp, unsigned long fh,
 			   struct sk_buff *skb, struct tcmsg *t)
 {
+	panic("We reached unpopular paths in net/sched/cls_cgroup.c: line 179 \n"); 
 	struct cls_cgroup_head *head = rtnl_dereference(tp->root);
 	struct nlattr *nest;
 

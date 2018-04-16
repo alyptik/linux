@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IPV6 GSO/GRO offload support
  *	Linux INET6 implementation
@@ -22,6 +23,7 @@
 
 static int ipv6_gso_pull_exthdrs(struct sk_buff *skb, int proto)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_offload.c: line 26 \n"); 
 	const struct net_offload *ops = NULL;
 
 	for (;;) {
@@ -58,6 +60,7 @@ static int ipv6_gso_pull_exthdrs(struct sk_buff *skb, int proto)
 static struct sk_buff *ipv6_gso_segment(struct sk_buff *skb,
 	netdev_features_t features)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_offload.c: line 63 \n"); 
 	struct sk_buff *segs = ERR_PTR(-EINVAL);
 	struct ipv6hdr *ipv6h;
 	const struct net_offload *ops;
@@ -141,6 +144,7 @@ out:
 static int ipv6_exthdrs_len(struct ipv6hdr *iph,
 			    const struct net_offload **opps)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_offload.c: line 147 \n"); 
 	struct ipv6_opt_hdr *opth = (void *)iph;
 	int len = 0, proto, optlen = sizeof(*iph);
 
@@ -164,6 +168,7 @@ static int ipv6_exthdrs_len(struct ipv6hdr *iph,
 static struct sk_buff **ipv6_gro_receive(struct sk_buff **head,
 					 struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_offload.c: line 171 \n"); 
 	const struct net_offload *ops;
 	struct sk_buff **pp = NULL;
 	struct sk_buff *p;
@@ -264,6 +269,7 @@ out:
 static struct sk_buff **sit_ip6ip6_gro_receive(struct sk_buff **head,
 					       struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_offload.c: line 272 \n"); 
 	/* Common GRO receive for SIT and IP6IP6 */
 
 	if (NAPI_GRO_CB(skb)->encap_mark) {
@@ -279,6 +285,7 @@ static struct sk_buff **sit_ip6ip6_gro_receive(struct sk_buff **head,
 static struct sk_buff **ip4ip6_gro_receive(struct sk_buff **head,
 					   struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_offload.c: line 288 \n"); 
 	/* Common GRO receive for SIT and IP6IP6 */
 
 	if (NAPI_GRO_CB(skb)->encap_mark) {
@@ -293,6 +300,7 @@ static struct sk_buff **ip4ip6_gro_receive(struct sk_buff **head,
 
 static int ipv6_gro_complete(struct sk_buff *skb, int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_offload.c: line 303 \n"); 
 	const struct net_offload *ops;
 	struct ipv6hdr *iph = (struct ipv6hdr *)(skb->data + nhoff);
 	int err = -ENOSYS;
@@ -320,6 +328,7 @@ out_unlock:
 
 static int sit_gro_complete(struct sk_buff *skb, int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_offload.c: line 331 \n"); 
 	skb->encapsulation = 1;
 	skb_shinfo(skb)->gso_type |= SKB_GSO_IPXIP4;
 	return ipv6_gro_complete(skb, nhoff);
@@ -327,6 +336,7 @@ static int sit_gro_complete(struct sk_buff *skb, int nhoff)
 
 static int ip6ip6_gro_complete(struct sk_buff *skb, int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_offload.c: line 339 \n"); 
 	skb->encapsulation = 1;
 	skb_shinfo(skb)->gso_type |= SKB_GSO_IPXIP6;
 	return ipv6_gro_complete(skb, nhoff);
@@ -334,6 +344,7 @@ static int ip6ip6_gro_complete(struct sk_buff *skb, int nhoff)
 
 static int ip4ip6_gro_complete(struct sk_buff *skb, int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_offload.c: line 347 \n"); 
 	skb->encapsulation = 1;
 	skb_shinfo(skb)->gso_type |= SKB_GSO_IPXIP6;
 	return inet_gro_complete(skb, nhoff);

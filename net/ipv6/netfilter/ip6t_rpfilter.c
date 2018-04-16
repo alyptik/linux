@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2011 Florian Westphal <fw@strlen.de>
  *
@@ -22,6 +23,7 @@ MODULE_DESCRIPTION("Xtables: IPv6 reverse path filter match");
 
 static bool rpfilter_addr_unicast(const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_rpfilter.c: line 26 \n"); 
 	int addr_type = ipv6_addr_type(addr);
 	return addr_type & IPV6_ADDR_UNICAST;
 }
@@ -29,6 +31,7 @@ static bool rpfilter_addr_unicast(const struct in6_addr *addr)
 static bool rpfilter_lookup_reverse6(struct net *net, const struct sk_buff *skb,
 				     const struct net_device *dev, u8 flags)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_rpfilter.c: line 34 \n"); 
 	struct rt6_info *rt;
 	struct ipv6hdr *iph = ipv6_hdr(skb);
 	bool ret = false;
@@ -74,12 +77,14 @@ static bool rpfilter_lookup_reverse6(struct net *net, const struct sk_buff *skb,
 
 static bool rpfilter_is_local(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_rpfilter.c: line 80 \n"); 
 	const struct rt6_info *rt = (const void *) skb_dst(skb);
 	return rt && (rt->rt6i_flags & RTF_LOCAL);
 }
 
 static bool rpfilter_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_rpfilter.c: line 87 \n"); 
 	const struct xt_rpfilter_info *info = par->matchinfo;
 	int saddrtype;
 	struct ipv6hdr *iph;
@@ -98,6 +103,7 @@ static bool rpfilter_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int rpfilter_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_rpfilter.c: line 106 \n"); 
 	const struct xt_rpfilter_info *info = par->matchinfo;
 	unsigned int options = ~XT_RPFILTER_OPTION_MASK;
 

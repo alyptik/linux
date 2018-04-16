@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/filesystems.c
  *
@@ -100,6 +101,7 @@ EXPORT_SYMBOL(register_filesystem);
  
 int unregister_filesystem(struct file_system_type * fs)
 {
+	panic("We reached unpopular paths in fs/filesystems.c: line 104 \n"); 
 	struct file_system_type ** tmp;
 
 	write_lock(&file_systems_lock);

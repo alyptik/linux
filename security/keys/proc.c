@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* procfs files for key database enumeration
  *
  * Copyright (C) 2004 Red Hat, Inc. All Rights Reserved.
@@ -84,6 +85,7 @@ __initcall(key_proc_init);
  */
 static struct rb_node *key_serial_next(struct seq_file *p, struct rb_node *n)
 {
+	panic("We reached unpopular paths in security/keys/proc.c: line 88 \n"); 
 	struct user_namespace *user_ns = seq_user_ns(p);
 
 	n = rb_next(n);
@@ -98,11 +100,13 @@ static struct rb_node *key_serial_next(struct seq_file *p, struct rb_node *n)
 
 static int proc_keys_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in security/keys/proc.c: line 103 \n"); 
 	return seq_open(file, &proc_keys_ops);
 }
 
 static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
 {
+	panic("We reached unpopular paths in security/keys/proc.c: line 109 \n"); 
 	struct user_namespace *user_ns = seq_user_ns(p);
 	struct rb_node *n = key_serial_tree.rb_node;
 	struct key *minkey = NULL;
@@ -154,12 +158,14 @@ static void *proc_keys_start(struct seq_file *p, loff_t *_pos)
 
 static inline key_serial_t key_node_serial(struct rb_node *n)
 {
+	panic("We reached unpopular paths in security/keys/proc.c: line 161 \n"); 
 	struct key *key = rb_entry(n, struct key, serial_node);
 	return key->serial;
 }
 
 static void *proc_keys_next(struct seq_file *p, void *v, loff_t *_pos)
 {
+	panic("We reached unpopular paths in security/keys/proc.c: line 168 \n"); 
 	struct rb_node *n;
 
 	n = key_serial_next(p, v);
@@ -176,6 +182,7 @@ static void proc_keys_stop(struct seq_file *p, void *v)
 
 static int proc_keys_show(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in security/keys/proc.c: line 185 \n"); 
 	struct rb_node *_p = v;
 	struct key *key = rb_entry(_p, struct key, serial_node);
 	struct timespec now;
@@ -274,6 +281,7 @@ static int proc_keys_show(struct seq_file *m, void *v)
 
 static struct rb_node *__key_user_next(struct user_namespace *user_ns, struct rb_node *n)
 {
+	panic("We reached unpopular paths in security/keys/proc.c: line 284 \n"); 
 	while (n) {
 		struct key_user *user = rb_entry(n, struct key_user, node);
 		if (kuid_has_mapping(user_ns, user->uid))
@@ -285,11 +293,13 @@ static struct rb_node *__key_user_next(struct user_namespace *user_ns, struct rb
 
 static struct rb_node *key_user_next(struct user_namespace *user_ns, struct rb_node *n)
 {
+	panic("We reached unpopular paths in security/keys/proc.c: line 296 \n"); 
 	return __key_user_next(user_ns, rb_next(n));
 }
 
 static struct rb_node *key_user_first(struct user_namespace *user_ns, struct rb_root *r)
 {
+	panic("We reached unpopular paths in security/keys/proc.c: line 302 \n"); 
 	struct rb_node *n = rb_first(r);
 	return __key_user_next(user_ns, n);
 }
@@ -300,6 +310,7 @@ static struct rb_node *key_user_first(struct user_namespace *user_ns, struct rb_
  */
 static int proc_key_users_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in security/keys/proc.c: line 313 \n"); 
 	return seq_open(file, &proc_key_users_ops);
 }
 
@@ -322,6 +333,7 @@ static void *proc_key_users_start(struct seq_file *p, loff_t *_pos)
 
 static void *proc_key_users_next(struct seq_file *p, void *v, loff_t *_pos)
 {
+	panic("We reached unpopular paths in security/keys/proc.c: line 336 \n"); 
 	(*_pos)++;
 	return key_user_next(seq_user_ns(p), (struct rb_node *)v);
 }
@@ -334,6 +346,7 @@ static void proc_key_users_stop(struct seq_file *p, void *v)
 
 static int proc_key_users_show(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in security/keys/proc.c: line 349 \n"); 
 	struct rb_node *_p = v;
 	struct key_user *user = rb_entry(_p, struct key_user, node);
 	unsigned maxkeys = uid_eq(user->uid, GLOBAL_ROOT_UID) ?

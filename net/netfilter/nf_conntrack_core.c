@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Connection state tracking for netfilter.  This is separated from,
    but required by, the NAT layer; it can also be used by an iptables
    extension. */
@@ -152,6 +153,7 @@ static bool nf_conntrack_double_lock(struct net *net, unsigned int h1,
 
 static void nf_conntrack_all_lock(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 156 \n"); 
 	int i;
 
 	spin_lock(&nf_conntrack_locks_all_lock);
@@ -171,6 +173,7 @@ static void nf_conntrack_all_lock(void)
 
 static void nf_conntrack_all_unlock(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 176 \n"); 
 	/* All prior stores must be complete before we clear
 	 * 'nf_conntrack_locks_all'. Otherwise nf_conntrack_lock()
 	 * might observe the false value but not the entire
@@ -213,6 +216,7 @@ static u32 hash_conntrack_raw(const struct nf_conntrack_tuple *tuple,
 
 static u32 scale_hash(u32 hash)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 219 \n"); 
 	return reciprocal_scale(hash, nf_conntrack_htable_size);
 }
 
@@ -257,6 +261,7 @@ bool nf_ct_get_tuplepr(const struct sk_buff *skb, unsigned int nhoff,
 		       u_int16_t l3num,
 		       struct net *net, struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 264 \n"); 
 	struct nf_conntrack_l3proto *l3proto;
 	struct nf_conntrack_l4proto *l4proto;
 	unsigned int protoff;
@@ -583,6 +588,7 @@ struct nf_conntrack_tuple_hash *
 nf_conntrack_find_get(struct net *net, const struct nf_conntrack_zone *zone,
 		      const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 591 \n"); 
 	return __nf_conntrack_find_get(net, zone, tuple,
 				       hash_conntrack_raw(tuple, net));
 }
@@ -601,6 +607,7 @@ static void __nf_conntrack_hash_insert(struct nf_conn *ct,
 int
 nf_conntrack_hash_check_insert(struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 610 \n"); 
 	const struct nf_conntrack_zone *zone;
 	struct net *net = nf_ct_net(ct);
 	unsigned int hash, reply_hash;
@@ -665,6 +672,7 @@ static inline void nf_ct_acct_update(struct nf_conn *ct,
 static void nf_ct_acct_merge(struct nf_conn *ct, enum ip_conntrack_info ctinfo,
 			     const struct nf_conn *loser_ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 675 \n"); 
 	struct nf_conn_acct *acct;
 
 	acct = nf_conn_acct_find(loser_ct);
@@ -683,6 +691,7 @@ static int nf_ct_resolve_clash(struct net *net, struct sk_buff *skb,
 			       enum ip_conntrack_info ctinfo,
 			       struct nf_conntrack_tuple_hash *h)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 694 \n"); 
 	/* This is the conntrack entry already in hashes that won race. */
 	struct nf_conn *ct = nf_ct_tuplehash_to_ctrack(h);
 	struct nf_conntrack_l4proto *l4proto;
@@ -879,6 +888,7 @@ EXPORT_SYMBOL_GPL(nf_conntrack_tuple_taken);
 static unsigned int early_drop_list(struct net *net,
 				    struct hlist_nulls_head *head)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 891 \n"); 
 	struct nf_conntrack_tuple_hash *h;
 	struct hlist_nulls_node *n;
 	unsigned int drops = 0;
@@ -1092,6 +1102,7 @@ struct nf_conn *nf_conntrack_alloc(struct net *net,
 				   const struct nf_conntrack_tuple *repl,
 				   gfp_t gfp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 1105 \n"); 
 	return __nf_conntrack_alloc(net, zone, orig, repl, gfp, 0);
 }
 EXPORT_SYMBOL_GPL(nf_conntrack_alloc);
@@ -1461,6 +1472,7 @@ bool nf_ct_kill_acct(struct nf_conn *ct,
 		     enum ip_conntrack_info ctinfo,
 		     const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 1475 \n"); 
 	nf_ct_acct_update(ct, ctinfo, skb->len);
 
 	return nf_ct_delete(ct, 0, 0);
@@ -1518,6 +1530,7 @@ EXPORT_SYMBOL_GPL(nf_ct_port_nlattr_tuple_size);
 /* Used by ipt_REJECT and ip6t_REJECT. */
 static void nf_conntrack_attach(struct sk_buff *nskb, const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 1533 \n"); 
 	struct nf_conn *ct;
 	enum ip_conntrack_info ctinfo;
 
@@ -1608,11 +1621,13 @@ EXPORT_SYMBOL_GPL(nf_ct_iterate_cleanup);
 
 static int kill_all(struct nf_conn *i, void *data)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 1624 \n"); 
 	return 1;
 }
 
 void nf_ct_free_hashtable(void *hash, unsigned int size)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 1630 \n"); 
 	if (is_vmalloc_addr(hash))
 		vfree(hash);
 	else
@@ -1623,6 +1638,7 @@ EXPORT_SYMBOL_GPL(nf_ct_free_hashtable);
 
 static int untrack_refs(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 1641 \n"); 
 	int cnt = 0, cpu;
 
 	for_each_possible_cpu(cpu) {
@@ -1635,12 +1651,14 @@ static int untrack_refs(void)
 
 void nf_conntrack_cleanup_start(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 1654 \n"); 
 	conntrack_gc_work.exiting = true;
 	RCU_INIT_POINTER(ip_ct_attach, NULL);
 }
 
 void nf_conntrack_cleanup_end(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 1661 \n"); 
 	RCU_INIT_POINTER(nf_ct_destroy, NULL);
 	while (untrack_refs() > 0)
 		schedule();
@@ -1667,6 +1685,7 @@ void nf_conntrack_cleanup_end(void)
  */
 void nf_conntrack_cleanup_net(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 1688 \n"); 
 	LIST_HEAD(single);
 
 	list_add(&net->exit_list, &single);
@@ -1739,6 +1758,7 @@ EXPORT_SYMBOL_GPL(nf_ct_alloc_hashtable);
 
 int nf_conntrack_hash_resize(unsigned int hashsize)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 1761 \n"); 
 	int i, bucket;
 	unsigned int old_size;
 	struct hlist_nulls_head *hash, *old_hash;
@@ -1796,6 +1816,7 @@ int nf_conntrack_hash_resize(unsigned int hashsize)
 
 int nf_conntrack_set_hashsize(const char *val, struct kernel_param *kp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_core.c: line 1819 \n"); 
 	unsigned int hashsize;
 	int rc;
 

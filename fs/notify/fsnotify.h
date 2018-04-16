@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #ifndef __FS_NOTIFY_FSNOTIFY_H_
 #define __FS_NOTIFY_FSNOTIFY_H_
 

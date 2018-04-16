@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2000-2003 Silicon Graphics, Inc.
  * All Rights Reserved.
@@ -73,6 +74,7 @@ void
 xfs_qm_dqdestroy(
 	xfs_dquot_t	*dqp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 77 \n"); 
 	ASSERT(list_empty(&dqp->q_lru));
 
 	kmem_free(dqp->q_logitem.qli_item.li_lv_shadow);
@@ -92,6 +94,7 @@ xfs_qm_adjust_dqlimits(
 	struct xfs_mount	*mp,
 	struct xfs_dquot	*dq)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 97 \n"); 
 	struct xfs_quotainfo	*q = mp->m_quotainfo;
 	struct xfs_disk_dquot	*d = &dq->q_core;
 	struct xfs_def_quota	*defq;
@@ -139,6 +142,7 @@ xfs_qm_adjust_dqtimers(
 	xfs_mount_t		*mp,
 	xfs_disk_dquot_t	*d)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 145 \n"); 
 	ASSERT(d->d_id);
 
 #ifdef DEBUG
@@ -234,6 +238,7 @@ xfs_qm_init_dquot_blk(
 	uint		type,
 	xfs_buf_t	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 241 \n"); 
 	struct xfs_quotainfo	*q = mp->m_quotainfo;
 	xfs_dqblk_t	*d;
 	xfs_dqid_t	curid;
@@ -276,6 +281,7 @@ xfs_qm_init_dquot_blk(
 void
 xfs_dquot_set_prealloc_limits(struct xfs_dquot *dqp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 284 \n"); 
 	__uint64_t space;
 
 	dqp->q_prealloc_hi_wmark = be64_to_cpu(dqp->q_core.d_blk_hardlimit);
@@ -307,6 +313,7 @@ xfs_qm_dqalloc(
 	xfs_fileoff_t	offset_fsb,
 	xfs_buf_t	**O_bpp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 316 \n"); 
 	xfs_fsblock_t	firstblock;
 	struct xfs_defer_ops dfops;
 	xfs_bmbt_irec_t map;
@@ -414,6 +421,7 @@ xfs_qm_dqrepair(
 	xfs_dqid_t		firstid,
 	struct xfs_buf		**bpp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 424 \n"); 
 	int			error;
 	struct xfs_disk_dquot	*ddq;
 	struct xfs_dqblk	*d;
@@ -465,6 +473,7 @@ xfs_qm_dqtobp(
 	xfs_buf_t		**O_bpp,
 	uint			flags)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 476 \n"); 
 	struct xfs_bmbt_irec	map;
 	int			nmaps = 1, error;
 	struct xfs_buf		*bp;
@@ -569,6 +578,7 @@ xfs_qm_dqread(
 	uint			flags,
 	struct xfs_dquot	**O_dqpp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 581 \n"); 
 	struct xfs_dquot	*dqp;
 	struct xfs_disk_dquot	*ddqp;
 	struct xfs_buf		*bp;
@@ -700,6 +710,7 @@ xfs_dq_get_next_id(
 	xfs_dqid_t		*id,
 	loff_t			eof)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 713 \n"); 
 	struct xfs_inode	*quotip;
 	xfs_fsblock_t		start;
 	loff_t			offset;
@@ -759,6 +770,7 @@ xfs_qm_dqget(
 	uint		flags,	  /* DQALLOC, DQSUSER, DQREPAIR, DOWARN */
 	xfs_dquot_t	**O_dqpp) /* OUT : locked incore dquot */
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 773 \n"); 
 	struct xfs_quotainfo	*qi = mp->m_quotainfo;
 	struct radix_tree_root *tree = xfs_dquot_tree(qi, type);
 	struct xfs_dquot	*dqp;
@@ -941,6 +953,7 @@ void
 xfs_qm_dqput(
 	struct xfs_dquot	*dqp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 956 \n"); 
 	ASSERT(dqp->q_nrefs > 0);
 	ASSERT(XFS_DQ_IS_LOCKED(dqp));
 
@@ -964,6 +977,7 @@ void
 xfs_qm_dqrele(
 	xfs_dquot_t	*dqp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 980 \n"); 
 	if (!dqp)
 		return;
 
@@ -991,6 +1005,7 @@ xfs_qm_dqflush_done(
 	struct xfs_buf		*bp,
 	struct xfs_log_item	*lip)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 1008 \n"); 
 	xfs_dq_logitem_t	*qip = (struct xfs_dq_logitem *)lip;
 	xfs_dquot_t		*dqp = qip->qli_dquot;
 	struct xfs_ail		*ailp = lip->li_ailp;
@@ -1041,6 +1056,7 @@ xfs_qm_dqflush(
 	struct xfs_dquot	*dqp,
 	struct xfs_buf		**bpp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 1059 \n"); 
 	struct xfs_mount	*mp = dqp->q_mount;
 	struct xfs_buf		*bp;
 	struct xfs_disk_dquot	*ddqp;
@@ -1163,6 +1179,7 @@ xfs_dqlock2(
 	xfs_dquot_t	*d1,
 	xfs_dquot_t	*d2)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 1182 \n"); 
 	if (d1 && d2) {
 		ASSERT(d1 != d2);
 		if (be32_to_cpu(d1->q_core.d_id) >
@@ -1204,6 +1221,7 @@ out:
 void
 xfs_qm_exit(void)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_dquot.c: line 1224 \n"); 
 	kmem_zone_destroy(xfs_qm_dqtrxzone);
 	kmem_zone_destroy(xfs_qm_dqzone);
 }

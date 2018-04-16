@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * AEAD: Authenticated Encryption with Associated Data
  *
@@ -31,6 +32,7 @@
 static int setkey_unaligned(struct crypto_aead *tfm, const u8 *key,
 			    unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 35 \n"); 
 	unsigned long alignmask = crypto_aead_alignmask(tfm);
 	int ret;
 	u8 *buffer, *alignbuffer;
@@ -52,6 +54,7 @@ static int setkey_unaligned(struct crypto_aead *tfm, const u8 *key,
 int crypto_aead_setkey(struct crypto_aead *tfm,
 		       const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 57 \n"); 
 	unsigned long alignmask = crypto_aead_alignmask(tfm);
 
 	if ((unsigned long)key & alignmask)
@@ -81,6 +84,7 @@ EXPORT_SYMBOL_GPL(crypto_aead_setauthsize);
 
 static void crypto_aead_exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 87 \n"); 
 	struct crypto_aead *aead = __crypto_aead_cast(tfm);
 	struct aead_alg *alg = crypto_aead_alg(aead);
 
@@ -127,6 +131,7 @@ nla_put_failure:
 #else
 static int crypto_aead_report(struct sk_buff *skb, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 134 \n"); 
 	return -ENOSYS;
 }
 #endif
@@ -135,6 +140,7 @@ static void crypto_aead_show(struct seq_file *m, struct crypto_alg *alg)
 	__attribute__ ((unused));
 static void crypto_aead_show(struct seq_file *m, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 143 \n"); 
 	struct aead_alg *aead = container_of(alg, struct aead_alg, base);
 
 	seq_printf(m, "type         : aead\n");
@@ -148,6 +154,7 @@ static void crypto_aead_show(struct seq_file *m, struct crypto_alg *alg)
 
 static void crypto_aead_free_instance(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 157 \n"); 
 	struct aead_instance *aead = aead_instance(inst);
 
 	if (!aead->free) {
@@ -175,6 +182,7 @@ static const struct crypto_type crypto_aead_type = {
 static int aead_geniv_setkey(struct crypto_aead *tfm,
 			     const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 185 \n"); 
 	struct aead_geniv_ctx *ctx = crypto_aead_ctx(tfm);
 
 	return crypto_aead_setkey(ctx->child, key, keylen);
@@ -183,6 +191,7 @@ static int aead_geniv_setkey(struct crypto_aead *tfm,
 static int aead_geniv_setauthsize(struct crypto_aead *tfm,
 				  unsigned int authsize)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 194 \n"); 
 	struct aead_geniv_ctx *ctx = crypto_aead_ctx(tfm);
 
 	return crypto_aead_setauthsize(ctx->child, authsize);
@@ -191,6 +200,7 @@ static int aead_geniv_setauthsize(struct crypto_aead *tfm,
 struct aead_instance *aead_geniv_alloc(struct crypto_template *tmpl,
 				       struct rtattr **tb, u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 203 \n"); 
 	const char *name;
 	struct crypto_aead_spawn *spawn;
 	struct crypto_attr_type *algt;
@@ -270,6 +280,7 @@ EXPORT_SYMBOL_GPL(aead_geniv_alloc);
 
 void aead_geniv_free(struct aead_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 283 \n"); 
 	crypto_drop_aead(aead_instance_ctx(inst));
 	kfree(inst);
 }
@@ -277,6 +288,7 @@ EXPORT_SYMBOL_GPL(aead_geniv_free);
 
 int aead_init_geniv(struct crypto_aead *aead)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 291 \n"); 
 	struct aead_geniv_ctx *ctx = crypto_aead_ctx(aead);
 	struct aead_instance *inst = aead_alg_instance(aead);
 	struct crypto_aead *child;
@@ -321,6 +333,7 @@ EXPORT_SYMBOL_GPL(aead_init_geniv);
 
 void aead_exit_geniv(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 336 \n"); 
 	struct aead_geniv_ctx *ctx = crypto_aead_ctx(tfm);
 
 	crypto_free_aead(ctx->child);
@@ -331,6 +344,7 @@ EXPORT_SYMBOL_GPL(aead_exit_geniv);
 int crypto_grab_aead(struct crypto_aead_spawn *spawn, const char *name,
 		     u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 347 \n"); 
 	spawn->base.frontend = &crypto_aead_type;
 	return crypto_grab_spawn(&spawn->base, name, type, mask);
 }
@@ -362,6 +376,7 @@ static int aead_prepare_alg(struct aead_alg *alg)
 
 int crypto_register_aead(struct aead_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 379 \n"); 
 	struct crypto_alg *base = &alg->base;
 	int err;
 
@@ -375,12 +390,14 @@ EXPORT_SYMBOL_GPL(crypto_register_aead);
 
 void crypto_unregister_aead(struct aead_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 393 \n"); 
 	crypto_unregister_alg(&alg->base);
 }
 EXPORT_SYMBOL_GPL(crypto_unregister_aead);
 
 int crypto_register_aeads(struct aead_alg *algs, int count)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 400 \n"); 
 	int i, ret;
 
 	for (i = 0; i < count; i++) {
@@ -401,6 +418,7 @@ EXPORT_SYMBOL_GPL(crypto_register_aeads);
 
 void crypto_unregister_aeads(struct aead_alg *algs, int count)
 {
+	panic("We reached unpopular paths in crypto/aead.c: line 421 \n"); 
 	int i;
 
 	for (i = count - 1; i >= 0; --i)

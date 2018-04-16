@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* FS-Cache statistics viewing interface
  *
  * Copyright (C) 2007 Red Hat, Inc. All Rights Reserved.
@@ -68,6 +69,7 @@ error_dir:
  */
 void fscache_proc_cleanup(void)
 {
+	panic("We reached unpopular paths in fs/fscache/proc.c: line 72 \n"); 
 #ifdef CONFIG_FSCACHE_OBJECT_LIST
 	remove_proc_entry("fs/fscache/objects", NULL);
 #endif

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/act_ipt.c		iptables target interface
  *
@@ -39,6 +40,7 @@ static struct tc_action_ops act_xt_ops;
 static int ipt_init_target(struct xt_entry_target *t, char *table,
 			   unsigned int hook)
 {
+	panic("We reached unpopular paths in net/sched/act_ipt.c: line 43 \n"); 
 	struct xt_tgchk_param par;
 	struct xt_target *target;
 	struct ipt_entry e = {};
@@ -68,6 +70,7 @@ static int ipt_init_target(struct xt_entry_target *t, char *table,
 
 static void ipt_destroy_target(struct xt_entry_target *t)
 {
+	panic("We reached unpopular paths in net/sched/act_ipt.c: line 73 \n"); 
 	struct xt_tgdtor_param par = {
 		.target   = t->u.kernel.target,
 		.targinfo = t->data,
@@ -80,6 +83,7 @@ static void ipt_destroy_target(struct xt_entry_target *t)
 
 static void tcf_ipt_release(struct tc_action *a, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_ipt.c: line 86 \n"); 
 	struct tcf_ipt *ipt = to_ipt(a);
 	ipt_destroy_target(ipt->tcfi_t);
 	kfree(ipt->tcfi_tname);
@@ -97,6 +101,7 @@ static int __tcf_ipt_init(struct tc_action_net *tn, struct nlattr *nla,
 			  struct nlattr *est, struct tc_action **a,
 			  const struct tc_action_ops *ops, int ovr, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_ipt.c: line 104 \n"); 
 	struct nlattr *tb[TCA_IPT_MAX + 1];
 	struct tcf_ipt *ipt;
 	struct xt_entry_target *td, *t;
@@ -195,6 +200,7 @@ static int tcf_ipt_init(struct net *net, struct nlattr *nla,
 			struct nlattr *est, struct tc_action **a, int ovr,
 			int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_ipt.c: line 203 \n"); 
 	struct tc_action_net *tn = net_generic(net, ipt_net_id);
 
 	return __tcf_ipt_init(tn, nla, est, a, &act_ipt_ops, ovr, bind);
@@ -204,6 +210,7 @@ static int tcf_xt_init(struct net *net, struct nlattr *nla,
 		       struct nlattr *est, struct tc_action **a, int ovr,
 		       int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_ipt.c: line 213 \n"); 
 	struct tc_action_net *tn = net_generic(net, xt_net_id);
 
 	return __tcf_ipt_init(tn, nla, est, a, &act_xt_ops, ovr, bind);
@@ -212,6 +219,7 @@ static int tcf_xt_init(struct net *net, struct nlattr *nla,
 static int tcf_ipt(struct sk_buff *skb, const struct tc_action *a,
 		   struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/act_ipt.c: line 222 \n"); 
 	int ret = 0, result = 0;
 	struct tcf_ipt *ipt = to_ipt(a);
 	struct xt_action_param par;
@@ -262,6 +270,7 @@ static int tcf_ipt(struct sk_buff *skb, const struct tc_action *a,
 static int tcf_ipt_dump(struct sk_buff *skb, struct tc_action *a, int bind,
 			int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_ipt.c: line 273 \n"); 
 	unsigned char *b = skb_tail_pointer(skb);
 	struct tcf_ipt *ipt = to_ipt(a);
 	struct xt_entry_target *t;
@@ -305,6 +314,7 @@ static int tcf_ipt_walker(struct net *net, struct sk_buff *skb,
 			  struct netlink_callback *cb, int type,
 			  const struct tc_action_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_ipt.c: line 317 \n"); 
 	struct tc_action_net *tn = net_generic(net, ipt_net_id);
 
 	return tcf_generic_walker(tn, skb, cb, type, ops);
@@ -312,6 +322,7 @@ static int tcf_ipt_walker(struct net *net, struct sk_buff *skb,
 
 static int tcf_ipt_search(struct net *net, struct tc_action **a, u32 index)
 {
+	panic("We reached unpopular paths in net/sched/act_ipt.c: line 325 \n"); 
 	struct tc_action_net *tn = net_generic(net, ipt_net_id);
 
 	return tcf_hash_search(tn, a, index);
@@ -355,6 +366,7 @@ static int tcf_xt_walker(struct net *net, struct sk_buff *skb,
 			 struct netlink_callback *cb, int type,
 			 const struct tc_action_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_ipt.c: line 369 \n"); 
 	struct tc_action_net *tn = net_generic(net, xt_net_id);
 
 	return tcf_generic_walker(tn, skb, cb, type, ops);
@@ -362,6 +374,7 @@ static int tcf_xt_walker(struct net *net, struct sk_buff *skb,
 
 static int tcf_xt_search(struct net *net, struct tc_action **a, u32 index)
 {
+	panic("We reached unpopular paths in net/sched/act_ipt.c: line 377 \n"); 
 	struct tc_action_net *tn = net_generic(net, xt_net_id);
 
 	return tcf_hash_search(tn, a, index);

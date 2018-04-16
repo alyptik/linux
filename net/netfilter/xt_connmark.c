@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	xt_connmark - Netfilter module to operate on connection marks
  *
@@ -38,6 +39,7 @@ MODULE_ALIAS("ip6t_connmark");
 static unsigned int
 connmark_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connmark.c: line 42 \n"); 
 	const struct xt_connmark_tginfo1 *info = par->targinfo;
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct;
@@ -75,6 +77,7 @@ connmark_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int connmark_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connmark.c: line 80 \n"); 
 	int ret;
 
 	ret = nf_ct_l3proto_try_module_get(par->family);
@@ -86,12 +89,14 @@ static int connmark_tg_check(const struct xt_tgchk_param *par)
 
 static void connmark_tg_destroy(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connmark.c: line 92 \n"); 
 	nf_ct_l3proto_module_put(par->family);
 }
 
 static bool
 connmark_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connmark.c: line 99 \n"); 
 	const struct xt_connmark_mtinfo1 *info = par->matchinfo;
 	enum ip_conntrack_info ctinfo;
 	const struct nf_conn *ct;
@@ -105,6 +110,7 @@ connmark_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int connmark_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connmark.c: line 113 \n"); 
 	int ret;
 
 	ret = nf_ct_l3proto_try_module_get(par->family);
@@ -116,6 +122,7 @@ static int connmark_mt_check(const struct xt_mtchk_param *par)
 
 static void connmark_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connmark.c: line 125 \n"); 
 	nf_ct_l3proto_module_put(par->family);
 }
 

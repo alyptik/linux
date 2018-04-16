@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * ioctl32.c: Conversion between 32bit and 64bit native ioctls.
  *
@@ -127,6 +128,7 @@
 
 static int do_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/compat_ioctl.c: line 131 \n"); 
 	int err;
 
 	err = security_file_ioctl(file, cmd, arg);
@@ -1449,6 +1451,7 @@ IGNORE_IOCTL(FBIOGCURSOR32)
 static long do_ioctl_trans(unsigned int cmd,
 		 unsigned long arg, struct file *file)
 {
+	panic("We reached unpopular paths in fs/compat_ioctl.c: line 1454 \n"); 
 	void __user *argp = compat_ptr(arg);
 
 	switch (cmd) {
@@ -1526,6 +1529,7 @@ static long do_ioctl_trans(unsigned int cmd,
 
 static int compat_ioctl_check_table(unsigned int xcmd)
 {
+	panic("We reached unpopular paths in fs/compat_ioctl.c: line 1532 \n"); 
 	int i;
 	const int max = ARRAY_SIZE(ioctl_pointer) - 1;
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -52,6 +53,7 @@
 
 static void ip_cmsg_recv_pktinfo(struct msghdr *msg, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 56 \n"); 
 	struct in_pktinfo info = *PKTINFO_SKB_CB(skb);
 
 	info.ipi_addr.s_addr = ip_hdr(skb)->daddr;
@@ -61,17 +63,20 @@ static void ip_cmsg_recv_pktinfo(struct msghdr *msg, struct sk_buff *skb)
 
 static void ip_cmsg_recv_ttl(struct msghdr *msg, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 66 \n"); 
 	int ttl = ip_hdr(skb)->ttl;
 	put_cmsg(msg, SOL_IP, IP_TTL, sizeof(int), &ttl);
 }
 
 static void ip_cmsg_recv_tos(struct msghdr *msg, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 73 \n"); 
 	put_cmsg(msg, SOL_IP, IP_TOS, 1, &ip_hdr(skb)->tos);
 }
 
 static void ip_cmsg_recv_opts(struct msghdr *msg, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 79 \n"); 
 	if (IPCB(skb)->opt.optlen == 0)
 		return;
 
@@ -82,6 +87,7 @@ static void ip_cmsg_recv_opts(struct msghdr *msg, struct sk_buff *skb)
 
 static void ip_cmsg_recv_retopts(struct msghdr *msg, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 90 \n"); 
 	unsigned char optbuf[sizeof(struct ip_options) + 40];
 	struct ip_options *opt = (struct ip_options *)optbuf;
 
@@ -100,6 +106,7 @@ static void ip_cmsg_recv_retopts(struct msghdr *msg, struct sk_buff *skb)
 static void ip_cmsg_recv_checksum(struct msghdr *msg, struct sk_buff *skb,
 				  int tlen, int offset)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 109 \n"); 
 	__wsum csum = skb->csum;
 
 	if (skb->ip_summed != CHECKSUM_COMPLETE)
@@ -115,6 +122,7 @@ static void ip_cmsg_recv_checksum(struct msghdr *msg, struct sk_buff *skb,
 
 static void ip_cmsg_recv_security(struct msghdr *msg, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 125 \n"); 
 	char *secdata;
 	u32 seclen, secid;
 	int err;
@@ -133,6 +141,7 @@ static void ip_cmsg_recv_security(struct msghdr *msg, struct sk_buff *skb)
 
 static void ip_cmsg_recv_dstaddr(struct msghdr *msg, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 144 \n"); 
 	struct sockaddr_in sin;
 	const struct iphdr *iph = ip_hdr(skb);
 	__be16 *ports = (__be16 *)skb_transport_header(skb);
@@ -156,6 +165,7 @@ static void ip_cmsg_recv_dstaddr(struct msghdr *msg, struct sk_buff *skb)
 void ip_cmsg_recv_offset(struct msghdr *msg, struct sk_buff *skb,
 			 int tlen, int offset)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 168 \n"); 
 	struct inet_sock *inet = inet_sk(skb->sk);
 	unsigned int flags = inet->cmsg_flags;
 
@@ -224,6 +234,7 @@ EXPORT_SYMBOL(ip_cmsg_recv_offset);
 int ip_cmsg_send(struct sock *sk, struct msghdr *msg, struct ipcm_cookie *ipc,
 		 bool allow_ipv6)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 237 \n"); 
 	int err, val;
 	struct cmsghdr *cmsg;
 	struct net *net = sock_net(sk);
@@ -321,6 +332,7 @@ static DEFINE_SPINLOCK(ip_ra_lock);
 
 static void ip_ra_destroy_rcu(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 335 \n"); 
 	struct ip_ra_chain *ra = container_of(head, struct ip_ra_chain, rcu);
 
 	sock_put(ra->saved_sk);
@@ -384,6 +396,7 @@ int ip_ra_control(struct sock *sk, unsigned char on,
 void ip_icmp_error(struct sock *sk, struct sk_buff *skb, int err,
 		   __be16 port, u32 info, u8 *payload)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 399 \n"); 
 	struct sock_exterr_skb *serr;
 
 	skb = skb_clone(skb, GFP_ATOMIC);
@@ -412,6 +425,7 @@ void ip_icmp_error(struct sock *sk, struct sk_buff *skb, int err,
 
 void ip_local_error(struct sock *sk, int err, __be32 daddr, __be16 port, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 428 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct sock_exterr_skb *serr;
 	struct iphdr *iph;
@@ -452,6 +466,7 @@ void ip_local_error(struct sock *sk, int err, __be32 daddr, __be16 port, u32 inf
  */
 static inline bool ipv4_datagram_support_addr(struct sock_exterr_skb *serr)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 469 \n"); 
 	return serr->ee.ee_origin == SO_EE_ORIGIN_ICMP ||
 	       serr->ee.ee_origin == SO_EE_ORIGIN_LOCAL || serr->port;
 }
@@ -465,6 +480,7 @@ static bool ipv4_datagram_support_cmsg(const struct sock *sk,
 				       struct sk_buff *skb,
 				       int ee_origin)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 483 \n"); 
 	struct in_pktinfo *info;
 
 	if (ee_origin == SO_EE_ORIGIN_ICMP)
@@ -491,6 +507,7 @@ static bool ipv4_datagram_support_cmsg(const struct sock *sk,
  */
 int ip_recv_error(struct sock *sk, struct msghdr *msg, int len, int *addr_len)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_sockglue.c: line 510 \n"); 
 	struct sock_exterr_skb *serr;
 	struct sk_buff *skb;
 	DECLARE_SOCKADDR(struct sockaddr_in *, sin, msg->msg_name);

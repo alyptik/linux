@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * GHASH: digest algorithm for GCM (Galois/Counter Mode).
  *
@@ -23,6 +24,7 @@
 
 static int ghash_init(struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/ghash-generic.c: line 27 \n"); 
 	struct ghash_desc_ctx *dctx = shash_desc_ctx(desc);
 
 	memset(dctx, 0, sizeof(*dctx));
@@ -33,6 +35,7 @@ static int ghash_init(struct shash_desc *desc)
 static int ghash_setkey(struct crypto_shash *tfm,
 			const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/ghash-generic.c: line 38 \n"); 
 	struct ghash_ctx *ctx = crypto_shash_ctx(tfm);
 
 	if (keylen != GHASH_BLOCK_SIZE) {
@@ -52,6 +55,7 @@ static int ghash_setkey(struct crypto_shash *tfm,
 static int ghash_update(struct shash_desc *desc,
 			 const u8 *src, unsigned int srclen)
 {
+	panic("We reached unpopular paths in crypto/ghash-generic.c: line 58 \n"); 
 	struct ghash_desc_ctx *dctx = shash_desc_ctx(desc);
 	struct ghash_ctx *ctx = crypto_shash_ctx(desc->tfm);
 	u8 *dst = dctx->buffer;
@@ -91,6 +95,7 @@ static int ghash_update(struct shash_desc *desc,
 
 static void ghash_flush(struct ghash_ctx *ctx, struct ghash_desc_ctx *dctx)
 {
+	panic("We reached unpopular paths in crypto/ghash-generic.c: line 98 \n"); 
 	u8 *dst = dctx->buffer;
 
 	if (dctx->bytes) {
@@ -107,6 +112,7 @@ static void ghash_flush(struct ghash_ctx *ctx, struct ghash_desc_ctx *dctx)
 
 static int ghash_final(struct shash_desc *desc, u8 *dst)
 {
+	panic("We reached unpopular paths in crypto/ghash-generic.c: line 115 \n"); 
 	struct ghash_desc_ctx *dctx = shash_desc_ctx(desc);
 	struct ghash_ctx *ctx = crypto_shash_ctx(desc->tfm);
 	u8 *buf = dctx->buffer;
@@ -122,6 +128,7 @@ static int ghash_final(struct shash_desc *desc, u8 *dst)
 
 static void ghash_exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/ghash-generic.c: line 131 \n"); 
 	struct ghash_ctx *ctx = crypto_tfm_ctx(tfm);
 	if (ctx->gf128)
 		gf128mul_free_4k(ctx->gf128);

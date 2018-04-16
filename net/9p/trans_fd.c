@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/fs/9p/trans_fd.c
  *
@@ -166,6 +167,7 @@ static unsigned int p9_ipport_resv_max = P9_DEF_MAX_RESVPORT;
 
 static void p9_mux_poll_stop(struct p9_conn *m)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 170 \n"); 
 	unsigned long flags;
 	int i;
 
@@ -192,6 +194,7 @@ static void p9_mux_poll_stop(struct p9_conn *m)
 
 static void p9_conn_cancel(struct p9_conn *m, int err)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 197 \n"); 
 	struct p9_req_t *req, *rtmp;
 	unsigned long flags;
 	LIST_HEAD(cancel_list);
@@ -227,6 +230,7 @@ static void p9_conn_cancel(struct p9_conn *m, int err)
 static int
 p9_fd_poll(struct p9_client *client, struct poll_table_struct *pt)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 233 \n"); 
 	int ret, n;
 	struct p9_trans_fd *ts = NULL;
 
@@ -266,6 +270,7 @@ p9_fd_poll(struct p9_client *client, struct poll_table_struct *pt)
 
 static int p9_fd_read(struct p9_client *client, void *v, int len)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 273 \n"); 
 	int ret;
 	struct p9_trans_fd *ts = NULL;
 
@@ -292,6 +297,7 @@ static int p9_fd_read(struct p9_client *client, void *v, int len)
 
 static void p9_read_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 300 \n"); 
 	int n, err;
 	struct p9_conn *m;
 	int status = REQ_STATUS_ERROR;
@@ -416,6 +422,7 @@ error:
 
 static int p9_fd_write(struct p9_client *client, void *v, int len)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 425 \n"); 
 	int ret;
 	mm_segment_t oldfs;
 	struct p9_trans_fd *ts = NULL;
@@ -448,6 +455,7 @@ static int p9_fd_write(struct p9_client *client, void *v, int len)
 
 static void p9_write_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 458 \n"); 
 	int n, err;
 	struct p9_conn *m;
 	struct p9_req_t *req;
@@ -524,6 +532,7 @@ error:
 
 static int p9_pollwake(wait_queue_t *wait, unsigned int mode, int sync, void *key)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 535 \n"); 
 	struct p9_poll_wait *pwait =
 		container_of(wait, struct p9_poll_wait, wait);
 	struct p9_conn *m = pwait->conn;
@@ -550,6 +559,7 @@ static int p9_pollwake(wait_queue_t *wait, unsigned int mode, int sync, void *ke
 static void
 p9_pollwait(struct file *filp, wait_queue_head_t *wait_address, poll_table *p)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 562 \n"); 
 	struct p9_conn *m = container_of(p, struct p9_conn, pt);
 	struct p9_poll_wait *pwait = NULL;
 	int i;
@@ -581,6 +591,7 @@ p9_pollwait(struct file *filp, wait_queue_head_t *wait_address, poll_table *p)
 
 static void p9_conn_create(struct p9_client *client)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 594 \n"); 
 	int n;
 	struct p9_trans_fd *ts = client->trans;
 	struct p9_conn *m = &ts->conn;
@@ -617,6 +628,7 @@ static void p9_conn_create(struct p9_client *client)
 
 static void p9_poll_mux(struct p9_conn *m)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 631 \n"); 
 	int n;
 
 	if (m->err < 0)
@@ -663,6 +675,7 @@ static void p9_poll_mux(struct p9_conn *m)
 
 static int p9_fd_request(struct p9_client *client, struct p9_req_t *req)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 678 \n"); 
 	int n;
 	struct p9_trans_fd *ts = client->trans;
 	struct p9_conn *m = &ts->conn;
@@ -690,6 +703,7 @@ static int p9_fd_request(struct p9_client *client, struct p9_req_t *req)
 
 static int p9_fd_cancel(struct p9_client *client, struct p9_req_t *req)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 706 \n"); 
 	int ret = 1;
 
 	p9_debug(P9_DEBUG_TRANS, "client %p req %p\n", client, req);
@@ -708,6 +722,7 @@ static int p9_fd_cancel(struct p9_client *client, struct p9_req_t *req)
 
 static int p9_fd_cancelled(struct p9_client *client, struct p9_req_t *req)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 725 \n"); 
 	p9_debug(P9_DEBUG_TRANS, "client %p req %p\n", client, req);
 
 	/* we haven't received a response for oldreq,
@@ -730,6 +745,7 @@ static int p9_fd_cancelled(struct p9_client *client, struct p9_req_t *req)
 
 static int parse_opts(char *params, struct p9_fd_opts *opts)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 748 \n"); 
 	char *p;
 	substring_t args[MAX_OPT_ARGS];
 	int option;
@@ -789,6 +805,7 @@ static int parse_opts(char *params, struct p9_fd_opts *opts)
 
 static int p9_fd_open(struct p9_client *client, int rfd, int wfd)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 808 \n"); 
 	struct p9_trans_fd *ts = kzalloc(sizeof(struct p9_trans_fd),
 					   GFP_KERNEL);
 	if (!ts)
@@ -813,6 +830,7 @@ static int p9_fd_open(struct p9_client *client, int rfd, int wfd)
 
 static int p9_socket_open(struct p9_client *client, struct socket *csocket)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 833 \n"); 
 	struct p9_trans_fd *p;
 	struct file *file;
 
@@ -849,6 +867,7 @@ static int p9_socket_open(struct p9_client *client, struct socket *csocket)
 
 static void p9_conn_destroy(struct p9_conn *m)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 870 \n"); 
 	p9_debug(P9_DEBUG_TRANS, "mux %p prev %p next %p\n",
 		 m, m->mux_list.prev, m->mux_list.next);
 
@@ -869,6 +888,7 @@ static void p9_conn_destroy(struct p9_conn *m)
 
 static void p9_fd_close(struct p9_client *client)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 891 \n"); 
 	struct p9_trans_fd *ts;
 
 	if (!client)
@@ -895,6 +915,7 @@ static void p9_fd_close(struct p9_client *client)
  */
 static inline int valid_ipaddr4(const char *buf)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 918 \n"); 
 	int rc, count, in[4];
 
 	rc = sscanf(buf, "%d.%d.%d.%d", &in[0], &in[1], &in[2], &in[3]);
@@ -909,6 +930,7 @@ static inline int valid_ipaddr4(const char *buf)
 
 static int p9_bind_privport(struct socket *sock)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 933 \n"); 
 	struct sockaddr_in cl;
 	int port, err = -EINVAL;
 
@@ -928,6 +950,7 @@ static int p9_bind_privport(struct socket *sock)
 static int
 p9_fd_create_tcp(struct p9_client *client, const char *addr, char *args)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 953 \n"); 
 	int err;
 	struct socket *csocket;
 	struct sockaddr_in sin_server;
@@ -979,6 +1002,7 @@ p9_fd_create_tcp(struct p9_client *client, const char *addr, char *args)
 static int
 p9_fd_create_unix(struct p9_client *client, const char *addr, char *args)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 1005 \n"); 
 	int err;
 	struct socket *csocket;
 	struct sockaddr_un sun_server;
@@ -1016,6 +1040,7 @@ p9_fd_create_unix(struct p9_client *client, const char *addr, char *args)
 static int
 p9_fd_create(struct p9_client *client, const char *addr, char *args)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 1043 \n"); 
 	int err;
 	struct p9_fd_opts opts;
 
@@ -1082,6 +1107,7 @@ static struct p9_trans_module p9_fd_trans = {
 
 static void p9_poll_workfn(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 1110 \n"); 
 	unsigned long flags;
 
 	p9_debug(P9_DEBUG_TRANS, "start %p\n", current);
@@ -1114,6 +1140,7 @@ int p9_trans_fd_init(void)
 
 void p9_trans_fd_exit(void)
 {
+	panic("We reached unpopular paths in net/9p/trans_fd.c: line 1143 \n"); 
 	flush_work(&p9_poll_work);
 	v9fs_unregister_trans(&p9_tcp_trans);
 	v9fs_unregister_trans(&p9_unix_trans);

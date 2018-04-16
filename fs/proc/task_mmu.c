@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/mm.h>
 #include <linux/vmacache.h>
 #include <linux/hugetlb.h>
@@ -92,6 +93,7 @@ unsigned long task_statm(struct mm_struct *mm,
 			 unsigned long *shared, unsigned long *text,
 			 unsigned long *data, unsigned long *resident)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 96 \n"); 
 	*shared = get_mm_counter(mm, MM_FILEPAGES) +
 			get_mm_counter(mm, MM_SHMEMPAGES);
 	*text = (PAGE_ALIGN(mm->end_code) - (mm->start_code & PAGE_MASK))
@@ -121,14 +123,17 @@ static void release_task_mempolicy(struct proc_maps_private *priv)
 #else
 static void hold_task_mempolicy(struct proc_maps_private *priv)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 126 \n"); 
 }
 static void release_task_mempolicy(struct proc_maps_private *priv)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 130 \n"); 
 }
 #endif
 
 static void vma_stop(struct proc_maps_private *priv)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 136 \n"); 
 	struct mm_struct *mm = priv->mm;
 
 	release_task_mempolicy(priv);
@@ -139,6 +144,7 @@ static void vma_stop(struct proc_maps_private *priv)
 static struct vm_area_struct *
 m_next_vma(struct proc_maps_private *priv, struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 147 \n"); 
 	if (vma == priv->tail_vma)
 		return NULL;
 	return vma->vm_next ?: priv->tail_vma;
@@ -146,12 +152,14 @@ m_next_vma(struct proc_maps_private *priv, struct vm_area_struct *vma)
 
 static void m_cache_vma(struct seq_file *m, struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 155 \n"); 
 	if (m->count < m->size)	/* vma is copied successfully */
 		m->version = m_next_vma(m->private, vma) ? vma->vm_end : -1UL;
 }
 
 static void *m_start(struct seq_file *m, loff_t *ppos)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 162 \n"); 
 	struct proc_maps_private *priv = m->private;
 	unsigned long last_addr = m->version;
 	struct mm_struct *mm;
@@ -201,6 +209,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
 
 static void *m_next(struct seq_file *m, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 212 \n"); 
 	struct proc_maps_private *priv = m->private;
 	struct vm_area_struct *next;
 
@@ -213,6 +222,7 @@ static void *m_next(struct seq_file *m, void *v, loff_t *pos)
 
 static void m_stop(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 225 \n"); 
 	struct proc_maps_private *priv = m->private;
 
 	if (!IS_ERR_OR_NULL(v))
@@ -226,6 +236,7 @@ static void m_stop(struct seq_file *m, void *v)
 static int proc_maps_open(struct inode *inode, struct file *file,
 			const struct seq_operations *ops, int psize)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 239 \n"); 
 	struct proc_maps_private *priv = __seq_open_private(file, ops, psize);
 
 	if (!priv)
@@ -245,6 +256,7 @@ static int proc_maps_open(struct inode *inode, struct file *file,
 
 static int proc_map_release(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 259 \n"); 
 	struct seq_file *seq = file->private_data;
 	struct proc_maps_private *priv = seq->private;
 
@@ -257,6 +269,7 @@ static int proc_map_release(struct inode *inode, struct file *file)
 static int do_maps_open(struct inode *inode, struct file *file,
 			const struct seq_operations *ops)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 272 \n"); 
 	return proc_maps_open(inode, file, ops,
 				sizeof(struct proc_maps_private));
 }
@@ -268,6 +281,7 @@ static int do_maps_open(struct inode *inode, struct file *file,
 static int is_stack(struct proc_maps_private *priv,
 		    struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 284 \n"); 
 	/*
 	 * We make no effort to guess what a given thread considers to be
 	 * its "stack".  It's not even well-defined for programs written
@@ -280,6 +294,7 @@ static int is_stack(struct proc_maps_private *priv,
 static void
 show_map_vma(struct seq_file *m, struct vm_area_struct *vma, int is_pid)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 297 \n"); 
 	struct mm_struct *mm = vma->vm_mm;
 	struct file *file = vma->vm_file;
 	struct proc_maps_private *priv = m->private;
@@ -355,6 +370,7 @@ done:
 
 static int show_map(struct seq_file *m, void *v, int is_pid)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 373 \n"); 
 	show_map_vma(m, v, is_pid);
 	m_cache_vma(m, v);
 	return 0;
@@ -362,11 +378,13 @@ static int show_map(struct seq_file *m, void *v, int is_pid)
 
 static int show_pid_map(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 381 \n"); 
 	return show_map(m, v, 1);
 }
 
 static int show_tid_map(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 387 \n"); 
 	return show_map(m, v, 0);
 }
 
@@ -386,11 +404,13 @@ static const struct seq_operations proc_tid_maps_op = {
 
 static int pid_maps_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 407 \n"); 
 	return do_maps_open(inode, file, &proc_pid_maps_op);
 }
 
 static int tid_maps_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/task_mmu.c: line 413 \n"); 
 	return do_maps_open(inode, file, &proc_tid_maps_op);
 }
 

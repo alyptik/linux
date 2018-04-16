@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *
  * Copyright (C) 2011 Novell Inc.
@@ -31,6 +32,7 @@ enum ovl_path_type {
 
 static inline int ovl_do_rmdir(struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/overlayfs/overlayfs.h: line 35 \n"); 
 	int err = vfs_rmdir(dir, dentry);
 	pr_debug("rmdir(%pd2) = %i\n", dentry, err);
 	return err;
@@ -38,6 +40,7 @@ static inline int ovl_do_rmdir(struct inode *dir, struct dentry *dentry)
 
 static inline int ovl_do_unlink(struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/overlayfs/overlayfs.h: line 43 \n"); 
 	int err = vfs_unlink(dir, dentry, NULL);
 	pr_debug("unlink(%pd2) = %i\n", dentry, err);
 	return err;
@@ -46,6 +49,7 @@ static inline int ovl_do_unlink(struct inode *dir, struct dentry *dentry)
 static inline int ovl_do_link(struct dentry *old_dentry, struct inode *dir,
 			      struct dentry *new_dentry, bool debug)
 {
+	panic("We reached unpopular paths in fs/overlayfs/overlayfs.h: line 52 \n"); 
 	int err = vfs_link(old_dentry, dir, new_dentry, NULL);
 	if (debug) {
 		pr_debug("link(%pd2, %pd2) = %i\n",
@@ -57,6 +61,7 @@ static inline int ovl_do_link(struct dentry *old_dentry, struct inode *dir,
 static inline int ovl_do_create(struct inode *dir, struct dentry *dentry,
 			     umode_t mode, bool debug)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/overlayfs/overlayfs.h: line 64 \n"); 
 	int err = vfs_create(dir, dentry, mode, true);
 	if (debug)
 		pr_debug("create(%pd2, 0%o) = %i\n", dentry, mode, err);
@@ -66,6 +71,7 @@ static inline int ovl_do_create(struct inode *dir, struct dentry *dentry,
 static inline int ovl_do_mkdir(struct inode *dir, struct dentry *dentry,
 			       umode_t mode, bool debug)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/overlayfs/overlayfs.h: line 74 \n"); 
 	int err = vfs_mkdir(dir, dentry, mode);
 	if (debug)
 		pr_debug("mkdir(%pd2, 0%o) = %i\n", dentry, mode, err);
@@ -75,6 +81,7 @@ static inline int ovl_do_mkdir(struct inode *dir, struct dentry *dentry,
 static inline int ovl_do_mknod(struct inode *dir, struct dentry *dentry,
 			       umode_t mode, dev_t dev, bool debug)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/overlayfs/overlayfs.h: line 84 \n"); 
 	int err = vfs_mknod(dir, dentry, mode, dev);
 	if (debug) {
 		pr_debug("mknod(%pd2, 0%o, 0%o) = %i\n",
@@ -86,6 +93,7 @@ static inline int ovl_do_mknod(struct inode *dir, struct dentry *dentry,
 static inline int ovl_do_symlink(struct inode *dir, struct dentry *dentry,
 				 const char *oldname, bool debug)
 {
+	panic("We reached unpopular paths in fs/overlayfs/overlayfs.h: line 96 \n"); 
 	int err = vfs_symlink(dir, dentry, oldname);
 	if (debug)
 		pr_debug("symlink(\"%s\", %pd2) = %i\n", oldname, dentry, err);
@@ -95,6 +103,7 @@ static inline int ovl_do_symlink(struct inode *dir, struct dentry *dentry,
 static inline int ovl_do_setxattr(struct dentry *dentry, const char *name,
 				  const void *value, size_t size, int flags)
 {
+	panic("We reached unpopular paths in fs/overlayfs/overlayfs.h: line 106 \n"); 
 	int err = vfs_setxattr(dentry, name, value, size, flags);
 	pr_debug("setxattr(%pd2, \"%s\", \"%*s\", 0x%x) = %i\n",
 		 dentry, name, (int) size, (char *) value, flags, err);
@@ -103,6 +112,7 @@ static inline int ovl_do_setxattr(struct dentry *dentry, const char *name,
 
 static inline int ovl_do_removexattr(struct dentry *dentry, const char *name)
 {
+	panic("We reached unpopular paths in fs/overlayfs/overlayfs.h: line 115 \n"); 
 	int err = vfs_removexattr(dentry, name);
 	pr_debug("removexattr(%pd2, \"%s\") = %i\n", dentry, name, err);
 	return err;
@@ -128,6 +138,7 @@ static inline int ovl_do_rename(struct inode *olddir, struct dentry *olddentry,
 
 static inline int ovl_do_whiteout(struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/overlayfs/overlayfs.h: line 141 \n"); 
 	int err = vfs_whiteout(dir, dentry);
 	pr_debug("whiteout(%pd2) = %i\n", dentry, err);
 	return err;
@@ -135,6 +146,7 @@ static inline int ovl_do_whiteout(struct inode *dir, struct dentry *dentry)
 
 static inline struct inode *ovl_inode_real(struct inode *inode, bool *is_upper)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/overlayfs/overlayfs.h: line 149 \n"); 
 	unsigned long x = (unsigned long) READ_ONCE(inode->i_private);
 
 	if (is_upper)

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Keyring handling
  *
  * Copyright (C) 2004-2005, 2008, 2013 Red Hat, Inc. All Rights Reserved.
@@ -41,10 +42,12 @@
 
 static inline bool keyring_ptr_is_keyring(const struct assoc_array_ptr *x)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 45 \n"); 
 	return (unsigned long)x & KEYRING_PTR_SUBTYPE;
 }
 static inline struct key *keyring_ptr_to_key(const struct assoc_array_ptr *x)
 {
+	// [blacklist] panic("We reached unpopular paths in security/keys/keyring.c: line 50 \n"); 
 	void *object = assoc_array_ptr_to_leaf(x);
 	return (struct key *)((unsigned long)object & ~KEYRING_PTR_SUBTYPE);
 }
@@ -160,6 +163,7 @@ static int keyring_instantiate(struct key *keyring,
  */
 static u64 mult_64x32_and_fold(u64 x, u32 y)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 166 \n"); 
 	u64 hi = (u64)(u32)(x >> 32) * y;
 	u64 lo = (u64)(u32)(x) * y;
 	return lo + ((u64)(u32)hi << 32) + (u32)(hi >> 32);
@@ -170,6 +174,7 @@ static u64 mult_64x32_and_fold(u64 x, u32 y)
  */
 static unsigned long hash_key_type_and_desc(const struct keyring_index_key *index_key)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 177 \n"); 
 	const unsigned level_shift = ASSOC_ARRAY_LEVEL_STEP;
 	const unsigned long fan_mask = ASSOC_ARRAY_FAN_MASK;
 	const char *description = index_key->description;
@@ -229,6 +234,7 @@ static unsigned long hash_key_type_and_desc(const struct keyring_index_key *inde
  */
 static unsigned long keyring_get_key_chunk(const void *data, int level)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 237 \n"); 
 	const struct keyring_index_key *index_key = data;
 	unsigned long chunk = 0;
 	long offset = 0;
@@ -271,6 +277,7 @@ static unsigned long keyring_get_key_chunk(const void *data, int level)
 
 static unsigned long keyring_get_object_key_chunk(const void *object, int level)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 280 \n"); 
 	const struct key *key = keyring_ptr_to_key(object);
 	return keyring_get_key_chunk(&key->index_key, level);
 }
@@ -292,6 +299,7 @@ static bool keyring_compare_object(const void *object, const void *data)
  */
 static int keyring_diff_objects(const void *object, const void *data)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 302 \n"); 
 	const struct key *key_a = keyring_ptr_to_key(object);
 	const struct keyring_index_key *a = &key_a->index_key;
 	const struct keyring_index_key *b = data;
@@ -359,6 +367,7 @@ differ:
  */
 static void keyring_free_object(void *object)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 370 \n"); 
 	key_put(keyring_ptr_to_key(object));
 }
 
@@ -402,6 +411,7 @@ static void keyring_destroy(struct key *keyring)
  */
 static void keyring_describe(const struct key *keyring, struct seq_file *m)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 414 \n"); 
 	if (keyring->description)
 		seq_puts(m, keyring->description);
 	else
@@ -423,6 +433,7 @@ struct keyring_read_iterator_context {
 
 static int keyring_read_iterator(const void *object, void *data)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 436 \n"); 
 	struct keyring_read_iterator_context *ctx = data;
 	const struct key *key = keyring_ptr_to_key(object);
 	int ret;
@@ -526,6 +537,7 @@ int restrict_link_reject(struct key *keyring,
 			 const struct key_type *type,
 			 const union key_payload *payload)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 540 \n"); 
 	return -EPERM;
 }
 
@@ -535,6 +547,7 @@ int restrict_link_reject(struct key *keyring,
 bool key_default_cmp(const struct key *key,
 		     const struct key_match_data *match_data)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 550 \n"); 
 	return strcmp(key->description, match_data->raw_data) == 0;
 }
 
@@ -909,6 +922,7 @@ key_ref_t keyring_search(key_ref_t keyring,
 			 struct key_type *type,
 			 const char *description)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 925 \n"); 
 	struct keyring_search_context ctx = {
 		.index_key.type		= type,
 		.index_key.description	= description,
@@ -952,6 +966,7 @@ EXPORT_SYMBOL(keyring_search);
 key_ref_t find_key_to_update(key_ref_t keyring_ref,
 			     const struct keyring_index_key *index_key)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 969 \n"); 
 	struct key *keyring, *key;
 	const void *object;
 
@@ -1049,6 +1064,7 @@ out:
 static int keyring_detect_cycle_iterator(const void *object,
 					 void *iterator_data)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 1067 \n"); 
 	struct keyring_search_context *ctx = iterator_data;
 	const struct key *key = keyring_ptr_to_key(object);
 
@@ -1290,6 +1306,7 @@ EXPORT_SYMBOL(key_link);
  */
 int key_unlink(struct key *keyring, struct key *key)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 1309 \n"); 
 	struct assoc_array_edit *edit;
 	int ret;
 
@@ -1331,6 +1348,7 @@ EXPORT_SYMBOL(key_unlink);
  */
 int keyring_clear(struct key *keyring)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 1351 \n"); 
 	struct assoc_array_edit *edit;
 	int ret;
 
@@ -1361,6 +1379,7 @@ EXPORT_SYMBOL(keyring_clear);
  */
 static void keyring_revoke(struct key *keyring)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 1382 \n"); 
 	struct assoc_array_edit *edit;
 
 	edit = assoc_array_clear(&keyring->keys, &keyring_assoc_array_ops);
@@ -1373,6 +1392,7 @@ static void keyring_revoke(struct key *keyring)
 
 static bool keyring_gc_select_iterator(void *object, void *iterator_data)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 1395 \n"); 
 	struct key *key = keyring_ptr_to_key(object);
 	time_t *limit = iterator_data;
 
@@ -1384,6 +1404,7 @@ static bool keyring_gc_select_iterator(void *object, void *iterator_data)
 
 static int keyring_gc_check_iterator(const void *object, void *iterator_data)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 1407 \n"); 
 	const struct key *key = keyring_ptr_to_key(object);
 	time_t *limit = iterator_data;
 
@@ -1399,6 +1420,7 @@ static int keyring_gc_check_iterator(const void *object, void *iterator_data)
  */
 void keyring_gc(struct key *keyring, time_t limit)
 {
+	panic("We reached unpopular paths in security/keys/keyring.c: line 1423 \n"); 
 	int result;
 
 	kenter("%x{%s}", keyring->serial, keyring->description ?: "");

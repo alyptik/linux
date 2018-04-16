@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/sched.h>
 #include <linux/slab.h>
 #include <linux/pid_namespace.h>
@@ -23,6 +24,7 @@ static const char *proc_thread_self_get_link(struct dentry *dentry,
 					     struct inode *inode,
 					     struct delayed_call *done)
 {
+	panic("We reached unpopular paths in fs/proc/thread_self.c: line 27 \n"); 
 	struct pid_namespace *ns = inode->i_sb->s_fs_info;
 	pid_t tgid = task_tgid_nr_ns(current, ns);
 	pid_t pid = task_pid_nr_ns(current, ns);

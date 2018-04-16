@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/compiler.h>
 #include <linux/file.h>
 #include <linux/fs.h>

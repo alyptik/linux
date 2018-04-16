@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/cls_fw.c	Classifier mapping ipchains' fwmark to traffic class.
  *
@@ -51,6 +52,7 @@ struct fw_filter {
 
 static u32 fw_hash(u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_fw.c: line 55 \n"); 
 	handle ^= (handle >> 16);
 	handle ^= (handle >> 8);
 	return handle % HTSIZE;
@@ -59,6 +61,7 @@ static u32 fw_hash(u32 handle)
 static int fw_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 		       struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/cls_fw.c: line 64 \n"); 
 	struct fw_head *head = rcu_dereference_bh(tp->root);
 	struct fw_filter *f;
 	int r;
@@ -97,6 +100,7 @@ static int fw_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 
 static unsigned long fw_get(struct tcf_proto *tp, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_fw.c: line 103 \n"); 
 	struct fw_head *head = rtnl_dereference(tp->root);
 	struct fw_filter *f;
 
@@ -113,6 +117,7 @@ static unsigned long fw_get(struct tcf_proto *tp, u32 handle)
 
 static int fw_init(struct tcf_proto *tp)
 {
+	panic("We reached unpopular paths in net/sched/cls_fw.c: line 120 \n"); 
 	/* We don't allocate fw_head here, because in the old method
 	 * we don't need it at all.
 	 */
@@ -121,6 +126,7 @@ static int fw_init(struct tcf_proto *tp)
 
 static void fw_delete_filter(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/sched/cls_fw.c: line 129 \n"); 
 	struct fw_filter *f = container_of(head, struct fw_filter, rcu);
 
 	tcf_exts_destroy(&f->exts);
@@ -129,6 +135,7 @@ static void fw_delete_filter(struct rcu_head *head)
 
 static bool fw_destroy(struct tcf_proto *tp, bool force)
 {
+	panic("We reached unpopular paths in net/sched/cls_fw.c: line 138 \n"); 
 	struct fw_head *head = rtnl_dereference(tp->root);
 	struct fw_filter *f;
 	int h;
@@ -157,6 +164,7 @@ static bool fw_destroy(struct tcf_proto *tp, bool force)
 
 static int fw_delete(struct tcf_proto *tp, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_fw.c: line 167 \n"); 
 	struct fw_head *head = rtnl_dereference(tp->root);
 	struct fw_filter *f = (struct fw_filter *)arg;
 	struct fw_filter __rcu **fp;
@@ -191,6 +199,7 @@ fw_change_attrs(struct net *net, struct tcf_proto *tp, struct fw_filter *f,
 		struct nlattr **tb, struct nlattr **tca, unsigned long base,
 		bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_fw.c: line 202 \n"); 
 	struct fw_head *head = rtnl_dereference(tp->root);
 	struct tcf_exts e;
 	u32 mask;
@@ -241,6 +250,7 @@ static int fw_change(struct net *net, struct sk_buff *in_skb,
 		     u32 handle, struct nlattr **tca, unsigned long *arg,
 		     bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_fw.c: line 253 \n"); 
 	struct fw_head *head = rtnl_dereference(tp->root);
 	struct fw_filter *f = (struct fw_filter *) *arg;
 	struct nlattr *opt = tca[TCA_OPTIONS];
@@ -344,6 +354,7 @@ errout:
 
 static void fw_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_fw.c: line 357 \n"); 
 	struct fw_head *head = rtnl_dereference(tp->root);
 	int h;
 
@@ -374,6 +385,7 @@ static void fw_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 static int fw_dump(struct net *net, struct tcf_proto *tp, unsigned long fh,
 		   struct sk_buff *skb, struct tcmsg *t)
 {
+	panic("We reached unpopular paths in net/sched/cls_fw.c: line 388 \n"); 
 	struct fw_head *head = rtnl_dereference(tp->root);
 	struct fw_filter *f = (struct fw_filter *)fh;
 	struct nlattr *nest;

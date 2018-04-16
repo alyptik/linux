@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Sysfs attributes of bridge ports
  *	Linux ethernet bridge
@@ -49,6 +50,7 @@ static BRPORT_ATTR(_name, S_IRUGO | S_IWUSR,			\
 static int store_flag(struct net_bridge_port *p, unsigned long v,
 		      unsigned long mask)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 53 \n"); 
 	unsigned long flags;
 
 	flags = p->flags;
@@ -67,6 +69,7 @@ static int store_flag(struct net_bridge_port *p, unsigned long v,
 
 static ssize_t show_path_cost(struct net_bridge_port *p, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 72 \n"); 
 	return sprintf(buf, "%d\n", p->path_cost);
 }
 
@@ -75,6 +78,7 @@ static BRPORT_ATTR(path_cost, S_IRUGO | S_IWUSR,
 
 static ssize_t show_priority(struct net_bridge_port *p, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 81 \n"); 
 	return sprintf(buf, "%d\n", p->priority);
 }
 
@@ -83,36 +87,42 @@ static BRPORT_ATTR(priority, S_IRUGO | S_IWUSR,
 
 static ssize_t show_designated_root(struct net_bridge_port *p, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 90 \n"); 
 	return br_show_bridge_id(buf, &p->designated_root);
 }
 static BRPORT_ATTR(designated_root, S_IRUGO, show_designated_root, NULL);
 
 static ssize_t show_designated_bridge(struct net_bridge_port *p, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 97 \n"); 
 	return br_show_bridge_id(buf, &p->designated_bridge);
 }
 static BRPORT_ATTR(designated_bridge, S_IRUGO, show_designated_bridge, NULL);
 
 static ssize_t show_designated_port(struct net_bridge_port *p, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 104 \n"); 
 	return sprintf(buf, "%d\n", p->designated_port);
 }
 static BRPORT_ATTR(designated_port, S_IRUGO, show_designated_port, NULL);
 
 static ssize_t show_designated_cost(struct net_bridge_port *p, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 111 \n"); 
 	return sprintf(buf, "%d\n", p->designated_cost);
 }
 static BRPORT_ATTR(designated_cost, S_IRUGO, show_designated_cost, NULL);
 
 static ssize_t show_port_id(struct net_bridge_port *p, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 118 \n"); 
 	return sprintf(buf, "0x%x\n", p->port_id);
 }
 static BRPORT_ATTR(port_id, S_IRUGO, show_port_id, NULL);
 
 static ssize_t show_port_no(struct net_bridge_port *p, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 125 \n"); 
 	return sprintf(buf, "0x%x\n", p->port_no);
 }
 
@@ -120,18 +130,21 @@ static BRPORT_ATTR(port_no, S_IRUGO, show_port_no, NULL);
 
 static ssize_t show_change_ack(struct net_bridge_port *p, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 133 \n"); 
 	return sprintf(buf, "%d\n", p->topology_change_ack);
 }
 static BRPORT_ATTR(change_ack, S_IRUGO, show_change_ack, NULL);
 
 static ssize_t show_config_pending(struct net_bridge_port *p, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 140 \n"); 
 	return sprintf(buf, "%d\n", p->config_pending);
 }
 static BRPORT_ATTR(config_pending, S_IRUGO, show_config_pending, NULL);
 
 static ssize_t show_port_state(struct net_bridge_port *p, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 147 \n"); 
 	return sprintf(buf, "%d\n", p->state);
 }
 static BRPORT_ATTR(state, S_IRUGO, show_port_state, NULL);
@@ -139,6 +152,7 @@ static BRPORT_ATTR(state, S_IRUGO, show_port_state, NULL);
 static ssize_t show_message_age_timer(struct net_bridge_port *p,
 					    char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 155 \n"); 
 	return sprintf(buf, "%ld\n", br_timer_value(&p->message_age_timer));
 }
 static BRPORT_ATTR(message_age_timer, S_IRUGO, show_message_age_timer, NULL);
@@ -146,6 +160,7 @@ static BRPORT_ATTR(message_age_timer, S_IRUGO, show_message_age_timer, NULL);
 static ssize_t show_forward_delay_timer(struct net_bridge_port *p,
 					    char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 163 \n"); 
 	return sprintf(buf, "%ld\n", br_timer_value(&p->forward_delay_timer));
 }
 static BRPORT_ATTR(forward_delay_timer, S_IRUGO, show_forward_delay_timer, NULL);
@@ -153,12 +168,14 @@ static BRPORT_ATTR(forward_delay_timer, S_IRUGO, show_forward_delay_timer, NULL)
 static ssize_t show_hold_timer(struct net_bridge_port *p,
 					    char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 171 \n"); 
 	return sprintf(buf, "%ld\n", br_timer_value(&p->hold_timer));
 }
 static BRPORT_ATTR(hold_timer, S_IRUGO, show_hold_timer, NULL);
 
 static int store_flush(struct net_bridge_port *p, unsigned long v)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 178 \n"); 
 	br_fdb_delete_by_port(p->br, p, 0, 0); // Don't delete local entry
 	return 0;
 }
@@ -176,6 +193,7 @@ BRPORT_ATTR_FLAG(multicast_flood, BR_MCAST_FLOOD);
 #ifdef CONFIG_BRIDGE_IGMP_SNOOPING
 static ssize_t show_multicast_router(struct net_bridge_port *p, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 196 \n"); 
 	return sprintf(buf, "%d\n", p->multicast_router);
 }
 
@@ -227,6 +245,7 @@ static const struct brport_attribute *brport_attrs[] = {
 static ssize_t brport_show(struct kobject *kobj,
 			   struct attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 248 \n"); 
 	struct brport_attribute *brport_attr = to_brport_attr(attr);
 	struct net_bridge_port *p = to_brport(kobj);
 
@@ -237,6 +256,7 @@ static ssize_t brport_store(struct kobject *kobj,
 			    struct attribute *attr,
 			    const char *buf, size_t count)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 259 \n"); 
 	struct brport_attribute *brport_attr = to_brport_attr(attr);
 	struct net_bridge_port *p = to_brport(kobj);
 	ssize_t ret = -EINVAL;
@@ -298,6 +318,7 @@ int br_sysfs_addif(struct net_bridge_port *p)
 /* Rename bridge's brif symlink */
 int br_sysfs_renameif(struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_if.c: line 321 \n"); 
 	struct net_bridge *br = p->br;
 	int err;
 

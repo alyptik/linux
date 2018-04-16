@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * tcp_diag.c	Module for monitoring TCP transport protocols sockets.
  *
@@ -21,6 +22,7 @@
 static void tcp_diag_get_info(struct sock *sk, struct inet_diag_msg *r,
 			      void *_info)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_diag.c: line 25 \n"); 
 	struct tcp_info *info = _info;
 
 	if (sk_state_load(sk) == TCP_LISTEN) {
@@ -39,12 +41,14 @@ static void tcp_diag_get_info(struct sock *sk, struct inet_diag_msg *r,
 static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
 			  const struct inet_diag_req_v2 *r, struct nlattr *bc)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_diag.c: line 44 \n"); 
 	inet_diag_dump_icsk(&tcp_hashinfo, skb, cb, r, bc);
 }
 
 static int tcp_diag_dump_one(struct sk_buff *in_skb, const struct nlmsghdr *nlh,
 			     const struct inet_diag_req_v2 *req)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_diag.c: line 51 \n"); 
 	return inet_diag_dump_one_icsk(&tcp_hashinfo, in_skb, nlh, req);
 }
 

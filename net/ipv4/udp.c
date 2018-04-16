@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -176,6 +177,7 @@ static int udp_lib_lport_inuse2(struct net *net, __u16 num,
 						  const struct sock *sk2,
 						  bool match_wildcard))
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 180 \n"); 
 	struct sock *sk2;
 	kuid_t uid = sock_i_uid(sk);
 	int res = 0;
@@ -205,6 +207,7 @@ static int udp_reuseport_add_sock(struct sock *sk, struct udp_hslot *hslot,
 						    const struct sock *sk2,
 						    bool match_wildcard))
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 210 \n"); 
 	struct net *net = sock_net(sk);
 	kuid_t uid = sock_i_uid(sk);
 	struct sock *sk2;
@@ -360,6 +363,7 @@ EXPORT_SYMBOL(udp_lib_get_port);
 int ipv4_rcv_saddr_equal(const struct sock *sk1, const struct sock *sk2,
 			 bool match_wildcard)
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 366 \n"); 
 	struct inet_sock *inet1 = inet_sk(sk1), *inet2 = inet_sk(sk2);
 
 	if (!ipv6_only_sock(sk2)) {
@@ -436,6 +440,7 @@ static u32 udp_ehashfn(const struct net *net, const __be32 laddr,
 		       const __u16 lport, const __be32 faddr,
 		       const __be16 fport)
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 443 \n"); 
 	static u32 udp_ehash_secret __read_mostly;
 
 	net_get_random_once(&udp_ehash_secret, sizeof(udp_ehash_secret));
@@ -451,6 +456,7 @@ static struct sock *udp4_lib_lookup2(struct net *net,
 		struct udp_hslot *hslot2,
 		struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 459 \n"); 
 	struct sock *sk, *result;
 	int score, badness, matches = 0, reuseport = 0;
 	u32 hash = 0;
@@ -625,6 +631,7 @@ static inline bool __udp_is_mcast_sock(struct net *net, struct sock *sk,
 
 void __udp4_lib_err(struct sk_buff *skb, u32 info, struct udp_table *udptable)
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 634 \n"); 
 	struct inet_sock *inet;
 	const struct iphdr *iph = (const struct iphdr *)skb->data;
 	struct udphdr *uh = (struct udphdr *)(skb->data+(iph->ihl<<2));
@@ -697,6 +704,7 @@ out:
 
 void udp_err(struct sk_buff *skb, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 707 \n"); 
 	__udp4_lib_err(skb, info, &udp_table);
 }
 
@@ -767,6 +775,7 @@ EXPORT_SYMBOL_GPL(udp4_hwcsum);
 void udp_set_csum(bool nocheck, struct sk_buff *skb,
 		  __be32 saddr, __be32 daddr, int len)
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 778 \n"); 
 	struct udphdr *uh = udp_hdr(skb);
 
 	if (nocheck) {
@@ -848,6 +857,7 @@ send:
  */
 int udp_push_pending_frames(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 860 \n"); 
 	struct udp_sock  *up = udp_sk(sk);
 	struct inet_sock *inet = inet_sk(sk);
 	struct flowi4 *fl4 = &inet->cork.fl.u.ip4;
@@ -1119,6 +1129,7 @@ EXPORT_SYMBOL(udp_sendmsg);
 int udp_sendpage(struct sock *sk, struct page *page, int offset,
 		 size_t size, int flags)
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 1132 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct udp_sock *up = udp_sk(sk);
 	int ret;
@@ -1483,6 +1494,7 @@ int __udp_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
 static struct static_key udp_encap_needed __read_mostly;
 void udp_encap_enable(void)
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 1497 \n"); 
 	if (!static_key_enabled(&udp_encap_needed))
 		static_key_slow_inc(&udp_encap_needed);
 }
@@ -1638,6 +1650,7 @@ static int __udp4_lib_mcast_deliver(struct net *net, struct sk_buff *skb,
 				    struct udp_table *udptable,
 				    int proto)
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 1653 \n"); 
 	struct sock *sk, *first = NULL;
 	unsigned short hnum = ntohs(uh->dest);
 	struct udp_hslot *hslot = udp_hashslot(udptable, net, hnum);
@@ -2195,6 +2208,7 @@ EXPORT_SYMBOL(udp_poll);
 
 int udp_abort(struct sock *sk, int err)
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 2211 \n"); 
 	lock_sock(sk);
 
 	sk->sk_err = err;
@@ -2498,6 +2512,7 @@ void __init udp_table_init(struct udp_table *table, const char *name)
 
 u32 udp_flow_hashrnd(void)
 {
+	panic("We reached unpopular paths in net/ipv4/udp.c: line 2515 \n"); 
 	static u32 hashrnd __read_mostly;
 
 	net_get_random_once(&hashrnd, sizeof(hashrnd));

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2013 Nicira, Inc.
  *
@@ -65,6 +66,7 @@
 
 static unsigned int ip_tunnel_hash(__be32 key, __be32 remote)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 69 \n"); 
 	return hash_32((__force u32)key ^ (__force u32)remote,
 			 IP_TNL_HASH_BITS);
 }
@@ -72,6 +74,7 @@ static unsigned int ip_tunnel_hash(__be32 key, __be32 remote)
 static bool ip_tunnel_key_match(const struct ip_tunnel_parm *p,
 				__be16 flags, __be32 key)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 77 \n"); 
 	if (p->i_flags & TUNNEL_KEY) {
 		if (flags & TUNNEL_KEY)
 			return key == p->i_key;
@@ -98,6 +101,7 @@ struct ip_tunnel *ip_tunnel_lookup(struct ip_tunnel_net *itn,
 				   __be32 remote, __be32 local,
 				   __be32 key)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 104 \n"); 
 	unsigned int hash;
 	struct ip_tunnel *t, *cand = NULL;
 	struct hlist_head *head;
@@ -216,6 +220,7 @@ static void ip_tunnel_add(struct ip_tunnel_net *itn, struct ip_tunnel *t)
 
 static void ip_tunnel_del(struct ip_tunnel_net *itn, struct ip_tunnel *t)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 223 \n"); 
 	if (t->collect_md)
 		rcu_assign_pointer(itn->collect_md_tun, NULL);
 	hlist_del_init_rcu(&t->hash_node);
@@ -225,6 +230,7 @@ static struct ip_tunnel *ip_tunnel_find(struct ip_tunnel_net *itn,
 					struct ip_tunnel_parm *parms,
 					int type)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 233 \n"); 
 	__be32 remote = parms->iph.daddr;
 	__be32 local = parms->iph.saddr;
 	__be32 key = parms->i_key;
@@ -295,6 +301,7 @@ static inline void init_tunnel_flow(struct flowi4 *fl4,
 				    __be32 daddr, __be32 saddr,
 				    __be32 key, __u8 tos, int oif)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 304 \n"); 
 	memset(fl4, 0, sizeof(*fl4));
 	fl4->flowi4_oif = oif;
 	fl4->daddr = daddr;
@@ -356,6 +363,7 @@ static struct ip_tunnel *ip_tunnel_create(struct net *net,
 					  struct ip_tunnel_net *itn,
 					  struct ip_tunnel_parm *parms)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 366 \n"); 
 	struct ip_tunnel *nt;
 	struct net_device *dev;
 
@@ -375,6 +383,7 @@ int ip_tunnel_rcv(struct ip_tunnel *tunnel, struct sk_buff *skb,
 		  const struct tnl_ptk_info *tpi, struct metadata_dst *tun_dst,
 		  bool log_ecn_error)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 386 \n"); 
 	struct pcpu_sw_netstats *tstats;
 	const struct iphdr *iph = ip_hdr(skb);
 	int err;
@@ -459,6 +468,7 @@ EXPORT_SYMBOL(ip_tunnel_encap_add_ops);
 int ip_tunnel_encap_del_ops(const struct ip_tunnel_encap_ops *ops,
 			    unsigned int num)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 471 \n"); 
 	int ret;
 
 	if (num >= MAX_IPTUN_ENCAP_OPS)
@@ -477,6 +487,7 @@ EXPORT_SYMBOL(ip_tunnel_encap_del_ops);
 int ip_tunnel_encap_setup(struct ip_tunnel *t,
 			  struct ip_tunnel_encap *ipencap)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 490 \n"); 
 	int hlen;
 
 	memset(&t->encap, 0, sizeof(t->encap));
@@ -501,6 +512,7 @@ static int tnl_update_pmtu(struct net_device *dev, struct sk_buff *skb,
 			    struct rtable *rt, __be16 df,
 			    const struct iphdr *inner_iph)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 515 \n"); 
 	struct ip_tunnel *tunnel = netdev_priv(dev);
 	int pkt_size = skb->len - tunnel->hlen - dev->hard_header_len;
 	int mtu;
@@ -549,6 +561,7 @@ static int tnl_update_pmtu(struct net_device *dev, struct sk_buff *skb,
 
 void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev, u8 proto)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 564 \n"); 
 	struct ip_tunnel *tunnel = netdev_priv(dev);
 	u32 headroom = sizeof(struct iphdr);
 	struct ip_tunnel_info *tun_info;
@@ -625,6 +638,7 @@ EXPORT_SYMBOL_GPL(ip_md_tunnel_xmit);
 void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
 		    const struct iphdr *tnl_params, u8 protocol)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 641 \n"); 
 	struct ip_tunnel *tunnel = netdev_priv(dev);
 	const struct iphdr *inner_iph;
 	struct flowi4 fl4;
@@ -793,6 +807,7 @@ static void ip_tunnel_update(struct ip_tunnel_net *itn,
 			     struct ip_tunnel_parm *p,
 			     bool set_mtu)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 810 \n"); 
 	ip_tunnel_del(itn, t);
 	t->parms.iph.saddr = p->iph.saddr;
 	t->parms.iph.daddr = p->iph.daddr;
@@ -822,6 +837,7 @@ static void ip_tunnel_update(struct ip_tunnel_net *itn,
 
 int ip_tunnel_ioctl(struct net_device *dev, struct ip_tunnel_parm *p, int cmd)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 840 \n"); 
 	int err = 0;
 	struct ip_tunnel *t = netdev_priv(dev);
 	struct net *net = t->net;
@@ -925,6 +941,7 @@ EXPORT_SYMBOL_GPL(ip_tunnel_ioctl);
 
 int __ip_tunnel_change_mtu(struct net_device *dev, int new_mtu, bool strict)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 944 \n"); 
 	struct ip_tunnel *tunnel = netdev_priv(dev);
 	int t_hlen = tunnel->hlen + sizeof(struct iphdr);
 	int max_mtu = 0xFFF8 - dev->hard_header_len - t_hlen;
@@ -946,6 +963,7 @@ EXPORT_SYMBOL_GPL(__ip_tunnel_change_mtu);
 
 int ip_tunnel_change_mtu(struct net_device *dev, int new_mtu)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 966 \n"); 
 	return __ip_tunnel_change_mtu(dev, new_mtu, true);
 }
 EXPORT_SYMBOL_GPL(ip_tunnel_change_mtu);
@@ -962,6 +980,7 @@ static void ip_tunnel_dev_free(struct net_device *dev)
 
 void ip_tunnel_dellink(struct net_device *dev, struct list_head *head)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 983 \n"); 
 	struct ip_tunnel *tunnel = netdev_priv(dev);
 	struct ip_tunnel_net *itn;
 
@@ -1064,6 +1083,7 @@ EXPORT_SYMBOL_GPL(ip_tunnel_delete_net);
 int ip_tunnel_newlink(struct net_device *dev, struct nlattr *tb[],
 		      struct ip_tunnel_parm *p)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 1086 \n"); 
 	struct ip_tunnel *nt;
 	struct net *net = dev_net(dev);
 	struct ip_tunnel_net *itn;
@@ -1103,6 +1123,7 @@ EXPORT_SYMBOL_GPL(ip_tunnel_newlink);
 int ip_tunnel_changelink(struct net_device *dev, struct nlattr *tb[],
 			 struct ip_tunnel_parm *p)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel.c: line 1126 \n"); 
 	struct ip_tunnel *t;
 	struct ip_tunnel *tunnel = netdev_priv(dev);
 	struct net *net = tunnel->net;

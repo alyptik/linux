@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 2000-2001 Svenning Soerensen <svenning@post5.tele.dk>
  * Copyright (c) 2011 Patrick McHardy <kaber@trash.net>
@@ -21,6 +22,7 @@
 static unsigned int
 netmap_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_NETMAP.c: line 25 \n"); 
 	const struct nf_nat_range *range = par->targinfo;
 	struct nf_nat_range newrange;
 	struct nf_conn *ct;
@@ -56,6 +58,7 @@ netmap_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int netmap_tg6_checkentry(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_NETMAP.c: line 61 \n"); 
 	const struct nf_nat_range *range = par->targinfo;
 
 	if (!(range->flags & NF_NAT_RANGE_MAP_IPS))
@@ -66,6 +69,7 @@ static int netmap_tg6_checkentry(const struct xt_tgchk_param *par)
 static unsigned int
 netmap_tg4(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_NETMAP.c: line 72 \n"); 
 	struct nf_conn *ct;
 	enum ip_conntrack_info ctinfo;
 	__be32 new_ip, netmask;
@@ -101,6 +105,7 @@ netmap_tg4(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int netmap_tg4_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_NETMAP.c: line 108 \n"); 
 	const struct nf_nat_ipv4_multi_range_compat *mr = par->targinfo;
 
 	if (!(mr->range[0].flags & NF_NAT_RANGE_MAP_IPS)) {
@@ -152,6 +157,7 @@ static int __init netmap_tg_init(void)
 
 static void netmap_tg_exit(void)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_NETMAP.c: line 160 \n"); 
 	xt_unregister_targets(netmap_tg_reg, ARRAY_SIZE(netmap_tg_reg));
 }
 

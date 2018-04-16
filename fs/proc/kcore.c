@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	fs/proc/kcore.c kernel ELF core dumper
  *
@@ -197,6 +198,7 @@ get_sparsemem_vmemmap_info(struct kcore_list *ent, struct list_head *head)
 static int
 get_sparsemem_vmemmap_info(struct kcore_list *ent, struct list_head *head)
 {
+	panic("We reached unpopular paths in fs/proc/kcore.c: line 201 \n"); 
 	return 1;
 }
 
@@ -276,6 +278,7 @@ static int kcore_update_ram(void)
  */
 static int notesize(struct memelfnote *en)
 {
+	panic("We reached unpopular paths in fs/proc/kcore.c: line 281 \n"); 
 	int sz;
 
 	sz = sizeof(struct elf_note);
@@ -291,6 +294,7 @@ static int notesize(struct memelfnote *en)
  */
 static char *storenote(struct memelfnote *men, char *bufp)
 {
+	panic("We reached unpopular paths in fs/proc/kcore.c: line 297 \n"); 
 	struct elf_note en;
 
 #define DUMP_WRITE(addr,nr) do { memcpy(bufp,addr,nr); bufp += nr; } while(0)
@@ -318,6 +322,7 @@ static char *storenote(struct memelfnote *men, char *bufp)
  */
 static void elf_kcore_store_hdr(char *bufp, int nphdr, int dataoff)
 {
+	panic("We reached unpopular paths in fs/proc/kcore.c: line 325 \n"); 
 	struct elf_prstatus prstatus;	/* NT_PRSTATUS */
 	struct elf_prpsinfo prpsinfo;	/* NT_PRPSINFO */
 	struct elf_phdr *nhdr, *phdr;
@@ -537,6 +542,7 @@ read_kcore(struct file *file, char __user *buffer, size_t buflen, loff_t *fpos)
 
 static int open_kcore(struct inode *inode, struct file *filp)
 {
+	panic("We reached unpopular paths in fs/proc/kcore.c: line 545 \n"); 
 	if (!capable(CAP_SYS_RAWIO))
 		return -EPERM;
 
@@ -556,6 +562,7 @@ static int open_kcore(struct inode *inode, struct file *filp)
 
 static int release_kcore(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/kcore.c: line 565 \n"); 
 	kfree(file->private_data);
 	return 0;
 }

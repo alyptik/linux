@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match L2TP header parameters. */
 
 /* (C) 2013      James Chapman <jchapman@katalix.com>
@@ -51,6 +52,7 @@ union l2tp_val {
 
 static bool l2tp_match(const struct xt_l2tp_info *info, struct l2tp_data *data)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_l2tp.c: line 55 \n"); 
 	if ((info->flags & XT_L2TP_TYPE) && (info->type != data->type))
 		return false;
 
@@ -81,6 +83,7 @@ static bool l2tp_match(const struct xt_l2tp_info *info, struct l2tp_data *data)
  */
 static bool l2tp_udp_mt(const struct sk_buff *skb, struct xt_action_param *par, u16 thoff)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_l2tp.c: line 86 \n"); 
 	const struct xt_l2tp_info *info = par->matchinfo;
 	int uhlen = sizeof(struct udphdr);
 	int offs = thoff + uhlen;
@@ -141,6 +144,7 @@ static bool l2tp_udp_mt(const struct sk_buff *skb, struct xt_action_param *par, 
  */
 static bool l2tp_ip_mt(const struct sk_buff *skb, struct xt_action_param *par, u16 thoff)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_l2tp.c: line 147 \n"); 
 	const struct xt_l2tp_info *info = par->matchinfo;
 	union l2tp_val *lh;
 	union l2tp_val lhbuf;
@@ -172,6 +176,7 @@ static bool l2tp_ip_mt(const struct sk_buff *skb, struct xt_action_param *par, u
 
 static bool l2tp_mt4(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_l2tp.c: line 179 \n"); 
 	struct iphdr *iph = ip_hdr(skb);
 	u8 ipproto = iph->protocol;
 
@@ -211,6 +216,7 @@ static bool l2tp_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int l2tp_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_l2tp.c: line 219 \n"); 
 	const struct xt_l2tp_info *info = par->matchinfo;
 
 	/* Check for invalid flags */
@@ -257,6 +263,7 @@ static int l2tp_mt_check(const struct xt_mtchk_param *par)
 
 static int l2tp_mt_check4(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_l2tp.c: line 266 \n"); 
 	const struct xt_l2tp_info *info = par->matchinfo;
 	const struct ipt_entry *e = par->entryinfo;
 	const struct ipt_ip *ip = &e->ip;

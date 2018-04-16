@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Internet Control Message Protocol (ICMPv6)
  *	Linux INET6 implementation
@@ -81,12 +82,14 @@
  */
 static inline struct sock *icmpv6_sk(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 85 \n"); 
 	return net->ipv6.icmp_sk[smp_processor_id()];
 }
 
 static void icmpv6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 		       u8 type, u8 code, int offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 92 \n"); 
 	/* icmpv6_notify checks 8 bytes can be pulled, icmp6hdr is 8 bytes */
 	struct icmp6hdr *icmp6 = (struct icmp6hdr *) (skb->data + offset);
 	struct net *net = dev_net(skb->dev);
@@ -111,6 +114,7 @@ static const struct inet6_protocol icmpv6_protocol = {
 
 static __inline__ struct sock *icmpv6_xmit_lock(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 117 \n"); 
 	struct sock *sk;
 
 	local_bh_disable();
@@ -129,6 +133,7 @@ static __inline__ struct sock *icmpv6_xmit_lock(struct net *net)
 
 static __inline__ void icmpv6_xmit_unlock(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 136 \n"); 
 	spin_unlock_bh(&sk->sk_lock.slock);
 }
 
@@ -145,6 +150,7 @@ static __inline__ void icmpv6_xmit_unlock(struct sock *sk)
 
 static bool is_ineligible(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 153 \n"); 
 	int ptr = (u8 *)(ipv6_hdr(skb) + 1) - skb->data;
 	int len = skb->len - ptr;
 	__u8 nexthdr = ipv6_hdr(skb)->nexthdr;
@@ -173,6 +179,7 @@ static bool is_ineligible(const struct sk_buff *skb)
 static bool icmpv6_xrlim_allow(struct sock *sk, u8 type,
 			       struct flowi6 *fl6)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 182 \n"); 
 	struct net *net = sock_net(sk);
 	struct dst_entry *dst;
 	bool res = false;
@@ -227,6 +234,7 @@ static bool icmpv6_xrlim_allow(struct sock *sk, u8 type,
 
 static bool opt_unrec(struct sk_buff *skb, __u32 offset)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 237 \n"); 
 	u8 _optval, *op;
 
 	offset += skb_network_offset(skb);
@@ -239,6 +247,7 @@ static bool opt_unrec(struct sk_buff *skb, __u32 offset)
 int icmpv6_push_pending_frames(struct sock *sk, struct flowi6 *fl6,
 			       struct icmp6hdr *thdr, int len)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 250 \n"); 
 	struct sk_buff *skb;
 	struct icmp6hdr *icmp6h;
 	int err = 0;
@@ -285,6 +294,7 @@ struct icmpv6_msg {
 
 static int icmpv6_getfrag(void *from, char *to, int offset, int len, int odd, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 297 \n"); 
 	struct icmpv6_msg *msg = (struct icmpv6_msg *) from;
 	struct sk_buff *org_skb = msg->skb;
 	__wsum csum = 0;
@@ -326,6 +336,7 @@ static struct dst_entry *icmpv6_route_lookup(struct net *net,
 					     struct sock *sk,
 					     struct flowi6 *fl6)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 339 \n"); 
 	struct dst_entry *dst, *dst2;
 	struct flowi6 fl2;
 	int err;
@@ -391,6 +402,7 @@ relookup_failed:
 static void icmp6_send(struct sk_buff *skb, u8 type, u8 code, __u32 info,
 		       const struct in6_addr *force_saddr)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 405 \n"); 
 	struct net *net = dev_net(skb->dev);
 	struct inet6_dev *idev = NULL;
 	struct ipv6hdr *hdr = ipv6_hdr(skb);
@@ -556,6 +568,7 @@ out:
  */
 void icmpv6_param_prob(struct sk_buff *skb, u8 code, int pos)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 571 \n"); 
 	icmp6_send(skb, ICMPV6_PARAMPROB, code, pos, NULL);
 	kfree_skb(skb);
 }
@@ -569,6 +582,7 @@ void icmpv6_param_prob(struct sk_buff *skb, u8 code, int pos)
 int ip6_err_gen_icmpv6_unreach(struct sk_buff *skb, int nhs, int type,
 			       unsigned int data_len)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 585 \n"); 
 	struct in6_addr temp_saddr;
 	struct rt6_info *rt;
 	struct sk_buff *skb2;
@@ -627,6 +641,7 @@ EXPORT_SYMBOL(ip6_err_gen_icmpv6_unreach);
 
 static void icmpv6_echo_reply(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 644 \n"); 
 	struct net *net = dev_net(skb->dev);
 	struct sock *sk;
 	struct inet6_dev *idev;
@@ -710,6 +725,7 @@ out:
 
 void icmpv6_notify(struct sk_buff *skb, u8 type, u8 code, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 728 \n"); 
 	const struct inet6_protocol *ipprot;
 	int inner_offset;
 	__be16 frag_off;
@@ -758,6 +774,7 @@ out:
 
 static int icmpv6_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 777 \n"); 
 	struct net_device *dev = skb->dev;
 	struct inet6_dev *idev = __in6_dev_get(dev);
 	const struct in6_addr *saddr, *daddr;
@@ -988,6 +1005,7 @@ fail:
 
 void icmpv6_cleanup(void)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 1008 \n"); 
 	inet6_unregister_icmp_sender(icmp6_send);
 	unregister_pernet_subsys(&icmpv6_sk_ops);
 	inet6_del_protocol(&icmpv6_protocol, IPPROTO_ICMPV6);
@@ -1030,6 +1048,7 @@ static const struct icmp6_err {
 
 int icmpv6_err_convert(u8 type, u8 code, int *err)
 {
+	panic("We reached unpopular paths in net/ipv6/icmp.c: line 1051 \n"); 
 	int fatal = 0;
 
 	*err = EPROTO;

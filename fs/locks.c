@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/locks.c
  *
@@ -140,16 +141,19 @@
 
 static inline bool is_remote_lock(struct file *filp)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 144 \n"); 
 	return likely(!(filp->f_path.dentry->d_sb->s_flags & MS_NOREMOTELOCK));
 }
 
 static bool lease_breaking(struct file_lock *fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 150 \n"); 
 	return fl->fl_flags & (FL_UNLOCK_PENDING | FL_DOWNGRADE_PENDING);
 }
 
 static int target_leasetype(struct file_lock *fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 156 \n"); 
 	if (fl->fl_flags & FL_UNLOCK_PENDING)
 		return F_UNLCK;
 	if (fl->fl_flags & FL_DOWNGRADE_PENDING)
@@ -246,6 +250,7 @@ out:
 static void
 locks_dump_ctx_list(struct list_head *list, char *list_type)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 253 \n"); 
 	struct file_lock *fl;
 
 	list_for_each_entry(fl, list, fl_list) {
@@ -346,6 +351,7 @@ locks_dispose_list(struct list_head *dispose)
 
 void locks_init_lock(struct file_lock *fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 354 \n"); 
 	memset(fl, 0, sizeof(struct file_lock));
 	locks_init_lock_heads(fl);
 }
@@ -511,6 +517,7 @@ static int flock_to_posix_lock(struct file *filp, struct file_lock *fl,
 static bool
 lease_break_callback(struct file_lock *fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 520 \n"); 
 	kill_fasync(&fl->fl_fasync, SIGIO, POLL_MSG);
 	return false;
 }
@@ -518,6 +525,7 @@ lease_break_callback(struct file_lock *fl)
 static void
 lease_setup(struct file_lock *fl, void **priv)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 528 \n"); 
 	struct file *filp = fl->fl_file;
 	struct fasync_struct *fa = *priv;
 
@@ -561,6 +569,7 @@ static int lease_init(struct file *filp, long type, struct file_lock *fl)
 /* Allocate a file_lock initialised to this type of lease */
 static struct file_lock *lease_alloc(struct file *filp, long type)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 572 \n"); 
 	struct file_lock *fl = locks_alloc_lock();
 	int error = -ENOMEM;
 
@@ -579,6 +588,7 @@ static struct file_lock *lease_alloc(struct file *filp, long type)
  */
 static inline int locks_overlap(struct file_lock *fl1, struct file_lock *fl2)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 591 \n"); 
 	return ((fl1->fl_end >= fl2->fl_start) &&
 		(fl2->fl_end >= fl1->fl_start));
 }
@@ -631,6 +641,7 @@ static void locks_delete_global_locks(struct file_lock *fl)
 static unsigned long
 posix_owner_key(struct file_lock *fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 644 \n"); 
 	if (fl->fl_lmops && fl->fl_lmops->lm_owner_key)
 		return fl->fl_lmops->lm_owner_key(fl);
 	return (unsigned long)fl->fl_owner;
@@ -638,6 +649,7 @@ posix_owner_key(struct file_lock *fl)
 
 static void locks_insert_global_blocked(struct file_lock *waiter)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 652 \n"); 
 	lockdep_assert_held(&blocked_lock_lock);
 
 	hash_add(blocked_hash, &waiter->fl_link, posix_owner_key(waiter));
@@ -645,6 +657,7 @@ static void locks_insert_global_blocked(struct file_lock *waiter)
 
 static void locks_delete_global_blocked(struct file_lock *waiter)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 660 \n"); 
 	lockdep_assert_held(&blocked_lock_lock);
 
 	hash_del(&waiter->fl_link);
@@ -657,6 +670,7 @@ static void locks_delete_global_blocked(struct file_lock *waiter)
  */
 static void __locks_delete_block(struct file_lock *waiter)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 673 \n"); 
 	locks_delete_global_blocked(waiter);
 	list_del_init(&waiter->fl_block);
 	waiter->fl_next = NULL;
@@ -664,6 +678,7 @@ static void __locks_delete_block(struct file_lock *waiter)
 
 static void locks_delete_block(struct file_lock *waiter)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 681 \n"); 
 	spin_lock(&blocked_lock_lock);
 	__locks_delete_block(waiter);
 	spin_unlock(&blocked_lock_lock);
@@ -682,6 +697,7 @@ static void locks_delete_block(struct file_lock *waiter)
 static void __locks_insert_block(struct file_lock *blocker,
 					struct file_lock *waiter)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 700 \n"); 
 	BUG_ON(!list_empty(&waiter->fl_block));
 	waiter->fl_next = blocker;
 	list_add_tail(&waiter->fl_block, &blocker->fl_block);
@@ -693,6 +709,7 @@ static void __locks_insert_block(struct file_lock *blocker,
 static void locks_insert_block(struct file_lock *blocker,
 					struct file_lock *waiter)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 712 \n"); 
 	spin_lock(&blocked_lock_lock);
 	__locks_insert_block(blocker, waiter);
 	spin_unlock(&blocked_lock_lock);
@@ -765,6 +782,7 @@ locks_delete_lock_ctx(struct file_lock *fl, struct list_head *dispose)
  */
 static int locks_conflict(struct file_lock *caller_fl, struct file_lock *sys_fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 785 \n"); 
 	if (sys_fl->fl_type == F_WRLCK)
 		return 1;
 	if (caller_fl->fl_type == F_WRLCK)
@@ -777,6 +795,7 @@ static int locks_conflict(struct file_lock *caller_fl, struct file_lock *sys_fl)
  */
 static int posix_locks_conflict(struct file_lock *caller_fl, struct file_lock *sys_fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 798 \n"); 
 	/* POSIX locks owned by the same process do not conflict with
 	 * each other.
 	 */
@@ -795,6 +814,7 @@ static int posix_locks_conflict(struct file_lock *caller_fl, struct file_lock *s
  */
 static int flock_locks_conflict(struct file_lock *caller_fl, struct file_lock *sys_fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 817 \n"); 
 	/* FLOCK locks referring to the same filp do not conflict with
 	 * each other.
 	 */
@@ -809,6 +829,7 @@ static int flock_locks_conflict(struct file_lock *caller_fl, struct file_lock *s
 void
 posix_test_lock(struct file *filp, struct file_lock *fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 832 \n"); 
 	struct file_lock *cfl;
 	struct file_lock_context *ctx;
 	struct inode *inode = locks_inode(filp);
@@ -873,6 +894,7 @@ EXPORT_SYMBOL(posix_test_lock);
 /* Find a lock that the owner of the given block_fl is blocking on. */
 static struct file_lock *what_owner_is_waiting_for(struct file_lock *block_fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 897 \n"); 
 	struct file_lock *fl;
 
 	hash_for_each_possible(blocked_hash, fl, fl_link, posix_owner_key(block_fl)) {
@@ -886,6 +908,7 @@ static struct file_lock *what_owner_is_waiting_for(struct file_lock *block_fl)
 static int posix_locks_deadlock(struct file_lock *caller_fl,
 				struct file_lock *block_fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 911 \n"); 
 	int i = 0;
 
 	lockdep_assert_held(&blocked_lock_lock);
@@ -1229,6 +1252,7 @@ EXPORT_SYMBOL(posix_lock_file);
  */
 static int posix_lock_inode_wait(struct inode *inode, struct file_lock *fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1255 \n"); 
 	int error;
 	might_sleep ();
 	for (;;) {
@@ -1344,6 +1368,7 @@ EXPORT_SYMBOL(locks_mandatory_area);
 
 static void lease_clear_pending(struct file_lock *fl, int arg)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1371 \n"); 
 	switch (arg) {
 	case F_UNLCK:
 		fl->fl_flags &= ~FL_UNLOCK_PENDING;
@@ -1356,6 +1381,7 @@ static void lease_clear_pending(struct file_lock *fl, int arg)
 /* We already had a lease on this file; just change its type */
 int lease_modify(struct file_lock *fl, int arg, struct list_head *dispose)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1384 \n"); 
 	int error = assign_type(fl, arg);
 
 	if (error)
@@ -1380,6 +1406,7 @@ EXPORT_SYMBOL(lease_modify);
 
 static bool past_time(unsigned long then)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1409 \n"); 
 	if (!then)
 		/* 0 is a special value meaning "this never expires": */
 		return false;
@@ -1388,6 +1415,7 @@ static bool past_time(unsigned long then)
 
 static void time_out_leases(struct inode *inode, struct list_head *dispose)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1418 \n"); 
 	struct file_lock_context *ctx = inode->i_flctx;
 	struct file_lock *fl, *tmp;
 
@@ -1404,6 +1432,7 @@ static void time_out_leases(struct inode *inode, struct list_head *dispose)
 
 static bool leases_conflict(struct file_lock *lease, struct file_lock *breaker)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1435 \n"); 
 	if ((breaker->fl_flags & FL_LAYOUT) != (lease->fl_flags & FL_LAYOUT))
 		return false;
 	if ((breaker->fl_flags & FL_DELEG) && (lease->fl_flags & FL_LEASE))
@@ -1414,6 +1443,7 @@ static bool leases_conflict(struct file_lock *lease, struct file_lock *breaker)
 static bool
 any_leases_conflict(struct inode *inode, struct file_lock *breaker)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1446 \n"); 
 	struct file_lock_context *ctx = inode->i_flctx;
 	struct file_lock *fl;
 
@@ -1441,6 +1471,7 @@ any_leases_conflict(struct inode *inode, struct file_lock *breaker)
  */
 int __break_lease(struct inode *inode, unsigned int mode, unsigned int type)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1474 \n"); 
 	int error = 0;
 	struct file_lock_context *ctx;
 	struct file_lock *new_fl, *fl, *tmp;
@@ -1554,6 +1585,7 @@ EXPORT_SYMBOL(__break_lease);
  */
 void lease_get_mtime(struct inode *inode, struct timespec *time)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1588 \n"); 
 	bool has_lease = false;
 	struct file_lock_context *ctx;
 	struct file_lock *fl;
@@ -1601,6 +1633,7 @@ EXPORT_SYMBOL(lease_get_mtime);
  */
 int fcntl_getlease(struct file *filp)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1636 \n"); 
 	struct file_lock *fl;
 	struct inode *inode = locks_inode(filp);
 	struct file_lock_context *ctx;
@@ -1640,6 +1673,7 @@ int fcntl_getlease(struct file *filp)
 static int
 check_conflicting_open(const struct dentry *dentry, const long arg, int flags)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1676 \n"); 
 	int ret = 0;
 	struct inode *inode = dentry->d_inode;
 
@@ -1660,6 +1694,7 @@ check_conflicting_open(const struct dentry *dentry, const long arg, int flags)
 static int
 generic_add_lease(struct file *filp, long arg, struct file_lock **flp, void **priv)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1697 \n"); 
 	struct file_lock *fl, *my_fl = NULL, *lease;
 	struct dentry *dentry = filp->f_path.dentry;
 	struct inode *inode = dentry->d_inode;
@@ -1776,6 +1811,7 @@ out:
 
 static int generic_delete_lease(struct file *filp, void *owner)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1814 \n"); 
 	int error = -EAGAIN;
 	struct file_lock *fl, *victim = NULL;
 	struct inode *inode = locks_inode(filp);
@@ -1820,6 +1856,7 @@ static int generic_delete_lease(struct file *filp, void *owner)
 int generic_setlease(struct file *filp, long arg, struct file_lock **flp,
 			void **priv)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1859 \n"); 
 	struct inode *inode = locks_inode(filp);
 	int error;
 
@@ -1868,6 +1905,7 @@ EXPORT_SYMBOL(generic_setlease);
 int
 vfs_setlease(struct file *filp, long arg, struct file_lock **lease, void **priv)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1908 \n"); 
 	if (filp->f_op->setlease && is_remote_lock(filp))
 		return filp->f_op->setlease(filp, arg, lease, priv);
 	else
@@ -1877,6 +1915,7 @@ EXPORT_SYMBOL_GPL(vfs_setlease);
 
 static int do_fcntl_add_lease(unsigned int fd, struct file *filp, long arg)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1918 \n"); 
 	struct file_lock *fl;
 	struct fasync_struct *new;
 	int error;
@@ -1912,6 +1951,7 @@ static int do_fcntl_add_lease(unsigned int fd, struct file *filp, long arg)
  */
 int fcntl_setlease(unsigned int fd, struct file *filp, long arg)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 1954 \n"); 
 	if (arg == F_UNLCK)
 		return vfs_setlease(filp, F_UNLCK, NULL, (void **)&filp);
 	return do_fcntl_add_lease(fd, filp, arg);
@@ -2043,6 +2083,7 @@ SYSCALL_DEFINE2(flock, unsigned int, fd, unsigned int, cmd)
  */
 int vfs_test_lock(struct file *filp, struct file_lock *fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 2086 \n"); 
 	if (filp->f_op->lock && is_remote_lock(filp))
 		return filp->f_op->lock(filp, F_GETLK, fl);
 	posix_test_lock(filp, fl);
@@ -2052,6 +2093,7 @@ EXPORT_SYMBOL_GPL(vfs_test_lock);
 
 static int posix_lock_to_flock(struct flock *flock, struct file_lock *fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 2096 \n"); 
 	flock->l_pid = IS_OFDLCK(fl) ? -1 : fl->fl_pid;
 #if BITS_PER_LONG == 32
 	/*
@@ -2573,6 +2615,7 @@ void locks_remove_file(struct file *filp)
 int
 posix_unblock_lock(struct file_lock *waiter)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 2618 \n"); 
 	int status = 0;
 
 	spin_lock(&blocked_lock_lock);
@@ -2594,6 +2637,7 @@ EXPORT_SYMBOL(posix_unblock_lock);
  */
 int vfs_cancel_lock(struct file *filp, struct file_lock *fl)
 {
+	panic("We reached unpopular paths in fs/locks.c: line 2640 \n"); 
 	if (filp->f_op->lock && is_remote_lock(filp))
 		return filp->f_op->lock(filp, F_CANCELLK, fl);
 	return 0;

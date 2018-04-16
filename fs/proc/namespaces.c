@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/proc_fs.h>
 #include <linux/nsproxy.h>
 #include <linux/ptrace.h>
@@ -112,6 +113,7 @@ out:
 
 static int proc_ns_dir_readdir(struct file *file, struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/namespaces.c: line 116 \n"); 
 	struct task_struct *task = get_proc_task(file_inode(file));
 	const struct proc_ns_operations **entry, **last;
 

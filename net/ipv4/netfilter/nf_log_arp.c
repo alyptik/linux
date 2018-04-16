@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 2014 by Pablo Neira Ayuso <pablo@netfilter.org>
  *
@@ -46,6 +47,7 @@ static void dump_arp_packet(struct nf_log_buf *m,
 			    const struct nf_loginfo *info,
 			    const struct sk_buff *skb, unsigned int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_log_arp.c: line 50 \n"); 
 	const struct arphdr *ah;
 	struct arphdr _arph;
 	const struct arppayload *ap;
@@ -84,6 +86,7 @@ static void nf_log_arp_packet(struct net *net, u_int8_t pf,
 			      const struct nf_loginfo *loginfo,
 			      const char *prefix)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_log_arp.c: line 89 \n"); 
 	struct nf_log_buf *m;
 
 	/* FIXME: Disabled from containers until syslog ns is supported */

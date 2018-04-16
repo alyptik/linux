@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Functions related to generic timeout handling of requests.
  */
@@ -113,6 +114,7 @@ static void blk_rq_timed_out(struct request *req)
 static void blk_rq_check_expired(struct request *rq, unsigned long *next_timeout,
 			  unsigned int *next_set)
 {
+	panic("We reached unpopular paths in block/blk-timeout.c: line 117 \n"); 
 	if (time_after_eq(jiffies, rq->deadline)) {
 		list_del_init(&rq->timeout_list);
 

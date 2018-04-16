@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* netfs cookie management
  *
  * Copyright (C) 2004-2007 Red Hat, Inc. All Rights Reserved.
@@ -61,6 +62,7 @@ struct fscache_cookie *__fscache_acquire_cookie(
 	void *netfs_data,
 	bool enable)
 {
+	panic("We reached unpopular paths in fs/fscache/cookie.c: line 65 \n"); 
 	struct fscache_cookie *cookie;
 
 	BUG_ON(!def);
@@ -157,6 +159,7 @@ void __fscache_enable_cookie(struct fscache_cookie *cookie,
 			     bool (*can_enable)(void *data),
 			     void *data)
 {
+	panic("We reached unpopular paths in fs/fscache/cookie.c: line 162 \n"); 
 	_enter("%p", cookie);
 
 	wait_on_bit_lock(&cookie->flags, FSCACHE_COOKIE_ENABLEMENT_LOCK,
@@ -190,6 +193,7 @@ EXPORT_SYMBOL(__fscache_enable_cookie);
  */
 static int fscache_acquire_non_index_cookie(struct fscache_cookie *cookie)
 {
+	panic("We reached unpopular paths in fs/fscache/cookie.c: line 196 \n"); 
 	struct fscache_object *object;
 	struct fscache_cache *cache;
 	uint64_t i_size;
@@ -278,6 +282,7 @@ unavailable:
 static int fscache_alloc_object(struct fscache_cache *cache,
 				struct fscache_cookie *cookie)
 {
+	panic("We reached unpopular paths in fs/fscache/cookie.c: line 285 \n"); 
 	struct fscache_object *object;
 	int ret;
 
@@ -351,6 +356,7 @@ error:
 static int fscache_attach_object(struct fscache_cookie *cookie,
 				 struct fscache_object *object)
 {
+	panic("We reached unpopular paths in fs/fscache/cookie.c: line 359 \n"); 
 	struct fscache_object *p;
 	struct fscache_cache *cache = object->cache;
 	int ret;
@@ -415,6 +421,7 @@ cant_attach_object:
  */
 void __fscache_invalidate(struct fscache_cookie *cookie)
 {
+	panic("We reached unpopular paths in fs/fscache/cookie.c: line 424 \n"); 
 	struct fscache_object *object;
 
 	_enter("{%s}", cookie->def->name);
@@ -461,6 +468,7 @@ EXPORT_SYMBOL(__fscache_invalidate);
  */
 void __fscache_wait_on_invalidate(struct fscache_cookie *cookie)
 {
+	panic("We reached unpopular paths in fs/fscache/cookie.c: line 471 \n"); 
 	_enter("%p", cookie);
 
 	wait_on_bit(&cookie->flags, FSCACHE_COOKIE_INVALIDATING,
@@ -475,6 +483,7 @@ EXPORT_SYMBOL(__fscache_wait_on_invalidate);
  */
 void __fscache_update_cookie(struct fscache_cookie *cookie)
 {
+	panic("We reached unpopular paths in fs/fscache/cookie.c: line 486 \n"); 
 	struct fscache_object *object;
 
 	fscache_stat(&fscache_n_updates);
@@ -511,6 +520,7 @@ EXPORT_SYMBOL(__fscache_update_cookie);
  */
 void __fscache_disable_cookie(struct fscache_cookie *cookie, bool invalidate)
 {
+	panic("We reached unpopular paths in fs/fscache/cookie.c: line 523 \n"); 
 	struct fscache_object *object;
 	bool awaken = false;
 
@@ -586,6 +596,7 @@ EXPORT_SYMBOL(__fscache_disable_cookie);
  */
 void __fscache_relinquish_cookie(struct fscache_cookie *cookie, bool retire)
 {
+	panic("We reached unpopular paths in fs/fscache/cookie.c: line 599 \n"); 
 	fscache_stat(&fscache_n_relinquishes);
 	if (retire)
 		fscache_stat(&fscache_n_relinquishes_retire);
@@ -629,6 +640,7 @@ EXPORT_SYMBOL(__fscache_relinquish_cookie);
  */
 void __fscache_cookie_put(struct fscache_cookie *cookie)
 {
+	panic("We reached unpopular paths in fs/fscache/cookie.c: line 643 \n"); 
 	struct fscache_cookie *parent;
 
 	_enter("%p", cookie);
@@ -658,6 +670,7 @@ void __fscache_cookie_put(struct fscache_cookie *cookie)
  */
 int __fscache_check_consistency(struct fscache_cookie *cookie)
 {
+	panic("We reached unpopular paths in fs/fscache/cookie.c: line 673 \n"); 
 	struct fscache_operation *op;
 	struct fscache_object *object;
 	bool wake_cookie = false;

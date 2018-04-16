@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	SNAP data link layer. Derived from 802.2
  *
@@ -32,6 +33,7 @@ static struct llc_sap *snap_sap;
  */
 static struct datalink_proto *find_snap_client(const unsigned char *desc)
 {
+	panic("We reached unpopular paths in net/802/psnap.c: line 36 \n"); 
 	struct datalink_proto *proto = NULL, *p;
 
 	list_for_each_entry_rcu(p, &snap_list, node) {
@@ -49,6 +51,7 @@ static struct datalink_proto *find_snap_client(const unsigned char *desc)
 static int snap_rcv(struct sk_buff *skb, struct net_device *dev,
 		    struct packet_type *pt, struct net_device *orig_dev)
 {
+	panic("We reached unpopular paths in net/802/psnap.c: line 54 \n"); 
 	int rc = 1;
 	struct datalink_proto *proto;
 	static struct packet_type snap_packet_type = {
@@ -85,6 +88,7 @@ drop:
 static int snap_request(struct datalink_proto *dl,
 			struct sk_buff *skb, u8 *dest)
 {
+	panic("We reached unpopular paths in net/802/psnap.c: line 91 \n"); 
 	memcpy(skb_push(skb, 5), dl->type, 5);
 	llc_build_and_send_ui_pkt(snap_sap, skb, dest, snap_sap->laddr.lsap);
 	return 0;
@@ -129,6 +133,7 @@ struct datalink_proto *register_snap_client(const unsigned char *desc,
 							   struct packet_type *,
 							   struct net_device *))
 {
+	panic("We reached unpopular paths in net/802/psnap.c: line 136 \n"); 
 	struct datalink_proto *proto = NULL;
 
 	spin_lock_bh(&snap_lock);
@@ -155,6 +160,7 @@ out:
  */
 void unregister_snap_client(struct datalink_proto *proto)
 {
+	panic("We reached unpopular paths in net/802/psnap.c: line 163 \n"); 
 	spin_lock_bh(&snap_lock);
 	list_del_rcu(&proto->node);
 	spin_unlock_bh(&snap_lock);

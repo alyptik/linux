@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2000-2003,2005 Silicon Graphics, Inc.
  * Copyright (c) 2013 Red Hat, Inc.
@@ -62,6 +63,7 @@ static bool
 xfs_dir3_block_verify(
 	struct xfs_buf		*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 66 \n"); 
 	struct xfs_mount	*mp = bp->b_target->bt_mount;
 	struct xfs_dir3_blk_hdr	*hdr3 = bp->b_addr;
 
@@ -87,6 +89,7 @@ static void
 xfs_dir3_block_read_verify(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 92 \n"); 
 	struct xfs_mount	*mp = bp->b_target->bt_mount;
 
 	if (xfs_sb_version_hascrc(&mp->m_sb) &&
@@ -103,6 +106,7 @@ static void
 xfs_dir3_block_write_verify(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 109 \n"); 
 	struct xfs_mount	*mp = bp->b_target->bt_mount;
 	struct xfs_buf_log_item	*bip = bp->b_fspriv;
 	struct xfs_dir3_blk_hdr	*hdr3 = bp->b_addr;
@@ -134,6 +138,7 @@ xfs_dir3_block_read(
 	struct xfs_inode	*dp,
 	struct xfs_buf		**bpp)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 141 \n"); 
 	struct xfs_mount	*mp = dp->i_mount;
 	int			err;
 
@@ -151,6 +156,7 @@ xfs_dir3_block_init(
 	struct xfs_buf		*bp,
 	struct xfs_inode	*dp)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 159 \n"); 
 	struct xfs_dir3_blk_hdr *hdr3 = bp->b_addr;
 
 	bp->b_ops = &xfs_dir3_block_buf_ops;
@@ -180,6 +186,7 @@ xfs_dir2_block_need_space(
 	int				*compact,
 	int				len)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 189 \n"); 
 	struct xfs_dir2_data_free	*bf;
 	__be16				*tagp = NULL;
 	struct xfs_dir2_data_unused	*dup = NULL;
@@ -291,6 +298,7 @@ xfs_dir2_block_compact(
 	int				*lfloghigh,
 	int				*lfloglow)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 301 \n"); 
 	int			fromidx;	/* source leaf index */
 	int			toidx;		/* target leaf index */
 	int			needscan = 0;
@@ -335,6 +343,7 @@ int						/* error */
 xfs_dir2_block_addname(
 	xfs_da_args_t		*args)		/* directory op arguments */
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 346 \n"); 
 	xfs_dir2_data_hdr_t	*hdr;		/* block header */
 	xfs_dir2_leaf_entry_t	*blp;		/* block leaf entries */
 	struct xfs_buf		*bp;		/* buffer for block */
@@ -575,6 +584,7 @@ xfs_dir2_block_log_leaf(
 	int			first,		/* index of first logged leaf */
 	int			last)		/* index of last logged leaf */
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 587 \n"); 
 	xfs_dir2_data_hdr_t	*hdr = bp->b_addr;
 	xfs_dir2_leaf_entry_t	*blp;
 	xfs_dir2_block_tail_t	*btp;
@@ -593,6 +603,7 @@ xfs_dir2_block_log_tail(
 	xfs_trans_t		*tp,		/* transaction structure */
 	struct xfs_buf		*bp)		/* block buffer */
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 606 \n"); 
 	xfs_dir2_data_hdr_t	*hdr = bp->b_addr;
 	xfs_dir2_block_tail_t	*btp;
 
@@ -609,6 +620,7 @@ int						/* error */
 xfs_dir2_block_lookup(
 	xfs_da_args_t		*args)		/* dir lookup arguments */
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 623 \n"); 
 	xfs_dir2_data_hdr_t	*hdr;		/* block header */
 	xfs_dir2_leaf_entry_t	*blp;		/* block leaf entries */
 	struct xfs_buf		*bp;		/* block buffer */
@@ -656,6 +668,7 @@ xfs_dir2_block_lookup_int(
 	struct xfs_buf		**bpp,		/* returned block buffer */
 	int			*entno)		/* returned entry number */
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 671 \n"); 
 	xfs_dir2_dataptr_t	addr;		/* data entry address */
 	xfs_dir2_data_hdr_t	*hdr;		/* block header */
 	xfs_dir2_leaf_entry_t	*blp;		/* block leaf entries */
@@ -759,6 +772,7 @@ int						/* error */
 xfs_dir2_block_removename(
 	xfs_da_args_t		*args)		/* directory operation args */
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 775 \n"); 
 	xfs_dir2_data_hdr_t	*hdr;		/* block header */
 	xfs_dir2_leaf_entry_t	*blp;		/* block leaf pointer */
 	struct xfs_buf		*bp;		/* block buffer */
@@ -839,6 +853,7 @@ int						/* error */
 xfs_dir2_block_replace(
 	xfs_da_args_t		*args)		/* directory operation args */
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 856 \n"); 
 	xfs_dir2_data_hdr_t	*hdr;		/* block header */
 	xfs_dir2_leaf_entry_t	*blp;		/* block leaf entries */
 	struct xfs_buf		*bp;		/* block buffer */
@@ -886,6 +901,7 @@ xfs_dir2_block_sort(
 	const void			*a,	/* first leaf entry */
 	const void			*b)	/* second leaf entry */
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 904 \n"); 
 	const xfs_dir2_leaf_entry_t	*la;	/* first leaf entry */
 	const xfs_dir2_leaf_entry_t	*lb;	/* second leaf entry */
 
@@ -904,6 +920,7 @@ xfs_dir2_leaf_to_block(
 	struct xfs_buf		*lbp,		/* leaf buffer */
 	struct xfs_buf		*dbp)		/* data buffer */
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 923 \n"); 
 	__be16			*bestsp;	/* leaf bests table */
 	xfs_dir2_data_hdr_t	*hdr;		/* block header */
 	xfs_dir2_block_tail_t	*btp;		/* block tail */
@@ -1047,6 +1064,7 @@ int						/* error */
 xfs_dir2_sf_to_block(
 	xfs_da_args_t		*args)		/* operation arguments */
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_dir2_block.c: line 1067 \n"); 
 	xfs_dir2_db_t		blkno;		/* dir-relative block # (0) */
 	xfs_dir2_data_hdr_t	*hdr;		/* block header */
 	xfs_dir2_leaf_entry_t	*blp;		/* block leaf entries */

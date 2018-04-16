@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Software async crypto daemon.
  *
@@ -107,6 +108,7 @@ static int cryptd_init_queue(struct cryptd_queue *queue,
 
 static void cryptd_fini_queue(struct cryptd_queue *queue)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 111 \n"); 
 	int cpu;
 	struct cryptd_cpu_queue *cpu_queue;
 
@@ -120,6 +122,7 @@ static void cryptd_fini_queue(struct cryptd_queue *queue)
 static int cryptd_enqueue_request(struct cryptd_queue *queue,
 				  struct crypto_async_request *request)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 125 \n"); 
 	int cpu, err;
 	struct cryptd_cpu_queue *cpu_queue;
 	struct crypto_tfm *tfm;
@@ -155,6 +158,7 @@ out_put_cpu:
  * do. */
 static void cryptd_queue_worker(struct work_struct *work)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 161 \n"); 
 	struct cryptd_cpu_queue *cpu_queue;
 	struct crypto_async_request *req, *backlog;
 
@@ -185,6 +189,7 @@ static void cryptd_queue_worker(struct work_struct *work)
 
 static inline struct cryptd_queue *cryptd_get_queue(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 192 \n"); 
 	struct crypto_instance *inst = crypto_tfm_alg_instance(tfm);
 	struct cryptd_instance_ctx *ictx = crypto_instance_ctx(inst);
 	return ictx->queue;
@@ -193,6 +198,7 @@ static inline struct cryptd_queue *cryptd_get_queue(struct crypto_tfm *tfm)
 static inline void cryptd_check_internal(struct rtattr **tb, u32 *type,
 					 u32 *mask)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 201 \n"); 
 	struct crypto_attr_type *algt;
 
 	algt = crypto_get_attr_type(tb);
@@ -206,6 +212,7 @@ static inline void cryptd_check_internal(struct rtattr **tb, u32 *type,
 static int cryptd_blkcipher_setkey(struct crypto_ablkcipher *parent,
 				   const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 215 \n"); 
 	struct cryptd_blkcipher_ctx *ctx = crypto_ablkcipher_ctx(parent);
 	struct crypto_blkcipher *child = ctx->child;
 	int err;
@@ -227,6 +234,7 @@ static void cryptd_blkcipher_crypt(struct ablkcipher_request *req,
 						struct scatterlist *src,
 						unsigned int len))
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 237 \n"); 
 	struct cryptd_blkcipher_request_ctx *rctx;
 	struct cryptd_blkcipher_ctx *ctx;
 	struct crypto_ablkcipher *tfm;
@@ -261,6 +269,7 @@ out:
 
 static void cryptd_blkcipher_encrypt(struct crypto_async_request *req, int err)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 272 \n"); 
 	struct cryptd_blkcipher_ctx *ctx = crypto_tfm_ctx(req->tfm);
 	struct crypto_blkcipher *child = ctx->child;
 
@@ -270,6 +279,7 @@ static void cryptd_blkcipher_encrypt(struct crypto_async_request *req, int err)
 
 static void cryptd_blkcipher_decrypt(struct crypto_async_request *req, int err)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 282 \n"); 
 	struct cryptd_blkcipher_ctx *ctx = crypto_tfm_ctx(req->tfm);
 	struct crypto_blkcipher *child = ctx->child;
 
@@ -293,16 +303,19 @@ static int cryptd_blkcipher_enqueue(struct ablkcipher_request *req,
 
 static int cryptd_blkcipher_encrypt_enqueue(struct ablkcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 306 \n"); 
 	return cryptd_blkcipher_enqueue(req, cryptd_blkcipher_encrypt);
 }
 
 static int cryptd_blkcipher_decrypt_enqueue(struct ablkcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 312 \n"); 
 	return cryptd_blkcipher_enqueue(req, cryptd_blkcipher_decrypt);
 }
 
 static int cryptd_blkcipher_init_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 318 \n"); 
 	struct crypto_instance *inst = crypto_tfm_alg_instance(tfm);
 	struct cryptd_instance_ctx *ictx = crypto_instance_ctx(inst);
 	struct crypto_spawn *spawn = &ictx->spawn;
@@ -321,6 +334,7 @@ static int cryptd_blkcipher_init_tfm(struct crypto_tfm *tfm)
 
 static void cryptd_blkcipher_exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 337 \n"); 
 	struct cryptd_blkcipher_ctx *ctx = crypto_tfm_ctx(tfm);
 
 	crypto_free_blkcipher(ctx->child);
@@ -329,6 +343,7 @@ static void cryptd_blkcipher_exit_tfm(struct crypto_tfm *tfm)
 static int cryptd_init_instance(struct crypto_instance *inst,
 				struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 346 \n"); 
 	if (snprintf(inst->alg.cra_driver_name, CRYPTO_MAX_ALG_NAME,
 		     "cryptd(%s)",
 		     alg->cra_driver_name) >= CRYPTO_MAX_ALG_NAME)
@@ -346,6 +361,7 @@ static int cryptd_init_instance(struct crypto_instance *inst,
 static void *cryptd_alloc_instance(struct crypto_alg *alg, unsigned int head,
 				   unsigned int tail)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 364 \n"); 
 	char *p;
 	struct crypto_instance *inst;
 	int err;
@@ -373,6 +389,7 @@ static int cryptd_create_blkcipher(struct crypto_template *tmpl,
 				   struct rtattr **tb,
 				   struct cryptd_queue *queue)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 392 \n"); 
 	struct cryptd_instance_ctx *ctx;
 	struct crypto_instance *inst;
 	struct crypto_alg *alg;
@@ -434,6 +451,7 @@ out_put_alg:
 
 static int cryptd_hash_init_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 454 \n"); 
 	struct crypto_instance *inst = crypto_tfm_alg_instance(tfm);
 	struct hashd_instance_ctx *ictx = crypto_instance_ctx(inst);
 	struct crypto_shash_spawn *spawn = &ictx->spawn;
@@ -453,6 +471,7 @@ static int cryptd_hash_init_tfm(struct crypto_tfm *tfm)
 
 static void cryptd_hash_exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 474 \n"); 
 	struct cryptd_hash_ctx *ctx = crypto_tfm_ctx(tfm);
 
 	crypto_free_shash(ctx->child);
@@ -461,6 +480,7 @@ static void cryptd_hash_exit_tfm(struct crypto_tfm *tfm)
 static int cryptd_hash_setkey(struct crypto_ahash *parent,
 				   const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 483 \n"); 
 	struct cryptd_hash_ctx *ctx   = crypto_ahash_ctx(parent);
 	struct crypto_shash *child = ctx->child;
 	int err;
@@ -490,6 +510,7 @@ static int cryptd_hash_enqueue(struct ahash_request *req,
 
 static void cryptd_hash_complete(struct ahash_request *req, int err)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 513 \n"); 
 	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
 	struct cryptd_hash_ctx *ctx = crypto_ahash_ctx(tfm);
 	struct cryptd_hash_request_ctx *rctx = ahash_request_ctx(req);
@@ -505,6 +526,7 @@ static void cryptd_hash_complete(struct ahash_request *req, int err)
 
 static void cryptd_hash_init(struct crypto_async_request *req_async, int err)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 529 \n"); 
 	struct cryptd_hash_ctx *ctx = crypto_tfm_ctx(req_async->tfm);
 	struct crypto_shash *child = ctx->child;
 	struct ahash_request *req = ahash_request_cast(req_async);
@@ -527,11 +549,13 @@ out:
 
 static int cryptd_hash_init_enqueue(struct ahash_request *req)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 552 \n"); 
 	return cryptd_hash_enqueue(req, cryptd_hash_init);
 }
 
 static void cryptd_hash_update(struct crypto_async_request *req_async, int err)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 558 \n"); 
 	struct ahash_request *req = ahash_request_cast(req_async);
 	struct cryptd_hash_request_ctx *rctx;
 
@@ -550,11 +574,13 @@ out:
 
 static int cryptd_hash_update_enqueue(struct ahash_request *req)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 577 \n"); 
 	return cryptd_hash_enqueue(req, cryptd_hash_update);
 }
 
 static void cryptd_hash_final(struct crypto_async_request *req_async, int err)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 583 \n"); 
 	struct ahash_request *req = ahash_request_cast(req_async);
 	struct cryptd_hash_request_ctx *rctx = ahash_request_ctx(req);
 
@@ -571,11 +597,13 @@ out:
 
 static int cryptd_hash_final_enqueue(struct ahash_request *req)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 600 \n"); 
 	return cryptd_hash_enqueue(req, cryptd_hash_final);
 }
 
 static void cryptd_hash_finup(struct crypto_async_request *req_async, int err)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 606 \n"); 
 	struct ahash_request *req = ahash_request_cast(req_async);
 	struct cryptd_hash_request_ctx *rctx = ahash_request_ctx(req);
 
@@ -592,11 +620,13 @@ out:
 
 static int cryptd_hash_finup_enqueue(struct ahash_request *req)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 623 \n"); 
 	return cryptd_hash_enqueue(req, cryptd_hash_finup);
 }
 
 static void cryptd_hash_digest(struct crypto_async_request *req_async, int err)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 629 \n"); 
 	struct cryptd_hash_ctx *ctx = crypto_tfm_ctx(req_async->tfm);
 	struct crypto_shash *child = ctx->child;
 	struct ahash_request *req = ahash_request_cast(req_async);
@@ -619,11 +649,13 @@ out:
 
 static int cryptd_hash_digest_enqueue(struct ahash_request *req)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 652 \n"); 
 	return cryptd_hash_enqueue(req, cryptd_hash_digest);
 }
 
 static int cryptd_hash_export(struct ahash_request *req, void *out)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 658 \n"); 
 	struct cryptd_hash_request_ctx *rctx = ahash_request_ctx(req);
 
 	return crypto_shash_export(&rctx->desc, out);
@@ -631,6 +663,7 @@ static int cryptd_hash_export(struct ahash_request *req, void *out)
 
 static int cryptd_hash_import(struct ahash_request *req, const void *in)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 666 \n"); 
 	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
 	struct cryptd_hash_ctx *ctx = crypto_ahash_ctx(tfm);
 	struct shash_desc *desc = cryptd_shash_desc(req);
@@ -644,6 +677,7 @@ static int cryptd_hash_import(struct ahash_request *req, const void *in)
 static int cryptd_create_hash(struct crypto_template *tmpl, struct rtattr **tb,
 			      struct cryptd_queue *queue)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 680 \n"); 
 	struct hashd_instance_ctx *ctx;
 	struct ahash_instance *inst;
 	struct shash_alg *salg;
@@ -709,6 +743,7 @@ out_put_alg:
 static int cryptd_aead_setkey(struct crypto_aead *parent,
 			      const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 746 \n"); 
 	struct cryptd_aead_ctx *ctx = crypto_aead_ctx(parent);
 	struct crypto_aead *child = ctx->child;
 
@@ -718,6 +753,7 @@ static int cryptd_aead_setkey(struct crypto_aead *parent,
 static int cryptd_aead_setauthsize(struct crypto_aead *parent,
 				   unsigned int authsize)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 756 \n"); 
 	struct cryptd_aead_ctx *ctx = crypto_aead_ctx(parent);
 	struct crypto_aead *child = ctx->child;
 
@@ -729,6 +765,7 @@ static void cryptd_aead_crypt(struct aead_request *req,
 			int err,
 			int (*crypt)(struct aead_request *req))
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 768 \n"); 
 	struct cryptd_aead_request_ctx *rctx;
 	struct cryptd_aead_ctx *ctx;
 	crypto_completion_t compl;
@@ -759,6 +796,7 @@ out:
 
 static void cryptd_aead_encrypt(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 799 \n"); 
 	struct cryptd_aead_ctx *ctx = crypto_tfm_ctx(areq->tfm);
 	struct crypto_aead *child = ctx->child;
 	struct aead_request *req;
@@ -769,6 +807,7 @@ static void cryptd_aead_encrypt(struct crypto_async_request *areq, int err)
 
 static void cryptd_aead_decrypt(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 810 \n"); 
 	struct cryptd_aead_ctx *ctx = crypto_tfm_ctx(areq->tfm);
 	struct crypto_aead *child = ctx->child;
 	struct aead_request *req;
@@ -791,16 +830,19 @@ static int cryptd_aead_enqueue(struct aead_request *req,
 
 static int cryptd_aead_encrypt_enqueue(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 833 \n"); 
 	return cryptd_aead_enqueue(req, cryptd_aead_encrypt );
 }
 
 static int cryptd_aead_decrypt_enqueue(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 839 \n"); 
 	return cryptd_aead_enqueue(req, cryptd_aead_decrypt );
 }
 
 static int cryptd_aead_init_tfm(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 845 \n"); 
 	struct aead_instance *inst = aead_alg_instance(tfm);
 	struct aead_instance_ctx *ictx = aead_instance_ctx(inst);
 	struct crypto_aead_spawn *spawn = &ictx->aead_spawn;
@@ -820,6 +862,7 @@ static int cryptd_aead_init_tfm(struct crypto_aead *tfm)
 
 static void cryptd_aead_exit_tfm(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 865 \n"); 
 	struct cryptd_aead_ctx *ctx = crypto_aead_ctx(tfm);
 	crypto_free_aead(ctx->child);
 }
@@ -828,6 +871,7 @@ static int cryptd_create_aead(struct crypto_template *tmpl,
 		              struct rtattr **tb,
 			      struct cryptd_queue *queue)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 874 \n"); 
 	struct aead_instance_ctx *ctx;
 	struct aead_instance *inst;
 	struct aead_alg *alg;
@@ -887,6 +931,7 @@ static struct cryptd_queue queue;
 
 static int cryptd_create(struct crypto_template *tmpl, struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 934 \n"); 
 	struct crypto_attr_type *algt;
 
 	algt = crypto_get_attr_type(tb);
@@ -907,6 +952,7 @@ static int cryptd_create(struct crypto_template *tmpl, struct rtattr **tb)
 
 static void cryptd_free(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 955 \n"); 
 	struct cryptd_instance_ctx *ctx = crypto_instance_ctx(inst);
 	struct hashd_instance_ctx *hctx = crypto_instance_ctx(inst);
 	struct aead_instance_ctx *aead_ctx = crypto_instance_ctx(inst);
@@ -936,6 +982,7 @@ static struct crypto_template cryptd_tmpl = {
 struct cryptd_ablkcipher *cryptd_alloc_ablkcipher(const char *alg_name,
 						  u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 985 \n"); 
 	char cryptd_alg_name[CRYPTO_MAX_ALG_NAME];
 	struct cryptd_blkcipher_ctx *ctx;
 	struct crypto_tfm *tfm;
@@ -963,6 +1010,7 @@ EXPORT_SYMBOL_GPL(cryptd_alloc_ablkcipher);
 
 struct crypto_blkcipher *cryptd_ablkcipher_child(struct cryptd_ablkcipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 1013 \n"); 
 	struct cryptd_blkcipher_ctx *ctx = crypto_ablkcipher_ctx(&tfm->base);
 	return ctx->child;
 }
@@ -970,6 +1018,7 @@ EXPORT_SYMBOL_GPL(cryptd_ablkcipher_child);
 
 bool cryptd_ablkcipher_queued(struct cryptd_ablkcipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 1021 \n"); 
 	struct cryptd_blkcipher_ctx *ctx = crypto_ablkcipher_ctx(&tfm->base);
 
 	return atomic_read(&ctx->refcnt) - 1;
@@ -978,6 +1027,7 @@ EXPORT_SYMBOL_GPL(cryptd_ablkcipher_queued);
 
 void cryptd_free_ablkcipher(struct cryptd_ablkcipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 1030 \n"); 
 	struct cryptd_blkcipher_ctx *ctx = crypto_ablkcipher_ctx(&tfm->base);
 
 	if (atomic_dec_and_test(&ctx->refcnt))
@@ -988,6 +1038,7 @@ EXPORT_SYMBOL_GPL(cryptd_free_ablkcipher);
 struct cryptd_ahash *cryptd_alloc_ahash(const char *alg_name,
 					u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 1041 \n"); 
 	char cryptd_alg_name[CRYPTO_MAX_ALG_NAME];
 	struct cryptd_hash_ctx *ctx;
 	struct crypto_ahash *tfm;
@@ -1012,6 +1063,7 @@ EXPORT_SYMBOL_GPL(cryptd_alloc_ahash);
 
 struct crypto_shash *cryptd_ahash_child(struct cryptd_ahash *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 1066 \n"); 
 	struct cryptd_hash_ctx *ctx = crypto_ahash_ctx(&tfm->base);
 
 	return ctx->child;
@@ -1020,6 +1072,7 @@ EXPORT_SYMBOL_GPL(cryptd_ahash_child);
 
 struct shash_desc *cryptd_shash_desc(struct ahash_request *req)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 1075 \n"); 
 	struct cryptd_hash_request_ctx *rctx = ahash_request_ctx(req);
 	return &rctx->desc;
 }
@@ -1027,6 +1080,7 @@ EXPORT_SYMBOL_GPL(cryptd_shash_desc);
 
 bool cryptd_ahash_queued(struct cryptd_ahash *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 1083 \n"); 
 	struct cryptd_hash_ctx *ctx = crypto_ahash_ctx(&tfm->base);
 
 	return atomic_read(&ctx->refcnt) - 1;
@@ -1035,6 +1089,7 @@ EXPORT_SYMBOL_GPL(cryptd_ahash_queued);
 
 void cryptd_free_ahash(struct cryptd_ahash *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 1092 \n"); 
 	struct cryptd_hash_ctx *ctx = crypto_ahash_ctx(&tfm->base);
 
 	if (atomic_dec_and_test(&ctx->refcnt))
@@ -1045,6 +1100,7 @@ EXPORT_SYMBOL_GPL(cryptd_free_ahash);
 struct cryptd_aead *cryptd_alloc_aead(const char *alg_name,
 						  u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 1103 \n"); 
 	char cryptd_alg_name[CRYPTO_MAX_ALG_NAME];
 	struct cryptd_aead_ctx *ctx;
 	struct crypto_aead *tfm;
@@ -1069,6 +1125,7 @@ EXPORT_SYMBOL_GPL(cryptd_alloc_aead);
 
 struct crypto_aead *cryptd_aead_child(struct cryptd_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 1128 \n"); 
 	struct cryptd_aead_ctx *ctx;
 	ctx = crypto_aead_ctx(&tfm->base);
 	return ctx->child;
@@ -1077,6 +1134,7 @@ EXPORT_SYMBOL_GPL(cryptd_aead_child);
 
 bool cryptd_aead_queued(struct cryptd_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 1137 \n"); 
 	struct cryptd_aead_ctx *ctx = crypto_aead_ctx(&tfm->base);
 
 	return atomic_read(&ctx->refcnt) - 1;
@@ -1085,6 +1143,7 @@ EXPORT_SYMBOL_GPL(cryptd_aead_queued);
 
 void cryptd_free_aead(struct cryptd_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/cryptd.c: line 1146 \n"); 
 	struct cryptd_aead_ctx *ctx = crypto_aead_ctx(&tfm->base);
 
 	if (atomic_dec_and_test(&ctx->refcnt))

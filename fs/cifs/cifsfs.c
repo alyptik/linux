@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *   fs/cifs/cifsfs.c
  *
@@ -99,6 +100,7 @@ __u32 cifs_lock_secret;
 void
 cifs_sb_active(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 103 \n"); 
 	struct cifs_sb_info *server = CIFS_SB(sb);
 
 	if (atomic_inc_return(&server->active) == 1)
@@ -108,6 +110,7 @@ cifs_sb_active(struct super_block *sb)
 void
 cifs_sb_deactive(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 113 \n"); 
 	struct cifs_sb_info *server = CIFS_SB(sb);
 
 	if (atomic_dec_and_test(&server->active))
@@ -117,6 +120,7 @@ cifs_sb_deactive(struct super_block *sb)
 static int
 cifs_read_super(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 123 \n"); 
 	struct inode *inode;
 	struct cifs_sb_info *cifs_sb;
 	struct cifs_tcon *tcon;
@@ -176,6 +180,7 @@ out_no_root:
 
 static void cifs_kill_sb(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 183 \n"); 
 	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
 	kill_anon_super(sb);
 	cifs_umount(cifs_sb);
@@ -184,6 +189,7 @@ static void cifs_kill_sb(struct super_block *sb)
 static int
 cifs_statfs(struct dentry *dentry, struct kstatfs *buf)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 192 \n"); 
 	struct super_block *sb = dentry->d_sb;
 	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
 	struct cifs_tcon *tcon = cifs_sb_master_tcon(cifs_sb);
@@ -213,6 +219,7 @@ cifs_statfs(struct dentry *dentry, struct kstatfs *buf)
 
 static long cifs_fallocate(struct file *file, int mode, loff_t off, loff_t len)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 222 \n"); 
 	struct cifs_sb_info *cifs_sb = CIFS_FILE_SB(file);
 	struct cifs_tcon *tcon = cifs_sb_master_tcon(cifs_sb);
 	struct TCP_Server_Info *server = tcon->ses->server;
@@ -225,6 +232,7 @@ static long cifs_fallocate(struct file *file, int mode, loff_t off, loff_t len)
 
 static int cifs_permission(struct inode *inode, int mask)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 235 \n"); 
 	struct cifs_sb_info *cifs_sb;
 
 	cifs_sb = CIFS_SB(inode->i_sb);
@@ -252,6 +260,7 @@ mempool_t *cifs_mid_poolp;
 static struct inode *
 cifs_alloc_inode(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 263 \n"); 
 	struct cifsInodeInfo *cifs_inode;
 	cifs_inode = kmem_cache_alloc(cifs_inode_cachep, GFP_KERNEL);
 	if (!cifs_inode)
@@ -286,6 +295,7 @@ cifs_alloc_inode(struct super_block *sb)
 
 static void cifs_i_callback(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 298 \n"); 
 	struct inode *inode = container_of(head, struct inode, i_rcu);
 	kmem_cache_free(cifs_inode_cachep, CIFS_I(inode));
 }
@@ -293,12 +303,14 @@ static void cifs_i_callback(struct rcu_head *head)
 static void
 cifs_destroy_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 306 \n"); 
 	call_rcu(&inode->i_rcu, cifs_i_callback);
 }
 
 static void
 cifs_evict_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 313 \n"); 
 	truncate_inode_pages_final(&inode->i_data);
 	clear_inode(inode);
 	cifs_fscache_release_inode_cookie(inode);
@@ -307,6 +319,7 @@ cifs_evict_inode(struct inode *inode)
 static void
 cifs_show_address(struct seq_file *s, struct TCP_Server_Info *server)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 322 \n"); 
 	struct sockaddr_in *sa = (struct sockaddr_in *) &server->dstaddr;
 	struct sockaddr_in6 *sa6 = (struct sockaddr_in6 *) &server->dstaddr;
 
@@ -329,6 +342,7 @@ cifs_show_address(struct seq_file *s, struct TCP_Server_Info *server)
 static void
 cifs_show_security(struct seq_file *s, struct cifs_ses *ses)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 345 \n"); 
 	if (ses->sectype == Unspecified) {
 		if (ses->user_name == NULL)
 			seq_puts(s, ",sec=none");
@@ -366,6 +380,7 @@ cifs_show_security(struct seq_file *s, struct cifs_ses *ses)
 static void
 cifs_show_cache_flavor(struct seq_file *s, struct cifs_sb_info *cifs_sb)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 383 \n"); 
 	seq_puts(s, ",cache=");
 
 	if (cifs_sb->mnt_cifs_flags & CIFS_MOUNT_STRICT_IO)
@@ -379,6 +394,7 @@ cifs_show_cache_flavor(struct seq_file *s, struct cifs_sb_info *cifs_sb)
 static void
 cifs_show_nls(struct seq_file *s, struct nls_table *cur)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 397 \n"); 
 	struct nls_table *def;
 
 	/* Display iocharset= option if it's not default charset */
@@ -396,6 +412,7 @@ cifs_show_nls(struct seq_file *s, struct nls_table *cur)
 static int
 cifs_show_options(struct seq_file *s, struct dentry *root)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 415 \n"); 
 	struct cifs_sb_info *cifs_sb = CIFS_SB(root->d_sb);
 	struct cifs_tcon *tcon = cifs_sb_master_tcon(cifs_sb);
 	struct sockaddr *srcaddr;
@@ -523,6 +540,7 @@ cifs_show_options(struct seq_file *s, struct dentry *root)
 
 static void cifs_umount_begin(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 543 \n"); 
 	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
 	struct cifs_tcon *tcon;
 
@@ -567,6 +585,7 @@ static int cifs_show_stats(struct seq_file *s, struct dentry *root)
 
 static int cifs_remount(struct super_block *sb, int *flags, char *data)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 588 \n"); 
 	sync_filesystem(sb);
 	*flags |= MS_NODIRATIME;
 	return 0;
@@ -574,6 +593,7 @@ static int cifs_remount(struct super_block *sb, int *flags, char *data)
 
 static int cifs_drop_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 596 \n"); 
 	struct cifs_sb_info *cifs_sb = CIFS_SB(inode->i_sb);
 
 	/* no serverino => unconditional eviction */
@@ -606,6 +626,7 @@ static const struct super_operations cifs_super_ops = {
 static struct dentry *
 cifs_get_root(struct smb_vol *vol, struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 629 \n"); 
 	struct dentry *dentry;
 	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
 	char *full_path = NULL;
@@ -661,6 +682,7 @@ cifs_get_root(struct smb_vol *vol, struct super_block *sb)
 
 static int cifs_set_super(struct super_block *sb, void *data)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 685 \n"); 
 	struct cifs_mnt_data *mnt_data = data;
 	sb->s_fs_info = mnt_data->cifs_sb;
 	return set_anon_super(sb, NULL);
@@ -670,6 +692,7 @@ static struct dentry *
 cifs_do_mount(struct file_system_type *fs_type,
 	      int flags, const char *dev_name, void *data)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 695 \n"); 
 	int rc;
 	struct super_block *sb;
 	struct cifs_sb_info *cifs_sb;
@@ -762,6 +785,7 @@ out_nls:
 static ssize_t
 cifs_loose_read_iter(struct kiocb *iocb, struct iov_iter *iter)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 788 \n"); 
 	ssize_t rc;
 	struct inode *inode = file_inode(iocb->ki_filp);
 
@@ -777,6 +801,7 @@ cifs_loose_read_iter(struct kiocb *iocb, struct iov_iter *iter)
 
 static ssize_t cifs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 804 \n"); 
 	struct inode *inode = file_inode(iocb->ki_filp);
 	struct cifsInodeInfo *cinode = CIFS_I(inode);
 	ssize_t written;
@@ -815,6 +840,7 @@ out:
 
 static loff_t cifs_llseek(struct file *file, loff_t offset, int whence)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 843 \n"); 
 	/*
 	 * whence == SEEK_END || SEEK_DATA || SEEK_HOLE => we must revalidate
 	 * the cached file length
@@ -852,6 +878,7 @@ static loff_t cifs_llseek(struct file *file, loff_t offset, int whence)
 static int
 cifs_setlease(struct file *file, long arg, struct file_lock **lease, void **priv)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 881 \n"); 
 	/*
 	 * Note that this is called by vfs setlease with i_lock held to
 	 * protect *lease from going away.
@@ -924,6 +951,7 @@ const struct inode_operations cifs_symlink_inode_ops = {
 static int cifs_clone_file_range(struct file *src_file, loff_t off,
 		struct file *dst_file, loff_t destoff, u64 len)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 954 \n"); 
 	struct inode *src_inode = file_inode(src_file);
 	struct inode *target_inode = file_inode(dst_file);
 	struct cifsFileInfo *smb_file_src = src_file->private_data;
@@ -1087,6 +1115,7 @@ const struct file_operations cifs_dir_ops = {
 static void
 cifs_init_once(void *inode)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 1118 \n"); 
 	struct cifsInodeInfo *cifsi = inode;
 
 	inode_init_once(&cifsi->vfs_inode);
@@ -1110,6 +1139,7 @@ cifs_init_inodecache(void)
 static void
 cifs_destroy_inodecache(void)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 1142 \n"); 
 	/*
 	 * Make sure all delayed rcu free inodes are flushed before we
 	 * destroy cache.
@@ -1202,6 +1232,7 @@ cifs_init_request_bufs(void)
 static void
 cifs_destroy_request_bufs(void)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 1235 \n"); 
 	mempool_destroy(cifs_req_poolp);
 	kmem_cache_destroy(cifs_req_cachep);
 	mempool_destroy(cifs_sm_req_poolp);
@@ -1230,6 +1261,7 @@ cifs_init_mids(void)
 static void
 cifs_destroy_mids(void)
 {
+	panic("We reached unpopular paths in fs/cifs/cifsfs.c: line 1264 \n"); 
 	mempool_destroy(cifs_mid_poolp);
 	kmem_cache_destroy(cifs_mid_cachep);
 }

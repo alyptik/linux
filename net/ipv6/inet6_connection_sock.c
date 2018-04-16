@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET        An implementation of the TCP/IP protocol suite for the LINUX
  *             operating system.  INET is implemented using the  BSD Socket
@@ -72,6 +73,7 @@ struct dst_entry *inet6_csk_route_req(const struct sock *sk,
 				      const struct request_sock *req,
 				      u8 proto)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_connection_sock.c: line 76 \n"); 
 	struct inet_request_sock *ireq = inet_rsk(req);
 	const struct ipv6_pinfo *np = inet6_sk(sk);
 	struct in6_addr *final_p, final;
@@ -100,6 +102,7 @@ EXPORT_SYMBOL(inet6_csk_route_req);
 
 void inet6_csk_addr2sockaddr(struct sock *sk, struct sockaddr *uaddr)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_connection_sock.c: line 105 \n"); 
 	struct sockaddr_in6 *sin6 = (struct sockaddr_in6 *) uaddr;
 
 	sin6->sin6_family = AF_INET6;
@@ -115,12 +118,14 @@ EXPORT_SYMBOL_GPL(inet6_csk_addr2sockaddr);
 static inline
 struct dst_entry *__inet6_csk_dst_check(struct sock *sk, u32 cookie)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_connection_sock.c: line 121 \n"); 
 	return __sk_dst_check(sk, cookie);
 }
 
 static struct dst_entry *inet6_csk_route_socket(struct sock *sk,
 						struct flowi6 *fl6)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_connection_sock.c: line 128 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct in6_addr *final_p, final;
@@ -154,6 +159,7 @@ static struct dst_entry *inet6_csk_route_socket(struct sock *sk,
 
 int inet6_csk_xmit(struct sock *sk, struct sk_buff *skb, struct flowi *fl_unused)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_connection_sock.c: line 162 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct flowi6 fl6;
 	struct dst_entry *dst;
@@ -182,6 +188,7 @@ EXPORT_SYMBOL_GPL(inet6_csk_xmit);
 
 struct dst_entry *inet6_csk_update_pmtu(struct sock *sk, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_connection_sock.c: line 191 \n"); 
 	struct flowi6 fl6;
 	struct dst_entry *dst = inet6_csk_route_socket(sk, &fl6);
 

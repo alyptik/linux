@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Cluster IP hashmark target
  * (C) 2003-2004 by Harald Welte <laforge@netfilter.org>
  * based on ideas of Fabio Olive Leite <olive@unixforge.org>
@@ -77,18 +78,21 @@ struct clusterip_net {
 static inline void
 clusterip_config_get(struct clusterip_config *c)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_CLUSTERIP.c: line 81 \n"); 
 	atomic_inc(&c->refcount);
 }
 
 
 static void clusterip_config_rcu_free(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_CLUSTERIP.c: line 88 \n"); 
 	kfree(container_of(head, struct clusterip_config, rcu));
 }
 
 static inline void
 clusterip_config_put(struct clusterip_config *c)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_CLUSTERIP.c: line 95 \n"); 
 	if (atomic_dec_and_test(&c->refcount))
 		call_rcu_bh(&c->rcu, clusterip_config_rcu_free);
 }
@@ -99,6 +103,7 @@ clusterip_config_put(struct clusterip_config *c)
 static inline void
 clusterip_config_entry_put(struct clusterip_config *c)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_CLUSTERIP.c: line 106 \n"); 
 	struct net *net = dev_net(c->dev);
 	struct clusterip_net *cn = net_generic(net, clusterip_net_id);
 
@@ -158,6 +163,7 @@ static void
 clusterip_config_init_nodelist(struct clusterip_config *c,
 			       const struct ipt_clusterip_tgt_info *i)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_CLUSTERIP.c: line 166 \n"); 
 	int n;
 
 	for (n = 0; n < i->num_local_nodes; n++)
@@ -168,6 +174,7 @@ static struct clusterip_config *
 clusterip_config_init(const struct ipt_clusterip_tgt_info *i, __be32 ip,
 			struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_CLUSTERIP.c: line 177 \n"); 
 	struct clusterip_config *c;
 	struct clusterip_net *cn = net_generic(dev_net(dev), clusterip_net_id);
 
@@ -242,6 +249,7 @@ static inline u_int32_t
 clusterip_hashfn(const struct sk_buff *skb,
 		 const struct clusterip_config *config)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_CLUSTERIP.c: line 252 \n"); 
 	const struct iphdr *iph = ip_hdr(skb);
 	unsigned long hashval;
 	u_int16_t sport = 0, dport = 0;
@@ -291,6 +299,7 @@ clusterip_hashfn(const struct sk_buff *skb,
 static inline int
 clusterip_responsible(const struct clusterip_config *config, u_int32_t hash)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_CLUSTERIP.c: line 302 \n"); 
 	return test_bit(hash - 1, &config->local_nodes);
 }
 
@@ -301,6 +310,7 @@ clusterip_responsible(const struct clusterip_config *config, u_int32_t hash)
 static unsigned int
 clusterip_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_CLUSTERIP.c: line 313 \n"); 
 	const struct ipt_clusterip_tgt_info *cipinfo = par->targinfo;
 	struct nf_conn *ct;
 	enum ip_conntrack_info ctinfo;
@@ -362,6 +372,7 @@ clusterip_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int clusterip_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_CLUSTERIP.c: line 375 \n"); 
 	struct ipt_clusterip_tgt_info *cipinfo = par->targinfo;
 	const struct ipt_entry *e = par->entryinfo;
 	struct clusterip_config *config;
@@ -446,6 +457,7 @@ static int clusterip_tg_check(const struct xt_tgchk_param *par)
 /* drop reference count of cluster config when rule is deleted */
 static void clusterip_tg_destroy(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_CLUSTERIP.c: line 460 \n"); 
 	const struct ipt_clusterip_tgt_info *cipinfo = par->targinfo;
 
 	/* if no more entries are referencing the config, remove it

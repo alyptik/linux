@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -31,6 +32,7 @@ struct hmac_ctx {
 
 static inline void *align_ptr(void *p, unsigned int align)
 {
+	// [blacklist] panic("We reached unpopular paths in crypto/hmac.c: line 35 \n"); 
 	return (void *)ALIGN((unsigned long)p, align);
 }
 
@@ -44,6 +46,7 @@ static inline struct hmac_ctx *hmac_ctx(struct crypto_shash *tfm)
 static int hmac_setkey(struct crypto_shash *parent,
 		       const u8 *inkey, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/hmac.c: line 49 \n"); 
 	int bs = crypto_shash_blocksize(parent);
 	int ds = crypto_shash_digestsize(parent);
 	int ss = crypto_shash_statesize(parent);
@@ -88,6 +91,7 @@ static int hmac_setkey(struct crypto_shash *parent,
 
 static int hmac_export(struct shash_desc *pdesc, void *out)
 {
+	panic("We reached unpopular paths in crypto/hmac.c: line 94 \n"); 
 	struct shash_desc *desc = shash_desc_ctx(pdesc);
 
 	desc->flags = pdesc->flags & CRYPTO_TFM_REQ_MAY_SLEEP;
@@ -97,6 +101,7 @@ static int hmac_export(struct shash_desc *pdesc, void *out)
 
 static int hmac_import(struct shash_desc *pdesc, const void *in)
 {
+	panic("We reached unpopular paths in crypto/hmac.c: line 104 \n"); 
 	struct shash_desc *desc = shash_desc_ctx(pdesc);
 	struct hmac_ctx *ctx = hmac_ctx(pdesc->tfm);
 
@@ -108,12 +113,14 @@ static int hmac_import(struct shash_desc *pdesc, const void *in)
 
 static int hmac_init(struct shash_desc *pdesc)
 {
+	panic("We reached unpopular paths in crypto/hmac.c: line 116 \n"); 
 	return hmac_import(pdesc, crypto_shash_ctx_aligned(pdesc->tfm));
 }
 
 static int hmac_update(struct shash_desc *pdesc,
 		       const u8 *data, unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/hmac.c: line 123 \n"); 
 	struct shash_desc *desc = shash_desc_ctx(pdesc);
 
 	desc->flags = pdesc->flags & CRYPTO_TFM_REQ_MAY_SLEEP;
@@ -123,6 +130,7 @@ static int hmac_update(struct shash_desc *pdesc,
 
 static int hmac_final(struct shash_desc *pdesc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/hmac.c: line 133 \n"); 
 	struct crypto_shash *parent = pdesc->tfm;
 	int ds = crypto_shash_digestsize(parent);
 	int ss = crypto_shash_statesize(parent);
@@ -139,6 +147,7 @@ static int hmac_final(struct shash_desc *pdesc, u8 *out)
 static int hmac_finup(struct shash_desc *pdesc, const u8 *data,
 		      unsigned int nbytes, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/hmac.c: line 150 \n"); 
 
 	struct crypto_shash *parent = pdesc->tfm;
 	int ds = crypto_shash_digestsize(parent);
@@ -174,6 +183,7 @@ static int hmac_init_tfm(struct crypto_tfm *tfm)
 
 static void hmac_exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/hmac.c: line 186 \n"); 
 	struct hmac_ctx *ctx = hmac_ctx(__crypto_shash_cast(tfm));
 	crypto_free_shash(ctx->hash);
 }

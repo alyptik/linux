@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2015 Jiri Pirko <jiri@resnulli.us>
  *
@@ -39,6 +40,7 @@ static struct tc_action_ops act_bpf_ops;
 static int tcf_bpf(struct sk_buff *skb, const struct tc_action *act,
 		   struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 43 \n"); 
 	bool at_ingress = skb_at_tc_ingress(skb);
 	struct tcf_bpf *prog = to_bpf(act);
 	struct bpf_prog *filter;
@@ -94,12 +96,14 @@ static int tcf_bpf(struct sk_buff *skb, const struct tc_action *act,
 
 static bool tcf_bpf_is_ebpf(const struct tcf_bpf *prog)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 99 \n"); 
 	return !prog->bpf_ops;
 }
 
 static int tcf_bpf_dump_bpf_info(const struct tcf_bpf *prog,
 				 struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 106 \n"); 
 	struct nlattr *nla;
 
 	if (nla_put_u16(skb, TCA_ACT_BPF_OPS_LEN, prog->bpf_num_ops))
@@ -118,6 +122,7 @@ static int tcf_bpf_dump_bpf_info(const struct tcf_bpf *prog,
 static int tcf_bpf_dump_ebpf_info(const struct tcf_bpf *prog,
 				  struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 125 \n"); 
 	if (nla_put_u32(skb, TCA_ACT_BPF_FD, prog->bpf_fd))
 		return -EMSGSIZE;
 
@@ -131,6 +136,7 @@ static int tcf_bpf_dump_ebpf_info(const struct tcf_bpf *prog,
 static int tcf_bpf_dump(struct sk_buff *skb, struct tc_action *act,
 			int bind, int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 139 \n"); 
 	unsigned char *tp = skb_tail_pointer(skb);
 	struct tcf_bpf *prog = to_bpf(act);
 	struct tc_act_bpf opt = {
@@ -176,6 +182,7 @@ static const struct nla_policy act_bpf_policy[TCA_ACT_BPF_MAX + 1] = {
 
 static int tcf_bpf_init_from_ops(struct nlattr **tb, struct tcf_bpf_cfg *cfg)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 185 \n"); 
 	struct sock_filter *bpf_ops;
 	struct sock_fprog_kern fprog_tmp;
 	struct bpf_prog *fp;
@@ -215,6 +222,7 @@ static int tcf_bpf_init_from_ops(struct nlattr **tb, struct tcf_bpf_cfg *cfg)
 
 static int tcf_bpf_init_from_efd(struct nlattr **tb, struct tcf_bpf_cfg *cfg)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 225 \n"); 
 	struct bpf_prog *fp;
 	char *name = NULL;
 	u32 bpf_fd;
@@ -245,6 +253,7 @@ static int tcf_bpf_init_from_efd(struct nlattr **tb, struct tcf_bpf_cfg *cfg)
 
 static void tcf_bpf_cfg_cleanup(const struct tcf_bpf_cfg *cfg)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 256 \n"); 
 	if (cfg->is_ebpf)
 		bpf_prog_put(cfg->filter);
 	else
@@ -257,6 +266,7 @@ static void tcf_bpf_cfg_cleanup(const struct tcf_bpf_cfg *cfg)
 static void tcf_bpf_prog_fill_cfg(const struct tcf_bpf *prog,
 				  struct tcf_bpf_cfg *cfg)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 269 \n"); 
 	cfg->is_ebpf = tcf_bpf_is_ebpf(prog);
 	/* updates to prog->filter are prevented, since it's called either
 	 * with rtnl lock or during final cleanup in rcu callback
@@ -271,6 +281,7 @@ static int tcf_bpf_init(struct net *net, struct nlattr *nla,
 			struct nlattr *est, struct tc_action **act,
 			int replace, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 284 \n"); 
 	struct tc_action_net *tn = net_generic(net, bpf_net_id);
 	struct nlattr *tb[TCA_ACT_BPF_MAX + 1];
 	struct tcf_bpf_cfg cfg, old;
@@ -358,6 +369,7 @@ out:
 
 static void tcf_bpf_cleanup(struct tc_action *act, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 372 \n"); 
 	struct tcf_bpf_cfg tmp;
 
 	tcf_bpf_prog_fill_cfg(to_bpf(act), &tmp);
@@ -368,6 +380,7 @@ static int tcf_bpf_walker(struct net *net, struct sk_buff *skb,
 			  struct netlink_callback *cb, int type,
 			  const struct tc_action_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 383 \n"); 
 	struct tc_action_net *tn = net_generic(net, bpf_net_id);
 
 	return tcf_generic_walker(tn, skb, cb, type, ops);
@@ -375,6 +388,7 @@ static int tcf_bpf_walker(struct net *net, struct sk_buff *skb,
 
 static int tcf_bpf_search(struct net *net, struct tc_action **a, u32 index)
 {
+	panic("We reached unpopular paths in net/sched/act_bpf.c: line 391 \n"); 
 	struct tc_action_net *tn = net_generic(net, bpf_net_id);
 
 	return tcf_hash_search(tn, a, index);

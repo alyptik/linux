@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* SIP extension for IP connection tracking.
  *
  * (C) 2005 by Christian Hentschel <chentschel@arnet.com.ar>
@@ -60,6 +61,7 @@ EXPORT_SYMBOL_GPL(nf_nat_sip_hooks);
 static int string_len(const struct nf_conn *ct, const char *dptr,
 		      const char *limit, int *shift)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 64 \n"); 
 	int len = 0;
 
 	while (dptr < limit && isalpha(*dptr)) {
@@ -72,6 +74,7 @@ static int string_len(const struct nf_conn *ct, const char *dptr,
 static int digits_len(const struct nf_conn *ct, const char *dptr,
 		      const char *limit, int *shift)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 77 \n"); 
 	int len = 0;
 	while (dptr < limit && isdigit(*dptr)) {
 		dptr++;
@@ -82,6 +85,7 @@ static int digits_len(const struct nf_conn *ct, const char *dptr,
 
 static int iswordc(const char c)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 88 \n"); 
 	if (isalnum(c) || c == '!' || c == '"' || c == '%' ||
 	    (c >= '(' && c <= '+') || c == ':' || c == '<' || c == '>' ||
 	    c == '?' || (c >= '[' && c <= ']') || c == '_' || c == '`' ||
@@ -93,6 +97,7 @@ static int iswordc(const char c)
 
 static int word_len(const char *dptr, const char *limit)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 100 \n"); 
 	int len = 0;
 	while (dptr < limit && iswordc(*dptr)) {
 		dptr++;
@@ -104,6 +109,7 @@ static int word_len(const char *dptr, const char *limit)
 static int callid_len(const struct nf_conn *ct, const char *dptr,
 		      const char *limit, int *shift)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 112 \n"); 
 	int len, domain_len;
 
 	len = word_len(dptr, limit);
@@ -123,6 +129,7 @@ static int callid_len(const struct nf_conn *ct, const char *dptr,
 static int media_len(const struct nf_conn *ct, const char *dptr,
 		     const char *limit, int *shift)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 132 \n"); 
 	int len = string_len(ct, dptr, limit, shift);
 
 	dptr += len;
@@ -138,6 +145,7 @@ static int sip_parse_addr(const struct nf_conn *ct, const char *cp,
 			  const char **endp, union nf_inet_addr *addr,
 			  const char *limit, bool delim)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 148 \n"); 
 	const char *end;
 	int ret;
 
@@ -179,6 +187,7 @@ static int sip_parse_addr(const struct nf_conn *ct, const char *cp,
 static int epaddr_len(const struct nf_conn *ct, const char *dptr,
 		      const char *limit, int *shift)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 190 \n"); 
 	union nf_inet_addr addr;
 	const char *aux = dptr;
 
@@ -199,6 +208,7 @@ static int epaddr_len(const struct nf_conn *ct, const char *dptr,
 static int skp_epaddr_len(const struct nf_conn *ct, const char *dptr,
 			  const char *limit, int *shift)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 211 \n"); 
 	const char *start = dptr;
 	int s = *shift;
 
@@ -233,6 +243,7 @@ int ct_sip_parse_request(const struct nf_conn *ct,
 			 unsigned int *matchoff, unsigned int *matchlen,
 			 union nf_inet_addr *addr, __be16 *port)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 246 \n"); 
 	const char *start = dptr, *limit = dptr + datalen, *end;
 	unsigned int mlen;
 	unsigned int p;
@@ -305,6 +316,7 @@ static const struct sip_header ct_sip_hdrs[] = {
 
 static const char *sip_follow_continuation(const char *dptr, const char *limit)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 319 \n"); 
 	/* Walk past newline */
 	if (++dptr >= limit)
 		return NULL;
@@ -329,6 +341,7 @@ static const char *sip_follow_continuation(const char *dptr, const char *limit)
 
 static const char *sip_skip_whitespace(const char *dptr, const char *limit)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 344 \n"); 
 	for (; dptr < limit; dptr++) {
 		if (*dptr == ' ' || *dptr == '\t')
 			continue;
@@ -344,6 +357,7 @@ static const char *sip_skip_whitespace(const char *dptr, const char *limit)
 static const char *ct_sip_header_search(const char *dptr, const char *limit,
 					const char *needle, unsigned int len)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 360 \n"); 
 	for (limit -= len; dptr < limit; dptr++) {
 		if (*dptr == '\r' || *dptr == '\n') {
 			dptr = sip_follow_continuation(dptr, limit);
@@ -363,6 +377,7 @@ int ct_sip_get_header(const struct nf_conn *ct, const char *dptr,
 		      enum sip_header_types type,
 		      unsigned int *matchoff, unsigned int *matchlen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 380 \n"); 
 	const struct sip_header *hdr = &ct_sip_hdrs[type];
 	const char *start = dptr, *limit = dptr + datalen;
 	int shift = 0;
@@ -431,6 +446,7 @@ static int ct_sip_next_header(const struct nf_conn *ct, const char *dptr,
 			      enum sip_header_types type,
 			      unsigned int *matchoff, unsigned int *matchlen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 449 \n"); 
 	const struct sip_header *hdr = &ct_sip_hdrs[type];
 	const char *start = dptr, *limit = dptr + datalen;
 	int shift = 0;
@@ -461,6 +477,7 @@ static int ct_sip_walk_headers(const struct nf_conn *ct, const char *dptr,
 			       enum sip_header_types type, int *in_header,
 			       unsigned int *matchoff, unsigned int *matchlen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 480 \n"); 
 	int ret;
 
 	if (in_header && *in_header) {
@@ -502,6 +519,7 @@ int ct_sip_parse_header_uri(const struct nf_conn *ct, const char *dptr,
 			    unsigned int *matchoff, unsigned int *matchlen,
 			    union nf_inet_addr *addr, __be16 *port)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 522 \n"); 
 	const char *c, *limit = dptr + datalen;
 	unsigned int p;
 	int ret;
@@ -534,6 +552,7 @@ static int ct_sip_parse_param(const struct nf_conn *ct, const char *dptr,
 			      const char *name,
 			      unsigned int *matchoff, unsigned int *matchlen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 555 \n"); 
 	const char *limit = dptr + datalen;
 	const char *start;
 	const char *end;
@@ -563,6 +582,7 @@ int ct_sip_parse_address_param(const struct nf_conn *ct, const char *dptr,
 			       unsigned int *matchoff, unsigned int *matchlen,
 			       union nf_inet_addr *addr, bool delim)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 585 \n"); 
 	const char *limit = dptr + datalen;
 	const char *start, *end;
 
@@ -590,6 +610,7 @@ int ct_sip_parse_numerical_param(const struct nf_conn *ct, const char *dptr,
 				 unsigned int *matchoff, unsigned int *matchlen,
 				 unsigned int *val)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 613 \n"); 
 	const char *limit = dptr + datalen;
 	const char *start;
 	char *end;
@@ -618,6 +639,7 @@ static int ct_sip_parse_transport(struct nf_conn *ct, const char *dptr,
 				  unsigned int dataoff, unsigned int datalen,
 				  u8 *proto)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 642 \n"); 
 	unsigned int matchoff, matchlen;
 
 	if (ct_sip_parse_param(ct, dptr, dataoff, datalen, "transport=",
@@ -641,6 +663,7 @@ static int sdp_parse_addr(const struct nf_conn *ct, const char *cp,
 			  const char **endp, union nf_inet_addr *addr,
 			  const char *limit)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 666 \n"); 
 	const char *end;
 	int ret;
 
@@ -667,6 +690,7 @@ static int sdp_parse_addr(const struct nf_conn *ct, const char *cp,
 static int sdp_addr_len(const struct nf_conn *ct, const char *dptr,
 			const char *limit, int *shift)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 693 \n"); 
 	union nf_inet_addr addr;
 	const char *aux = dptr;
 
@@ -705,6 +729,7 @@ static const struct sip_header ct_sdp_hdrs_v6[] = {
 static const char *ct_sdp_header_search(const char *dptr, const char *limit,
 					const char *needle, unsigned int len)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 732 \n"); 
 	for (limit -= len; dptr < limit; dptr++) {
 		if (*dptr == '\r' || *dptr == '\n')
 			break;
@@ -724,6 +749,7 @@ int ct_sip_get_sdp_header(const struct nf_conn *ct, const char *dptr,
 			  enum sdp_header_types term,
 			  unsigned int *matchoff, unsigned int *matchlen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 752 \n"); 
 	const struct sip_header *hdrs, *hdr, *thdr;
 	const char *start = dptr, *limit = dptr + datalen;
 	int shift = 0;
@@ -779,6 +805,7 @@ static int ct_sip_parse_sdp_addr(const struct nf_conn *ct, const char *dptr,
 				 unsigned int *matchoff, unsigned int *matchlen,
 				 union nf_inet_addr *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 808 \n"); 
 	int ret;
 
 	ret = ct_sip_get_sdp_header(ct, dptr, dataoff, datalen, type, term,
@@ -797,6 +824,7 @@ static int refresh_signalling_expectation(struct nf_conn *ct,
 					  u8 proto, __be16 port,
 					  unsigned int expires)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 827 \n"); 
 	struct nf_conn_help *help = nfct_help(ct);
 	struct nf_conntrack_expect *exp;
 	struct hlist_node *next;
@@ -823,6 +851,7 @@ static int refresh_signalling_expectation(struct nf_conn *ct,
 
 static void flush_expectations(struct nf_conn *ct, bool media)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 854 \n"); 
 	struct nf_conn_help *help = nfct_help(ct);
 	struct nf_conntrack_expect *exp;
 	struct hlist_node *next;
@@ -970,6 +999,7 @@ static const struct sdp_media_type *sdp_media_type(const char *dptr,
 						   unsigned int matchoff,
 						   unsigned int matchlen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1002 \n"); 
 	const struct sdp_media_type *t;
 	unsigned int i;
 
@@ -988,6 +1018,7 @@ static int process_sdp(struct sk_buff *skb, unsigned int protoff,
 		       const char **dptr, unsigned int *datalen,
 		       unsigned int cseq)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1021 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	unsigned int matchoff, matchlen;
@@ -1097,6 +1128,7 @@ static int process_invite_response(struct sk_buff *skb, unsigned int protoff,
 				   const char **dptr, unsigned int *datalen,
 				   unsigned int cseq, unsigned int code)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1131 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	struct nf_ct_sip_master *ct_sip_info = nfct_help_data(ct);
@@ -1114,6 +1146,7 @@ static int process_update_response(struct sk_buff *skb, unsigned int protoff,
 				   const char **dptr, unsigned int *datalen,
 				   unsigned int cseq, unsigned int code)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1149 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	struct nf_ct_sip_master *ct_sip_info = nfct_help_data(ct);
@@ -1131,6 +1164,7 @@ static int process_prack_response(struct sk_buff *skb, unsigned int protoff,
 				  const char **dptr, unsigned int *datalen,
 				  unsigned int cseq, unsigned int code)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1167 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	struct nf_ct_sip_master *ct_sip_info = nfct_help_data(ct);
@@ -1148,6 +1182,7 @@ static int process_invite_request(struct sk_buff *skb, unsigned int protoff,
 				  const char **dptr, unsigned int *datalen,
 				  unsigned int cseq)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1185 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	struct nf_ct_sip_master *ct_sip_info = nfct_help_data(ct);
@@ -1165,6 +1200,7 @@ static int process_bye_request(struct sk_buff *skb, unsigned int protoff,
 			       const char **dptr, unsigned int *datalen,
 			       unsigned int cseq)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1203 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 
@@ -1181,6 +1217,7 @@ static int process_register_request(struct sk_buff *skb, unsigned int protoff,
 				    const char **dptr, unsigned int *datalen,
 				    unsigned int cseq)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1220 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	struct nf_ct_sip_master *ct_sip_info = nfct_help_data(ct);
@@ -1279,6 +1316,7 @@ static int process_register_response(struct sk_buff *skb, unsigned int protoff,
 				     const char **dptr, unsigned int *datalen,
 				     unsigned int cseq, unsigned int code)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1319 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	struct nf_ct_sip_master *ct_sip_info = nfct_help_data(ct);
@@ -1364,6 +1402,7 @@ static int process_sip_response(struct sk_buff *skb, unsigned int protoff,
 				unsigned int dataoff,
 				const char **dptr, unsigned int *datalen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1405 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	unsigned int matchoff, matchlen, matchend;
@@ -1408,6 +1447,7 @@ static int process_sip_request(struct sk_buff *skb, unsigned int protoff,
 			       unsigned int dataoff,
 			       const char **dptr, unsigned int *datalen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1450 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	struct nf_ct_sip_master *ct_sip_info = nfct_help_data(ct);
@@ -1464,6 +1504,7 @@ static int process_sip_msg(struct sk_buff *skb, struct nf_conn *ct,
 			   unsigned int protoff, unsigned int dataoff,
 			   const char **dptr, unsigned int *datalen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1507 \n"); 
 	const struct nf_nat_sip_hooks *hooks;
 	int ret;
 
@@ -1487,6 +1528,7 @@ static int process_sip_msg(struct sk_buff *skb, struct nf_conn *ct,
 static int sip_help_tcp(struct sk_buff *skb, unsigned int protoff,
 			struct nf_conn *ct, enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1531 \n"); 
 	struct tcphdr *th, _tcph;
 	unsigned int dataoff, datalen;
 	unsigned int matchoff, matchlen, clen;
@@ -1571,6 +1613,7 @@ static int sip_help_tcp(struct sk_buff *skb, unsigned int protoff,
 static int sip_help_udp(struct sk_buff *skb, unsigned int protoff,
 			struct nf_conn *ct, enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1616 \n"); 
 	unsigned int dataoff, datalen;
 	const char *dptr;
 
@@ -1619,6 +1662,7 @@ static const struct nf_conntrack_expect_policy sip_exp_policy[SIP_EXPECT_MAX + 1
 
 static void nf_conntrack_sip_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sip.c: line 1665 \n"); 
 	nf_conntrack_helpers_unregister(sip, ports_c * 4);
 }
 

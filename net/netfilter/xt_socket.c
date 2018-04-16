@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Transparent proxy support for Linux/iptables
  *
@@ -43,6 +44,7 @@ extract_icmp4_fields(const struct sk_buff *skb,
 		    __be16 *rport,
 		    __be16 *lport)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_socket.c: line 47 \n"); 
 	unsigned int outside_hdrlen = ip_hdrlen(skb);
 	struct iphdr *inside_iph, _inside_iph;
 	struct icmphdr *icmph, _icmph;
@@ -118,6 +120,7 @@ xt_socket_get_sock_v4(struct net *net, struct sk_buff *skb, const int doff,
 		      const __be16 sport, const __be16 dport,
 		      const struct net_device *in)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_socket.c: line 123 \n"); 
 	switch (protocol) {
 	case IPPROTO_TCP:
 		return inet_lookup(net, &tcp_hashinfo, skb, doff,
@@ -132,6 +135,7 @@ xt_socket_get_sock_v4(struct net *net, struct sk_buff *skb, const int doff,
 
 static bool xt_socket_sk_is_transparent(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_socket.c: line 138 \n"); 
 	switch (sk->sk_state) {
 	case TCP_TIME_WAIT:
 		return inet_twsk(sk)->tw_transparent;
@@ -148,6 +152,7 @@ static struct sock *xt_socket_lookup_slow_v4(struct net *net,
 					     const struct sk_buff *skb,
 					     const struct net_device *indev)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_socket.c: line 155 \n"); 
 	const struct iphdr *iph = ip_hdr(skb);
 	struct sk_buff *data_skb = NULL;
 	int doff = 0;
@@ -213,6 +218,7 @@ static bool
 socket_match(const struct sk_buff *skb, struct xt_action_param *par,
 	     const struct xt_socket_mtinfo1 *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_socket.c: line 221 \n"); 
 	struct sk_buff *pskb = (struct sk_buff *)skb;
 	struct sock *sk = skb->sk;
 
@@ -252,6 +258,7 @@ socket_match(const struct sk_buff *skb, struct xt_action_param *par,
 static bool
 socket_mt4_v0(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_socket.c: line 261 \n"); 
 	static struct xt_socket_mtinfo1 xt_info_v0 = {
 		.flags = 0,
 	};
@@ -262,6 +269,7 @@ socket_mt4_v0(const struct sk_buff *skb, struct xt_action_param *par)
 static bool
 socket_mt4_v1_v2_v3(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_socket.c: line 272 \n"); 
 	return socket_match(skb, par, par->matchinfo);
 }
 
@@ -434,6 +442,7 @@ socket_mt6_v1_v2_v3(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int socket_mt_v1_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_socket.c: line 445 \n"); 
 	const struct xt_socket_mtinfo1 *info = (struct xt_socket_mtinfo1 *) par->matchinfo;
 
 	if (info->flags & ~XT_SOCKET_FLAGS_V1) {
@@ -445,6 +454,7 @@ static int socket_mt_v1_check(const struct xt_mtchk_param *par)
 
 static int socket_mt_v2_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_socket.c: line 457 \n"); 
 	const struct xt_socket_mtinfo2 *info = (struct xt_socket_mtinfo2 *) par->matchinfo;
 
 	if (info->flags & ~XT_SOCKET_FLAGS_V2) {
@@ -456,6 +466,7 @@ static int socket_mt_v2_check(const struct xt_mtchk_param *par)
 
 static int socket_mt_v3_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_socket.c: line 469 \n"); 
 	const struct xt_socket_mtinfo3 *info =
 				    (struct xt_socket_mtinfo3 *)par->matchinfo;
 

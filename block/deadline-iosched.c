@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  Deadline i/o scheduler.
  *
@@ -55,6 +56,7 @@ static void deadline_move_request(struct deadline_data *, struct request *);
 static inline struct rb_root *
 deadline_rb_root(struct deadline_data *dd, struct request *rq)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 59 \n"); 
 	return &dd->sort_list[rq_data_dir(rq)];
 }
 
@@ -64,6 +66,7 @@ deadline_rb_root(struct deadline_data *dd, struct request *rq)
 static inline struct request *
 deadline_latter_request(struct request *rq)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 69 \n"); 
 	struct rb_node *node = rb_next(&rq->rb_node);
 
 	if (node)
@@ -75,6 +78,7 @@ deadline_latter_request(struct request *rq)
 static void
 deadline_add_rq_rb(struct deadline_data *dd, struct request *rq)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 81 \n"); 
 	struct rb_root *root = deadline_rb_root(dd, rq);
 
 	elv_rb_add(root, rq);
@@ -83,6 +87,7 @@ deadline_add_rq_rb(struct deadline_data *dd, struct request *rq)
 static inline void
 deadline_del_rq_rb(struct deadline_data *dd, struct request *rq)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 90 \n"); 
 	const int data_dir = rq_data_dir(rq);
 
 	if (dd->next_rq[data_dir] == rq)
@@ -97,6 +102,7 @@ deadline_del_rq_rb(struct deadline_data *dd, struct request *rq)
 static void
 deadline_add_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 105 \n"); 
 	struct deadline_data *dd = q->elevator->elevator_data;
 	const int data_dir = rq_data_dir(rq);
 
@@ -114,6 +120,7 @@ deadline_add_request(struct request_queue *q, struct request *rq)
  */
 static void deadline_remove_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 123 \n"); 
 	struct deadline_data *dd = q->elevator->elevator_data;
 
 	rq_fifo_clear(rq);
@@ -123,6 +130,7 @@ static void deadline_remove_request(struct request_queue *q, struct request *rq)
 static int
 deadline_merge(struct request_queue *q, struct request **req, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 133 \n"); 
 	struct deadline_data *dd = q->elevator->elevator_data;
 	struct request *__rq;
 	int ret;
@@ -153,6 +161,7 @@ out:
 static void deadline_merged_request(struct request_queue *q,
 				    struct request *req, int type)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 164 \n"); 
 	struct deadline_data *dd = q->elevator->elevator_data;
 
 	/*
@@ -168,6 +177,7 @@ static void
 deadline_merged_requests(struct request_queue *q, struct request *req,
 			 struct request *next)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 180 \n"); 
 	/*
 	 * if next expires before rq, assign its expire time to rq
 	 * and move into next position (next will be deleted) in fifo
@@ -192,6 +202,7 @@ deadline_merged_requests(struct request_queue *q, struct request *req,
 static inline void
 deadline_move_to_dispatch(struct deadline_data *dd, struct request *rq)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 205 \n"); 
 	struct request_queue *q = rq->q;
 
 	deadline_remove_request(q, rq);
@@ -204,6 +215,7 @@ deadline_move_to_dispatch(struct deadline_data *dd, struct request *rq)
 static void
 deadline_move_request(struct deadline_data *dd, struct request *rq)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 218 \n"); 
 	const int data_dir = rq_data_dir(rq);
 
 	dd->next_rq[READ] = NULL;
@@ -223,6 +235,7 @@ deadline_move_request(struct deadline_data *dd, struct request *rq)
  */
 static inline int deadline_check_fifo(struct deadline_data *dd, int ddir)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 238 \n"); 
 	struct request *rq = rq_entry_fifo(dd->fifo_list[ddir].next);
 
 	/*
@@ -324,6 +337,7 @@ dispatch_request:
 
 static void deadline_exit_queue(struct elevator_queue *e)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 340 \n"); 
 	struct deadline_data *dd = e->elevator_data;
 
 	BUG_ON(!list_empty(&dd->fifo_list[READ]));
@@ -374,12 +388,14 @@ static int deadline_init_queue(struct request_queue *q, struct elevator_type *e)
 static ssize_t
 deadline_var_show(int var, char *page)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 391 \n"); 
 	return sprintf(page, "%d\n", var);
 }
 
 static ssize_t
 deadline_var_store(int *var, const char *page, size_t count)
 {
+	panic("We reached unpopular paths in block/deadline-iosched.c: line 398 \n"); 
 	char *p = (char *) page;
 
 	*var = simple_strtol(p, &p, 10);
@@ -458,6 +474,7 @@ static struct elevator_type iosched_deadline = {
 
 static int __init deadline_init(void)
 {
+	// [blacklist] panic("We reached unpopular paths in block/deadline-iosched.c: line 477 \n"); 
 	return elv_register(&iosched_deadline);
 }
 

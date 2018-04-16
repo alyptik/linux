@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* License: GPL */
 
 #include <linux/mutex.h>
@@ -21,6 +22,7 @@ static struct workqueue_struct *broadcast_wq;
 
 static u64 sock_gen_cookie(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 25 \n"); 
 	while (1) {
 		u64 res = atomic64_read(&sk->sk_cookie);
 
@@ -33,6 +35,7 @@ static u64 sock_gen_cookie(struct sock *sk)
 
 int sock_diag_check_cookie(struct sock *sk, const __u32 *cookie)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 38 \n"); 
 	u64 res;
 
 	if (cookie[0] == INET_DIAG_NOCOOKIE && cookie[1] == INET_DIAG_NOCOOKIE)
@@ -48,6 +51,7 @@ EXPORT_SYMBOL_GPL(sock_diag_check_cookie);
 
 void sock_diag_save_cookie(struct sock *sk, __u32 *cookie)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 54 \n"); 
 	u64 res = sock_gen_cookie(sk);
 
 	cookie[0] = (u32)res;
@@ -57,6 +61,7 @@ EXPORT_SYMBOL_GPL(sock_diag_save_cookie);
 
 int sock_diag_put_meminfo(struct sock *sk, struct sk_buff *skb, int attrtype)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 64 \n"); 
 	u32 mem[SK_MEMINFO_VARS];
 
 	mem[SK_MEMINFO_RMEM_ALLOC] = sk_rmem_alloc_get(sk);
@@ -76,6 +81,7 @@ EXPORT_SYMBOL_GPL(sock_diag_put_meminfo);
 int sock_diag_put_filterinfo(bool may_report_filterinfo, struct sock *sk,
 			     struct sk_buff *skb, int attrtype)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 84 \n"); 
 	struct sock_fprog_kern *fprog;
 	struct sk_filter *filter;
 	struct nlattr *attr;
@@ -118,6 +124,7 @@ struct broadcast_sk {
 
 static size_t sock_diag_nlmsg_size(void)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 127 \n"); 
 	return NLMSG_ALIGN(sizeof(struct inet_diag_msg)
 	       + nla_total_size(sizeof(u8)) /* INET_DIAG_PROTOCOL */
 	       + nla_total_size_64bit(sizeof(struct tcp_info))); /* INET_DIAG_INFO */
@@ -125,6 +132,7 @@ static size_t sock_diag_nlmsg_size(void)
 
 static void sock_diag_broadcast_destroy_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 135 \n"); 
 	struct broadcast_sk *bsk =
 		container_of(work, struct broadcast_sk, work);
 	struct sock *sk = bsk->sk;
@@ -157,6 +165,7 @@ out:
 
 void sock_diag_broadcast_destroy(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 168 \n"); 
 	/* Note, this function is often called from an interrupt context. */
 	struct broadcast_sk *bsk =
 		kmalloc(sizeof(struct broadcast_sk), GFP_ATOMIC);
@@ -177,6 +186,7 @@ EXPORT_SYMBOL_GPL(sock_diag_register_inet_compat);
 
 void sock_diag_unregister_inet_compat(int (*fn)(struct sk_buff *skb, struct nlmsghdr *nlh))
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 189 \n"); 
 	mutex_lock(&sock_diag_table_mutex);
 	inet_rcv_compat = NULL;
 	mutex_unlock(&sock_diag_table_mutex);
@@ -203,6 +213,7 @@ EXPORT_SYMBOL_GPL(sock_diag_register);
 
 void sock_diag_unregister(const struct sock_diag_handler *hnld)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 216 \n"); 
 	int family = hnld->family;
 
 	if (family >= AF_MAX)
@@ -217,6 +228,7 @@ EXPORT_SYMBOL_GPL(sock_diag_unregister);
 
 static int __sock_diag_cmd(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 231 \n"); 
 	int err;
 	struct sock_diag_req *req = nlmsg_data(nlh);
 	const struct sock_diag_handler *hndl;
@@ -248,6 +260,7 @@ static int __sock_diag_cmd(struct sk_buff *skb, struct nlmsghdr *nlh)
 
 static int sock_diag_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 263 \n"); 
 	int ret;
 
 	switch (nlh->nlmsg_type) {
@@ -277,6 +290,7 @@ static DEFINE_MUTEX(sock_diag_mutex);
 
 static void sock_diag_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 293 \n"); 
 	mutex_lock(&sock_diag_mutex);
 	netlink_rcv_skb(skb, &sock_diag_rcv_msg);
 	mutex_unlock(&sock_diag_mutex);
@@ -284,6 +298,7 @@ static void sock_diag_rcv(struct sk_buff *skb)
 
 static int sock_diag_bind(struct net *net, int group)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 301 \n"); 
 	switch (group) {
 	case SKNLGRP_INET_TCP_DESTROY:
 	case SKNLGRP_INET_UDP_DESTROY:
@@ -303,6 +318,7 @@ static int sock_diag_bind(struct net *net, int group)
 
 int sock_diag_destroy(struct sock *sk, int err)
 {
+	panic("We reached unpopular paths in net/core/sock_diag.c: line 321 \n"); 
 	if (!ns_capable(sock_net(sk)->user_ns, CAP_NET_ADMIN))
 		return -EPERM;
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2006 Netfilter Core Team <coreteam@netfilter.org>
@@ -72,6 +73,7 @@ static bool nf_nat_ipv4_in_range(const struct nf_conntrack_tuple *t,
 static u32 nf_nat_ipv4_secure_port(const struct nf_conntrack_tuple *t,
 				   __be16 dport)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_l3proto_ipv4.c: line 76 \n"); 
 	return secure_ipv4_port_ephemeral(t->src.u3.ip, t->dst.u3.ip, dport);
 }
 
@@ -127,6 +129,7 @@ static void nf_nat_ipv4_csum_recalc(struct sk_buff *skb,
 				    u8 proto, void *data, __sum16 *check,
 				    int datalen, int oldlen)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_l3proto_ipv4.c: line 132 \n"); 
 	if (skb->ip_summed != CHECKSUM_PARTIAL) {
 		const struct iphdr *iph = ip_hdr(skb);
 
@@ -179,6 +182,7 @@ int nf_nat_icmp_reply_translation(struct sk_buff *skb,
 				  enum ip_conntrack_info ctinfo,
 				  unsigned int hooknum)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_l3proto_ipv4.c: line 185 \n"); 
 	struct {
 		struct icmphdr	icmp;
 		struct iphdr	ip;

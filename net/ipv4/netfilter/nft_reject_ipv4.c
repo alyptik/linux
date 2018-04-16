@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  * Copyright (c) 2013 Eric Leblond <eric@regit.org>
@@ -23,6 +24,7 @@ static void nft_reject_ipv4_eval(const struct nft_expr *expr,
 				 struct nft_regs *regs,
 				 const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nft_reject_ipv4.c: line 27 \n"); 
 	struct nft_reject *priv = nft_expr_priv(expr);
 
 	switch (priv->type) {

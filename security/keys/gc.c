@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Key garbage collector
  *
  * Copyright (C) 2009-2011 Red Hat, Inc. All Rights Reserved.
@@ -55,6 +56,7 @@ struct key_type key_type_dead = {
  */
 void key_schedule_gc(time_t gc_at)
 {
+	panic("We reached unpopular paths in security/keys/gc.c: line 59 \n"); 
 	unsigned long expires;
 	time_t now = current_kernel_time().tv_sec;
 
@@ -76,6 +78,7 @@ void key_schedule_gc(time_t gc_at)
  */
 void key_schedule_gc_links(void)
 {
+	panic("We reached unpopular paths in security/keys/gc.c: line 81 \n"); 
 	set_bit(KEY_GC_KEY_EXPIRED, &key_gc_flags);
 	schedule_work(&key_gc_work);
 }
@@ -86,6 +89,7 @@ void key_schedule_gc_links(void)
  */
 static void key_gc_timer_func(unsigned long data)
 {
+	panic("We reached unpopular paths in security/keys/gc.c: line 92 \n"); 
 	kenter("");
 	key_gc_next_run = LONG_MAX;
 	key_schedule_gc_links();
@@ -103,6 +107,7 @@ static void key_gc_timer_func(unsigned long data)
  */
 void key_gc_keytype(struct key_type *ktype)
 {
+	panic("We reached unpopular paths in security/keys/gc.c: line 110 \n"); 
 	kenter("%s", ktype->name);
 
 	key_gc_dead_keytype = ktype;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NETLINK      Kernel-user communication protocol.
  *
@@ -88,6 +89,7 @@ struct listeners {
 
 static inline int netlink_is_kernel(struct sock *sk)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 92 \n"); 
 	return nlk_sk(sk)->flags & NETLINK_F_KERNEL_SOCKET;
 }
 
@@ -166,6 +168,7 @@ static inline u32 netlink_group_mask(u32 group)
 static struct sk_buff *netlink_to_full_skb(const struct sk_buff *skb,
 					   gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 171 \n"); 
 	unsigned int len = skb_end_offset(skb);
 	struct sk_buff *new;
 
@@ -183,6 +186,7 @@ static struct sk_buff *netlink_to_full_skb(const struct sk_buff *skb,
 
 int netlink_add_tap(struct netlink_tap *nt)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 189 \n"); 
 	if (unlikely(nt->dev->type != ARPHRD_NETLINK))
 		return -EINVAL;
 
@@ -198,6 +202,7 @@ EXPORT_SYMBOL_GPL(netlink_add_tap);
 
 static int __netlink_remove_tap(struct netlink_tap *nt)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 205 \n"); 
 	bool found = false;
 	struct netlink_tap *tmp;
 
@@ -223,6 +228,7 @@ out:
 
 int netlink_remove_tap(struct netlink_tap *nt)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 231 \n"); 
 	int ret;
 
 	ret = __netlink_remove_tap(nt);
@@ -234,6 +240,7 @@ EXPORT_SYMBOL_GPL(netlink_remove_tap);
 
 static bool netlink_filter_tap(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 243 \n"); 
 	struct sock *sk = skb->sk;
 
 	/* We take the more conservative approach and
@@ -257,6 +264,7 @@ static bool netlink_filter_tap(const struct sk_buff *skb)
 static int __netlink_deliver_tap_skb(struct sk_buff *skb,
 				     struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 267 \n"); 
 	struct sk_buff *nskb;
 	struct sock *sk = skb->sk;
 	int ret = -ENOMEM;
@@ -287,6 +295,7 @@ static int __netlink_deliver_tap_skb(struct sk_buff *skb,
 
 static void __netlink_deliver_tap(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 298 \n"); 
 	int ret;
 	struct netlink_tap *tmp;
 
@@ -319,6 +328,7 @@ static void netlink_deliver_tap_kernel(struct sock *dst, struct sock *src,
 
 static void netlink_overrun(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 331 \n"); 
 	struct netlink_sock *nlk = nlk_sk(sk);
 
 	if (!(nlk->flags & NETLINK_F_RECV_NO_ENOBUFS)) {
@@ -388,6 +398,7 @@ static void netlink_sock_destruct(struct sock *sk)
 
 static void netlink_sock_destruct_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 401 \n"); 
 	struct netlink_sock *nlk = container_of(work, struct netlink_sock,
 						work);
 
@@ -947,6 +958,7 @@ static int netlink_realloc_groups(struct sock *sk)
 static void netlink_undo_bind(int group, long unsigned int groups,
 			      struct sock *sk)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 961 \n"); 
 	struct netlink_sock *nlk = nlk_sk(sk);
 	int undo;
 
@@ -1037,6 +1049,7 @@ static int netlink_bind(struct socket *sock, struct sockaddr *addr,
 static int netlink_connect(struct socket *sock, struct sockaddr *addr,
 			   int alen, int flags)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 1052 \n"); 
 	int err = 0;
 	struct sock *sk = sock->sk;
 	struct netlink_sock *nlk = nlk_sk(sk);
@@ -1097,6 +1110,7 @@ static int netlink_getname(struct socket *sock, struct sockaddr *addr,
 static int netlink_ioctl(struct socket *sock, unsigned int cmd,
 			 unsigned long arg)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 1113 \n"); 
 	/* try to hand this ioctl down to the NIC drivers.
 	 */
 	return -ENOIOCTLCMD;
@@ -1123,6 +1137,7 @@ static struct sock *netlink_getsockbyportid(struct sock *ssk, u32 portid)
 
 struct sock *netlink_getsockbyfilp(struct file *filp)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 1140 \n"); 
 	struct inode *inode = file_inode(filp);
 	struct sock *sock;
 
@@ -1233,6 +1248,7 @@ int netlink_sendskb(struct sock *sk, struct sk_buff *skb)
 
 void netlink_detachskb(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 1251 \n"); 
 	kfree_skb(skb);
 	sock_put(sk);
 }
@@ -1509,6 +1525,7 @@ struct netlink_set_err_data {
 
 static int do_one_set_err(struct sock *sk, struct netlink_set_err_data *p)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 1528 \n"); 
 	struct netlink_sock *nlk = nlk_sk(sk);
 	int ret = 0;
 
@@ -1545,6 +1562,7 @@ out:
  */
 int netlink_set_err(struct sock *ssk, u32 portid, u32 group, int code)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 1565 \n"); 
 	struct netlink_set_err_data info;
 	struct sock *sk;
 	int ret = 0;
@@ -1570,6 +1588,7 @@ static void netlink_update_socket_mc(struct netlink_sock *nlk,
 				     unsigned int group,
 				     int is_new)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 1591 \n"); 
 	int old, new = !!is_new, subscriptions;
 
 	old = test_bit(group - 1, nlk->groups);
@@ -1755,6 +1774,7 @@ static int netlink_getsockopt(struct socket *sock, int level, int optname,
 
 static void netlink_cmsg_recv_pktinfo(struct msghdr *msg, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 1777 \n"); 
 	struct nl_pktinfo info;
 
 	info.group = NETLINK_CB(skb).dst_group;
@@ -1764,6 +1784,7 @@ static void netlink_cmsg_recv_pktinfo(struct msghdr *msg, struct sk_buff *skb)
 static void netlink_cmsg_listen_all_nsid(struct sock *sk, struct msghdr *msg,
 					 struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 1787 \n"); 
 	if (!NETLINK_CB(skb).nsid_is_set)
 		return;
 
@@ -1942,6 +1963,7 @@ out:
 
 static void netlink_data_ready(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 1966 \n"); 
 	BUG();
 }
 
@@ -2084,6 +2106,7 @@ int netlink_change_ngroups(struct sock *sk, unsigned int groups)
 
 void __netlink_clear_multicast_users(struct sock *ksk, unsigned int group)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 2109 \n"); 
 	struct sock *sk;
 	struct netlink_table *tbl = &nl_table[ksk->sk_protocol];
 
@@ -2563,6 +2586,7 @@ EXPORT_SYMBOL(netlink_register_notifier);
 
 int netlink_unregister_notifier(struct notifier_block *nb)
 {
+	panic("We reached unpopular paths in net/netlink/af_netlink.c: line 2589 \n"); 
 	return atomic_notifier_chain_unregister(&netlink_chain, nb);
 }
 EXPORT_SYMBOL(netlink_unregister_notifier);

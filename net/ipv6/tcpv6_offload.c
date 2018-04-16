@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IPV6 GSO/GRO offload support
  *	Linux INET6 implementation
@@ -18,6 +19,7 @@
 static struct sk_buff **tcp6_gro_receive(struct sk_buff **head,
 					 struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tcpv6_offload.c: line 22 \n"); 
 	/* Don't bother verifying checksum if we're going to flush anyway. */
 	if (!NAPI_GRO_CB(skb)->flush &&
 	    skb_gro_checksum_validate(skb, IPPROTO_TCP,
@@ -31,6 +33,7 @@ static struct sk_buff **tcp6_gro_receive(struct sk_buff **head,
 
 static int tcp6_gro_complete(struct sk_buff *skb, int thoff)
 {
+	panic("We reached unpopular paths in net/ipv6/tcpv6_offload.c: line 36 \n"); 
 	const struct ipv6hdr *iph = ipv6_hdr(skb);
 	struct tcphdr *th = tcp_hdr(skb);
 
@@ -44,6 +47,7 @@ static int tcp6_gro_complete(struct sk_buff *skb, int thoff)
 static struct sk_buff *tcp6_gso_segment(struct sk_buff *skb,
 					netdev_features_t features)
 {
+	panic("We reached unpopular paths in net/ipv6/tcpv6_offload.c: line 50 \n"); 
 	struct tcphdr *th;
 
 	if (!(skb_shinfo(skb)->gso_type & SKB_GSO_TCPV6))

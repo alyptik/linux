@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match connection tracking byte counter.
  * GPL (C) 2002 Martin Devera (devik@cdi.cz).
  */
@@ -20,6 +21,7 @@ MODULE_ALIAS("ip6t_connbytes");
 static bool
 connbytes_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connbytes.c: line 24 \n"); 
 	const struct xt_connbytes_info *sinfo = par->matchinfo;
 	const struct nf_conn *ct;
 	enum ip_conntrack_info ctinfo;
@@ -97,6 +99,7 @@ connbytes_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int connbytes_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connbytes.c: line 102 \n"); 
 	const struct xt_connbytes_info *sinfo = par->matchinfo;
 	int ret;
 
@@ -129,6 +132,7 @@ static int connbytes_mt_check(const struct xt_mtchk_param *par)
 
 static void connbytes_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connbytes.c: line 135 \n"); 
 	nf_ct_l3proto_module_put(par->family);
 }
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #ifndef _FIB_LOOKUP_H
 #define _FIB_LOOKUP_H
 
@@ -39,6 +40,7 @@ void rtmsg_fib(int event, __be32 key, struct fib_alias *fa, int dst_len,
 static inline void fib_result_assign(struct fib_result *res,
 				     struct fib_info *fi)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_lookup.h: line 43 \n"); 
 	/* we used to play games with refcounts, but we now use RCU */
 	res->fi = fi;
 }

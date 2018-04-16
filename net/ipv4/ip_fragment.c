@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -83,6 +84,7 @@ struct ipq {
 
 static u8 ip4_frag_ecn(u8 tos)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 87 \n"); 
 	return 1 << (tos & INET_ECN_MASK);
 }
 
@@ -90,6 +92,7 @@ static struct inet_frags ip4_frags;
 
 int ip_frag_mem(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 95 \n"); 
 	return sum_frag_mem_limit(&net->ipv4.frags);
 }
 
@@ -104,6 +107,7 @@ struct ip4_create_arg {
 
 static unsigned int ipqhashfn(__be16 id, __be32 saddr, __be32 daddr, u8 prot)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 110 \n"); 
 	net_get_random_once(&ip4_frags.rnd, sizeof(ip4_frags.rnd));
 	return jhash_3words((__force u32)id << 16 | prot,
 			    (__force u32)saddr, (__force u32)daddr,
@@ -112,6 +116,7 @@ static unsigned int ipqhashfn(__be16 id, __be32 saddr, __be32 daddr, u8 prot)
 
 static unsigned int ip4_hashfn(const struct inet_frag_queue *q)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 119 \n"); 
 	const struct ipq *ipq;
 
 	ipq = container_of(q, struct ipq, q);
@@ -120,6 +125,7 @@ static unsigned int ip4_hashfn(const struct inet_frag_queue *q)
 
 static bool ip4_frag_match(const struct inet_frag_queue *q, const void *a)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 128 \n"); 
 	const struct ipq *qp;
 	const struct ip4_create_arg *arg = a;
 
@@ -134,6 +140,7 @@ static bool ip4_frag_match(const struct inet_frag_queue *q, const void *a)
 
 static void ip4_frag_init(struct inet_frag_queue *q, const void *a)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 143 \n"); 
 	struct ipq *qp = container_of(q, struct ipq, q);
 	struct netns_ipv4 *ipv4 = container_of(q->net, struct netns_ipv4,
 					       frags);
@@ -155,6 +162,7 @@ static void ip4_frag_init(struct inet_frag_queue *q, const void *a)
 
 static void ip4_frag_free(struct inet_frag_queue *q)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 165 \n"); 
 	struct ipq *qp;
 
 	qp = container_of(q, struct ipq, q);
@@ -167,6 +175,7 @@ static void ip4_frag_free(struct inet_frag_queue *q)
 
 static void ipq_put(struct ipq *ipq)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 178 \n"); 
 	inet_frag_put(&ipq->q, &ip4_frags);
 }
 
@@ -175,11 +184,13 @@ static void ipq_put(struct ipq *ipq)
  */
 static void ipq_kill(struct ipq *ipq)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 187 \n"); 
 	inet_frag_kill(&ipq->q, &ip4_frags);
 }
 
 static bool frag_expire_skip_icmp(u32 user)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 193 \n"); 
 	return user == IP_DEFRAG_AF_PACKET ||
 	       ip_defrag_user_in_between(user, IP_DEFRAG_CONNTRACK_IN,
 					 __IP_DEFRAG_CONNTRACK_IN_END) ||
@@ -192,6 +203,7 @@ static bool frag_expire_skip_icmp(u32 user)
  */
 static void ip_expire(unsigned long arg)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 206 \n"); 
 	struct ipq *qp;
 	struct net *net;
 
@@ -260,6 +272,7 @@ out_rcu_unlock:
 static struct ipq *ip_find(struct net *net, struct iphdr *iph,
 			   u32 user, int vif)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 275 \n"); 
 	struct inet_frag_queue *q;
 	struct ip4_create_arg arg;
 	unsigned int hash;
@@ -281,6 +294,7 @@ static struct ipq *ip_find(struct net *net, struct iphdr *iph,
 /* Is the fragment too far ahead to be part of ipq? */
 static int ip_frag_too_far(struct ipq *qp)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 297 \n"); 
 	struct inet_peer *peer = qp->peer;
 	unsigned int max = qp->q.net->max_dist;
 	unsigned int start, end;
@@ -308,6 +322,7 @@ static int ip_frag_too_far(struct ipq *qp)
 
 static int ip_frag_reinit(struct ipq *qp)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 325 \n"); 
 	struct sk_buff *fp;
 	unsigned int sum_truesize = 0;
 
@@ -340,6 +355,7 @@ static int ip_frag_reinit(struct ipq *qp)
 /* Add new segment to existing queue. */
 static int ip_frag_queue(struct ipq *qp, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 358 \n"); 
 	struct sk_buff *prev, *next;
 	struct net_device *dev;
 	unsigned int fragsize;
@@ -531,6 +547,7 @@ err:
 static int ip_frag_reasm(struct ipq *qp, struct sk_buff *prev,
 			 struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 550 \n"); 
 	struct net *net = container_of(qp->q.net, struct net, ipv4.frags);
 	struct iphdr *iph;
 	struct sk_buff *fp, *head = qp->q.fragments;
@@ -663,6 +680,7 @@ out_fail:
 /* Process an incoming IP datagram fragment. */
 int ip_defrag(struct net *net, struct sk_buff *skb, u32 user)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 683 \n"); 
 	struct net_device *dev = skb->dev ? : skb_dst(skb)->dev;
 	int vif = l3mdev_master_ifindex_rcu(dev);
 	struct ipq *qp;
@@ -692,6 +710,7 @@ EXPORT_SYMBOL(ip_defrag);
 
 struct sk_buff *ip_check_defrag(struct net *net, struct sk_buff *skb, u32 user)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 713 \n"); 
 	struct iphdr iph;
 	int netoff;
 	u32 len;
@@ -830,11 +849,13 @@ static void __init ip4_frags_ctl_register(void)
 #else
 static int ip4_frags_ns_ctl_register(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 852 \n"); 
 	return 0;
 }
 
 static void ip4_frags_ns_ctl_unregister(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_fragment.c: line 858 \n"); 
 }
 
 static void __init ip4_frags_ctl_register(void)

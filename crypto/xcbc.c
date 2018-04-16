@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C)2006 USAGI/WIDE Project
  *
@@ -61,6 +62,7 @@ struct xcbc_desc_ctx {
 static int crypto_xcbc_digest_setkey(struct crypto_shash *parent,
 				     const u8 *inkey, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/xcbc.c: line 65 \n"); 
 	unsigned long alignmask = crypto_shash_alignmask(parent);
 	struct xcbc_tfm_ctx *ctx = crypto_shash_ctx(parent);
 	int bs = crypto_shash_blocksize(parent);
@@ -81,6 +83,7 @@ static int crypto_xcbc_digest_setkey(struct crypto_shash *parent,
 
 static int crypto_xcbc_digest_init(struct shash_desc *pdesc)
 {
+	panic("We reached unpopular paths in crypto/xcbc.c: line 86 \n"); 
 	unsigned long alignmask = crypto_shash_alignmask(pdesc->tfm);
 	struct xcbc_desc_ctx *ctx = shash_desc_ctx(pdesc);
 	int bs = crypto_shash_blocksize(pdesc->tfm);
@@ -95,6 +98,7 @@ static int crypto_xcbc_digest_init(struct shash_desc *pdesc)
 static int crypto_xcbc_digest_update(struct shash_desc *pdesc, const u8 *p,
 				     unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/xcbc.c: line 101 \n"); 
 	struct crypto_shash *parent = pdesc->tfm;
 	unsigned long alignmask = crypto_shash_alignmask(parent);
 	struct xcbc_tfm_ctx *tctx = crypto_shash_ctx(parent);
@@ -141,6 +145,7 @@ static int crypto_xcbc_digest_update(struct shash_desc *pdesc, const u8 *p,
 
 static int crypto_xcbc_digest_final(struct shash_desc *pdesc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/xcbc.c: line 148 \n"); 
 	struct crypto_shash *parent = pdesc->tfm;
 	unsigned long alignmask = crypto_shash_alignmask(parent);
 	struct xcbc_tfm_ctx *tctx = crypto_shash_ctx(parent);
@@ -176,6 +181,7 @@ static int crypto_xcbc_digest_final(struct shash_desc *pdesc, u8 *out)
 
 static int xcbc_init_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/xcbc.c: line 184 \n"); 
 	struct crypto_cipher *cipher;
 	struct crypto_instance *inst = (void *)tfm->__crt_alg;
 	struct crypto_spawn *spawn = crypto_instance_ctx(inst);
@@ -192,12 +198,14 @@ static int xcbc_init_tfm(struct crypto_tfm *tfm)
 
 static void xcbc_exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/xcbc.c: line 201 \n"); 
 	struct xcbc_tfm_ctx *ctx = crypto_tfm_ctx(tfm);
 	crypto_free_cipher(ctx->child);
 }
 
 static int xcbc_create(struct crypto_template *tmpl, struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/xcbc.c: line 208 \n"); 
 	struct shash_instance *inst;
 	struct crypto_alg *alg;
 	unsigned long alignmask;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2014 Arturo Borrero Gonzalez <arturo.borrero.glez@gmail.com>
  *
@@ -21,6 +22,7 @@ static void nft_masq_ipv6_eval(const struct nft_expr *expr,
 			       struct nft_regs *regs,
 			       const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nft_masq_ipv6.c: line 25 \n"); 
 	struct nft_masq *priv = nft_expr_priv(expr);
 	struct nf_nat_range range;
 

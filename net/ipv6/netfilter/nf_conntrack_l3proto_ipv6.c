@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C)2004 USAGI/WIDE Project
  *
@@ -37,6 +38,7 @@
 static bool ipv6_pkt_to_tuple(const struct sk_buff *skb, unsigned int nhoff,
 			      struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_l3proto_ipv6.c: line 41 \n"); 
 	const u_int32_t *ap;
 	u_int32_t _addrs[8];
 
@@ -54,6 +56,7 @@ static bool ipv6_pkt_to_tuple(const struct sk_buff *skb, unsigned int nhoff,
 static bool ipv6_invert_tuple(struct nf_conntrack_tuple *tuple,
 			      const struct nf_conntrack_tuple *orig)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_l3proto_ipv6.c: line 59 \n"); 
 	memcpy(tuple->src.u3.ip6, orig->dst.u3.ip6, sizeof(tuple->src.u3.ip6));
 	memcpy(tuple->dst.u3.ip6, orig->src.u3.ip6, sizeof(tuple->dst.u3.ip6));
 
@@ -63,6 +66,7 @@ static bool ipv6_invert_tuple(struct nf_conntrack_tuple *tuple,
 static void ipv6_print_tuple(struct seq_file *s,
 			    const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_l3proto_ipv6.c: line 69 \n"); 
 	seq_printf(s, "src=%pI6 dst=%pI6 ",
 		   tuple->src.u3.ip6, tuple->dst.u3.ip6);
 }
@@ -169,6 +173,7 @@ static unsigned int ipv6_conntrack_in(void *priv,
 				      struct sk_buff *skb,
 				      const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_l3proto_ipv6.c: line 176 \n"); 
 	return nf_conntrack_in(state->net, PF_INET6, state->hook, skb);
 }
 

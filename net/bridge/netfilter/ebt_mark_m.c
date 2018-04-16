@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_mark_m
  *
@@ -15,6 +16,7 @@
 static bool
 ebt_mark_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_mark_m.c: line 19 \n"); 
 	const struct ebt_mark_m_info *info = par->matchinfo;
 
 	if (info->bitmask & EBT_MARK_OR)
@@ -24,6 +26,7 @@ ebt_mark_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ebt_mark_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_mark_m.c: line 29 \n"); 
 	const struct ebt_mark_m_info *info = par->matchinfo;
 
 	if (info->bitmask & ~EBT_MARK_MASK)

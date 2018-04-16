@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_mark
  *
@@ -21,6 +22,7 @@
 static unsigned int
 ebt_mark_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_mark.c: line 25 \n"); 
 	const struct ebt_mark_t_info *info = par->targinfo;
 	int action = info->target & -16;
 
@@ -38,6 +40,7 @@ ebt_mark_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int ebt_mark_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_mark.c: line 43 \n"); 
 	const struct ebt_mark_t_info *info = par->targinfo;
 	int tmp;
 

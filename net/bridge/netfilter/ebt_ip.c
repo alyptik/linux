@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_ip
  *
@@ -27,6 +28,7 @@ struct tcpudphdr {
 static bool
 ebt_ip_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_ip.c: line 31 \n"); 
 	const struct ebt_ip_info *info = par->matchinfo;
 	const struct iphdr *ih;
 	struct iphdr _iph;
@@ -79,6 +81,7 @@ ebt_ip_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ebt_ip_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_ip.c: line 84 \n"); 
 	const struct ebt_ip_info *info = par->matchinfo;
 	const struct ebt_entry *e = par->entryinfo;
 

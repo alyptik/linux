@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/fs/binfmt_elf.c
  *
@@ -482,6 +483,7 @@ static inline int arch_elf_pt_proc(struct elfhdr *ehdr,
 				   struct file *elf, bool is_interp,
 				   struct arch_elf_state *state)
 {
+	panic("We reached unpopular paths in fs/binfmt_elf.c: line 486 \n"); 
 	/* Dummy implementation, always proceed */
 	return 0;
 }
@@ -505,6 +507,7 @@ static inline int arch_check_elf(struct elfhdr *ehdr, bool has_interp,
 				 struct elfhdr *interp_ehdr,
 				 struct arch_elf_state *state)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/binfmt_elf.c: line 510 \n"); 
 	/* Dummy implementation, always proceed */
 	return 0;
 }

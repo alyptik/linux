@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008 Patrick McHardy <kaber@trash.net>
  * Copyright (c) 2012-2013 Pablo Neira Ayuso <pablo@netfilter.org>
@@ -20,6 +21,7 @@ static unsigned int nft_do_chain_ipv6(void *priv,
 				      struct sk_buff *skb,
 				      const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_tables_ipv6.c: line 24 \n"); 
 	struct nft_pktinfo pkt;
 
 	nft_set_pktinfo_ipv6(&pkt, skb, state);
@@ -31,6 +33,7 @@ static unsigned int nft_ipv6_output(void *priv,
 				    struct sk_buff *skb,
 				    const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_tables_ipv6.c: line 36 \n"); 
 	if (unlikely(skb->len < sizeof(struct ipv6hdr))) {
 		if (net_ratelimit())
 			pr_info("nf_tables_ipv6: ignoring short SOCK_RAW "

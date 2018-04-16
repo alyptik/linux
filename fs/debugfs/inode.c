@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  inode.c - part of debugfs, a tiny little debug file system
  *
@@ -172,6 +173,7 @@ static int debugfs_show_options(struct seq_file *m, struct dentry *root)
 
 static void debugfs_evict_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/debugfs/inode.c: line 176 \n"); 
 	truncate_inode_pages_final(&inode->i_data);
 	clear_inode(inode);
 	if (S_ISLNK(inode->i_mode))
@@ -187,6 +189,7 @@ static const struct super_operations debugfs_super_operations = {
 
 static struct vfsmount *debugfs_automount(struct path *path)
 {
+	panic("We reached unpopular paths in fs/debugfs/inode.c: line 192 \n"); 
 	debugfs_automount_t f;
 	f = (debugfs_automount_t)path->dentry->d_fsdata;
 	return f(path->dentry, d_inode(path->dentry)->i_private);
@@ -288,6 +291,7 @@ static struct dentry *start_creating(const char *name, struct dentry *parent)
 
 static struct dentry *failed_creating(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/debugfs/inode.c: line 294 \n"); 
 	inode_unlock(d_inode(dentry->d_parent));
 	dput(dentry);
 	simple_release_fs(&debugfs_mount, &debugfs_mount_count);
@@ -440,6 +444,7 @@ struct dentry *debugfs_create_file_size(const char *name, umode_t mode,
 					const struct file_operations *fops,
 					loff_t file_size)
 {
+	panic("We reached unpopular paths in fs/debugfs/inode.c: line 447 \n"); 
 	struct dentry *de = debugfs_create_file(name, mode, parent, data, fops);
 
 	if (de)
@@ -583,6 +588,7 @@ EXPORT_SYMBOL_GPL(debugfs_create_symlink);
 
 static int __debugfs_remove(struct dentry *dentry, struct dentry *parent)
 {
+	panic("We reached unpopular paths in fs/debugfs/inode.c: line 591 \n"); 
 	int ret = 0;
 
 	if (simple_positive(dentry)) {
@@ -614,6 +620,7 @@ static int __debugfs_remove(struct dentry *dentry, struct dentry *parent)
  */
 void debugfs_remove(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/debugfs/inode.c: line 623 \n"); 
 	struct dentry *parent;
 	int ret;
 
@@ -646,6 +653,7 @@ EXPORT_SYMBOL_GPL(debugfs_remove);
  */
 void debugfs_remove_recursive(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/debugfs/inode.c: line 656 \n"); 
 	struct dentry *child, *parent;
 
 	if (IS_ERR_OR_NULL(dentry))
@@ -728,6 +736,7 @@ EXPORT_SYMBOL_GPL(debugfs_remove_recursive);
 struct dentry *debugfs_rename(struct dentry *old_dir, struct dentry *old_dentry,
 		struct dentry *new_dir, const char *new_name)
 {
+	panic("We reached unpopular paths in fs/debugfs/inode.c: line 739 \n"); 
 	int error;
 	struct dentry *dentry = NULL, *trap;
 	struct name_snapshot old_name;

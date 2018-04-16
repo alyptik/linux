@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008 Patrick McHardy <kaber@trash.net>
  * Copyright (c) 2012 Pablo Neira Ayuso <pablo@netfilter.org>
@@ -26,6 +27,7 @@ static unsigned int nf_route_table_hook(void *priv,
 					struct sk_buff *skb,
 					const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nft_chain_route_ipv6.c: line 30 \n"); 
 	unsigned int ret;
 	struct nft_pktinfo pkt;
 	struct in6_addr saddr, daddr;

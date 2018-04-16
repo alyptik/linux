@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Spanning tree protocol; timer-related code
  *	Linux ethernet bridge
@@ -20,6 +21,7 @@
 /* called under bridge lock */
 static int br_is_designated_for_some_port(const struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_timer.c: line 24 \n"); 
 	struct net_bridge_port *p;
 
 	list_for_each_entry(p, &br->port_list, list) {
@@ -33,6 +35,7 @@ static int br_is_designated_for_some_port(const struct net_bridge *br)
 
 static void br_hello_timer_expired(unsigned long arg)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_timer.c: line 38 \n"); 
 	struct net_bridge *br = (struct net_bridge *)arg;
 
 	br_debug(br, "hello timer expired\n");
@@ -49,6 +52,7 @@ static void br_hello_timer_expired(unsigned long arg)
 
 static void br_message_age_timer_expired(unsigned long arg)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_timer.c: line 55 \n"); 
 	struct net_bridge_port *p = (struct net_bridge_port *) arg;
 	struct net_bridge *br = p->br;
 	const bridge_id *id = &p->designated_bridge;
@@ -106,6 +110,7 @@ static void br_forward_delay_timer_expired(unsigned long arg)
 
 static void br_tcn_timer_expired(unsigned long arg)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_timer.c: line 113 \n"); 
 	struct net_bridge *br = (struct net_bridge *) arg;
 
 	br_debug(br, "tcn timer expired\n");
@@ -120,6 +125,7 @@ static void br_tcn_timer_expired(unsigned long arg)
 
 static void br_topology_change_timer_expired(unsigned long arg)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_timer.c: line 128 \n"); 
 	struct net_bridge *br = (struct net_bridge *) arg;
 
 	br_debug(br, "topo change timer expired\n");
@@ -131,6 +137,7 @@ static void br_topology_change_timer_expired(unsigned long arg)
 
 static void br_hold_timer_expired(unsigned long arg)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_timer.c: line 140 \n"); 
 	struct net_bridge_port *p = (struct net_bridge_port *) arg;
 
 	br_debug(p->br, "port %u(%s) hold timer expired\n",

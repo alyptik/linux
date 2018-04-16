@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Functions related to mapping data to requests
  */
@@ -32,6 +33,7 @@ EXPORT_SYMBOL(blk_rq_append_bio);
 
 static int __blk_rq_unmap_user(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-map.c: line 36 \n"); 
 	int ret = 0;
 
 	if (bio) {
@@ -48,6 +50,7 @@ static int __blk_rq_map_user_iov(struct request *rq,
 		struct rq_map_data *map_data, struct iov_iter *iter,
 		gfp_t gfp_mask, bool copy)
 {
+	panic("We reached unpopular paths in block/blk-map.c: line 53 \n"); 
 	struct request_queue *q = rq->q;
 	struct bio *bio, *orig_bio;
 	int ret;
@@ -112,6 +115,7 @@ int blk_rq_map_user_iov(struct request_queue *q, struct request *rq,
 			struct rq_map_data *map_data,
 			const struct iov_iter *iter, gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in block/blk-map.c: line 118 \n"); 
 	bool copy = false;
 	unsigned long align = q->dma_pad_mask | queue_dma_alignment(q);
 	struct bio *bio = NULL;
@@ -175,6 +179,7 @@ EXPORT_SYMBOL(blk_rq_map_user);
  */
 int blk_rq_unmap_user(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-map.c: line 182 \n"); 
 	struct bio *mapped_bio;
 	int ret = 0, ret2;
 

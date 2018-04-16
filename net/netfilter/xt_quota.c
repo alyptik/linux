@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * netfilter module to enforce network quotas
  *
@@ -25,6 +26,7 @@ MODULE_ALIAS("ip6t_quota");
 static bool
 quota_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_quota.c: line 29 \n"); 
 	struct xt_quota_info *q = (void *)par->matchinfo;
 	struct xt_quota_priv *priv = q->master;
 	bool ret = q->flags & XT_QUOTA_INVERT;
@@ -44,6 +46,7 @@ quota_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int quota_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_quota.c: line 49 \n"); 
 	struct xt_quota_info *q = par->matchinfo;
 
 	if (q->flags & ~XT_QUOTA_MASK)
@@ -60,6 +63,7 @@ static int quota_mt_check(const struct xt_mtchk_param *par)
 
 static void quota_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_quota.c: line 66 \n"); 
 	const struct xt_quota_info *q = par->matchinfo;
 
 	kfree(q->master);

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	STP SAP demux
  *
@@ -33,6 +34,7 @@ static DEFINE_MUTEX(stp_proto_mutex);
 static int stp_pdu_rcv(struct sk_buff *skb, struct net_device *dev,
 		       struct packet_type *pt, struct net_device *orig_dev)
 {
+	panic("We reached unpopular paths in net/802/stp.c: line 37 \n"); 
 	const struct ethhdr *eh = eth_hdr(skb);
 	const struct llc_pdu_un *pdu = llc_pdu_un_hdr(skb);
 	const struct stp_proto *proto;
@@ -87,6 +89,7 @@ EXPORT_SYMBOL_GPL(stp_proto_register);
 
 void stp_proto_unregister(const struct stp_proto *proto)
 {
+	panic("We reached unpopular paths in net/802/stp.c: line 92 \n"); 
 	mutex_lock(&stp_proto_mutex);
 	if (is_zero_ether_addr(proto->group_address))
 		RCU_INIT_POINTER(stp_proto, NULL);

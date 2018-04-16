@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2006-2007 Silicon Graphics, Inc.
  * All Rights Reserved.
@@ -138,6 +139,7 @@ _xfs_mru_cache_migrate(
 	struct xfs_mru_cache	*mru,
 	unsigned long		now)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_mru_cache.c: line 142 \n"); 
 	unsigned int		grp;
 	unsigned int		migrated = 0;
 	struct list_head	*lru_list;
@@ -202,6 +204,7 @@ _xfs_mru_cache_list_insert(
 	struct xfs_mru_cache	*mru,
 	struct xfs_mru_cache_elem *elem)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_mru_cache.c: line 207 \n"); 
 	unsigned int		grp = 0;
 	unsigned long		now = jiffies;
 
@@ -276,6 +279,7 @@ STATIC void
 _xfs_mru_cache_reap(
 	struct work_struct	*work)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_mru_cache.c: line 282 \n"); 
 	struct xfs_mru_cache	*mru =
 		container_of(work, struct xfs_mru_cache, work.work);
 	unsigned long		now, next;
@@ -314,6 +318,7 @@ xfs_mru_cache_init(void)
 void
 xfs_mru_cache_uninit(void)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_mru_cache.c: line 321 \n"); 
 	destroy_workqueue(xfs_mru_reap_wq);
 }
 
@@ -330,6 +335,7 @@ xfs_mru_cache_create(
 	unsigned int		grp_count,
 	xfs_mru_cache_free_func_t free_func)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_mru_cache.c: line 338 \n"); 
 	struct xfs_mru_cache	*mru = NULL;
 	int			err = 0, grp;
 	unsigned int		grp_time;
@@ -391,6 +397,7 @@ static void
 xfs_mru_cache_flush(
 	struct xfs_mru_cache	*mru)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_mru_cache.c: line 400 \n"); 
 	if (!mru || !mru->lists)
 		return;
 
@@ -411,6 +418,7 @@ void
 xfs_mru_cache_destroy(
 	struct xfs_mru_cache	*mru)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_mru_cache.c: line 421 \n"); 
 	if (!mru || !mru->lists)
 		return;
 
@@ -431,6 +439,7 @@ xfs_mru_cache_insert(
 	unsigned long		key,
 	struct xfs_mru_cache_elem *elem)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_mru_cache.c: line 442 \n"); 
 	int			error;
 
 	ASSERT(mru && mru->lists);
@@ -464,6 +473,7 @@ xfs_mru_cache_remove(
 	struct xfs_mru_cache	*mru,
 	unsigned long		key)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_mru_cache.c: line 476 \n"); 
 	struct xfs_mru_cache_elem *elem;
 
 	ASSERT(mru && mru->lists);
@@ -488,6 +498,7 @@ xfs_mru_cache_delete(
 	struct xfs_mru_cache	*mru,
 	unsigned long		key)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_mru_cache.c: line 501 \n"); 
 	struct xfs_mru_cache_elem *elem;
 
 	elem = xfs_mru_cache_remove(mru, key);
@@ -520,6 +531,7 @@ xfs_mru_cache_lookup(
 	struct xfs_mru_cache	*mru,
 	unsigned long		key)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_mru_cache.c: line 534 \n"); 
 	struct xfs_mru_cache_elem *elem;
 
 	ASSERT(mru && mru->lists);

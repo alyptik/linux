@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS         An implementation of the IP virtual server support for the
  *              LINUX operating system.  IPVS is now implemented as a module
@@ -96,11 +97,13 @@ __ip_vs_conntbl_lock_array[CT_LOCKARRAY_SIZE] __cacheline_aligned;
 
 static inline void ct_write_lock_bh(unsigned int key)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 100 \n"); 
 	spin_lock_bh(&__ip_vs_conntbl_lock_array[key&CT_LOCKARRAY_MASK].l);
 }
 
 static inline void ct_write_unlock_bh(unsigned int key)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 106 \n"); 
 	spin_unlock_bh(&__ip_vs_conntbl_lock_array[key&CT_LOCKARRAY_MASK].l);
 }
 
@@ -113,6 +116,7 @@ static unsigned int ip_vs_conn_hashkey(struct netns_ipvs *ipvs, int af, unsigned
 				       const union nf_inet_addr *addr,
 				       __be16 port)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 119 \n"); 
 #ifdef CONFIG_IP_VS_IPV6
 	if (af == AF_INET6)
 		return (jhash_3words(jhash(addr, 16, ip_vs_conn_rnd),
@@ -127,6 +131,7 @@ static unsigned int ip_vs_conn_hashkey(struct netns_ipvs *ipvs, int af, unsigned
 static unsigned int ip_vs_conn_hashkey_param(const struct ip_vs_conn_param *p,
 					     bool inverse)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 134 \n"); 
 	const union nf_inet_addr *addr;
 	__be16 port;
 
@@ -147,6 +152,7 @@ static unsigned int ip_vs_conn_hashkey_param(const struct ip_vs_conn_param *p,
 
 static unsigned int ip_vs_conn_hashkey_conn(const struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 155 \n"); 
 	struct ip_vs_conn_param p;
 
 	ip_vs_conn_fill_param(cp->ipvs, cp->af, cp->protocol,
@@ -167,6 +173,7 @@ static unsigned int ip_vs_conn_hashkey_conn(const struct ip_vs_conn *cp)
  */
 static inline int ip_vs_conn_hash(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 176 \n"); 
 	unsigned int hash;
 	int ret;
 
@@ -203,6 +210,7 @@ static inline int ip_vs_conn_hash(struct ip_vs_conn *cp)
  */
 static inline int ip_vs_conn_unhash(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 213 \n"); 
 	unsigned int hash;
 	int ret;
 
@@ -231,6 +239,7 @@ static inline int ip_vs_conn_unhash(struct ip_vs_conn *cp)
  */
 static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 242 \n"); 
 	unsigned int hash;
 	bool ret;
 
@@ -266,6 +275,7 @@ static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp)
 static inline struct ip_vs_conn *
 __ip_vs_conn_in_get(const struct ip_vs_conn_param *p)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 278 \n"); 
 	unsigned int hash;
 	struct ip_vs_conn *cp;
 
@@ -296,6 +306,7 @@ __ip_vs_conn_in_get(const struct ip_vs_conn_param *p)
 
 struct ip_vs_conn *ip_vs_conn_in_get(const struct ip_vs_conn_param *p)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 309 \n"); 
 	struct ip_vs_conn *cp;
 
 	cp = __ip_vs_conn_in_get(p);
@@ -320,6 +331,7 @@ ip_vs_conn_fill_param_proto(struct netns_ipvs *ipvs,
 			    const struct ip_vs_iphdr *iph,
 			    struct ip_vs_conn_param *p)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 334 \n"); 
 	__be16 _ports[2], *pptr;
 
 	pptr = frag_safe_skb_hp(skb, iph->len, sizeof(_ports), _ports, iph);
@@ -340,6 +352,7 @@ ip_vs_conn_in_get_proto(struct netns_ipvs *ipvs, int af,
 			const struct sk_buff *skb,
 			const struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 355 \n"); 
 	struct ip_vs_conn_param p;
 
 	if (ip_vs_conn_fill_param_proto(ipvs, af, skb, iph, &p))
@@ -352,6 +365,7 @@ EXPORT_SYMBOL_GPL(ip_vs_conn_in_get_proto);
 /* Get reference to connection template */
 struct ip_vs_conn *ip_vs_ct_in_get(const struct ip_vs_conn_param *p)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 368 \n"); 
 	unsigned int hash;
 	struct ip_vs_conn *cp;
 
@@ -404,6 +418,7 @@ struct ip_vs_conn *ip_vs_ct_in_get(const struct ip_vs_conn_param *p)
  *	p->vaddr, p->vport: pkt dest address (foreign host) */
 struct ip_vs_conn *ip_vs_conn_out_get(const struct ip_vs_conn_param *p)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 421 \n"); 
 	unsigned int hash;
 	struct ip_vs_conn *cp, *ret=NULL;
 
@@ -445,6 +460,7 @@ ip_vs_conn_out_get_proto(struct netns_ipvs *ipvs, int af,
 			 const struct sk_buff *skb,
 			 const struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 463 \n"); 
 	struct ip_vs_conn_param p;
 
 	if (ip_vs_conn_fill_param_proto(ipvs, af, skb, iph, &p))
@@ -456,6 +472,7 @@ EXPORT_SYMBOL_GPL(ip_vs_conn_out_get_proto);
 
 static void __ip_vs_conn_put_notimer(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 475 \n"); 
 	__ip_vs_conn_put(cp);
 	ip_vs_conn_expire((unsigned long)cp);
 }
@@ -465,6 +482,7 @@ static void __ip_vs_conn_put_notimer(struct ip_vs_conn *cp)
  */
 static void __ip_vs_conn_put_timer(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 485 \n"); 
 	unsigned long t = (cp->flags & IP_VS_CONN_F_ONE_PACKET) ?
 		0 : cp->timeout;
 	mod_timer(&cp->timer, jiffies+t);
@@ -474,6 +492,7 @@ static void __ip_vs_conn_put_timer(struct ip_vs_conn *cp)
 
 void ip_vs_conn_put(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 495 \n"); 
 	if ((cp->flags & IP_VS_CONN_F_ONE_PACKET) &&
 	    (atomic_read(&cp->refcnt) == 1) &&
 	    !timer_pending(&cp->timer))
@@ -488,6 +507,7 @@ void ip_vs_conn_put(struct ip_vs_conn *cp)
  */
 void ip_vs_conn_fill_cport(struct ip_vs_conn *cp, __be16 cport)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 510 \n"); 
 	if (ip_vs_conn_unhash(cp)) {
 		spin_lock_bh(&cp->lock);
 		if (cp->flags & IP_VS_CONN_F_NO_CPORT) {
@@ -509,6 +529,7 @@ void ip_vs_conn_fill_cport(struct ip_vs_conn *cp, __be16 cport)
  */
 static inline void ip_vs_bind_xmit(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 532 \n"); 
 	switch (IP_VS_FWD_METHOD(cp)) {
 	case IP_VS_CONN_F_MASQ:
 		cp->packet_xmit = ip_vs_nat_xmit;
@@ -570,6 +591,7 @@ static inline void ip_vs_bind_xmit_v6(struct ip_vs_conn *cp)
 
 static inline int ip_vs_dest_totalconns(struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 594 \n"); 
 	return atomic_read(&dest->activeconns)
 		+ atomic_read(&dest->inactconns);
 }
@@ -581,6 +603,7 @@ static inline int ip_vs_dest_totalconns(struct ip_vs_dest *dest)
 static inline void
 ip_vs_bind_dest(struct ip_vs_conn *cp, struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 606 \n"); 
 	unsigned int conn_flags;
 	__u32 flags;
 
@@ -648,6 +671,7 @@ ip_vs_bind_dest(struct ip_vs_conn *cp, struct ip_vs_dest *dest)
  */
 void ip_vs_try_bind_dest(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 674 \n"); 
 	struct ip_vs_dest *dest;
 
 	rcu_read_lock();
@@ -701,6 +725,7 @@ void ip_vs_try_bind_dest(struct ip_vs_conn *cp)
  */
 static inline void ip_vs_unbind_dest(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 728 \n"); 
 	struct ip_vs_dest *dest = cp->dest;
 
 	if (!dest)
@@ -749,6 +774,7 @@ static inline void ip_vs_unbind_dest(struct ip_vs_conn *cp)
 static int expire_quiescent_template(struct netns_ipvs *ipvs,
 				     struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 777 \n"); 
 #ifdef CONFIG_SYSCTL
 	return ipvs->sysctl_expire_quiescent_template &&
 		(atomic_read(&dest->weight) == 0);
@@ -764,6 +790,7 @@ static int expire_quiescent_template(struct netns_ipvs *ipvs,
  */
 int ip_vs_check_template(struct ip_vs_conn *ct, struct ip_vs_dest *cdest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 793 \n"); 
 	struct ip_vs_dest *dest = ct->dest;
 	struct netns_ipvs *ipvs = ct->ipvs;
 
@@ -809,6 +836,7 @@ int ip_vs_check_template(struct ip_vs_conn *ct, struct ip_vs_dest *cdest)
 
 static void ip_vs_conn_rcu_free(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 839 \n"); 
 	struct ip_vs_conn *cp = container_of(head, struct ip_vs_conn,
 					     rcu_head);
 
@@ -819,6 +847,7 @@ static void ip_vs_conn_rcu_free(struct rcu_head *head)
 
 static void ip_vs_conn_expire(unsigned long data)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 850 \n"); 
 	struct ip_vs_conn *cp = (struct ip_vs_conn *)data;
 	struct netns_ipvs *ipvs = cp->ipvs;
 
@@ -880,6 +909,7 @@ static void ip_vs_conn_expire(unsigned long data)
  */
 void ip_vs_conn_expire_now(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 912 \n"); 
 	/* Using mod_timer_pending will ensure the timer is not
 	 * modified after the final del_timer in ip_vs_conn_expire.
 	 */
@@ -897,6 +927,7 @@ ip_vs_conn_new(const struct ip_vs_conn_param *p, int dest_af,
 	       const union nf_inet_addr *daddr, __be16 dport, unsigned int flags,
 	       struct ip_vs_dest *dest, __u32 fwmark)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 930 \n"); 
 	struct ip_vs_conn *cp;
 	struct netns_ipvs *ipvs = p->ipvs;
 	struct ip_vs_proto_data *pd = ip_vs_proto_data_get(p->ipvs,
@@ -1236,6 +1267,7 @@ static const struct file_operations ip_vs_conn_sync_fops = {
  */
 static inline int todrop_entry(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 1270 \n"); 
 	/*
 	 * The drop rate array needs tuning for real environments.
 	 * Called from timer bh only => no locking
@@ -1264,6 +1296,7 @@ static inline int todrop_entry(struct ip_vs_conn *cp)
 
 static inline bool ip_vs_conn_ops_mode(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 1299 \n"); 
 	struct ip_vs_service *svc;
 
 	if (!cp->dest)
@@ -1275,6 +1308,7 @@ static inline bool ip_vs_conn_ops_mode(struct ip_vs_conn *cp)
 /* Called from keventd and must protect itself from softirqs */
 void ip_vs_random_dropentry(struct netns_ipvs *ipvs)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 1311 \n"); 
 	int idx;
 	struct ip_vs_conn *cp, *cp_c;
 
@@ -1447,6 +1481,7 @@ int __init ip_vs_conn_init(void)
 
 void ip_vs_conn_cleanup(void)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_conn.c: line 1484 \n"); 
 	/* Wait all ip_vs_conn_rcu_free() callbacks to complete */
 	rcu_barrier();
 	/* Release the empty cache */

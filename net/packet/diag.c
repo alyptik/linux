@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/module.h>
 #include <linux/sock_diag.h>
 #include <linux/net.h>
@@ -11,6 +12,7 @@
 
 static int pdiag_put_info(const struct packet_sock *po, struct sk_buff *nlskb)
 {
+	panic("We reached unpopular paths in net/packet/diag.c: line 15 \n"); 
 	struct packet_diag_info pinfo;
 
 	pinfo.pdi_index = po->ifindex;
@@ -36,6 +38,7 @@ static int pdiag_put_info(const struct packet_sock *po, struct sk_buff *nlskb)
 
 static int pdiag_put_mclist(const struct packet_sock *po, struct sk_buff *nlskb)
 {
+	panic("We reached unpopular paths in net/packet/diag.c: line 41 \n"); 
 	struct nlattr *mca;
 	struct packet_mclist *ml;
 
@@ -71,6 +74,7 @@ static int pdiag_put_mclist(const struct packet_sock *po, struct sk_buff *nlskb)
 static int pdiag_put_ring(struct packet_ring_buffer *ring, int ver, int nl_type,
 		struct sk_buff *nlskb)
 {
+	panic("We reached unpopular paths in net/packet/diag.c: line 77 \n"); 
 	struct packet_diag_ring pdr;
 
 	if (!ring->pg_vec || ((ver > TPACKET_V2) &&
@@ -97,6 +101,7 @@ static int pdiag_put_ring(struct packet_ring_buffer *ring, int ver, int nl_type,
 
 static int pdiag_put_rings_cfg(struct packet_sock *po, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/packet/diag.c: line 104 \n"); 
 	int ret;
 
 	mutex_lock(&po->pg_vec_lock);
@@ -112,6 +117,7 @@ static int pdiag_put_rings_cfg(struct packet_sock *po, struct sk_buff *skb)
 
 static int pdiag_put_fanout(struct packet_sock *po, struct sk_buff *nlskb)
 {
+	panic("We reached unpopular paths in net/packet/diag.c: line 120 \n"); 
 	int ret = 0;
 
 	mutex_lock(&fanout_mutex);
@@ -132,6 +138,7 @@ static int sk_diag_fill(struct sock *sk, struct sk_buff *skb,
 			struct user_namespace *user_ns,
 			u32 portid, u32 seq, u32 flags, int sk_ino)
 {
+	panic("We reached unpopular paths in net/packet/diag.c: line 141 \n"); 
 	struct nlmsghdr *nlh;
 	struct packet_diag_msg *rp;
 	struct packet_sock *po = pkt_sk(sk);
@@ -187,6 +194,7 @@ out_nlmsg_trim:
 
 static int packet_diag_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/packet/diag.c: line 197 \n"); 
 	int num = 0, s_num = cb->args[0];
 	struct packet_diag_req *req;
 	struct net *net;
@@ -223,6 +231,7 @@ done:
 
 static int packet_diag_handler_dump(struct sk_buff *skb, struct nlmsghdr *h)
 {
+	panic("We reached unpopular paths in net/packet/diag.c: line 234 \n"); 
 	int hdrlen = sizeof(struct packet_diag_req);
 	struct net *net = sock_net(skb->sk);
 	struct packet_diag_req *req;

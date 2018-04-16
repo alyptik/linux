@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -33,6 +34,7 @@ int sysctl_tcp_thin_linear_timeouts __read_mostly;
 
 static void tcp_write_err(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_timer.c: line 37 \n"); 
 	sk->sk_err = sk->sk_err_soft ? : ETIMEDOUT;
 	sk->sk_error_report(sk);
 
@@ -66,6 +68,7 @@ static void tcp_write_err(struct sock *sk)
  */
 static int tcp_out_of_resources(struct sock *sk, bool do_reset)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_timer.c: line 71 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	int shift = 0;
 
@@ -108,6 +111,7 @@ static int tcp_out_of_resources(struct sock *sk, bool do_reset)
  */
 static int tcp_orphan_retries(struct sock *sk, bool alive)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_timer.c: line 114 \n"); 
 	int retries = sock_net(sk)->ipv4.sysctl_tcp_orphan_retries; /* May be zero. */
 
 	/* We know from an ICMP that something is wrong. */
@@ -124,6 +128,7 @@ static int tcp_orphan_retries(struct sock *sk, bool alive)
 
 static void tcp_mtu_probing(struct inet_connection_sock *icsk, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_timer.c: line 131 \n"); 
 	struct net *net = sock_net(sk);
 
 	/* Black hole detection */
@@ -168,6 +173,7 @@ static bool retransmits_timed_out(struct sock *sk,
 				  unsigned int timeout,
 				  bool syn_set)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_timer.c: line 176 \n"); 
 	unsigned int linear_backoff_thresh, start_ts;
 	unsigned int rto_base = syn_set ? TCP_TIMEOUT_INIT : TCP_RTO_MIN;
 
@@ -193,6 +199,7 @@ static bool retransmits_timed_out(struct sock *sk,
 /* A write timeout has occurred. Process the after effects. */
 static int tcp_write_timeout(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_timer.c: line 202 \n"); 
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct net *net = sock_net(sk);
@@ -335,6 +342,7 @@ static void tcp_delack_timer(unsigned long data)
 
 static void tcp_probe_timer(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_timer.c: line 345 \n"); 
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	struct tcp_sock *tp = tcp_sk(sk);
 	int max_probes;
@@ -385,6 +393,7 @@ abort:		tcp_write_err(sk);
  */
 static void tcp_fastopen_synack_timer(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_timer.c: line 396 \n"); 
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	int max_retries = icsk->icsk_syn_retries ? :
 	    sock_net(sk)->ipv4.sysctl_tcp_synack_retries + 1; /* add one more retry for fastopen */
@@ -423,6 +432,7 @@ static void tcp_fastopen_synack_timer(struct sock *sk)
  */
 void tcp_retransmit_timer(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_timer.c: line 435 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct net *net = sock_net(sk);
 	struct inet_connection_sock *icsk = inet_csk(sk);
@@ -618,6 +628,7 @@ static void tcp_write_timer(unsigned long data)
 
 void tcp_syn_ack_timeout(const struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_timer.c: line 631 \n"); 
 	struct net *net = read_pnet(&inet_rsk(req)->ireq_net);
 
 	__NET_INC_STATS(net, LINUX_MIB_TCPTIMEOUTS);
@@ -638,6 +649,7 @@ void tcp_set_keepalive(struct sock *sk, int val)
 
 static void tcp_keepalive_timer (unsigned long data)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_timer.c: line 652 \n"); 
 	struct sock *sk = (struct sock *) data;
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	struct tcp_sock *tp = tcp_sk(sk);

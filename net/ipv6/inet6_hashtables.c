@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the BSD Socket
@@ -29,6 +30,7 @@ u32 inet6_ehashfn(const struct net *net,
 		  const struct in6_addr *laddr, const u16 lport,
 		  const struct in6_addr *faddr, const __be16 fport)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_hashtables.c: line 33 \n"); 
 	static u32 inet6_ehash_secret __read_mostly;
 	static u32 ipv6_hash_secret __read_mostly;
 
@@ -58,6 +60,7 @@ struct sock *__inet6_lookup_established(struct net *net,
 					   const u16 hnum,
 					   const int dif)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_hashtables.c: line 63 \n"); 
 	struct sock *sk;
 	const struct hlist_nulls_node *node;
 	const __portpair ports = INET_COMBINED_PORTS(sport, hnum);
@@ -98,6 +101,7 @@ static inline int compute_score(struct sock *sk, struct net *net,
 				const struct in6_addr *daddr,
 				const int dif, bool exact_dif)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_hashtables.c: line 104 \n"); 
 	int score = -1;
 
 	if (net_eq(sock_net(sk), net) && inet_sk(sk)->inet_num == hnum &&
@@ -128,6 +132,7 @@ struct sock *inet6_lookup_listener(struct net *net,
 		const __be16 sport, const struct in6_addr *daddr,
 		const unsigned short hnum, const int dif)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_hashtables.c: line 135 \n"); 
 	unsigned int hash = inet_lhashfn(net, hnum);
 	struct inet_listen_hashbucket *ilb = &hashinfo->listening_hash[hash];
 	int score, hiscore = 0, matches = 0, reuseport = 0;
@@ -167,6 +172,7 @@ struct sock *inet6_lookup(struct net *net, struct inet_hashinfo *hashinfo,
 			  const struct in6_addr *daddr, const __be16 dport,
 			  const int dif)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_hashtables.c: line 175 \n"); 
 	struct sock *sk;
 	bool refcounted;
 
@@ -182,6 +188,7 @@ static int __inet6_check_established(struct inet_timewait_death_row *death_row,
 				     struct sock *sk, const __u16 lport,
 				     struct inet_timewait_sock **twp)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_hashtables.c: line 191 \n"); 
 	struct inet_hashinfo *hinfo = death_row->hashinfo;
 	struct inet_sock *inet = inet_sk(sk);
 	const struct in6_addr *daddr = &sk->sk_v6_rcv_saddr;
@@ -243,6 +250,7 @@ not_unique:
 
 static u32 inet6_sk_port_offset(const struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_hashtables.c: line 253 \n"); 
 	const struct inet_sock *inet = inet_sk(sk);
 
 	return secure_ipv6_port_ephemeral(sk->sk_v6_rcv_saddr.s6_addr32,
@@ -253,6 +261,7 @@ static u32 inet6_sk_port_offset(const struct sock *sk)
 int inet6_hash_connect(struct inet_timewait_death_row *death_row,
 		       struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_hashtables.c: line 264 \n"); 
 	u32 port_offset = 0;
 
 	if (!inet_sk(sk)->inet_num)
@@ -285,6 +294,7 @@ EXPORT_SYMBOL_GPL(inet6_hash);
 int ipv6_rcv_saddr_equal(const struct sock *sk, const struct sock *sk2,
 			 bool match_wildcard)
 {
+	panic("We reached unpopular paths in net/ipv6/inet6_hashtables.c: line 297 \n"); 
 	const struct in6_addr *sk2_rcv_saddr6 = inet6_rcv_saddr(sk2);
 	int sk2_ipv6only = inet_v6_ipv6only(sk2);
 	int addr_type = ipv6_addr_type(&sk->sk_v6_rcv_saddr);

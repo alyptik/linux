@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2004 Netfilter Core Team <coreteam@netfilter.org>
  *
@@ -25,6 +26,7 @@
 static int nf_ct_ipv4_gather_frags(struct net *net, struct sk_buff *skb,
 				   u_int32_t user)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_defrag_ipv4.c: line 29 \n"); 
 	int err;
 
 	local_bh_disable();
@@ -40,6 +42,7 @@ static int nf_ct_ipv4_gather_frags(struct net *net, struct sk_buff *skb,
 static enum ip_defrag_users nf_ct_defrag_user(unsigned int hooknum,
 					      struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_defrag_ipv4.c: line 45 \n"); 
 	u16 zone_id = NF_CT_DEFAULT_ZONE_ID;
 #if IS_ENABLED(CONFIG_NF_CONNTRACK)
 	if (skb->nfct) {

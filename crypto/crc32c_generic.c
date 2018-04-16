@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -60,6 +61,7 @@ struct chksum_desc_ctx {
 
 static int chksum_init(struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/crc32c_generic.c: line 64 \n"); 
 	struct chksum_ctx *mctx = crypto_shash_ctx(desc->tfm);
 	struct chksum_desc_ctx *ctx = shash_desc_ctx(desc);
 
@@ -76,6 +78,7 @@ static int chksum_init(struct shash_desc *desc)
 static int chksum_setkey(struct crypto_shash *tfm, const u8 *key,
 			 unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/crc32c_generic.c: line 81 \n"); 
 	struct chksum_ctx *mctx = crypto_shash_ctx(tfm);
 
 	if (keylen != sizeof(mctx->key)) {
@@ -89,6 +92,7 @@ static int chksum_setkey(struct crypto_shash *tfm, const u8 *key,
 static int chksum_update(struct shash_desc *desc, const u8 *data,
 			 unsigned int length)
 {
+	panic("We reached unpopular paths in crypto/crc32c_generic.c: line 95 \n"); 
 	struct chksum_desc_ctx *ctx = shash_desc_ctx(desc);
 
 	ctx->crc = __crc32c_le(ctx->crc, data, length);
@@ -97,6 +101,7 @@ static int chksum_update(struct shash_desc *desc, const u8 *data,
 
 static int chksum_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crc32c_generic.c: line 104 \n"); 
 	struct chksum_desc_ctx *ctx = shash_desc_ctx(desc);
 
 	*(__le32 *)out = ~cpu_to_le32p(&ctx->crc);
@@ -105,6 +110,7 @@ static int chksum_final(struct shash_desc *desc, u8 *out)
 
 static int __chksum_finup(u32 *crcp, const u8 *data, unsigned int len, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crc32c_generic.c: line 113 \n"); 
 	*(__le32 *)out = ~cpu_to_le32(__crc32c_le(*crcp, data, len));
 	return 0;
 }
@@ -112,6 +118,7 @@ static int __chksum_finup(u32 *crcp, const u8 *data, unsigned int len, u8 *out)
 static int chksum_finup(struct shash_desc *desc, const u8 *data,
 			unsigned int len, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crc32c_generic.c: line 121 \n"); 
 	struct chksum_desc_ctx *ctx = shash_desc_ctx(desc);
 
 	return __chksum_finup(&ctx->crc, data, len, out);
@@ -120,6 +127,7 @@ static int chksum_finup(struct shash_desc *desc, const u8 *data,
 static int chksum_digest(struct shash_desc *desc, const u8 *data,
 			 unsigned int length, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crc32c_generic.c: line 130 \n"); 
 	struct chksum_ctx *mctx = crypto_shash_ctx(desc->tfm);
 
 	return __chksum_finup(&mctx->key, data, length, out);

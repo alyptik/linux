@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *
  * Copyright (C) 2011 Novell Inc.
@@ -67,6 +68,7 @@ struct ovl_entry {
 
 static struct dentry *__ovl_dentry_lower(struct ovl_entry *oe)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/overlayfs/super.c: line 71 \n"); 
 	return oe->numlower ? oe->lowerstack[0].dentry : NULL;
 }
 
@@ -95,6 +97,7 @@ enum ovl_path_type ovl_path_type(struct dentry *dentry)
 
 static struct dentry *ovl_upperdentry_dereference(struct ovl_entry *oe)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/overlayfs/super.c: line 100 \n"); 
 	return lockless_dereference(oe->__upperdentry);
 }
 
@@ -148,6 +151,7 @@ struct dentry *ovl_dentry_real(struct dentry *dentry)
 static void ovl_inode_init(struct inode *inode, struct inode *realinode,
 			   bool is_upper)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/overlayfs/super.c: line 154 \n"); 
 	WRITE_ONCE(inode->i_private, (unsigned long) realinode |
 		   (is_upper ? OVL_ISUPPER_MASK : 0));
 }
@@ -155,6 +159,7 @@ static void ovl_inode_init(struct inode *inode, struct inode *realinode,
 struct vfsmount *ovl_entry_mnt_real(struct ovl_entry *oe, struct inode *inode,
 				    bool is_upper)
 {
+	panic("We reached unpopular paths in fs/overlayfs/super.c: line 162 \n"); 
 	if (is_upper) {
 		struct ovl_fs *ofs = inode->i_sb->s_fs_info;
 
@@ -341,6 +346,7 @@ bug:
 
 static int ovl_dentry_revalidate(struct dentry *dentry, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/overlayfs/super.c: line 349 \n"); 
 	struct ovl_entry *oe = dentry->d_fsdata;
 	unsigned int i;
 	int ret = 1;
@@ -364,6 +370,7 @@ static int ovl_dentry_revalidate(struct dentry *dentry, unsigned int flags)
 
 static int ovl_dentry_weak_revalidate(struct dentry *dentry, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/overlayfs/super.c: line 373 \n"); 
 	struct ovl_entry *oe = dentry->d_fsdata;
 	unsigned int i;
 	int ret = 1;
@@ -405,6 +412,7 @@ static struct ovl_entry *ovl_alloc_entry(unsigned int numlower)
 
 static bool ovl_dentry_remote(struct dentry *dentry)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/overlayfs/super.c: line 415 \n"); 
 	return dentry->d_flags &
 		(DCACHE_OP_REVALIDATE | DCACHE_OP_WEAK_REVALIDATE |
 		 DCACHE_OP_REAL);
@@ -412,6 +420,7 @@ static bool ovl_dentry_remote(struct dentry *dentry)
 
 static bool ovl_dentry_weird(struct dentry *dentry)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/overlayfs/super.c: line 423 \n"); 
 	return dentry->d_flags & (DCACHE_NEED_AUTOMOUNT |
 				  DCACHE_MANAGE_TRANSIT |
 				  DCACHE_OP_HASH |
@@ -679,6 +688,7 @@ static int ovl_show_options(struct seq_file *m, struct dentry *dentry)
 
 static int ovl_remount(struct super_block *sb, int *flags, char *data)
 {
+	panic("We reached unpopular paths in fs/overlayfs/super.c: line 691 \n"); 
 	struct ovl_fs *ufs = sb->s_fs_info;
 
 	if (!(*flags & MS_RDONLY) && (!ufs->upper_mnt || !ufs->workdir))
@@ -1067,6 +1077,7 @@ static int ovl_own_xattr_get(const struct xattr_handler *handler,
 			     struct dentry *dentry, struct inode *inode,
 			     const char *name, void *buffer, size_t size)
 {
+	panic("We reached unpopular paths in fs/overlayfs/super.c: line 1080 \n"); 
 	return -EPERM;
 }
 
@@ -1075,6 +1086,7 @@ static int ovl_own_xattr_set(const struct xattr_handler *handler,
 			     const char *name, const void *value,
 			     size_t size, int flags)
 {
+	panic("We reached unpopular paths in fs/overlayfs/super.c: line 1089 \n"); 
 	return -EPERM;
 }
 

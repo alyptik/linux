@@ -192,7 +192,6 @@ static u16 hv_get_dev_type(const struct vmbus_channel *channel)
 		if (!uuid_le_cmp(*guid, vmbus_devs[i].guid))
 			return i;
 	}
-	pr_info("Unknown GUID: %pUl\n", guid);
 	return i;
 }
 
@@ -203,33 +202,34 @@ static u16 hv_get_dev_type(const struct vmbus_channel *channel)
  * @buf: Raw buffer channel data
  *
  * @icmsghdrp is of type &struct icmsg_hdr.
- * @negop is of type &struct icmsg_negotiate.
  * Set up and fill in default negotiate response message.
  *
- * The fw_version specifies the  framework version that
- * we can support and srv_version specifies the service
- * version we can support.
+ * The fw_version and fw_vercnt specifies the framework version that
+ * we can support.
+ *
+ * The srv_version and srv_vercnt specifies the service
+ * versions we can support.
+ *
+ * Versions are given in decreasing order.
+ *
+ * nego_fw_version and nego_srv_version store the selected protocol versions.
  *
  * Mainly used by Hyper-V drivers.
  */
 bool vmbus_prep_negotiate_resp(struct icmsg_hdr *icmsghdrp,
-				struct icmsg_negotiate *negop, u8 *buf,
-				int fw_version, int srv_version)
+				u8 *buf, const int *fw_version, int fw_vercnt,
+				const int *srv_version, int srv_vercnt,
+				int *nego_fw_version, int *nego_srv_version)
 {
 	int icframe_major, icframe_minor;
 	int icmsg_major, icmsg_minor;
 	int fw_major, fw_minor;
 	int srv_major, srv_minor;
-	int i;
+	int i, j;
 	bool found_match = false;
+	struct icmsg_negotiate *negop;
 
 	icmsghdrp->icmsgsize = 0x10;
-	fw_major = (fw_version >> 16);
-	fw_minor = (fw_version & 0xFFFF);
-
-	srv_major = (srv_version >> 16);
-	srv_minor = (srv_version & 0xFFFF);
-
 	negop = (struct icmsg_negotiate *)&buf[
 		sizeof(struct vmbuspipe_hdr) +
 		sizeof(struct icmsg_hdr)];
@@ -245,13 +245,22 @@ bool vmbus_prep_negotiate_resp(struct icmsg_hdr *icmsghdrp,
 	 * support.
 	 */
 
-	for (i = 0; i < negop->icframe_vercnt; i++) {
-		if ((negop->icversion_data[i].major == fw_major) &&
-		   (negop->icversion_data[i].minor == fw_minor)) {
-			icframe_major = negop->icversion_data[i].major;
-			icframe_minor = negop->icversion_data[i].minor;
-			found_match = true;
+	for (i = 0; i < fw_vercnt; i++) {
+		fw_major = (fw_version[i] >> 16);
+		fw_minor = (fw_version[i] & 0xFFFF);
+
+		for (j = 0; j < negop->icframe_vercnt; j++) {
+			if ((negop->icversion_data[j].major == fw_major) &&
+			    (negop->icversion_data[j].minor == fw_minor)) {
+				icframe_major = negop->icversion_data[j].major;
+				icframe_minor = negop->icversion_data[j].minor;
+				found_match = true;
+				break;
+			}
 		}
+
+		if (found_match)
+			break;
 	}
 
 	if (!found_match)
@@ -259,14 +268,26 @@ bool vmbus_prep_negotiate_resp(struct icmsg_hdr *icmsghdrp,
 
 	found_match = false;
 
-	for (i = negop->icframe_vercnt;
-		 (i < negop->icframe_vercnt + negop->icmsg_vercnt); i++) {
-		if ((negop->icversion_data[i].major == srv_major) &&
-		   (negop->icversion_data[i].minor == srv_minor)) {
-			icmsg_major = negop->icversion_data[i].major;
-			icmsg_minor = negop->icversion_data[i].minor;
-			found_match = true;
+	for (i = 0; i < srv_vercnt; i++) {
+		srv_major = (srv_version[i] >> 16);
+		srv_minor = (srv_version[i] & 0xFFFF);
+
+		for (j = negop->icframe_vercnt;
+			(j < negop->icframe_vercnt + negop->icmsg_vercnt);
+			j++) {
+
+			if ((negop->icversion_data[j].major == srv_major) &&
+				(negop->icversion_data[j].minor == srv_minor)) {
+
+				icmsg_major = negop->icversion_data[j].major;
+				icmsg_minor = negop->icversion_data[j].minor;
+				found_match = true;
+				break;
+			}
 		}
+
+		if (found_match)
+			break;
 	}
 
 	/*
@@ -282,6 +303,12 @@ fw_error:
 		negop->icframe_vercnt = 1;
 		negop->icmsg_vercnt = 1;
 	}
+
+	if (nego_fw_version)
+		*nego_fw_version = (icframe_major << 16) | icframe_minor;
+
+	if (nego_srv_version)
+		*nego_srv_version = (icmsg_major << 16) | icmsg_minor;
 
 	negop->icversion_data[0].major = icframe_major;
 	negop->icversion_data[0].minor = icframe_minor;
@@ -348,6 +375,30 @@ static void vmbus_release_relid(u32 relid)
 		       true);
 }
 
+void hv_percpu_channel_enq(struct vmbus_channel *channel)
+{
+	if (channel->target_cpu != get_cpu())
+		smp_call_function_single(channel->target_cpu,
+					 percpu_channel_enq,
+					 channel, true);
+	else
+		percpu_channel_enq(channel);
+	put_cpu();
+
+}
+
+void hv_percpu_channel_deq(struct vmbus_channel *channel)
+{
+	if (channel->target_cpu != get_cpu())
+		smp_call_function_single(channel->target_cpu,
+					 percpu_channel_deq,
+					 channel, true);
+	else
+		percpu_channel_deq(channel);
+	put_cpu();
+
+}
+
 void hv_event_tasklet_disable(struct vmbus_channel *channel)
 {
 	struct tasklet_struct *tasklet;
@@ -361,8 +412,17 @@ void hv_event_tasklet_enable(struct vmbus_channel *channel)
 	tasklet = hv_context.event_dpc[channel->target_cpu];
 	tasklet_enable(tasklet);
 
-	/* In case there is any pending event */
-	tasklet_schedule(tasklet);
+	/*
+	 * In case there is any pending event schedule a rescan
+	 * but must be on the correct CPU for the channel.
+	 */
+	if (channel->target_cpu == get_cpu())
+		tasklet_schedule(tasklet);
+	else
+		smp_call_function_single(channel->target_cpu,
+					 (smp_call_func_t)tasklet_schedule,
+					 tasklet, false);
+	put_cpu();
 }
 
 void hv_process_channel_removal(struct vmbus_channel *channel, u32 relid)
@@ -372,17 +432,6 @@ void hv_process_channel_removal(struct vmbus_channel *channel, u32 relid)
 
 	BUG_ON(!channel->rescind);
 	BUG_ON(!mutex_is_locked(&vmbus_connection.channel_mutex));
-
-	hv_event_tasklet_disable(channel);
-	if (channel->target_cpu != get_cpu()) {
-		put_cpu();
-		smp_call_function_single(channel->target_cpu,
-					 percpu_channel_deq, channel, true);
-	} else {
-		percpu_channel_deq(channel);
-		put_cpu();
-	}
-	hv_event_tasklet_enable(channel);
 
 	if (channel->primary_channel == NULL) {
 		list_del(&channel->listentry);
@@ -476,18 +525,6 @@ static void vmbus_process_offer(struct vmbus_channel *newchannel)
 
 	init_vp_index(newchannel, dev_type);
 
-	hv_event_tasklet_disable(newchannel);
-	if (newchannel->target_cpu != get_cpu()) {
-		put_cpu();
-		smp_call_function_single(newchannel->target_cpu,
-					 percpu_channel_enq,
-					 newchannel, true);
-	} else {
-		percpu_channel_enq(newchannel);
-		put_cpu();
-	}
-	hv_event_tasklet_enable(newchannel);
-
 	/*
 	 * This state is used to indicate a successful open
 	 * so that when we do close the channel normally, we
@@ -535,17 +572,6 @@ err_deq_chan:
 	mutex_lock(&vmbus_connection.channel_mutex);
 	list_del(&newchannel->listentry);
 	mutex_unlock(&vmbus_connection.channel_mutex);
-
-	hv_event_tasklet_disable(newchannel);
-	if (newchannel->target_cpu != get_cpu()) {
-		put_cpu();
-		smp_call_function_single(newchannel->target_cpu,
-					 percpu_channel_deq, newchannel, true);
-	} else {
-		percpu_channel_deq(newchannel);
-		put_cpu();
-	}
-	hv_event_tasklet_enable(newchannel);
 
 	vmbus_release_relid(newchannel->offermsg.child_relid);
 

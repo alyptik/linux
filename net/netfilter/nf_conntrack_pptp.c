@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Connection tracking support for PPTP (Point to Point Tunneling Protocol).
  * PPTP is a a protocol for creating virtual private networks.
@@ -102,6 +103,7 @@ EXPORT_SYMBOL(pptp_msg_name);
 static void pptp_expectfn(struct nf_conn *ct,
 			 struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_pptp.c: line 106 \n"); 
 	struct net *net = nf_ct_net(ct);
 	typeof(nf_nat_pptp_hook_expectfn) nf_nat_pptp_expectfn;
 	pr_debug("increasing timeouts\n");
@@ -142,6 +144,7 @@ static void pptp_expectfn(struct nf_conn *ct,
 static int destroy_sibling_or_exp(struct net *net, struct nf_conn *ct,
 				  const struct nf_conntrack_tuple *t)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_pptp.c: line 147 \n"); 
 	const struct nf_conntrack_tuple_hash *h;
 	const struct nf_conntrack_zone *zone;
 	struct nf_conntrack_expect *exp;
@@ -175,6 +178,7 @@ static int destroy_sibling_or_exp(struct net *net, struct nf_conn *ct,
 /* timeout GRE data connections */
 static void pptp_destroy_siblings(struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_pptp.c: line 181 \n"); 
 	struct net *net = nf_ct_net(ct);
 	const struct nf_ct_pptp_master *ct_pptp_info = nfct_help_data(ct);
 	struct nf_conntrack_tuple t;
@@ -201,6 +205,7 @@ static void pptp_destroy_siblings(struct nf_conn *ct)
 /* expect GRE connections (PNS->PAC and PAC->PNS direction) */
 static int exp_gre(struct nf_conn *ct, __be16 callid, __be16 peer_callid)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_pptp.c: line 208 \n"); 
 	struct nf_conntrack_expect *exp_orig, *exp_reply;
 	enum ip_conntrack_dir dir;
 	int ret = 1;
@@ -271,6 +276,7 @@ pptp_inbound_pkt(struct sk_buff *skb, unsigned int protoff,
 		 struct nf_conn *ct,
 		 enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_pptp.c: line 279 \n"); 
 	struct nf_ct_pptp_master *info = nfct_help_data(ct);
 	u_int16_t msg;
 	__be16 cid = 0, pcid = 0;
@@ -399,6 +405,7 @@ pptp_outbound_pkt(struct sk_buff *skb, unsigned int protoff,
 		  struct nf_conn *ct,
 		  enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_pptp.c: line 408 \n"); 
 	struct nf_ct_pptp_master *info = nfct_help_data(ct);
 	u_int16_t msg;
 	__be16 cid = 0, pcid = 0;
@@ -509,6 +516,7 @@ conntrack_pptp_help(struct sk_buff *skb, unsigned int protoff,
 		    struct nf_conn *ct, enum ip_conntrack_info ctinfo)
 
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_pptp.c: line 519 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	const struct nf_ct_pptp_master *info = nfct_help_data(ct);
 	const struct tcphdr *tcph;

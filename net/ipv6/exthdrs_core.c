@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPv6 library code, needed by static components when full IPv6 support is
  * not configured or static.
@@ -114,6 +115,7 @@ EXPORT_SYMBOL(ipv6_skip_exthdr);
 
 int ipv6_find_tlv(const struct sk_buff *skb, int offset, int type)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs_core.c: line 118 \n"); 
 	const unsigned char *nh = skb_network_header(skb);
 	int packet_len = skb_tail_pointer(skb) - skb_network_header(skb);
 	struct ipv6_opt_hdr *hdr;
@@ -185,6 +187,7 @@ EXPORT_SYMBOL_GPL(ipv6_find_tlv);
 int ipv6_find_hdr(const struct sk_buff *skb, unsigned int *offset,
 		  int target, unsigned short *fragoff, int *flags)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs_core.c: line 190 \n"); 
 	unsigned int start = skb_network_offset(skb) + sizeof(struct ipv6hdr);
 	u8 nexthdr = ipv6_hdr(skb)->nexthdr;
 	unsigned int len;

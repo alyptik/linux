@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 #include <linux/types.h>
 #include <linux/module.h>
@@ -24,6 +25,7 @@ MODULE_ALIAS("ip6t_tcp");
 static inline bool
 port_match(u_int16_t min, u_int16_t max, u_int16_t port, bool invert)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_tcpudp.c: line 28 \n"); 
 	return (port >= min && port <= max) ^ invert;
 }
 
@@ -35,6 +37,7 @@ tcp_find_option(u_int8_t option,
 		bool invert,
 		bool *hotdrop)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_tcpudp.c: line 40 \n"); 
 	/* tcp.doff is only 4 bits, ie. max 15 * 4 bytes */
 	const u_int8_t *op;
 	u_int8_t _opt[60 - sizeof(struct tcphdr)];
@@ -64,6 +67,7 @@ tcp_find_option(u_int8_t option,
 
 static bool tcp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_tcpudp.c: line 70 \n"); 
 	const struct tcphdr *th;
 	struct tcphdr _tcph;
 	const struct xt_tcp *tcpinfo = par->matchinfo;
@@ -119,6 +123,7 @@ static bool tcp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int tcp_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_tcpudp.c: line 126 \n"); 
 	const struct xt_tcp *tcpinfo = par->matchinfo;
 
 	/* Must specify no unknown invflags */
@@ -127,6 +132,7 @@ static int tcp_mt_check(const struct xt_mtchk_param *par)
 
 static bool udp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_tcpudp.c: line 135 \n"); 
 	const struct udphdr *uh;
 	struct udphdr _udph;
 	const struct xt_udp *udpinfo = par->matchinfo;
@@ -154,6 +160,7 @@ static bool udp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int udp_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_tcpudp.c: line 163 \n"); 
 	const struct xt_udp *udpinfo = par->matchinfo;
 
 	/* Must specify no unknown invflags */

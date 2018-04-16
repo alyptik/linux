@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS:        Never Queue scheduling module
  *
@@ -43,6 +44,7 @@
 static inline int
 ip_vs_nq_dest_overhead(struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_nq.c: line 47 \n"); 
 	/*
 	 * We only use the active connection number in the cost
 	 * calculation here.
@@ -58,6 +60,7 @@ static struct ip_vs_dest *
 ip_vs_nq_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
 		  struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_nq.c: line 63 \n"); 
 	struct ip_vs_dest *dest, *least = NULL;
 	int loh = 0, doh;
 

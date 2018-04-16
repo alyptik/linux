@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	xt_ipvs - kernel module to match IPVS connection properties
  *
@@ -33,6 +34,7 @@ static bool ipvs_mt_addrcmp(const union nf_inet_addr *kaddr,
 			    const union nf_inet_addr *umask,
 			    unsigned int l3proto)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ipvs.c: line 37 \n"); 
 	if (l3proto == NFPROTO_IPV4)
 		return ((kaddr->ip ^ uaddr->ip) & umask->ip) == 0;
 #ifdef CONFIG_IP_VS_IPV6
@@ -47,6 +49,7 @@ static bool ipvs_mt_addrcmp(const union nf_inet_addr *kaddr,
 static bool
 ipvs_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ipvs.c: line 52 \n"); 
 	const struct xt_ipvs_mtinfo *data = par->matchinfo;
 	struct netns_ipvs *ipvs = net_ipvs(par->net);
 	/* ipvs_mt_check ensures that family is only NFPROTO_IPV[46]. */
@@ -153,6 +156,7 @@ out:
 
 static int ipvs_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ipvs.c: line 159 \n"); 
 	if (par->family != NFPROTO_IPV4
 #ifdef CONFIG_IP_VS_IPV6
 	    && par->family != NFPROTO_IPV6

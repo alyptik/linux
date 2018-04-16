@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/module.h>
 
 #include <net/sock.h>
@@ -10,6 +11,7 @@
 
 static int sk_diag_dump_groups(struct sock *sk, struct sk_buff *nlskb)
 {
+	panic("We reached unpopular paths in net/netlink/diag.c: line 14 \n"); 
 	struct netlink_sock *nlk = nlk_sk(sk);
 
 	if (nlk->groups == NULL)
@@ -23,6 +25,7 @@ static int sk_diag_fill(struct sock *sk, struct sk_buff *skb,
 			struct netlink_diag_req *req,
 			u32 portid, u32 seq, u32 flags, int sk_ino)
 {
+	panic("We reached unpopular paths in net/netlink/diag.c: line 28 \n"); 
 	struct nlmsghdr *nlh;
 	struct netlink_diag_msg *rep;
 	struct netlink_sock *nlk = nlk_sk(sk);
@@ -63,6 +66,7 @@ out_nlmsg_trim:
 static int __netlink_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
 				int protocol, int s_num)
 {
+	panic("We reached unpopular paths in net/netlink/diag.c: line 69 \n"); 
 	struct rhashtable_iter *hti = (void *)cb->args[2];
 	struct netlink_table *tbl = &nl_table[protocol];
 	struct net *net = sock_net(skb->sk);
@@ -161,6 +165,7 @@ done:
 
 static int netlink_diag_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netlink/diag.c: line 168 \n"); 
 	struct netlink_diag_req *req;
 	int s_num = cb->args[0];
 	int err = 0;
@@ -189,6 +194,7 @@ static int netlink_diag_dump(struct sk_buff *skb, struct netlink_callback *cb)
 
 static int netlink_diag_dump_done(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netlink/diag.c: line 197 \n"); 
 	struct rhashtable_iter *hti = (void *)cb->args[2];
 
 	if (cb->args[0] == 1)
@@ -201,6 +207,7 @@ static int netlink_diag_dump_done(struct netlink_callback *cb)
 
 static int netlink_diag_handler_dump(struct sk_buff *skb, struct nlmsghdr *h)
 {
+	panic("We reached unpopular paths in net/netlink/diag.c: line 210 \n"); 
 	int hdrlen = sizeof(struct netlink_diag_req);
 	struct net *net = sock_net(skb->sk);
 

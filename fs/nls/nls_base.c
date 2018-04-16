@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/fs/nls/nls_base.c
  *
@@ -54,6 +55,7 @@ static const struct utf8_table utf8_table[] =
 
 int utf8_to_utf32(const u8 *s, int inlen, unicode_t *pu)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 58 \n"); 
 	unsigned long l;
 	int c0, c, nc;
 	const struct utf8_table *t;
@@ -85,6 +87,7 @@ EXPORT_SYMBOL(utf8_to_utf32);
 
 int utf32_to_utf8(unicode_t u, u8 *s, int maxout)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 90 \n"); 
 	unsigned long l;
 	int c, nc;
 	const struct utf8_table *t;
@@ -116,6 +119,7 @@ EXPORT_SYMBOL(utf32_to_utf8);
 
 static inline void put_utf16(wchar_t *s, unsigned c, enum utf16_endian endian)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 122 \n"); 
 	switch (endian) {
 	default:
 		*s = (wchar_t) c;
@@ -132,6 +136,7 @@ static inline void put_utf16(wchar_t *s, unsigned c, enum utf16_endian endian)
 int utf8s_to_utf16s(const u8 *s, int inlen, enum utf16_endian endian,
 		wchar_t *pwcs, int maxout)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 139 \n"); 
 	u16 *op;
 	int size;
 	unicode_t u;
@@ -173,6 +178,7 @@ EXPORT_SYMBOL(utf8s_to_utf16s);
 
 static inline unsigned long get_utf16(unsigned c, enum utf16_endian endian)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 181 \n"); 
 	switch (endian) {
 	default:
 		return c;
@@ -186,6 +192,7 @@ static inline unsigned long get_utf16(unsigned c, enum utf16_endian endian)
 int utf16s_to_utf8s(const wchar_t *pwcs, int inlen, enum utf16_endian endian,
 		u8 *s, int maxout)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 195 \n"); 
 	u8 *op;
 	int size;
 	unsigned long u, v;
@@ -257,6 +264,7 @@ EXPORT_SYMBOL(__register_nls);
 
 int unregister_nls(struct nls_table * nls)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 267 \n"); 
 	struct nls_table ** tmp = &tables;
 
 	spin_lock(&nls_lock);
@@ -274,6 +282,7 @@ int unregister_nls(struct nls_table * nls)
 
 static struct nls_table *find_nls(char *charset)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 285 \n"); 
 	struct nls_table *nls;
 	spin_lock(&nls_lock);
 	for (nls = tables; nls; nls = nls->next) {
@@ -290,11 +299,13 @@ static struct nls_table *find_nls(char *charset)
 
 struct nls_table *load_nls(char *charset)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 302 \n"); 
 	return try_then_request_module(find_nls(charset), "nls_%s", charset);
 }
 
 void unload_nls(struct nls_table *nls)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 308 \n"); 
 	if (nls)
 		module_put(nls->owner);
 }
@@ -497,6 +508,7 @@ static const unsigned char charset2upper[256] = {
 
 static int uni2char(wchar_t uni, unsigned char *out, int boundlen)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 511 \n"); 
 	const unsigned char *uni2charset;
 	unsigned char cl = uni & 0x00ff;
 	unsigned char ch = (uni & 0xff00) >> 8;
@@ -514,6 +526,7 @@ static int uni2char(wchar_t uni, unsigned char *out, int boundlen)
 
 static int char2uni(const unsigned char *rawstring, int boundlen, wchar_t *uni)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 529 \n"); 
 	*uni = charset2uni[*rawstring];
 	if (*uni == 0x0000)
 		return -EINVAL;
@@ -531,6 +544,7 @@ static struct nls_table default_table = {
 /* Returns a simple default translation table */
 struct nls_table *load_nls_default(void)
 {
+	panic("We reached unpopular paths in fs/nls/nls_base.c: line 547 \n"); 
 	struct nls_table *default_nls;
 	
 	default_nls = load_nls(CONFIG_NLS_DEFAULT);

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -1079,6 +1080,7 @@ EXPORT_SYMBOL(inet_register_protosw);
 
 void inet_unregister_protosw(struct inet_protosw *p)
 {
+	panic("We reached unpopular paths in net/ipv4/af_inet.c: line 1083 \n"); 
 	if (INET_PROTOSW_PERMANENT & p->flags) {
 		pr_err("Attempt to unregister permanent protocol %d\n",
 		       p->protocol);
@@ -1094,6 +1096,7 @@ EXPORT_SYMBOL(inet_unregister_protosw);
 
 static int inet_sk_reselect_saddr(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/af_inet.c: line 1099 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	__be32 old_saddr = inet->inet_saddr;
 	__be32 daddr = inet->inet_daddr;
@@ -1191,6 +1194,7 @@ EXPORT_SYMBOL(inet_sk_rebuild_header);
 struct sk_buff *inet_gso_segment(struct sk_buff *skb,
 				 netdev_features_t features)
 {
+	panic("We reached unpopular paths in net/ipv4/af_inet.c: line 1197 \n"); 
 	bool udpfrag = false, fixedid = false, gso_partial, encap;
 	struct sk_buff *segs = ERR_PTR(-EINVAL);
 	const struct net_offload *ops;
@@ -1405,6 +1409,7 @@ EXPORT_SYMBOL(inet_gro_receive);
 static struct sk_buff **ipip_gro_receive(struct sk_buff **head,
 					 struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/af_inet.c: line 1412 \n"); 
 	if (NAPI_GRO_CB(skb)->encap_mark) {
 		NAPI_GRO_CB(skb)->flush = 1;
 		return NULL;
@@ -1423,6 +1428,7 @@ static struct sk_buff **ipip_gro_receive(struct sk_buff **head,
  */
 __be32 inet_current_timestamp(void)
 {
+	panic("We reached unpopular paths in net/ipv4/af_inet.c: line 1431 \n"); 
 	u32 secs;
 	u32 msecs;
 	struct timespec64 ts;
@@ -1443,6 +1449,7 @@ EXPORT_SYMBOL(inet_current_timestamp);
 
 int inet_recv_error(struct sock *sk, struct msghdr *msg, int len, int *addr_len)
 {
+	panic("We reached unpopular paths in net/ipv4/af_inet.c: line 1452 \n"); 
 	if (sk->sk_family == AF_INET)
 		return ip_recv_error(sk, msg, len, addr_len);
 #if IS_ENABLED(CONFIG_IPV6)
@@ -1488,6 +1495,7 @@ EXPORT_SYMBOL(inet_gro_complete);
 
 static int ipip_gro_complete(struct sk_buff *skb, int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv4/af_inet.c: line 1498 \n"); 
 	skb->encapsulation = 1;
 	skb_shinfo(skb)->gso_type |= SKB_GSO_IPXIP4;
 	return inet_gro_complete(skb, nhoff);

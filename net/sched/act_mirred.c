@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/act_mirred.c	packet mirroring and redirect actions
  *
@@ -35,6 +36,7 @@ static DEFINE_SPINLOCK(mirred_list_lock);
 
 static void tcf_mirred_release(struct tc_action *a, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_mirred.c: line 39 \n"); 
 	struct tcf_mirred *m = to_mirred(a);
 	struct net_device *dev;
 
@@ -58,6 +60,7 @@ static int tcf_mirred_init(struct net *net, struct nlattr *nla,
 			   struct nlattr *est, struct tc_action **a, int ovr,
 			   int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_mirred.c: line 63 \n"); 
 	struct tc_action_net *tn = net_generic(net, mirred_net_id);
 	struct nlattr *tb[TCA_MIRRED_MAX + 1];
 	struct tc_mirred *parm;
@@ -152,6 +155,7 @@ static int tcf_mirred_init(struct net *net, struct nlattr *nla,
 static int tcf_mirred(struct sk_buff *skb, const struct tc_action *a,
 		      struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/act_mirred.c: line 158 \n"); 
 	struct tcf_mirred *m = to_mirred(a);
 	struct net_device *dev;
 	struct sk_buff *skb2;
@@ -207,6 +211,7 @@ out:
 static void tcf_stats_update(struct tc_action *a, u64 bytes, u32 packets,
 			     u64 lastuse)
 {
+	panic("We reached unpopular paths in net/sched/act_mirred.c: line 214 \n"); 
 	struct tcf_mirred *m = to_mirred(a);
 	struct tcf_t *tm = &m->tcf_tm;
 
@@ -217,6 +222,7 @@ static void tcf_stats_update(struct tc_action *a, u64 bytes, u32 packets,
 static int tcf_mirred_dump(struct sk_buff *skb, struct tc_action *a, int bind,
 			   int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_mirred.c: line 225 \n"); 
 	unsigned char *b = skb_tail_pointer(skb);
 	struct tcf_mirred *m = to_mirred(a);
 	struct tc_mirred opt = {
@@ -246,6 +252,7 @@ static int tcf_mirred_walker(struct net *net, struct sk_buff *skb,
 			     struct netlink_callback *cb, int type,
 			     const struct tc_action_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_mirred.c: line 255 \n"); 
 	struct tc_action_net *tn = net_generic(net, mirred_net_id);
 
 	return tcf_generic_walker(tn, skb, cb, type, ops);
@@ -253,6 +260,7 @@ static int tcf_mirred_walker(struct net *net, struct sk_buff *skb,
 
 static int tcf_mirred_search(struct net *net, struct tc_action **a, u32 index)
 {
+	panic("We reached unpopular paths in net/sched/act_mirred.c: line 263 \n"); 
 	struct tc_action_net *tn = net_generic(net, mirred_net_id);
 
 	return tcf_hash_search(tn, a, index);

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/err.h>
 #include <linux/igmp.h>
 #include <linux/kernel.h>
@@ -18,6 +19,7 @@
 static int br_rports_fill_info(struct sk_buff *skb, struct netlink_callback *cb,
 			       struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 22 \n"); 
 	struct net_bridge *br = netdev_priv(dev);
 	struct net_bridge_port *p;
 	struct nlattr *nest, *port_nest;
@@ -55,6 +57,7 @@ fail:
 
 static void __mdb_entry_fill_flags(struct br_mdb_entry *e, unsigned char flags)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 60 \n"); 
 	e->state = flags & MDB_PG_FLAGS_PERMANENT;
 	e->flags = 0;
 	if (flags & MDB_PG_FLAGS_OFFLOAD)
@@ -63,6 +66,7 @@ static void __mdb_entry_fill_flags(struct br_mdb_entry *e, unsigned char flags)
 
 static void __mdb_entry_to_br_ip(struct br_mdb_entry *entry, struct br_ip *ip)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 69 \n"); 
 	memset(ip, 0, sizeof(struct br_ip));
 	ip->vid = entry->vid;
 	ip->proto = entry->addr.proto;
@@ -77,6 +81,7 @@ static void __mdb_entry_to_br_ip(struct br_mdb_entry *entry, struct br_ip *ip)
 static int br_mdb_fill_info(struct sk_buff *skb, struct netlink_callback *cb,
 			    struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 84 \n"); 
 	struct net_bridge *br = netdev_priv(dev);
 	struct net_bridge_mdb_htable *mdb;
 	struct nlattr *nest, *nest2;
@@ -163,6 +168,7 @@ out:
 
 static int br_mdb_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 171 \n"); 
 	struct net_device *dev;
 	struct net *net = sock_net(skb->sk);
 	struct nlmsghdr *nlh = NULL;
@@ -216,6 +222,7 @@ static int nlmsg_populate_mdb_fill(struct sk_buff *skb,
 				   struct br_mdb_entry *entry, u32 pid,
 				   u32 seq, int type, unsigned int flags)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 225 \n"); 
 	struct nlmsghdr *nlh;
 	struct br_port_msg *bpm;
 	struct nlattr *nest, *nest2;
@@ -252,6 +259,7 @@ cancel:
 
 static inline size_t rtnl_mdb_nlmsg_size(void)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 262 \n"); 
 	return NLMSG_ALIGN(sizeof(struct br_port_msg))
 		+ nla_total_size(sizeof(struct br_mdb_entry));
 }
@@ -263,6 +271,7 @@ struct br_mdb_complete_info {
 
 static void br_mdb_complete(struct net_device *dev, int err, void *priv)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 274 \n"); 
 	struct br_mdb_complete_info *data = priv;
 	struct net_bridge_port_group __rcu **pp;
 	struct net_bridge_port_group *p;
@@ -294,6 +303,7 @@ err:
 static void __br_mdb_notify(struct net_device *dev, struct net_bridge_port *p,
 			    struct br_mdb_entry *entry, int type)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 306 \n"); 
 	struct br_mdb_complete_info *complete_info;
 	struct switchdev_obj_port_mdb mdb = {
 		.obj = {
@@ -349,6 +359,7 @@ errout:
 void br_mdb_notify(struct net_device *dev, struct net_bridge_port *port,
 		   struct br_ip *group, int type, u8 flags)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 362 \n"); 
 	struct br_mdb_entry entry;
 
 	memset(&entry, 0, sizeof(entry));
@@ -368,6 +379,7 @@ static int nlmsg_populate_rtr_fill(struct sk_buff *skb,
 				   int ifindex, u32 pid,
 				   u32 seq, int type, unsigned int flags)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 382 \n"); 
 	struct br_port_msg *bpm;
 	struct nlmsghdr *nlh;
 	struct nlattr *nest;
@@ -400,6 +412,7 @@ cancel:
 
 static inline size_t rtnl_rtr_nlmsg_size(void)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 415 \n"); 
 	return NLMSG_ALIGN(sizeof(struct br_port_msg))
 		+ nla_total_size(sizeof(__u32));
 }
@@ -407,6 +420,7 @@ static inline size_t rtnl_rtr_nlmsg_size(void)
 void br_rtr_notify(struct net_device *dev, struct net_bridge_port *port,
 		   int type)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 423 \n"); 
 	struct net *net = dev_net(dev);
 	struct sk_buff *skb;
 	int err = -ENOBUFS;
@@ -432,6 +446,7 @@ errout:
 
 static bool is_valid_mdb_entry(struct br_mdb_entry *entry)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 449 \n"); 
 	if (entry->ifindex == 0)
 		return false;
 
@@ -458,6 +473,7 @@ static bool is_valid_mdb_entry(struct br_mdb_entry *entry)
 static int br_mdb_parse(struct sk_buff *skb, struct nlmsghdr *nlh,
 			struct net_device **pdev, struct br_mdb_entry **pentry)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 476 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct br_mdb_entry *entry;
 	struct br_port_msg *bpm;
@@ -507,6 +523,7 @@ static int br_mdb_parse(struct sk_buff *skb, struct nlmsghdr *nlh,
 static int br_mdb_add_group(struct net_bridge *br, struct net_bridge_port *port,
 			    struct br_ip *group, unsigned char state)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 526 \n"); 
 	struct net_bridge_mdb_entry *mp;
 	struct net_bridge_port_group *p;
 	struct net_bridge_port_group __rcu **pp;
@@ -545,6 +562,7 @@ static int br_mdb_add_group(struct net_bridge *br, struct net_bridge_port *port,
 static int __br_mdb_add(struct net *net, struct net_bridge *br,
 			struct br_mdb_entry *entry)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 565 \n"); 
 	struct br_ip ip;
 	struct net_device *dev;
 	struct net_bridge_port *p;
@@ -571,6 +589,7 @@ static int __br_mdb_add(struct net *net, struct net_bridge *br,
 
 static int br_mdb_add(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 592 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct net_bridge_vlan_group *vg;
 	struct net_device *dev, *pdev;
@@ -617,6 +636,7 @@ static int br_mdb_add(struct sk_buff *skb, struct nlmsghdr *nlh)
 
 static int __br_mdb_del(struct net_bridge *br, struct br_mdb_entry *entry)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 639 \n"); 
 	struct net_bridge_mdb_htable *mdb;
 	struct net_bridge_mdb_entry *mp;
 	struct net_bridge_port_group *p;
@@ -665,6 +685,7 @@ unlock:
 
 static int br_mdb_del(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 688 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct net_bridge_vlan_group *vg;
 	struct net_device *dev, *pdev;
@@ -717,6 +738,7 @@ void br_mdb_init(void)
 
 void br_mdb_uninit(void)
 {
+	panic("We reached unpopular paths in net/bridge/br_mdb.c: line 741 \n"); 
 	rtnl_unregister(PF_BRIDGE, RTM_GETMDB);
 	rtnl_unregister(PF_BRIDGE, RTM_NEWMDB);
 	rtnl_unregister(PF_BRIDGE, RTM_DELMDB);

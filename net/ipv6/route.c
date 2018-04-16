@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Linux INET6 implementation
  *	FIB front-end.
@@ -120,6 +121,7 @@ static DEFINE_PER_CPU_ALIGNED(struct uncached_list, rt6_uncached_list);
 
 static void rt6_uncached_list_add(struct rt6_info *rt)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 124 \n"); 
 	struct uncached_list *ul = raw_cpu_ptr(&rt6_uncached_list);
 
 	rt->dst.flags |= DST_NOCACHE;
@@ -175,6 +177,7 @@ static void rt6_uncached_list_flush_dev(struct net *net, struct net_device *dev)
 
 static u32 *rt6_pcpu_cow_metrics(struct rt6_info *rt)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 180 \n"); 
 	return dst_metrics_write_ptr(rt->dst.from);
 }
 
@@ -194,6 +197,7 @@ static inline const void *choose_neigh_daddr(struct rt6_info *rt,
 					     struct sk_buff *skb,
 					     const void *daddr)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 200 \n"); 
 	struct in6_addr *p = &rt->rt6i_gateway;
 
 	if (!ipv6_addr_any(p))
@@ -207,6 +211,7 @@ static struct neighbour *ip6_neigh_lookup(const struct dst_entry *dst,
 					  struct sk_buff *skb,
 					  const void *daddr)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 214 \n"); 
 	struct rt6_info *rt = (struct rt6_info *) dst;
 	struct neighbour *n;
 
@@ -237,6 +242,7 @@ static struct dst_ops ip6_dst_ops_template = {
 
 static unsigned int ip6_blackhole_mtu(const struct dst_entry *dst)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 245 \n"); 
 	unsigned int mtu = dst_metric_raw(dst, RTAX_MTU);
 
 	return mtu ? : dst->dev->mtu;
@@ -245,11 +251,13 @@ static unsigned int ip6_blackhole_mtu(const struct dst_entry *dst)
 static void ip6_rt_blackhole_update_pmtu(struct dst_entry *dst, struct sock *sk,
 					 struct sk_buff *skb, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 254 \n"); 
 }
 
 static void ip6_rt_blackhole_redirect(struct dst_entry *dst, struct sock *sk,
 				      struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 260 \n"); 
 }
 
 static struct dst_ops ip6_dst_blackhole_ops = {
@@ -391,6 +399,7 @@ static void ip6_dst_destroy(struct dst_entry *dst)
 static void ip6_dst_ifdown(struct dst_entry *dst, struct net_device *dev,
 			   int how)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 402 \n"); 
 	struct rt6_info *rt = (struct rt6_info *)dst;
 	struct inet6_dev *idev = rt->rt6i_idev;
 	struct net_device *loopback_dev =
@@ -434,6 +443,7 @@ static bool rt6_check_expired(const struct rt6_info *rt)
 static int rt6_info_hash_nhsfn(unsigned int candidate_count,
 			       const struct flowi6 *fl6)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 446 \n"); 
 	return get_hash_from_flowi6(fl6) % candidate_count;
 }
 
@@ -441,6 +451,7 @@ static struct rt6_info *rt6_multipath_select(struct rt6_info *match,
 					     struct flowi6 *fl6, int oif,
 					     int strict)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 454 \n"); 
 	struct rt6_info *sibling, *next_sibling;
 	int route_choosen;
 
@@ -472,6 +483,7 @@ static inline struct rt6_info *rt6_device_match(struct net *net,
 						    int oif,
 						    int flags)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 486 \n"); 
 	struct rt6_info *local = NULL;
 	struct rt6_info *sprt;
 
@@ -581,6 +593,7 @@ out:
 #else
 static inline void rt6_probe(struct rt6_info *rt)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 596 \n"); 
 }
 #endif
 
@@ -753,6 +766,7 @@ static struct rt6_info *rt6_select(struct fib6_node *fn, int oif, int strict)
 
 static bool rt6_is_gw_or_nonexthop(const struct rt6_info *rt)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 769 \n"); 
 	return (rt->rt6i_flags & (RTF_NONEXTHOP | RTF_GATEWAY));
 }
 
@@ -853,6 +867,7 @@ static struct rt6_info *ip6_pol_route_lookup(struct net *net,
 					     struct fib6_table *table,
 					     struct flowi6 *fl6, int flags)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 870 \n"); 
 	struct fib6_node *fn;
 	struct rt6_info *rt;
 
@@ -880,6 +895,7 @@ restart:
 struct dst_entry *ip6_route_lookup(struct net *net, struct flowi6 *fl6,
 				    int flags)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 898 \n"); 
 	return fib6_rule_lookup(net, fl6, flags, ip6_pol_route_lookup);
 }
 EXPORT_SYMBOL_GPL(ip6_route_lookup);
@@ -887,6 +903,7 @@ EXPORT_SYMBOL_GPL(ip6_route_lookup);
 struct rt6_info *rt6_lookup(struct net *net, const struct in6_addr *daddr,
 			    const struct in6_addr *saddr, int oif, int strict)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 906 \n"); 
 	struct flowi6 fl6 = {
 		.flowi6_oif = oif,
 		.daddr = *daddr,
@@ -941,6 +958,7 @@ static struct rt6_info *ip6_rt_cache_alloc(struct rt6_info *ort,
 					   const struct in6_addr *daddr,
 					   const struct in6_addr *saddr)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 961 \n"); 
 	struct rt6_info *rt;
 
 	/*
@@ -1148,6 +1166,7 @@ EXPORT_SYMBOL_GPL(ip6_pol_route);
 static struct rt6_info *ip6_pol_route_input(struct net *net, struct fib6_table *table,
 					    struct flowi6 *fl6, int flags)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1169 \n"); 
 	return ip6_pol_route(net, table, fl6->flowi6_iif, fl6, flags);
 }
 
@@ -1155,6 +1174,7 @@ struct dst_entry *ip6_route_input_lookup(struct net *net,
 					 struct net_device *dev,
 					 struct flowi6 *fl6, int flags)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1177 \n"); 
 	if (rt6_need_strict(&fl6->daddr) && dev->type != ARPHRD_PIMREG)
 		flags |= RT6_LOOKUP_F_IFACE;
 
@@ -1164,6 +1184,7 @@ EXPORT_SYMBOL_GPL(ip6_route_input_lookup);
 
 void ip6_route_input(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1187 \n"); 
 	const struct ipv6hdr *iph = ipv6_hdr(skb);
 	struct net *net = dev_net(skb->dev);
 	int flags = RT6_LOOKUP_F_HAS_SADDR;
@@ -1221,6 +1242,7 @@ EXPORT_SYMBOL_GPL(ip6_route_output_flags);
 
 struct dst_entry *ip6_blackhole_route(struct net *net, struct dst_entry *dst_orig)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1245 \n"); 
 	struct rt6_info *rt, *ort = (struct rt6_info *) dst_orig;
 	struct dst_entry *new = NULL;
 
@@ -1310,6 +1332,7 @@ static struct dst_entry *ip6_dst_check(struct dst_entry *dst, u32 cookie)
 
 static struct dst_entry *ip6_negative_advice(struct dst_entry *dst)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1335 \n"); 
 	struct rt6_info *rt = (struct rt6_info *) dst;
 
 	if (rt) {
@@ -1328,6 +1351,7 @@ static struct dst_entry *ip6_negative_advice(struct dst_entry *dst)
 
 static void ip6_link_failure(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1354 \n"); 
 	struct rt6_info *rt;
 
 	icmpv6_send(skb, ICMPV6_DEST_UNREACH, ICMPV6_ADDR_UNREACH, 0);
@@ -1351,6 +1375,7 @@ static void ip6_link_failure(struct sk_buff *skb)
 
 static void rt6_do_update_pmtu(struct rt6_info *rt, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1378 \n"); 
 	struct net *net = dev_net(rt->dst.dev);
 
 	rt->rt6i_flags |= RTF_MODIFIED;
@@ -1360,6 +1385,7 @@ static void rt6_do_update_pmtu(struct rt6_info *rt, u32 mtu)
 
 static bool rt6_cache_allowed_for_pmtu(const struct rt6_info *rt)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1388 \n"); 
 	return !(rt->rt6i_flags & RTF_CACHE) &&
 		(rt->rt6i_flags & RTF_PCPU ||
 		 rcu_access_pointer(rt->rt6i_node));
@@ -1368,6 +1394,7 @@ static bool rt6_cache_allowed_for_pmtu(const struct rt6_info *rt)
 static void __ip6_rt_update_pmtu(struct dst_entry *dst, const struct sock *sk,
 				 const struct ipv6hdr *iph, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1397 \n"); 
 	struct rt6_info *rt6 = (struct rt6_info *)dst;
 
 	if (rt6->rt6i_flags & RTF_LOCAL)
@@ -1413,12 +1440,14 @@ static void __ip6_rt_update_pmtu(struct dst_entry *dst, const struct sock *sk,
 static void ip6_rt_update_pmtu(struct dst_entry *dst, struct sock *sk,
 			       struct sk_buff *skb, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1443 \n"); 
 	__ip6_rt_update_pmtu(dst, sk, skb ? ipv6_hdr(skb) : NULL, mtu);
 }
 
 void ip6_update_pmtu(struct sk_buff *skb, struct net *net, __be32 mtu,
 		     int oif, u32 mark)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1450 \n"); 
 	const struct ipv6hdr *iph = (struct ipv6hdr *) skb->data;
 	struct dst_entry *dst;
 	struct flowi6 fl6;
@@ -1439,6 +1468,7 @@ EXPORT_SYMBOL_GPL(ip6_update_pmtu);
 
 void ip6_sk_update_pmtu(struct sk_buff *skb, struct sock *sk, __be32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1471 \n"); 
 	struct dst_entry *dst;
 
 	ip6_update_pmtu(skb, sock_net(sk), mtu,
@@ -1467,6 +1497,7 @@ static struct rt6_info *__ip6_route_redirect(struct net *net,
 					     struct flowi6 *fl6,
 					     int flags)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1500 \n"); 
 	struct ip6rd_flowi *rdfl = (struct ip6rd_flowi *)fl6;
 	struct rt6_info *rt;
 	struct fib6_node *fn;
@@ -1524,6 +1555,7 @@ static struct dst_entry *ip6_route_redirect(struct net *net,
 					const struct flowi6 *fl6,
 					const struct in6_addr *gateway)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1558 \n"); 
 	int flags = RT6_LOOKUP_F_HAS_SADDR;
 	struct ip6rd_flowi rdfl;
 
@@ -1536,6 +1568,7 @@ static struct dst_entry *ip6_route_redirect(struct net *net,
 
 void ip6_redirect(struct sk_buff *skb, struct net *net, int oif, u32 mark)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1571 \n"); 
 	const struct ipv6hdr *iph = (struct ipv6hdr *) skb->data;
 	struct dst_entry *dst;
 	struct flowi6 fl6;
@@ -1557,6 +1590,7 @@ EXPORT_SYMBOL_GPL(ip6_redirect);
 void ip6_redirect_no_header(struct sk_buff *skb, struct net *net, int oif,
 			    u32 mark)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1593 \n"); 
 	const struct ipv6hdr *iph = ipv6_hdr(skb);
 	const struct rd_msg *msg = (struct rd_msg *)icmp6_hdr(skb);
 	struct dst_entry *dst;
@@ -1576,12 +1610,14 @@ void ip6_redirect_no_header(struct sk_buff *skb, struct net *net, int oif,
 
 void ip6_sk_redirect(struct sk_buff *skb, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1613 \n"); 
 	ip6_redirect(skb, sock_net(sk), sk->sk_bound_dev_if, sk->sk_mark);
 }
 EXPORT_SYMBOL_GPL(ip6_sk_redirect);
 
 static unsigned int ip6_default_advmss(const struct dst_entry *dst)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1620 \n"); 
 	struct net_device *dev = dst->dev;
 	unsigned int mtu = dst_mtu(dst);
 	struct net *net = dev_net(dev);
@@ -1717,6 +1753,7 @@ static void icmp6_clean_all(int (*func)(struct rt6_info *rt, void *arg),
 
 static int ip6_dst_gc(struct dst_ops *ops)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1756 \n"); 
 	struct net *net = container_of(ops, struct net, ipv6.ip6_dst_ops);
 	int rt_min_interval = net->ipv6.sysctl.ip6_rt_gc_min_interval;
 	int rt_max_size = net->ipv6.sysctl.ip6_rt_max_size;
@@ -1799,6 +1836,7 @@ static struct rt6_info *ip6_nh_lookup_table(struct net *net,
 					    struct fib6_config *cfg,
 					    const struct in6_addr *gw_addr)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 1839 \n"); 
 	struct flowi6 fl6 = {
 		.flowi6_oif = cfg->fc_ifindex,
 		.daddr = *gw_addr,
@@ -2151,6 +2189,7 @@ int ip6_del_rt(struct rt6_info *rt)
 
 static int ip6_route_del(struct fib6_config *cfg)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2192 \n"); 
 	struct fib6_table *table;
 	struct fib6_node *fn;
 	struct rt6_info *rt;
@@ -2195,6 +2234,7 @@ static int ip6_route_del(struct fib6_config *cfg)
 
 static void rt6_do_redirect(struct dst_entry *dst, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2237 \n"); 
 	struct netevent_redirect netevent;
 	struct rt6_info *rt, *nrt = NULL;
 	struct ndisc_options ndopts;
@@ -2414,6 +2454,7 @@ static struct rt6_info *rt6_add_route_info(struct net *net,
 
 struct rt6_info *rt6_get_dflt_router(const struct in6_addr *addr, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2457 \n"); 
 	u32 tb_id = l3mdev_fib_table(dev) ? : RT6_TABLE_DFLT;
 	struct rt6_info *rt;
 	struct fib6_table *table;
@@ -2439,6 +2480,7 @@ struct rt6_info *rt6_add_dflt_router(const struct in6_addr *gwaddr,
 				     struct net_device *dev,
 				     unsigned int pref)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2483 \n"); 
 	struct fib6_config cfg = {
 		.fc_table	= l3mdev_fib_table(dev) ? : RT6_TABLE_DFLT,
 		.fc_metric	= IP6_RT_PRIO_USER,
@@ -2465,6 +2507,7 @@ struct rt6_info *rt6_add_dflt_router(const struct in6_addr *gwaddr,
 
 static void __rt6_purge_dflt_routers(struct fib6_table *table)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2510 \n"); 
 	struct rt6_info *rt;
 
 restart:
@@ -2485,6 +2528,7 @@ restart:
 
 void rt6_purge_dflt_routers(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2531 \n"); 
 	struct fib6_table *table;
 	struct hlist_head *head;
 	unsigned int h;
@@ -2506,6 +2550,7 @@ static void rtmsg_to_fib6_config(struct net *net,
 				 struct in6_rtmsg *rtmsg,
 				 struct fib6_config *cfg)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2553 \n"); 
 	memset(cfg, 0, sizeof(*cfg));
 
 	cfg->fc_table = l3mdev_fib_table_by_index(net, rtmsg->rtmsg_ifindex) ?
@@ -2567,6 +2612,7 @@ int ipv6_route_ioctl(struct net *net, unsigned int cmd, void __user *arg)
 
 static int ip6_pkt_drop(struct sk_buff *skb, u8 code, int ipstats_mib_noroutes)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2615 \n"); 
 	int type;
 	struct dst_entry *dst = skb_dst(skb);
 	switch (ipstats_mib_noroutes) {
@@ -2590,22 +2636,26 @@ static int ip6_pkt_drop(struct sk_buff *skb, u8 code, int ipstats_mib_noroutes)
 
 static int ip6_pkt_discard(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2639 \n"); 
 	return ip6_pkt_drop(skb, ICMPV6_NOROUTE, IPSTATS_MIB_INNOROUTES);
 }
 
 static int ip6_pkt_discard_out(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2645 \n"); 
 	skb->dev = skb_dst(skb)->dev;
 	return ip6_pkt_drop(skb, ICMPV6_NOROUTE, IPSTATS_MIB_OUTNOROUTES);
 }
 
 static int ip6_pkt_prohibit(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2652 \n"); 
 	return ip6_pkt_drop(skb, ICMPV6_ADM_PROHIBITED, IPSTATS_MIB_INNOROUTES);
 }
 
 static int ip6_pkt_prohibit_out(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2658 \n"); 
 	skb->dev = skb_dst(skb)->dev;
 	return ip6_pkt_drop(skb, ICMPV6_ADM_PROHIBITED, IPSTATS_MIB_OUTNOROUTES);
 }
@@ -2667,6 +2717,7 @@ struct arg_dev_net_ip {
 
 static int fib6_remove_prefsrc(struct rt6_info *rt, void *arg)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2720 \n"); 
 	struct net_device *dev = ((struct arg_dev_net_ip *)arg)->dev;
 	struct net *net = ((struct arg_dev_net_ip *)arg)->net;
 	struct in6_addr *addr = ((struct arg_dev_net_ip *)arg)->addr;
@@ -2682,6 +2733,7 @@ static int fib6_remove_prefsrc(struct rt6_info *rt, void *arg)
 
 void rt6_remove_prefsrc(struct inet6_ifaddr *ifp)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2736 \n"); 
 	struct net *net = dev_net(ifp->idev->dev);
 	struct arg_dev_net_ip adni = {
 		.dev = ifp->idev->dev,
@@ -2697,6 +2749,7 @@ void rt6_remove_prefsrc(struct inet6_ifaddr *ifp)
 /* Remove routers and update dst entries when gateway turn into host. */
 static int fib6_clean_tohost(struct rt6_info *rt, void *arg)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2752 \n"); 
 	struct in6_addr *gateway = (struct in6_addr *)arg;
 
 	if ((((rt->rt6i_flags & RTF_RA_ROUTER) == RTF_RA_ROUTER) ||
@@ -2709,6 +2762,7 @@ static int fib6_clean_tohost(struct rt6_info *rt, void *arg)
 
 void rt6_clean_tohost(struct net *net, struct in6_addr *gateway)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2765 \n"); 
 	fib6_clean_all(net, fib6_clean_tohost, gateway);
 }
 
@@ -2749,6 +2803,7 @@ struct rt6_mtu_change_arg {
 
 static int rt6_mtu_change_route(struct rt6_info *rt, void *p_arg)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2806 \n"); 
 	struct rt6_mtu_change_arg *arg = (struct rt6_mtu_change_arg *) p_arg;
 	struct inet6_dev *idev;
 
@@ -2798,6 +2853,7 @@ static int rt6_mtu_change_route(struct rt6_info *rt, void *p_arg)
 
 void rt6_mtu_change(struct net_device *dev, unsigned int mtu)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2856 \n"); 
 	struct rt6_mtu_change_arg arg = {
 		.dev = dev,
 		.mtu = mtu,
@@ -2822,6 +2878,7 @@ static const struct nla_policy rtm_ipv6_policy[RTA_MAX+1] = {
 static int rtm_to_fib6_config(struct sk_buff *skb, struct nlmsghdr *nlh,
 			      struct fib6_config *cfg)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 2881 \n"); 
 	struct rtmsg *rtm;
 	struct nlattr *tb[RTA_MAX+1];
 	unsigned int pref;
@@ -2950,6 +3007,7 @@ struct rt6_nh {
 
 static void ip6_print_replace_route_err(struct list_head *rt6_nh_list)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 3010 \n"); 
 	struct rt6_nh *nh;
 
 	list_for_each_entry(nh, rt6_nh_list, next) {
@@ -2962,6 +3020,7 @@ static void ip6_print_replace_route_err(struct list_head *rt6_nh_list)
 static int ip6_route_info_append(struct list_head *rt6_nh_list,
 				 struct rt6_info *rt, struct fib6_config *r_cfg)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 3023 \n"); 
 	struct rt6_nh *nh;
 	int err = -EEXIST;
 
@@ -2988,6 +3047,7 @@ static int ip6_route_info_append(struct list_head *rt6_nh_list,
 
 static int ip6_route_multipath_add(struct fib6_config *cfg)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 3050 \n"); 
 	struct fib6_config r_cfg;
 	struct rtnexthop *rtnh;
 	struct rt6_info *rt;
@@ -3091,6 +3151,7 @@ cleanup:
 
 static int ip6_route_multipath_del(struct fib6_config *cfg)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 3154 \n"); 
 	struct fib6_config r_cfg;
 	struct rtnexthop *rtnh;
 	int remaining;
@@ -3128,6 +3189,7 @@ static int ip6_route_multipath_del(struct fib6_config *cfg)
 
 static int inet6_rtm_delroute(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 3192 \n"); 
 	struct fib6_config cfg;
 	int err;
 
@@ -3143,6 +3205,7 @@ static int inet6_rtm_delroute(struct sk_buff *skb, struct nlmsghdr *nlh)
 
 static int inet6_rtm_newroute(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 3208 \n"); 
 	struct fib6_config cfg;
 	int err;
 
@@ -3356,6 +3419,7 @@ int rt6_dump_route(struct rt6_info *rt, void *p_arg)
 
 static int inet6_rtm_getroute(struct sk_buff *in_skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 3422 \n"); 
 	struct net *net = sock_net(in_skb->sk);
 	struct nlattr *tb[RTA_MAX+1];
 	struct rt6_info *rt;
@@ -3913,6 +3977,7 @@ out_kmem_cache:
 
 void ip6_route_cleanup(void)
 {
+	panic("We reached unpopular paths in net/ipv6/route.c: line 3980 \n"); 
 	unregister_netdevice_notifier(&ip6_route_dev_notifier);
 	unregister_pernet_subsys(&ip6_route_net_late_ops);
 	fib6_rules_cleanup();

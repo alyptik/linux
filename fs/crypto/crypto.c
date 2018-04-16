@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * This contains encryption functions for per-file encryption.
  *
@@ -61,6 +62,7 @@ struct kmem_cache *fscrypt_info_cachep;
  */
 void fscrypt_release_ctx(struct fscrypt_ctx *ctx)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 65 \n"); 
 	unsigned long flags;
 
 	if (ctx->flags & FS_WRITE_PATH_FL && ctx->w.bounce_page) {
@@ -90,6 +92,7 @@ EXPORT_SYMBOL(fscrypt_release_ctx);
  */
 struct fscrypt_ctx *fscrypt_get_ctx(struct inode *inode, gfp_t gfp_flags)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 95 \n"); 
 	struct fscrypt_ctx *ctx = NULL;
 	struct fscrypt_info *ci = inode->i_crypt_info;
 	unsigned long flags;
@@ -133,6 +136,7 @@ EXPORT_SYMBOL(fscrypt_get_ctx);
  */
 static void page_crypt_complete(struct crypto_async_request *req, int res)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 139 \n"); 
 	struct fscrypt_completion_result *ecr = req->data;
 
 	if (res == -EINPROGRESS)
@@ -151,6 +155,7 @@ static int do_page_crypto(struct inode *inode,
 			struct page *src_page, struct page *dest_page,
 			gfp_t gfp_flags)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 158 \n"); 
 	struct {
 		__le64 index;
 		u8 padding[FS_XTS_TWEAK_SIZE - sizeof(__le64)];
@@ -204,6 +209,7 @@ static int do_page_crypto(struct inode *inode,
 
 static struct page *alloc_bounce_page(struct fscrypt_ctx *ctx, gfp_t gfp_flags)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 212 \n"); 
 	ctx->w.bounce_page = mempool_alloc(fscrypt_bounce_page_pool, gfp_flags);
 	if (ctx->w.bounce_page == NULL)
 		return ERR_PTR(-ENOMEM);
@@ -230,6 +236,7 @@ static struct page *alloc_bounce_page(struct fscrypt_ctx *ctx, gfp_t gfp_flags)
 struct page *fscrypt_encrypt_page(struct inode *inode,
 				struct page *plaintext_page, gfp_t gfp_flags)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 239 \n"); 
 	struct fscrypt_ctx *ctx;
 	struct page *ciphertext_page = NULL;
 	int err;
@@ -276,6 +283,7 @@ EXPORT_SYMBOL(fscrypt_encrypt_page);
  */
 int fscrypt_decrypt_page(struct page *page)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 286 \n"); 
 	BUG_ON(!PageLocked(page));
 
 	return do_page_crypto(page->mapping->host,
@@ -286,6 +294,7 @@ EXPORT_SYMBOL(fscrypt_decrypt_page);
 int fscrypt_zeroout_range(struct inode *inode, pgoff_t lblk,
 				sector_t pblk, unsigned int len)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 297 \n"); 
 	struct fscrypt_ctx *ctx;
 	struct page *ciphertext_page = NULL;
 	struct bio *bio;
@@ -351,6 +360,7 @@ EXPORT_SYMBOL(fscrypt_zeroout_range);
  */
 static int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 363 \n"); 
 	struct dentry *dir;
 	int dir_has_key, cached_with_key;
 
@@ -398,6 +408,7 @@ EXPORT_SYMBOL(fscrypt_d_ops);
  */
 static void completion_pages(struct work_struct *work)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 411 \n"); 
 	struct fscrypt_ctx *ctx =
 		container_of(work, struct fscrypt_ctx, r.work);
 	struct bio *bio = ctx->r.bio;
@@ -422,6 +433,7 @@ static void completion_pages(struct work_struct *work)
 
 void fscrypt_decrypt_bio_pages(struct fscrypt_ctx *ctx, struct bio *bio)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 436 \n"); 
 	INIT_WORK(&ctx->r.work, completion_pages);
 	ctx->r.bio = bio;
 	queue_work(fscrypt_read_workqueue, &ctx->r.work);
@@ -430,6 +442,7 @@ EXPORT_SYMBOL(fscrypt_decrypt_bio_pages);
 
 void fscrypt_pullback_bio_page(struct page **page, bool restore)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 445 \n"); 
 	struct fscrypt_ctx *ctx;
 	struct page *bounce_page;
 
@@ -451,6 +464,7 @@ EXPORT_SYMBOL(fscrypt_pullback_bio_page);
 
 void fscrypt_restore_control_page(struct page *page)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 467 \n"); 
 	struct fscrypt_ctx *ctx;
 
 	ctx = (struct fscrypt_ctx *)page_private(page);
@@ -463,6 +477,7 @@ EXPORT_SYMBOL(fscrypt_restore_control_page);
 
 static void fscrypt_destroy(void)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 480 \n"); 
 	struct fscrypt_ctx *pos, *n;
 
 	list_for_each_entry_safe(pos, n, &fscrypt_free_ctxs, free_list)
@@ -482,6 +497,7 @@ static void fscrypt_destroy(void)
  */
 int fscrypt_initialize(void)
 {
+	panic("We reached unpopular paths in fs/crypto/crypto.c: line 500 \n"); 
 	int i, res = -ENOMEM;
 
 	mutex_lock(&fscrypt_init_mutex);

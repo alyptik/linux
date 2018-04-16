@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		802.1Q VLAN
  *		Ethernet-type device handling.
@@ -54,6 +55,7 @@ const char vlan_version[] = DRV_VERSION;
 static int vlan_group_prealloc_vid(struct vlan_group *vg,
 				   __be16 vlan_proto, u16 vlan_id)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.c: line 58 \n"); 
 	struct net_device **array;
 	unsigned int pidx, vidx;
 	unsigned int size;
@@ -77,6 +79,7 @@ static int vlan_group_prealloc_vid(struct vlan_group *vg,
 
 void unregister_vlan_dev(struct net_device *dev, struct list_head *head)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.c: line 82 \n"); 
 	struct vlan_dev_priv *vlan = vlan_dev_priv(dev);
 	struct net_device *real_dev = vlan->real_dev;
 	struct vlan_info *vlan_info;
@@ -120,6 +123,7 @@ void unregister_vlan_dev(struct net_device *dev, struct list_head *head)
 int vlan_check_real_dev(struct net_device *real_dev,
 			__be16 protocol, u16 vlan_id)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.c: line 126 \n"); 
 	const char *name = real_dev->name;
 
 	if (real_dev->features & NETIF_F_VLAN_CHALLENGED) {
@@ -135,6 +139,7 @@ int vlan_check_real_dev(struct net_device *real_dev,
 
 int register_vlan_dev(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.c: line 142 \n"); 
 	struct vlan_dev_priv *vlan = vlan_dev_priv(dev);
 	struct net_device *real_dev = vlan->real_dev;
 	u16 vlan_id = vlan->vlan_id;
@@ -205,6 +210,7 @@ out_vid_del:
  */
 static int register_vlan_device(struct net_device *real_dev, u16 vlan_id)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.c: line 213 \n"); 
 	struct net_device *new_dev;
 	struct vlan_dev_priv *vlan;
 	struct net *net = dev_net(real_dev);
@@ -280,6 +286,7 @@ out_free_newdev:
 static void vlan_sync_address(struct net_device *dev,
 			      struct net_device *vlandev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.c: line 289 \n"); 
 	struct vlan_dev_priv *vlan = vlan_dev_priv(vlandev);
 
 	/* May be called without an actual change */
@@ -309,6 +316,7 @@ out:
 static void vlan_transfer_features(struct net_device *dev,
 				   struct net_device *vlandev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.c: line 319 \n"); 
 	struct vlan_dev_priv *vlan = vlan_dev_priv(vlandev);
 
 	vlandev->gso_max_size = dev->gso_max_size;
@@ -328,6 +336,7 @@ static void vlan_transfer_features(struct net_device *dev,
 
 static int __vlan_device_event(struct net_device *dev, unsigned long event)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.c: line 339 \n"); 
 	int err = 0;
 
 	switch (event) {
@@ -622,6 +631,7 @@ out:
 static struct sk_buff **vlan_gro_receive(struct sk_buff **head,
 					 struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.c: line 634 \n"); 
 	struct sk_buff *p, **pp = NULL;
 	struct vlan_hdr *vhdr;
 	unsigned int hlen, off_vlan;
@@ -672,6 +682,7 @@ out:
 
 static int vlan_gro_complete(struct sk_buff *skb, int nhoff)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.c: line 685 \n"); 
 	struct vlan_hdr *vhdr = (struct vlan_hdr *)(skb->data + nhoff);
 	__be16 type = vhdr->h_vlan_encapsulated_proto;
 	struct packet_offload *ptype;

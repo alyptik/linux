@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *   fs/cifs_debug.c
  *
@@ -34,6 +35,7 @@
 void
 cifs_dump_mem(char *label, void *data, int length)
 {
+	panic("We reached unpopular paths in fs/cifs/cifs_debug.c: line 38 \n"); 
 	pr_debug("%s: dump of %d bytes of data at 0x%p\n", label, length, data);
 	print_hex_dump(KERN_DEBUG, "", DUMP_PREFIX_OFFSET, 16, 4,
 		       data, length, true);
@@ -58,6 +60,7 @@ void cifs_vfs_err(const char *fmt, ...)
 
 void cifs_dump_detail(void *buf)
 {
+	panic("We reached unpopular paths in fs/cifs/cifs_debug.c: line 63 \n"); 
 #ifdef CONFIG_CIFS_DEBUG2
 	struct smb_hdr *smb = (struct smb_hdr *)buf;
 
@@ -70,6 +73,7 @@ void cifs_dump_detail(void *buf)
 
 void cifs_dump_mids(struct TCP_Server_Info *server)
 {
+	panic("We reached unpopular paths in fs/cifs/cifs_debug.c: line 76 \n"); 
 #ifdef CONFIG_CIFS_DEBUG2
 	struct list_head *tmp;
 	struct mid_q_entry *mid_entry;
@@ -659,9 +663,11 @@ static const struct file_operations cifs_security_flags_proc_fops = {
 #else
 inline void cifs_proc_init(void)
 {
+	panic("We reached unpopular paths in fs/cifs/cifs_debug.c: line 666 \n"); 
 }
 
 inline void cifs_proc_clean(void)
 {
+	panic("We reached unpopular paths in fs/cifs/cifs_debug.c: line 671 \n"); 
 }
 #endif /* PROC_FS */

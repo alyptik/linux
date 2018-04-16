@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* GPL HEADER START
  *
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
@@ -41,12 +42,14 @@
 
 static u32 __crc32_le(u32 crc, unsigned char const *p, size_t len)
 {
+	panic("We reached unpopular paths in crypto/crc32_generic.c: line 45 \n"); 
 	return crc32_le(crc, p, len);
 }
 
 /** No default init with ~0 */
 static int crc32_cra_init(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/crc32_generic.c: line 52 \n"); 
 	u32 *key = crypto_tfm_ctx(tfm);
 
 	*key = 0;
@@ -63,6 +66,7 @@ static int crc32_cra_init(struct crypto_tfm *tfm)
 static int crc32_setkey(struct crypto_shash *hash, const u8 *key,
 			unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/crc32_generic.c: line 69 \n"); 
 	u32 *mctx = crypto_shash_ctx(hash);
 
 	if (keylen != sizeof(u32)) {
@@ -75,6 +79,7 @@ static int crc32_setkey(struct crypto_shash *hash, const u8 *key,
 
 static int crc32_init(struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/crc32_generic.c: line 82 \n"); 
 	u32 *mctx = crypto_shash_ctx(desc->tfm);
 	u32 *crcp = shash_desc_ctx(desc);
 
@@ -86,6 +91,7 @@ static int crc32_init(struct shash_desc *desc)
 static int crc32_update(struct shash_desc *desc, const u8 *data,
 			unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/crc32_generic.c: line 94 \n"); 
 	u32 *crcp = shash_desc_ctx(desc);
 
 	*crcp = __crc32_le(*crcp, data, len);
@@ -96,6 +102,7 @@ static int crc32_update(struct shash_desc *desc, const u8 *data,
 static int __crc32_finup(u32 *crcp, const u8 *data, unsigned int len,
 			 u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crc32_generic.c: line 105 \n"); 
 	*(__le32 *)out = cpu_to_le32(__crc32_le(*crcp, data, len));
 	return 0;
 }
@@ -103,11 +110,13 @@ static int __crc32_finup(u32 *crcp, const u8 *data, unsigned int len,
 static int crc32_finup(struct shash_desc *desc, const u8 *data,
 		       unsigned int len, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crc32_generic.c: line 113 \n"); 
 	return __crc32_finup(shash_desc_ctx(desc), data, len, out);
 }
 
 static int crc32_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crc32_generic.c: line 119 \n"); 
 	u32 *crcp = shash_desc_ctx(desc);
 
 	*(__le32 *)out = cpu_to_le32p(crcp);
@@ -117,6 +126,7 @@ static int crc32_final(struct shash_desc *desc, u8 *out)
 static int crc32_digest(struct shash_desc *desc, const u8 *data,
 			unsigned int len, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crc32_generic.c: line 129 \n"); 
 	return __crc32_finup(crypto_shash_ctx(desc->tfm), data, len,
 			     out);
 }

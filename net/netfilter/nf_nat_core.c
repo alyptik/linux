@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2006 Netfilter Core Team <coreteam@netfilter.org>
@@ -45,12 +46,14 @@ static unsigned int nf_nat_hash_rnd __read_mostly;
 inline const struct nf_nat_l3proto *
 __nf_nat_l3proto_find(u8 family)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/netfilter/nf_nat_core.c: line 49 \n"); 
 	return rcu_dereference(nf_nat_l3protos[family]);
 }
 
 inline const struct nf_nat_l4proto *
 __nf_nat_l4proto_find(u8 family, u8 protonum)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/netfilter/nf_nat_core.c: line 56 \n"); 
 	return rcu_dereference(nf_nat_l4protos[family][protonum]);
 }
 EXPORT_SYMBOL_GPL(__nf_nat_l4proto_find);
@@ -179,6 +182,7 @@ static inline int
 same_src(const struct nf_conn *ct,
 	 const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_core.c: line 185 \n"); 
 	const struct nf_conntrack_tuple *t;
 
 	t = &ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple;
@@ -521,6 +525,7 @@ struct nf_nat_proto_clean {
 /* kill conntracks with affected NAT section */
 static int nf_nat_proto_remove(struct nf_conn *i, void *data)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_core.c: line 528 \n"); 
 	const struct nf_nat_proto_clean *clean = data;
 
 	if ((clean->l3proto && nf_ct_l3num(i) != clean->l3proto) ||
@@ -532,6 +537,7 @@ static int nf_nat_proto_remove(struct nf_conn *i, void *data)
 
 static int nf_nat_proto_clean(struct nf_conn *ct, void *data)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_core.c: line 540 \n"); 
 	if (nf_nat_proto_remove(ct, data))
 		return 1;
 
@@ -557,6 +563,7 @@ static int nf_nat_proto_clean(struct nf_conn *ct, void *data)
 
 static void nf_nat_l4proto_clean(u8 l3proto, u8 l4proto)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_core.c: line 566 \n"); 
 	struct nf_nat_proto_clean clean = {
 		.l3proto = l3proto,
 		.l4proto = l4proto,
@@ -571,6 +578,7 @@ static void nf_nat_l4proto_clean(u8 l3proto, u8 l4proto)
 
 static void nf_nat_l3proto_clean(u8 l3proto)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_core.c: line 581 \n"); 
 	struct nf_nat_proto_clean clean = {
 		.l3proto = l3proto,
 	};
@@ -627,6 +635,7 @@ EXPORT_SYMBOL_GPL(nf_nat_l4proto_register);
 /* No one stores the protocol anywhere; simply delete it. */
 void nf_nat_l4proto_unregister(u8 l3proto, const struct nf_nat_l4proto *l4proto)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_core.c: line 638 \n"); 
 	mutex_lock(&nf_nat_proto_mutex);
 	RCU_INIT_POINTER(nf_nat_l4protos[l3proto][l4proto->l4proto],
 			 &nf_nat_l4proto_unknown);
@@ -659,6 +668,7 @@ EXPORT_SYMBOL_GPL(nf_nat_l3proto_register);
 
 void nf_nat_l3proto_unregister(const struct nf_nat_l3proto *l3proto)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_core.c: line 671 \n"); 
 	mutex_lock(&nf_nat_proto_mutex);
 	RCU_INIT_POINTER(nf_nat_l3protos[l3proto->l3proto], NULL);
 	mutex_unlock(&nf_nat_proto_mutex);
@@ -787,6 +797,7 @@ nfnetlink_parse_nat_setup(struct nf_conn *ct,
 			  enum nf_nat_manip_type manip,
 			  const struct nlattr *attr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_core.c: line 800 \n"); 
 	return -EOPNOTSUPP;
 }
 #endif

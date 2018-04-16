@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/backing-dev.h>
@@ -15,6 +16,7 @@
 
 static void blk_mq_sysfs_release(struct kobject *kobj)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 19 \n"); 
 }
 
 struct blk_mq_ctx_sysfs_entry {
@@ -32,6 +34,7 @@ struct blk_mq_hw_ctx_sysfs_entry {
 static ssize_t blk_mq_sysfs_show(struct kobject *kobj, struct attribute *attr,
 				 char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 37 \n"); 
 	struct blk_mq_ctx_sysfs_entry *entry;
 	struct blk_mq_ctx *ctx;
 	struct request_queue *q;
@@ -55,6 +58,7 @@ static ssize_t blk_mq_sysfs_show(struct kobject *kobj, struct attribute *attr,
 static ssize_t blk_mq_sysfs_store(struct kobject *kobj, struct attribute *attr,
 				  const char *page, size_t length)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 61 \n"); 
 	struct blk_mq_ctx_sysfs_entry *entry;
 	struct blk_mq_ctx *ctx;
 	struct request_queue *q;
@@ -78,6 +82,7 @@ static ssize_t blk_mq_sysfs_store(struct kobject *kobj, struct attribute *attr,
 static ssize_t blk_mq_hw_sysfs_show(struct kobject *kobj,
 				    struct attribute *attr, char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 85 \n"); 
 	struct blk_mq_hw_ctx_sysfs_entry *entry;
 	struct blk_mq_hw_ctx *hctx;
 	struct request_queue *q;
@@ -102,6 +107,7 @@ static ssize_t blk_mq_hw_sysfs_store(struct kobject *kobj,
 				     struct attribute *attr, const char *page,
 				     size_t length)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 110 \n"); 
 	struct blk_mq_hw_ctx_sysfs_entry *entry;
 	struct blk_mq_hw_ctx *hctx;
 	struct request_queue *q;
@@ -124,23 +130,27 @@ static ssize_t blk_mq_hw_sysfs_store(struct kobject *kobj,
 
 static ssize_t blk_mq_sysfs_dispatched_show(struct blk_mq_ctx *ctx, char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 133 \n"); 
 	return sprintf(page, "%lu %lu\n", ctx->rq_dispatched[1],
 				ctx->rq_dispatched[0]);
 }
 
 static ssize_t blk_mq_sysfs_merged_show(struct blk_mq_ctx *ctx, char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 140 \n"); 
 	return sprintf(page, "%lu\n", ctx->rq_merged);
 }
 
 static ssize_t blk_mq_sysfs_completed_show(struct blk_mq_ctx *ctx, char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 146 \n"); 
 	return sprintf(page, "%lu %lu\n", ctx->rq_completed[1],
 				ctx->rq_completed[0]);
 }
 
 static ssize_t sysfs_list_show(char *page, struct list_head *list, char *msg)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 153 \n"); 
 	struct request *rq;
 	int len = snprintf(page, PAGE_SIZE - 1, "%s:\n", msg);
 
@@ -165,6 +175,7 @@ static ssize_t sysfs_list_show(char *page, struct list_head *list, char *msg)
 
 static ssize_t blk_mq_sysfs_rq_list_show(struct blk_mq_ctx *ctx, char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 178 \n"); 
 	ssize_t ret;
 
 	spin_lock(&ctx->lock);
@@ -176,6 +187,7 @@ static ssize_t blk_mq_sysfs_rq_list_show(struct blk_mq_ctx *ctx, char *page)
 
 static ssize_t blk_mq_hw_sysfs_poll_show(struct blk_mq_hw_ctx *hctx, char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 190 \n"); 
 	return sprintf(page, "considered=%lu, invoked=%lu, success=%lu\n",
 		       hctx->poll_considered, hctx->poll_invoked,
 		       hctx->poll_success);
@@ -184,6 +196,7 @@ static ssize_t blk_mq_hw_sysfs_poll_show(struct blk_mq_hw_ctx *hctx, char *page)
 static ssize_t blk_mq_hw_sysfs_poll_store(struct blk_mq_hw_ctx *hctx,
 					  const char *page, size_t size)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 199 \n"); 
 	hctx->poll_considered = hctx->poll_invoked = hctx->poll_success = 0;
 
 	return size;
@@ -192,17 +205,20 @@ static ssize_t blk_mq_hw_sysfs_poll_store(struct blk_mq_hw_ctx *hctx,
 static ssize_t blk_mq_hw_sysfs_queued_show(struct blk_mq_hw_ctx *hctx,
 					   char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 208 \n"); 
 	return sprintf(page, "%lu\n", hctx->queued);
 }
 
 static ssize_t blk_mq_hw_sysfs_run_show(struct blk_mq_hw_ctx *hctx, char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 214 \n"); 
 	return sprintf(page, "%lu\n", hctx->run);
 }
 
 static ssize_t blk_mq_hw_sysfs_dispatched_show(struct blk_mq_hw_ctx *hctx,
 					       char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 221 \n"); 
 	char *start_page = page;
 	int i;
 
@@ -222,6 +238,7 @@ static ssize_t blk_mq_hw_sysfs_dispatched_show(struct blk_mq_hw_ctx *hctx,
 static ssize_t blk_mq_hw_sysfs_rq_list_show(struct blk_mq_hw_ctx *hctx,
 					    char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 241 \n"); 
 	ssize_t ret;
 
 	spin_lock(&hctx->lock);
@@ -233,16 +250,19 @@ static ssize_t blk_mq_hw_sysfs_rq_list_show(struct blk_mq_hw_ctx *hctx,
 
 static ssize_t blk_mq_hw_sysfs_tags_show(struct blk_mq_hw_ctx *hctx, char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 253 \n"); 
 	return blk_mq_tag_sysfs_show(hctx->tags, page);
 }
 
 static ssize_t blk_mq_hw_sysfs_active_show(struct blk_mq_hw_ctx *hctx, char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 259 \n"); 
 	return sprintf(page, "%u\n", atomic_read(&hctx->nr_active));
 }
 
 static ssize_t blk_mq_hw_sysfs_cpus_show(struct blk_mq_hw_ctx *hctx, char *page)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 265 \n"); 
 	unsigned int i, first = 1;
 	ssize_t ret = 0;
 
@@ -359,6 +379,7 @@ static struct kobj_type blk_mq_hw_ktype = {
 
 static void blk_mq_unregister_hctx(struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 382 \n"); 
 	struct blk_mq_ctx *ctx;
 	int i;
 
@@ -395,6 +416,7 @@ static int blk_mq_register_hctx(struct blk_mq_hw_ctx *hctx)
 
 static void __blk_mq_unregister_dev(struct device *dev, struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 419 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	struct blk_mq_ctx *ctx;
 	int i, j;
@@ -419,6 +441,7 @@ static void __blk_mq_unregister_dev(struct device *dev, struct request_queue *q)
 
 void blk_mq_unregister_dev(struct device *dev, struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq-sysfs.c: line 444 \n"); 
 	blk_mq_disable_hotplug();
 	__blk_mq_unregister_dev(dev, q);
 	blk_mq_enable_hotplug();

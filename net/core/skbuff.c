@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Routines having to do with the 'struct sk_buff' memory handlers.
  *
@@ -98,6 +99,7 @@ EXPORT_SYMBOL(sysctl_max_skb_frags);
 static void skb_panic(struct sk_buff *skb, unsigned int sz, void *addr,
 		      const char msg[])
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 102 \n"); 
 	pr_emerg("%s: text:%p len:%d put:%d head:%p data:%p tail:%#lx end:%#lx dev:%s\n",
 		 msg, addr, skb->len, sz, skb->head, skb->data,
 		 (unsigned long)skb->tail, (unsigned long)skb->end,
@@ -107,11 +109,13 @@ static void skb_panic(struct sk_buff *skb, unsigned int sz, void *addr,
 
 static void skb_over_panic(struct sk_buff *skb, unsigned int sz, void *addr)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 112 \n"); 
 	skb_panic(skb, sz, addr, __func__);
 }
 
 static void skb_under_panic(struct sk_buff *skb, unsigned int sz, void *addr)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 118 \n"); 
 	skb_panic(skb, sz, addr, __func__);
 }
 
@@ -160,6 +164,7 @@ out:
 
 struct sk_buff *__alloc_skb_head(gfp_t gfp_mask, int node)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 167 \n"); 
 	struct sk_buff *skb;
 
 	/* Get the HEAD */
@@ -339,6 +344,7 @@ struct sk_buff *__build_skb(void *data, unsigned int frag_size)
  */
 struct sk_buff *build_skb(void *data, unsigned int frag_size)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 347 \n"); 
 	struct sk_buff *skb = __build_skb(data, frag_size);
 
 	if (skb && frag_size) {
@@ -363,6 +369,7 @@ static DEFINE_PER_CPU(struct napi_alloc_cache, napi_alloc_cache);
 
 static void *__netdev_alloc_frag(unsigned int fragsz, gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 372 \n"); 
 	struct page_frag_cache *nc;
 	unsigned long flags;
 	void *data;
@@ -383,12 +390,14 @@ static void *__netdev_alloc_frag(unsigned int fragsz, gfp_t gfp_mask)
  */
 void *netdev_alloc_frag(unsigned int fragsz)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 393 \n"); 
 	return __netdev_alloc_frag(fragsz, GFP_ATOMIC | __GFP_COLD);
 }
 EXPORT_SYMBOL(netdev_alloc_frag);
 
 static void *__napi_alloc_frag(unsigned int fragsz, gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 400 \n"); 
 	struct napi_alloc_cache *nc = this_cpu_ptr(&napi_alloc_cache);
 
 	return __alloc_page_frag(&nc->page, fragsz, gfp_mask);
@@ -396,6 +405,7 @@ static void *__napi_alloc_frag(unsigned int fragsz, gfp_t gfp_mask)
 
 void *napi_alloc_frag(unsigned int fragsz)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 408 \n"); 
 	return __napi_alloc_frag(fragsz, GFP_ATOMIC | __GFP_COLD);
 }
 EXPORT_SYMBOL(napi_alloc_frag);
@@ -416,6 +426,7 @@ EXPORT_SYMBOL(napi_alloc_frag);
 struct sk_buff *__netdev_alloc_skb(struct net_device *dev, unsigned int len,
 				   gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 429 \n"); 
 	struct page_frag_cache *nc;
 	unsigned long flags;
 	struct sk_buff *skb;
@@ -542,6 +553,7 @@ EXPORT_SYMBOL(skb_add_rx_frag);
 void skb_coalesce_rx_frag(struct sk_buff *skb, int i, int size,
 			  unsigned int truesize)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 556 \n"); 
 	skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
 
 	skb_frag_size_add(frag, size);
@@ -553,17 +565,20 @@ EXPORT_SYMBOL(skb_coalesce_rx_frag);
 
 static void skb_drop_list(struct sk_buff **listp)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 568 \n"); 
 	kfree_skb_list(*listp);
 	*listp = NULL;
 }
 
 static inline void skb_drop_fraglist(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 575 \n"); 
 	skb_drop_list(&skb_shinfo(skb)->frag_list);
 }
 
 static void skb_clone_fraglist(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 581 \n"); 
 	struct sk_buff *list;
 
 	skb_walk_frags(skb, list)
@@ -726,6 +741,7 @@ EXPORT_SYMBOL(kfree_skb_list);
  */
 void skb_tx_error(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 744 \n"); 
 	if (skb_shinfo(skb)->tx_flags & SKBTX_DEV_ZEROCOPY) {
 		struct ubuf_info *uarg;
 
@@ -772,6 +788,7 @@ void __kfree_skb_flush(void)
 
 static inline void _kfree_skb_defer(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 791 \n"); 
 	struct napi_alloc_cache *nc = this_cpu_ptr(&napi_alloc_cache);
 
 	/* drop skb->head and call any destructors for packet */
@@ -794,11 +811,13 @@ static inline void _kfree_skb_defer(struct sk_buff *skb)
 }
 void __kfree_skb_defer(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 814 \n"); 
 	_kfree_skb_defer(skb);
 }
 
 void napi_consume_skb(struct sk_buff *skb, int budget)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 820 \n"); 
 	if (unlikely(!skb))
 		return;
 
@@ -931,6 +950,7 @@ static struct sk_buff *__skb_clone(struct sk_buff *n, struct sk_buff *skb)
  */
 struct sk_buff *skb_morph(struct sk_buff *dst, struct sk_buff *src)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 953 \n"); 
 	skb_release_all(dst);
 	return __skb_clone(dst, src);
 }
@@ -953,6 +973,7 @@ EXPORT_SYMBOL_GPL(skb_morph);
  */
 int skb_copy_ubufs(struct sk_buff *skb, gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 976 \n"); 
 	int i;
 	int num_frags = skb_shinfo(skb)->nr_frags;
 	struct page *page, *head = NULL;
@@ -1067,6 +1088,7 @@ static void copy_skb_header(struct sk_buff *new, const struct sk_buff *old)
 
 static inline int skb_alloc_rx_flag(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1091 \n"); 
 	if (skb_pfmemalloc(skb))
 		return SKB_ALLOC_RX;
 	return 0;
@@ -1091,6 +1113,7 @@ static inline int skb_alloc_rx_flag(const struct sk_buff *skb)
 
 struct sk_buff *skb_copy(const struct sk_buff *skb, gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1116 \n"); 
 	int headerlen = skb_headroom(skb);
 	unsigned int size = skb_end_offset(skb) + skb->data_len;
 	struct sk_buff *n = __alloc_skb(size, gfp_mask,
@@ -1132,6 +1155,7 @@ EXPORT_SYMBOL(skb_copy);
 struct sk_buff *__pskb_copy_fclone(struct sk_buff *skb, int headroom,
 				   gfp_t gfp_mask, bool fclone)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1158 \n"); 
 	unsigned int size = skb_headlen(skb) + headroom;
 	int flags = skb_alloc_rx_flag(skb) | (fclone ? SKB_ALLOC_FCLONE : 0);
 	struct sk_buff *n = __alloc_skb(size, gfp_mask, flags, NUMA_NO_NODE);
@@ -1273,6 +1297,7 @@ EXPORT_SYMBOL(pskb_expand_head);
 
 struct sk_buff *skb_realloc_headroom(struct sk_buff *skb, unsigned int headroom)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1300 \n"); 
 	struct sk_buff *skb2;
 	int delta = headroom - skb_headroom(skb);
 
@@ -1312,6 +1337,7 @@ struct sk_buff *skb_copy_expand(const struct sk_buff *skb,
 				int newheadroom, int newtailroom,
 				gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1340 \n"); 
 	/*
 	 *	Allocate the copy buffer
 	 */
@@ -1363,6 +1389,7 @@ EXPORT_SYMBOL(skb_copy_expand);
 
 int skb_pad(struct sk_buff *skb, int pad)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1392 \n"); 
 	int err;
 	int ntail;
 
@@ -1410,6 +1437,7 @@ EXPORT_SYMBOL(skb_pad);
 
 unsigned char *pskb_put(struct sk_buff *skb, struct sk_buff *tail, int len)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1440 \n"); 
 	if (tail != skb) {
 		skb->data_len += len;
 		skb->len += len;
@@ -1495,6 +1523,7 @@ EXPORT_SYMBOL(skb_trim);
 
 int ___pskb_trim(struct sk_buff *skb, unsigned int len)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1526 \n"); 
 	struct sk_buff **fragp;
 	struct sk_buff *frag;
 	int offset = skb_headlen(skb);
@@ -1813,6 +1842,7 @@ EXPORT_SYMBOL(skb_copy_bits);
  */
 static void sock_spd_release(struct splice_pipe_desc *spd, unsigned int i)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1845 \n"); 
 	put_page(spd->pages[i]);
 }
 
@@ -1820,6 +1850,7 @@ static struct page *linear_to_page(struct page *page, unsigned int *len,
 				   unsigned int *offset,
 				   struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1853 \n"); 
 	struct page_frag *pfrag = sk_page_frag(sk);
 
 	if (!sk_page_frag_refill(sk, pfrag))
@@ -1839,6 +1870,7 @@ static bool spd_can_coalesce(const struct splice_pipe_desc *spd,
 			     struct page *page,
 			     unsigned int offset)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1873 \n"); 
 	return	spd->nr_pages &&
 		spd->pages[spd->nr_pages - 1] == page &&
 		(spd->partial[spd->nr_pages - 1].offset +
@@ -1854,6 +1886,7 @@ static bool spd_fill_page(struct splice_pipe_desc *spd,
 			  bool linear,
 			  struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1889 \n"); 
 	if (unlikely(spd->nr_pages == MAX_SKB_FRAGS))
 		return true;
 
@@ -1882,6 +1915,7 @@ static bool __splice_segment(struct page *page, unsigned int poff,
 			     struct sock *sk,
 			     struct pipe_inode_info *pipe)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1918 \n"); 
 	if (!*len)
 		return true;
 
@@ -1918,6 +1952,7 @@ static bool __skb_splice_bits(struct sk_buff *skb, struct pipe_inode_info *pipe,
 			      unsigned int *offset, unsigned int *len,
 			      struct splice_pipe_desc *spd, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 1955 \n"); 
 	int seg;
 	struct sk_buff *iter;
 
@@ -1970,6 +2005,7 @@ int skb_splice_bits(struct sk_buff *skb, struct sock *sk, unsigned int offset,
 		    struct pipe_inode_info *pipe, unsigned int tlen,
 		    unsigned int flags)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2008 \n"); 
 	struct partial_page partial[MAX_SKB_FRAGS];
 	struct page *pages[MAX_SKB_FRAGS];
 	struct splice_pipe_desc spd = {
@@ -2164,6 +2200,7 @@ EXPORT_SYMBOL(skb_checksum);
 __wsum skb_copy_and_csum_bits(const struct sk_buff *skb, int offset,
 				    u8 *to, int len, __wsum csum)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2203 \n"); 
 	int start = skb_headlen(skb);
 	int i, copy = start - offset;
 	struct sk_buff *frag_iter;
@@ -2248,6 +2285,7 @@ EXPORT_SYMBOL(skb_copy_and_csum_bits);
 unsigned int
 skb_zerocopy_headlen(const struct sk_buff *from)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2288 \n"); 
 	unsigned int hlen = 0;
 
 	if (!from->head_frag ||
@@ -2283,6 +2321,7 @@ EXPORT_SYMBOL_GPL(skb_zerocopy_headlen);
 int
 skb_zerocopy(struct sk_buff *to, struct sk_buff *from, int len, int hlen)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2324 \n"); 
 	int i, j = 0;
 	int plen = 0; /* length of skb->head fragment */
 	int ret;
@@ -2338,6 +2377,7 @@ EXPORT_SYMBOL_GPL(skb_zerocopy);
 
 void skb_copy_and_csum_dev(const struct sk_buff *skb, u8 *to)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2380 \n"); 
 	__wsum csum;
 	long csstart;
 
@@ -2394,6 +2434,7 @@ EXPORT_SYMBOL(skb_dequeue);
  */
 struct sk_buff *skb_dequeue_tail(struct sk_buff_head *list)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2437 \n"); 
 	unsigned long flags;
 	struct sk_buff *result;
 
@@ -2452,6 +2493,7 @@ void skb_rbtree_purge(struct rb_root *root)
  */
 void skb_queue_head(struct sk_buff_head *list, struct sk_buff *newsk)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2496 \n"); 
 	unsigned long flags;
 
 	spin_lock_irqsave(&list->lock, flags);
@@ -2513,6 +2555,7 @@ EXPORT_SYMBOL(skb_unlink);
  */
 void skb_append(struct sk_buff *old, struct sk_buff *newsk, struct sk_buff_head *list)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2558 \n"); 
 	unsigned long flags;
 
 	spin_lock_irqsave(&list->lock, flags);
@@ -2535,6 +2578,7 @@ EXPORT_SYMBOL(skb_append);
  */
 void skb_insert(struct sk_buff *old, struct sk_buff *newsk, struct sk_buff_head *list)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2581 \n"); 
 	unsigned long flags;
 
 	spin_lock_irqsave(&list->lock, flags);
@@ -2547,6 +2591,7 @@ static inline void skb_split_inside_header(struct sk_buff *skb,
 					   struct sk_buff* skb1,
 					   const u32 len, const int pos)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2594 \n"); 
 	int i;
 
 	skb_copy_from_linear_data_offset(skb, len, skb_put(skb1, pos - len),
@@ -2568,6 +2613,7 @@ static inline void skb_split_no_header(struct sk_buff *skb,
 				       struct sk_buff* skb1,
 				       const u32 len, int pos)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2616 \n"); 
 	int i, k = 0;
 	const int nfrags = skb_shinfo(skb)->nr_frags;
 
@@ -2613,6 +2659,7 @@ static inline void skb_split_no_header(struct sk_buff *skb,
  */
 void skb_split(struct sk_buff *skb, struct sk_buff *skb1, const u32 len)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2662 \n"); 
 	int pos = skb_headlen(skb);
 
 	skb_shinfo(skb1)->tx_flags = skb_shinfo(skb)->tx_flags & SKBTX_SHARED_FRAG;
@@ -2629,6 +2676,7 @@ EXPORT_SYMBOL(skb_split);
  */
 static int skb_prepare_for_shift(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2679 \n"); 
 	return skb_cloned(skb) && pskb_expand_head(skb, 0, 0, GFP_ATOMIC);
 }
 
@@ -2652,6 +2700,7 @@ static int skb_prepare_for_shift(struct sk_buff *skb)
  */
 int skb_shift(struct sk_buff *tgt, struct sk_buff *skb, int shiftlen)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2703 \n"); 
 	int from, to, merge, todo;
 	struct skb_frag_struct *fragfrom, *fragto;
 
@@ -2779,6 +2828,7 @@ onlymerged:
 void skb_prepare_seq_read(struct sk_buff *skb, unsigned int from,
 			  unsigned int to, struct skb_seq_state *st)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2831 \n"); 
 	st->lower_offset = from;
 	st->upper_offset = to;
 	st->root_skb = st->cur_skb = skb;
@@ -2815,6 +2865,7 @@ EXPORT_SYMBOL(skb_prepare_seq_read);
 unsigned int skb_seq_read(unsigned int consumed, const u8 **data,
 			  struct skb_seq_state *st)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2868 \n"); 
 	unsigned int block_limit, abs_offset = consumed + st->lower_offset;
 	skb_frag_t *frag;
 
@@ -2888,6 +2939,7 @@ EXPORT_SYMBOL(skb_seq_read);
  */
 void skb_abort_seq_read(struct skb_seq_state *st)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2942 \n"); 
 	if (st->frag_data)
 		kunmap_atomic(st->frag_data);
 }
@@ -2899,11 +2951,13 @@ static unsigned int skb_ts_get_next_block(unsigned int offset, const u8 **text,
 					  struct ts_config *conf,
 					  struct ts_state *state)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2954 \n"); 
 	return skb_seq_read(offset, text, TS_SKB_CB(state));
 }
 
 static void skb_ts_finish(struct ts_config *conf, struct ts_state *state)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2960 \n"); 
 	skb_abort_seq_read(TS_SKB_CB(state));
 }
 
@@ -2922,6 +2976,7 @@ static void skb_ts_finish(struct ts_config *conf, struct ts_state *state)
 unsigned int skb_find_text(struct sk_buff *skb, unsigned int from,
 			   unsigned int to, struct ts_config *config)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 2979 \n"); 
 	struct ts_state state;
 	unsigned int ret;
 
@@ -2951,6 +3006,7 @@ int skb_append_datato_frags(struct sock *sk, struct sk_buff *skb,
 					int len, int odd, struct sk_buff *skb),
 			void *from, int length)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3009 \n"); 
 	int frg_cnt = skb_shinfo(skb)->nr_frags;
 	int copy;
 	int offset = 0;
@@ -2996,6 +3052,7 @@ EXPORT_SYMBOL(skb_append_datato_frags);
 int skb_append_pagefrags(struct sk_buff *skb, struct page *page,
 			 int offset, size_t size)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3055 \n"); 
 	int i = skb_shinfo(skb)->nr_frags;
 
 	if (skb_can_coalesce(skb, i, page, offset)) {
@@ -3045,6 +3102,7 @@ EXPORT_SYMBOL_GPL(skb_pull_rcsum);
 struct sk_buff *skb_segment(struct sk_buff *head_skb,
 			    netdev_features_t features)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3105 \n"); 
 	struct sk_buff *segs = NULL;
 	struct sk_buff *tail = NULL;
 	struct sk_buff *list_skb = skb_shinfo(head_skb)->frag_list;
@@ -3567,6 +3625,7 @@ __skb_to_sgvec(struct sk_buff *skb, struct scatterlist *sg, int offset, int len)
 int skb_to_sgvec_nomark(struct sk_buff *skb, struct scatterlist *sg,
 			int offset, int len)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3628 \n"); 
 	return __skb_to_sgvec(skb, sg, offset, len);
 }
 EXPORT_SYMBOL_GPL(skb_to_sgvec_nomark);
@@ -3600,6 +3659,7 @@ EXPORT_SYMBOL_GPL(skb_to_sgvec);
  */
 int skb_cow_data(struct sk_buff *skb, int tailbits, struct sk_buff **trailer)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3662 \n"); 
 	int copyflag;
 	int elt;
 	struct sk_buff *skb1, **skb_p;
@@ -3693,6 +3753,7 @@ EXPORT_SYMBOL_GPL(skb_cow_data);
 
 static void sock_rmem_free(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3756 \n"); 
 	struct sock *sk = skb->sk;
 
 	atomic_sub(skb->truesize, &sk->sk_rmem_alloc);
@@ -3703,6 +3764,7 @@ static void sock_rmem_free(struct sk_buff *skb)
  */
 int sock_queue_err_skb(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3767 \n"); 
 	if (atomic_read(&sk->sk_rmem_alloc) + skb->truesize >=
 	    (unsigned int)sk->sk_rcvbuf)
 		return -ENOMEM;
@@ -3724,6 +3786,7 @@ EXPORT_SYMBOL(sock_queue_err_skb);
 
 struct sk_buff *sock_dequeue_err_skb(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3789 \n"); 
 	struct sk_buff_head *q = &sk->sk_error_queue;
 	struct sk_buff *skb, *skb_next;
 	unsigned long flags;
@@ -3758,6 +3821,7 @@ EXPORT_SYMBOL(sock_dequeue_err_skb);
  */
 struct sk_buff *skb_clone_sk(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3824 \n"); 
 	struct sock *sk = skb->sk;
 	struct sk_buff *clone;
 
@@ -3781,6 +3845,7 @@ static void __skb_complete_tx_timestamp(struct sk_buff *skb,
 					struct sock *sk,
 					int tstype)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3848 \n"); 
 	struct sock_exterr_skb *serr;
 	int err;
 
@@ -3805,6 +3870,7 @@ static void __skb_complete_tx_timestamp(struct sk_buff *skb,
 
 static bool skb_may_tx_timestamp(struct sock *sk, bool tsonly)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3873 \n"); 
 	bool ret;
 
 	if (likely(sysctl_tstamp_allow_data || tsonly))
@@ -3820,6 +3886,7 @@ static bool skb_may_tx_timestamp(struct sock *sk, bool tsonly)
 void skb_complete_tx_timestamp(struct sk_buff *skb,
 			       struct skb_shared_hwtstamps *hwtstamps)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3889 \n"); 
 	struct sock *sk = skb->sk;
 
 	if (!skb_may_tx_timestamp(sk, false))
@@ -3844,6 +3911,7 @@ void __skb_tstamp_tx(struct sk_buff *orig_skb,
 		     struct skb_shared_hwtstamps *hwtstamps,
 		     struct sock *sk, int tstype)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3914 \n"); 
 	struct sk_buff *skb;
 	bool tsonly;
 
@@ -3878,6 +3946,7 @@ EXPORT_SYMBOL_GPL(__skb_tstamp_tx);
 void skb_tstamp_tx(struct sk_buff *orig_skb,
 		   struct skb_shared_hwtstamps *hwtstamps)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3949 \n"); 
 	return __skb_tstamp_tx(orig_skb, hwtstamps, orig_skb->sk,
 			       SCM_TSTAMP_SND);
 }
@@ -3885,6 +3954,7 @@ EXPORT_SYMBOL_GPL(skb_tstamp_tx);
 
 void skb_complete_wifi_ack(struct sk_buff *skb, bool acked)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3957 \n"); 
 	struct sock *sk = skb->sk;
 	struct sock_exterr_skb *serr;
 	int err = 1;
@@ -3923,6 +3993,7 @@ EXPORT_SYMBOL_GPL(skb_complete_wifi_ack);
  */
 bool skb_partial_csum_set(struct sk_buff *skb, u16 start, u16 off)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 3996 \n"); 
 	if (unlikely(start > skb_headlen(skb)) ||
 	    unlikely((int)start + off > skb_headlen(skb) - 2)) {
 		net_warn_ratelimited("bad partial csum: csum=%u/%u len=%u\n",
@@ -3940,6 +4011,7 @@ EXPORT_SYMBOL_GPL(skb_partial_csum_set);
 static int skb_maybe_pull_tail(struct sk_buff *skb, unsigned int len,
 			       unsigned int max)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4014 \n"); 
 	if (skb_headlen(skb) >= len)
 		return 0;
 
@@ -3964,6 +4036,7 @@ static __sum16 *skb_checksum_setup_ip(struct sk_buff *skb,
 				      typeof(IPPROTO_IP) proto,
 				      unsigned int off)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4039 \n"); 
 	switch (proto) {
 		int err;
 
@@ -3996,6 +4069,7 @@ static __sum16 *skb_checksum_setup_ip(struct sk_buff *skb,
 
 static int skb_checksum_setup_ipv4(struct sk_buff *skb, bool recalculate)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4072 \n"); 
 	unsigned int off;
 	bool fragment;
 	__sum16 *csum;
@@ -4044,6 +4118,7 @@ out:
 
 static int skb_checksum_setup_ipv6(struct sk_buff *skb, bool recalculate)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4121 \n"); 
 	int err;
 	u8 nexthdr;
 	unsigned int off;
@@ -4149,6 +4224,7 @@ out:
  */
 int skb_checksum_setup(struct sk_buff *skb, bool recalculate)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4227 \n"); 
 	int err;
 
 	switch (skb->protocol) {
@@ -4257,6 +4333,7 @@ EXPORT_SYMBOL(skb_checksum_trimmed);
 
 void __skb_warn_lro_forwarding(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4336 \n"); 
 	net_warn_ratelimited("%s: received packets cannot be forwarded while LRO is enabled\n",
 			     skb->dev->name);
 }
@@ -4453,6 +4530,7 @@ EXPORT_SYMBOL_GPL(skb_gso_validate_mtu);
 
 static struct sk_buff *skb_reorder_vlan_header(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4533 \n"); 
 	if (skb_cow(skb, skb_headroom(skb)) < 0) {
 		kfree_skb(skb);
 		return NULL;
@@ -4466,6 +4544,7 @@ static struct sk_buff *skb_reorder_vlan_header(struct sk_buff *skb)
 
 struct sk_buff *skb_vlan_untag(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4547 \n"); 
 	struct vlan_hdr *vhdr;
 	u16 vlan_tci;
 
@@ -4506,6 +4585,7 @@ EXPORT_SYMBOL(skb_vlan_untag);
 
 int skb_ensure_writable(struct sk_buff *skb, int write_len)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4588 \n"); 
 	if (!pskb_may_pull(skb, write_len))
 		return -ENOMEM;
 
@@ -4521,6 +4601,7 @@ EXPORT_SYMBOL(skb_ensure_writable);
  */
 int __skb_vlan_pop(struct sk_buff *skb, u16 *vlan_tci)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4604 \n"); 
 	struct vlan_hdr *vhdr;
 	int offset = skb->data - skb_mac_header(skb);
 	int err;
@@ -4560,6 +4641,7 @@ EXPORT_SYMBOL(__skb_vlan_pop);
  */
 int skb_vlan_pop(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4644 \n"); 
 	u16 vlan_tci;
 	__be16 vlan_proto;
 	int err;
@@ -4593,6 +4675,7 @@ EXPORT_SYMBOL(skb_vlan_pop);
  */
 int skb_vlan_push(struct sk_buff *skb, __be16 vlan_proto, u16 vlan_tci)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4678 \n"); 
 	if (skb_vlan_tag_present(skb)) {
 		int offset = skb->data - skb_mac_header(skb);
 		int err;
@@ -4700,6 +4783,7 @@ EXPORT_SYMBOL(alloc_skb_with_frags);
 static int pskb_carve_inside_header(struct sk_buff *skb, const u32 off,
 				    const int headlen, gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4786 \n"); 
 	int i;
 	int size = skb_end_offset(skb);
 	int new_hlen = headlen - off;
@@ -4770,6 +4854,7 @@ static int pskb_carve_frag_list(struct sk_buff *skb,
 				struct skb_shared_info *shinfo, int eat,
 				gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4857 \n"); 
 	struct sk_buff *list = shinfo->frag_list;
 	struct sk_buff *clone = NULL;
 	struct sk_buff *insp = NULL;
@@ -4823,6 +4908,7 @@ static int pskb_carve_frag_list(struct sk_buff *skb,
 static int pskb_carve_inside_nonlinear(struct sk_buff *skb, const u32 off,
 				       int pos, gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4911 \n"); 
 	int i, k = 0;
 	int size = skb_end_offset(skb);
 	u8 *data;
@@ -4904,6 +4990,7 @@ static int pskb_carve_inside_nonlinear(struct sk_buff *skb, const u32 off,
 /* remove len bytes from the beginning of the skb */
 static int pskb_carve(struct sk_buff *skb, const u32 len, gfp_t gfp)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 4993 \n"); 
 	int headlen = skb_headlen(skb);
 
 	if (len < headlen)
@@ -4918,6 +5005,7 @@ static int pskb_carve(struct sk_buff *skb, const u32 len, gfp_t gfp)
 struct sk_buff *pskb_extract(struct sk_buff *skb, int off,
 			     int to_copy, gfp_t gfp)
 {
+	panic("We reached unpopular paths in net/core/skbuff.c: line 5008 \n"); 
 	struct sk_buff  *clone = skb_clone(skb, gfp);
 
 	if (!clone)

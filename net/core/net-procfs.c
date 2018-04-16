@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/netdevice.h>
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
@@ -14,6 +15,7 @@ extern struct list_head ptype_base[PTYPE_HASH_SIZE] __read_mostly;
 
 static inline struct net_device *dev_from_same_bucket(struct seq_file *seq, loff_t *pos)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 18 \n"); 
 	struct net *net = seq_file_net(seq);
 	struct net_device *dev;
 	struct hlist_head *h;
@@ -30,6 +32,7 @@ static inline struct net_device *dev_from_same_bucket(struct seq_file *seq, loff
 
 static inline struct net_device *dev_from_bucket(struct seq_file *seq, loff_t *pos)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 35 \n"); 
 	struct net_device *dev;
 	unsigned int bucket;
 
@@ -64,6 +67,7 @@ static void *dev_seq_start(struct seq_file *seq, loff_t *pos)
 
 static void *dev_seq_next(struct seq_file *seq, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 70 \n"); 
 	++*pos;
 	return dev_from_bucket(seq, pos);
 }
@@ -76,6 +80,7 @@ static void dev_seq_stop(struct seq_file *seq, void *v)
 
 static void dev_seq_printf_stats(struct seq_file *seq, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 83 \n"); 
 	struct rtnl_link_stats64 temp;
 	const struct rtnl_link_stats64 *stats = dev_get_stats(dev, &temp);
 
@@ -104,6 +109,7 @@ static void dev_seq_printf_stats(struct seq_file *seq, struct net_device *dev)
  */
 static int dev_seq_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 112 \n"); 
 	if (v == SEQ_START_TOKEN)
 		seq_puts(seq, "Inter-|   Receive                            "
 			      "                    |  Transmit\n"
@@ -117,6 +123,7 @@ static int dev_seq_show(struct seq_file *seq, void *v)
 
 static struct softnet_data *softnet_get_online(loff_t *pos)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 126 \n"); 
 	struct softnet_data *sd = NULL;
 
 	while (*pos < nr_cpu_ids)
@@ -130,21 +137,25 @@ static struct softnet_data *softnet_get_online(loff_t *pos)
 
 static void *softnet_seq_start(struct seq_file *seq, loff_t *pos)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 140 \n"); 
 	return softnet_get_online(pos);
 }
 
 static void *softnet_seq_next(struct seq_file *seq, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 146 \n"); 
 	++*pos;
 	return softnet_get_online(pos);
 }
 
 static void softnet_seq_stop(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 153 \n"); 
 }
 
 static int softnet_seq_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 158 \n"); 
 	struct softnet_data *sd = v;
 	unsigned int flow_limit_count = 0;
 
@@ -176,6 +187,7 @@ static const struct seq_operations dev_seq_ops = {
 
 static int dev_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 190 \n"); 
 	return seq_open_net(inode, file, &dev_seq_ops,
 			    sizeof(struct seq_net_private));
 }
@@ -197,6 +209,7 @@ static const struct seq_operations softnet_seq_ops = {
 
 static int softnet_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 212 \n"); 
 	return seq_open(file, &softnet_seq_ops);
 }
 
@@ -210,6 +223,7 @@ static const struct file_operations softnet_seq_fops = {
 
 static void *ptype_get_idx(loff_t pos)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 226 \n"); 
 	struct packet_type *pt = NULL;
 	loff_t i = 0;
 	int t;
@@ -239,6 +253,7 @@ static void *ptype_seq_start(struct seq_file *seq, loff_t *pos)
 
 static void *ptype_seq_next(struct seq_file *seq, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 256 \n"); 
 	struct packet_type *pt;
 	struct list_head *nxt;
 	int hash;
@@ -274,6 +289,7 @@ static void ptype_seq_stop(struct seq_file *seq, void *v)
 
 static int ptype_seq_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 292 \n"); 
 	struct packet_type *pt = v;
 
 	if (v == SEQ_START_TOKEN)
@@ -300,6 +316,7 @@ static const struct seq_operations ptype_seq_ops = {
 
 static int ptype_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 319 \n"); 
 	return seq_open_net(inode, file, &ptype_seq_ops,
 			sizeof(struct seq_net_private));
 }
@@ -355,6 +372,7 @@ static struct pernet_operations __net_initdata dev_proc_ops = {
 
 static int dev_mc_seq_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 375 \n"); 
 	struct netdev_hw_addr *ha;
 	struct net_device *dev = v;
 
@@ -386,6 +404,7 @@ static const struct seq_operations dev_mc_seq_ops = {
 
 static int dev_mc_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/core/net-procfs.c: line 407 \n"); 
 	return seq_open_net(inode, file, &dev_mc_seq_ops,
 			    sizeof(struct seq_net_private));
 }

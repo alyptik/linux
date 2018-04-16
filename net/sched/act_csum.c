@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Checksum updating actions
  *
@@ -49,6 +50,7 @@ static int tcf_csum_init(struct net *net, struct nlattr *nla,
 			 struct nlattr *est, struct tc_action **a, int ovr,
 			 int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 53 \n"); 
 	struct tc_action_net *tn = net_generic(net, csum_net_id);
 	struct nlattr *tb[TCA_CSUM_MAX + 1];
 	struct tc_csum *parm;
@@ -106,6 +108,7 @@ static void *tcf_csum_skb_nextlayer(struct sk_buff *skb,
 				    unsigned int ihl, unsigned int ipl,
 				    unsigned int jhl)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 111 \n"); 
 	int ntkoff = skb_network_offset(skb);
 	int hl = ihl + jhl;
 
@@ -119,6 +122,7 @@ static void *tcf_csum_skb_nextlayer(struct sk_buff *skb,
 static int tcf_csum_ipv4_icmp(struct sk_buff *skb, unsigned int ihl,
 			      unsigned int ipl)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 125 \n"); 
 	struct icmphdr *icmph;
 
 	icmph = tcf_csum_skb_nextlayer(skb, ihl, ipl, sizeof(*icmph));
@@ -137,6 +141,7 @@ static int tcf_csum_ipv4_icmp(struct sk_buff *skb, unsigned int ihl,
 static int tcf_csum_ipv4_igmp(struct sk_buff *skb,
 			      unsigned int ihl, unsigned int ipl)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 144 \n"); 
 	struct igmphdr *igmph;
 
 	igmph = tcf_csum_skb_nextlayer(skb, ihl, ipl, sizeof(*igmph));
@@ -155,6 +160,7 @@ static int tcf_csum_ipv4_igmp(struct sk_buff *skb,
 static int tcf_csum_ipv6_icmp(struct sk_buff *skb, unsigned int ihl,
 			      unsigned int ipl)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 163 \n"); 
 	struct icmp6hdr *icmp6h;
 	const struct ipv6hdr *ip6h;
 
@@ -177,6 +183,7 @@ static int tcf_csum_ipv6_icmp(struct sk_buff *skb, unsigned int ihl,
 static int tcf_csum_ipv4_tcp(struct sk_buff *skb, unsigned int ihl,
 			     unsigned int ipl)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 186 \n"); 
 	struct tcphdr *tcph;
 	const struct iphdr *iph;
 
@@ -198,6 +205,7 @@ static int tcf_csum_ipv4_tcp(struct sk_buff *skb, unsigned int ihl,
 static int tcf_csum_ipv6_tcp(struct sk_buff *skb, unsigned int ihl,
 			     unsigned int ipl)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 208 \n"); 
 	struct tcphdr *tcph;
 	const struct ipv6hdr *ip6h;
 
@@ -220,6 +228,7 @@ static int tcf_csum_ipv6_tcp(struct sk_buff *skb, unsigned int ihl,
 static int tcf_csum_ipv4_udp(struct sk_buff *skb, unsigned int ihl,
 			     unsigned int ipl, int udplite)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 231 \n"); 
 	struct udphdr *udph;
 	const struct iphdr *iph;
 	u16 ul;
@@ -273,6 +282,7 @@ ignore_obscure_skb:
 static int tcf_csum_ipv6_udp(struct sk_buff *skb, unsigned int ihl,
 			     unsigned int ipl, int udplite)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 285 \n"); 
 	struct udphdr *udph;
 	const struct ipv6hdr *ip6h;
 	u16 ul;
@@ -324,6 +334,7 @@ ignore_obscure_skb:
 
 static int tcf_csum_ipv4(struct sk_buff *skb, u32 update_flags)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 337 \n"); 
 	const struct iphdr *iph;
 	int ntkoff;
 
@@ -383,6 +394,7 @@ fail:
 static int tcf_csum_ipv6_hopopts(struct ipv6_opt_hdr *ip6xh, unsigned int ixhl,
 				 unsigned int *pl)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 397 \n"); 
 	int off, len, optlen;
 	unsigned char *xh = (void *)ip6xh;
 
@@ -418,6 +430,7 @@ done:
 
 static int tcf_csum_ipv6(struct sk_buff *skb, u32 update_flags)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 433 \n"); 
 	struct ipv6hdr *ip6h;
 	struct ipv6_opt_hdr *ip6xh;
 	unsigned int hl, ixhl;
@@ -497,6 +510,7 @@ fail:
 static int tcf_csum(struct sk_buff *skb, const struct tc_action *a,
 		    struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 513 \n"); 
 	struct tcf_csum *p = to_tcf_csum(a);
 	int action;
 	u32 update_flags;
@@ -534,6 +548,7 @@ drop:
 static int tcf_csum_dump(struct sk_buff *skb, struct tc_action *a, int bind,
 			 int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 551 \n"); 
 	unsigned char *b = skb_tail_pointer(skb);
 	struct tcf_csum *p = to_tcf_csum(a);
 	struct tc_csum opt = {
@@ -563,6 +578,7 @@ static int tcf_csum_walker(struct net *net, struct sk_buff *skb,
 			   struct netlink_callback *cb, int type,
 			   const struct tc_action_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 581 \n"); 
 	struct tc_action_net *tn = net_generic(net, csum_net_id);
 
 	return tcf_generic_walker(tn, skb, cb, type, ops);
@@ -570,6 +586,7 @@ static int tcf_csum_walker(struct net *net, struct sk_buff *skb,
 
 static int tcf_csum_search(struct net *net, struct tc_action **a, u32 index)
 {
+	panic("We reached unpopular paths in net/sched/act_csum.c: line 589 \n"); 
 	struct tc_action_net *tn = net_generic(net, csum_net_id);
 
 	return tcf_hash_search(tn, a, index);

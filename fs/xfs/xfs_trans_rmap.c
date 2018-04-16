@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C) 2016 Oracle.  All Rights Reserved.
  *
@@ -39,6 +40,7 @@ xfs_trans_set_rmap_flags(
 	int				whichfork,
 	xfs_exntst_t			state)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_rmap.c: line 43 \n"); 
 	rmap->me_flags = 0;
 	if (state == XFS_EXT_UNWRITTEN)
 		rmap->me_flags |= XFS_RMAP_EXTENT_UNWRITTEN;
@@ -79,6 +81,7 @@ xfs_trans_get_rud(
 	struct xfs_trans		*tp,
 	struct xfs_rui_log_item		*ruip)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_rmap.c: line 84 \n"); 
 	struct xfs_rud_log_item		*rudp;
 
 	rudp = xfs_rud_init(tp->t_mountp, ruip);
@@ -104,6 +107,7 @@ xfs_trans_log_finish_rmap_update(
 	xfs_exntst_t			state,
 	struct xfs_btree_cur		**pcur)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_rmap.c: line 110 \n"); 
 	int				error;
 
 	error = xfs_rmap_finish_one(tp, type, owner, whichfork, startoff,
@@ -129,6 +133,7 @@ xfs_rmap_update_diff_items(
 	struct list_head		*a,
 	struct list_head		*b)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_rmap.c: line 136 \n"); 
 	struct xfs_mount		*mp = priv;
 	struct xfs_rmap_intent		*ra;
 	struct xfs_rmap_intent		*rb;
@@ -145,6 +150,7 @@ xfs_rmap_update_create_intent(
 	struct xfs_trans		*tp,
 	unsigned int			count)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_rmap.c: line 153 \n"); 
 	struct xfs_rui_log_item		*ruip;
 
 	ASSERT(tp != NULL);
@@ -167,6 +173,7 @@ xfs_rmap_update_log_item(
 	void				*intent,
 	struct list_head		*item)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_rmap.c: line 176 \n"); 
 	struct xfs_rui_log_item		*ruip = intent;
 	struct xfs_rmap_intent		*rmap;
 	uint				next_extent;
@@ -200,6 +207,7 @@ xfs_rmap_update_create_done(
 	void				*intent,
 	unsigned int			count)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_rmap.c: line 210 \n"); 
 	return xfs_trans_get_rud(tp, intent);
 }
 
@@ -212,6 +220,7 @@ xfs_rmap_update_finish_item(
 	void				*done_item,
 	void				**state)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_rmap.c: line 223 \n"); 
 	struct xfs_rmap_intent		*rmap;
 	int				error;
 
@@ -235,6 +244,7 @@ xfs_rmap_update_finish_cleanup(
 	void			*state,
 	int			error)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_rmap.c: line 247 \n"); 
 	struct xfs_btree_cur	*rcur = state;
 
 	xfs_rmap_finish_one_cleanup(tp, rcur, error);
@@ -245,6 +255,7 @@ STATIC void
 xfs_rmap_update_abort_intent(
 	void				*intent)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_rmap.c: line 258 \n"); 
 	xfs_rui_release(intent);
 }
 
@@ -253,6 +264,7 @@ STATIC void
 xfs_rmap_update_cancel_item(
 	struct list_head		*item)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_rmap.c: line 267 \n"); 
 	struct xfs_rmap_intent		*rmap;
 
 	rmap = container_of(item, struct xfs_rmap_intent, ri_list);

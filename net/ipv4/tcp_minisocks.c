@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -48,6 +49,7 @@ static enum tcp_tw_status
 tcp_timewait_check_oow_rate_limit(struct inet_timewait_sock *tw,
 				  const struct sk_buff *skb, int mib_idx)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_minisocks.c: line 52 \n"); 
 	struct tcp_timewait_sock *tcptw = tcp_twsk((struct sock *)tw);
 
 	if (!tcp_oow_rate_limited(twsk_net(tw), skb, mib_idx,
@@ -403,6 +405,7 @@ EXPORT_SYMBOL(tcp_openreq_init_rwin);
 static void tcp_ecn_openreq_child(struct tcp_sock *tp,
 				  const struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_minisocks.c: line 408 \n"); 
 	tp->ecn_flags = inet_rsk(req)->ecn_ok ? TCP_ECN_OK : 0;
 }
 

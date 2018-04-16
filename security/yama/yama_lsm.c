@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Yama Linux Security Module
  *
@@ -54,6 +55,7 @@ struct access_report_info {
 
 static void __report_access(struct callback_head *work)
 {
+	panic("We reached unpopular paths in security/yama/yama_lsm.c: line 58 \n"); 
 	struct access_report_info *info =
 		container_of(work, struct access_report_info, work);
 	char *target_cmd, *agent_cmd;
@@ -78,6 +80,7 @@ static void __report_access(struct callback_head *work)
 static void report_access(const char *access, struct task_struct *target,
 				struct task_struct *agent)
 {
+	panic("We reached unpopular paths in security/yama/yama_lsm.c: line 83 \n"); 
 	struct access_report_info *info;
 	char agent_comm[sizeof(agent->comm)];
 
@@ -118,6 +121,7 @@ static void report_access(const char *access, struct task_struct *target,
  */
 static void yama_relation_cleanup(struct work_struct *work)
 {
+	panic("We reached unpopular paths in security/yama/yama_lsm.c: line 124 \n"); 
 	struct ptrace_relation *relation;
 
 	spin_lock(&ptracer_relations_lock);
@@ -145,6 +149,7 @@ static void yama_relation_cleanup(struct work_struct *work)
 static int yama_ptracer_add(struct task_struct *tracer,
 			    struct task_struct *tracee)
 {
+	panic("We reached unpopular paths in security/yama/yama_lsm.c: line 152 \n"); 
 	struct ptrace_relation *relation, *added;
 
 	added = kmalloc(sizeof(*added), GFP_KERNEL);
@@ -281,6 +286,7 @@ int yama_task_prctl(int option, unsigned long arg2, unsigned long arg3,
 static int task_is_descendant(struct task_struct *parent,
 			      struct task_struct *child)
 {
+	panic("We reached unpopular paths in security/yama/yama_lsm.c: line 289 \n"); 
 	int rc = 0;
 	struct task_struct *walker = child;
 
@@ -314,6 +320,7 @@ static int task_is_descendant(struct task_struct *parent,
 static int ptracer_exception_found(struct task_struct *tracer,
 				   struct task_struct *tracee)
 {
+	panic("We reached unpopular paths in security/yama/yama_lsm.c: line 323 \n"); 
 	int rc = 0;
 	struct ptrace_relation *relation;
 	struct task_struct *parent = NULL;
@@ -392,6 +399,7 @@ static int yama_ptrace_access_check(struct task_struct *child,
  */
 int yama_ptrace_traceme(struct task_struct *parent)
 {
+	panic("We reached unpopular paths in security/yama/yama_lsm.c: line 402 \n"); 
 	int rc = 0;
 
 	/* Only disallow PTRACE_TRACEME on more aggressive settings. */
@@ -470,6 +478,7 @@ static inline void yama_init_sysctl(void) { }
 
 void __init yama_add_hooks(void)
 {
+	// [blacklist] panic("We reached unpopular paths in security/yama/yama_lsm.c: line 481 \n"); 
 	pr_info("Yama: becoming mindful.\n");
 	security_add_hooks(yama_hooks, ARRAY_SIZE(yama_hooks));
 	yama_init_sysctl();

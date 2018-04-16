@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Berkeley Packet Filter based traffic classifier
  *
@@ -69,6 +70,7 @@ static const struct nla_policy bpf_policy[TCA_BPF_MAX + 1] = {
 
 static int cls_bpf_exec_opcode(int code)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 73 \n"); 
 	switch (code) {
 	case TC_ACT_OK:
 	case TC_ACT_SHOT:
@@ -84,6 +86,7 @@ static int cls_bpf_exec_opcode(int code)
 static int cls_bpf_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 			    struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 89 \n"); 
 	struct cls_bpf_head *head = rcu_dereference_bh(tp->root);
 	bool at_ingress = skb_at_tc_ingress(skb);
 	struct cls_bpf_prog *prog;
@@ -142,12 +145,14 @@ static int cls_bpf_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 
 static bool cls_bpf_is_ebpf(const struct cls_bpf_prog *prog)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 148 \n"); 
 	return !prog->bpf_ops;
 }
 
 static int cls_bpf_offload_cmd(struct tcf_proto *tp, struct cls_bpf_prog *prog,
 			       enum tc_clsbpf_command cmd)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 155 \n"); 
 	struct net_device *dev = tp->q->dev_queue->dev;
 	struct tc_cls_bpf_offload bpf_offload = {};
 	struct tc_to_netdev offload;
@@ -169,6 +174,7 @@ static int cls_bpf_offload_cmd(struct tcf_proto *tp, struct cls_bpf_prog *prog,
 static int cls_bpf_offload(struct tcf_proto *tp, struct cls_bpf_prog *prog,
 			   struct cls_bpf_prog *oldprog)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 177 \n"); 
 	struct net_device *dev = tp->q->dev_queue->dev;
 	struct cls_bpf_prog *obj = prog;
 	enum tc_clsbpf_command cmd;
@@ -207,6 +213,7 @@ static int cls_bpf_offload(struct tcf_proto *tp, struct cls_bpf_prog *prog,
 static void cls_bpf_stop_offload(struct tcf_proto *tp,
 				 struct cls_bpf_prog *prog)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 216 \n"); 
 	int err;
 
 	if (!prog->offloaded)
@@ -224,6 +231,7 @@ static void cls_bpf_stop_offload(struct tcf_proto *tp,
 static void cls_bpf_offload_update_stats(struct tcf_proto *tp,
 					 struct cls_bpf_prog *prog)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 234 \n"); 
 	if (!prog->offloaded)
 		return;
 
@@ -232,6 +240,7 @@ static void cls_bpf_offload_update_stats(struct tcf_proto *tp,
 
 static int cls_bpf_init(struct tcf_proto *tp)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 243 \n"); 
 	struct cls_bpf_head *head;
 
 	head = kzalloc(sizeof(*head), GFP_KERNEL);
@@ -246,6 +255,7 @@ static int cls_bpf_init(struct tcf_proto *tp)
 
 static void cls_bpf_delete_prog(struct tcf_proto *tp, struct cls_bpf_prog *prog)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 258 \n"); 
 	tcf_exts_destroy(&prog->exts);
 
 	if (cls_bpf_is_ebpf(prog))
@@ -260,6 +270,7 @@ static void cls_bpf_delete_prog(struct tcf_proto *tp, struct cls_bpf_prog *prog)
 
 static void __cls_bpf_delete_prog(struct rcu_head *rcu)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 273 \n"); 
 	struct cls_bpf_prog *prog = container_of(rcu, struct cls_bpf_prog, rcu);
 
 	cls_bpf_delete_prog(prog->tp, prog);
@@ -267,6 +278,7 @@ static void __cls_bpf_delete_prog(struct rcu_head *rcu)
 
 static int cls_bpf_delete(struct tcf_proto *tp, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 281 \n"); 
 	struct cls_bpf_prog *prog = (struct cls_bpf_prog *) arg;
 
 	cls_bpf_stop_offload(tp, prog);
@@ -279,6 +291,7 @@ static int cls_bpf_delete(struct tcf_proto *tp, unsigned long arg)
 
 static bool cls_bpf_destroy(struct tcf_proto *tp, bool force)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 294 \n"); 
 	struct cls_bpf_head *head = rtnl_dereference(tp->root);
 	struct cls_bpf_prog *prog, *tmp;
 
@@ -298,6 +311,7 @@ static bool cls_bpf_destroy(struct tcf_proto *tp, bool force)
 
 static unsigned long cls_bpf_get(struct tcf_proto *tp, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 314 \n"); 
 	struct cls_bpf_head *head = rtnl_dereference(tp->root);
 	struct cls_bpf_prog *prog;
 	unsigned long ret = 0UL;
@@ -314,6 +328,7 @@ static unsigned long cls_bpf_get(struct tcf_proto *tp, u32 handle)
 
 static int cls_bpf_prog_from_ops(struct nlattr **tb, struct cls_bpf_prog *prog)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 331 \n"); 
 	struct sock_filter *bpf_ops;
 	struct sock_fprog_kern fprog_tmp;
 	struct bpf_prog *fp;
@@ -354,6 +369,7 @@ static int cls_bpf_prog_from_ops(struct nlattr **tb, struct cls_bpf_prog *prog)
 static int cls_bpf_prog_from_efd(struct nlattr **tb, struct cls_bpf_prog *prog,
 				 const struct tcf_proto *tp)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 372 \n"); 
 	struct bpf_prog *fp;
 	char *name = NULL;
 	u32 bpf_fd;
@@ -390,6 +406,7 @@ static int cls_bpf_modify_existing(struct net *net, struct tcf_proto *tp,
 				   unsigned long base, struct nlattr **tb,
 				   struct nlattr *est, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 409 \n"); 
 	bool is_bpf, is_ebpf, have_exts = false;
 	struct tcf_exts exts;
 	u32 gen_flags = 0;
@@ -450,6 +467,7 @@ errout:
 static u32 cls_bpf_grab_new_handle(struct tcf_proto *tp,
 				   struct cls_bpf_head *head)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 470 \n"); 
 	unsigned int i = 0x80000000;
 	u32 handle;
 
@@ -473,6 +491,7 @@ static int cls_bpf_change(struct net *net, struct sk_buff *in_skb,
 			  u32 handle, struct nlattr **tca,
 			  unsigned long *arg, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 494 \n"); 
 	struct cls_bpf_head *head = rtnl_dereference(tp->root);
 	struct cls_bpf_prog *oldprog = (struct cls_bpf_prog *) *arg;
 	struct nlattr *tb[TCA_BPF_MAX + 1];
@@ -541,6 +560,7 @@ errout:
 static int cls_bpf_dump_bpf_info(const struct cls_bpf_prog *prog,
 				 struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 563 \n"); 
 	struct nlattr *nla;
 
 	if (nla_put_u16(skb, TCA_BPF_OPS_LEN, prog->bpf_num_ops))
@@ -559,6 +579,7 @@ static int cls_bpf_dump_bpf_info(const struct cls_bpf_prog *prog,
 static int cls_bpf_dump_ebpf_info(const struct cls_bpf_prog *prog,
 				  struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 582 \n"); 
 	if (nla_put_u32(skb, TCA_BPF_FD, prog->bpf_fd))
 		return -EMSGSIZE;
 
@@ -572,6 +593,7 @@ static int cls_bpf_dump_ebpf_info(const struct cls_bpf_prog *prog,
 static int cls_bpf_dump(struct net *net, struct tcf_proto *tp, unsigned long fh,
 			struct sk_buff *skb, struct tcmsg *tm)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 596 \n"); 
 	struct cls_bpf_prog *prog = (struct cls_bpf_prog *) fh;
 	struct nlattr *nest;
 	u32 bpf_flags = 0;
@@ -624,6 +646,7 @@ nla_put_failure:
 
 static void cls_bpf_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_bpf.c: line 649 \n"); 
 	struct cls_bpf_head *head = rtnl_dereference(tp->root);
 	struct cls_bpf_prog *prog;
 

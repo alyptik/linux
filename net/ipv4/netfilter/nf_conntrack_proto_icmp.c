@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2004 Netfilter Core Team <coreteam@netfilter.org>
  * (C) 2006-2010 Patrick McHardy <kaber@trash.net>
@@ -26,12 +27,14 @@ static unsigned int nf_ct_icmp_timeout __read_mostly = 30*HZ;
 
 static inline struct nf_icmp_net *icmp_pernet(struct net *net)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/netfilter/nf_conntrack_proto_icmp.c: line 30 \n"); 
 	return &net->ct.nf_ct_proto.icmp;
 }
 
 static bool icmp_pkt_to_tuple(const struct sk_buff *skb, unsigned int dataoff,
 			      struct net *net, struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_conntrack_proto_icmp.c: line 37 \n"); 
 	const struct icmphdr *hp;
 	struct icmphdr _hdr;
 
@@ -61,6 +64,7 @@ static const u_int8_t invmap[] = {
 static bool icmp_invert_tuple(struct nf_conntrack_tuple *tuple,
 			      const struct nf_conntrack_tuple *orig)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_conntrack_proto_icmp.c: line 67 \n"); 
 	if (orig->dst.u.icmp.type >= sizeof(invmap) ||
 	    !invmap[orig->dst.u.icmp.type])
 		return false;
@@ -75,6 +79,7 @@ static bool icmp_invert_tuple(struct nf_conntrack_tuple *tuple,
 static void icmp_print_tuple(struct seq_file *s,
 			    const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_conntrack_proto_icmp.c: line 82 \n"); 
 	seq_printf(s, "type=%u code=%u id=%u ",
 		   tuple->dst.u.icmp.type,
 		   tuple->dst.u.icmp.code,
@@ -83,6 +88,7 @@ static void icmp_print_tuple(struct seq_file *s,
 
 static unsigned int *icmp_get_timeouts(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_conntrack_proto_icmp.c: line 91 \n"); 
 	return &icmp_pernet(net)->timeout;
 }
 
@@ -95,6 +101,7 @@ static int icmp_packet(struct nf_conn *ct,
 		       unsigned int hooknum,
 		       unsigned int *timeout)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_conntrack_proto_icmp.c: line 104 \n"); 
 	/* Do not immediately delete the connection after the first
 	   successful reply to avoid excessive conntrackd traffic
 	   and also to handle correctly ICMP echo reply duplicates. */
@@ -107,6 +114,7 @@ static int icmp_packet(struct nf_conn *ct,
 static bool icmp_new(struct nf_conn *ct, const struct sk_buff *skb,
 		     unsigned int dataoff, unsigned int *timeouts)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_conntrack_proto_icmp.c: line 117 \n"); 
 	static const u_int8_t valid_new[] = {
 		[ICMP_ECHO] = 1,
 		[ICMP_TIMESTAMP] = 1,
@@ -131,6 +139,7 @@ icmp_error_message(struct net *net, struct nf_conn *tmpl, struct sk_buff *skb,
 		 enum ip_conntrack_info *ctinfo,
 		 unsigned int hooknum)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_conntrack_proto_icmp.c: line 142 \n"); 
 	struct nf_conntrack_tuple innertuple, origtuple;
 	const struct nf_conntrack_l4proto *innerproto;
 	const struct nf_conntrack_tuple_hash *h;
@@ -183,6 +192,7 @@ icmp_error(struct net *net, struct nf_conn *tmpl,
 	   struct sk_buff *skb, unsigned int dataoff,
 	   enum ip_conntrack_info *ctinfo, u_int8_t pf, unsigned int hooknum)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_conntrack_proto_icmp.c: line 195 \n"); 
 	const struct icmphdr *icmph;
 	struct icmphdr _ih;
 

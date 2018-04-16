@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 2007 Patrick McHardy <kaber@trash.net>
  *
@@ -17,6 +18,7 @@
 static bool
 xt_rateest_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_rateest.c: line 21 \n"); 
 	const struct xt_rateest_match_info *info = par->matchinfo;
 	struct gnet_stats_rate_est64 *r;
 	u_int32_t bps1, bps2, pps1, pps2;
@@ -76,6 +78,7 @@ xt_rateest_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int xt_rateest_mt_checkentry(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_rateest.c: line 81 \n"); 
 	struct xt_rateest_match_info *info = par->matchinfo;
 	struct xt_rateest *est1, *est2;
 	int ret = -EINVAL;
@@ -120,6 +123,7 @@ err1:
 
 static void xt_rateest_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_rateest.c: line 126 \n"); 
 	struct xt_rateest_match_info *info = par->matchinfo;
 
 	xt_rateest_put(info->est1);

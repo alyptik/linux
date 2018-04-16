@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  *
@@ -31,6 +32,7 @@ struct nft_limit {
 
 static inline bool nft_limit_eval(struct nft_limit *limit, u64 cost)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_limit.c: line 35 \n"); 
 	u64 now, tokens;
 	s64 delta;
 
@@ -55,6 +57,7 @@ static inline bool nft_limit_eval(struct nft_limit *limit, u64 cost)
 static int nft_limit_init(struct nft_limit *limit,
 			  const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_limit.c: line 60 \n"); 
 	u64 unit;
 
 	if (tb[NFTA_LIMIT_RATE] == NULL ||
@@ -93,6 +96,7 @@ static int nft_limit_init(struct nft_limit *limit,
 static int nft_limit_dump(struct sk_buff *skb, const struct nft_limit *limit,
 			  enum nft_limit_type type)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_limit.c: line 99 \n"); 
 	u32 flags = limit->invert ? NFT_LIMIT_F_INV : 0;
 	u64 secs = div_u64(limit->nsecs, NSEC_PER_SEC);
 	u64 rate = limit->rate - limit->burst;
@@ -120,6 +124,7 @@ static void nft_limit_pkts_eval(const struct nft_expr *expr,
 				struct nft_regs *regs,
 				const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_limit.c: line 127 \n"); 
 	struct nft_limit_pkts *priv = nft_expr_priv(expr);
 
 	if (nft_limit_eval(&priv->limit, priv->cost))
@@ -138,6 +143,7 @@ static int nft_limit_pkts_init(const struct nft_ctx *ctx,
 			       const struct nft_expr *expr,
 			       const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_limit.c: line 146 \n"); 
 	struct nft_limit_pkts *priv = nft_expr_priv(expr);
 	int err;
 
@@ -151,6 +157,7 @@ static int nft_limit_pkts_init(const struct nft_ctx *ctx,
 
 static int nft_limit_pkts_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_limit.c: line 160 \n"); 
 	const struct nft_limit_pkts *priv = nft_expr_priv(expr);
 
 	return nft_limit_dump(skb, &priv->limit, NFT_LIMIT_PKTS);
@@ -169,6 +176,7 @@ static void nft_limit_pkt_bytes_eval(const struct nft_expr *expr,
 				     struct nft_regs *regs,
 				     const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_limit.c: line 179 \n"); 
 	struct nft_limit *priv = nft_expr_priv(expr);
 	u64 cost = div64_u64(priv->nsecs * pkt->skb->len, priv->rate);
 
@@ -180,6 +188,7 @@ static int nft_limit_pkt_bytes_init(const struct nft_ctx *ctx,
 				    const struct nft_expr *expr,
 				    const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_limit.c: line 191 \n"); 
 	struct nft_limit *priv = nft_expr_priv(expr);
 
 	return nft_limit_init(priv, tb);
@@ -188,6 +197,7 @@ static int nft_limit_pkt_bytes_init(const struct nft_ctx *ctx,
 static int nft_limit_pkt_bytes_dump(struct sk_buff *skb,
 				    const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_limit.c: line 200 \n"); 
 	const struct nft_limit *priv = nft_expr_priv(expr);
 
 	return nft_limit_dump(skb, priv, NFT_LIMIT_PKT_BYTES);
@@ -205,6 +215,7 @@ static const struct nft_expr_ops *
 nft_limit_select_ops(const struct nft_ctx *ctx,
 		     const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_limit.c: line 218 \n"); 
 	if (tb[NFTA_LIMIT_TYPE] == NULL)
 		return &nft_limit_pkts_ops;
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	VLAN netlink control interface
  *
@@ -33,6 +34,7 @@ static const struct nla_policy vlan_map_policy[IFLA_VLAN_QOS_MAX + 1] = {
 
 static inline int vlan_validate_qos_map(struct nlattr *attr)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_netlink.c: line 37 \n"); 
 	if (!attr)
 		return 0;
 	return nla_validate_nested(attr, IFLA_VLAN_QOS_MAX, vlan_map_policy);
@@ -40,6 +42,7 @@ static inline int vlan_validate_qos_map(struct nlattr *attr)
 
 static int vlan_validate(struct nlattr *tb[], struct nlattr *data[])
 {
+	panic("We reached unpopular paths in net/8021q/vlan_netlink.c: line 45 \n"); 
 	struct ifla_vlan_flags *flags;
 	u16 id;
 	int err;
@@ -89,6 +92,7 @@ static int vlan_validate(struct nlattr *tb[], struct nlattr *data[])
 static int vlan_changelink(struct net_device *dev,
 			   struct nlattr *tb[], struct nlattr *data[])
 {
+	panic("We reached unpopular paths in net/8021q/vlan_netlink.c: line 95 \n"); 
 	struct ifla_vlan_flags *flags;
 	struct ifla_vlan_qos_mapping *m;
 	struct nlattr *attr;
@@ -116,6 +120,7 @@ static int vlan_changelink(struct net_device *dev,
 static int vlan_newlink(struct net *src_net, struct net_device *dev,
 			struct nlattr *tb[], struct nlattr *data[])
 {
+	panic("We reached unpopular paths in net/8021q/vlan_netlink.c: line 123 \n"); 
 	struct vlan_dev_priv *vlan = vlan_dev_priv(dev);
 	struct net_device *real_dev;
 	unsigned int max_mtu;
@@ -161,6 +166,7 @@ static int vlan_newlink(struct net *src_net, struct net_device *dev,
 
 static inline size_t vlan_qos_map_size(unsigned int n)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_netlink.c: line 169 \n"); 
 	if (n == 0)
 		return 0;
 	/* IFLA_VLAN_{EGRESS,INGRESS}_QOS + n * IFLA_VLAN_QOS_MAPPING */
@@ -170,6 +176,7 @@ static inline size_t vlan_qos_map_size(unsigned int n)
 
 static size_t vlan_get_size(const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_netlink.c: line 179 \n"); 
 	struct vlan_dev_priv *vlan = vlan_dev_priv(dev);
 
 	return nla_total_size(2) +	/* IFLA_VLAN_PROTOCOL */
@@ -181,6 +188,7 @@ static size_t vlan_get_size(const struct net_device *dev)
 
 static int vlan_fill_info(struct sk_buff *skb, const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_netlink.c: line 191 \n"); 
 	struct vlan_dev_priv *vlan = vlan_dev_priv(dev);
 	struct vlan_priority_tci_mapping *pm;
 	struct ifla_vlan_flags f;
@@ -243,6 +251,7 @@ nla_put_failure:
 
 static struct net *vlan_get_link_net(const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_netlink.c: line 254 \n"); 
 	struct net_device *real_dev = vlan_dev_priv(dev)->real_dev;
 
 	return dev_net(real_dev);

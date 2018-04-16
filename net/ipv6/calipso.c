@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * CALIPSO - Common Architecture Label IPv6 Security Option
  *
@@ -111,6 +112,7 @@ static struct calipso_map_cache_bkt *calipso_cache;
  */
 static void calipso_cache_entry_free(struct calipso_map_cache_entry *entry)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 115 \n"); 
 	if (entry->lsm_data)
 		netlbl_secattr_cache_free(entry->lsm_data);
 	kfree(entry->key);
@@ -128,6 +130,7 @@ static void calipso_cache_entry_free(struct calipso_map_cache_entry *entry)
  */
 static u32 calipso_map_cache_hash(const unsigned char *key, u32 key_len)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 133 \n"); 
 	return jhash(key, key_len, 0);
 }
 
@@ -169,6 +172,7 @@ static int __init calipso_cache_init(void)
  */
 static void calipso_cache_invalidate(void)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 175 \n"); 
 	struct calipso_map_cache_entry *entry, *tmp_entry;
 	u32 iter;
 
@@ -211,6 +215,7 @@ static int calipso_cache_check(const unsigned char *key,
 			       u32 key_len,
 			       struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 218 \n"); 
 	u32 bkt;
 	struct calipso_map_cache_entry *entry;
 	struct calipso_map_cache_entry *prev_entry = NULL;
@@ -275,6 +280,7 @@ static int calipso_cache_check(const unsigned char *key,
 static int calipso_cache_add(const unsigned char *calipso_ptr,
 			     const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 283 \n"); 
 	int ret_val = -EPERM;
 	u32 bkt;
 	struct calipso_map_cache_entry *entry = NULL;
@@ -335,6 +341,7 @@ cache_add_failure:
  */
 static struct calipso_doi *calipso_doi_search(u32 doi)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 344 \n"); 
 	struct calipso_doi *iter;
 
 	list_for_each_entry_rcu(iter, &calipso_doi_list, list)
@@ -359,6 +366,7 @@ static struct calipso_doi *calipso_doi_search(u32 doi)
 static int calipso_doi_add(struct calipso_doi *doi_def,
 			   struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 369 \n"); 
 	int ret_val = -EINVAL;
 	u32 doi;
 	u32 doi_type;
@@ -413,6 +421,7 @@ doi_add_return:
  */
 static void calipso_doi_free(struct calipso_doi *doi_def)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 424 \n"); 
 	kfree(doi_def);
 }
 
@@ -428,6 +437,7 @@ static void calipso_doi_free(struct calipso_doi *doi_def)
  */
 static void calipso_doi_free_rcu(struct rcu_head *entry)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 440 \n"); 
 	struct calipso_doi *doi_def;
 
 	doi_def = container_of(entry, struct calipso_doi, rcu);
@@ -447,6 +457,7 @@ static void calipso_doi_free_rcu(struct rcu_head *entry)
  */
 static int calipso_doi_remove(u32 doi, struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 460 \n"); 
 	int ret_val;
 	struct calipso_doi *doi_def;
 	struct audit_buffer *audit_buf;
@@ -493,6 +504,7 @@ doi_remove_return:
  */
 static struct calipso_doi *calipso_doi_getdef(u32 doi)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 507 \n"); 
 	struct calipso_doi *doi_def;
 
 	rcu_read_lock();
@@ -517,6 +529,7 @@ doi_getdef_return:
  */
 static void calipso_doi_putdef(struct calipso_doi *doi_def)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 532 \n"); 
 	if (!doi_def)
 		return;
 
@@ -547,6 +560,7 @@ static int calipso_doi_walk(u32 *skip_cnt,
 					    void *arg),
 			    void *cb_arg)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 563 \n"); 
 	int ret_val = -ENOENT;
 	u32 doi_cnt = 0;
 	struct calipso_doi *iter_doi;
@@ -587,6 +601,7 @@ doi_walk_return:
  */
 bool calipso_validate(const struct sk_buff *skb, const unsigned char *option)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 604 \n"); 
 	struct calipso_doi *doi_def;
 	bool ret_val;
 	u16 crc, len = option[1] + 2;
@@ -628,6 +643,7 @@ static int calipso_map_cat_hton(const struct calipso_doi *doi_def,
 				unsigned char *net_cat,
 				u32 net_cat_len)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 646 \n"); 
 	int spot = -1;
 	u32 net_spot_max = 0;
 	u32 net_clen_bits = net_cat_len * 8;
@@ -666,6 +682,7 @@ static int calipso_map_cat_ntoh(const struct calipso_doi *doi_def,
 				u32 net_cat_len,
 				struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 685 \n"); 
 	int ret_val;
 	int spot = -1;
 	u32 net_clen_bits = net_cat_len * 8;
@@ -705,6 +722,7 @@ static int calipso_map_cat_ntoh(const struct calipso_doi *doi_def,
 static int calipso_pad_write(unsigned char *buf, unsigned int offset,
 			     unsigned int count)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 725 \n"); 
 	if (WARN_ON_ONCE(count >= 8))
 		return -EINVAL;
 
@@ -742,6 +760,7 @@ static int calipso_genopt(unsigned char *buf, u32 start, u32 buf_len,
 			  const struct calipso_doi *doi_def,
 			  const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 763 \n"); 
 	int ret_val;
 	u32 len, pad;
 	u16 crc;
@@ -797,6 +816,7 @@ static int calipso_genopt(unsigned char *buf, u32 start, u32 buf_len,
  */
 static int calipso_opt_update(struct sock *sk, struct ipv6_opt_hdr *hop)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 819 \n"); 
 	struct ipv6_txoptions *old = txopt_get(inet6_sk(sk)), *txopts;
 
 	txopts = ipv6_renew_options_kern(sk, old, IPV6_HOPOPTS,
@@ -826,6 +846,7 @@ static int calipso_opt_update(struct sock *sk, struct ipv6_opt_hdr *hop)
  */
 static int calipso_tlv_len(struct ipv6_opt_hdr *opt, unsigned int offset)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 849 \n"); 
 	unsigned char *tlv = (unsigned char *)opt;
 	unsigned int opt_len = ipv6_optlen(opt), tlv_len;
 
@@ -865,6 +886,7 @@ static int calipso_tlv_len(struct ipv6_opt_hdr *opt, unsigned int offset)
 static int calipso_opt_find(struct ipv6_opt_hdr *hop, unsigned int *start,
 			    unsigned int *end)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 889 \n"); 
 	int ret_val = -ENOENT, tlv_len;
 	unsigned int opt_len, offset, offset_s = 0, offset_e = 0;
 	unsigned char *opt = (unsigned char *)hop;
@@ -928,6 +950,7 @@ calipso_opt_insert(struct ipv6_opt_hdr *hop,
 		   const struct calipso_doi *doi_def,
 		   const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 953 \n"); 
 	unsigned int start, end, buf_len, pad, hop_len;
 	struct ipv6_opt_hdr *new;
 	int ret_val;
@@ -1033,6 +1056,7 @@ static int calipso_opt_del(struct ipv6_opt_hdr *hop,
 static int calipso_opt_getattr(const unsigned char *calipso,
 			       struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 1059 \n"); 
 	int ret_val = -ENOMSG;
 	u32 doi, len = calipso[1], cat_len = calipso[6] * 4;
 	struct calipso_doi *doi_def;
@@ -1090,6 +1114,7 @@ getattr_return:
 static int calipso_sock_getattr(struct sock *sk,
 				struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 1117 \n"); 
 	struct ipv6_opt_hdr *hop;
 	int opt_len, len, ret_val = -ENOMSG, offset;
 	unsigned char *opt;
@@ -1144,6 +1169,7 @@ static int calipso_sock_setattr(struct sock *sk,
 				const struct calipso_doi *doi_def,
 				const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 1172 \n"); 
 	int ret_val;
 	struct ipv6_opt_hdr *old, *new;
 	struct ipv6_txoptions *txopts = txopt_get(inet6_sk(sk));
@@ -1173,6 +1199,7 @@ static int calipso_sock_setattr(struct sock *sk,
  */
 static void calipso_sock_delattr(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 1202 \n"); 
 	struct ipv6_opt_hdr *new_hop;
 	struct ipv6_txoptions *txopts = txopt_get(inet6_sk(sk));
 
@@ -1208,6 +1235,7 @@ static int calipso_req_setattr(struct request_sock *req,
 			       const struct calipso_doi *doi_def,
 			       const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 1238 \n"); 
 	struct ipv6_txoptions *txopts;
 	struct inet_request_sock *req_inet = inet_rsk(req);
 	struct ipv6_opt_hdr *old, *new;
@@ -1249,6 +1277,7 @@ static int calipso_req_setattr(struct request_sock *req,
  */
 static void calipso_req_delattr(struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 1280 \n"); 
 	struct inet_request_sock *req_inet = inet_rsk(req);
 	struct ipv6_opt_hdr *new;
 	struct ipv6_txoptions *txopts;
@@ -1287,6 +1316,7 @@ static void calipso_req_delattr(struct request_sock *req)
  */
 static unsigned char *calipso_skbuff_optptr(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 1319 \n"); 
 	const struct ipv6hdr *ip6_hdr = ipv6_hdr(skb);
 	int offset;
 
@@ -1315,6 +1345,7 @@ static int calipso_skbuff_setattr(struct sk_buff *skb,
 				  const struct calipso_doi *doi_def,
 				  const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 1348 \n"); 
 	int ret_val;
 	struct ipv6hdr *ip6_hdr;
 	struct ipv6_opt_hdr *hop;
@@ -1388,6 +1419,7 @@ static int calipso_skbuff_setattr(struct sk_buff *skb,
  */
 static int calipso_skbuff_delattr(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 1422 \n"); 
 	int ret_val;
 	struct ipv6hdr *ip6_hdr;
 	struct ipv6_opt_hdr *old_hop;
@@ -1473,6 +1505,7 @@ int __init calipso_init(void)
 
 void calipso_exit(void)
 {
+	panic("We reached unpopular paths in net/ipv6/calipso.c: line 1508 \n"); 
 	netlbl_calipso_ops_register(NULL);
 	calipso_cache_invalidate();
 	kfree(calipso_cache);

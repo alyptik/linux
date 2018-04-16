@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/module.h>
 #include <linux/errno.h>
 #include <linux/socket.h>
@@ -17,6 +18,7 @@
 static void fou6_build_udp(struct sk_buff *skb, struct ip_tunnel_encap *e,
 			   struct flowi6 *fl6, u8 *protocol, __be16 sport)
 {
+	panic("We reached unpopular paths in net/ipv6/fou6.c: line 21 \n"); 
 	struct udphdr *uh;
 
 	skb_push(skb, sizeof(struct udphdr));
@@ -36,6 +38,7 @@ static void fou6_build_udp(struct sk_buff *skb, struct ip_tunnel_encap *e,
 int fou6_build_header(struct sk_buff *skb, struct ip_tunnel_encap *e,
 		      u8 *protocol, struct flowi6 *fl6)
 {
+	panic("We reached unpopular paths in net/ipv6/fou6.c: line 41 \n"); 
 	__be16 sport;
 	int err;
 	int type = e->flags & TUNNEL_ENCAP_FLAG_CSUM6 ?
@@ -54,6 +57,7 @@ EXPORT_SYMBOL(fou6_build_header);
 int gue6_build_header(struct sk_buff *skb, struct ip_tunnel_encap *e,
 		      u8 *protocol, struct flowi6 *fl6)
 {
+	panic("We reached unpopular paths in net/ipv6/fou6.c: line 60 \n"); 
 	__be16 sport;
 	int err;
 	int type = e->flags & TUNNEL_ENCAP_FLAG_CSUM6 ?
@@ -111,11 +115,13 @@ static void ip6_tnl_encap_del_fou_ops(void)
 
 static int ip6_tnl_encap_add_fou_ops(void)
 {
+	panic("We reached unpopular paths in net/ipv6/fou6.c: line 118 \n"); 
 	return 0;
 }
 
 static void ip6_tnl_encap_del_fou_ops(void)
 {
+	panic("We reached unpopular paths in net/ipv6/fou6.c: line 124 \n"); 
 }
 
 #endif

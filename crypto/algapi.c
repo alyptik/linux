@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API for algorithms (i.e., low-level API).
  *
@@ -44,6 +45,7 @@ static inline int crypto_set_driver_name(struct crypto_alg *alg)
 
 static inline void crypto_check_module_sig(struct module *mod)
 {
+	// [blacklist] panic("We reached unpopular paths in crypto/algapi.c: line 48 \n"); 
 	if (fips_enabled && mod && !module_sig_ok(mod))
 		panic("Module %s signature verification failed in FIPS mode\n",
 		      module_name(mod));
@@ -69,6 +71,7 @@ static int crypto_check_alg(struct crypto_alg *alg)
 
 static void crypto_free_instance(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 74 \n"); 
 	if (!inst->alg.cra_type->free) {
 		inst->tmpl->free(inst);
 		return;
@@ -79,6 +82,7 @@ static void crypto_free_instance(struct crypto_instance *inst)
 
 static void crypto_destroy_instance(struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 85 \n"); 
 	struct crypto_instance *inst = (void *)alg;
 	struct crypto_template *tmpl = inst->tmpl;
 
@@ -111,6 +115,7 @@ static struct list_head *crypto_more_spawns(struct crypto_alg *alg,
 static void crypto_remove_instance(struct crypto_instance *inst,
 				   struct list_head *list)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 118 \n"); 
 	struct crypto_template *tmpl = inst->tmpl;
 
 	if (crypto_is_dead(&inst->alg))
@@ -387,6 +392,7 @@ EXPORT_SYMBOL_GPL(crypto_register_alg);
 
 static int crypto_remove_alg(struct crypto_alg *alg, struct list_head *list)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 395 \n"); 
 	if (unlikely(list_empty(&alg->cra_list)))
 		return -ENOENT;
 
@@ -401,6 +407,7 @@ static int crypto_remove_alg(struct crypto_alg *alg, struct list_head *list)
 
 int crypto_unregister_alg(struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 410 \n"); 
 	int ret;
 	LIST_HEAD(list);
 
@@ -442,6 +449,7 @@ EXPORT_SYMBOL_GPL(crypto_register_algs);
 
 int crypto_unregister_algs(struct crypto_alg *algs, int count)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 452 \n"); 
 	int i, ret;
 
 	for (i = 0; i < count; i++) {
@@ -480,6 +488,7 @@ EXPORT_SYMBOL_GPL(crypto_register_template);
 
 void crypto_unregister_template(struct crypto_template *tmpl)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 491 \n"); 
 	struct crypto_instance *inst;
 	struct hlist_node *n;
 	struct hlist_head *list;
@@ -582,6 +591,7 @@ EXPORT_SYMBOL_GPL(crypto_register_instance);
 
 int crypto_unregister_instance(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 594 \n"); 
 	LIST_HEAD(list);
 
 	down_write(&crypto_alg_sem);
@@ -652,6 +662,7 @@ EXPORT_SYMBOL_GPL(crypto_grab_spawn);
 
 void crypto_drop_spawn(struct crypto_spawn *spawn)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 665 \n"); 
 	if (!spawn->alg)
 		return;
 
@@ -737,6 +748,7 @@ EXPORT_SYMBOL_GPL(crypto_register_notifier);
 
 int crypto_unregister_notifier(struct notifier_block *nb)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 751 \n"); 
 	return blocking_notifier_chain_unregister(&crypto_chain, nb);
 }
 EXPORT_SYMBOL_GPL(crypto_unregister_notifier);
@@ -808,6 +820,7 @@ EXPORT_SYMBOL_GPL(crypto_attr_alg2);
 
 int crypto_attr_u32(struct rtattr *rta, u32 *num)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 823 \n"); 
 	struct crypto_attr_u32 *nu32;
 
 	if (!rta)
@@ -906,6 +919,7 @@ EXPORT_SYMBOL_GPL(crypto_init_queue);
 int crypto_enqueue_request(struct crypto_queue *queue,
 			   struct crypto_async_request *request)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 922 \n"); 
 	int err = -EINPROGRESS;
 
 	if (unlikely(queue->qlen >= queue->max_qlen)) {
@@ -926,6 +940,7 @@ EXPORT_SYMBOL_GPL(crypto_enqueue_request);
 
 struct crypto_async_request *crypto_dequeue_request(struct crypto_queue *queue)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 943 \n"); 
 	struct list_head *request;
 
 	if (unlikely(!queue->qlen))
@@ -945,6 +960,7 @@ EXPORT_SYMBOL_GPL(crypto_dequeue_request);
 
 int crypto_tfm_in_queue(struct crypto_queue *queue, struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 963 \n"); 
 	struct crypto_async_request *req;
 
 	list_for_each_entry(req, &queue->list, list) {
@@ -958,6 +974,7 @@ EXPORT_SYMBOL_GPL(crypto_tfm_in_queue);
 
 static inline void crypto_inc_byte(u8 *a, unsigned int size)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 977 \n"); 
 	u8 *b = (a + size);
 	u8 c;
 
@@ -971,6 +988,7 @@ static inline void crypto_inc_byte(u8 *a, unsigned int size)
 
 void crypto_inc(u8 *a, unsigned int size)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 991 \n"); 
 	__be32 *b = (__be32 *)(a + size);
 	u32 c;
 
@@ -987,12 +1005,14 @@ EXPORT_SYMBOL_GPL(crypto_inc);
 
 static inline void crypto_xor_byte(u8 *a, const u8 *b, unsigned int size)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 1008 \n"); 
 	for (; size; size--)
 		*a++ ^= *b++;
 }
 
 void crypto_xor(u8 *dst, const u8 *src, unsigned int size)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 1015 \n"); 
 	u32 *a = (u32 *)dst;
 	u32 *b = (u32 *)src;
 
@@ -1013,6 +1033,7 @@ EXPORT_SYMBOL_GPL(crypto_alg_extsize);
 int crypto_type_has_alg(const char *name, const struct crypto_type *frontend,
 			u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/algapi.c: line 1036 \n"); 
 	int ret = 0;
 	struct crypto_alg *alg = crypto_find_alg(name, frontend, type, mask);
 

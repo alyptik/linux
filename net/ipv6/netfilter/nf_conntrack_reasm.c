@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPv6 fragment reassembly for connection tracking
  *
@@ -140,6 +141,7 @@ static void __net_exit nf_ct_frags6_sysctl_unregister(struct net *net)
 #else
 static int nf_ct_frag6_sysctl_register(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_reasm.c: line 144 \n"); 
 	return 0;
 }
 static void __net_exit nf_ct_frags6_sysctl_unregister(struct net *net)
@@ -149,12 +151,14 @@ static void __net_exit nf_ct_frags6_sysctl_unregister(struct net *net)
 
 static inline u8 ip6_frag_ecn(const struct ipv6hdr *ipv6h)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_reasm.c: line 154 \n"); 
 	return 1 << (ipv6_get_dsfield(ipv6h) & INET_ECN_MASK);
 }
 
 static unsigned int nf_hash_frag(__be32 id, const struct in6_addr *saddr,
 				 const struct in6_addr *daddr)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_reasm.c: line 161 \n"); 
 	net_get_random_once(&nf_frags.rnd, sizeof(nf_frags.rnd));
 	return jhash_3words(ipv6_addr_hash(saddr), ipv6_addr_hash(daddr),
 			    (__force u32)id, nf_frags.rnd);
@@ -163,6 +167,7 @@ static unsigned int nf_hash_frag(__be32 id, const struct in6_addr *saddr,
 
 static unsigned int nf_hashfn(const struct inet_frag_queue *q)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_reasm.c: line 170 \n"); 
 	const struct frag_queue *nq;
 
 	nq = container_of(q, struct frag_queue, q);
@@ -171,6 +176,7 @@ static unsigned int nf_hashfn(const struct inet_frag_queue *q)
 
 static void nf_ct_frag6_expire(unsigned long data)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_reasm.c: line 179 \n"); 
 	struct frag_queue *fq;
 	struct net *net;
 
@@ -185,6 +191,7 @@ static inline struct frag_queue *fq_find(struct net *net, __be32 id,
 					 u32 user, struct in6_addr *src,
 					 struct in6_addr *dst, int iif, u8 ecn)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_reasm.c: line 194 \n"); 
 	struct inet_frag_queue *q;
 	struct ip6_create_arg arg;
 	unsigned int hash;
@@ -212,6 +219,7 @@ static inline struct frag_queue *fq_find(struct net *net, __be32 id,
 static int nf_ct_frag6_queue(struct frag_queue *fq, struct sk_buff *skb,
 			     const struct frag_hdr *fhdr, int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_reasm.c: line 222 \n"); 
 	struct sk_buff *prev, *next;
 	unsigned int payload_len;
 	int offset, end;
@@ -373,6 +381,7 @@ err:
 static bool
 nf_ct_frag6_reasm(struct frag_queue *fq, struct sk_buff *prev,  struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_reasm.c: line 384 \n"); 
 	struct sk_buff *fp, *head = fq->q.fragments;
 	int    payload_len;
 	u8 ecn;
@@ -665,6 +674,7 @@ out:
 
 void nf_ct_frag6_cleanup(void)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_reasm.c: line 677 \n"); 
 	unregister_pernet_subsys(&nf_ct_net_ops);
 	inet_frags_fini(&nf_frags);
 }

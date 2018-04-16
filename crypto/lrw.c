@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* LRW: as defined by Cyril Guyot in
  *	http://grouper.ieee.org/groups/1619/email/pdf00017.pdf
  *
@@ -36,6 +37,7 @@ struct priv {
 
 static inline void setbit128_bbe(void *b, int bit)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 40 \n"); 
 	__set_bit(bit ^ (0x80 -
 #ifdef __BIG_ENDIAN
 			 BITS_PER_LONG
@@ -47,6 +49,7 @@ static inline void setbit128_bbe(void *b, int bit)
 
 int lrw_init_table(struct lrw_table_ctx *ctx, const u8 *tweak)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 52 \n"); 
 	be128 tmp = { 0 };
 	int i;
 
@@ -71,6 +74,7 @@ EXPORT_SYMBOL_GPL(lrw_init_table);
 
 void lrw_free_table(struct lrw_table_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 77 \n"); 
 	if (ctx->table)
 		gf128mul_free_64k(ctx->table);
 }
@@ -79,6 +83,7 @@ EXPORT_SYMBOL_GPL(lrw_free_table);
 static int setkey(struct crypto_tfm *parent, const u8 *key,
 		  unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 86 \n"); 
 	struct priv *ctx = crypto_tfm_ctx(parent);
 	struct crypto_cipher *child = ctx->child;
 	int err, bsize = LRW_BLOCK_SIZE;
@@ -104,6 +109,7 @@ struct sinfo {
 
 static inline void inc(be128 *iv)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 112 \n"); 
 	be64_add_cpu(&iv->b, 1);
 	if (!iv->b)
 		be64_add_cpu(&iv->a, 1);
@@ -111,6 +117,7 @@ static inline void inc(be128 *iv)
 
 static inline void lrw_round(struct sinfo *s, void *dst, const void *src)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 120 \n"); 
 	be128_xor(dst, &s->t, src);		/* PP <- T xor P */
 	s->fn(s->tfm, dst, dst);		/* CC <- E(Key2,PP) */
 	be128_xor(dst, dst, &s->t);		/* C <- T xor CC */
@@ -120,6 +127,7 @@ static inline void lrw_round(struct sinfo *s, void *dst, const void *src)
  * from the right, get_index128(00 00 00 00 00 00 ... 00 00 10 FB) = 2 */
 static inline int get_index128(be128 *block)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 130 \n"); 
 	int x;
 	__be32 *p = (__be32 *) block;
 
@@ -139,6 +147,7 @@ static int crypt(struct blkcipher_desc *d,
 		 struct blkcipher_walk *w, struct priv *ctx,
 		 void (*fn)(struct crypto_tfm *, u8 *, const u8 *))
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 150 \n"); 
 	int err;
 	unsigned int avail;
 	const int bs = LRW_BLOCK_SIZE;
@@ -195,6 +204,7 @@ first:
 static int encrypt(struct blkcipher_desc *desc, struct scatterlist *dst,
 		   struct scatterlist *src, unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 207 \n"); 
 	struct priv *ctx = crypto_blkcipher_ctx(desc->tfm);
 	struct blkcipher_walk w;
 
@@ -206,6 +216,7 @@ static int encrypt(struct blkcipher_desc *desc, struct scatterlist *dst,
 static int decrypt(struct blkcipher_desc *desc, struct scatterlist *dst,
 		   struct scatterlist *src, unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 219 \n"); 
 	struct priv *ctx = crypto_blkcipher_ctx(desc->tfm);
 	struct blkcipher_walk w;
 
@@ -218,6 +229,7 @@ int lrw_crypt(struct blkcipher_desc *desc, struct scatterlist *sdst,
 	      struct scatterlist *ssrc, unsigned int nbytes,
 	      struct lrw_crypt_req *req)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 232 \n"); 
 	const unsigned int bsize = LRW_BLOCK_SIZE;
 	const unsigned int max_blks = req->tbuflen / bsize;
 	struct lrw_table_ctx *ctx = req->table_ctx;
@@ -295,6 +307,7 @@ EXPORT_SYMBOL_GPL(lrw_crypt);
 
 static int init_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 310 \n"); 
 	struct crypto_cipher *cipher;
 	struct crypto_instance *inst = (void *)tfm->__crt_alg;
 	struct crypto_spawn *spawn = crypto_instance_ctx(inst);
@@ -317,6 +330,7 @@ static int init_tfm(struct crypto_tfm *tfm)
 
 static void exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 333 \n"); 
 	struct priv *ctx = crypto_tfm_ctx(tfm);
 
 	lrw_free_table(&ctx->table);
@@ -325,6 +339,7 @@ static void exit_tfm(struct crypto_tfm *tfm)
 
 static struct crypto_instance *alloc(struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 342 \n"); 
 	struct crypto_instance *inst;
 	struct crypto_alg *alg;
 	int err;
@@ -374,6 +389,7 @@ out_put_alg:
 
 static void free(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/lrw.c: line 392 \n"); 
 	crypto_drop_spawn(crypto_instance_ctx(inst));
 	kfree(inst);
 }

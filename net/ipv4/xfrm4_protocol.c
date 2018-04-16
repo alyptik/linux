@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* xfrm4_protocol.c - Generic xfrm protocol multiplexer.
  *
  * Copyright (C) 2013 secunet Security Networks AG
@@ -48,6 +49,7 @@ static inline struct xfrm4_protocol __rcu **proto_handlers(u8 protocol)
 
 int xfrm4_rcv_cb(struct sk_buff *skb, u8 protocol, int err)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_protocol.c: line 52 \n"); 
 	int ret;
 	struct xfrm4_protocol *handler;
 	struct xfrm4_protocol __rcu **head = proto_handlers(protocol);
@@ -66,6 +68,7 @@ EXPORT_SYMBOL(xfrm4_rcv_cb);
 int xfrm4_rcv_encap(struct sk_buff *skb, int nexthdr, __be32 spi,
 		    int encap_type)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_protocol.c: line 71 \n"); 
 	int ret;
 	struct xfrm4_protocol *handler;
 	struct xfrm4_protocol __rcu **head = proto_handlers(nexthdr);
@@ -91,6 +94,7 @@ EXPORT_SYMBOL(xfrm4_rcv_encap);
 
 static int xfrm4_esp_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_protocol.c: line 97 \n"); 
 	int ret;
 	struct xfrm4_protocol *handler;
 
@@ -108,6 +112,7 @@ static int xfrm4_esp_rcv(struct sk_buff *skb)
 
 static void xfrm4_esp_err(struct sk_buff *skb, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_protocol.c: line 115 \n"); 
 	struct xfrm4_protocol *handler;
 
 	for_each_protocol_rcu(esp4_handlers, handler)
@@ -117,6 +122,7 @@ static void xfrm4_esp_err(struct sk_buff *skb, u32 info)
 
 static int xfrm4_ah_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_protocol.c: line 125 \n"); 
 	int ret;
 	struct xfrm4_protocol *handler;
 
@@ -134,6 +140,7 @@ static int xfrm4_ah_rcv(struct sk_buff *skb)
 
 static void xfrm4_ah_err(struct sk_buff *skb, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_protocol.c: line 143 \n"); 
 	struct xfrm4_protocol *handler;
 
 	for_each_protocol_rcu(ah4_handlers, handler)
@@ -143,6 +150,7 @@ static void xfrm4_ah_err(struct sk_buff *skb, u32 info)
 
 static int xfrm4_ipcomp_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_protocol.c: line 153 \n"); 
 	int ret;
 	struct xfrm4_protocol *handler;
 
@@ -160,6 +168,7 @@ static int xfrm4_ipcomp_rcv(struct sk_buff *skb)
 
 static void xfrm4_ipcomp_err(struct sk_buff *skb, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_protocol.c: line 171 \n"); 
 	struct xfrm4_protocol *handler;
 
 	for_each_protocol_rcu(ipcomp4_handlers, handler)
@@ -196,6 +205,7 @@ static struct xfrm_input_afinfo xfrm4_input_afinfo = {
 
 static inline const struct net_protocol *netproto(unsigned char protocol)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_protocol.c: line 208 \n"); 
 	switch (protocol) {
 	case IPPROTO_ESP:
 		return &esp4_protocol;
@@ -211,6 +221,7 @@ static inline const struct net_protocol *netproto(unsigned char protocol)
 int xfrm4_protocol_register(struct xfrm4_protocol *handler,
 			    unsigned char protocol)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_protocol.c: line 224 \n"); 
 	struct xfrm4_protocol __rcu **pprev;
 	struct xfrm4_protocol *t;
 	bool add_netproto = false;
@@ -258,6 +269,7 @@ EXPORT_SYMBOL(xfrm4_protocol_register);
 int xfrm4_protocol_deregister(struct xfrm4_protocol *handler,
 			      unsigned char protocol)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_protocol.c: line 272 \n"); 
 	struct xfrm4_protocol __rcu **pprev;
 	struct xfrm4_protocol *t;
 	int ret = -ENOENT;

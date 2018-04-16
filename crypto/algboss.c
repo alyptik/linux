@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Create default crypto algorithm instances.
  *

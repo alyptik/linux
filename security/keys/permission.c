@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Key permission checking
  *
  * Copyright (C) 2005 Red Hat, Inc. All Rights Reserved.

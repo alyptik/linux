@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Event cache for netfilter. */
 
 /*
@@ -39,6 +40,7 @@ enum retry_state {
 
 static enum retry_state ecache_work_evict_list(struct ct_pcpu *pcpu)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ecache.c: line 43 \n"); 
 	struct nf_conn *refs[16];
 	struct nf_conntrack_tuple_hash *h;
 	struct hlist_nulls_node *n;
@@ -83,6 +85,7 @@ static enum retry_state ecache_work_evict_list(struct ct_pcpu *pcpu)
 
 static void ecache_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ecache.c: line 88 \n"); 
 	struct netns_ct *ctnet =
 		container_of(work, struct netns_ct, ecache_dwork.work);
 	int cpu, delay = -1;
@@ -232,6 +235,7 @@ void nf_ct_expect_event_report(enum ip_conntrack_expect_events event,
 			       u32 portid, int report)
 
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ecache.c: line 238 \n"); 
 	struct net *net = nf_ct_exp_net(exp);
 	struct nf_exp_event_notifier *notify;
 	struct nf_conntrack_ecache *e;
@@ -394,11 +398,13 @@ static void nf_conntrack_event_fini_sysctl(struct net *net)
 #else
 static int nf_conntrack_event_init_sysctl(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ecache.c: line 401 \n"); 
 	return 0;
 }
 
 static void nf_conntrack_event_fini_sysctl(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ecache.c: line 407 \n"); 
 }
 #endif /* CONFIG_SYSCTL */
 
@@ -425,5 +431,6 @@ int nf_conntrack_ecache_init(void)
 
 void nf_conntrack_ecache_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ecache.c: line 434 \n"); 
 	nf_ct_extend_unregister(&event_extend);
 }

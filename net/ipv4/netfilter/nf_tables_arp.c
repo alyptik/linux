@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2010 Patrick McHardy <kaber@trash.net>
  * Copyright (c) 2013 Pablo Neira Ayuso <pablo@netfilter.org>
@@ -19,6 +20,7 @@ nft_do_chain_arp(void *priv,
 		  struct sk_buff *skb,
 		  const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_tables_arp.c: line 23 \n"); 
 	struct nft_pktinfo pkt;
 
 	nft_set_pktinfo_unspec(&pkt, skb, state);

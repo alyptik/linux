@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * nf_nat_pptp.c
  *
@@ -42,6 +43,7 @@ MODULE_ALIAS("ip_nat_pptp");
 static void pptp_nat_expected(struct nf_conn *ct,
 			      struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_pptp.c: line 46 \n"); 
 	struct net *net = nf_ct_net(ct);
 	const struct nf_conn *master = ct->master;
 	struct nf_conntrack_expect *other_exp;
@@ -119,6 +121,7 @@ pptp_outbound_pkt(struct sk_buff *skb,
 		  union pptp_ctrl_union *pptpReq)
 
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_pptp.c: line 124 \n"); 
 	struct nf_ct_pptp_master *ct_pptp_info;
 	struct nf_nat_pptp *nat_pptp_info;
 	u_int16_t msg;
@@ -190,6 +193,7 @@ static void
 pptp_exp_gre(struct nf_conntrack_expect *expect_orig,
 	     struct nf_conntrack_expect *expect_reply)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_pptp.c: line 196 \n"); 
 	const struct nf_conn *ct = expect_orig->master;
 	struct nf_ct_pptp_master *ct_pptp_info;
 	struct nf_nat_pptp *nat_pptp_info;
@@ -222,6 +226,7 @@ pptp_inbound_pkt(struct sk_buff *skb,
 		 struct PptpControlHeader *ctlh,
 		 union pptp_ctrl_union *pptpReq)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_pptp.c: line 229 \n"); 
 	const struct nf_nat_pptp *nat_pptp_info;
 	u_int16_t msg;
 	__be16 new_pcid;

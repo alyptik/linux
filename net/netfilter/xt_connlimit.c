@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * netfilter module to limit the number of parallel tcp
  * connections per IP address.
@@ -68,6 +69,7 @@ static struct kmem_cache *connlimit_conn_cachep __read_mostly;
 
 static inline unsigned int connlimit_iphash(__be32 addr)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 72 \n"); 
 	return jhash_1word((__force __u32)addr,
 			    connlimit_rnd) % CONNLIMIT_SLOTS;
 }
@@ -76,6 +78,7 @@ static inline unsigned int
 connlimit_iphash6(const union nf_inet_addr *addr,
                   const union nf_inet_addr *mask)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 81 \n"); 
 	union nf_inet_addr res;
 	unsigned int i;
 
@@ -88,6 +91,7 @@ connlimit_iphash6(const union nf_inet_addr *addr,
 
 static inline bool already_closed(const struct nf_conn *conn)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 94 \n"); 
 	if (nf_ct_protonum(conn) == IPPROTO_TCP)
 		return conn->proto.tcp.state == TCP_CONNTRACK_TIME_WAIT ||
 		       conn->proto.tcp.state == TCP_CONNTRACK_CLOSE;
@@ -100,6 +104,7 @@ same_source_net(const union nf_inet_addr *addr,
 		const union nf_inet_addr *mask,
 		const union nf_inet_addr *u3, u_int8_t family)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 107 \n"); 
 	if (family == NFPROTO_IPV4) {
 		return ntohl(addr->ip & mask->ip) -
 		       ntohl(u3->ip & mask->ip);
@@ -120,6 +125,7 @@ static bool add_hlist(struct hlist_head *head,
 		      const struct nf_conntrack_tuple *tuple,
 		      const union nf_inet_addr *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 128 \n"); 
 	struct xt_connlimit_conn *conn;
 
 	conn = kmem_cache_alloc(connlimit_conn_cachep, GFP_ATOMIC);
@@ -137,6 +143,7 @@ static unsigned int check_hlist(struct net *net,
 				const struct nf_conntrack_zone *zone,
 				bool *addit)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 146 \n"); 
 	const struct nf_conntrack_tuple_hash *found;
 	struct xt_connlimit_conn *conn;
 	struct hlist_node *n;
@@ -188,6 +195,7 @@ static void tree_nodes_free(struct rb_root *root,
 			    struct xt_connlimit_rb *gc_nodes[],
 			    unsigned int gc_count)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 198 \n"); 
 	struct xt_connlimit_rb *rbconn;
 
 	while (gc_count) {
@@ -203,6 +211,7 @@ count_tree(struct net *net, struct rb_root *root,
 	   const union nf_inet_addr *addr, const union nf_inet_addr *mask,
 	   u8 family, const struct nf_conntrack_zone *zone)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 214 \n"); 
 	struct xt_connlimit_rb *gc_nodes[CONNLIMIT_GC_MAX_NODES];
 	struct rb_node **rbnode, *parent;
 	struct xt_connlimit_rb *rbconn;
@@ -293,6 +302,7 @@ static int count_them(struct net *net,
 		      u_int8_t family,
 		      const struct nf_conntrack_zone *zone)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 305 \n"); 
 	struct rb_root *root;
 	int count;
 	u32 hash;
@@ -317,6 +327,7 @@ static int count_them(struct net *net,
 static bool
 connlimit_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 330 \n"); 
 	struct net *net = par->net;
 	const struct xt_connlimit_info *info = par->matchinfo;
 	union nf_inet_addr addr;
@@ -362,6 +373,7 @@ connlimit_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int connlimit_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 376 \n"); 
 	struct xt_connlimit_info *info = par->matchinfo;
 	unsigned int i;
 	int ret;
@@ -392,6 +404,7 @@ static int connlimit_mt_check(const struct xt_mtchk_param *par)
 
 static void destroy_tree(struct rb_root *r)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 407 \n"); 
 	struct xt_connlimit_conn *conn;
 	struct xt_connlimit_rb *rbconn;
 	struct hlist_node *n;
@@ -411,6 +424,7 @@ static void destroy_tree(struct rb_root *r)
 
 static void connlimit_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_connlimit.c: line 427 \n"); 
 	const struct xt_connlimit_info *info = par->matchinfo;
 	unsigned int i;
 

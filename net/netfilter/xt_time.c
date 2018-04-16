@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	xt_time
  *	Copyright © CC Computer Consultants GmbH, 2007
@@ -63,6 +64,7 @@ static const u_int16_t days_since_epoch[] = {
 
 static inline bool is_leap(unsigned int y)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_time.c: line 67 \n"); 
 	return y % 4 == 0 && (y % 100 != 0 || y % 400 == 0);
 }
 
@@ -76,6 +78,7 @@ static inline bool is_leap(unsigned int y)
  */
 static inline unsigned int localtime_1(struct xtm *r, time_t time)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_time.c: line 81 \n"); 
 	unsigned int v, w;
 
 	/* Each day has 86400s, so finding the hour/minute is actually easy. */
@@ -89,6 +92,7 @@ static inline unsigned int localtime_1(struct xtm *r, time_t time)
 
 static inline void localtime_2(struct xtm *r, time_t time)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_time.c: line 95 \n"); 
 	/*
 	 * Here comes the rest (weekday, monthday). First, divide the SSTE
 	 * by seconds-per-day to get the number of _days_ since the epoch.
@@ -104,6 +108,7 @@ static inline void localtime_2(struct xtm *r, time_t time)
 
 static void localtime_3(struct xtm *r, time_t time)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_time.c: line 111 \n"); 
 	unsigned int year, i, w = r->dse;
 
 	/*
@@ -154,6 +159,7 @@ static void localtime_3(struct xtm *r, time_t time)
 static bool
 time_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_time.c: line 162 \n"); 
 	const struct xt_time_info *info = par->matchinfo;
 	unsigned int packet_time;
 	struct xtm current_time;
@@ -231,6 +237,7 @@ time_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int time_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_time.c: line 240 \n"); 
 	const struct xt_time_info *info = par->matchinfo;
 
 	if (info->daytime_start > XT_TIME_MAX_DAYTIME ||

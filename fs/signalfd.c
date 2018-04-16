@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  fs/signalfd.c
  *
@@ -53,12 +54,14 @@ struct signalfd_ctx {
 
 static int signalfd_release(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/signalfd.c: line 57 \n"); 
 	kfree(file->private_data);
 	return 0;
 }
 
 static unsigned int signalfd_poll(struct file *file, poll_table *wait)
 {
+	panic("We reached unpopular paths in fs/signalfd.c: line 64 \n"); 
 	struct signalfd_ctx *ctx = file->private_data;
 	unsigned int events = 0;
 
@@ -159,6 +162,7 @@ static int signalfd_copyinfo(struct signalfd_siginfo __user *uinfo,
 static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, siginfo_t *info,
 				int nonblock)
 {
+	panic("We reached unpopular paths in fs/signalfd.c: line 165 \n"); 
 	ssize_t ret;
 	DECLARE_WAITQUEUE(wait, current);
 

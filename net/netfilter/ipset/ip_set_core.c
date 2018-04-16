@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Copyright (C) 2000-2002 Joakim Axelsson <gozem@linux.nu>
  *                         Patrick Schaaf <bof@bof.de>
  * Copyright (C) 2003-2013 Jozsef Kadlecsik <kadlec@blackhole.kfki.hu>
@@ -99,6 +100,7 @@ find_set_type(const char *name, u8 family, u8 revision)
 static bool
 load_settype(const char *name)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 103 \n"); 
 	nfnl_unlock(NFNL_SUBSYS_IPSET);
 	pr_debug("try to load ip_set_%s\n", name);
 	if (request_module("ip_set_%s", name) < 0) {
@@ -118,6 +120,7 @@ static int
 __find_set_type_get(const char *name, u8 family, u8 revision,
 		    struct ip_set_type **found, bool retry)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 123 \n"); 
 	struct ip_set_type *type;
 	int err;
 
@@ -159,6 +162,7 @@ static int
 __find_set_type_minmax(const char *name, u8 family, u8 *min, u8 *max,
 		       bool retry)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 165 \n"); 
 	struct ip_set_type *type;
 	bool found = false;
 
@@ -227,6 +231,7 @@ EXPORT_SYMBOL_GPL(ip_set_type_register);
 void
 ip_set_type_unregister(struct ip_set_type *type)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 234 \n"); 
 	ip_set_type_lock();
 	if (!find_set_type(type->name, type->family, type->revision_min)) {
 		pr_warn("ip_set type %s, family %s with revision min %u not registered\n",
@@ -248,6 +253,7 @@ EXPORT_SYMBOL_GPL(ip_set_type_unregister);
 void *
 ip_set_alloc(size_t size)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 256 \n"); 
 	void *members = NULL;
 
 	if (size < KMALLOC_MAX_SIZE)
@@ -270,6 +276,7 @@ EXPORT_SYMBOL_GPL(ip_set_alloc);
 void
 ip_set_free(void *members)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 279 \n"); 
 	pr_debug("%p: free with %s\n", members,
 		 is_vmalloc_addr(members) ? "vfree" : "kfree");
 	kvfree(members);
@@ -279,6 +286,7 @@ EXPORT_SYMBOL_GPL(ip_set_free);
 static inline bool
 flag_nested(const struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 289 \n"); 
 	return nla->nla_type & NLA_F_NESTED;
 }
 
@@ -291,6 +299,7 @@ static const struct nla_policy ipaddr_policy[IPSET_ATTR_IPADDR_MAX + 1] = {
 int
 ip_set_get_ipaddr4(struct nlattr *nla,  __be32 *ipaddr)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 302 \n"); 
 	struct nlattr *tb[IPSET_ATTR_IPADDR_MAX + 1];
 
 	if (unlikely(!flag_nested(nla)))
@@ -308,6 +317,7 @@ EXPORT_SYMBOL_GPL(ip_set_get_ipaddr4);
 int
 ip_set_get_ipaddr6(struct nlattr *nla, union nf_inet_addr *ipaddr)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 320 \n"); 
 	struct nlattr *tb[IPSET_ATTR_IPADDR_MAX + 1];
 
 	if (unlikely(!flag_nested(nla)))
@@ -358,6 +368,7 @@ EXPORT_SYMBOL_GPL(ip_set_extensions);
 static inline bool
 add_extension(enum ip_set_ext_id id, u32 flags, struct nlattr *tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 371 \n"); 
 	return ip_set_extensions[id].flag ?
 		(flags & ip_set_extensions[id].flag) :
 		!!tb[IPSET_ATTR_TIMEOUT];
@@ -367,6 +378,7 @@ size_t
 ip_set_elem_len(struct ip_set *set, struct nlattr *tb[], size_t len,
 		size_t align)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 381 \n"); 
 	enum ip_set_ext_id id;
 	u32 cadt_flags = 0;
 
@@ -392,6 +404,7 @@ int
 ip_set_get_extensions(struct ip_set *set, struct nlattr *tb[],
 		      struct ip_set_ext *ext)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 407 \n"); 
 	u64 fullmark;
 
 	if (unlikely(!ip_set_optattr_netorder(tb, IPSET_ATTR_TIMEOUT) ||
@@ -449,6 +462,7 @@ int
 ip_set_put_extensions(struct sk_buff *skb, const struct ip_set *set,
 		      const void *e, bool active)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 465 \n"); 
 	if (SET_WITH_TIMEOUT(set)) {
 		unsigned long *timeout = ext_timeout(e, set);
 
@@ -483,6 +497,7 @@ EXPORT_SYMBOL_GPL(ip_set_put_extensions);
 static inline void
 __ip_set_get(struct ip_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 500 \n"); 
 	write_lock_bh(&ip_set_ref_lock);
 	set->ref++;
 	write_unlock_bh(&ip_set_ref_lock);
@@ -491,6 +506,7 @@ __ip_set_get(struct ip_set *set)
 static inline void
 __ip_set_put(struct ip_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 509 \n"); 
 	write_lock_bh(&ip_set_ref_lock);
 	BUG_ON(set->ref == 0);
 	set->ref--;
@@ -503,6 +519,7 @@ __ip_set_put(struct ip_set *set)
 static inline void
 __ip_set_get_netlink(struct ip_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 522 \n"); 
 	write_lock_bh(&ip_set_ref_lock);
 	set->ref_netlink++;
 	write_unlock_bh(&ip_set_ref_lock);
@@ -511,6 +528,7 @@ __ip_set_get_netlink(struct ip_set *set)
 static inline void
 __ip_set_put_netlink(struct ip_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 531 \n"); 
 	write_lock_bh(&ip_set_ref_lock);
 	BUG_ON(set->ref_netlink == 0);
 	set->ref_netlink--;
@@ -526,6 +544,7 @@ __ip_set_put_netlink(struct ip_set *set)
 static inline struct ip_set *
 ip_set_rcu_get(struct net *net, ip_set_id_t index)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 547 \n"); 
 	struct ip_set *set;
 	struct ip_set_net *inst = ip_set_pernet(net);
 
@@ -541,6 +560,7 @@ int
 ip_set_test(ip_set_id_t index, const struct sk_buff *skb,
 	    const struct xt_action_param *par, struct ip_set_adt_opt *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 563 \n"); 
 	struct ip_set *set = ip_set_rcu_get(par->net, index);
 	int ret = 0;
 
@@ -579,6 +599,7 @@ int
 ip_set_add(ip_set_id_t index, const struct sk_buff *skb,
 	   const struct xt_action_param *par, struct ip_set_adt_opt *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 602 \n"); 
 	struct ip_set *set = ip_set_rcu_get(par->net, index);
 	int ret;
 
@@ -601,6 +622,7 @@ int
 ip_set_del(ip_set_id_t index, const struct sk_buff *skb,
 	   const struct xt_action_param *par, struct ip_set_adt_opt *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 625 \n"); 
 	struct ip_set *set = ip_set_rcu_get(par->net, index);
 	int ret = 0;
 
@@ -626,6 +648,7 @@ EXPORT_SYMBOL_GPL(ip_set_del);
 ip_set_id_t
 ip_set_get_byname(struct net *net, const char *name, struct ip_set **set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 651 \n"); 
 	ip_set_id_t i, index = IPSET_INVALID_ID;
 	struct ip_set *s;
 	struct ip_set_net *inst = ip_set_pernet(net);
@@ -655,6 +678,7 @@ EXPORT_SYMBOL_GPL(ip_set_get_byname);
 static inline void
 __ip_set_put_byindex(struct ip_set_net *inst, ip_set_id_t index)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 681 \n"); 
 	struct ip_set *set;
 
 	rcu_read_lock();
@@ -667,6 +691,7 @@ __ip_set_put_byindex(struct ip_set_net *inst, ip_set_id_t index)
 void
 ip_set_put_byindex(struct net *net, ip_set_id_t index)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 694 \n"); 
 	struct ip_set_net *inst = ip_set_pernet(net);
 
 	__ip_set_put_byindex(inst, index);
@@ -682,6 +707,7 @@ EXPORT_SYMBOL_GPL(ip_set_put_byindex);
 const char *
 ip_set_name_byindex(struct net *net, ip_set_id_t index)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 710 \n"); 
 	const struct ip_set *set = ip_set_rcu_get(net, index);
 
 	BUG_ON(!set);
@@ -704,6 +730,7 @@ EXPORT_SYMBOL_GPL(ip_set_name_byindex);
 ip_set_id_t
 ip_set_nfnl_get_byindex(struct net *net, ip_set_id_t index)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 733 \n"); 
 	struct ip_set *set;
 	struct ip_set_net *inst = ip_set_pernet(net);
 
@@ -731,6 +758,7 @@ EXPORT_SYMBOL_GPL(ip_set_nfnl_get_byindex);
 void
 ip_set_nfnl_put(struct net *net, ip_set_id_t index)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 761 \n"); 
 	struct ip_set *set;
 	struct ip_set_net *inst = ip_set_pernet(net);
 
@@ -752,6 +780,7 @@ EXPORT_SYMBOL_GPL(ip_set_nfnl_put);
 static inline bool
 protocol_failed(const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 783 \n"); 
 	return !tb[IPSET_ATTR_PROTOCOL] ||
 	       nla_get_u8(tb[IPSET_ATTR_PROTOCOL]) != IPSET_PROTOCOL;
 }
@@ -759,6 +788,7 @@ protocol_failed(const struct nlattr * const tb[])
 static inline u32
 flag_exist(const struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 791 \n"); 
 	return nlh->nlmsg_flags & NLM_F_EXCL ? 0 : IPSET_FLAG_EXIST;
 }
 
@@ -766,6 +796,7 @@ static struct nlmsghdr *
 start_msg(struct sk_buff *skb, u32 portid, u32 seq, unsigned int flags,
 	  enum ipset_cmd cmd)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 799 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 
@@ -798,6 +829,7 @@ static const struct nla_policy ip_set_create_policy[IPSET_ATTR_CMD_MAX + 1] = {
 static struct ip_set *
 find_set_and_id(struct ip_set_net *inst, const char *name, ip_set_id_t *id)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 832 \n"); 
 	struct ip_set *set = NULL;
 	ip_set_id_t i;
 
@@ -815,6 +847,7 @@ find_set_and_id(struct ip_set_net *inst, const char *name, ip_set_id_t *id)
 static inline struct ip_set *
 find_set(struct ip_set_net *inst, const char *name)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 850 \n"); 
 	ip_set_id_t id;
 
 	return find_set_and_id(inst, name, &id);
@@ -824,6 +857,7 @@ static int
 find_free_id(struct ip_set_net *inst, const char *name, ip_set_id_t *index,
 	     struct ip_set **set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 860 \n"); 
 	struct ip_set *s;
 	ip_set_id_t i;
 
@@ -849,6 +883,7 @@ static int ip_set_none(struct net *net, struct sock *ctnl, struct sk_buff *skb,
 		       const struct nlmsghdr *nlh,
 		       const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 886 \n"); 
 	return -EOPNOTSUPP;
 }
 
@@ -856,6 +891,7 @@ static int ip_set_create(struct net *net, struct sock *ctnl,
 			 struct sk_buff *skb, const struct nlmsghdr *nlh,
 			 const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 894 \n"); 
 	struct ip_set_net *inst = ip_set_pernet(net);
 	struct ip_set *set, *clash = NULL;
 	ip_set_id_t index = IPSET_INVALID_ID;
@@ -985,6 +1021,7 @@ ip_set_setname_policy[IPSET_ATTR_CMD_MAX + 1] = {
 static void
 ip_set_destroy_set(struct ip_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1024 \n"); 
 	pr_debug("set: %s\n",  set->name);
 
 	/* Must call it without holding any lock */
@@ -997,6 +1034,7 @@ static int ip_set_destroy(struct net *net, struct sock *ctnl,
 			  struct sk_buff *skb, const struct nlmsghdr *nlh,
 			  const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1037 \n"); 
 	struct ip_set_net *inst = ip_set_pernet(net);
 	struct ip_set *s;
 	ip_set_id_t i;
@@ -1064,6 +1102,7 @@ out:
 static void
 ip_set_flush_set(struct ip_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1105 \n"); 
 	pr_debug("set: %s\n",  set->name);
 
 	spin_lock_bh(&set->lock);
@@ -1075,6 +1114,7 @@ static int ip_set_flush(struct net *net, struct sock *ctnl, struct sk_buff *skb,
 			const struct nlmsghdr *nlh,
 			const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1117 \n"); 
 	struct ip_set_net *inst = ip_set_pernet(net);
 	struct ip_set *s;
 	ip_set_id_t i;
@@ -1114,6 +1154,7 @@ static int ip_set_rename(struct net *net, struct sock *ctnl,
 			 struct sk_buff *skb, const struct nlmsghdr *nlh,
 			 const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1157 \n"); 
 	struct ip_set_net *inst = ip_set_pernet(net);
 	struct ip_set *set, *s;
 	const char *name2;
@@ -1163,6 +1204,7 @@ static int ip_set_swap(struct net *net, struct sock *ctnl, struct sk_buff *skb,
 		       const struct nlmsghdr *nlh,
 		       const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1207 \n"); 
 	struct ip_set_net *inst = ip_set_pernet(net);
 	struct ip_set *from, *to;
 	ip_set_id_t from_id, to_id;
@@ -1220,6 +1262,7 @@ static int ip_set_swap(struct net *net, struct sock *ctnl, struct sk_buff *skb,
 static int
 ip_set_dump_done(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1265 \n"); 
 	if (cb->args[IPSET_CB_ARG0]) {
 		struct ip_set_net *inst =
 			(struct ip_set_net *)cb->args[IPSET_CB_NET];
@@ -1237,6 +1280,7 @@ ip_set_dump_done(struct netlink_callback *cb)
 static inline void
 dump_attrs(struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1283 \n"); 
 	const struct nlattr *attr;
 	int rem;
 
@@ -1249,6 +1293,7 @@ dump_attrs(struct nlmsghdr *nlh)
 static int
 dump_init(struct netlink_callback *cb, struct ip_set_net *inst)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1296 \n"); 
 	struct nlmsghdr *nlh = nlmsg_hdr(cb->skb);
 	int min_len = nlmsg_total_size(sizeof(struct nfgenmsg));
 	struct nlattr *cda[IPSET_ATTR_CMD_MAX + 1];
@@ -1288,6 +1333,7 @@ dump_init(struct netlink_callback *cb, struct ip_set_net *inst)
 static int
 ip_set_dump_start(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1336 \n"); 
 	ip_set_id_t index = IPSET_INVALID_ID, max;
 	struct ip_set *set = NULL;
 	struct nlmsghdr *nlh = NULL;
@@ -1436,6 +1482,7 @@ static int ip_set_dump(struct net *net, struct sock *ctnl, struct sk_buff *skb,
 		       const struct nlmsghdr *nlh,
 		       const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1485 \n"); 
 	if (unlikely(protocol_failed(attr)))
 		return -IPSET_ERR_PROTOCOL;
 
@@ -1464,6 +1511,7 @@ call_ad(struct sock *ctnl, struct sk_buff *skb, struct ip_set *set,
 	struct nlattr *tb[], enum ipset_adt adt,
 	u32 flags, bool use_lineno)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1514 \n"); 
 	int ret;
 	u32 lineno = 0;
 	bool eexist = flags & IPSET_FLAG_EXIST, retried = false;
@@ -1522,6 +1570,7 @@ static int ip_set_uadd(struct net *net, struct sock *ctnl, struct sk_buff *skb,
 		       const struct nlmsghdr *nlh,
 		       const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1573 \n"); 
 	struct ip_set_net *inst = ip_set_pernet(net);
 	struct ip_set *set;
 	struct nlattr *tb[IPSET_ATTR_ADT_MAX + 1] = {};
@@ -1576,6 +1625,7 @@ static int ip_set_udel(struct net *net, struct sock *ctnl, struct sk_buff *skb,
 		       const struct nlmsghdr *nlh,
 		       const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1628 \n"); 
 	struct ip_set_net *inst = ip_set_pernet(net);
 	struct ip_set *set;
 	struct nlattr *tb[IPSET_ATTR_ADT_MAX + 1] = {};
@@ -1630,6 +1680,7 @@ static int ip_set_utest(struct net *net, struct sock *ctnl, struct sk_buff *skb,
 			const struct nlmsghdr *nlh,
 			const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1683 \n"); 
 	struct ip_set_net *inst = ip_set_pernet(net);
 	struct ip_set *set;
 	struct nlattr *tb[IPSET_ATTR_ADT_MAX + 1] = {};
@@ -1665,6 +1716,7 @@ static int ip_set_header(struct net *net, struct sock *ctnl,
 			 struct sk_buff *skb, const struct nlmsghdr *nlh,
 			 const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1719 \n"); 
 	struct ip_set_net *inst = ip_set_pernet(net);
 	const struct ip_set *set;
 	struct sk_buff *skb2;
@@ -1721,6 +1773,7 @@ static int ip_set_type(struct net *net, struct sock *ctnl, struct sk_buff *skb,
 		       const struct nlmsghdr *nlh,
 		       const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1776 \n"); 
 	struct sk_buff *skb2;
 	struct nlmsghdr *nlh2;
 	u8 family, min, max;
@@ -1779,6 +1832,7 @@ static int ip_set_protocol(struct net *net, struct sock *ctnl,
 			   struct sk_buff *skb, const struct nlmsghdr *nlh,
 			   const struct nlattr * const attr[])
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_core.c: line 1835 \n"); 
 	struct sk_buff *skb2;
 	struct nlmsghdr *nlh2;
 	int ret = 0;

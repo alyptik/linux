@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/read_write.c
  *
@@ -37,6 +38,7 @@ EXPORT_SYMBOL(generic_ro_fops);
 
 static inline int unsigned_offsets(struct file *file)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 41 \n"); 
 	return file->f_mode & FMODE_UNSIGNED_OFFSET;
 }
 
@@ -144,6 +146,7 @@ EXPORT_SYMBOL(generic_file_llseek_size);
  */
 loff_t generic_file_llseek(struct file *file, loff_t offset, int whence)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 149 \n"); 
 	struct inode *inode = file->f_mapping->host;
 
 	return generic_file_llseek_size(file, offset, whence,
@@ -162,6 +165,7 @@ EXPORT_SYMBOL(generic_file_llseek);
  */
 loff_t fixed_size_llseek(struct file *file, loff_t offset, int whence, loff_t size)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 168 \n"); 
 	switch (whence) {
 	case SEEK_SET: case SEEK_CUR: case SEEK_END:
 		return generic_file_llseek_size(file, offset, whence,
@@ -181,6 +185,7 @@ EXPORT_SYMBOL(fixed_size_llseek);
  */
 loff_t no_seek_end_llseek(struct file *file, loff_t offset, int whence)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 188 \n"); 
 	switch (whence) {
 	case SEEK_SET: case SEEK_CUR:
 		return generic_file_llseek_size(file, offset, whence,
@@ -201,6 +206,7 @@ EXPORT_SYMBOL(no_seek_end_llseek);
  */
 loff_t no_seek_end_llseek_size(struct file *file, loff_t offset, int whence, loff_t size)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 209 \n"); 
 	switch (whence) {
 	case SEEK_SET: case SEEK_CUR:
 		return generic_file_llseek_size(file, offset, whence,
@@ -224,6 +230,7 @@ EXPORT_SYMBOL(no_seek_end_llseek_size);
  */
 loff_t noop_llseek(struct file *file, loff_t offset, int whence)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 233 \n"); 
 	return file->f_pos;
 }
 EXPORT_SYMBOL(noop_llseek);
@@ -360,6 +367,7 @@ out_putf:
 
 ssize_t vfs_iter_read(struct file *file, struct iov_iter *iter, loff_t *ppos)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 370 \n"); 
 	struct kiocb kiocb;
 	ssize_t ret;
 
@@ -573,11 +581,13 @@ EXPORT_SYMBOL(vfs_write);
 
 static inline loff_t file_pos_read(struct file *file)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/read_write.c: line 584 \n"); 
 	return file->f_pos;
 }
 
 static inline void file_pos_write(struct file *file, loff_t pos)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/read_write.c: line 590 \n"); 
 	file->f_pos = pos;
 }
 
@@ -658,6 +668,7 @@ SYSCALL_DEFINE4(pwrite64, unsigned int, fd, const char __user *, buf,
  */
 unsigned long iov_shorten(struct iovec *iov, unsigned long nr_segs, size_t to)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 671 \n"); 
 	unsigned long seg = 0;
 	size_t len = 0;
 
@@ -955,6 +966,7 @@ static ssize_t do_writev(unsigned long fd, const struct iovec __user *vec,
 
 static inline loff_t pos_from_hilo(unsigned long high, unsigned long low)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 969 \n"); 
 #define HALF_LONG_BITS (BITS_PER_LONG / 2)
 	return (((loff_t)high << HALF_LONG_BITS) << HALF_LONG_BITS) | low;
 }
@@ -1511,6 +1523,7 @@ ssize_t vfs_copy_file_range(struct file *file_in, loff_t pos_in,
 			    struct file *file_out, loff_t pos_out,
 			    size_t len, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 1526 \n"); 
 	struct inode *inode_in = file_inode(file_in);
 	struct inode *inode_out = file_inode(file_out);
 	ssize_t ret;
@@ -1634,6 +1647,7 @@ out2:
 
 static int clone_verify_area(struct file *file, loff_t pos, u64 len, bool write)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 1650 \n"); 
 	struct inode *inode = file_inode(file);
 
 	if (unlikely(pos < 0))
@@ -1658,6 +1672,7 @@ static int clone_verify_area(struct file *file, loff_t pos, u64 len, bool write)
 int vfs_clone_file_range(struct file *file_in, loff_t pos_in,
 		struct file *file_out, loff_t pos_out, u64 len)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 1675 \n"); 
 	struct inode *inode_in = file_inode(file_in);
 	struct inode *inode_out = file_inode(file_out);
 	int ret;
@@ -1708,6 +1723,7 @@ EXPORT_SYMBOL(vfs_clone_file_range);
 
 int vfs_dedupe_file_range(struct file *file, struct file_dedupe_range *same)
 {
+	panic("We reached unpopular paths in fs/read_write.c: line 1726 \n"); 
 	struct file_dedupe_range_info *info;
 	struct inode *src = file_inode(file);
 	u64 off;

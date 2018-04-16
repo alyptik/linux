@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * ip_vs_proto_tcp.c:	TCP load balancing support for IPVS
  *
@@ -37,6 +38,7 @@ tcp_conn_schedule(struct netns_ipvs *ipvs, int af, struct sk_buff *skb,
 		  int *verdict, struct ip_vs_conn **cpp,
 		  struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 41 \n"); 
 	struct ip_vs_service *svc;
 	struct tcphdr _tcph, *th;
 	__be16 _ports[2], *ports = NULL;
@@ -111,6 +113,7 @@ tcp_fast_csum_update(int af, struct tcphdr *tcph,
 		     const union nf_inet_addr *newip,
 		     __be16 oldport, __be16 newport)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 116 \n"); 
 #ifdef CONFIG_IP_VS_IPV6
 	if (af == AF_INET6)
 		tcph->check =
@@ -132,6 +135,7 @@ tcp_partial_csum_update(int af, struct tcphdr *tcph,
 		     const union nf_inet_addr *newip,
 		     __be16 oldlen, __be16 newlen)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 138 \n"); 
 #ifdef CONFIG_IP_VS_IPV6
 	if (af == AF_INET6)
 		tcph->check =
@@ -151,6 +155,7 @@ static int
 tcp_snat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
 		 struct ip_vs_conn *cp, struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 158 \n"); 
 	struct tcphdr *tcph;
 	unsigned int tcphoff = iph->len;
 	int oldlen;
@@ -229,6 +234,7 @@ static int
 tcp_dnat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
 		 struct ip_vs_conn *cp, struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 237 \n"); 
 	struct tcphdr *tcph;
 	unsigned int tcphoff = iph->len;
 	int oldlen;
@@ -307,6 +313,7 @@ tcp_dnat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
 static int
 tcp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 316 \n"); 
 	unsigned int tcphoff;
 
 #ifdef CONFIG_IP_VS_IPV6
@@ -427,6 +434,7 @@ struct tcp_states_t {
 
 static const char * tcp_state_name(int state)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 437 \n"); 
 	if (state >= IP_VS_TCP_S_LAST)
 		return "ERR!";
 	return tcp_state_name_table[state] ? tcp_state_name_table[state] : "?";
@@ -434,6 +442,7 @@ static const char * tcp_state_name(int state)
 
 static bool tcp_state_active(int state)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 445 \n"); 
 	if (state >= IP_VS_TCP_S_LAST)
 		return false;
 	return tcp_state_active_table[state];
@@ -487,6 +496,7 @@ static struct tcp_states_t tcp_states_dos [] = {
 
 static void tcp_timeout_change(struct ip_vs_proto_data *pd, int flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 499 \n"); 
 	int on = (flags & 1);		/* secure_tcp */
 
 	/*
@@ -500,6 +510,7 @@ static void tcp_timeout_change(struct ip_vs_proto_data *pd, int flags)
 
 static inline int tcp_state_idx(struct tcphdr *th)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 513 \n"); 
 	if (th->rst)
 		return 3;
 	if (th->syn)
@@ -515,6 +526,7 @@ static inline void
 set_tcp_state(struct ip_vs_proto_data *pd, struct ip_vs_conn *cp,
 	      int direction, struct tcphdr *th)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 529 \n"); 
 	int state_idx;
 	int new_state = IP_VS_TCP_S_CLOSE;
 	int state_off = tcp_state_off[direction];
@@ -588,6 +600,7 @@ tcp_state_transition(struct ip_vs_conn *cp, int direction,
 		     const struct sk_buff *skb,
 		     struct ip_vs_proto_data *pd)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 603 \n"); 
 	struct tcphdr _tcph, *th;
 
 #ifdef CONFIG_IP_VS_IPV6
@@ -607,6 +620,7 @@ tcp_state_transition(struct ip_vs_conn *cp, int direction,
 
 static inline __u16 tcp_app_hashkey(__be16 port)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 623 \n"); 
 	return (((__force u16)port >> TCP_APP_TAB_BITS) ^ (__force u16)port)
 		& TCP_APP_TAB_MASK;
 }
@@ -649,6 +663,7 @@ tcp_unregister_app(struct netns_ipvs *ipvs, struct ip_vs_app *inc)
 static int
 tcp_app_conn_bind(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 666 \n"); 
 	struct netns_ipvs *ipvs = cp->ipvs;
 	int hash;
 	struct ip_vs_app *inc;
@@ -695,6 +710,7 @@ tcp_app_conn_bind(struct ip_vs_conn *cp)
  */
 void ip_vs_tcp_conn_listen(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_tcp.c: line 713 \n"); 
 	struct ip_vs_proto_data *pd = ip_vs_proto_data_get(cp->ipvs, IPPROTO_TCP);
 
 	spin_lock_bh(&cp->lock);

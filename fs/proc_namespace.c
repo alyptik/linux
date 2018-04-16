@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/proc_namespace.c - handling of /proc/<pid>/{mounts,mountinfo,mountstats}
  *
@@ -189,6 +190,7 @@ out:
 
 static int show_vfsstat(struct seq_file *m, struct vfsmount *mnt)
 {
+	panic("We reached unpopular paths in fs/proc_namespace.c: line 193 \n"); 
 	struct proc_mounts *p = m->private;
 	struct mount *r = real_mount(mnt);
 	struct path mnt_path = { .dentry = mnt->mnt_root, .mnt = mnt };
@@ -309,6 +311,7 @@ static int mountinfo_open(struct inode *inode, struct file *file)
 
 static int mountstats_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc_namespace.c: line 314 \n"); 
 	return mounts_open_common(inode, file, show_vfsstat);
 }
 

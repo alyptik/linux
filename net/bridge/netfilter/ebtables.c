@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebtables
  *
@@ -88,6 +89,7 @@ static inline int
 ebt_do_watcher(const struct ebt_entry_watcher *w, struct sk_buff *skb,
 	       struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 92 \n"); 
 	par->target   = w->u.watcher;
 	par->targinfo = w->data;
 	w->u.watcher->target(skb, par);
@@ -99,6 +101,7 @@ static inline int
 ebt_do_match(struct ebt_entry_match *m, const struct sk_buff *skb,
 	     struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 104 \n"); 
 	par->match     = m->u.match;
 	par->matchinfo = m->data;
 	return m->u.match->match(skb, par) ? EBT_MATCH : EBT_NOMATCH;
@@ -107,6 +110,7 @@ ebt_do_match(struct ebt_entry_match *m, const struct sk_buff *skb,
 static inline int
 ebt_dev_check(const char *entry, const struct net_device *device)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 113 \n"); 
 	int i = 0;
 	const char *devname;
 
@@ -126,6 +130,7 @@ static inline int
 ebt_basic_match(const struct ebt_entry *e, const struct sk_buff *skb,
 		const struct net_device *in, const struct net_device *out)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 133 \n"); 
 	const struct ethhdr *h = eth_hdr(skb);
 	const struct net_bridge_port *p;
 	__be16 ethproto;
@@ -174,6 +179,7 @@ ebt_basic_match(const struct ebt_entry *e, const struct sk_buff *skb,
 static inline
 struct ebt_entry *ebt_next_entry(const struct ebt_entry *entry)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 182 \n"); 
 	return (void *)entry + entry->next_offset;
 }
 
@@ -321,6 +327,7 @@ static inline void *
 find_inlist_lock_noload(struct list_head *head, const char *name, int *error,
 			struct mutex *mutex)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 330 \n"); 
 	struct {
 		struct list_head list;
 		char name[EBT_FUNCTION_MAXNAMELEN];
@@ -340,6 +347,7 @@ static void *
 find_inlist_lock(struct list_head *head, const char *name, const char *prefix,
 		 int *error, struct mutex *mutex)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 350 \n"); 
 	return try_then_request_module(
 			find_inlist_lock_noload(head, name, error, mutex),
 			"%s%s", prefix, name);
@@ -349,6 +357,7 @@ static inline struct ebt_table *
 find_table_lock(struct net *net, const char *name, int *error,
 		struct mutex *mutex)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 360 \n"); 
 	return find_inlist_lock(&net->xt.tables[NFPROTO_BRIDGE], name,
 				"ebtable_", error, mutex);
 }
@@ -357,6 +366,7 @@ static inline int
 ebt_check_match(struct ebt_entry_match *m, struct xt_mtchk_param *par,
 		unsigned int *cnt)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 369 \n"); 
 	const struct ebt_entry *e = par->entryinfo;
 	struct xt_match *match;
 	size_t left = ((char *)e + e->watchers_offset) - (char *)m;
@@ -394,6 +404,7 @@ static inline int
 ebt_check_watcher(struct ebt_entry_watcher *w, struct xt_tgchk_param *par,
 		  unsigned int *cnt)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 407 \n"); 
 	const struct ebt_entry *e = par->entryinfo;
 	struct xt_target *watcher;
 	size_t left = ((char *)e + e->target_offset) - (char *)w;
@@ -424,6 +435,7 @@ ebt_check_watcher(struct ebt_entry_watcher *w, struct xt_tgchk_param *par,
 static int ebt_verify_pointers(const struct ebt_replace *repl,
 			       struct ebt_table_info *newinfo)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 438 \n"); 
 	unsigned int limit = repl->entries_size;
 	unsigned int valid_hooks = repl->valid_hooks;
 	unsigned int offset = 0;
@@ -566,6 +578,7 @@ static inline int
 ebt_get_udc_positions(struct ebt_entry *e, struct ebt_table_info *newinfo,
 		      unsigned int *n, struct ebt_cl_stack *udc)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 581 \n"); 
 	int i;
 
 	/* we're only interested in chain starts */
@@ -591,6 +604,7 @@ ebt_get_udc_positions(struct ebt_entry *e, struct ebt_table_info *newinfo,
 static inline int
 ebt_cleanup_match(struct ebt_entry_match *m, struct net *net, unsigned int *i)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 607 \n"); 
 	struct xt_mtdtor_param par;
 
 	if (i && (*i)-- == 0)
@@ -609,6 +623,7 @@ ebt_cleanup_match(struct ebt_entry_match *m, struct net *net, unsigned int *i)
 static inline int
 ebt_cleanup_watcher(struct ebt_entry_watcher *w, struct net *net, unsigned int *i)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 626 \n"); 
 	struct xt_tgdtor_param par;
 
 	if (i && (*i)-- == 0)
@@ -964,6 +979,7 @@ static int translate_table(struct net *net, const char *name,
 static void get_counters(const struct ebt_counter *oldcounters,
 			 struct ebt_counter *counters, unsigned int nentries)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 982 \n"); 
 	int i, cpu;
 	struct ebt_counter *counter_base;
 
@@ -986,6 +1002,7 @@ static void get_counters(const struct ebt_counter *oldcounters,
 static int do_replace_finish(struct net *net, struct ebt_replace *repl,
 			      struct ebt_table_info *newinfo)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebtables.c: line 1005 \n"); 
 	int ret, i;
 	struct ebt_counter *counterstmp = NULL;
 	/* used to be able to unlock earlier */

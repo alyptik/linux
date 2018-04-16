@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2015 Pablo Neira Ayuso <pablo@netfilter.org>
  *
@@ -23,6 +24,7 @@ static void nft_dup_netdev_eval(const struct nft_expr *expr,
 				struct nft_regs *regs,
 				const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_dup_netdev.c: line 27 \n"); 
 	struct nft_dup_netdev *priv = nft_expr_priv(expr);
 	int oif = regs->data[priv->sreg_dev];
 
@@ -37,6 +39,7 @@ static int nft_dup_netdev_init(const struct nft_ctx *ctx,
 			       const struct nft_expr *expr,
 			       const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_dup_netdev.c: line 42 \n"); 
 	struct nft_dup_netdev *priv = nft_expr_priv(expr);
 
 	if (tb[NFTA_DUP_SREG_DEV] == NULL)
@@ -50,6 +53,7 @@ static const struct nft_expr_ops nft_dup_netdev_ingress_ops;
 
 static int nft_dup_netdev_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_dup_netdev.c: line 56 \n"); 
 	struct nft_dup_netdev *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_DUP_SREG_DEV, priv->sreg_dev))

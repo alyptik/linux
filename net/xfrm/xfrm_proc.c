@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * xfrm_proc.c
  *
@@ -50,6 +51,7 @@ static const struct snmp_mib xfrm_mib_list[] = {
 
 static int xfrm_statistics_seq_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_proc.c: line 54 \n"); 
 	unsigned long buff[LINUX_MIB_XFRMMAX];
 	struct net *net = seq->private;
 	int i;
@@ -67,6 +69,7 @@ static int xfrm_statistics_seq_show(struct seq_file *seq, void *v)
 
 static int xfrm_statistics_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_proc.c: line 72 \n"); 
 	return single_open_net(inode, file, xfrm_statistics_seq_show);
 }
 

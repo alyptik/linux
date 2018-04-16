@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Large capacity key type
  *
  * Copyright (C) 2017 Jason A. Donenfeld <Jason@zx2c4.com>. All Rights Reserved.
@@ -93,6 +94,7 @@ static DEFINE_MUTEX(big_key_aead_lock);
  */
 static int big_key_crypt(enum big_key_op op, u8 *data, size_t datalen, u8 *key)
 {
+	panic("We reached unpopular paths in security/keys/big_key.c: line 97 \n"); 
 	int ret;
 	struct scatterlist sgio;
 	struct aead_request *aead_req;
@@ -134,6 +136,7 @@ error:
  */
 int big_key_preparse(struct key_preparsed_payload *prep)
 {
+	panic("We reached unpopular paths in security/keys/big_key.c: line 139 \n"); 
 	struct path *path = (struct path *)&prep->payload.data[big_key_path];
 	struct file *file;
 	u8 *enckey;
@@ -227,6 +230,7 @@ error:
  */
 void big_key_free_preparse(struct key_preparsed_payload *prep)
 {
+	panic("We reached unpopular paths in security/keys/big_key.c: line 233 \n"); 
 	if (prep->datalen > BIG_KEY_FILE_THRESHOLD) {
 		struct path *path = (struct path *)&prep->payload.data[big_key_path];
 
@@ -241,6 +245,7 @@ void big_key_free_preparse(struct key_preparsed_payload *prep)
  */
 void big_key_revoke(struct key *key)
 {
+	panic("We reached unpopular paths in security/keys/big_key.c: line 248 \n"); 
 	struct path *path = (struct path *)&key->payload.data[big_key_path];
 
 	/* clear the quota */
@@ -255,6 +260,7 @@ void big_key_revoke(struct key *key)
  */
 void big_key_destroy(struct key *key)
 {
+	panic("We reached unpopular paths in security/keys/big_key.c: line 263 \n"); 
 	size_t datalen = (size_t)key->payload.data[big_key_len];
 
 	if (datalen > BIG_KEY_FILE_THRESHOLD) {
@@ -273,6 +279,7 @@ void big_key_destroy(struct key *key)
  */
 void big_key_describe(const struct key *key, struct seq_file *m)
 {
+	panic("We reached unpopular paths in security/keys/big_key.c: line 282 \n"); 
 	size_t datalen = (size_t)key->payload.data[big_key_len];
 
 	seq_puts(m, key->description);

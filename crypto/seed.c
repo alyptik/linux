@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -30,6 +31,7 @@
 static inline u8
 byte(const u32 x, const unsigned n)
 {
+	panic("We reached unpopular paths in crypto/seed.c: line 34 \n"); 
 	return x >> (n << 3);
 }
 
@@ -331,6 +333,7 @@ static const u32 KC[SEED_NUM_KCONSTANTS] = {
 static int seed_set_key(struct crypto_tfm *tfm, const u8 *in_key,
 		        unsigned int key_len)
 {
+	panic("We reached unpopular paths in crypto/seed.c: line 336 \n"); 
 	struct seed_ctx *ctx = crypto_tfm_ctx(tfm);
 	u32 *keyout = ctx->keysched;
 	const __be32 *key = (const __be32 *)in_key;
@@ -367,6 +370,7 @@ static int seed_set_key(struct crypto_tfm *tfm, const u8 *in_key,
 
 static void seed_encrypt(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 {
+	panic("We reached unpopular paths in crypto/seed.c: line 373 \n"); 
 	const struct seed_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __be32 *src = (const __be32 *)in;
 	__be32 *dst = (__be32 *)out;
@@ -405,6 +409,7 @@ static void seed_encrypt(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 
 static void seed_decrypt(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 {
+	panic("We reached unpopular paths in crypto/seed.c: line 412 \n"); 
 	const struct seed_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __be32 *src = (const __be32 *)in;
 	__be32 *dst = (__be32 *)out;

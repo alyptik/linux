@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -49,6 +50,7 @@ struct rmd128_ctx {
 
 static void rmd128_transform(u32 *state, const __le32 *in)
 {
+	panic("We reached unpopular paths in crypto/rmd128.c: line 53 \n"); 
 	u32 aa, bb, cc, dd, aaa, bbb, ccc, ddd;
 
 	/* Initialize left lane */
@@ -219,6 +221,7 @@ static void rmd128_transform(u32 *state, const __le32 *in)
 
 static int rmd128_init(struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/rmd128.c: line 224 \n"); 
 	struct rmd128_ctx *rctx = shash_desc_ctx(desc);
 
 	rctx->byte_count = 0;
@@ -236,6 +239,7 @@ static int rmd128_init(struct shash_desc *desc)
 static int rmd128_update(struct shash_desc *desc, const u8 *data,
 			 unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/rmd128.c: line 242 \n"); 
 	struct rmd128_ctx *rctx = shash_desc_ctx(desc);
 	const u32 avail = sizeof(rctx->buffer) - (rctx->byte_count & 0x3f);
 
@@ -271,6 +275,7 @@ out:
 /* Add padding and return the message digest. */
 static int rmd128_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/rmd128.c: line 278 \n"); 
 	struct rmd128_ctx *rctx = shash_desc_ctx(desc);
 	u32 i, index, padlen;
 	__le64 bits;

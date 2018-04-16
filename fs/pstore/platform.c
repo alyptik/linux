@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Persistent Storage - platform driver interface parts.
  *
@@ -103,6 +104,7 @@ static unsigned long kmsg_bytes = 10240;
 
 void pstore_set_kmsg_bytes(int bytes)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 107 \n"); 
 	kmsg_bytes = bytes;
 }
 
@@ -111,6 +113,7 @@ static int	oopscount;
 
 static const char *get_reason_str(enum kmsg_dump_reason reason)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 116 \n"); 
 	switch (reason) {
 	case KMSG_DUMP_PANIC:
 		return "Panic";
@@ -131,6 +134,7 @@ static const char *get_reason_str(enum kmsg_dump_reason reason)
 
 bool pstore_cannot_block_path(enum kmsg_dump_reason reason)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 137 \n"); 
 	/*
 	 * In case of NMI path, pstore shouldn't be blocked
 	 * regardless of reason.
@@ -412,6 +416,7 @@ static struct pstore_zbackend *zbackend =
 static int pstore_compress(const void *in, void *out,
 			   size_t inlen, size_t outlen)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 419 \n"); 
 	if (zbackend)
 		return zbackend->compress(in, out, inlen, outlen);
 	else
@@ -420,6 +425,7 @@ static int pstore_compress(const void *in, void *out,
 
 static int pstore_decompress(void *in, void *out, size_t inlen, size_t outlen)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 428 \n"); 
 	if (zbackend)
 		return zbackend->decompress(in, out, inlen, outlen);
 	else
@@ -428,6 +434,7 @@ static int pstore_decompress(void *in, void *out, size_t inlen, size_t outlen)
 
 static void allocate_buf_for_compression(void)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 437 \n"); 
 	if (zbackend) {
 		pr_info("using %s compression\n", zbackend->name);
 		zbackend->allocate();
@@ -438,6 +445,7 @@ static void allocate_buf_for_compression(void)
 
 static void free_buf_for_compression(void)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 448 \n"); 
 	if (zbackend)
 		zbackend->free();
 	else
@@ -453,6 +461,7 @@ static void free_buf_for_compression(void)
  */
 static size_t copy_kmsg_to_buffer(int hsize, size_t len)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 464 \n"); 
 	size_t total_len;
 	size_t diff;
 
@@ -478,6 +487,7 @@ static size_t copy_kmsg_to_buffer(int hsize, size_t len)
 static void pstore_dump(struct kmsg_dumper *dumper,
 			enum kmsg_dump_reason reason)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 490 \n"); 
 	unsigned long	total = 0;
 	const char	*why;
 	u64		id;
@@ -558,11 +568,13 @@ static struct kmsg_dumper pstore_dumper = {
  */
 static void pstore_register_kmsg(void)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 571 \n"); 
 	kmsg_dump_register(&pstore_dumper);
 }
 
 static void pstore_unregister_kmsg(void)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 577 \n"); 
 	kmsg_dump_unregister(&pstore_dumper);
 }
 
@@ -619,6 +631,7 @@ static int pstore_write_compat(enum pstore_type_id type,
 			       bool compressed, size_t size,
 			       struct pstore_info *psi)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 634 \n"); 
 	return psi->write_buf(type, reason, id, part, psinfo->buf, compressed,
 			     size, psi);
 }
@@ -666,6 +679,7 @@ static int pstore_write_buf_user_compat(enum pstore_type_id type,
  */
 int pstore_register(struct pstore_info *psi)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 682 \n"); 
 	struct module *owner = psi->owner;
 
 	if (backend && strcmp(backend, psi->name))
@@ -727,6 +741,7 @@ EXPORT_SYMBOL_GPL(pstore_register);
 
 void pstore_unregister(struct pstore_info *psi)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 744 \n"); 
 	/* Stop timer and make sure all work has finished. */
 	pstore_update_ms = -1;
 	del_timer_sync(&pstore_timer);
@@ -821,11 +836,13 @@ out:
 
 static void pstore_dowork(struct work_struct *work)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 839 \n"); 
 	pstore_get_records(1);
 }
 
 static void pstore_timefunc(unsigned long dummy)
 {
+	panic("We reached unpopular paths in fs/pstore/platform.c: line 845 \n"); 
 	if (pstore_new_entry) {
 		pstore_new_entry = 0;
 		schedule_work(&pstore_work);

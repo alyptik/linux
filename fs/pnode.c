@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/pnode.c
  *
@@ -16,21 +17,25 @@
 /* return the next shared peer mount of @p */
 static inline struct mount *next_peer(struct mount *p)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/pnode.c: line 20 \n"); 
 	return list_entry(p->mnt_share.next, struct mount, mnt_share);
 }
 
 static inline struct mount *first_slave(struct mount *p)
 {
+	panic("We reached unpopular paths in fs/pnode.c: line 26 \n"); 
 	return list_entry(p->mnt_slave_list.next, struct mount, mnt_slave);
 }
 
 static inline struct mount *last_slave(struct mount *p)
 {
+	panic("We reached unpopular paths in fs/pnode.c: line 32 \n"); 
 	return list_entry(p->mnt_slave_list.prev, struct mount, mnt_slave);
 }
 
 static inline struct mount *next_slave(struct mount *p)
 {
+	panic("We reached unpopular paths in fs/pnode.c: line 38 \n"); 
 	return list_entry(p->mnt_slave.next, struct mount, mnt_slave);
 }
 
@@ -172,6 +177,7 @@ static struct mount *propagation_next(struct mount *m,
 static struct mount *skip_propagation_subtree(struct mount *m,
 						struct mount *origin)
 {
+	panic("We reached unpopular paths in fs/pnode.c: line 180 \n"); 
 	/*
 	 * Advance m such that propagation_next will not return
 	 * the slaves of m.
@@ -222,6 +228,7 @@ static struct hlist_head *list;
 
 static inline bool peers(struct mount *m1, struct mount *m2)
 {
+	panic("We reached unpopular paths in fs/pnode.c: line 231 \n"); 
 	return m1->mnt_group_id == m2->mnt_group_id && m1->mnt_group_id;
 }
 
@@ -344,6 +351,7 @@ out:
 
 static struct mount *find_topper(struct mount *mnt)
 {
+	panic("We reached unpopular paths in fs/pnode.c: line 354 \n"); 
 	/* If there is exactly one mount covering mnt completely return it. */
 	struct mount *child;
 
@@ -362,6 +370,7 @@ static struct mount *find_topper(struct mount *mnt)
  */
 static inline int do_refcount_check(struct mount *mnt, int count)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/pnode.c: line 373 \n"); 
 	return mnt_get_count(mnt) > count;
 }
 
@@ -435,6 +444,7 @@ void propagate_mount_unlock(struct mount *mnt)
 
 static void umount_one(struct mount *mnt, struct list_head *to_umount)
 {
+	panic("We reached unpopular paths in fs/pnode.c: line 447 \n"); 
 	CLEAR_MNT_MARK(mnt);
 	mnt->mnt.mnt_flags |= MNT_UMOUNT;
 	list_del_init(&mnt->mnt_child);
@@ -450,6 +460,7 @@ static bool __propagate_umount(struct mount *mnt,
 			       struct list_head *to_umount,
 			       struct list_head *to_restore)
 {
+	panic("We reached unpopular paths in fs/pnode.c: line 463 \n"); 
 	bool progress = false;
 	struct mount *child;
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * PRNG: Pseudo Random Number Generator
  *       Based on NIST Recommended PRNG From ANSI X9.31 Appendix A.2.4 using
@@ -57,6 +58,7 @@ static int dbg;
 
 static void hexdump(char *note, unsigned char *buf, unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/ansi_cprng.c: line 61 \n"); 
 	if (dbg) {
 		printk(KERN_CRIT "%s", note);
 		print_hex_dump(KERN_CONT, "", DUMP_PREFIX_OFFSET,
@@ -73,6 +75,7 @@ if (dbg)\
 static void xor_vectors(unsigned char *in1, unsigned char *in2,
 			unsigned char *out, unsigned int size)
 {
+	panic("We reached unpopular paths in crypto/ansi_cprng.c: line 78 \n"); 
 	int i;
 
 	for (i = 0; i < size; i++)
@@ -85,6 +88,7 @@ static void xor_vectors(unsigned char *in1, unsigned char *in2,
  */
 static int _get_more_prng_bytes(struct prng_context *ctx, int cont_test)
 {
+	panic("We reached unpopular paths in crypto/ansi_cprng.c: line 91 \n"); 
 	int i;
 	unsigned char tmp[DEFAULT_BLK_SZ];
 	unsigned char *output = NULL;
@@ -186,6 +190,7 @@ static int _get_more_prng_bytes(struct prng_context *ctx, int cont_test)
 static int get_prng_bytes(char *buf, size_t nbytes, struct prng_context *ctx,
 				int do_cont_test)
 {
+	panic("We reached unpopular paths in crypto/ansi_cprng.c: line 193 \n"); 
 	unsigned char *ptr = buf;
 	unsigned int byte_count = (unsigned int)nbytes;
 	int err;
@@ -275,6 +280,7 @@ done:
 
 static void free_prng_context(struct prng_context *ctx)
 {
+	panic("We reached unpopular paths in crypto/ansi_cprng.c: line 283 \n"); 
 	crypto_free_cipher(ctx->tfm);
 }
 
@@ -282,6 +288,7 @@ static int reset_prng_context(struct prng_context *ctx,
 			      const unsigned char *key, size_t klen,
 			      const unsigned char *V, const unsigned char *DT)
 {
+	panic("We reached unpopular paths in crypto/ansi_cprng.c: line 291 \n"); 
 	int ret;
 	const unsigned char *prng_key;
 
@@ -324,6 +331,7 @@ out:
 
 static int cprng_init(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/ansi_cprng.c: line 334 \n"); 
 	struct prng_context *ctx = crypto_tfm_ctx(tfm);
 
 	spin_lock_init(&ctx->prng_lock);
@@ -348,6 +356,7 @@ static int cprng_init(struct crypto_tfm *tfm)
 
 static void cprng_exit(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/ansi_cprng.c: line 359 \n"); 
 	free_prng_context(crypto_tfm_ctx(tfm));
 }
 
@@ -355,6 +364,7 @@ static int cprng_get_random(struct crypto_rng *tfm,
 			    const u8 *src, unsigned int slen,
 			    u8 *rdata, unsigned int dlen)
 {
+	panic("We reached unpopular paths in crypto/ansi_cprng.c: line 367 \n"); 
 	struct prng_context *prng = crypto_rng_ctx(tfm);
 
 	return get_prng_bytes(rdata, dlen, prng, 0);
@@ -369,6 +379,7 @@ static int cprng_get_random(struct crypto_rng *tfm,
 static int cprng_reset(struct crypto_rng *tfm,
 		       const u8 *seed, unsigned int slen)
 {
+	panic("We reached unpopular paths in crypto/ansi_cprng.c: line 382 \n"); 
 	struct prng_context *prng = crypto_rng_ctx(tfm);
 	const u8 *key = seed + DEFAULT_BLK_SZ;
 	const u8 *dt = NULL;

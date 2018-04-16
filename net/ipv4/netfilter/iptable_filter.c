@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * This is the 1999 rewrite of IP Firewalling, aiming for kernel 2.3.x.
  *

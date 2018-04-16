@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2003-2006, Cluster File Systems, Inc, info@clusterfs.com
  * Written by Alex Tomas <alex@clusterfs.com>
@@ -372,6 +373,7 @@ static void ext4_free_data_callback(struct super_block *sb,
 
 static inline void *mb_correct_addr_and_bit(int *bit, void *addr)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 376 \n"); 
 #if BITS_PER_LONG == 64
 	*bit += ((unsigned long) addr & 7UL) << 3;
 	addr = (void *) ((unsigned long) addr & ~7UL);
@@ -386,6 +388,7 @@ static inline void *mb_correct_addr_and_bit(int *bit, void *addr)
 
 static inline int mb_test_bit(int bit, void *addr)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 391 \n"); 
 	/*
 	 * ext4_test_bit on architecture like powerpc
 	 * needs unsigned long aligned address
@@ -396,24 +399,28 @@ static inline int mb_test_bit(int bit, void *addr)
 
 static inline void mb_set_bit(int bit, void *addr)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 402 \n"); 
 	addr = mb_correct_addr_and_bit(&bit, addr);
 	ext4_set_bit(bit, addr);
 }
 
 static inline void mb_clear_bit(int bit, void *addr)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 409 \n"); 
 	addr = mb_correct_addr_and_bit(&bit, addr);
 	ext4_clear_bit(bit, addr);
 }
 
 static inline int mb_test_and_clear_bit(int bit, void *addr)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 416 \n"); 
 	addr = mb_correct_addr_and_bit(&bit, addr);
 	return ext4_test_and_clear_bit(bit, addr);
 }
 
 static inline int mb_find_next_zero_bit(void *addr, int max, int start)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 423 \n"); 
 	int fix = 0, ret, tmpmax;
 	addr = mb_correct_addr_and_bit(&fix, addr);
 	tmpmax = max + fix;
@@ -427,6 +434,7 @@ static inline int mb_find_next_zero_bit(void *addr, int max, int start)
 
 static inline int mb_find_next_bit(void *addr, int max, int start)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 437 \n"); 
 	int fix = 0, ret, tmpmax;
 	addr = mb_correct_addr_and_bit(&fix, addr);
 	tmpmax = max + fix;
@@ -440,6 +448,7 @@ static inline int mb_find_next_bit(void *addr, int max, int start)
 
 static void *mb_find_buddy(struct ext4_buddy *e4b, int order, int *max)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 451 \n"); 
 	char *bb;
 
 	BUG_ON(e4b->bd_bitmap == e4b->bd_buddy);
@@ -526,15 +535,18 @@ static void mb_cmp_bitmaps(struct ext4_buddy *e4b, void *bitmap)
 static inline void mb_free_blocks_double(struct inode *inode,
 				struct ext4_buddy *e4b, int first, int count)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 538 \n"); 
 	return;
 }
 static inline void mb_mark_used_double(struct ext4_buddy *e4b,
 						int first, int count)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 544 \n"); 
 	return;
 }
 static inline void mb_cmp_bitmaps(struct ext4_buddy *e4b, void *bitmap)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 549 \n"); 
 	return;
 }
 #endif
@@ -665,6 +677,7 @@ static void ext4_mb_mark_free_simple(struct super_block *sb,
 				void *buddy, ext4_grpblk_t first, ext4_grpblk_t len,
 					struct ext4_group_info *grp)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 680 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	ext4_grpblk_t min;
 	ext4_grpblk_t max;
@@ -704,6 +717,7 @@ static void ext4_mb_mark_free_simple(struct super_block *sb,
 static void
 mb_set_largest_free_order(struct super_block *sb, struct ext4_group_info *grp)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 720 \n"); 
 	int i;
 	int bits;
 
@@ -779,6 +793,7 @@ void ext4_mb_generate_buddy(struct super_block *sb,
 
 static void mb_regenerate_buddy(struct ext4_buddy *e4b)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 796 \n"); 
 	int count;
 	int order = 1;
 	void *buddy;
@@ -817,6 +832,7 @@ static void mb_regenerate_buddy(struct ext4_buddy *e4b)
 
 static int ext4_mb_init_cache(struct page *page, char *incore, gfp_t gfp)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 835 \n"); 
 	ext4_group_t ngroups;
 	int blocksize;
 	int blocks_per_page;
@@ -985,6 +1001,7 @@ out:
 static int ext4_mb_get_buddy_page_lock(struct super_block *sb,
 		ext4_group_t group, struct ext4_buddy *e4b, gfp_t gfp)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1004 \n"); 
 	struct inode *inode = EXT4_SB(sb)->s_buddy_cache;
 	int block, pnum, poff;
 	int blocks_per_page;
@@ -1026,6 +1043,7 @@ static int ext4_mb_get_buddy_page_lock(struct super_block *sb,
 
 static void ext4_mb_put_buddy_page_lock(struct ext4_buddy *e4b)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1046 \n"); 
 	if (e4b->bd_bitmap_page) {
 		unlock_page(e4b->bd_bitmap_page);
 		put_page(e4b->bd_bitmap_page);
@@ -1251,11 +1269,13 @@ err:
 static int ext4_mb_load_buddy(struct super_block *sb, ext4_group_t group,
 			      struct ext4_buddy *e4b)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1272 \n"); 
 	return ext4_mb_load_buddy_gfp(sb, group, e4b, GFP_NOFS);
 }
 
 static void ext4_mb_unload_buddy(struct ext4_buddy *e4b)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1278 \n"); 
 	if (e4b->bd_bitmap_page)
 		put_page(e4b->bd_bitmap_page);
 	if (e4b->bd_buddy_page)
@@ -1265,6 +1285,7 @@ static void ext4_mb_unload_buddy(struct ext4_buddy *e4b)
 
 static int mb_find_order_for_block(struct ext4_buddy *e4b, int block)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1288 \n"); 
 	int order = 1;
 	int bb_incr = 1 << (e4b->bd_blkbits - 1);
 	void *bb;
@@ -1288,6 +1309,7 @@ static int mb_find_order_for_block(struct ext4_buddy *e4b, int block)
 
 static void mb_clear_bits(void *bm, int cur, int len)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1312 \n"); 
 	__u32 *addr;
 
 	len = cur + len;
@@ -1309,6 +1331,7 @@ static void mb_clear_bits(void *bm, int cur, int len)
  */
 static int mb_test_and_clear_bits(void *bm, int cur, int len)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1334 \n"); 
 	__u32 *addr;
 	int zero_bit = -1;
 
@@ -1333,6 +1356,7 @@ static int mb_test_and_clear_bits(void *bm, int cur, int len)
 
 void ext4_set_bits(void *bm, int cur, int len)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1359 \n"); 
 	__u32 *addr;
 
 	len = cur + len;
@@ -1354,6 +1378,7 @@ void ext4_set_bits(void *bm, int cur, int len)
 
 static inline int mb_buddy_adjust_border(int* bit, void* bitmap, int side)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1381 \n"); 
 	if (mb_test_bit(*bit + side, bitmap)) {
 		mb_clear_bit(*bit, bitmap);
 		(*bit) -= side;
@@ -1368,6 +1393,7 @@ static inline int mb_buddy_adjust_border(int* bit, void* bitmap, int side)
 
 static void mb_buddy_mark_free(struct ext4_buddy *e4b, int first, int last)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1396 \n"); 
 	int max;
 	int order = 1;
 	void *buddy = mb_find_buddy(e4b, order, &max);
@@ -1426,6 +1452,7 @@ static void mb_buddy_mark_free(struct ext4_buddy *e4b, int first, int last)
 static void mb_free_blocks(struct inode *inode, struct ext4_buddy *e4b,
 			   int first, int count)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1455 \n"); 
 	int left_is_free = 0;
 	int right_is_free = 0;
 	int block;
@@ -1510,6 +1537,7 @@ done:
 static int mb_find_extent(struct ext4_buddy *e4b, int block,
 				int needed, struct ext4_free_extent *ex)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1540 \n"); 
 	int next = block;
 	int max, order;
 	void *buddy;
@@ -1562,6 +1590,7 @@ static int mb_find_extent(struct ext4_buddy *e4b, int block,
 
 static int mb_mark_used(struct ext4_buddy *e4b, struct ext4_free_extent *ex)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1593 \n"); 
 	int ord;
 	int mlen = 0;
 	int max = 0;
@@ -1641,6 +1670,7 @@ static int mb_mark_used(struct ext4_buddy *e4b, struct ext4_free_extent *ex)
 static void ext4_mb_use_best_found(struct ext4_allocation_context *ac,
 					struct ext4_buddy *e4b)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1673 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(ac->ac_sb);
 	int ret;
 
@@ -1687,6 +1717,7 @@ static void ext4_mb_check_limits(struct ext4_allocation_context *ac,
 					struct ext4_buddy *e4b,
 					int finish_group)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1720 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(ac->ac_sb);
 	struct ext4_free_extent *bex = &ac->ac_b_ex;
 	struct ext4_free_extent *gex = &ac->ac_g_ex;
@@ -1737,6 +1768,7 @@ static void ext4_mb_measure_extent(struct ext4_allocation_context *ac,
 					struct ext4_free_extent *ex,
 					struct ext4_buddy *e4b)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 1771 \n"); 
 	struct ext4_free_extent *bex = &ac->ac_b_ex;
 	struct ext4_free_extent *gex = &ac->ac_g_ex;
 
@@ -2037,6 +2069,7 @@ void ext4_mb_scan_aligned(struct ext4_allocation_context *ac,
 static int ext4_mb_good_group(struct ext4_allocation_context *ac,
 				ext4_group_t group, int cr)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2072 \n"); 
 	unsigned free, fragments;
 	int flex_size = ext4_flex_bg_size(EXT4_SB(ac->ac_sb));
 	struct ext4_group_info *grp = ext4_get_group_info(ac->ac_sb, group);
@@ -2258,6 +2291,7 @@ out:
 
 static void *ext4_mb_seq_groups_start(struct seq_file *seq, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2294 \n"); 
 	struct super_block *sb = seq->private;
 	ext4_group_t group;
 
@@ -2269,6 +2303,7 @@ static void *ext4_mb_seq_groups_start(struct seq_file *seq, loff_t *pos)
 
 static void *ext4_mb_seq_groups_next(struct seq_file *seq, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2306 \n"); 
 	struct super_block *sb = seq->private;
 	ext4_group_t group;
 
@@ -2281,6 +2316,7 @@ static void *ext4_mb_seq_groups_next(struct seq_file *seq, void *v, loff_t *pos)
 
 static int ext4_mb_seq_groups_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2319 \n"); 
 	struct super_block *sb = seq->private;
 	ext4_group_t group = (ext4_group_t) ((unsigned long) v);
 	int i;
@@ -2328,6 +2364,7 @@ static int ext4_mb_seq_groups_show(struct seq_file *seq, void *v)
 
 static void ext4_mb_seq_groups_stop(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2367 \n"); 
 }
 
 static const struct seq_operations ext4_mb_seq_groups_ops = {
@@ -2339,6 +2376,7 @@ static const struct seq_operations ext4_mb_seq_groups_ops = {
 
 static int ext4_mb_seq_groups_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2379 \n"); 
 	struct super_block *sb = PDE_DATA(inode);
 	int rc;
 
@@ -2360,6 +2398,7 @@ const struct file_operations ext4_seq_mb_groups_fops = {
 
 static struct kmem_cache *get_groupinfo_cache(int blocksize_bits)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2401 \n"); 
 	int cache_index = blocksize_bits - EXT4_MIN_BLOCK_LOG_SIZE;
 	struct kmem_cache *cachep = ext4_groupinfo_caches[cache_index];
 
@@ -2373,6 +2412,7 @@ static struct kmem_cache *get_groupinfo_cache(int blocksize_bits)
  */
 int ext4_mb_alloc_groupinfo(struct super_block *sb, ext4_group_t ngroups)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2415 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	unsigned size;
 	struct ext4_group_info ***new_groupinfo;
@@ -2404,6 +2444,7 @@ int ext4_mb_alloc_groupinfo(struct super_block *sb, ext4_group_t ngroups)
 int ext4_mb_add_groupinfo(struct super_block *sb, ext4_group_t group,
 			  struct ext4_group_desc *desc)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2447 \n"); 
 	int i;
 	int metalen = 0;
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
@@ -2485,6 +2526,7 @@ exit_meta_group_info:
 
 static int ext4_mb_init_backend(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2529 \n"); 
 	ext4_group_t ngroups = ext4_get_groups_count(sb);
 	ext4_group_t i;
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
@@ -2534,6 +2576,7 @@ err_freesgi:
 
 static void ext4_groupinfo_destroy_slabs(void)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2579 \n"); 
 	int i;
 
 	for (i = 0; i < NR_GRPINFO_CACHES; i++) {
@@ -2545,6 +2588,7 @@ static void ext4_groupinfo_destroy_slabs(void)
 
 static int ext4_groupinfo_create_slab(size_t size)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2591 \n"); 
 	static DEFINE_MUTEX(ext4_grpinfo_slab_create_mutex);
 	int slab_size;
 	int blocksize_bits = order_base_2(size);
@@ -2584,6 +2628,7 @@ static int ext4_groupinfo_create_slab(size_t size)
 
 int ext4_mb_init(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2631 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	unsigned i, j;
 	unsigned offset, offset_incr;
@@ -2697,6 +2742,7 @@ out:
 /* need to called with the ext4 group lock held */
 static void ext4_mb_cleanup_pa(struct ext4_group_info *grp)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2745 \n"); 
 	struct ext4_prealloc_space *pa;
 	struct list_head *cur, *tmp;
 	int count = 0;
@@ -2714,6 +2760,7 @@ static void ext4_mb_cleanup_pa(struct ext4_group_info *grp)
 
 int ext4_mb_release(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2763 \n"); 
 	ext4_group_t ngroups = ext4_get_groups_count(sb);
 	ext4_group_t i;
 	int num_meta_group_infos;
@@ -2774,6 +2821,7 @@ int ext4_mb_release(struct super_block *sb)
 static inline int ext4_issue_discard(struct super_block *sb,
 		ext4_group_t block_group, ext4_grpblk_t cluster, int count)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2824 \n"); 
 	ext4_fsblk_t discard_block;
 
 	discard_block = (EXT4_C2B(EXT4_SB(sb), cluster) +
@@ -2792,6 +2840,7 @@ static void ext4_free_data_callback(struct super_block *sb,
 				    struct ext4_journal_cb_entry *jce,
 				    int rc)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2843 \n"); 
 	struct ext4_free_data *entry = (struct ext4_free_data *)jce;
 	struct ext4_buddy e4b;
 	struct ext4_group_info *db;
@@ -2878,6 +2927,7 @@ int __init ext4_init_mballoc(void)
 
 void ext4_exit_mballoc(void)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 2930 \n"); 
 	/*
 	 * Wait for completion of call_rcu()'s on ext4_pspace_cachep
 	 * before destroying the slab cache.
@@ -3018,6 +3068,7 @@ out_err:
  */
 static void ext4_mb_normalize_group_request(struct ext4_allocation_context *ac)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 3071 \n"); 
 	struct super_block *sb = ac->ac_sb;
 	struct ext4_locality_group *lg = ac->ac_lg;
 
@@ -3228,6 +3279,7 @@ ext4_mb_normalize_request(struct ext4_allocation_context *ac,
 
 static void ext4_mb_collect_stats(struct ext4_allocation_context *ac)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 3282 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(ac->ac_sb);
 
 	if (sbi->s_mb_stats && ac->ac_g_ex.fe_len > 1) {
@@ -3257,6 +3309,7 @@ static void ext4_mb_collect_stats(struct ext4_allocation_context *ac)
  */
 static void ext4_discard_allocated_blocks(struct ext4_allocation_context *ac)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 3312 \n"); 
 	struct ext4_prealloc_space *pa = ac->ac_pa;
 	struct ext4_buddy e4b;
 	int err;
@@ -3291,6 +3344,7 @@ static void ext4_discard_allocated_blocks(struct ext4_allocation_context *ac)
 static void ext4_mb_use_inode_pa(struct ext4_allocation_context *ac,
 				struct ext4_prealloc_space *pa)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 3347 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(ac->ac_sb);
 	ext4_fsblk_t start;
 	ext4_fsblk_t end;
@@ -3321,6 +3375,7 @@ static void ext4_mb_use_inode_pa(struct ext4_allocation_context *ac,
 static void ext4_mb_use_group_pa(struct ext4_allocation_context *ac,
 				struct ext4_prealloc_space *pa)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 3378 \n"); 
 	unsigned int len = ac->ac_o_ex.fe_len;
 
 	ext4_get_group_no_and_offset(ac->ac_sb, pa->pa_pstart,
@@ -3350,6 +3405,7 @@ ext4_mb_check_group_pa(ext4_fsblk_t goal_block,
 			struct ext4_prealloc_space *pa,
 			struct ext4_prealloc_space *cpa)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 3408 \n"); 
 	ext4_fsblk_t cur_distance, new_distance;
 
 	if (cpa == NULL) {
@@ -3466,6 +3522,7 @@ ext4_mb_use_preallocated(struct ext4_allocation_context *ac)
 static void ext4_mb_generate_from_freelist(struct super_block *sb, void *bitmap,
 						ext4_group_t group)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 3525 \n"); 
 	struct rb_node *n;
 	struct ext4_group_info *grp;
 	struct ext4_free_data *entry;
@@ -3524,6 +3581,7 @@ void ext4_mb_generate_from_pa(struct super_block *sb, void *bitmap,
 
 static void ext4_mb_pa_callback(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 3584 \n"); 
 	struct ext4_prealloc_space *pa;
 	pa = container_of(head, struct ext4_prealloc_space, u.pa_rcu);
 
@@ -3539,6 +3597,7 @@ static void ext4_mb_pa_callback(struct rcu_head *head)
 static void ext4_mb_put_pa(struct ext4_allocation_context *ac,
 			struct super_block *sb, struct ext4_prealloc_space *pa)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 3600 \n"); 
 	ext4_group_t grp;
 	ext4_fsblk_t grp_blk;
 
@@ -3749,6 +3808,7 @@ ext4_mb_new_group_pa(struct ext4_allocation_context *ac)
 
 static int ext4_mb_new_preallocation(struct ext4_allocation_context *ac)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 3811 \n"); 
 	int err;
 
 	if (ac->ac_flags & EXT4_MB_HINT_GROUP_ALLOC)
@@ -3962,6 +4022,7 @@ out:
  */
 void ext4_discard_preallocations(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 4025 \n"); 
 	struct ext4_inode_info *ei = EXT4_I(inode);
 	struct super_block *sb = inode->i_sb;
 	struct buffer_head *bitmap_bh = NULL;
@@ -4124,6 +4185,7 @@ static void ext4_mb_show_ac(struct ext4_allocation_context *ac)
 #else
 static inline void ext4_mb_show_ac(struct ext4_allocation_context *ac)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 4188 \n"); 
 	return;
 }
 #endif
@@ -4137,6 +4199,7 @@ static inline void ext4_mb_show_ac(struct ext4_allocation_context *ac)
  */
 static void ext4_mb_group_or_file(struct ext4_allocation_context *ac)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 4202 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(ac->ac_sb);
 	int bsbits = ac->ac_sb->s_blocksize_bits;
 	loff_t size, isize;
@@ -4322,6 +4385,7 @@ ext4_mb_discard_lg_preallocations(struct super_block *sb,
 
 static void ext4_mb_add_n_trim(struct ext4_allocation_context *ac)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 4388 \n"); 
 	int order, added = 0, lg_prealloc_count = 1;
 	struct super_block *sb = ac->ac_sb;
 	struct ext4_locality_group *lg = ac->ac_lg;
@@ -4372,6 +4436,7 @@ static void ext4_mb_add_n_trim(struct ext4_allocation_context *ac)
  */
 static int ext4_mb_release_context(struct ext4_allocation_context *ac)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 4439 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(ac->ac_sb);
 	struct ext4_prealloc_space *pa = ac->ac_pa;
 	if (pa) {
@@ -4412,6 +4477,7 @@ static int ext4_mb_release_context(struct ext4_allocation_context *ac)
 
 static int ext4_mb_discard_preallocations(struct super_block *sb, int needed)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 4480 \n"); 
 	ext4_group_t i, ngroups = ext4_get_groups_count(sb);
 	int ret;
 	int freed = 0;
@@ -4434,6 +4500,7 @@ static int ext4_mb_discard_preallocations(struct super_block *sb, int needed)
 ext4_fsblk_t ext4_mb_new_blocks(handle_t *handle,
 				struct ext4_allocation_request *ar, int *errp)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 4503 \n"); 
 	int freed;
 	struct ext4_allocation_context *ac = NULL;
 	struct ext4_sb_info *sbi;
@@ -4571,6 +4638,7 @@ out:
 static int can_merge(struct ext4_free_data *entry1,
 			struct ext4_free_data *entry2)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 4641 \n"); 
 	if ((entry1->efd_tid == entry2->efd_tid) &&
 	    (entry1->efd_group == entry2->efd_group) &&
 	    ((entry1->efd_start_cluster + entry1->efd_count) == entry2->efd_start_cluster))
@@ -4671,6 +4739,7 @@ void ext4_free_blocks(handle_t *handle, struct inode *inode,
 		      struct buffer_head *bh, ext4_fsblk_t block,
 		      unsigned long count, int flags)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 4742 \n"); 
 	struct buffer_head *bitmap_bh = NULL;
 	struct super_block *sb = inode->i_sb;
 	struct ext4_group_desc *gdp;
@@ -4922,6 +4991,7 @@ error_return:
 int ext4_group_add_blocks(handle_t *handle, struct super_block *sb,
 			 ext4_fsblk_t block, unsigned long count)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 4994 \n"); 
 	struct buffer_head *bitmap_bh = NULL;
 	struct buffer_head *gd_bh;
 	ext4_group_t block_group;
@@ -5108,6 +5178,7 @@ ext4_trim_all_free(struct super_block *sb, ext4_group_t group,
 		   ext4_grpblk_t start, ext4_grpblk_t max,
 		   ext4_grpblk_t minblocks)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 5181 \n"); 
 	void *bitmap;
 	ext4_grpblk_t next, count = 0, free_count = 0;
 	struct ext4_buddy e4b;
@@ -5191,6 +5262,7 @@ out:
  */
 int ext4_trim_fs(struct super_block *sb, struct fstrim_range *range)
 {
+	panic("We reached unpopular paths in fs/ext4/mballoc.c: line 5265 \n"); 
 	struct ext4_group_info *grp;
 	ext4_group_t group, first_group, last_group;
 	ext4_grpblk_t cnt = 0, first_cluster, last_cluster;

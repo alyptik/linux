@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 2007 Patrick McHardy <kaber@trash.net>
  *
@@ -27,12 +28,14 @@ static unsigned int jhash_rnd __read_mostly;
 
 static unsigned int xt_rateest_hash(const char *name)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_RATEEST.c: line 31 \n"); 
 	return jhash(name, FIELD_SIZEOF(struct xt_rateest, name), jhash_rnd) &
 	       (RATEEST_HSIZE - 1);
 }
 
 static void xt_rateest_hash_insert(struct xt_rateest *est)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_RATEEST.c: line 38 \n"); 
 	unsigned int h;
 
 	h = xt_rateest_hash(est->name);
@@ -41,6 +44,7 @@ static void xt_rateest_hash_insert(struct xt_rateest *est)
 
 static struct xt_rateest *__xt_rateest_lookup(const char *name)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_RATEEST.c: line 47 \n"); 
 	struct xt_rateest *est;
 	unsigned int h;
 
@@ -57,6 +61,7 @@ static struct xt_rateest *__xt_rateest_lookup(const char *name)
 
 struct xt_rateest *xt_rateest_lookup(const char *name)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_RATEEST.c: line 64 \n"); 
 	struct xt_rateest *est;
 
 	mutex_lock(&xt_rateest_mutex);
@@ -68,6 +73,7 @@ EXPORT_SYMBOL_GPL(xt_rateest_lookup);
 
 void xt_rateest_put(struct xt_rateest *est)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_RATEEST.c: line 76 \n"); 
 	mutex_lock(&xt_rateest_mutex);
 	if (--est->refcnt == 0) {
 		hlist_del(&est->list);
@@ -85,6 +91,7 @@ EXPORT_SYMBOL_GPL(xt_rateest_put);
 static unsigned int
 xt_rateest_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_RATEEST.c: line 94 \n"); 
 	const struct xt_rateest_target_info *info = par->targinfo;
 	struct gnet_stats_basic_packed *stats = &info->est->bstats;
 
@@ -98,6 +105,7 @@ xt_rateest_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int xt_rateest_tg_checkentry(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_RATEEST.c: line 108 \n"); 
 	struct xt_rateest_target_info *info = par->targinfo;
 	struct xt_rateest *est;
 	struct {
@@ -161,6 +169,7 @@ err1:
 
 static void xt_rateest_tg_destroy(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_RATEEST.c: line 172 \n"); 
 	struct xt_rateest_target_info *info = par->targinfo;
 
 	xt_rateest_put(info->est);

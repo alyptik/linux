@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * af_alg: User-space algorithm interface
  *
@@ -42,6 +43,7 @@ static DECLARE_RWSEM(alg_types_sem);
 
 static const struct af_alg_type *alg_get_type(const char *name)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 46 \n"); 
 	const struct af_alg_type *type = ERR_PTR(-ENOENT);
 	struct alg_type_list *node;
 
@@ -91,6 +93,7 @@ EXPORT_SYMBOL_GPL(af_alg_register_type);
 
 int af_alg_unregister_type(const struct af_alg_type *type)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 96 \n"); 
 	struct alg_type_list *node;
 	int err = -ENOENT;
 
@@ -121,6 +124,7 @@ static void alg_do_release(const struct af_alg_type *type, void *private)
 
 int af_alg_release(struct socket *sock)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 127 \n"); 
 	if (sock->sk)
 		sock_put(sock->sk);
 	return 0;
@@ -129,6 +133,7 @@ EXPORT_SYMBOL_GPL(af_alg_release);
 
 void af_alg_release_parent(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 136 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	unsigned int nokey = ask->nokey_refcnt;
 	bool last = nokey && !ask->refcnt;
@@ -149,6 +154,7 @@ EXPORT_SYMBOL_GPL(af_alg_release_parent);
 
 static int alg_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 157 \n"); 
 	const u32 allowed = CRYPTO_ALG_KERN_DRIVER_ONLY;
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
@@ -270,6 +276,7 @@ unlock:
 
 int af_alg_accept(struct sock *sk, struct socket *newsock)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 279 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	const struct af_alg_type *type;
 	struct sock *sk2;
@@ -327,6 +334,7 @@ EXPORT_SYMBOL_GPL(af_alg_accept);
 
 static int alg_accept(struct socket *sock, struct socket *newsock, int flags)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 337 \n"); 
 	return af_alg_accept(sock->sk, newsock);
 }
 
@@ -355,6 +363,7 @@ static const struct proto_ops alg_proto_ops = {
 
 static void alg_sock_destruct(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 366 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 
 	alg_do_release(ask->type, ask->private);
@@ -363,6 +372,7 @@ static void alg_sock_destruct(struct sock *sk)
 static int alg_create(struct net *net, struct socket *sock, int protocol,
 		      int kern)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 375 \n"); 
 	struct sock *sk;
 	int err;
 
@@ -395,6 +405,7 @@ static const struct net_proto_family alg_family = {
 
 int af_alg_make_sg(struct af_alg_sgl *sgl, struct iov_iter *iter, int len)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 408 \n"); 
 	size_t off;
 	ssize_t n;
 	int npages, i;
@@ -426,6 +437,7 @@ EXPORT_SYMBOL_GPL(af_alg_make_sg);
 
 void af_alg_link_sg(struct af_alg_sgl *sgl_prev, struct af_alg_sgl *sgl_new)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 440 \n"); 
 	sg_unmark_end(sgl_prev->sg + sgl_prev->npages - 1);
 	sg_chain(sgl_prev->sg, sgl_prev->npages + 1, sgl_new->sg);
 }
@@ -433,6 +445,7 @@ EXPORT_SYMBOL_GPL(af_alg_link_sg);
 
 void af_alg_free_sg(struct af_alg_sgl *sgl)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 448 \n"); 
 	int i;
 
 	for (i = 0; i < sgl->npages; i++)
@@ -442,6 +455,7 @@ EXPORT_SYMBOL_GPL(af_alg_free_sg);
 
 int af_alg_cmsg_send(struct msghdr *msg, struct af_alg_control *con)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 458 \n"); 
 	struct cmsghdr *cmsg;
 
 	for_each_cmsghdr(cmsg, msg) {
@@ -483,6 +497,7 @@ EXPORT_SYMBOL_GPL(af_alg_cmsg_send);
 
 int af_alg_wait_for_completion(int err, struct af_alg_completion *completion)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 500 \n"); 
 	switch (err) {
 	case -EINPROGRESS:
 	case -EBUSY:
@@ -498,6 +513,7 @@ EXPORT_SYMBOL_GPL(af_alg_wait_for_completion);
 
 void af_alg_complete(struct crypto_async_request *req, int err)
 {
+	panic("We reached unpopular paths in crypto/af_alg.c: line 516 \n"); 
 	struct af_alg_completion *completion = req->data;
 
 	if (err == -EINPROGRESS)

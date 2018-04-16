@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Pluggable TCP congestion control support and newReno
  * congestion control.
@@ -35,6 +36,7 @@ static struct tcp_congestion_ops *tcp_ca_find(const char *name)
 /* Must be called with rcu lock held */
 static const struct tcp_congestion_ops *__tcp_ca_find_autoload(const char *name)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 39 \n"); 
 	const struct tcp_congestion_ops *ca = tcp_ca_find(name);
 #ifdef CONFIG_MODULES
 	if (!ca && capable(CAP_NET_ADMIN)) {
@@ -99,6 +101,7 @@ EXPORT_SYMBOL_GPL(tcp_register_congestion_control);
  */
 void tcp_unregister_congestion_control(struct tcp_congestion_ops *ca)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 104 \n"); 
 	spin_lock(&tcp_cong_list_lock);
 	list_del_rcu(&ca->list);
 	spin_unlock(&tcp_cong_list_lock);
@@ -116,6 +119,7 @@ EXPORT_SYMBOL_GPL(tcp_unregister_congestion_control);
 
 u32 tcp_ca_get_key_by_name(const char *name, bool *ecn_ca)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 122 \n"); 
 	const struct tcp_congestion_ops *ca;
 	u32 key = TCP_CA_UNSPEC;
 
@@ -135,6 +139,7 @@ EXPORT_SYMBOL_GPL(tcp_ca_get_key_by_name);
 
 char *tcp_ca_get_name_by_key(u32 key, char *buffer)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 142 \n"); 
 	const struct tcp_congestion_ops *ca;
 	char *ret = NULL;
 
@@ -191,6 +196,7 @@ void tcp_init_congestion_control(struct sock *sk)
 static void tcp_reinit_congestion_control(struct sock *sk,
 					  const struct tcp_congestion_ops *ca)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 199 \n"); 
 	struct inet_connection_sock *icsk = inet_csk(sk);
 
 	tcp_cleanup_congestion_control(sk);
@@ -250,6 +256,7 @@ late_initcall(tcp_congestion_default);
 /* Build string with list of available congestion control values */
 void tcp_get_available_congestion_control(char *buf, size_t maxlen)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 259 \n"); 
 	struct tcp_congestion_ops *ca;
 	size_t offs = 0;
 
@@ -265,6 +272,7 @@ void tcp_get_available_congestion_control(char *buf, size_t maxlen)
 /* Get current default congestion control */
 void tcp_get_default_congestion_control(char *name)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 275 \n"); 
 	struct tcp_congestion_ops *ca;
 	/* We will always have reno... */
 	BUG_ON(list_empty(&tcp_cong_list));
@@ -278,6 +286,7 @@ void tcp_get_default_congestion_control(char *name)
 /* Built list of non-restricted congestion control values */
 void tcp_get_allowed_congestion_control(char *buf, size_t maxlen)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 289 \n"); 
 	struct tcp_congestion_ops *ca;
 	size_t offs = 0;
 
@@ -296,6 +305,7 @@ void tcp_get_allowed_congestion_control(char *buf, size_t maxlen)
 /* Change list of non-restricted congestion control */
 int tcp_set_allowed_congestion_control(char *val)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 308 \n"); 
 	struct tcp_congestion_ops *ca;
 	char *saved_clone, *clone, *name;
 	int ret = 0;
@@ -335,6 +345,7 @@ out:
 /* Change congestion control for socket */
 int tcp_set_congestion_control(struct sock *sk, const char *name)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 348 \n"); 
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	const struct tcp_congestion_ops *ca;
 	int err = 0;
@@ -388,6 +399,7 @@ EXPORT_SYMBOL_GPL(tcp_slow_start);
  */
 void tcp_cong_avoid_ai(struct tcp_sock *tp, u32 w, u32 acked)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 402 \n"); 
 	/* If credits accumulated at a higher w, apply them gently now. */
 	if (tp->snd_cwnd_cnt >= w) {
 		tp->snd_cwnd_cnt = 0;
@@ -414,6 +426,7 @@ EXPORT_SYMBOL_GPL(tcp_cong_avoid_ai);
  */
 void tcp_reno_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 429 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 
 	if (!tcp_is_cwnd_limited(sk))
@@ -433,6 +446,7 @@ EXPORT_SYMBOL_GPL(tcp_reno_cong_avoid);
 /* Slow start threshold is half the congestion window (min 2) */
 u32 tcp_reno_ssthresh(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cong.c: line 449 \n"); 
 	const struct tcp_sock *tp = tcp_sk(sk);
 
 	return max(tp->snd_cwnd >> 1U, 2U);

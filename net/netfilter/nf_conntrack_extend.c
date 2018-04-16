@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Structure dynamic extension infrastructure
  * Copyright (C) 2004 Rusty Russell IBM Corporation
  * Copyright (C) 2007 Netfilter Core Team <coreteam@netfilter.org>
@@ -178,6 +179,7 @@ EXPORT_SYMBOL_GPL(nf_ct_extend_register);
 /* This MUST be called in process context. */
 void nf_ct_extend_unregister(struct nf_ct_ext_type *type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_extend.c: line 182 \n"); 
 	mutex_lock(&nf_ct_ext_type_mutex);
 	RCU_INIT_POINTER(nf_ct_ext_types[type->id], NULL);
 	update_alloc_size(type);

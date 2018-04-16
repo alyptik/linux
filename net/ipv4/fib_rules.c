@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -50,6 +51,7 @@ struct fib4_rule {
 int __fib_lookup(struct net *net, struct flowi4 *flp,
 		 struct fib_result *res, unsigned int flags)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_rules.c: line 54 \n"); 
 	struct fib_lookup_arg arg = {
 		.result = res,
 		.flags = flags,
@@ -77,6 +79,7 @@ EXPORT_SYMBOL_GPL(__fib_lookup);
 static int fib4_rule_action(struct fib_rule *rule, struct flowi *flp,
 			    int flags, struct fib_lookup_arg *arg)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_rules.c: line 82 \n"); 
 	int err = -EAGAIN;
 	struct fib_table *tbl;
 	u32 tb_id;
@@ -111,6 +114,7 @@ static int fib4_rule_action(struct fib_rule *rule, struct flowi *flp,
 
 static bool fib4_rule_suppress(struct fib_rule *rule, struct fib_lookup_arg *arg)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_rules.c: line 117 \n"); 
 	struct fib_result *result = (struct fib_result *) arg->result;
 	struct net_device *dev = NULL;
 
@@ -139,6 +143,7 @@ suppress_route:
 
 static int fib4_rule_match(struct fib_rule *rule, struct flowi *fl, int flags)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_rules.c: line 146 \n"); 
 	struct fib4_rule *r = (struct fib4_rule *) rule;
 	struct flowi4 *fl4 = &fl->u.ip4;
 	__be32 daddr = fl4->daddr;
@@ -156,6 +161,7 @@ static int fib4_rule_match(struct fib_rule *rule, struct flowi *fl, int flags)
 
 static struct fib_table *fib_empty_table(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_rules.c: line 164 \n"); 
 	u32 id;
 
 	for (id = 1; id <= RT_TABLE_MAX; id++)
@@ -181,6 +187,7 @@ static int fib4_rule_configure(struct fib_rule *rule, struct sk_buff *skb,
 			       struct fib_rule_hdr *frh,
 			       struct nlattr **tb)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_rules.c: line 190 \n"); 
 	struct net *net = sock_net(skb->sk);
 	int err = -EINVAL;
 	struct fib4_rule *rule4 = (struct fib4_rule *) rule;
@@ -258,6 +265,7 @@ errout:
 static int fib4_rule_compare(struct fib_rule *rule, struct fib_rule_hdr *frh,
 			     struct nlattr **tb)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_rules.c: line 268 \n"); 
 	struct fib4_rule *rule4 = (struct fib4_rule *) rule;
 
 	if (frh->src_len && (rule4->src_len != frh->src_len))
@@ -286,6 +294,7 @@ static int fib4_rule_compare(struct fib_rule *rule, struct fib_rule_hdr *frh,
 static int fib4_rule_fill(struct fib_rule *rule, struct sk_buff *skb,
 			  struct fib_rule_hdr *frh)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_rules.c: line 297 \n"); 
 	struct fib4_rule *rule4 = (struct fib4_rule *) rule;
 
 	frh->dst_len = rule4->dst_len;
@@ -310,6 +319,7 @@ nla_put_failure:
 
 static size_t fib4_rule_nlmsg_payload(struct fib_rule *rule)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_rules.c: line 322 \n"); 
 	return nla_total_size(4) /* dst */
 	       + nla_total_size(4) /* src */
 	       + nla_total_size(4); /* flow */
@@ -317,6 +327,7 @@ static size_t fib4_rule_nlmsg_payload(struct fib_rule *rule)
 
 static void fib4_rule_flush_cache(struct fib_rules_ops *ops)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_rules.c: line 330 \n"); 
 	rt_cache_flush(ops->fro_net);
 }
 

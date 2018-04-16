@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IPV4 GSO/GRO offload support
  *	Linux INET implementation
@@ -18,6 +19,7 @@
 static struct sk_buff *gre_gso_segment(struct sk_buff *skb,
 				       netdev_features_t features)
 {
+	panic("We reached unpopular paths in net/ipv4/gre_offload.c: line 22 \n"); 
 	int tnl_hlen = skb_inner_mac_header(skb) - skb_transport_header(skb);
 	struct sk_buff *segs = ERR_PTR(-EINVAL);
 	u16 mac_offset = skb->mac_header;
@@ -123,6 +125,7 @@ out:
 static struct sk_buff **gre_gro_receive(struct sk_buff **head,
 					struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/gre_offload.c: line 128 \n"); 
 	struct sk_buff **pp = NULL;
 	struct sk_buff *p;
 	const struct gre_base_hdr *greh;
@@ -242,6 +245,7 @@ out:
 
 static int gre_gro_complete(struct sk_buff *skb, int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv4/gre_offload.c: line 248 \n"); 
 	struct gre_base_hdr *greh = (struct gre_base_hdr *)(skb->data + nhoff);
 	struct packet_offload *ptype;
 	unsigned int grehlen = sizeof(*greh);

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 
 #include <linux/wait.h>
 #include <linux/backing-dev.h>
@@ -130,13 +131,16 @@ static void bdi_debug_unregister(struct backing_dev_info *bdi)
 #else
 static inline void bdi_debug_init(void)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 134 \n"); 
 }
 static inline void bdi_debug_register(struct backing_dev_info *bdi,
 				      const char *name)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 139 \n"); 
 }
 static inline void bdi_debug_unregister(struct backing_dev_info *bdi)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 143 \n"); 
 }
 #endif
 
@@ -144,6 +148,7 @@ static ssize_t read_ahead_kb_store(struct device *dev,
 				  struct device_attribute *attr,
 				  const char *buf, size_t count)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 151 \n"); 
 	struct backing_dev_info *bdi = dev_get_drvdata(dev);
 	unsigned long read_ahead_kb;
 	ssize_t ret;
@@ -174,6 +179,7 @@ BDI_SHOW(read_ahead_kb, K(bdi->ra_pages))
 static ssize_t min_ratio_store(struct device *dev,
 		struct device_attribute *attr, const char *buf, size_t count)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 182 \n"); 
 	struct backing_dev_info *bdi = dev_get_drvdata(dev);
 	unsigned int ratio;
 	ssize_t ret;
@@ -193,6 +199,7 @@ BDI_SHOW(min_ratio, bdi->min_ratio)
 static ssize_t max_ratio_store(struct device *dev,
 		struct device_attribute *attr, const char *buf, size_t count)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 202 \n"); 
 	struct backing_dev_info *bdi = dev_get_drvdata(dev);
 	unsigned int ratio;
 	ssize_t ret;
@@ -213,6 +220,7 @@ static ssize_t stable_pages_required_show(struct device *dev,
 					  struct device_attribute *attr,
 					  char *page)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 223 \n"); 
 	struct backing_dev_info *bdi = dev_get_drvdata(dev);
 
 	return snprintf(page, PAGE_SIZE-1, "%d\n",
@@ -272,6 +280,7 @@ subsys_initcall(default_bdi_init);
  */
 void wb_wakeup_delayed(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 283 \n"); 
 	unsigned long timeout;
 
 	timeout = msecs_to_jiffies(dirty_writeback_interval * 10);
@@ -341,6 +350,7 @@ out_put_cong:
  */
 static void wb_shutdown(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 353 \n"); 
 	/* Make sure nobody queues further work */
 	spin_lock_bh(&wb->work_lock);
 	if (!test_and_clear_bit(WB_registered, &wb->state)) {
@@ -361,6 +371,7 @@ static void wb_shutdown(struct bdi_writeback *wb)
 
 static void wb_exit(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 374 \n"); 
 	int i;
 
 	WARN_ON(delayed_work_pending(&wb->dwork));
@@ -751,6 +762,7 @@ void wb_blkcg_offline(struct blkcg *blkcg)
 
 static int cgwb_bdi_init(struct backing_dev_info *bdi)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 765 \n"); 
 	int err;
 
 	bdi->wb_congested = kzalloc(sizeof(*bdi->wb_congested), GFP_KERNEL);
@@ -769,6 +781,7 @@ static int cgwb_bdi_init(struct backing_dev_info *bdi)
 
 static void cgwb_bdi_destroy(struct backing_dev_info *bdi)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 784 \n"); 
 	wb_congested_put(bdi->wb_congested);
 }
 
@@ -826,6 +839,7 @@ EXPORT_SYMBOL(bdi_register);
 
 int bdi_register_dev(struct backing_dev_info *bdi, dev_t dev)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 842 \n"); 
 	return bdi_register(bdi, NULL, "%u:%u", MAJOR(dev), MINOR(dev));
 }
 EXPORT_SYMBOL(bdi_register_dev);
@@ -849,6 +863,7 @@ EXPORT_SYMBOL(bdi_register_owner);
  */
 static void bdi_remove_from_list(struct backing_dev_info *bdi)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 866 \n"); 
 	spin_lock_bh(&bdi_lock);
 	list_del_rcu(&bdi->bdi_list);
 	spin_unlock_bh(&bdi_lock);
@@ -858,6 +873,7 @@ static void bdi_remove_from_list(struct backing_dev_info *bdi)
 
 void bdi_unregister(struct backing_dev_info *bdi)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 876 \n"); 
 	/* make sure nobody finds us on the bdi_list anymore */
 	bdi_remove_from_list(bdi);
 	wb_shutdown(&bdi->wb);
@@ -877,12 +893,14 @@ void bdi_unregister(struct backing_dev_info *bdi)
 
 void bdi_exit(struct backing_dev_info *bdi)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 896 \n"); 
 	WARN_ON_ONCE(bdi->dev);
 	wb_exit(&bdi->wb);
 }
 
 void bdi_destroy(struct backing_dev_info *bdi)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 903 \n"); 
 	bdi_unregister(bdi);
 	bdi_exit(bdi);
 }
@@ -894,6 +912,7 @@ EXPORT_SYMBOL(bdi_destroy);
  */
 int bdi_setup_and_register(struct backing_dev_info *bdi, char *name)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 915 \n"); 
 	int err;
 
 	bdi->name = name;
@@ -935,6 +954,7 @@ EXPORT_SYMBOL(clear_wb_congested);
 
 void set_wb_congested(struct bdi_writeback_congested *congested, int sync)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 957 \n"); 
 	enum wb_congested_state bit;
 
 	bit = sync ? WB_sync_congested : WB_async_congested;
@@ -954,6 +974,7 @@ EXPORT_SYMBOL(set_wb_congested);
  */
 long congestion_wait(int sync, long timeout)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 977 \n"); 
 	long ret;
 	unsigned long start = jiffies;
 	DEFINE_WAIT(wait);
@@ -990,6 +1011,7 @@ EXPORT_SYMBOL(congestion_wait);
  */
 long wait_iff_congested(struct pglist_data *pgdat, int sync, long timeout)
 {
+	panic("We reached unpopular paths in mm/backing-dev.c: line 1014 \n"); 
 	long ret;
 	unsigned long start = jiffies;
 	DEFINE_WAIT(wait);

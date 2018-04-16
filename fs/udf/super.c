@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * super.c
  *
@@ -107,6 +108,7 @@ static int udf_show_options(struct seq_file *, struct dentry *);
 
 struct logicalVolIntegrityDescImpUse *udf_sb_lvidiu(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 111 \n"); 
 	struct logicalVolIntegrityDesc *lvid;
 	unsigned int partnum;
 	unsigned int offset;
@@ -131,6 +133,7 @@ struct logicalVolIntegrityDescImpUse *udf_sb_lvidiu(struct super_block *sb)
 static struct dentry *udf_mount(struct file_system_type *fs_type,
 		      int flags, const char *dev_name, void *data)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 136 \n"); 
 	return mount_bdev(fs_type, flags, dev_name, data, udf_fill_super);
 }
 
@@ -147,6 +150,7 @@ static struct kmem_cache *udf_inode_cachep;
 
 static struct inode *udf_alloc_inode(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 153 \n"); 
 	struct udf_inode_info *ei;
 	ei = kmem_cache_alloc(udf_inode_cachep, GFP_KERNEL);
 	if (!ei)
@@ -166,17 +170,20 @@ static struct inode *udf_alloc_inode(struct super_block *sb)
 
 static void udf_i_callback(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 173 \n"); 
 	struct inode *inode = container_of(head, struct inode, i_rcu);
 	kmem_cache_free(udf_inode_cachep, UDF_I(inode));
 }
 
 static void udf_destroy_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 180 \n"); 
 	call_rcu(&inode->i_rcu, udf_i_callback);
 }
 
 static void init_once(void *foo)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 186 \n"); 
 	struct udf_inode_info *ei = (struct udf_inode_info *)foo;
 
 	ei->i_ext.i_data = NULL;
@@ -198,6 +205,7 @@ static int __init init_inodecache(void)
 
 static void destroy_inodecache(void)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 208 \n"); 
 	/*
 	 * Make sure all delayed rcu free inodes are flushed before we
 	 * destroy cache.
@@ -269,6 +277,7 @@ module_exit(exit_udf_fs)
 
 static int udf_sb_alloc_partition_maps(struct super_block *sb, u32 count)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 280 \n"); 
 	struct udf_sb_info *sbi = UDF_SB(sb);
 
 	sbi->s_partmaps = kcalloc(count, sizeof(struct udf_part_map),
@@ -286,6 +295,7 @@ static int udf_sb_alloc_partition_maps(struct super_block *sb, u32 count)
 
 static void udf_sb_free_bitmap(struct udf_bitmap *bitmap)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 298 \n"); 
 	int i;
 	int nr_groups = bitmap->s_nr_groups;
 
@@ -298,6 +308,7 @@ static void udf_sb_free_bitmap(struct udf_bitmap *bitmap)
 
 static void udf_free_partition(struct udf_part_map *map)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 311 \n"); 
 	int i;
 	struct udf_meta_data *mdata;
 
@@ -327,6 +338,7 @@ static void udf_free_partition(struct udf_part_map *map)
 
 static void udf_sb_free_partitions(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 341 \n"); 
 	struct udf_sb_info *sbi = UDF_SB(sb);
 	int i;
 	if (sbi->s_partmaps == NULL)
@@ -339,6 +351,7 @@ static void udf_sb_free_partitions(struct super_block *sb)
 
 static int udf_show_options(struct seq_file *seq, struct dentry *root)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 354 \n"); 
 	struct super_block *sb = root->d_sb;
 	struct udf_sb_info *sbi = UDF_SB(sb);
 
@@ -490,6 +503,7 @@ static const match_table_t tokens = {
 static int udf_parse_options(char *options, struct udf_options *uopt,
 			     bool remount)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 506 \n"); 
 	char *p;
 	int option;
 
@@ -649,6 +663,7 @@ static int udf_parse_options(char *options, struct udf_options *uopt,
 
 static int udf_remount_fs(struct super_block *sb, int *flags, char *options)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 666 \n"); 
 	struct udf_options uopt;
 	struct udf_sb_info *sbi = UDF_SB(sb);
 	int error = 0;
@@ -696,6 +711,7 @@ out_unlock:
 /* We also check any "CD-ROM Volume Descriptor Set" (ECMA 167 2/8.3.1) */
 static loff_t udf_check_vsd(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 714 \n"); 
 	struct volStructDesc *vsd = NULL;
 	loff_t sector = VSD_FIRST_SECTOR_OFFSET;
 	int sectorsize;
@@ -801,6 +817,7 @@ static int udf_find_fileset(struct super_block *sb,
 			    struct kernel_lb_addr *fileset,
 			    struct kernel_lb_addr *root)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 820 \n"); 
 	struct buffer_head *bh = NULL;
 	long lastblock;
 	uint16_t ident;
@@ -895,6 +912,7 @@ static int udf_find_fileset(struct super_block *sb,
  */
 static int udf_load_pvoldesc(struct super_block *sb, sector_t block)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 915 \n"); 
 	struct primaryVolDesc *pvoldesc;
 	uint8_t *outstr;
 	struct buffer_head *bh;
@@ -953,6 +971,7 @@ out2:
 struct inode *udf_find_metadata_inode_efe(struct super_block *sb,
 					u32 meta_file_loc, u32 partition_ref)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 974 \n"); 
 	struct kernel_lb_addr addr;
 	struct inode *metadata_fe;
 
@@ -977,6 +996,7 @@ struct inode *udf_find_metadata_inode_efe(struct super_block *sb,
 static int udf_load_metadata_files(struct super_block *sb, int partition,
 				   int type1_index)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 999 \n"); 
 	struct udf_sb_info *sbi = UDF_SB(sb);
 	struct udf_part_map *map;
 	struct udf_meta_data *mdata;
@@ -1041,6 +1061,7 @@ static int udf_load_metadata_files(struct super_block *sb, int partition,
 static void udf_load_fileset(struct super_block *sb, struct buffer_head *bh,
 			     struct kernel_lb_addr *root)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1064 \n"); 
 	struct fileSetDesc *fset;
 
 	fset = (struct fileSetDesc *)bh->b_data;
@@ -1055,6 +1076,7 @@ static void udf_load_fileset(struct super_block *sb, struct buffer_head *bh,
 
 int udf_compute_nr_groups(struct super_block *sb, u32 partition)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1079 \n"); 
 	struct udf_part_map *map = &UDF_SB(sb)->s_partmaps[partition];
 	return DIV_ROUND_UP(map->s_partition_len +
 			    (sizeof(struct spaceBitmapDesc) << 3),
@@ -1063,6 +1085,7 @@ int udf_compute_nr_groups(struct super_block *sb, u32 partition)
 
 static struct udf_bitmap *udf_sb_alloc_bitmap(struct super_block *sb, u32 index)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1088 \n"); 
 	struct udf_bitmap *bitmap;
 	int nr_groups;
 	int size;
@@ -1086,6 +1109,7 @@ static struct udf_bitmap *udf_sb_alloc_bitmap(struct super_block *sb, u32 index)
 static int udf_fill_partdesc_info(struct super_block *sb,
 		struct partitionDesc *p, int p_index)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1112 \n"); 
 	struct udf_part_map *map;
 	struct udf_sb_info *sbi = UDF_SB(sb);
 	struct partitionHeaderDesc *phd;
@@ -1185,6 +1209,7 @@ static int udf_fill_partdesc_info(struct super_block *sb,
 static void udf_find_vat_block(struct super_block *sb, int p_index,
 			       int type1_index, sector_t start_block)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1212 \n"); 
 	struct udf_sb_info *sbi = UDF_SB(sb);
 	struct udf_part_map *map = &sbi->s_partmaps[p_index];
 	sector_t vat_block;
@@ -1210,6 +1235,7 @@ static void udf_find_vat_block(struct super_block *sb, int p_index,
 
 static int udf_load_vat(struct super_block *sb, int p_index, int type1_index)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1238 \n"); 
 	struct udf_sb_info *sbi = UDF_SB(sb);
 	struct udf_part_map *map = &sbi->s_partmaps[p_index];
 	struct buffer_head *bh = NULL;
@@ -1265,6 +1291,7 @@ static int udf_load_vat(struct super_block *sb, int p_index, int type1_index)
  */
 static int udf_load_partdesc(struct super_block *sb, sector_t block)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1294 \n"); 
 	struct buffer_head *bh;
 	struct partitionDesc *p;
 	struct udf_part_map *map;
@@ -1366,6 +1393,7 @@ static int udf_load_sparable_map(struct super_block *sb,
 				 struct udf_part_map *map,
 				 struct sparablePartitionMap *spm)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1396 \n"); 
 	uint32_t loc;
 	uint16_t ident;
 	struct sparingTable *st;
@@ -1413,6 +1441,7 @@ static int udf_load_sparable_map(struct super_block *sb,
 static int udf_load_logicalvol(struct super_block *sb, sector_t block,
 			       struct kernel_lb_addr *fileset)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1444 \n"); 
 	struct logicalVolDesc *lvd;
 	int i, offset;
 	uint8_t type;
@@ -1556,6 +1585,7 @@ out_bh:
  */
 static void udf_load_logicalvolint(struct super_block *sb, struct kernel_extent_ad loc)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1588 \n"); 
 	struct buffer_head *bh, *final_bh;
 	uint16_t ident;
 	struct udf_sb_info *sbi = UDF_SB(sb);
@@ -1756,6 +1786,7 @@ static noinline int udf_process_sequence(
 static int udf_load_sequence(struct super_block *sb, struct buffer_head *bh,
 			     struct kernel_lb_addr *fileset)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1789 \n"); 
 	struct anchorVolDescPtr *anchor;
 	sector_t main_s, main_e, reserve_s, reserve_e;
 	int ret;
@@ -1800,6 +1831,7 @@ static int udf_load_sequence(struct super_block *sb, struct buffer_head *bh,
 static int udf_check_anchor_block(struct super_block *sb, sector_t block,
 				  struct kernel_lb_addr *fileset)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1834 \n"); 
 	struct buffer_head *bh;
 	uint16_t ident;
 	int ret;
@@ -1830,6 +1862,7 @@ static int udf_check_anchor_block(struct super_block *sb, sector_t block,
 static int udf_scan_anchors(struct super_block *sb, sector_t *lastblock,
 			    struct kernel_lb_addr *fileset)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1865 \n"); 
 	sector_t last[6];
 	int i;
 	struct udf_sb_info *sbi = UDF_SB(sb);
@@ -1902,6 +1935,7 @@ static int udf_scan_anchors(struct super_block *sb, sector_t *lastblock,
 static int udf_find_anchor(struct super_block *sb,
 			   struct kernel_lb_addr *fileset)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1938 \n"); 
 	struct udf_sb_info *sbi = UDF_SB(sb);
 	sector_t lastblock = sbi->s_last_block;
 	int ret;
@@ -1941,6 +1975,7 @@ out:
 static int udf_load_vrs(struct super_block *sb, struct udf_options *uopt,
 			int silent, struct kernel_lb_addr *fileset)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 1978 \n"); 
 	struct udf_sb_info *sbi = UDF_SB(sb);
 	loff_t nsr_off;
 	int ret;
@@ -1982,6 +2017,7 @@ static int udf_load_vrs(struct super_block *sb, struct udf_options *uopt,
 
 static void udf_open_lvid(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 2020 \n"); 
 	struct udf_sb_info *sbi = UDF_SB(sb);
 	struct buffer_head *bh = sbi->s_lvid_bh;
 	struct logicalVolIntegrityDesc *lvid;
@@ -2015,6 +2051,7 @@ static void udf_open_lvid(struct super_block *sb)
 
 static void udf_close_lvid(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 2054 \n"); 
 	struct udf_sb_info *sbi = UDF_SB(sb);
 	struct buffer_head *bh = sbi->s_lvid_bh;
 	struct logicalVolIntegrityDesc *lvid;
@@ -2059,6 +2096,7 @@ static void udf_close_lvid(struct super_block *sb)
 
 u64 lvid_get_unique_id(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 2099 \n"); 
 	struct buffer_head *bh;
 	struct udf_sb_info *sbi = UDF_SB(sb);
 	struct logicalVolIntegrityDesc *lvid;
@@ -2086,6 +2124,7 @@ u64 lvid_get_unique_id(struct super_block *sb)
 
 static int udf_fill_super(struct super_block *sb, void *options, int silent)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 2127 \n"); 
 	int ret = -EINVAL;
 	struct inode *inode = NULL;
 	struct udf_options uopt;
@@ -2285,6 +2324,7 @@ parse_options_failure:
 void _udf_err(struct super_block *sb, const char *function,
 	      const char *fmt, ...)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 2327 \n"); 
 	struct va_format vaf;
 	va_list args;
 
@@ -2301,6 +2341,7 @@ void _udf_err(struct super_block *sb, const char *function,
 void _udf_warn(struct super_block *sb, const char *function,
 	       const char *fmt, ...)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 2344 \n"); 
 	struct va_format vaf;
 	va_list args;
 
@@ -2316,6 +2357,7 @@ void _udf_warn(struct super_block *sb, const char *function,
 
 static void udf_put_super(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 2360 \n"); 
 	struct udf_sb_info *sbi;
 
 	sbi = UDF_SB(sb);
@@ -2336,6 +2378,7 @@ static void udf_put_super(struct super_block *sb)
 
 static int udf_sync_fs(struct super_block *sb, int wait)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 2381 \n"); 
 	struct udf_sb_info *sbi = UDF_SB(sb);
 
 	mutex_lock(&sbi->s_alloc_mutex);
@@ -2354,6 +2397,7 @@ static int udf_sync_fs(struct super_block *sb, int wait)
 
 static int udf_statfs(struct dentry *dentry, struct kstatfs *buf)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 2400 \n"); 
 	struct super_block *sb = dentry->d_sb;
 	struct udf_sb_info *sbi = UDF_SB(sb);
 	struct logicalVolIntegrityDescImpUse *lvidiu;
@@ -2379,6 +2423,7 @@ static int udf_statfs(struct dentry *dentry, struct kstatfs *buf)
 static unsigned int udf_count_free_bitmap(struct super_block *sb,
 					  struct udf_bitmap *bitmap)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 2426 \n"); 
 	struct buffer_head *bh = NULL;
 	unsigned int accum = 0;
 	int index;
@@ -2432,6 +2477,7 @@ out:
 static unsigned int udf_count_free_table(struct super_block *sb,
 					 struct inode *table)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 2480 \n"); 
 	unsigned int accum = 0;
 	uint32_t elen;
 	struct kernel_lb_addr eloc;
@@ -2454,6 +2500,7 @@ static unsigned int udf_count_free_table(struct super_block *sb,
 
 static unsigned int udf_count_free(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/udf/super.c: line 2503 \n"); 
 	unsigned int accum = 0;
 	struct udf_sb_info *sbi;
 	struct udf_part_map *map;

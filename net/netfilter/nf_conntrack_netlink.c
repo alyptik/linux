@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Connection tracking via netlink socket. Allows for user space
  * protocol helpers and general trouble making from userspace.
  *
@@ -220,6 +221,7 @@ static int
 dump_counters(struct sk_buff *skb, struct nf_conn_acct *acct,
 	      enum ip_conntrack_dir dir, int type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 224 \n"); 
 	enum ctattr_type attr = dir ? CTA_COUNTERS_REPLY: CTA_COUNTERS_ORIG;
 	struct nf_conn_counter *counter = acct->counter;
 	struct nlattr *nest_count;
@@ -397,6 +399,7 @@ nla_put_failure:
 static int
 dump_ct_seq_adj(struct sk_buff *skb, const struct nf_ct_seqadj *seq, int type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 402 \n"); 
 	struct nlattr *nest_parms;
 
 	nest_parms = nla_nest_start(skb, type | NLA_F_NESTED);
@@ -531,6 +534,7 @@ nla_put_failure:
 
 static inline size_t ctnetlink_proto_size(const struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 537 \n"); 
 	struct nf_conntrack_l3proto *l3proto;
 	struct nf_conntrack_l4proto *l4proto;
 	size_t len = 0;
@@ -548,6 +552,7 @@ static inline size_t ctnetlink_proto_size(const struct nf_conn *ct)
 
 static inline size_t ctnetlink_acct_size(const struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 555 \n"); 
 	if (!nf_ct_ext_exist(ct, NF_CT_EXT_ACCT))
 		return 0;
 	return 2 * nla_total_size(0) /* CTA_COUNTERS_ORIG|REPL */
@@ -558,6 +563,7 @@ static inline size_t ctnetlink_acct_size(const struct nf_conn *ct)
 
 static inline int ctnetlink_secctx_size(const struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 566 \n"); 
 #ifdef CONFIG_NF_CONNTRACK_SECMARK
 	int len, ret;
 
@@ -574,6 +580,7 @@ static inline int ctnetlink_secctx_size(const struct nf_conn *ct)
 
 static inline size_t ctnetlink_timestamp_size(const struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 583 \n"); 
 #ifdef CONFIG_NF_CONNTRACK_TIMESTAMP
 	if (!nf_ct_ext_exist(ct, NF_CT_EXT_TSTAMP))
 		return 0;
@@ -777,6 +784,7 @@ struct ctnetlink_filter {
 static struct ctnetlink_filter *
 ctnetlink_alloc_filter(const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 787 \n"); 
 #ifdef CONFIG_NF_CONNTRACK_MARK
 	struct ctnetlink_filter *filter;
 
@@ -906,6 +914,7 @@ out:
 static int ctnetlink_parse_tuple_ip(struct nlattr *attr,
 				    struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 917 \n"); 
 	struct nlattr *tb[CTA_IP_MAX+1];
 	struct nf_conntrack_l3proto *l3proto;
 	int ret = 0;
@@ -936,6 +945,7 @@ static const struct nla_policy proto_nla_policy[CTA_PROTO_MAX+1] = {
 static int ctnetlink_parse_tuple_proto(struct nlattr *attr,
 				       struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 948 \n"); 
 	struct nlattr *tb[CTA_PROTO_MAX+1];
 	struct nf_conntrack_l4proto *l4proto;
 	int ret = 0;
@@ -967,6 +977,7 @@ static int
 ctnetlink_parse_zone(const struct nlattr *attr,
 		     struct nf_conntrack_zone *zone)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 980 \n"); 
 	nf_ct_zone_init(zone, NF_CT_DEFAULT_ZONE_ID,
 			NF_CT_DEFAULT_ZONE_DIR, 0);
 #ifdef CONFIG_NF_CONNTRACK_ZONES
@@ -983,6 +994,7 @@ static int
 ctnetlink_parse_tuple_zone(struct nlattr *attr, enum ctattr_type type,
 			   struct nf_conntrack_zone *zone)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 997 \n"); 
 	int ret;
 
 	if (zone->id != NF_CT_DEFAULT_ZONE_ID)
@@ -1012,6 +1024,7 @@ ctnetlink_parse_tuple(const struct nlattr * const cda[],
 		      enum ctattr_type type, u_int8_t l3num,
 		      struct nf_conntrack_zone *zone)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1027 \n"); 
 	struct nlattr *tb[CTA_TUPLE_MAX+1];
 	int err;
 
@@ -1064,6 +1077,7 @@ static const struct nla_policy help_nla_policy[CTA_HELP_MAX+1] = {
 static int ctnetlink_parse_help(const struct nlattr *attr, char **helper_name,
 				struct nlattr **helpinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1080 \n"); 
 	int err;
 	struct nlattr *tb[CTA_HELP_MAX+1];
 
@@ -1108,6 +1122,7 @@ static int ctnetlink_flush_conntrack(struct net *net,
 				     const struct nlattr * const cda[],
 				     u32 portid, int report)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1125 \n"); 
 	struct ctnetlink_filter *filter = NULL;
 
 	if (cda[CTA_MARK] && cda[CTA_MARK_MASK]) {
@@ -1128,6 +1143,7 @@ static int ctnetlink_del_conntrack(struct net *net, struct sock *ctnl,
 				   const struct nlmsghdr *nlh,
 				   const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1146 \n"); 
 	struct nf_conntrack_tuple_hash *h;
 	struct nf_conntrack_tuple tuple;
 	struct nf_conn *ct;
@@ -1259,6 +1275,7 @@ out:
 
 static int ctnetlink_done_list(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1278 \n"); 
 	if (cb->args[1])
 		nf_ct_put((struct nf_conn *)cb->args[1]);
 	return 0;
@@ -1267,6 +1284,7 @@ static int ctnetlink_done_list(struct netlink_callback *cb)
 static int
 ctnetlink_dump_list(struct sk_buff *skb, struct netlink_callback *cb, bool dying)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1287 \n"); 
 	struct nf_conn *ct, *last;
 	struct nf_conntrack_tuple_hash *h;
 	struct hlist_nulls_node *n;
@@ -1333,6 +1351,7 @@ out:
 static int
 ctnetlink_dump_dying(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1354 \n"); 
 	return ctnetlink_dump_list(skb, cb, true);
 }
 
@@ -1341,6 +1360,7 @@ static int ctnetlink_get_ct_dying(struct net *net, struct sock *ctnl,
 				  const struct nlmsghdr *nlh,
 				  const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1363 \n"); 
 	if (nlh->nlmsg_flags & NLM_F_DUMP) {
 		struct netlink_dump_control c = {
 			.dump = ctnetlink_dump_dying,
@@ -1355,6 +1375,7 @@ static int ctnetlink_get_ct_dying(struct net *net, struct sock *ctnl,
 static int
 ctnetlink_dump_unconfirmed(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1378 \n"); 
 	return ctnetlink_dump_list(skb, cb, false);
 }
 
@@ -1363,6 +1384,7 @@ static int ctnetlink_get_ct_unconfirmed(struct net *net, struct sock *ctnl,
 					const struct nlmsghdr *nlh,
 					const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1387 \n"); 
 	if (nlh->nlmsg_flags & NLM_F_DUMP) {
 		struct netlink_dump_control c = {
 			.dump = ctnetlink_dump_unconfirmed,
@@ -1424,6 +1446,7 @@ ctnetlink_parse_nat_setup(struct nf_conn *ct,
 static int
 ctnetlink_change_status(struct nf_conn *ct, const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1449 \n"); 
 	unsigned long d;
 	unsigned int status = ntohl(nla_get_be32(cda[CTA_STATUS]));
 	d = ct->status ^ status;
@@ -1450,6 +1473,7 @@ ctnetlink_change_status(struct nf_conn *ct, const struct nlattr * const cda[])
 static int
 ctnetlink_setup_nat(struct nf_conn *ct, const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1476 \n"); 
 #ifdef CONFIG_NF_NAT_NEEDED
 	int ret;
 
@@ -1474,6 +1498,7 @@ ctnetlink_setup_nat(struct nf_conn *ct, const struct nlattr * const cda[])
 static int ctnetlink_change_helper(struct nf_conn *ct,
 				   const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1501 \n"); 
 	struct nf_conntrack_helper *helper;
 	struct nf_conn_help *help = nfct_help(ct);
 	char *helpname = NULL;
@@ -1535,6 +1560,7 @@ static int ctnetlink_change_helper(struct nf_conn *ct,
 static int ctnetlink_change_timeout(struct nf_conn *ct,
 				    const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1563 \n"); 
 	u_int32_t timeout = ntohl(nla_get_be32(cda[CTA_TIMEOUT]));
 
 	ct->timeout = nfct_time_stamp + timeout * HZ;
@@ -1554,6 +1580,7 @@ static const struct nla_policy protoinfo_policy[CTA_PROTOINFO_MAX+1] = {
 static int ctnetlink_change_protoinfo(struct nf_conn *ct,
 				      const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1583 \n"); 
 	const struct nlattr *attr = cda[CTA_PROTOINFO];
 	struct nlattr *tb[CTA_PROTOINFO_MAX+1];
 	struct nf_conntrack_l4proto *l4proto;
@@ -1581,6 +1608,7 @@ static const struct nla_policy seqadj_policy[CTA_SEQADJ_MAX+1] = {
 static int change_seq_adj(struct nf_ct_seqadj *seq,
 			  const struct nlattr * const attr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1611 \n"); 
 	int err;
 	struct nlattr *cda[CTA_SEQADJ_MAX+1];
 
@@ -1613,6 +1641,7 @@ static int
 ctnetlink_change_seq_adj(struct nf_conn *ct,
 			 const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1644 \n"); 
 	struct nf_conn_seqadj *seqadj = nfct_seqadj(ct);
 	int ret = 0;
 
@@ -1643,6 +1672,7 @@ ctnetlink_change_seq_adj(struct nf_conn *ct,
 static int
 ctnetlink_attach_labels(struct nf_conn *ct, const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1675 \n"); 
 #ifdef CONFIG_NF_CONNTRACK_LABELS
 	size_t len = nla_len(cda[CTA_LABELS]);
 	const void *mask = cda[CTA_LABELS_MASK];
@@ -1669,6 +1699,7 @@ static int
 ctnetlink_change_conntrack(struct nf_conn *ct,
 			   const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1702 \n"); 
 	int err;
 
 	/* only allow NAT changes and master assignation for new conntracks */
@@ -1727,6 +1758,7 @@ ctnetlink_create_conntrack(struct net *net,
 			   struct nf_conntrack_tuple *rtuple,
 			   u8 u3)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1761 \n"); 
 	struct nf_conn *ct;
 	int err = -EINVAL;
 	struct nf_conntrack_helper *helper;
@@ -1876,6 +1908,7 @@ static int ctnetlink_new_conntrack(struct net *net, struct sock *ctnl,
 				   const struct nlmsghdr *nlh,
 				   const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 1911 \n"); 
 	struct nf_conntrack_tuple otuple, rtuple;
 	struct nf_conntrack_tuple_hash *h = NULL;
 	struct nfgenmsg *nfmsg = nlmsg_data(nlh);
@@ -1974,6 +2007,7 @@ static int
 ctnetlink_ct_stat_cpu_fill_info(struct sk_buff *skb, u32 portid, u32 seq,
 				__u16 cpu, const struct ip_conntrack_stat *st)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2010 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 	unsigned int flags = portid ? NLM_F_MULTI : 0, event;
@@ -2013,6 +2047,7 @@ nlmsg_failure:
 static int
 ctnetlink_ct_stat_cpu_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2050 \n"); 
 	int cpu;
 	struct net *net = sock_net(skb->sk);
 
@@ -2042,6 +2077,7 @@ static int ctnetlink_stat_ct_cpu(struct net *net, struct sock *ctnl,
 				 const struct nlmsghdr *nlh,
 				 const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2080 \n"); 
 	if (nlh->nlmsg_flags & NLM_F_DUMP) {
 		struct netlink_dump_control c = {
 			.dump = ctnetlink_ct_stat_cpu_dump,
@@ -2056,6 +2092,7 @@ static int
 ctnetlink_stat_ct_fill_info(struct sk_buff *skb, u32 portid, u32 seq, u32 type,
 			    struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2095 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 	unsigned int flags = portid ? NLM_F_MULTI : 0, event;
@@ -2087,6 +2124,7 @@ static int ctnetlink_stat_ct(struct net *net, struct sock *ctnl,
 			     struct sk_buff *skb, const struct nlmsghdr *nlh,
 			     const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2127 \n"); 
 	struct sk_buff *skb2;
 	int err;
 
@@ -2411,6 +2449,7 @@ static int ctnetlink_exp_dump_tuple(struct sk_buff *skb,
 				    const struct nf_conntrack_tuple *tuple,
 				    enum ctattr_expect type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2452 \n"); 
 	struct nlattr *nest_parms;
 
 	nest_parms = nla_nest_start(skb, type | NLA_F_NESTED);
@@ -2430,6 +2469,7 @@ static int ctnetlink_exp_dump_mask(struct sk_buff *skb,
 				   const struct nf_conntrack_tuple *tuple,
 				   const struct nf_conntrack_tuple_mask *mask)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2472 \n"); 
 	int ret;
 	struct nf_conntrack_l3proto *l3proto;
 	struct nf_conntrack_l4proto *l4proto;
@@ -2472,6 +2512,7 @@ static int
 ctnetlink_exp_dump_expect(struct sk_buff *skb,
 			  const struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2515 \n"); 
 	struct nf_conn *master = exp->master;
 	long timeout = ((long)exp->timeout.expires - (long)jiffies) / HZ;
 	struct nf_conn_help *help;
@@ -2543,6 +2584,7 @@ static int
 ctnetlink_exp_fill_info(struct sk_buff *skb, u32 portid, u32 seq,
 			int event, const struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2587 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 	unsigned int flags = portid ? NLM_F_MULTI : 0;
@@ -2629,6 +2671,7 @@ errout:
 #endif
 static int ctnetlink_exp_done(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2674 \n"); 
 	if (cb->args[1])
 		nf_ct_expect_put((struct nf_conntrack_expect *)cb->args[1]);
 	return 0;
@@ -2637,6 +2680,7 @@ static int ctnetlink_exp_done(struct netlink_callback *cb)
 static int
 ctnetlink_exp_dump_table(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2683 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct nf_conntrack_expect *exp, *last;
 	struct nfgenmsg *nfmsg = nlmsg_data(cb->nlh);
@@ -2686,6 +2730,7 @@ out:
 static int
 ctnetlink_exp_ct_dump_table(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2733 \n"); 
 	struct nf_conntrack_expect *exp, *last;
 	struct nfgenmsg *nfmsg = nlmsg_data(cb->nlh);
 	struct nf_conn *ct = cb->data;
@@ -2734,6 +2779,7 @@ static int ctnetlink_dump_exp_ct(struct net *net, struct sock *ctnl,
 				 const struct nlmsghdr *nlh,
 				 const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2782 \n"); 
 	int err;
 	struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u_int8_t u3 = nfmsg->nfgen_family;
@@ -2772,6 +2818,7 @@ static int ctnetlink_get_expect(struct net *net, struct sock *ctnl,
 				struct sk_buff *skb, const struct nlmsghdr *nlh,
 				const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2821 \n"); 
 	struct nf_conntrack_tuple tuple;
 	struct nf_conntrack_expect *exp;
 	struct sk_buff *skb2;
@@ -2852,6 +2899,7 @@ static int ctnetlink_del_expect(struct net *net, struct sock *ctnl,
 				struct sk_buff *skb, const struct nlmsghdr *nlh,
 				const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 2902 \n"); 
 	struct nf_conntrack_expect *exp;
 	struct nf_conntrack_tuple tuple;
 	struct nfgenmsg *nfmsg = nlmsg_data(nlh);
@@ -2949,6 +2997,7 @@ static int
 ctnetlink_change_expect(struct nf_conntrack_expect *x,
 			const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 3000 \n"); 
 	if (cda[CTA_EXPECT_TIMEOUT]) {
 		if (!del_timer(&x->timeout))
 			return -ETIME;
@@ -2970,6 +3019,7 @@ ctnetlink_parse_expect_nat(const struct nlattr *attr,
 			   struct nf_conntrack_expect *exp,
 			   u_int8_t u3)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 3022 \n"); 
 #ifdef CONFIG_NF_NAT_NEEDED
 	struct nlattr *tb[CTA_EXPECT_NAT_MAX+1];
 	struct nf_conntrack_tuple nat_tuple = {};
@@ -3004,6 +3054,7 @@ ctnetlink_alloc_expect(const struct nlattr * const cda[], struct nf_conn *ct,
 		       struct nf_conntrack_tuple *tuple,
 		       struct nf_conntrack_tuple *mask)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 3057 \n"); 
 	u_int32_t class = 0;
 	struct nf_conntrack_expect *exp;
 	struct nf_conn_help *help;
@@ -3077,6 +3128,7 @@ ctnetlink_create_expect(struct net *net,
 			const struct nlattr * const cda[],
 			u_int8_t u3, u32 portid, int report)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 3131 \n"); 
 	struct nf_conntrack_tuple tuple, mask, master_tuple;
 	struct nf_conntrack_tuple_hash *h = NULL;
 	struct nf_conntrack_helper *helper = NULL;
@@ -3144,6 +3196,7 @@ static int ctnetlink_new_expect(struct net *net, struct sock *ctnl,
 				struct sk_buff *skb, const struct nlmsghdr *nlh,
 				const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 3199 \n"); 
 	struct nf_conntrack_tuple tuple;
 	struct nf_conntrack_expect *exp;
 	struct nfgenmsg *nfmsg = nlmsg_data(nlh);
@@ -3190,6 +3243,7 @@ static int
 ctnetlink_exp_stat_fill_info(struct sk_buff *skb, u32 portid, u32 seq, int cpu,
 			     const struct ip_conntrack_stat *st)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 3246 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 	unsigned int flags = portid ? NLM_F_MULTI : 0, event;
@@ -3221,6 +3275,7 @@ nlmsg_failure:
 static int
 ctnetlink_exp_stat_cpu_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 3278 \n"); 
 	int cpu;
 	struct net *net = sock_net(skb->sk);
 
@@ -3249,6 +3304,7 @@ static int ctnetlink_stat_exp_cpu(struct net *net, struct sock *ctnl,
 				  const struct nlmsghdr *nlh,
 				  const struct nlattr * const cda[])
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netlink.c: line 3307 \n"); 
 	if (nlh->nlmsg_flags & NLM_F_DUMP) {
 		struct netlink_dump_control c = {
 			.dump = ctnetlink_exp_stat_cpu_dump,

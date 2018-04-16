@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
 #include <linux/workqueue.h>
@@ -248,11 +249,13 @@ EXPORT_SYMBOL(peernet2id);
  */
 bool peernet_has_id(struct net *net, struct net *peer)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 252 \n"); 
 	return peernet2id(net, peer) >= 0;
 }
 
 struct net *get_net_ns_by_id(struct net *net, int id)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 258 \n"); 
 	unsigned long flags;
 	struct net *peer;
 
@@ -510,6 +513,7 @@ struct net *get_net_ns_by_fd(int fd)
 #else
 struct net *get_net_ns_by_fd(int fd)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 516 \n"); 
 	return ERR_PTR(-EINVAL);
 }
 #endif
@@ -517,6 +521,7 @@ EXPORT_SYMBOL_GPL(get_net_ns_by_fd);
 
 struct net *get_net_ns_by_pid(pid_t pid)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 524 \n"); 
 	struct task_struct *tsk;
 	struct net *net;
 
@@ -564,6 +569,7 @@ static const struct nla_policy rtnl_net_policy[NETNSA_MAX + 1] = {
 
 static int rtnl_net_newid(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 572 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct nlattr *tb[NETNSA_MAX + 1];
 	unsigned long flags;
@@ -607,6 +613,7 @@ out:
 
 static int rtnl_net_get_size(void)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 616 \n"); 
 	return NLMSG_ALIGN(sizeof(struct rtgenmsg))
 	       + nla_total_size(sizeof(s32)) /* NETNSA_NSID */
 	       ;
@@ -638,6 +645,7 @@ nla_put_failure:
 
 static int rtnl_net_getid(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 648 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct nlattr *tb[NETNSA_MAX + 1];
 	struct sk_buff *msg;
@@ -690,6 +698,7 @@ struct rtnl_net_dump_cb {
 
 static int rtnl_net_dumpid_one(int id, void *peer, void *data)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 701 \n"); 
 	struct rtnl_net_dump_cb *net_cb = (struct rtnl_net_dump_cb *)data;
 	int ret;
 
@@ -709,6 +718,7 @@ cont:
 
 static int rtnl_net_dumpid(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 721 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct rtnl_net_dump_cb net_cb = {
 		.net = net,
@@ -837,6 +847,7 @@ static void __unregister_pernet_operations(struct pernet_operations *ops)
 static int __register_pernet_operations(struct list_head *list,
 					struct pernet_operations *ops)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 850 \n"); 
 	if (!init_net_initialized) {
 		list_add_tail(&ops->list, list);
 		return 0;
@@ -847,6 +858,7 @@ static int __register_pernet_operations(struct list_head *list,
 
 static void __unregister_pernet_operations(struct pernet_operations *ops)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 861 \n"); 
 	if (!init_net_initialized) {
 		list_del(&ops->list);
 	} else {
@@ -890,6 +902,7 @@ again:
 
 static void unregister_pernet_operations(struct pernet_operations *ops)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 905 \n"); 
 	
 	__unregister_pernet_operations(ops);
 	rcu_barrier();
@@ -937,6 +950,7 @@ EXPORT_SYMBOL_GPL(register_pernet_subsys);
  */
 void unregister_pernet_subsys(struct pernet_operations *ops)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 953 \n"); 
 	mutex_lock(&net_mutex);
 	unregister_pernet_operations(ops);
 	mutex_unlock(&net_mutex);
@@ -985,6 +999,7 @@ EXPORT_SYMBOL_GPL(register_pernet_device);
  */
 void unregister_pernet_device(struct pernet_operations *ops)
 {
+	panic("We reached unpopular paths in net/core/net_namespace.c: line 1002 \n"); 
 	mutex_lock(&net_mutex);
 	if (&ops->list == first_device)
 		first_device = first_device->next;

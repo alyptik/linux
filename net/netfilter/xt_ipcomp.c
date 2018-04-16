@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*  Kernel module to match IPComp parameters for IPv4 and IPv6
  *
  *  Copyright (C) 2013 WindRiver
@@ -33,6 +34,7 @@ MODULE_ALIAS("ip6t_ipcomp");
 static inline bool
 spi_match(u_int32_t min, u_int32_t max, u_int32_t spi, bool invert)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ipcomp.c: line 37 \n"); 
 	bool r;
 	pr_debug("spi_match:%c 0x%x <= 0x%x <= 0x%x\n",
 		 invert ? '!' : ' ', min, spi, max);
@@ -43,6 +45,7 @@ spi_match(u_int32_t min, u_int32_t max, u_int32_t spi, bool invert)
 
 static bool comp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ipcomp.c: line 48 \n"); 
 	struct ip_comp_hdr _comphdr;
 	const struct ip_comp_hdr *chdr;
 	const struct xt_ipcomp *compinfo = par->matchinfo;
@@ -68,6 +71,7 @@ static bool comp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int comp_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ipcomp.c: line 74 \n"); 
 	const struct xt_ipcomp *compinfo = par->matchinfo;
 
 	/* Must specify no unknown invflags */

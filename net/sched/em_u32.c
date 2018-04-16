@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/em_u32.c	U32 Ematch
  *
@@ -21,6 +22,7 @@
 static int em_u32_match(struct sk_buff *skb, struct tcf_ematch *em,
 			struct tcf_pkt_info *info)
 {
+	panic("We reached unpopular paths in net/sched/em_u32.c: line 25 \n"); 
 	struct tc_u32_key *key = (struct tc_u32_key *) em->data;
 	const unsigned char *ptr = skb_network_header(skb);
 

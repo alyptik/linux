@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/proc/kmsg.c
  *
@@ -21,11 +22,13 @@ extern wait_queue_head_t log_wait;
 
 static int kmsg_open(struct inode * inode, struct file * file)
 {
+	panic("We reached unpopular paths in fs/proc/kmsg.c: line 25 \n"); 
 	return do_syslog(SYSLOG_ACTION_OPEN, NULL, 0, SYSLOG_FROM_PROC);
 }
 
 static int kmsg_release(struct inode * inode, struct file * file)
 {
+	panic("We reached unpopular paths in fs/proc/kmsg.c: line 31 \n"); 
 	(void) do_syslog(SYSLOG_ACTION_CLOSE, NULL, 0, SYSLOG_FROM_PROC);
 	return 0;
 }
@@ -41,6 +44,7 @@ static ssize_t kmsg_read(struct file *file, char __user *buf,
 
 static unsigned int kmsg_poll(struct file *file, poll_table *wait)
 {
+	panic("We reached unpopular paths in fs/proc/kmsg.c: line 47 \n"); 
 	poll_wait(file, &log_wait, wait);
 	if (do_syslog(SYSLOG_ACTION_SIZE_UNREAD, NULL, 0, SYSLOG_FROM_PROC))
 		return POLLIN | POLLRDNORM;

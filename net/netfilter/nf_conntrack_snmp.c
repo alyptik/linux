@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *      SNMP service broadcast connection tracking helper
  *
@@ -38,6 +39,7 @@ EXPORT_SYMBOL_GPL(nf_nat_snmp_hook);
 static int snmp_conntrack_help(struct sk_buff *skb, unsigned int protoff,
 		struct nf_conn *ct, enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_snmp.c: line 42 \n"); 
 	typeof(nf_nat_snmp_hook) nf_nat_snmp;
 
 	nf_conntrack_broadcast_help(skb, protoff, ct, ctinfo, timeout);

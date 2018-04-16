@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_redirect
  *
@@ -18,6 +19,7 @@
 static unsigned int
 ebt_redirect_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_redirect.c: line 22 \n"); 
 	const struct ebt_redirect_info *info = par->targinfo;
 
 	if (!skb_make_writable(skb, 0))
@@ -35,6 +37,7 @@ ebt_redirect_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int ebt_redirect_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_redirect.c: line 40 \n"); 
 	const struct ebt_redirect_info *info = par->targinfo;
 	unsigned int hook_mask;
 

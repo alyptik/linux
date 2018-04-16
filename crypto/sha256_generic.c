@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -45,11 +46,13 @@ EXPORT_SYMBOL_GPL(sha256_zero_message_hash);
 
 static inline u32 Ch(u32 x, u32 y, u32 z)
 {
+	panic("We reached unpopular paths in crypto/sha256_generic.c: line 49 \n"); 
 	return z ^ (x & (y ^ z));
 }
 
 static inline u32 Maj(u32 x, u32 y, u32 z)
 {
+	panic("We reached unpopular paths in crypto/sha256_generic.c: line 55 \n"); 
 	return (x & y) | (z & (x | y));
 }
 
@@ -60,16 +63,19 @@ static inline u32 Maj(u32 x, u32 y, u32 z)
 
 static inline void LOAD_OP(int I, u32 *W, const u8 *input)
 {
+	panic("We reached unpopular paths in crypto/sha256_generic.c: line 66 \n"); 
 	W[I] = get_unaligned_be32((__u32 *)input + I);
 }
 
 static inline void BLEND_OP(int I, u32 *W)
 {
+	panic("We reached unpopular paths in crypto/sha256_generic.c: line 72 \n"); 
 	W[I] = s1(W[I-2]) + W[I-7] + s0(W[I-15]) + W[I-16];
 }
 
 static void sha256_transform(u32 *state, const u8 *input)
 {
+	panic("We reached unpopular paths in crypto/sha256_generic.c: line 78 \n"); 
 	u32 a, b, c, d, e, f, g, h, t1, t2;
 	u32 W[64];
 	int i;
@@ -234,6 +240,7 @@ static void sha256_transform(u32 *state, const u8 *input)
 static void sha256_generic_block_fn(struct sha256_state *sst, u8 const *src,
 				    int blocks)
 {
+	panic("We reached unpopular paths in crypto/sha256_generic.c: line 243 \n"); 
 	while (blocks--) {
 		sha256_transform(sst->state, src);
 		src += SHA256_BLOCK_SIZE;
@@ -243,12 +250,14 @@ static void sha256_generic_block_fn(struct sha256_state *sst, u8 const *src,
 int crypto_sha256_update(struct shash_desc *desc, const u8 *data,
 			  unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/sha256_generic.c: line 253 \n"); 
 	return sha256_base_do_update(desc, data, len, sha256_generic_block_fn);
 }
 EXPORT_SYMBOL(crypto_sha256_update);
 
 static int sha256_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/sha256_generic.c: line 260 \n"); 
 	sha256_base_do_finalize(desc, sha256_generic_block_fn);
 	return sha256_base_finish(desc, out);
 }
@@ -256,6 +265,7 @@ static int sha256_final(struct shash_desc *desc, u8 *out)
 int crypto_sha256_finup(struct shash_desc *desc, const u8 *data,
 			unsigned int len, u8 *hash)
 {
+	panic("We reached unpopular paths in crypto/sha256_generic.c: line 268 \n"); 
 	sha256_base_do_update(desc, data, len, sha256_generic_block_fn);
 	return sha256_final(desc, hash);
 }

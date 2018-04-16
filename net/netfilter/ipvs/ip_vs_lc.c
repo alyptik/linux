@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS:        Least-Connection Scheduling module
  *
@@ -29,6 +30,7 @@ static struct ip_vs_dest *
 ip_vs_lc_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
 		  struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lc.c: line 33 \n"); 
 	struct ip_vs_dest *dest, *least = NULL;
 	unsigned int loh = 0, doh;
 

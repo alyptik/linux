@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * llc_core.c - Minimum needed routines for sap handling and module init/exit
  *
@@ -69,6 +70,7 @@ out:
  */
 struct llc_sap *llc_sap_find(unsigned char sap_value)
 {
+	panic("We reached unpopular paths in net/llc/llc_core.c: line 73 \n"); 
 	struct llc_sap *sap;
 
 	rcu_read_lock_bh();
@@ -121,6 +123,7 @@ out:
  */
 void llc_sap_close(struct llc_sap *sap)
 {
+	panic("We reached unpopular paths in net/llc/llc_core.c: line 126 \n"); 
 	WARN_ON(sap->sk_count);
 
 	spin_lock_bh(&llc_sap_list_lock);

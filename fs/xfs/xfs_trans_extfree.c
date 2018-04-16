@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2000,2005 Silicon Graphics, Inc.
  * All Rights Reserved.
@@ -42,6 +43,7 @@ xfs_trans_get_efd(struct xfs_trans		*tp,
 		  struct xfs_efi_log_item	*efip,
 		  uint				nextents)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_extfree.c: line 46 \n"); 
 	struct xfs_efd_log_item			*efdp;
 
 	ASSERT(tp != NULL);
@@ -70,6 +72,7 @@ xfs_trans_free_extent(
 	xfs_extlen_t		ext_len,
 	struct xfs_owner_info	*oinfo)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_extfree.c: line 75 \n"); 
 	struct xfs_mount	*mp = tp->t_mountp;
 	uint			next_extent;
 	xfs_agnumber_t		agno = XFS_FSB_TO_AGNO(mp, start_block);
@@ -109,6 +112,7 @@ xfs_extent_free_diff_items(
 	struct list_head		*a,
 	struct list_head		*b)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_extfree.c: line 115 \n"); 
 	struct xfs_mount		*mp = priv;
 	struct xfs_extent_free_item	*ra;
 	struct xfs_extent_free_item	*rb;
@@ -125,6 +129,7 @@ xfs_extent_free_create_intent(
 	struct xfs_trans		*tp,
 	unsigned int			count)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_extfree.c: line 132 \n"); 
 	struct xfs_efi_log_item		*efip;
 
 	ASSERT(tp != NULL);
@@ -147,6 +152,7 @@ xfs_extent_free_log_item(
 	void				*intent,
 	struct list_head		*item)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_extfree.c: line 155 \n"); 
 	struct xfs_efi_log_item		*efip = intent;
 	struct xfs_extent_free_item	*free;
 	uint				next_extent;
@@ -176,6 +182,7 @@ xfs_extent_free_create_done(
 	void				*intent,
 	unsigned int			count)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_extfree.c: line 185 \n"); 
 	return xfs_trans_get_efd(tp, intent, count);
 }
 
@@ -188,6 +195,7 @@ xfs_extent_free_finish_item(
 	void				*done_item,
 	void				**state)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_extfree.c: line 198 \n"); 
 	struct xfs_extent_free_item	*free;
 	int				error;
 
@@ -205,6 +213,7 @@ STATIC void
 xfs_extent_free_abort_intent(
 	void				*intent)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_extfree.c: line 216 \n"); 
 	xfs_efi_release(intent);
 }
 
@@ -213,6 +222,7 @@ STATIC void
 xfs_extent_free_cancel_item(
 	struct list_head		*item)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_extfree.c: line 225 \n"); 
 	struct xfs_extent_free_item	*free;
 
 	free = container_of(item, struct xfs_extent_free_item, xefi_list);

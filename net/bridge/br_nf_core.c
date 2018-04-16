@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Handle firewalling core
  *	Linux ethernet bridge
@@ -28,15 +29,18 @@
 static void fake_update_pmtu(struct dst_entry *dst, struct sock *sk,
 			     struct sk_buff *skb, u32 mtu)
 {
+	panic("We reached unpopular paths in net/bridge/br_nf_core.c: line 32 \n"); 
 }
 
 static void fake_redirect(struct dst_entry *dst, struct sock *sk,
 			  struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_nf_core.c: line 38 \n"); 
 }
 
 static u32 *fake_cow_metrics(struct dst_entry *dst, unsigned long old)
 {
+	panic("We reached unpopular paths in net/bridge/br_nf_core.c: line 43 \n"); 
 	return NULL;
 }
 
@@ -44,11 +48,13 @@ static struct neighbour *fake_neigh_lookup(const struct dst_entry *dst,
 					   struct sk_buff *skb,
 					   const void *daddr)
 {
+	panic("We reached unpopular paths in net/bridge/br_nf_core.c: line 51 \n"); 
 	return NULL;
 }
 
 static unsigned int fake_mtu(const struct dst_entry *dst)
 {
+	panic("We reached unpopular paths in net/bridge/br_nf_core.c: line 57 \n"); 
 	return dst->dev->mtu;
 }
 
@@ -91,5 +97,6 @@ int __init br_nf_core_init(void)
 
 void br_nf_core_fini(void)
 {
+	panic("We reached unpopular paths in net/bridge/br_nf_core.c: line 100 \n"); 
 	dst_entries_destroy(&fake_dst_ops);
 }

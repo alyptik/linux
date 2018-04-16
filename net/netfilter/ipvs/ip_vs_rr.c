@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS:        Round-Robin Scheduling module
  *
@@ -30,6 +31,7 @@
 
 static int ip_vs_rr_init_svc(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_rr.c: line 34 \n"); 
 	svc->sched_data = &svc->destinations;
 	return 0;
 }
@@ -37,6 +39,7 @@ static int ip_vs_rr_init_svc(struct ip_vs_service *svc)
 
 static int ip_vs_rr_del_dest(struct ip_vs_service *svc, struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_rr.c: line 42 \n"); 
 	struct list_head *p;
 
 	spin_lock_bh(&svc->sched_lock);
@@ -58,6 +61,7 @@ static struct ip_vs_dest *
 ip_vs_rr_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
 		  struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_rr.c: line 64 \n"); 
 	struct list_head *p;
 	struct ip_vs_dest *dest, *last;
 	int pass = 0;

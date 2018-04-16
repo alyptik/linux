@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/rcupdate.h>
 #include <linux/spinlock.h>
 #include <linux/jiffies.h>
@@ -56,18 +57,21 @@ struct tcp_metrics_block {
 
 static inline struct net *tm_net(struct tcp_metrics_block *tm)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 60 \n"); 
 	return read_pnet(&tm->tcpm_net);
 }
 
 static bool tcp_metric_locked(struct tcp_metrics_block *tm,
 			      enum tcp_metric_index idx)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 67 \n"); 
 	return tm->tcpm_lock & (1 << idx);
 }
 
 static u32 tcp_metric_get(struct tcp_metrics_block *tm,
 			  enum tcp_metric_index idx)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 74 \n"); 
 	return tm->tcpm_vals[idx];
 }
 
@@ -75,6 +79,7 @@ static void tcp_metric_set(struct tcp_metrics_block *tm,
 			   enum tcp_metric_index idx,
 			   u32 val)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 82 \n"); 
 	tm->tcpm_vals[idx] = val;
 }
 
@@ -206,6 +211,7 @@ out_unlock:
 
 static struct tcp_metrics_block *tcp_get_encode(struct tcp_metrics_block *tm, int depth)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 214 \n"); 
 	if (tm)
 		return tm;
 	if (depth > TCP_METRICS_RECLAIM_DEPTH)
@@ -234,6 +240,7 @@ static struct tcp_metrics_block *__tcp_get_metrics(const struct inetpeer_addr *s
 static struct tcp_metrics_block *__tcp_get_metrics_req(struct request_sock *req,
 						       struct dst_entry *dst)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 243 \n"); 
 	struct tcp_metrics_block *tm;
 	struct inetpeer_addr saddr, daddr;
 	unsigned int hash;
@@ -275,6 +282,7 @@ static struct tcp_metrics_block *__tcp_get_metrics_req(struct request_sock *req,
 
 static struct tcp_metrics_block *__tcp_get_metrics_tw(struct inet_timewait_sock *tw)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 285 \n"); 
 	struct tcp_metrics_block *tm;
 	struct inetpeer_addr saddr, daddr;
 	unsigned int hash;
@@ -580,6 +588,7 @@ reset:
 bool tcp_peer_is_proven(struct request_sock *req, struct dst_entry *dst,
 			bool paws_check, bool timestamps)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 591 \n"); 
 	struct tcp_metrics_block *tm;
 	bool ret;
 
@@ -610,6 +619,7 @@ EXPORT_SYMBOL_GPL(tcp_peer_is_proven);
 
 void tcp_fetch_timewait_stamp(struct sock *sk, struct dst_entry *dst)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 622 \n"); 
 	struct tcp_metrics_block *tm;
 
 	rcu_read_lock();
@@ -633,6 +643,7 @@ EXPORT_SYMBOL_GPL(tcp_fetch_timewait_stamp);
  */
 bool tcp_remember_stamp(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 646 \n"); 
 	struct dst_entry *dst = __sk_dst_get(sk);
 	bool ret = false;
 
@@ -659,6 +670,7 @@ bool tcp_remember_stamp(struct sock *sk)
 
 bool tcp_tw_remember_stamp(struct inet_timewait_sock *tw)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 673 \n"); 
 	struct tcp_metrics_block *tm;
 	bool ret = false;
 
@@ -688,6 +700,7 @@ void tcp_fastopen_cache_get(struct sock *sk, u16 *mss,
 			    struct tcp_fastopen_cookie *cookie,
 			    int *syn_loss, unsigned long *last_syn_loss)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 703 \n"); 
 	struct tcp_metrics_block *tm;
 
 	rcu_read_lock();
@@ -714,6 +727,7 @@ void tcp_fastopen_cache_set(struct sock *sk, u16 mss,
 			    struct tcp_fastopen_cookie *cookie, bool syn_lost,
 			    u16 try_exp)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 730 \n"); 
 	struct dst_entry *dst = __sk_dst_get(sk);
 	struct tcp_metrics_block *tm;
 
@@ -775,6 +789,7 @@ static const struct nla_policy tcp_metrics_nl_policy[TCP_METRICS_ATTR_MAX + 1] =
 static int tcp_metrics_fill_info(struct sk_buff *msg,
 				 struct tcp_metrics_block *tm)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 792 \n"); 
 	struct nlattr *nest;
 	int i;
 
@@ -884,6 +899,7 @@ static int tcp_metrics_dump_info(struct sk_buff *skb,
 				 struct netlink_callback *cb,
 				 struct tcp_metrics_block *tm)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 902 \n"); 
 	void *hdr;
 
 	hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid, cb->nlh->nlmsg_seq,
@@ -906,6 +922,7 @@ nla_put_failure:
 static int tcp_metrics_nl_dump(struct sk_buff *skb,
 			       struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 925 \n"); 
 	struct net *net = sock_net(skb->sk);
 	unsigned int max_rows = 1U << tcp_metrics_hash_log;
 	unsigned int row, s_row = cb->args[0];
@@ -939,6 +956,7 @@ done:
 static int __parse_nl_addr(struct genl_info *info, struct inetpeer_addr *addr,
 			   unsigned int *hash, int optional, int v4, int v6)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 959 \n"); 
 	struct nlattr *a;
 
 	a = info->attrs[v4];
@@ -966,6 +984,7 @@ static int __parse_nl_addr(struct genl_info *info, struct inetpeer_addr *addr,
 static int parse_nl_addr(struct genl_info *info, struct inetpeer_addr *addr,
 			 unsigned int *hash, int optional)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 987 \n"); 
 	return __parse_nl_addr(info, addr, hash, optional,
 			       TCP_METRICS_ATTR_ADDR_IPV4,
 			       TCP_METRICS_ATTR_ADDR_IPV6);
@@ -973,6 +992,7 @@ static int parse_nl_addr(struct genl_info *info, struct inetpeer_addr *addr,
 
 static int parse_nl_saddr(struct genl_info *info, struct inetpeer_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 995 \n"); 
 	return __parse_nl_addr(info, addr, NULL, 0,
 			       TCP_METRICS_ATTR_SADDR_IPV4,
 			       TCP_METRICS_ATTR_SADDR_IPV6);
@@ -980,6 +1000,7 @@ static int parse_nl_saddr(struct genl_info *info, struct inetpeer_addr *addr)
 
 static int tcp_metrics_nl_cmd_get(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 1003 \n"); 
 	struct tcp_metrics_block *tm;
 	struct inetpeer_addr saddr, daddr;
 	unsigned int hash;
@@ -1059,6 +1080,7 @@ static void tcp_metrics_flush_all(struct net *net)
 
 static int tcp_metrics_nl_cmd_del(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_metrics.c: line 1083 \n"); 
 	struct tcpm_hash_bucket *hb;
 	struct tcp_metrics_block *tm;
 	struct tcp_metrics_block __rcu **pp;

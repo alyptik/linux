@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	xt_iprange - Netfilter module to match IP address ranges
  *
@@ -19,6 +20,7 @@
 static bool
 iprange_mt4(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_iprange.c: line 23 \n"); 
 	const struct xt_iprange_mtinfo *info = par->matchinfo;
 	const struct iphdr *iph = ip_hdr(skb);
 	bool m;
@@ -55,6 +57,7 @@ iprange_mt4(const struct sk_buff *skb, struct xt_action_param *par)
 static inline int
 iprange_ipv6_lt(const struct in6_addr *a, const struct in6_addr *b)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_iprange.c: line 60 \n"); 
 	unsigned int i;
 
 	for (i = 0; i < 4; ++i) {
@@ -68,6 +71,7 @@ iprange_ipv6_lt(const struct in6_addr *a, const struct in6_addr *b)
 static bool
 iprange_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_iprange.c: line 74 \n"); 
 	const struct xt_iprange_mtinfo *info = par->matchinfo;
 	const struct ipv6hdr *iph = ipv6_hdr(skb);
 	bool m;

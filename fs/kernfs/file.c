@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/kernfs/file.c - kernfs file implementation
  *
@@ -54,6 +55,7 @@ static struct kernfs_node *kernfs_notify_list = KERNFS_NOTIFY_EOL;
 
 static struct kernfs_open_file *kernfs_of(struct file *file)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/kernfs/file.c: line 58 \n"); 
 	return ((struct seq_file *)file->private_data)->private;
 }
 
@@ -63,6 +65,7 @@ static struct kernfs_open_file *kernfs_of(struct file *file)
  */
 static const struct kernfs_ops *kernfs_ops(struct kernfs_node *kn)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/kernfs/file.c: line 68 \n"); 
 	if (kn->flags & KERNFS_LOCKDEP)
 		lockdep_assert_held(kn);
 	return kn->attr.ops;
@@ -333,6 +336,7 @@ out_free:
 
 static void kernfs_vma_open(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in fs/kernfs/file.c: line 339 \n"); 
 	struct file *file = vma->vm_file;
 	struct kernfs_open_file *of = kernfs_of(file);
 
@@ -350,6 +354,7 @@ static void kernfs_vma_open(struct vm_area_struct *vma)
 
 static int kernfs_vma_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
 {
+	panic("We reached unpopular paths in fs/kernfs/file.c: line 357 \n"); 
 	struct file *file = vma->vm_file;
 	struct kernfs_open_file *of = kernfs_of(file);
 	int ret;
@@ -371,6 +376,7 @@ static int kernfs_vma_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
 static int kernfs_vma_page_mkwrite(struct vm_area_struct *vma,
 				   struct vm_fault *vmf)
 {
+	panic("We reached unpopular paths in fs/kernfs/file.c: line 379 \n"); 
 	struct file *file = vma->vm_file;
 	struct kernfs_open_file *of = kernfs_of(file);
 	int ret;
@@ -394,6 +400,7 @@ static int kernfs_vma_page_mkwrite(struct vm_area_struct *vma,
 static int kernfs_vma_access(struct vm_area_struct *vma, unsigned long addr,
 			     void *buf, int len, int write)
 {
+	panic("We reached unpopular paths in fs/kernfs/file.c: line 403 \n"); 
 	struct file *file = vma->vm_file;
 	struct kernfs_open_file *of = kernfs_of(file);
 	int ret;
@@ -470,6 +477,7 @@ static const struct vm_operations_struct kernfs_vm_ops = {
 
 static int kernfs_fop_mmap(struct file *file, struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in fs/kernfs/file.c: line 480 \n"); 
 	struct kernfs_open_file *of = kernfs_of(file);
 	const struct kernfs_ops *ops;
 	int rc;
@@ -810,6 +818,7 @@ static unsigned int kernfs_fop_poll(struct file *filp, poll_table *wait)
 
 static void kernfs_notify_workfn(struct work_struct *work)
 {
+	panic("We reached unpopular paths in fs/kernfs/file.c: line 821 \n"); 
 	struct kernfs_node *kn;
 	struct kernfs_open_node *on;
 	struct kernfs_super_info *info;
@@ -886,6 +895,7 @@ repeat:
  */
 void kernfs_notify(struct kernfs_node *kn)
 {
+	panic("We reached unpopular paths in fs/kernfs/file.c: line 898 \n"); 
 	static DECLARE_WORK(kernfs_notify_work, kernfs_notify_workfn);
 	unsigned long flags;
 

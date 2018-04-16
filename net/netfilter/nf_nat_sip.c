@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* SIP extension for NAT alteration.
  *
  * (C) 2005 by Christian Hentschel <chentschel@arnet.com.ar>
@@ -35,6 +36,7 @@ static unsigned int mangle_packet(struct sk_buff *skb, unsigned int protoff,
 				  unsigned int matchoff, unsigned int matchlen,
 				  const char *buffer, unsigned int buflen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 39 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	struct tcphdr *th;
@@ -68,6 +70,7 @@ static unsigned int mangle_packet(struct sk_buff *skb, unsigned int protoff,
 static int sip_sprintf_addr(const struct nf_conn *ct, char *buffer,
 			    const union nf_inet_addr *addr, bool delim)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 73 \n"); 
 	if (nf_ct_l3num(ct) == NFPROTO_IPV4)
 		return sprintf(buffer, "%pI4", &addr->ip);
 	else {
@@ -81,6 +84,7 @@ static int sip_sprintf_addr(const struct nf_conn *ct, char *buffer,
 static int sip_sprintf_addr_port(const struct nf_conn *ct, char *buffer,
 				 const union nf_inet_addr *addr, u16 port)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 87 \n"); 
 	if (nf_ct_l3num(ct) == NFPROTO_IPV4)
 		return sprintf(buffer, "%pI4:%u", &addr->ip, port);
 	else
@@ -93,6 +97,7 @@ static int map_addr(struct sk_buff *skb, unsigned int protoff,
 		    unsigned int matchoff, unsigned int matchlen,
 		    union nf_inet_addr *addr, __be16 port)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 100 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);
@@ -127,6 +132,7 @@ static int map_sip_addr(struct sk_buff *skb, unsigned int protoff,
 			const char **dptr, unsigned int *datalen,
 			enum sip_header_types type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 135 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	unsigned int matchlen, matchoff;
@@ -144,6 +150,7 @@ static unsigned int nf_nat_sip(struct sk_buff *skb, unsigned int protoff,
 			       unsigned int dataoff,
 			       const char **dptr, unsigned int *datalen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 153 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);
@@ -301,6 +308,7 @@ next:
 static void nf_nat_sip_seq_adjust(struct sk_buff *skb, unsigned int protoff,
 				  s16 off)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 311 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	const struct tcphdr *th;
@@ -316,6 +324,7 @@ static void nf_nat_sip_seq_adjust(struct sk_buff *skb, unsigned int protoff,
 static void nf_nat_sip_expected(struct nf_conn *ct,
 				struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 327 \n"); 
 	struct nf_nat_range range;
 
 	/* This must be a fresh one. */
@@ -345,6 +354,7 @@ static unsigned int nf_nat_sip_expect(struct sk_buff *skb, unsigned int protoff,
 				      unsigned int matchoff,
 				      unsigned int matchlen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 357 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);
@@ -416,6 +426,7 @@ static int mangle_content_len(struct sk_buff *skb, unsigned int protoff,
 			      unsigned int dataoff,
 			      const char **dptr, unsigned int *datalen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 429 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	unsigned int matchoff, matchlen;
@@ -447,6 +458,7 @@ static int mangle_sdp_packet(struct sk_buff *skb, unsigned int protoff,
 			     enum sdp_header_types term,
 			     char *buffer, int buflen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 461 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	unsigned int matchlen, matchoff;
@@ -466,6 +478,7 @@ static unsigned int nf_nat_sdp_addr(struct sk_buff *skb, unsigned int protoff,
 				    enum sdp_header_types term,
 				    const union nf_inet_addr *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 481 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	char buffer[INET6_ADDRSTRLEN];
@@ -486,6 +499,7 @@ static unsigned int nf_nat_sdp_port(struct sk_buff *skb, unsigned int protoff,
 				    unsigned int matchlen,
 				    u_int16_t port)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 502 \n"); 
 	char buffer[sizeof("nnnnn")];
 	unsigned int buflen;
 
@@ -503,6 +517,7 @@ static unsigned int nf_nat_sdp_session(struct sk_buff *skb, unsigned int protoff
 				       unsigned int sdpoff,
 				       const union nf_inet_addr *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 520 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	char buffer[INET6_ADDRSTRLEN];
@@ -545,6 +560,7 @@ static unsigned int nf_nat_sdp_media(struct sk_buff *skb, unsigned int protoff,
 				     unsigned int medialen,
 				     union nf_inet_addr *rtp_addr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_sip.c: line 563 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);

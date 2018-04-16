@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Asymmetric public-key cryptography key type
  *
  * See Documentation/security/asymmetric-keys.txt
@@ -50,6 +51,7 @@ struct key *find_asymmetric_key(struct key *keyring,
 				const struct asymmetric_key_id *id_1,
 				bool partial)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 54 \n"); 
 	struct key *key;
 	key_ref_t ref;
 	const char *lookup;
@@ -137,6 +139,7 @@ struct asymmetric_key_id *asymmetric_key_generate_id(const void *val_1,
 						     const void *val_2,
 						     size_t len_2)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 142 \n"); 
 	struct asymmetric_key_id *kid;
 
 	kid = kmalloc(sizeof(struct asymmetric_key_id) + len_1 + len_2,
@@ -157,6 +160,7 @@ EXPORT_SYMBOL_GPL(asymmetric_key_generate_id);
 bool asymmetric_key_id_same(const struct asymmetric_key_id *kid1,
 			    const struct asymmetric_key_id *kid2)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 163 \n"); 
 	if (!kid1 || !kid2)
 		return false;
 	if (kid1->len != kid2->len)
@@ -173,6 +177,7 @@ EXPORT_SYMBOL_GPL(asymmetric_key_id_same);
 bool asymmetric_key_id_partial(const struct asymmetric_key_id *kid1,
 			       const struct asymmetric_key_id *kid2)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 180 \n"); 
 	if (!kid1 || !kid2)
 		return false;
 	if (kid1->len < kid2->len)
@@ -194,6 +199,7 @@ static bool asymmetric_match_key_ids(
 	bool (*match)(const struct asymmetric_key_id *kid1,
 		      const struct asymmetric_key_id *kid2))
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 202 \n"); 
 	int i;
 
 	if (!kids || !match_id)
@@ -209,6 +215,7 @@ inline int __asymmetric_key_hex_to_key_id(const char *id,
 				   struct asymmetric_key_id *match_id,
 				   size_t hexlen)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 218 \n"); 
 	match_id->len = hexlen;
 	return hex2bin(match_id->data, id, hexlen);
 }
@@ -219,6 +226,7 @@ inline int __asymmetric_key_hex_to_key_id(const char *id,
  */
 struct asymmetric_key_id *asymmetric_key_hex_to_key_id(const char *id)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 229 \n"); 
 	struct asymmetric_key_id *match_id;
 	size_t asciihexlen;
 	int ret;
@@ -247,6 +255,7 @@ struct asymmetric_key_id *asymmetric_key_hex_to_key_id(const char *id)
 static bool asymmetric_key_cmp(const struct key *key,
 			       const struct key_match_data *match_data)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 258 \n"); 
 	const struct asymmetric_key_ids *kids = asymmetric_key_ids(key);
 	const struct asymmetric_key_id *match_id = match_data->preparsed;
 
@@ -260,6 +269,7 @@ static bool asymmetric_key_cmp(const struct key *key,
 static bool asymmetric_key_cmp_partial(const struct key *key,
 				       const struct key_match_data *match_data)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 272 \n"); 
 	const struct asymmetric_key_ids *kids = asymmetric_key_ids(key);
 	const struct asymmetric_key_id *match_id = match_data->preparsed;
 
@@ -282,6 +292,7 @@ static bool asymmetric_key_cmp_partial(const struct key *key,
  */
 static int asymmetric_key_match_preparse(struct key_match_data *match_data)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 295 \n"); 
 	struct asymmetric_key_id *match_id;
 	const char *spec = match_data->raw_data;
 	const char *id;
@@ -321,6 +332,7 @@ default_match:
  */
 static void asymmetric_key_match_free(struct key_match_data *match_data)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 335 \n"); 
 	kfree(match_data->preparsed);
 }
 
@@ -329,6 +341,7 @@ static void asymmetric_key_match_free(struct key_match_data *match_data)
  */
 static void asymmetric_key_describe(const struct key *key, struct seq_file *m)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 344 \n"); 
 	const struct asymmetric_key_subtype *subtype = asymmetric_key_subtype(key);
 	const struct asymmetric_key_ids *kids = asymmetric_key_ids(key);
 	const struct asymmetric_key_id *kid;
@@ -368,6 +381,7 @@ static void asymmetric_key_describe(const struct key *key, struct seq_file *m)
  */
 static int asymmetric_key_preparse(struct key_preparsed_payload *prep)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 384 \n"); 
 	struct asymmetric_key_parser *parser;
 	int ret;
 
@@ -400,6 +414,7 @@ static int asymmetric_key_preparse(struct key_preparsed_payload *prep)
  */
 static void asymmetric_key_free_kids(struct asymmetric_key_ids *kids)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 417 \n"); 
 	int i;
 
 	if (kids) {
@@ -414,6 +429,7 @@ static void asymmetric_key_free_kids(struct asymmetric_key_ids *kids)
  */
 static void asymmetric_key_free_preparse(struct key_preparsed_payload *prep)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 432 \n"); 
 	struct asymmetric_key_subtype *subtype = prep->payload.data[asym_subtype];
 	struct asymmetric_key_ids *kids = prep->payload.data[asym_key_ids];
 
@@ -433,6 +449,7 @@ static void asymmetric_key_free_preparse(struct key_preparsed_payload *prep)
  */
 static void asymmetric_key_destroy(struct key *key)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 452 \n"); 
 	struct asymmetric_key_subtype *subtype = asymmetric_key_subtype(key);
 	struct asymmetric_key_ids *kids = key->payload.data[asym_key_ids];
 	void *data = key->payload.data[asym_crypto];
@@ -500,6 +517,7 @@ EXPORT_SYMBOL_GPL(register_asymmetric_key_parser);
  */
 void unregister_asymmetric_key_parser(struct asymmetric_key_parser *parser)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/asymmetric_type.c: line 520 \n"); 
 	down_write(&asymmetric_key_parsers_sem);
 	list_del(&parser->link);
 	up_write(&asymmetric_key_parsers_sem);

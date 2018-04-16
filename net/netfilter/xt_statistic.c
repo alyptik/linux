@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2006 Patrick McHardy <kaber@trash.net>
  *
@@ -31,6 +32,7 @@ MODULE_ALIAS("ip6t_statistic");
 static bool
 statistic_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_statistic.c: line 35 \n"); 
 	const struct xt_statistic_info *info = par->matchinfo;
 	bool ret = info->flags & XT_STATISTIC_INVERT;
 	int nval, oval;
@@ -55,6 +57,7 @@ statistic_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int statistic_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_statistic.c: line 60 \n"); 
 	struct xt_statistic_info *info = par->matchinfo;
 
 	if (info->mode > XT_STATISTIC_MODE_MAX ||
@@ -71,6 +74,7 @@ static int statistic_mt_check(const struct xt_mtchk_param *par)
 
 static void statistic_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_statistic.c: line 77 \n"); 
 	const struct xt_statistic_info *info = par->matchinfo;
 
 	kfree(info->master);

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2014 Arturo Borrero Gonzalez <arturo.borrero.glez@gmail.com>
  *
@@ -21,6 +22,7 @@ static void nft_redir_ipv4_eval(const struct nft_expr *expr,
 				struct nft_regs *regs,
 				const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nft_redir_ipv4.c: line 25 \n"); 
 	struct nft_redir *priv = nft_expr_priv(expr);
 	struct nf_nat_ipv4_multi_range_compat mr;
 

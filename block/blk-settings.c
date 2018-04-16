@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Functions related to setting various queue properties from drivers
  */
@@ -120,6 +121,7 @@ EXPORT_SYMBOL(blk_set_default_limits);
  */
 void blk_set_stacking_limits(struct queue_limits *lim)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 124 \n"); 
 	blk_set_default_limits(lim);
 
 	/* Inherit limits from component devices */
@@ -267,6 +269,7 @@ EXPORT_SYMBOL(blk_queue_max_hw_sectors);
  **/
 void blk_queue_chunk_sectors(struct request_queue *q, unsigned int chunk_sectors)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 272 \n"); 
 	BUG_ON(!is_power_of_2(chunk_sectors));
 	q->limits.chunk_sectors = chunk_sectors;
 }
@@ -293,6 +296,7 @@ EXPORT_SYMBOL(blk_queue_max_discard_sectors);
 void blk_queue_max_write_same_sectors(struct request_queue *q,
 				      unsigned int max_write_same_sectors)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 299 \n"); 
 	q->limits.max_write_same_sectors = max_write_same_sectors;
 }
 EXPORT_SYMBOL(blk_queue_max_write_same_sectors);
@@ -351,6 +355,7 @@ EXPORT_SYMBOL(blk_queue_max_segment_size);
  **/
 void blk_queue_logical_block_size(struct request_queue *q, unsigned short size)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 358 \n"); 
 	q->limits.logical_block_size = size;
 
 	if (q->limits.physical_block_size < size)
@@ -373,6 +378,7 @@ EXPORT_SYMBOL(blk_queue_logical_block_size);
  */
 void blk_queue_physical_block_size(struct request_queue *q, unsigned int size)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 381 \n"); 
 	q->limits.physical_block_size = size;
 
 	if (q->limits.physical_block_size < q->limits.logical_block_size)
@@ -396,6 +402,7 @@ EXPORT_SYMBOL(blk_queue_physical_block_size);
  */
 void blk_queue_alignment_offset(struct request_queue *q, unsigned int offset)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 405 \n"); 
 	q->limits.alignment_offset =
 		offset & (q->limits.physical_block_size - 1);
 	q->limits.misaligned = 0;
@@ -415,6 +422,7 @@ EXPORT_SYMBOL(blk_queue_alignment_offset);
  */
 void blk_limits_io_min(struct queue_limits *limits, unsigned int min)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 425 \n"); 
 	limits->io_min = min;
 
 	if (limits->io_min < limits->logical_block_size)
@@ -441,6 +449,7 @@ EXPORT_SYMBOL(blk_limits_io_min);
  */
 void blk_queue_io_min(struct request_queue *q, unsigned int min)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 452 \n"); 
 	blk_limits_io_min(&q->limits, min);
 }
 EXPORT_SYMBOL(blk_queue_io_min);
@@ -460,6 +469,7 @@ EXPORT_SYMBOL(blk_queue_io_min);
  */
 void blk_limits_io_opt(struct queue_limits *limits, unsigned int opt)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 472 \n"); 
 	limits->io_opt = opt;
 }
 EXPORT_SYMBOL(blk_limits_io_opt);
@@ -479,6 +489,7 @@ EXPORT_SYMBOL(blk_limits_io_opt);
  */
 void blk_queue_io_opt(struct request_queue *q, unsigned int opt)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 492 \n"); 
 	blk_limits_io_opt(&q->limits, opt);
 }
 EXPORT_SYMBOL(blk_queue_io_opt);
@@ -490,6 +501,7 @@ EXPORT_SYMBOL(blk_queue_io_opt);
  **/
 void blk_queue_stack_limits(struct request_queue *t, struct request_queue *b)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 504 \n"); 
 	blk_stack_limits(&t->limits, &b->limits, 0);
 }
 EXPORT_SYMBOL(blk_queue_stack_limits);
@@ -518,6 +530,7 @@ EXPORT_SYMBOL(blk_queue_stack_limits);
 int blk_stack_limits(struct queue_limits *t, struct queue_limits *b,
 		     sector_t start)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 533 \n"); 
 	unsigned int top, bottom, alignment, ret = 0;
 
 	t->max_sectors = min_not_zero(t->max_sectors, b->max_sectors);
@@ -648,6 +661,7 @@ EXPORT_SYMBOL(blk_stack_limits);
 int bdev_stack_limits(struct queue_limits *t, struct block_device *bdev,
 		      sector_t start)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 664 \n"); 
 	struct request_queue *bq = bdev_get_queue(bdev);
 
 	start += get_start_sect(bdev);
@@ -669,6 +683,7 @@ EXPORT_SYMBOL(bdev_stack_limits);
 void disk_stack_limits(struct gendisk *disk, struct block_device *bdev,
 		       sector_t offset)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 686 \n"); 
 	struct request_queue *t = disk->queue;
 
 	if (bdev_stack_limits(&t->limits, bdev, offset >> 9) < 0) {
@@ -695,6 +710,7 @@ EXPORT_SYMBOL(disk_stack_limits);
  **/
 void blk_queue_dma_pad(struct request_queue *q, unsigned int mask)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 713 \n"); 
 	q->dma_pad_mask = mask;
 }
 EXPORT_SYMBOL(blk_queue_dma_pad);
@@ -777,6 +793,7 @@ EXPORT_SYMBOL(blk_queue_segment_boundary);
  **/
 void blk_queue_virt_boundary(struct request_queue *q, unsigned long mask)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 796 \n"); 
 	q->limits.virt_boundary_mask = mask;
 }
 EXPORT_SYMBOL(blk_queue_virt_boundary);
@@ -841,6 +858,7 @@ EXPORT_SYMBOL_GPL(blk_queue_flush_queueable);
  */
 void blk_queue_write_cache(struct request_queue *q, bool wc, bool fua)
 {
+	panic("We reached unpopular paths in block/blk-settings.c: line 861 \n"); 
 	spin_lock_irq(q->queue_lock);
 	if (wc)
 		queue_flag_set(QUEUE_FLAG_WC, q);

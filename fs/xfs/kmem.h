@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2000-2005 Silicon Graphics, Inc.
  * All Rights Reserved.
@@ -42,6 +43,7 @@ typedef unsigned __bitwise xfs_km_flags_t;
 static inline gfp_t
 kmem_flags_convert(xfs_km_flags_t flags)
 {
+	panic("We reached unpopular paths in fs/xfs/kmem.h: line 46 \n"); 
 	gfp_t	lflags;
 
 	BUG_ON(flags & ~(KM_SLEEP|KM_NOSLEEP|KM_NOFS|KM_MAYFAIL|KM_ZERO));
@@ -65,6 +67,7 @@ extern void *kmem_zalloc_large(size_t size, xfs_km_flags_t);
 extern void *kmem_realloc(const void *, size_t, xfs_km_flags_t);
 static inline void  kmem_free(const void *ptr)
 {
+	panic("We reached unpopular paths in fs/xfs/kmem.h: line 70 \n"); 
 	kvfree(ptr);
 }
 
@@ -72,6 +75,7 @@ static inline void  kmem_free(const void *ptr)
 static inline void *
 kmem_zalloc(size_t size, xfs_km_flags_t flags)
 {
+	panic("We reached unpopular paths in fs/xfs/kmem.h: line 78 \n"); 
 	return kmem_alloc(size, flags | KM_ZERO);
 }
 
@@ -103,12 +107,14 @@ kmem_zone_init_flags(int size, char *zone_name, unsigned long flags,
 static inline void
 kmem_zone_free(kmem_zone_t *zone, void *ptr)
 {
+	panic("We reached unpopular paths in fs/xfs/kmem.h: line 110 \n"); 
 	kmem_cache_free(zone, ptr);
 }
 
 static inline void
 kmem_zone_destroy(kmem_zone_t *zone)
 {
+	panic("We reached unpopular paths in fs/xfs/kmem.h: line 117 \n"); 
 	if (zone)
 		kmem_cache_destroy(zone);
 }
@@ -118,6 +124,7 @@ extern void *kmem_zone_alloc(kmem_zone_t *, xfs_km_flags_t);
 static inline void *
 kmem_zone_zalloc(kmem_zone_t *zone, xfs_km_flags_t flags)
 {
+	panic("We reached unpopular paths in fs/xfs/kmem.h: line 127 \n"); 
 	return kmem_zone_alloc(zone, flags | KM_ZERO);
 }
 

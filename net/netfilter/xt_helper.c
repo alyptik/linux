@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* iptables module to match on related connections */
 /*
  * (C) 2001 Martin Josefsson <gandalf@wlug.westbo.se>
@@ -26,6 +27,7 @@ MODULE_ALIAS("ip6t_helper");
 static bool
 helper_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_helper.c: line 30 \n"); 
 	const struct xt_helper_info *info = par->matchinfo;
 	const struct nf_conn *ct;
 	const struct nf_conn_help *master_help;
@@ -56,6 +58,7 @@ helper_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int helper_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_helper.c: line 61 \n"); 
 	struct xt_helper_info *info = par->matchinfo;
 	int ret;
 
@@ -71,6 +74,7 @@ static int helper_mt_check(const struct xt_mtchk_param *par)
 
 static void helper_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_helper.c: line 77 \n"); 
 	nf_ct_l3proto_module_put(par->family);
 }
 

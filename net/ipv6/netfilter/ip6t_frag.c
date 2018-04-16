@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match FRAG parameters. */
 
 /* (C) 2001-2002 Andras Kis-Szabo <kisza@sch.bme.hu>
@@ -26,6 +27,7 @@ MODULE_AUTHOR("Andras Kis-Szabo <kisza@sch.bme.hu>");
 static inline bool
 id_match(u_int32_t min, u_int32_t max, u_int32_t id, bool invert)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_frag.c: line 30 \n"); 
 	bool r;
 	pr_debug("id_match:%c 0x%x <= 0x%x <= 0x%x\n", invert ? '!' : ' ',
 		 min, id, max);
@@ -37,6 +39,7 @@ id_match(u_int32_t min, u_int32_t max, u_int32_t id, bool invert)
 static bool
 frag_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_frag.c: line 42 \n"); 
 	struct frag_hdr _frag;
 	const struct frag_hdr *fh;
 	const struct ip6t_frag *fraginfo = par->matchinfo;
@@ -104,6 +107,7 @@ frag_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int frag_mt6_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_frag.c: line 110 \n"); 
 	const struct ip6t_frag *fraginfo = par->matchinfo;
 
 	if (fraginfo->invflags & ~IP6T_FRAG_INV_MASK) {

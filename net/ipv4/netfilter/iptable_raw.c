@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * 'raw' table, which is the very first hooked in at PRE_ROUTING and LOCAL_OUT .
  *

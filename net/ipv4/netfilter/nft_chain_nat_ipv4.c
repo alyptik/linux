@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  * Copyright (c) 2012 Pablo Neira Ayuso <pablo@netfilter.org>
@@ -31,6 +32,7 @@ static unsigned int nft_nat_do_chain(void *priv,
 				      const struct nf_hook_state *state,
 				      struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nft_chain_nat_ipv4.c: line 35 \n"); 
 	struct nft_pktinfo pkt;
 
 	nft_set_pktinfo_ipv4(&pkt, skb, state);
@@ -42,6 +44,7 @@ static unsigned int nft_nat_ipv4_fn(void *priv,
 				    struct sk_buff *skb,
 				    const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nft_chain_nat_ipv4.c: line 47 \n"); 
 	return nf_nat_ipv4_fn(priv, skb, state, nft_nat_do_chain);
 }
 
@@ -49,6 +52,7 @@ static unsigned int nft_nat_ipv4_in(void *priv,
 				    struct sk_buff *skb,
 				    const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nft_chain_nat_ipv4.c: line 55 \n"); 
 	return nf_nat_ipv4_in(priv, skb, state, nft_nat_do_chain);
 }
 
@@ -56,6 +60,7 @@ static unsigned int nft_nat_ipv4_out(void *priv,
 				     struct sk_buff *skb,
 				     const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nft_chain_nat_ipv4.c: line 63 \n"); 
 	return nf_nat_ipv4_out(priv, skb, state, nft_nat_do_chain);
 }
 
@@ -63,6 +68,7 @@ static unsigned int nft_nat_ipv4_local_fn(void *priv,
 					  struct sk_buff *skb,
 					  const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nft_chain_nat_ipv4.c: line 71 \n"); 
 	return nf_nat_ipv4_local_fn(priv, skb, state, nft_nat_do_chain);
 }
 

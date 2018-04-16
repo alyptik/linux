@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/core/ethtool.c - Ethtool ioctl handler
  * Copyright (c) 2003 Matthew Wilcox <matthew@wil.cx>
@@ -35,12 +36,14 @@
 
 u32 ethtool_op_get_link(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 39 \n"); 
 	return netif_carrier_ok(dev) ? 1 : 0;
 }
 EXPORT_SYMBOL(ethtool_op_get_link);
 
 int ethtool_op_get_ts_info(struct net_device *dev, struct ethtool_ts_info *info)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 46 \n"); 
 	info->so_timestamping =
 		SOF_TIMESTAMPING_TX_SOFTWARE |
 		SOF_TIMESTAMPING_RX_SOFTWARE |
@@ -199,6 +202,7 @@ static int ethtool_set_features(struct net_device *dev, void __user *useraddr)
 
 static int phy_get_sset_count(struct phy_device *phydev)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 205 \n"); 
 	int ret;
 
 	if (phydev->drv->get_sset_count &&
@@ -216,6 +220,7 @@ static int phy_get_sset_count(struct phy_device *phydev)
 
 static int __ethtool_get_sset_count(struct net_device *dev, int sset)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 223 \n"); 
 	const struct ethtool_ops *ops = dev->ethtool_ops;
 
 	if (sset == ETH_SS_FEATURES)
@@ -243,6 +248,7 @@ static int __ethtool_get_sset_count(struct net_device *dev, int sset)
 static void __ethtool_get_strings(struct net_device *dev,
 	u32 stringset, u8 *data)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 251 \n"); 
 	const struct ethtool_ops *ops = dev->ethtool_ops;
 
 	if (stringset == ETH_SS_FEATURES)
@@ -270,6 +276,7 @@ static void __ethtool_get_strings(struct net_device *dev,
 
 static netdev_features_t ethtool_get_feature_mask(u32 eth_cmd)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 279 \n"); 
 	/* feature masks of legacy discrete ethtool ops */
 
 	switch (eth_cmd) {
@@ -345,6 +352,7 @@ static int ethtool_set_one_feature(struct net_device *dev,
 
 static u32 __ethtool_get_flags(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 355 \n"); 
 	u32 flags = 0;
 
 	if (dev->features & NETIF_F_LRO)
@@ -363,6 +371,7 @@ static u32 __ethtool_get_flags(struct net_device *dev)
 
 static int __ethtool_set_flags(struct net_device *dev, u32 data)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 374 \n"); 
 	netdev_features_t features = 0, changed;
 
 	if (data & ~ETH_ALL_FLAGS)
@@ -395,6 +404,7 @@ static int __ethtool_set_flags(struct net_device *dev, u32 data)
 void ethtool_convert_legacy_u32_to_link_mode(unsigned long *dst,
 					     u32 legacy_u32)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 407 \n"); 
 	bitmap_zero(dst, __ETHTOOL_LINK_MODE_MASK_NBITS);
 	dst[0] = legacy_u32;
 }
@@ -404,6 +414,7 @@ EXPORT_SYMBOL(ethtool_convert_legacy_u32_to_link_mode);
 bool ethtool_convert_link_mode_to_legacy_u32(u32 *legacy_u32,
 					     const unsigned long *src)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 417 \n"); 
 	bool retval = true;
 
 	/* TODO: following test will soon always be true */
@@ -432,6 +443,7 @@ convert_legacy_settings_to_link_ksettings(
 	struct ethtool_link_ksettings *link_ksettings,
 	const struct ethtool_cmd *legacy_settings)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 446 \n"); 
 	bool retval = true;
 
 	memset(link_ksettings, 0, sizeof(*link_ksettings));
@@ -481,6 +493,7 @@ convert_link_ksettings_to_legacy_settings(
 	struct ethtool_cmd *legacy_settings,
 	const struct ethtool_link_ksettings *link_ksettings)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 496 \n"); 
 	bool retval = true;
 
 	memset(legacy_settings, 0, sizeof(*legacy_settings));
@@ -1052,6 +1065,7 @@ u8 netdev_rss_key[NETDEV_RSS_KEY_LEN] __read_mostly;
 
 void netdev_rss_key_fill(void *buffer, size_t len)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 1068 \n"); 
 	BUG_ON(len > sizeof(netdev_rss_key));
 	net_get_random_once(netdev_rss_key, sizeof(netdev_rss_key));
 	memcpy(buffer, netdev_rss_key, len);
@@ -1060,6 +1074,7 @@ EXPORT_SYMBOL(netdev_rss_key_fill);
 
 static int ethtool_get_max_rxfh_channel(struct net_device *dev, u32 *max)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 1077 \n"); 
 	u32 dev_size, current_max = 0;
 	u32 *indir;
 	int ret;
@@ -1488,6 +1503,7 @@ static int ethtool_set_eee(struct net_device *dev, char __user *useraddr)
 
 static int ethtool_nway_reset(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 1506 \n"); 
 	if (!dev->ethtool_ops->nway_reset)
 		return -EOPNOTSUPP;
 
@@ -2170,6 +2186,7 @@ static int ethtool_get_ts_info(struct net_device *dev, void __user *useraddr)
 static int __ethtool_get_module_info(struct net_device *dev,
 				     struct ethtool_modinfo *modinfo)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 2189 \n"); 
 	const struct ethtool_ops *ops = dev->ethtool_ops;
 	struct phy_device *phydev = dev->phydev;
 
@@ -2204,6 +2221,7 @@ static int ethtool_get_module_info(struct net_device *dev,
 static int __ethtool_get_module_eeprom(struct net_device *dev,
 				       struct ethtool_eeprom *ee, u8 *data)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 2224 \n"); 
 	const struct ethtool_ops *ops = dev->ethtool_ops;
 	struct phy_device *phydev = dev->phydev;
 
@@ -2233,6 +2251,7 @@ static int ethtool_get_module_eeprom(struct net_device *dev,
 
 static int ethtool_tunable_valid(const struct ethtool_tunable *tuna)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 2254 \n"); 
 	switch (tuna->id) {
 	case ETHTOOL_RX_COPYBREAK:
 	case ETHTOOL_TX_COPYBREAK:
@@ -2418,6 +2437,7 @@ static int ethtool_set_per_queue(struct net_device *dev, void __user *useraddr)
 
 int dev_ethtool(struct net *net, struct ifreq *ifr)
 {
+	panic("We reached unpopular paths in net/core/ethtool.c: line 2440 \n"); 
 	struct net_device *dev = __dev_get_by_name(net, ifr->ifr_name);
 	void __user *useraddr = ifr->ifr_data;
 	u32 ethcmd, sub_cmd;

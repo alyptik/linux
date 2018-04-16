@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* This is a module which is used to mark packets for tracing.
  */
 #include <linux/module.h>
@@ -13,17 +14,20 @@ MODULE_ALIAS("ip6t_TRACE");
 
 static int trace_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TRACE.c: line 17 \n"); 
 	return nf_logger_find_get(par->family, NF_LOG_TYPE_LOG);
 }
 
 static void trace_tg_destroy(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TRACE.c: line 23 \n"); 
 	nf_logger_put(par->family, NF_LOG_TYPE_LOG);
 }
 
 static unsigned int
 trace_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TRACE.c: line 30 \n"); 
 	skb->nf_trace = 1;
 	return XT_CONTINUE;
 }

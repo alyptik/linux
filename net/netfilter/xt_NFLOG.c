@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2006 Patrick McHardy <kaber@trash.net>
  *
@@ -24,6 +25,7 @@ MODULE_ALIAS("ip6t_NFLOG");
 static unsigned int
 nflog_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_NFLOG.c: line 28 \n"); 
 	const struct xt_nflog_info *info = par->targinfo;
 	struct nf_loginfo li;
 	struct net *net = par->net;
@@ -44,6 +46,7 @@ nflog_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int nflog_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_NFLOG.c: line 49 \n"); 
 	const struct xt_nflog_info *info = par->targinfo;
 
 	if (info->flags & ~XT_NFLOG_MASK)

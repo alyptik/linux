@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * hugetlbpage-backed filesystem.  Based on ramfs.
  *
@@ -62,6 +63,7 @@ struct hugetlbfs_inode_info {
 
 static inline struct hugetlbfs_inode_info *HUGETLBFS_I(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 66 \n"); 
 	return container_of(inode, struct hugetlbfs_inode_info, vfs_inode);
 }
 
@@ -101,15 +103,18 @@ static inline void hugetlb_drop_vma_policy(struct vm_area_struct *vma)
 static inline void hugetlb_set_vma_policy(struct vm_area_struct *vma,
 					struct inode *inode, pgoff_t index)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 106 \n"); 
 }
 
 static inline void hugetlb_drop_vma_policy(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 111 \n"); 
 }
 #endif
 
 static void huge_pagevec_release(struct pagevec *pvec)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 117 \n"); 
 	int i;
 
 	for (i = 0; i < pagevec_count(pvec); ++i)
@@ -120,6 +125,7 @@ static void huge_pagevec_release(struct pagevec *pvec)
 
 static int hugetlbfs_file_mmap(struct file *file, struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 128 \n"); 
 	struct inode *inode = file_inode(file);
 	loff_t len, vma_len;
 	int ret;
@@ -171,6 +177,7 @@ static unsigned long
 hugetlb_get_unmapped_area(struct file *file, unsigned long addr,
 		unsigned long len, unsigned long pgoff, unsigned long flags)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 180 \n"); 
 	struct mm_struct *mm = current->mm;
 	struct vm_area_struct *vma;
 	struct hstate *h = hstate_file(file);
@@ -209,6 +216,7 @@ static size_t
 hugetlbfs_read_actor(struct page *page, unsigned long offset,
 			struct iov_iter *to, unsigned long size)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 219 \n"); 
 	size_t copied = 0;
 	int i, chunksize;
 
@@ -241,6 +249,7 @@ hugetlbfs_read_actor(struct page *page, unsigned long offset,
  */
 static ssize_t hugetlbfs_read_iter(struct kiocb *iocb, struct iov_iter *to)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 252 \n"); 
 	struct file *file = iocb->ki_filp;
 	struct hstate *h = hstate_file(file);
 	struct address_space *mapping = file->f_mapping;
@@ -306,6 +315,7 @@ static int hugetlbfs_write_begin(struct file *file,
 			loff_t pos, unsigned len, unsigned flags,
 			struct page **pagep, void **fsdata)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 318 \n"); 
 	return -EINVAL;
 }
 
@@ -313,12 +323,14 @@ static int hugetlbfs_write_end(struct file *file, struct address_space *mapping,
 			loff_t pos, unsigned len, unsigned copied,
 			struct page *page, void *fsdata)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 326 \n"); 
 	BUG();
 	return -EINVAL;
 }
 
 static void remove_huge_page(struct page *page)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 333 \n"); 
 	ClearPageDirty(page);
 	ClearPageUptodate(page);
 	delete_from_page_cache(page);
@@ -327,6 +339,7 @@ static void remove_huge_page(struct page *page)
 static void
 hugetlb_vmdelete_list(struct rb_root *root, pgoff_t start, pgoff_t end)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 342 \n"); 
 	struct vm_area_struct *vma;
 
 	/*
@@ -386,6 +399,7 @@ hugetlb_vmdelete_list(struct rb_root *root, pgoff_t start, pgoff_t end)
 static void remove_inode_hugepages(struct inode *inode, loff_t lstart,
 				   loff_t lend)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 402 \n"); 
 	struct hstate *h = hstate_inode(inode);
 	struct address_space *mapping = &inode->i_data;
 	const pgoff_t start = lstart >> huge_page_shift(h);
@@ -484,6 +498,7 @@ static void remove_inode_hugepages(struct inode *inode, loff_t lstart,
 
 static void hugetlbfs_evict_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 501 \n"); 
 	struct resv_map *resv_map;
 
 	remove_inode_hugepages(inode, 0, LLONG_MAX);
@@ -496,6 +511,7 @@ static void hugetlbfs_evict_inode(struct inode *inode)
 
 static int hugetlb_vmtruncate(struct inode *inode, loff_t offset)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 514 \n"); 
 	pgoff_t pgoff;
 	struct address_space *mapping = inode->i_mapping;
 	struct hstate *h = hstate_inode(inode);
@@ -514,6 +530,7 @@ static int hugetlb_vmtruncate(struct inode *inode, loff_t offset)
 
 static long hugetlbfs_punch_hole(struct inode *inode, loff_t offset, loff_t len)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 533 \n"); 
 	struct hstate *h = hstate_inode(inode);
 	loff_t hpage_size = huge_page_size(h);
 	loff_t hole_start, hole_end;
@@ -545,6 +562,7 @@ static long hugetlbfs_punch_hole(struct inode *inode, loff_t offset, loff_t len)
 static long hugetlbfs_fallocate(struct file *file, int mode, loff_t offset,
 				loff_t len)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 565 \n"); 
 	struct inode *inode = file_inode(file);
 	struct address_space *mapping = inode->i_mapping;
 	struct hstate *h = hstate_inode(inode);
@@ -663,6 +681,7 @@ out:
 
 static int hugetlbfs_setattr(struct dentry *dentry, struct iattr *attr)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 684 \n"); 
 	struct inode *inode = d_inode(dentry);
 	struct hstate *h = hstate_inode(inode);
 	int error;
@@ -721,6 +740,7 @@ static struct inode *hugetlbfs_get_inode(struct super_block *sb,
 					struct inode *dir,
 					umode_t mode, dev_t dev)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 743 \n"); 
 	struct inode *inode;
 	struct resv_map *resv_map;
 
@@ -770,6 +790,7 @@ static struct inode *hugetlbfs_get_inode(struct super_block *sb,
 static int hugetlbfs_mknod(struct inode *dir,
 			struct dentry *dentry, umode_t mode, dev_t dev)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 793 \n"); 
 	struct inode *inode;
 	int error = -ENOSPC;
 
@@ -785,6 +806,7 @@ static int hugetlbfs_mknod(struct inode *dir,
 
 static int hugetlbfs_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 809 \n"); 
 	int retval = hugetlbfs_mknod(dir, dentry, mode | S_IFDIR, 0);
 	if (!retval)
 		inc_nlink(dir);
@@ -793,12 +815,14 @@ static int hugetlbfs_mkdir(struct inode *dir, struct dentry *dentry, umode_t mod
 
 static int hugetlbfs_create(struct inode *dir, struct dentry *dentry, umode_t mode, bool excl)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 818 \n"); 
 	return hugetlbfs_mknod(dir, dentry, mode | S_IFREG, 0);
 }
 
 static int hugetlbfs_symlink(struct inode *dir,
 			struct dentry *dentry, const char *symname)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 825 \n"); 
 	struct inode *inode;
 	int error = -ENOSPC;
 
@@ -822,6 +846,7 @@ static int hugetlbfs_symlink(struct inode *dir,
  */
 static int hugetlbfs_set_page_dirty(struct page *page)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 849 \n"); 
 	struct page *head = compound_head(page);
 
 	SetPageDirty(head);
@@ -832,6 +857,7 @@ static int hugetlbfs_migrate_page(struct address_space *mapping,
 				struct page *newpage, struct page *page,
 				enum migrate_mode mode)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 860 \n"); 
 	int rc;
 
 	rc = migrate_huge_page_move_mapping(mapping, newpage, page);
@@ -844,6 +870,7 @@ static int hugetlbfs_migrate_page(struct address_space *mapping,
 
 static int hugetlbfs_statfs(struct dentry *dentry, struct kstatfs *buf)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 873 \n"); 
 	struct hugetlbfs_sb_info *sbinfo = HUGETLBFS_SB(dentry->d_sb);
 	struct hstate *h = hstate_inode(d_inode(dentry));
 
@@ -873,6 +900,7 @@ static int hugetlbfs_statfs(struct dentry *dentry, struct kstatfs *buf)
 
 static void hugetlbfs_put_super(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 903 \n"); 
 	struct hugetlbfs_sb_info *sbi = HUGETLBFS_SB(sb);
 
 	if (sbi) {
@@ -902,6 +930,7 @@ static inline int hugetlbfs_dec_free_inodes(struct hugetlbfs_sb_info *sbinfo)
 
 static void hugetlbfs_inc_free_inodes(struct hugetlbfs_sb_info *sbinfo)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 933 \n"); 
 	if (sbinfo->free_inodes >= 0) {
 		spin_lock(&sbinfo->stat_lock);
 		sbinfo->free_inodes++;
@@ -941,12 +970,14 @@ static struct inode *hugetlbfs_alloc_inode(struct super_block *sb)
 
 static void hugetlbfs_i_callback(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 973 \n"); 
 	struct inode *inode = container_of(head, struct inode, i_rcu);
 	kmem_cache_free(hugetlbfs_inode_cachep, HUGETLBFS_I(inode));
 }
 
 static void hugetlbfs_destroy_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 980 \n"); 
 	hugetlbfs_inc_free_inodes(HUGETLBFS_SB(inode->i_sb));
 	mpol_free_shared_policy(&HUGETLBFS_I(inode)->policy);
 	call_rcu(&inode->i_rcu, hugetlbfs_i_callback);
@@ -1213,6 +1244,7 @@ static struct vfsmount *hugetlbfs_vfsmount[HUGE_MAX_HSTATE];
 
 static int can_do_hugetlb_shm(void)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 1247 \n"); 
 	kgid_t shm_group;
 	shm_group = make_kgid(&init_user_ns, sysctl_hugetlb_shm_group);
 	return capable(CAP_IPC_LOCK) || in_group_p(shm_group);
@@ -1220,6 +1252,7 @@ static int can_do_hugetlb_shm(void)
 
 static int get_hstate_idx(int page_size_log)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 1255 \n"); 
 	struct hstate *h = hstate_sizelog(page_size_log);
 
 	if (!h)
@@ -1239,6 +1272,7 @@ struct file *hugetlb_file_setup(const char *name, size_t size,
 				vm_flags_t acctflag, struct user_struct **user,
 				int creat_flags, int page_size_log)
 {
+	panic("We reached unpopular paths in fs/hugetlbfs/inode.c: line 1275 \n"); 
 	struct file *file = ERR_PTR(-ENOMEM);
 	struct inode *inode;
 	struct path path;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  fs/ext4/extents_status.c
  *
@@ -161,12 +162,14 @@ int __init ext4_init_es(void)
 
 void ext4_exit_es(void)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 165 \n"); 
 	if (ext4_es_cachep)
 		kmem_cache_destroy(ext4_es_cachep);
 }
 
 void ext4_es_init_tree(struct ext4_es_tree *tree)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 172 \n"); 
 	tree->root = RB_ROOT;
 	tree->cache_es = NULL;
 }
@@ -196,6 +199,7 @@ static void ext4_es_print_tree(struct inode *inode)
 
 static inline ext4_lblk_t ext4_es_end(struct extent_status *es)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 202 \n"); 
 	BUG_ON(es->es_lblk + es->es_len < es->es_lblk);
 	return es->es_lblk + es->es_len - 1;
 }
@@ -207,6 +211,7 @@ static inline ext4_lblk_t ext4_es_end(struct extent_status *es)
 static struct extent_status *__es_tree_search(struct rb_root *root,
 					      ext4_lblk_t lblk)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 214 \n"); 
 	struct rb_node *node = root->rb_node;
 	struct extent_status *es = NULL;
 
@@ -245,6 +250,7 @@ void ext4_es_find_delayed_extent_range(struct inode *inode,
 				 ext4_lblk_t lblk, ext4_lblk_t end,
 				 struct extent_status *es)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 253 \n"); 
 	struct ext4_es_tree *tree = NULL;
 	struct extent_status *es1 = NULL;
 	struct rb_node *node;
@@ -297,6 +303,7 @@ out:
 
 static void ext4_es_list_add(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 306 \n"); 
 	struct ext4_inode_info *ei = EXT4_I(inode);
 	struct ext4_sb_info *sbi = EXT4_SB(inode->i_sb);
 
@@ -313,6 +320,7 @@ static void ext4_es_list_add(struct inode *inode)
 
 static void ext4_es_list_del(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 323 \n"); 
 	struct ext4_inode_info *ei = EXT4_I(inode);
 	struct ext4_sb_info *sbi = EXT4_SB(inode->i_sb);
 
@@ -329,6 +337,7 @@ static struct extent_status *
 ext4_es_alloc_extent(struct inode *inode, ext4_lblk_t lblk, ext4_lblk_t len,
 		     ext4_fsblk_t pblk)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 340 \n"); 
 	struct extent_status *es;
 	es = kmem_cache_alloc(ext4_es_cachep, GFP_ATOMIC);
 	if (es == NULL)
@@ -355,6 +364,7 @@ ext4_es_alloc_extent(struct inode *inode, ext4_lblk_t lblk, ext4_lblk_t len,
 
 static void ext4_es_free_extent(struct inode *inode, struct extent_status *es)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 367 \n"); 
 	EXT4_I(inode)->i_es_all_nr--;
 	percpu_counter_dec(&EXT4_SB(inode->i_sb)->s_es_stats.es_stats_all_cnt);
 
@@ -380,6 +390,7 @@ static void ext4_es_free_extent(struct inode *inode, struct extent_status *es)
 static int ext4_es_can_be_merged(struct extent_status *es1,
 				 struct extent_status *es2)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 393 \n"); 
 	if (ext4_es_type(es1) != ext4_es_type(es2))
 		return 0;
 
@@ -412,6 +423,7 @@ static int ext4_es_can_be_merged(struct extent_status *es1,
 static struct extent_status *
 ext4_es_try_to_merge_left(struct inode *inode, struct extent_status *es)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 426 \n"); 
 	struct ext4_es_tree *tree = &EXT4_I(inode)->i_es_tree;
 	struct extent_status *es1;
 	struct rb_node *node;
@@ -436,6 +448,7 @@ ext4_es_try_to_merge_left(struct inode *inode, struct extent_status *es)
 static struct extent_status *
 ext4_es_try_to_merge_right(struct inode *inode, struct extent_status *es)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 451 \n"); 
 	struct ext4_es_tree *tree = &EXT4_I(inode)->i_es_tree;
 	struct extent_status *es1;
 	struct rb_node *node;
@@ -626,11 +639,13 @@ static inline void ext4_es_insert_extent_check(struct inode *inode,
 static inline void ext4_es_insert_extent_check(struct inode *inode,
 					       struct extent_status *es)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 642 \n"); 
 }
 #endif
 
 static int __es_insert_extent(struct inode *inode, struct extent_status *newes)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 648 \n"); 
 	struct ext4_es_tree *tree = &EXT4_I(inode)->i_es_tree;
 	struct rb_node **p = &tree->root.rb_node;
 	struct rb_node *parent = NULL;
@@ -691,6 +706,7 @@ int ext4_es_insert_extent(struct inode *inode, ext4_lblk_t lblk,
 			  ext4_lblk_t len, ext4_fsblk_t pblk,
 			  unsigned int status)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 709 \n"); 
 	struct extent_status newes;
 	ext4_lblk_t end = lblk + len - 1;
 	int err = 0;
@@ -747,6 +763,7 @@ void ext4_es_cache_extent(struct inode *inode, ext4_lblk_t lblk,
 			  ext4_lblk_t len, ext4_fsblk_t pblk,
 			  unsigned int status)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 766 \n"); 
 	struct extent_status *es;
 	struct extent_status newes;
 	ext4_lblk_t end = lblk + len - 1;
@@ -779,6 +796,7 @@ void ext4_es_cache_extent(struct inode *inode, ext4_lblk_t lblk,
 int ext4_es_lookup_extent(struct inode *inode, ext4_lblk_t lblk,
 			  struct extent_status *es)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 799 \n"); 
 	struct ext4_es_tree *tree;
 	struct ext4_es_stats *stats;
 	struct extent_status *es1 = NULL;
@@ -839,6 +857,7 @@ out:
 static int __es_remove_extent(struct inode *inode, ext4_lblk_t lblk,
 			      ext4_lblk_t end)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 860 \n"); 
 	struct ext4_es_tree *tree = &EXT4_I(inode)->i_es_tree;
 	struct rb_node *node;
 	struct extent_status *es;
@@ -944,6 +963,7 @@ out:
 int ext4_es_remove_extent(struct inode *inode, ext4_lblk_t lblk,
 			  ext4_lblk_t len)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 966 \n"); 
 	ext4_lblk_t end;
 	int err = 0;
 
@@ -972,6 +992,7 @@ int ext4_es_remove_extent(struct inode *inode, ext4_lblk_t lblk,
 static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
 		       struct ext4_inode_info *locked_ei)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 995 \n"); 
 	struct ext4_inode_info *ei;
 	struct ext4_es_stats *es_stats;
 	ktime_t start_time;
@@ -1060,6 +1081,7 @@ out:
 static unsigned long ext4_es_count(struct shrinker *shrink,
 				   struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 1084 \n"); 
 	unsigned long nr;
 	struct ext4_sb_info *sbi;
 
@@ -1072,6 +1094,7 @@ static unsigned long ext4_es_count(struct shrinker *shrink,
 static unsigned long ext4_es_scan(struct shrinker *shrink,
 				  struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 1097 \n"); 
 	struct ext4_sb_info *sbi = container_of(shrink,
 					struct ext4_sb_info, s_es_shrinker);
 	int nr_to_scan = sc->nr_to_scan;
@@ -1091,6 +1114,7 @@ static unsigned long ext4_es_scan(struct shrinker *shrink,
 
 int ext4_seq_es_shrinker_info_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 1117 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB((struct super_block *) seq->private);
 	struct ext4_es_stats *es_stats = &sbi->s_es_stats;
 	struct ext4_inode_info *ei, *max = NULL;
@@ -1134,6 +1158,7 @@ int ext4_seq_es_shrinker_info_show(struct seq_file *seq, void *v)
 
 int ext4_es_register_shrinker(struct ext4_sb_info *sbi)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 1161 \n"); 
 	int err;
 
 	/* Make sure we have enough bits for physical block number */
@@ -1171,6 +1196,7 @@ err1:
 
 void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 1199 \n"); 
 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_all_cnt);
 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
 	unregister_shrinker(&sbi->s_es_shrinker);
@@ -1187,6 +1213,7 @@ void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi)
 static int es_do_reclaim_extents(struct ext4_inode_info *ei, ext4_lblk_t end,
 				 int *nr_to_scan, int *nr_shrunk)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 1216 \n"); 
 	struct inode *inode = &ei->vfs_inode;
 	struct ext4_es_tree *tree = &ei->i_es_tree;
 	struct extent_status *es;
@@ -1232,6 +1259,7 @@ out_wrap:
 
 static int es_reclaim_extents(struct ext4_inode_info *ei, int *nr_to_scan)
 {
+	panic("We reached unpopular paths in fs/ext4/extents_status.c: line 1262 \n"); 
 	struct inode *inode = &ei->vfs_inode;
 	int nr_shrunk = 0;
 	ext4_lblk_t start = ei->i_es_shrink_lblk;

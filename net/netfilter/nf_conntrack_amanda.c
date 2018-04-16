@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Amanda extension for IP connection tracking
  *
  * (C) 2002 by Brian J. Murrell <netfilter@interlinx.bc.ca>
@@ -88,6 +89,7 @@ static int amanda_help(struct sk_buff *skb,
 		       struct nf_conn *ct,
 		       enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_amanda.c: line 92 \n"); 
 	struct nf_conntrack_expect *exp;
 	struct nf_conntrack_tuple *tuple;
 	unsigned int dataoff, start, stop, off, i;

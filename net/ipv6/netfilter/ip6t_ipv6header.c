@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* ipv6header match - matches IPv6 packets based
    on whether they contain certain headers */
 
@@ -29,6 +30,7 @@ MODULE_AUTHOR("Andras Kis-Szabo <kisza@sch.bme.hu>");
 static bool
 ipv6header_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_ipv6header.c: line 33 \n"); 
 	const struct ip6t_ipv6header_info *info = par->matchinfo;
 	unsigned int temp;
 	int len;
@@ -119,6 +121,7 @@ ipv6header_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ipv6header_mt6_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_ipv6header.c: line 124 \n"); 
 	const struct ip6t_ipv6header_info *info = par->matchinfo;
 
 	/* invflags is 0 or 0xff in hard mode */

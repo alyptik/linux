@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Userspace interface
  *	Linux ethernet bridge
@@ -103,6 +104,7 @@ static void br_port_set_promisc(struct net_bridge_port *p)
 
 static void br_port_clear_promisc(struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_if.c: line 107 \n"); 
 	int err;
 
 	/* Check if the port is already non-promisc or if it doesn't
@@ -302,6 +304,7 @@ static void del_nbp(struct net_bridge_port *p)
 /* Delete bridge device */
 void br_dev_delete(struct net_device *dev, struct list_head *head)
 {
+	panic("We reached unpopular paths in net/bridge/br_if.c: line 307 \n"); 
 	struct net_bridge *br = netdev_priv(dev);
 	struct net_bridge_port *p, *n;
 
@@ -378,6 +381,7 @@ static struct net_bridge_port *new_nbp(struct net_bridge *br,
 
 int br_add_bridge(struct net *net, const char *name)
 {
+	panic("We reached unpopular paths in net/bridge/br_if.c: line 384 \n"); 
 	struct net_device *dev;
 	int res;
 
@@ -398,6 +402,7 @@ int br_add_bridge(struct net *net, const char *name)
 
 int br_del_bridge(struct net *net, const char *name)
 {
+	panic("We reached unpopular paths in net/bridge/br_if.c: line 405 \n"); 
 	struct net_device *dev;
 	int ret = 0;
 
@@ -650,6 +655,7 @@ int br_del_if(struct net_bridge *br, struct net_device *dev)
 
 void br_port_flags_change(struct net_bridge_port *p, unsigned long mask)
 {
+	panic("We reached unpopular paths in net/bridge/br_if.c: line 658 \n"); 
 	struct net_bridge *br = p->br;
 
 	if (mask & BR_AUTO_MASK)

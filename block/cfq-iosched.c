@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  CFQ, or complete fairness queueing, disk scheduler.
  *
@@ -488,6 +489,7 @@ CFQG_FLAG_FNS(empty)
 /* This should be called with the queue_lock held. */
 static void cfqg_stats_update_group_wait_time(struct cfqg_stats *stats)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 492 \n"); 
 	unsigned long long now;
 
 	if (!cfqg_stats_waiting(stats))
@@ -603,6 +605,7 @@ static inline void cfqg_stats_update_avg_queue_size(struct cfq_group *cfqg) { }
 
 static inline struct cfq_group *pd_to_cfqg(struct blkg_policy_data *pd)
 {
+	// [blacklist] panic("We reached unpopular paths in block/cfq-iosched.c: line 608 \n"); 
 	return pd ? container_of(pd, struct cfq_group, pd) : NULL;
 }
 
@@ -777,6 +780,7 @@ static inline struct cfq_group *cfqg_parent(struct cfq_group *cfqg) { return NUL
 static inline bool cfqg_is_descendant(struct cfq_group *cfqg,
 				      struct cfq_group *ancestor)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 783 \n"); 
 	return true;
 }
 static inline void cfqg_get(struct cfq_group *cfqg) { }
@@ -819,6 +823,7 @@ static inline void cfqg_stats_update_completion(struct cfq_group *cfqg,
 static inline bool cfq_io_thinktime_big(struct cfq_data *cfqd,
 	struct cfq_ttime *ttime, bool group_idle)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 826 \n"); 
 	u64 slice;
 	if (!sample_valid(ttime->ttime_samples))
 		return false;
@@ -831,6 +836,7 @@ static inline bool cfq_io_thinktime_big(struct cfq_data *cfqd,
 
 static inline bool iops_mode(struct cfq_data *cfqd)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 839 \n"); 
 	/*
 	 * If we are not idling on queues and it is a NCQ drive, parallel
 	 * execution of requests is on and measuring time is not possible
@@ -846,6 +852,7 @@ static inline bool iops_mode(struct cfq_data *cfqd)
 
 static inline enum wl_class_t cfqq_class(struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 855 \n"); 
 	if (cfq_class_idle(cfqq))
 		return IDLE_WORKLOAD;
 	if (cfq_class_rt(cfqq))
@@ -856,6 +863,7 @@ static inline enum wl_class_t cfqq_class(struct cfq_queue *cfqq)
 
 static enum wl_type_t cfqq_type(struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 866 \n"); 
 	if (!cfq_cfqq_sync(cfqq))
 		return ASYNC_WORKLOAD;
 	if (!cfq_cfqq_idle_window(cfqq))
@@ -867,6 +875,7 @@ static inline int cfq_group_busy_queues_wl(enum wl_class_t wl_class,
 					struct cfq_data *cfqd,
 					struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 878 \n"); 
 	if (wl_class == IDLE_WORKLOAD)
 		return cfqg->service_tree_idle.count;
 
@@ -878,6 +887,7 @@ static inline int cfq_group_busy_queues_wl(enum wl_class_t wl_class,
 static inline int cfqg_busy_async_queues(struct cfq_data *cfqd,
 					struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 890 \n"); 
 	return cfqg->service_trees[RT_WORKLOAD][ASYNC_WORKLOAD].count +
 		cfqg->service_trees[BE_WORKLOAD][ASYNC_WORKLOAD].count;
 }
@@ -888,6 +898,7 @@ static struct cfq_queue *cfq_get_queue(struct cfq_data *cfqd, bool is_sync,
 
 static inline struct cfq_io_cq *icq_to_cic(struct io_cq *icq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 901 \n"); 
 	/* cic->icq is the first member, %NULL will convert to %NULL */
 	return container_of(icq, struct cfq_io_cq, icq);
 }
@@ -895,6 +906,7 @@ static inline struct cfq_io_cq *icq_to_cic(struct io_cq *icq)
 static inline struct cfq_io_cq *cfq_cic_lookup(struct cfq_data *cfqd,
 					       struct io_context *ioc)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 909 \n"); 
 	if (ioc)
 		return icq_to_cic(ioc_lookup_icq(ioc, cfqd->queue));
 	return NULL;
@@ -902,17 +914,20 @@ static inline struct cfq_io_cq *cfq_cic_lookup(struct cfq_data *cfqd,
 
 static inline struct cfq_queue *cic_to_cfqq(struct cfq_io_cq *cic, bool is_sync)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 917 \n"); 
 	return cic->cfqq[is_sync];
 }
 
 static inline void cic_set_cfqq(struct cfq_io_cq *cic, struct cfq_queue *cfqq,
 				bool is_sync)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 924 \n"); 
 	cic->cfqq[is_sync] = cfqq;
 }
 
 static inline struct cfq_data *cic_to_cfqd(struct cfq_io_cq *cic)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 930 \n"); 
 	return cic->icq.q->elevator->elevator_data;
 }
 
@@ -922,6 +937,7 @@ static inline struct cfq_data *cic_to_cfqd(struct cfq_io_cq *cic)
  */
 static inline bool cfq_bio_sync(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 940 \n"); 
 	return bio_data_dir(bio) == READ || (bio->bi_opf & REQ_SYNC);
 }
 
@@ -931,6 +947,7 @@ static inline bool cfq_bio_sync(struct bio *bio)
  */
 static inline void cfq_schedule_dispatch(struct cfq_data *cfqd)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 950 \n"); 
 	if (cfqd->busy_queues) {
 		cfq_log(cfqd, "schedule dispatch");
 		kblockd_schedule_work(&cfqd->unplug_work);
@@ -945,6 +962,7 @@ static inline void cfq_schedule_dispatch(struct cfq_data *cfqd)
 static inline u64 cfq_prio_slice(struct cfq_data *cfqd, bool sync,
 				 unsigned short prio)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 965 \n"); 
 	u64 base_slice = cfqd->cfq_slice[sync];
 	u64 slice = div_u64(base_slice, CFQ_SLICE_SCALE);
 
@@ -956,6 +974,7 @@ static inline u64 cfq_prio_slice(struct cfq_data *cfqd, bool sync,
 static inline u64
 cfq_prio_to_slice(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 977 \n"); 
 	return cfq_prio_slice(cfqd, cfq_cfqq_sync(cfqq), cfqq->ioprio);
 }
 
@@ -974,6 +993,7 @@ cfq_prio_to_slice(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 static inline u64 cfqg_scale_charge(u64 charge,
 				    unsigned int vfraction)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 996 \n"); 
 	u64 c = charge << CFQ_SERVICE_SHIFT;	/* make it fixed point */
 
 	/* charge / vfraction */
@@ -983,6 +1003,7 @@ static inline u64 cfqg_scale_charge(u64 charge,
 
 static inline u64 max_vdisktime(u64 min_vdisktime, u64 vdisktime)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1006 \n"); 
 	s64 delta = (s64)(vdisktime - min_vdisktime);
 	if (delta > 0)
 		min_vdisktime = vdisktime;
@@ -992,6 +1013,7 @@ static inline u64 max_vdisktime(u64 min_vdisktime, u64 vdisktime)
 
 static inline u64 min_vdisktime(u64 min_vdisktime, u64 vdisktime)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1016 \n"); 
 	s64 delta = (s64)(vdisktime - min_vdisktime);
 	if (delta < 0)
 		min_vdisktime = vdisktime;
@@ -1001,6 +1023,7 @@ static inline u64 min_vdisktime(u64 min_vdisktime, u64 vdisktime)
 
 static void update_min_vdisktime(struct cfq_rb_root *st)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1026 \n"); 
 	struct cfq_group *cfqg;
 
 	if (st->left) {
@@ -1019,6 +1042,7 @@ static void update_min_vdisktime(struct cfq_rb_root *st)
 static inline unsigned cfq_group_get_avg_queues(struct cfq_data *cfqd,
 					struct cfq_group *cfqg, bool rt)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1045 \n"); 
 	unsigned min_q, max_q;
 	unsigned mult  = cfq_hist_divisor - 1;
 	unsigned round = cfq_hist_divisor / 2;
@@ -1034,12 +1058,14 @@ static inline unsigned cfq_group_get_avg_queues(struct cfq_data *cfqd,
 static inline u64
 cfq_group_slice(struct cfq_data *cfqd, struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1061 \n"); 
 	return cfqd->cfq_target_latency * cfqg->vfraction >> CFQ_SERVICE_SHIFT;
 }
 
 static inline u64
 cfq_scaled_cfqq_slice(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1068 \n"); 
 	u64 slice = cfq_prio_to_slice(cfqd, cfqq);
 	if (cfqd->cfq_latency) {
 		/*
@@ -1072,6 +1098,7 @@ cfq_scaled_cfqq_slice(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 static inline void
 cfq_set_prio_slice(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1101 \n"); 
 	u64 slice = cfq_scaled_cfqq_slice(cfqd, cfqq);
 	u64 now = ktime_get_ns();
 
@@ -1088,6 +1115,7 @@ cfq_set_prio_slice(struct cfq_data *cfqd, struct cfq_queue *cfqq)
  */
 static inline bool cfq_slice_used(struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1118 \n"); 
 	if (cfq_cfqq_slice_new(cfqq))
 		return false;
 	if (ktime_get_ns() < cfqq->slice_end)
@@ -1104,6 +1132,7 @@ static inline bool cfq_slice_used(struct cfq_queue *cfqq)
 static struct request *
 cfq_choose_req(struct cfq_data *cfqd, struct request *rq1, struct request *rq2, sector_t last)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1135 \n"); 
 	sector_t s1, s2, d1 = 0, d2 = 0;
 	unsigned long back_max;
 #define CFQ_RQ1_WRAP	0x01 /* request 1 wraps */
@@ -1191,6 +1220,7 @@ cfq_choose_req(struct cfq_data *cfqd, struct request *rq1, struct request *rq2, 
  */
 static struct cfq_queue *cfq_rb_first(struct cfq_rb_root *root)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1223 \n"); 
 	/* Service tree is empty */
 	if (!root->count)
 		return NULL;
@@ -1206,6 +1236,7 @@ static struct cfq_queue *cfq_rb_first(struct cfq_rb_root *root)
 
 static struct cfq_group *cfq_rb_first_group(struct cfq_rb_root *root)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1239 \n"); 
 	if (!root->left)
 		root->left = rb_first(&root->rb);
 
@@ -1217,12 +1248,14 @@ static struct cfq_group *cfq_rb_first_group(struct cfq_rb_root *root)
 
 static void rb_erase_init(struct rb_node *n, struct rb_root *root)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1251 \n"); 
 	rb_erase(n, root);
 	RB_CLEAR_NODE(n);
 }
 
 static void cfq_rb_erase(struct rb_node *n, struct cfq_rb_root *root)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1258 \n"); 
 	if (root->left == n)
 		root->left = NULL;
 	rb_erase_init(n, &root->rb);
@@ -1236,6 +1269,7 @@ static struct request *
 cfq_find_next_rq(struct cfq_data *cfqd, struct cfq_queue *cfqq,
 		  struct request *last)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1272 \n"); 
 	struct rb_node *rbnext = rb_next(&last->rb_node);
 	struct rb_node *rbprev = rb_prev(&last->rb_node);
 	struct request *next = NULL, *prev = NULL;
@@ -1259,6 +1293,7 @@ cfq_find_next_rq(struct cfq_data *cfqd, struct cfq_queue *cfqq,
 static u64 cfq_slice_offset(struct cfq_data *cfqd,
 			    struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1296 \n"); 
 	/*
 	 * just an approximation, should be ok.
 	 */
@@ -1269,12 +1304,14 @@ static u64 cfq_slice_offset(struct cfq_data *cfqd,
 static inline s64
 cfqg_key(struct cfq_rb_root *st, struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1307 \n"); 
 	return cfqg->vdisktime - st->min_vdisktime;
 }
 
 static void
 __cfq_group_service_tree_add(struct cfq_rb_root *st, struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1314 \n"); 
 	struct rb_node **node = &st->rb.rb_node;
 	struct rb_node *parent = NULL;
 	struct cfq_group *__cfqg;
@@ -1306,6 +1343,7 @@ __cfq_group_service_tree_add(struct cfq_rb_root *st, struct cfq_group *cfqg)
 static void
 cfq_update_group_weight(struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1346 \n"); 
 	if (cfqg->new_weight) {
 		cfqg->weight = cfqg->new_weight;
 		cfqg->new_weight = 0;
@@ -1315,6 +1353,7 @@ cfq_update_group_weight(struct cfq_group *cfqg)
 static void
 cfq_update_group_leaf_weight(struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1356 \n"); 
 	BUG_ON(!RB_EMPTY_NODE(&cfqg->rb_node));
 
 	if (cfqg->new_leaf_weight) {
@@ -1326,6 +1365,7 @@ cfq_update_group_leaf_weight(struct cfq_group *cfqg)
 static void
 cfq_group_service_tree_add(struct cfq_rb_root *st, struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1368 \n"); 
 	unsigned int vfr = 1 << CFQ_SERVICE_SHIFT;	/* start with 1 */
 	struct cfq_group *pos = cfqg;
 	struct cfq_group *parent;
@@ -1376,6 +1416,7 @@ cfq_group_service_tree_add(struct cfq_rb_root *st, struct cfq_group *cfqg)
 
 static inline u64 cfq_get_cfqg_vdisktime_delay(struct cfq_data *cfqd)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1419 \n"); 
 	if (!iops_mode(cfqd))
 		return CFQ_SLICE_MODE_GROUP_DELAY;
 	else
@@ -1385,6 +1426,7 @@ static inline u64 cfq_get_cfqg_vdisktime_delay(struct cfq_data *cfqd)
 static void
 cfq_group_notify_queue_add(struct cfq_data *cfqd, struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1429 \n"); 
 	struct cfq_rb_root *st = &cfqd->grp_service_tree;
 	struct cfq_group *__cfqg;
 	struct rb_node *n;
@@ -1411,6 +1453,7 @@ cfq_group_notify_queue_add(struct cfq_data *cfqd, struct cfq_group *cfqg)
 static void
 cfq_group_service_tree_del(struct cfq_rb_root *st, struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1456 \n"); 
 	struct cfq_group *pos = cfqg;
 	bool propagate;
 
@@ -1444,6 +1487,7 @@ cfq_group_service_tree_del(struct cfq_rb_root *st, struct cfq_group *cfqg)
 static void
 cfq_group_notify_queue_del(struct cfq_data *cfqd, struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1490 \n"); 
 	struct cfq_rb_root *st = &cfqd->grp_service_tree;
 
 	BUG_ON(cfqg->nr_cfqq < 1);
@@ -1462,6 +1506,7 @@ cfq_group_notify_queue_del(struct cfq_data *cfqd, struct cfq_group *cfqg)
 static inline u64 cfq_cfqq_slice_usage(struct cfq_queue *cfqq,
 				       u64 *unaccounted_time)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1509 \n"); 
 	u64 slice_used;
 	u64 now = ktime_get_ns();
 
@@ -1495,6 +1540,7 @@ static inline u64 cfq_cfqq_slice_usage(struct cfq_queue *cfqq,
 static void cfq_group_served(struct cfq_data *cfqd, struct cfq_group *cfqg,
 				struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1543 \n"); 
 	struct cfq_rb_root *st = &cfqd->grp_service_tree;
 	u64 used_sl, charge, unaccounted_sl = 0;
 	int nr_sync = cfqg->nr_cfqq - cfqg_busy_async_queues(cfqd, cfqg)
@@ -1548,6 +1594,7 @@ static void cfq_group_served(struct cfq_data *cfqd, struct cfq_group *cfqg,
  */
 static void cfq_init_cfqg_base(struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 1597 \n"); 
 	struct cfq_rb_root *st;
 	int i, j;
 
@@ -2218,6 +2265,7 @@ static struct cftype cfq_blkcg_files[] = {
 static struct cfq_group *cfq_lookup_cfqg(struct cfq_data *cfqd,
 					 struct blkcg *blkcg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2268 \n"); 
 	return cfqd->root_group;
 }
 
@@ -2236,6 +2284,7 @@ cfq_link_cfqq_cfqg(struct cfq_queue *cfqq, struct cfq_group *cfqg) {
 static void cfq_service_tree_add(struct cfq_data *cfqd, struct cfq_queue *cfqq,
 				 bool add_front)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2287 \n"); 
 	struct rb_node **p, *parent;
 	struct cfq_queue *__cfqq;
 	u64 rb_key;
@@ -2317,6 +2366,7 @@ cfq_prio_tree_lookup(struct cfq_data *cfqd, struct rb_root *root,
 		     sector_t sector, struct rb_node **ret_parent,
 		     struct rb_node ***rb_link)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2369 \n"); 
 	struct rb_node **p, *parent;
 	struct cfq_queue *cfqq = NULL;
 
@@ -2350,6 +2400,7 @@ cfq_prio_tree_lookup(struct cfq_data *cfqd, struct rb_root *root,
 
 static void cfq_prio_tree_add(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2403 \n"); 
 	struct rb_node **p, *parent;
 	struct cfq_queue *__cfqq;
 
@@ -2378,6 +2429,7 @@ static void cfq_prio_tree_add(struct cfq_data *cfqd, struct cfq_queue *cfqq)
  */
 static void cfq_resort_rr_list(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2432 \n"); 
 	/*
 	 * Resorting requires the cfqq to be on the RR list already.
 	 */
@@ -2393,6 +2445,7 @@ static void cfq_resort_rr_list(struct cfq_data *cfqd, struct cfq_queue *cfqq)
  */
 static void cfq_add_cfqq_rr(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2448 \n"); 
 	cfq_log_cfqq(cfqd, cfqq, "add_to_rr");
 	BUG_ON(cfq_cfqq_on_rr(cfqq));
 	cfq_mark_cfqq_on_rr(cfqq);
@@ -2409,6 +2462,7 @@ static void cfq_add_cfqq_rr(struct cfq_data *cfqd, struct cfq_queue *cfqq)
  */
 static void cfq_del_cfqq_rr(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2465 \n"); 
 	cfq_log_cfqq(cfqd, cfqq, "del_from_rr");
 	BUG_ON(!cfq_cfqq_on_rr(cfqq));
 	cfq_clear_cfqq_on_rr(cfqq);
@@ -2434,6 +2488,7 @@ static void cfq_del_cfqq_rr(struct cfq_data *cfqd, struct cfq_queue *cfqq)
  */
 static void cfq_del_rq_rb(struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2491 \n"); 
 	struct cfq_queue *cfqq = RQ_CFQQ(rq);
 	const int sync = rq_is_sync(rq);
 
@@ -2457,6 +2512,7 @@ static void cfq_del_rq_rb(struct request *rq)
 
 static void cfq_add_rq_rb(struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2515 \n"); 
 	struct cfq_queue *cfqq = RQ_CFQQ(rq);
 	struct cfq_data *cfqd = cfqq->cfqd;
 	struct request *prev;
@@ -2485,6 +2541,7 @@ static void cfq_add_rq_rb(struct request *rq)
 
 static void cfq_reposition_rq_rb(struct cfq_queue *cfqq, struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2544 \n"); 
 	elv_rb_del(&cfqq->sort_list, rq);
 	cfqq->queued[rq_is_sync(rq)]--;
 	cfqg_stats_update_io_remove(RQ_CFQG(rq), req_op(rq), rq->cmd_flags);
@@ -2496,6 +2553,7 @@ static void cfq_reposition_rq_rb(struct cfq_queue *cfqq, struct request *rq)
 static struct request *
 cfq_find_rq_fmerge(struct cfq_data *cfqd, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2556 \n"); 
 	struct task_struct *tsk = current;
 	struct cfq_io_cq *cic;
 	struct cfq_queue *cfqq;
@@ -2513,6 +2571,7 @@ cfq_find_rq_fmerge(struct cfq_data *cfqd, struct bio *bio)
 
 static void cfq_activate_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2574 \n"); 
 	struct cfq_data *cfqd = q->elevator->elevator_data;
 
 	cfqd->rq_in_driver++;
@@ -2524,6 +2583,7 @@ static void cfq_activate_request(struct request_queue *q, struct request *rq)
 
 static void cfq_deactivate_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2586 \n"); 
 	struct cfq_data *cfqd = q->elevator->elevator_data;
 
 	WARN_ON(!cfqd->rq_in_driver);
@@ -2534,6 +2594,7 @@ static void cfq_deactivate_request(struct request_queue *q, struct request *rq)
 
 static void cfq_remove_request(struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2597 \n"); 
 	struct cfq_queue *cfqq = RQ_CFQQ(rq);
 
 	if (cfqq->next_rq == rq)
@@ -2553,6 +2614,7 @@ static void cfq_remove_request(struct request *rq)
 static int cfq_merge(struct request_queue *q, struct request **req,
 		     struct bio *bio)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2617 \n"); 
 	struct cfq_data *cfqd = q->elevator->elevator_data;
 	struct request *__rq;
 
@@ -2568,6 +2630,7 @@ static int cfq_merge(struct request_queue *q, struct request **req,
 static void cfq_merged_request(struct request_queue *q, struct request *req,
 			       int type)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2633 \n"); 
 	if (type == ELEVATOR_FRONT_MERGE) {
 		struct cfq_queue *cfqq = RQ_CFQQ(req);
 
@@ -2578,6 +2641,7 @@ static void cfq_merged_request(struct request_queue *q, struct request *req,
 static void cfq_bio_merged(struct request_queue *q, struct request *req,
 				struct bio *bio)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2644 \n"); 
 	cfqg_stats_update_io_merged(RQ_CFQG(req), bio_op(bio), bio->bi_opf);
 }
 
@@ -2585,6 +2649,7 @@ static void
 cfq_merged_requests(struct request_queue *q, struct request *rq,
 		    struct request *next)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2652 \n"); 
 	struct cfq_queue *cfqq = RQ_CFQQ(rq);
 	struct cfq_data *cfqd = q->elevator->elevator_data;
 
@@ -2617,6 +2682,7 @@ cfq_merged_requests(struct request_queue *q, struct request *rq,
 static int cfq_allow_bio_merge(struct request_queue *q, struct request *rq,
 			       struct bio *bio)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2685 \n"); 
 	struct cfq_data *cfqd = q->elevator->elevator_data;
 	struct cfq_io_cq *cic;
 	struct cfq_queue *cfqq;
@@ -2642,11 +2708,13 @@ static int cfq_allow_bio_merge(struct request_queue *q, struct request *rq,
 static int cfq_allow_rq_merge(struct request_queue *q, struct request *rq,
 			      struct request *next)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2711 \n"); 
 	return RQ_CFQQ(rq) == RQ_CFQQ(next);
 }
 
 static inline void cfq_del_timer(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2717 \n"); 
 	hrtimer_try_to_cancel(&cfqd->idle_slice_timer);
 	cfqg_stats_update_idle_time(cfqq->cfqg);
 }
@@ -2654,6 +2722,7 @@ static inline void cfq_del_timer(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 static void __cfq_set_active_queue(struct cfq_data *cfqd,
 				   struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2725 \n"); 
 	if (cfqq) {
 		cfq_log_cfqq(cfqd, cfqq, "set_active wl_class:%d wl_type:%d",
 				cfqd->serving_wl_class, cfqd->serving_wl_type);
@@ -2684,6 +2753,7 @@ static void
 __cfq_slice_expired(struct cfq_data *cfqd, struct cfq_queue *cfqq,
 		    bool timed_out)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2756 \n"); 
 	cfq_log_cfqq(cfqd, cfqq, "slice expired t=%d", timed_out);
 
 	if (cfq_cfqq_wait_request(cfqq))
@@ -2730,6 +2800,7 @@ __cfq_slice_expired(struct cfq_data *cfqd, struct cfq_queue *cfqq,
 
 static inline void cfq_slice_expired(struct cfq_data *cfqd, bool timed_out)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2803 \n"); 
 	struct cfq_queue *cfqq = cfqd->active_queue;
 
 	if (cfqq)
@@ -2742,6 +2813,7 @@ static inline void cfq_slice_expired(struct cfq_data *cfqd, bool timed_out)
  */
 static struct cfq_queue *cfq_get_next_queue(struct cfq_data *cfqd)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2816 \n"); 
 	struct cfq_rb_root *st = st_for(cfqd->serving_group,
 			cfqd->serving_wl_class, cfqd->serving_wl_type);
 
@@ -2758,6 +2830,7 @@ static struct cfq_queue *cfq_get_next_queue(struct cfq_data *cfqd)
 
 static struct cfq_queue *cfq_get_next_queue_forced(struct cfq_data *cfqd)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2833 \n"); 
 	struct cfq_group *cfqg;
 	struct cfq_queue *cfqq;
 	int i, j;
@@ -2782,6 +2855,7 @@ static struct cfq_queue *cfq_get_next_queue_forced(struct cfq_data *cfqd)
 static struct cfq_queue *cfq_set_active_queue(struct cfq_data *cfqd,
 					      struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2858 \n"); 
 	if (!cfqq)
 		cfqq = cfq_get_next_queue(cfqd);
 
@@ -2792,6 +2866,7 @@ static struct cfq_queue *cfq_set_active_queue(struct cfq_data *cfqd,
 static inline sector_t cfq_dist_from_last(struct cfq_data *cfqd,
 					  struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2869 \n"); 
 	if (blk_rq_pos(rq) >= cfqd->last_position)
 		return blk_rq_pos(rq) - cfqd->last_position;
 	else
@@ -2801,12 +2876,14 @@ static inline sector_t cfq_dist_from_last(struct cfq_data *cfqd,
 static inline int cfq_rq_close(struct cfq_data *cfqd, struct cfq_queue *cfqq,
 			       struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2879 \n"); 
 	return cfq_dist_from_last(cfqd, rq) <= CFQQ_CLOSE_THR;
 }
 
 static struct cfq_queue *cfqq_close(struct cfq_data *cfqd,
 				    struct cfq_queue *cur_cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2886 \n"); 
 	struct rb_root *root = &cfqd->prio_trees[cur_cfqq->org_ioprio];
 	struct rb_node *parent, *node;
 	struct cfq_queue *__cfqq;
@@ -2858,6 +2935,7 @@ static struct cfq_queue *cfqq_close(struct cfq_data *cfqd,
 static struct cfq_queue *cfq_close_cooperator(struct cfq_data *cfqd,
 					      struct cfq_queue *cur_cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2938 \n"); 
 	struct cfq_queue *cfqq;
 
 	if (cfq_class_idle(cur_cfqq))
@@ -2909,6 +2987,7 @@ static struct cfq_queue *cfq_close_cooperator(struct cfq_data *cfqd,
 
 static bool cfq_should_idle(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 2990 \n"); 
 	enum wl_class_t wl_class = cfqq_class(cfqq);
 	struct cfq_rb_root *st = cfqq->service_tree;
 
@@ -2940,6 +3019,7 @@ static bool cfq_should_idle(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 
 static void cfq_arm_slice_timer(struct cfq_data *cfqd)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3022 \n"); 
 	struct cfq_queue *cfqq = cfqd->active_queue;
 	struct cfq_rb_root *st = cfqq->service_tree;
 	struct cfq_io_cq *cic;
@@ -3021,6 +3101,7 @@ static void cfq_arm_slice_timer(struct cfq_data *cfqd)
  */
 static void cfq_dispatch_insert(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3104 \n"); 
 	struct cfq_data *cfqd = q->elevator->elevator_data;
 	struct cfq_queue *cfqq = RQ_CFQQ(rq);
 
@@ -3041,6 +3122,7 @@ static void cfq_dispatch_insert(struct request_queue *q, struct request *rq)
  */
 static struct request *cfq_check_fifo(struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3125 \n"); 
 	struct request *rq = NULL;
 
 	if (cfq_cfqq_fifo_expire(cfqq))
@@ -3061,6 +3143,7 @@ static struct request *cfq_check_fifo(struct cfq_queue *cfqq)
 static inline int
 cfq_prio_to_maxrq(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3146 \n"); 
 	const int base_rq = cfqd->cfq_slice_async_rq;
 
 	WARN_ON(cfqq->ioprio >= IOPRIO_BE_NR);
@@ -3073,6 +3156,7 @@ cfq_prio_to_maxrq(struct cfq_data *cfqd, struct cfq_queue *cfqq)
  */
 static int cfqq_process_refs(struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3159 \n"); 
 	int process_refs, io_refs;
 
 	io_refs = cfqq->allocated[READ] + cfqq->allocated[WRITE];
@@ -3083,6 +3167,7 @@ static int cfqq_process_refs(struct cfq_queue *cfqq)
 
 static void cfq_setup_merge(struct cfq_queue *cfqq, struct cfq_queue *new_cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3170 \n"); 
 	int process_refs, new_process_refs;
 	struct cfq_queue *__cfqq;
 
@@ -3126,6 +3211,7 @@ static void cfq_setup_merge(struct cfq_queue *cfqq, struct cfq_queue *new_cfqq)
 static enum wl_type_t cfq_choose_wl_type(struct cfq_data *cfqd,
 			struct cfq_group *cfqg, enum wl_class_t wl_class)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3214 \n"); 
 	struct cfq_queue *queue;
 	int i;
 	bool key_valid = false;
@@ -3149,6 +3235,7 @@ static enum wl_type_t cfq_choose_wl_type(struct cfq_data *cfqd,
 static void
 choose_wl_class_and_type(struct cfq_data *cfqd, struct cfq_group *cfqg)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3238 \n"); 
 	u64 slice;
 	unsigned count;
 	struct cfq_rb_root *st;
@@ -3232,6 +3319,7 @@ new_workload:
 
 static struct cfq_group *cfq_get_next_cfqg(struct cfq_data *cfqd)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3322 \n"); 
 	struct cfq_rb_root *st = &cfqd->grp_service_tree;
 	struct cfq_group *cfqg;
 
@@ -3244,6 +3332,7 @@ static struct cfq_group *cfq_get_next_cfqg(struct cfq_data *cfqd)
 
 static void cfq_choose_cfqg(struct cfq_data *cfqd)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3335 \n"); 
 	struct cfq_group *cfqg = cfq_get_next_cfqg(cfqd);
 	u64 now = ktime_get_ns();
 
@@ -3266,6 +3355,7 @@ static void cfq_choose_cfqg(struct cfq_data *cfqd)
  */
 static struct cfq_queue *cfq_select_queue(struct cfq_data *cfqd)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3358 \n"); 
 	struct cfq_queue *cfqq, *new_cfqq = NULL;
 	u64 now = ktime_get_ns();
 
@@ -3378,6 +3468,7 @@ keep_queue:
 
 static int __cfq_forced_dispatch_cfqq(struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3471 \n"); 
 	int dispatched = 0;
 
 	while (cfqq->next_rq) {
@@ -3398,6 +3489,7 @@ static int __cfq_forced_dispatch_cfqq(struct cfq_queue *cfqq)
  */
 static int cfq_forced_dispatch(struct cfq_data *cfqd)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3492 \n"); 
 	struct cfq_queue *cfqq;
 	int dispatched = 0;
 
@@ -3417,6 +3509,7 @@ static int cfq_forced_dispatch(struct cfq_data *cfqd)
 static inline bool cfq_slice_used_soon(struct cfq_data *cfqd,
 	struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3512 \n"); 
 	u64 now = ktime_get_ns();
 
 	/* the queue hasn't finished any request, can't estimate */
@@ -3430,6 +3523,7 @@ static inline bool cfq_slice_used_soon(struct cfq_data *cfqd,
 
 static bool cfq_may_dispatch(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3526 \n"); 
 	unsigned int max_dispatch;
 
 	if (cfq_cfqq_must_dispatch(cfqq))
@@ -3522,6 +3616,7 @@ static bool cfq_may_dispatch(struct cfq_data *cfqd, struct cfq_queue *cfqq)
  */
 static bool cfq_dispatch_request(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3619 \n"); 
 	struct request *rq;
 
 	BUG_ON(RB_EMPTY_ROOT(&cfqq->sort_list));
@@ -3562,6 +3657,7 @@ static bool cfq_dispatch_request(struct cfq_data *cfqd, struct cfq_queue *cfqq)
  */
 static int cfq_dispatch_requests(struct request_queue *q, int force)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3660 \n"); 
 	struct cfq_data *cfqd = q->elevator->elevator_data;
 	struct cfq_queue *cfqq;
 
@@ -3608,6 +3704,7 @@ static int cfq_dispatch_requests(struct request_queue *q, int force)
  */
 static void cfq_put_queue(struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3707 \n"); 
 	struct cfq_data *cfqd = cfqq->cfqd;
 	struct cfq_group *cfqg;
 
@@ -3634,6 +3731,7 @@ static void cfq_put_queue(struct cfq_queue *cfqq)
 
 static void cfq_put_cooperator(struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3734 \n"); 
 	struct cfq_queue *__cfqq, *next;
 
 	/*
@@ -3655,6 +3753,7 @@ static void cfq_put_cooperator(struct cfq_queue *cfqq)
 
 static void cfq_exit_cfqq(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3756 \n"); 
 	if (unlikely(cfqq == cfqd->active_queue)) {
 		__cfq_slice_expired(cfqd, cfqq, 0);
 		cfq_schedule_dispatch(cfqd);
@@ -3667,6 +3766,7 @@ static void cfq_exit_cfqq(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 
 static void cfq_init_icq(struct io_cq *icq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3769 \n"); 
 	struct cfq_io_cq *cic = icq_to_cic(icq);
 
 	cic->ttime.last_end_request = ktime_get_ns();
@@ -3674,6 +3774,7 @@ static void cfq_init_icq(struct io_cq *icq)
 
 static void cfq_exit_icq(struct io_cq *icq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3777 \n"); 
 	struct cfq_io_cq *cic = icq_to_cic(icq);
 	struct cfq_data *cfqd = cic_to_cfqd(cic);
 
@@ -3690,6 +3791,7 @@ static void cfq_exit_icq(struct io_cq *icq)
 
 static void cfq_init_prio_data(struct cfq_queue *cfqq, struct cfq_io_cq *cic)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3794 \n"); 
 	struct task_struct *tsk = current;
 	int ioprio_class;
 
@@ -3733,6 +3835,7 @@ static void cfq_init_prio_data(struct cfq_queue *cfqq, struct cfq_io_cq *cic)
 
 static void check_ioprio_changed(struct cfq_io_cq *cic, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3838 \n"); 
 	int ioprio = cic->icq.ioc->ioprio;
 	struct cfq_data *cfqd = cic_to_cfqd(cic);
 	struct cfq_queue *cfqq;
@@ -3761,6 +3864,7 @@ static void check_ioprio_changed(struct cfq_io_cq *cic, struct bio *bio)
 static void cfq_init_cfqq(struct cfq_data *cfqd, struct cfq_queue *cfqq,
 			  pid_t pid, bool is_sync)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3867 \n"); 
 	RB_CLEAR_NODE(&cfqq->rb_node);
 	RB_CLEAR_NODE(&cfqq->p_node);
 	INIT_LIST_HEAD(&cfqq->fifo);
@@ -3823,6 +3927,7 @@ static inline void check_blkcg_changed(struct cfq_io_cq *cic, struct bio *bio) {
 static struct cfq_queue **
 cfq_async_queue_prio(struct cfq_group *cfqg, int ioprio_class, int ioprio)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3930 \n"); 
 	switch (ioprio_class) {
 	case IOPRIO_CLASS_RT:
 		return &cfqg->async_cfqq[0][ioprio];
@@ -3842,6 +3947,7 @@ static struct cfq_queue *
 cfq_get_queue(struct cfq_data *cfqd, bool is_sync, struct cfq_io_cq *cic,
 	      struct bio *bio)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 3950 \n"); 
 	int ioprio_class = IOPRIO_PRIO_CLASS(cic->ioprio);
 	int ioprio = IOPRIO_PRIO_DATA(cic->ioprio);
 	struct cfq_queue **async_cfqq = NULL;
@@ -3893,6 +3999,7 @@ out:
 static void
 __cfq_update_io_thinktime(struct cfq_ttime *ttime, u64 slice_idle)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4002 \n"); 
 	u64 elapsed = ktime_get_ns() - ttime->last_end_request;
 	elapsed = min(elapsed, 2UL * slice_idle);
 
@@ -3906,6 +4013,7 @@ static void
 cfq_update_io_thinktime(struct cfq_data *cfqd, struct cfq_queue *cfqq,
 			struct cfq_io_cq *cic)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4016 \n"); 
 	if (cfq_cfqq_sync(cfqq)) {
 		__cfq_update_io_thinktime(&cic->ttime, cfqd->cfq_slice_idle);
 		__cfq_update_io_thinktime(&cfqq->service_tree->ttime,
@@ -3920,6 +4028,7 @@ static void
 cfq_update_io_seektime(struct cfq_data *cfqd, struct cfq_queue *cfqq,
 		       struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4031 \n"); 
 	sector_t sdist = 0;
 	sector_t n_sec = blk_rq_sectors(rq);
 	if (cfqq->last_request_pos) {
@@ -3944,6 +4053,7 @@ static void
 cfq_update_idle_window(struct cfq_data *cfqd, struct cfq_queue *cfqq,
 		       struct cfq_io_cq *cic)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4056 \n"); 
 	int old_idle, enable_idle;
 
 	/*
@@ -3987,6 +4097,7 @@ static bool
 cfq_should_preempt(struct cfq_data *cfqd, struct cfq_queue *new_cfqq,
 		   struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4100 \n"); 
 	struct cfq_queue *cfqq;
 
 	cfqq = cfqd->active_queue;
@@ -4066,6 +4177,7 @@ cfq_should_preempt(struct cfq_data *cfqd, struct cfq_queue *new_cfqq,
  */
 static void cfq_preempt_queue(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4180 \n"); 
 	enum wl_type_t old_type = cfqq_type(cfqd->active_queue);
 
 	cfq_log_cfqq(cfqd, cfqq, "preempt");
@@ -4098,6 +4210,7 @@ static void
 cfq_rq_enqueued(struct cfq_data *cfqd, struct cfq_queue *cfqq,
 		struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4213 \n"); 
 	struct cfq_io_cq *cic = RQ_CIC(rq);
 
 	cfqd->rq_queued++;
@@ -4146,6 +4259,7 @@ cfq_rq_enqueued(struct cfq_data *cfqd, struct cfq_queue *cfqq,
 
 static void cfq_insert_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4262 \n"); 
 	struct cfq_data *cfqd = q->elevator->elevator_data;
 	struct cfq_queue *cfqq = RQ_CFQQ(rq);
 
@@ -4166,6 +4280,7 @@ static void cfq_insert_request(struct request_queue *q, struct request *rq)
  */
 static void cfq_update_hw_tag(struct cfq_data *cfqd)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4283 \n"); 
 	struct cfq_queue *cfqq = cfqd->active_queue;
 
 	if (cfqd->rq_in_driver > cfqd->hw_tag_est_depth)
@@ -4199,6 +4314,7 @@ static void cfq_update_hw_tag(struct cfq_data *cfqd)
 
 static bool cfq_should_wait_busy(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4317 \n"); 
 	struct cfq_io_cq *cic = cfqd->active_cic;
 	u64 now = ktime_get_ns();
 
@@ -4237,6 +4353,7 @@ static bool cfq_should_wait_busy(struct cfq_data *cfqd, struct cfq_queue *cfqq)
 
 static void cfq_completed_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4356 \n"); 
 	struct cfq_queue *cfqq = RQ_CFQQ(rq);
 	struct cfq_data *cfqd = cfqq->cfqd;
 	const int sync = rq_is_sync(rq);
@@ -4334,6 +4451,7 @@ static void cfq_completed_request(struct request_queue *q, struct request *rq)
 
 static void cfqq_boost_on_prio(struct cfq_queue *cfqq, int op_flags)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4454 \n"); 
 	/*
 	 * If REQ_PRIO is set, boost class and prio level, if it's below
 	 * BE/NORM. If prio is not set, restore the potentially boosted
@@ -4352,6 +4470,7 @@ static void cfqq_boost_on_prio(struct cfq_queue *cfqq, int op_flags)
 
 static inline int __cfq_may_queue(struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4473 \n"); 
 	if (cfq_cfqq_wait_request(cfqq) && !cfq_cfqq_must_alloc_slice(cfqq)) {
 		cfq_mark_cfqq_must_alloc_slice(cfqq);
 		return ELV_MQUEUE_MUST;
@@ -4362,6 +4481,7 @@ static inline int __cfq_may_queue(struct cfq_queue *cfqq)
 
 static int cfq_may_queue(struct request_queue *q, int op, int op_flags)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4484 \n"); 
 	struct cfq_data *cfqd = q->elevator->elevator_data;
 	struct task_struct *tsk = current;
 	struct cfq_io_cq *cic;
@@ -4393,6 +4513,7 @@ static int cfq_may_queue(struct request_queue *q, int op, int op_flags)
  */
 static void cfq_put_request(struct request *rq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4516 \n"); 
 	struct cfq_queue *cfqq = RQ_CFQQ(rq);
 
 	if (cfqq) {
@@ -4414,6 +4535,7 @@ static struct cfq_queue *
 cfq_merge_cfqqs(struct cfq_data *cfqd, struct cfq_io_cq *cic,
 		struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4538 \n"); 
 	cfq_log_cfqq(cfqd, cfqq, "merging with queue %p", cfqq->new_cfqq);
 	cic_set_cfqq(cic, cfqq->new_cfqq, 1);
 	cfq_mark_cfqq_coop(cfqq->new_cfqq);
@@ -4428,6 +4550,7 @@ cfq_merge_cfqqs(struct cfq_data *cfqd, struct cfq_io_cq *cic,
 static struct cfq_queue *
 split_cfqq(struct cfq_io_cq *cic, struct cfq_queue *cfqq)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4553 \n"); 
 	if (cfqq_process_refs(cfqq) == 1) {
 		cfqq->pid = current->pid;
 		cfq_clear_cfqq_coop(cfqq);
@@ -4449,6 +4572,7 @@ static int
 cfq_set_request(struct request_queue *q, struct request *rq, struct bio *bio,
 		gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4575 \n"); 
 	struct cfq_data *cfqd = q->elevator->elevator_data;
 	struct cfq_io_cq *cic = icq_to_cic(rq->elv.icq);
 	const int rw = rq_data_dir(rq);
@@ -4499,6 +4623,7 @@ new_queue:
 
 static void cfq_kick_queue(struct work_struct *work)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4626 \n"); 
 	struct cfq_data *cfqd =
 		container_of(work, struct cfq_data, unplug_work);
 	struct request_queue *q = cfqd->queue;
@@ -4513,6 +4638,7 @@ static void cfq_kick_queue(struct work_struct *work)
  */
 static enum hrtimer_restart cfq_idle_slice_timer(struct hrtimer *timer)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4641 \n"); 
 	struct cfq_data *cfqd = container_of(timer, struct cfq_data,
 					     idle_slice_timer);
 	struct cfq_queue *cfqq;
@@ -4568,12 +4694,14 @@ out_cont:
 
 static void cfq_shutdown_timer_wq(struct cfq_data *cfqd)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4697 \n"); 
 	hrtimer_cancel(&cfqd->idle_slice_timer);
 	cancel_work_sync(&cfqd->unplug_work);
 }
 
 static void cfq_exit_queue(struct elevator_queue *e)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4704 \n"); 
 	struct cfq_data *cfqd = e->elevator_data;
 	struct request_queue *q = cfqd->queue;
 
@@ -4598,6 +4726,7 @@ static void cfq_exit_queue(struct elevator_queue *e)
 
 static int cfq_init_queue(struct request_queue *q, struct elevator_type *e)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4729 \n"); 
 	struct cfq_data *cfqd;
 	struct blkcg_gq *blkg __maybe_unused;
 	int i, ret;
@@ -4698,6 +4827,7 @@ out_free:
 
 static void cfq_registered_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4830 \n"); 
 	struct elevator_queue *e = q->elevator;
 	struct cfq_data *cfqd = e->elevator_data;
 
@@ -4714,12 +4844,14 @@ static void cfq_registered_queue(struct request_queue *q)
 static ssize_t
 cfq_var_show(unsigned int var, char *page)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4847 \n"); 
 	return sprintf(page, "%u\n", var);
 }
 
 static ssize_t
 cfq_var_store(unsigned int *var, const char *page, size_t count)
 {
+	panic("We reached unpopular paths in block/cfq-iosched.c: line 4854 \n"); 
 	char *p = (char *) page;
 
 	*var = simple_strtoul(p, &p, 10);
@@ -4893,6 +5025,7 @@ static struct blkcg_policy blkcg_policy_cfq = {
 
 static int __init cfq_init(void)
 {
+	// [blacklist] panic("We reached unpopular paths in block/cfq-iosched.c: line 5028 \n"); 
 	int ret;
 
 #ifdef CONFIG_CFQ_GROUP_IOSCHED

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -29,6 +30,7 @@ struct lzo_ctx {
 
 static int lzo_init(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/lzo.c: line 33 \n"); 
 	struct lzo_ctx *ctx = crypto_tfm_ctx(tfm);
 
 	ctx->lzo_comp_mem = kmalloc(LZO1X_MEM_COMPRESS,
@@ -43,6 +45,7 @@ static int lzo_init(struct crypto_tfm *tfm)
 
 static void lzo_exit(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/lzo.c: line 48 \n"); 
 	struct lzo_ctx *ctx = crypto_tfm_ctx(tfm);
 
 	kvfree(ctx->lzo_comp_mem);
@@ -51,6 +54,7 @@ static void lzo_exit(struct crypto_tfm *tfm)
 static int lzo_compress(struct crypto_tfm *tfm, const u8 *src,
 			    unsigned int slen, u8 *dst, unsigned int *dlen)
 {
+	panic("We reached unpopular paths in crypto/lzo.c: line 57 \n"); 
 	struct lzo_ctx *ctx = crypto_tfm_ctx(tfm);
 	size_t tmp_len = *dlen; /* size_t(ulong) <-> uint on 64 bit */
 	int err;
@@ -67,6 +71,7 @@ static int lzo_compress(struct crypto_tfm *tfm, const u8 *src,
 static int lzo_decompress(struct crypto_tfm *tfm, const u8 *src,
 			      unsigned int slen, u8 *dst, unsigned int *dlen)
 {
+	panic("We reached unpopular paths in crypto/lzo.c: line 74 \n"); 
 	int err;
 	size_t tmp_len = *dlen; /* size_t(ulong) <-> uint on 64 bit */
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  UDPLITEv6   An implementation of the UDP-Lite protocol over IPv6.
  *              See also net/ipv4/udplite.c
@@ -16,6 +17,7 @@
 
 static int udplitev6_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/udplite.c: line 20 \n"); 
 	return __udp6_lib_rcv(skb, &udplite_table, IPPROTO_UDPLITE);
 }
 
@@ -23,6 +25,7 @@ static void udplitev6_err(struct sk_buff *skb,
 			  struct inet6_skb_parm *opt,
 			  u8 type, u8 code, int offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/udplite.c: line 28 \n"); 
 	__udp6_lib_err(skb, opt, type, code, offset, info, &udplite_table);
 }
 
@@ -86,6 +89,7 @@ out_udplitev6_protocol:
 
 void udplitev6_exit(void)
 {
+	panic("We reached unpopular paths in net/ipv6/udplite.c: line 92 \n"); 
 	inet6_unregister_protosw(&udplite6_protosw);
 	inet6_del_protocol(&udplitev6_protocol, IPPROTO_UDPLITE);
 }

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Functions to sequence FLUSH and FUA writes.
  *
@@ -97,6 +98,7 @@ static bool blk_kick_flush(struct request_queue *q,
 
 static unsigned int blk_flush_policy(unsigned long fflags, struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-flush.c: line 101 \n"); 
 	unsigned int policy = 0;
 
 	if (blk_rq_sectors(rq))
@@ -114,11 +116,13 @@ static unsigned int blk_flush_policy(unsigned long fflags, struct request *rq)
 
 static unsigned int blk_flush_cur_seq(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-flush.c: line 119 \n"); 
 	return 1 << ffz(rq->flush.seq);
 }
 
 static void blk_flush_restore_request(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-flush.c: line 125 \n"); 
 	/*
 	 * After flush data completion, @rq->bio is %NULL but we need to
 	 * complete the bio again.  @rq->biotail is guaranteed to equal the
@@ -133,6 +137,7 @@ static void blk_flush_restore_request(struct request *rq)
 
 static bool blk_flush_queue_rq(struct request *rq, bool add_front)
 {
+	panic("We reached unpopular paths in block/blk-flush.c: line 140 \n"); 
 	if (rq->q->mq_ops) {
 		struct request_queue *q = rq->q;
 
@@ -168,6 +173,7 @@ static bool blk_flush_complete_seq(struct request *rq,
 				   struct blk_flush_queue *fq,
 				   unsigned int seq, int error)
 {
+	panic("We reached unpopular paths in block/blk-flush.c: line 176 \n"); 
 	struct request_queue *q = rq->q;
 	struct list_head *pending = &fq->flush_queue[fq->flush_pending_idx];
 	bool queued = false, kicked;
@@ -220,6 +226,7 @@ static bool blk_flush_complete_seq(struct request *rq,
 
 static void flush_end_io(struct request *flush_rq, int error)
 {
+	panic("We reached unpopular paths in block/blk-flush.c: line 229 \n"); 
 	struct request_queue *q = flush_rq->q;
 	struct list_head *running;
 	bool queued = false;
@@ -290,6 +297,7 @@ static void flush_end_io(struct request *flush_rq, int error)
  */
 static bool blk_kick_flush(struct request_queue *q, struct blk_flush_queue *fq)
 {
+	panic("We reached unpopular paths in block/blk-flush.c: line 300 \n"); 
 	struct list_head *pending = &fq->flush_queue[fq->flush_pending_idx];
 	struct request *first_rq =
 		list_first_entry(pending, struct request, flush.list);
@@ -339,6 +347,7 @@ static bool blk_kick_flush(struct request_queue *q, struct blk_flush_queue *fq)
 
 static void flush_data_end_io(struct request *rq, int error)
 {
+	panic("We reached unpopular paths in block/blk-flush.c: line 350 \n"); 
 	struct request_queue *q = rq->q;
 	struct blk_flush_queue *fq = blk_get_flush_queue(q, NULL);
 
@@ -380,6 +389,7 @@ static void flush_data_end_io(struct request *rq, int error)
 
 static void mq_flush_data_end_io(struct request *rq, int error)
 {
+	panic("We reached unpopular paths in block/blk-flush.c: line 392 \n"); 
 	struct request_queue *q = rq->q;
 	struct blk_mq_hw_ctx *hctx;
 	struct blk_mq_ctx *ctx = rq->mq_ctx;
@@ -412,6 +422,7 @@ static void mq_flush_data_end_io(struct request *rq, int error)
  */
 void blk_insert_flush(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-flush.c: line 425 \n"); 
 	struct request_queue *q = rq->q;
 	unsigned long fflags = q->queue_flags;	/* may change, cache */
 	unsigned int policy = blk_flush_policy(fflags, rq);
@@ -491,6 +502,7 @@ void blk_insert_flush(struct request *rq)
 int blkdev_issue_flush(struct block_device *bdev, gfp_t gfp_mask,
 		sector_t *error_sector)
 {
+	panic("We reached unpopular paths in block/blk-flush.c: line 505 \n"); 
 	struct request_queue *q;
 	struct bio *bio;
 	int ret = 0;
@@ -563,6 +575,7 @@ struct blk_flush_queue *blk_alloc_flush_queue(struct request_queue *q,
 
 void blk_free_flush_queue(struct blk_flush_queue *fq)
 {
+	panic("We reached unpopular paths in block/blk-flush.c: line 578 \n"); 
 	/* bio based request queue hasn't flush queue */
 	if (!fq)
 		return;

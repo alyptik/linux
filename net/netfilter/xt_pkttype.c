@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Michal Ludvig <michal@logix.cz>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -25,6 +26,7 @@ MODULE_ALIAS("ip6t_pkttype");
 static bool
 pkttype_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_pkttype.c: line 29 \n"); 
 	const struct xt_pkttype_info *info = par->matchinfo;
 	u_int8_t type;
 

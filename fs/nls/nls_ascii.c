@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/fs/nls/nls_ascii.c
  *
@@ -119,6 +120,7 @@ static const unsigned char charset2upper[256] = {
 
 static int uni2char(wchar_t uni, unsigned char *out, int boundlen)
 {
+	panic("We reached unpopular paths in fs/nls/nls_ascii.c: line 123 \n"); 
 	const unsigned char *uni2charset;
 	unsigned char cl = uni & 0x00ff;
 	unsigned char ch = (uni & 0xff00) >> 8;
@@ -136,6 +138,7 @@ static int uni2char(wchar_t uni, unsigned char *out, int boundlen)
 
 static int char2uni(const unsigned char *rawstring, int boundlen, wchar_t *uni)
 {
+	panic("We reached unpopular paths in fs/nls/nls_ascii.c: line 141 \n"); 
 	*uni = charset2uni[*rawstring];
 	if (*uni == 0x0000)
 		return -EINVAL;

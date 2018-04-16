@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/proc/net.c
  *
@@ -29,6 +30,7 @@
 
 static inline struct net *PDE_NET(struct proc_dir_entry *pde)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/proc/proc_net.c: line 33 \n"); 
 	return pde->parent->data;
 }
 
@@ -64,6 +66,7 @@ EXPORT_SYMBOL_GPL(seq_open_net);
 int single_open_net(struct inode *inode, struct file *file,
 		int (*show)(struct seq_file *, void *))
 {
+	panic("We reached unpopular paths in fs/proc/proc_net.c: line 69 \n"); 
 	int err;
 	struct net *net;
 
@@ -99,6 +102,7 @@ EXPORT_SYMBOL_GPL(seq_release_net);
 
 int single_release_net(struct inode *ino, struct file *f)
 {
+	panic("We reached unpopular paths in fs/proc/proc_net.c: line 105 \n"); 
 	struct seq_file *seq = f->private_data;
 	put_net(seq->private);
 	return single_release(ino, f);
@@ -143,6 +147,7 @@ static struct dentry *proc_tgid_net_lookup(struct inode *dir,
 static int proc_tgid_net_getattr(struct vfsmount *mnt, struct dentry *dentry,
 		struct kstat *stat)
 {
+	panic("We reached unpopular paths in fs/proc/proc_net.c: line 150 \n"); 
 	struct inode *inode = d_inode(dentry);
 	struct net *net;
 
@@ -165,6 +170,7 @@ const struct inode_operations proc_net_inode_operations = {
 
 static int proc_tgid_net_readdir(struct file *file, struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/proc_net.c: line 173 \n"); 
 	int ret;
 	struct net *net;
 

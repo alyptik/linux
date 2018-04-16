@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IPv6 output functions
  *	Linux INET6 implementation
@@ -173,6 +174,7 @@ bool ip6_autoflowlabel(struct net *net, const struct ipv6_pinfo *np)
 int ip6_xmit(const struct sock *sk, struct sk_buff *skb, struct flowi6 *fl6,
 	     __u32 mark, struct ipv6_txoptions *opt, int tclass)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 177 \n"); 
 	struct net *net = sock_net(sk);
 	const struct ipv6_pinfo *np = inet6_sk(sk);
 	struct in6_addr *first_hop = &fl6->daddr;
@@ -274,6 +276,7 @@ EXPORT_SYMBOL(ip6_xmit);
 
 static int ip6_call_ra_chain(struct sk_buff *skb, int sel)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 279 \n"); 
 	struct ip6_ra_chain *ra;
 	struct sock *last = NULL;
 
@@ -303,6 +306,7 @@ static int ip6_call_ra_chain(struct sk_buff *skb, int sel)
 
 static int ip6_forward_proxy_check(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 309 \n"); 
 	struct ipv6hdr *hdr = ipv6_hdr(skb);
 	u8 nexthdr = hdr->nexthdr;
 	__be16 frag_off;
@@ -356,11 +360,13 @@ static int ip6_forward_proxy_check(struct sk_buff *skb)
 static inline int ip6_forward_finish(struct net *net, struct sock *sk,
 				     struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 363 \n"); 
 	return dst_output(net, sk, skb);
 }
 
 static unsigned int ip6_dst_mtu_forward(const struct dst_entry *dst)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 369 \n"); 
 	unsigned int mtu;
 	struct inet6_dev *idev;
 
@@ -382,6 +388,7 @@ static unsigned int ip6_dst_mtu_forward(const struct dst_entry *dst)
 
 static bool ip6_pkt_too_big(const struct sk_buff *skb, unsigned int mtu)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 391 \n"); 
 	if (skb->len <= mtu)
 		return false;
 
@@ -400,6 +407,7 @@ static bool ip6_pkt_too_big(const struct sk_buff *skb, unsigned int mtu)
 
 int ip6_forward(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 410 \n"); 
 	struct dst_entry *dst = skb_dst(skb);
 	struct ipv6hdr *hdr = ipv6_hdr(skb);
 	struct inet6_skb_parm *opt = IP6CB(skb);
@@ -564,6 +572,7 @@ drop:
 
 static void ip6_copy_metadata(struct sk_buff *to, struct sk_buff *from)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 575 \n"); 
 	to->pkt_type = from->pkt_type;
 	to->priority = from->priority;
 	to->protocol = from->protocol;
@@ -582,6 +591,7 @@ static void ip6_copy_metadata(struct sk_buff *to, struct sk_buff *from)
 int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
 		 int (*output)(struct net *, struct sock *, struct sk_buff *))
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 594 \n"); 
 	struct sk_buff *frag;
 	struct rt6_info *rt = (struct rt6_info *)skb_dst(skb);
 	struct ipv6_pinfo *np = skb->sk && !dev_recursion_level() ?
@@ -877,6 +887,7 @@ static inline int ip6_rt_check(const struct rt6key *rt_key,
 			       const struct in6_addr *fl_addr,
 			       const struct in6_addr *addr_cache)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 890 \n"); 
 	return (rt_key->plen != 128 || !ipv6_addr_equal(fl_addr, &rt_key->addr)) &&
 		(!addr_cache || !ipv6_addr_equal(fl_addr, addr_cache));
 }
@@ -885,6 +896,7 @@ static struct dst_entry *ip6_sk_dst_check(struct sock *sk,
 					  struct dst_entry *dst,
 					  const struct flowi6 *fl6)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 899 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct rt6_info *rt;
 
@@ -1053,6 +1065,7 @@ out_err_release:
 int ip6_dst_lookup(struct net *net, struct sock *sk, struct dst_entry **dst,
 		   struct flowi6 *fl6)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 1068 \n"); 
 	*dst = NULL;
 	return ip6_dst_lookup_tail(net, sk, dst, fl6);
 }
@@ -1102,6 +1115,7 @@ EXPORT_SYMBOL_GPL(ip6_dst_lookup_flow);
 struct dst_entry *ip6_sk_dst_lookup_flow(struct sock *sk, struct flowi6 *fl6,
 					 const struct in6_addr *final_dst)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 1118 \n"); 
 	struct dst_entry *dst = sk_dst_check(sk, inet6_sk(sk)->dst_cookie);
 
 	dst = ip6_sk_dst_check(sk, dst, fl6);
@@ -1121,6 +1135,7 @@ static inline int ip6_ufo_append_data(struct sock *sk,
 			unsigned int flags, const struct flowi6 *fl6)
 
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 1138 \n"); 
 	struct sk_buff *skb;
 	int err;
 
@@ -1175,12 +1190,14 @@ append:
 static inline struct ipv6_opt_hdr *ip6_opt_dup(struct ipv6_opt_hdr *src,
 					       gfp_t gfp)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 1193 \n"); 
 	return src ? kmemdup(src, (src->hdrlen + 1) * 8, gfp) : NULL;
 }
 
 static inline struct ipv6_rt_hdr *ip6_rthdr_dup(struct ipv6_rt_hdr *src,
 						gfp_t gfp)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 1200 \n"); 
 	return src ? kmemdup(src, (src->hdrlen + 1) * 8, gfp) : NULL;
 }
 
@@ -1786,6 +1803,7 @@ struct sk_buff *ip6_make_skb(struct sock *sk,
 			     struct rt6_info *rt, unsigned int flags,
 			     const struct sockcm_cookie *sockc)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_output.c: line 1806 \n"); 
 	struct inet_cork_full cork;
 	struct inet6_cork v6_cork;
 	struct sk_buff_head queue;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * ChaCha20-Poly1305 AEAD, RFC7539
  *
@@ -76,6 +77,7 @@ struct chachapoly_req_ctx {
 static inline void async_done_continue(struct aead_request *req, int err,
 				       int (*cont)(struct aead_request *))
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 80 \n"); 
 	if (!err)
 		err = cont(req);
 
@@ -85,6 +87,7 @@ static inline void async_done_continue(struct aead_request *req, int err,
 
 static void chacha_iv(u8 *iv, struct aead_request *req, u32 icb)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 90 \n"); 
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(crypto_aead_reqtfm(req));
 	__le32 leicb = cpu_to_le32(icb);
 
@@ -96,6 +99,7 @@ static void chacha_iv(u8 *iv, struct aead_request *req, u32 icb)
 
 static int poly_verify_tag(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 102 \n"); 
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 	u8 tag[sizeof(rctx->tag)];
 
@@ -109,6 +113,7 @@ static int poly_verify_tag(struct aead_request *req)
 
 static int poly_copy_tag(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 116 \n"); 
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 
 	scatterwalk_map_and_copy(rctx->tag, req->dst,
@@ -119,11 +124,13 @@ static int poly_copy_tag(struct aead_request *req)
 
 static void chacha_decrypt_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 127 \n"); 
 	async_done_continue(areq->data, err, poly_verify_tag);
 }
 
 static int chacha_decrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 133 \n"); 
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(crypto_aead_reqtfm(req));
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 	struct chacha_req *creq = &rctx->u.chacha;
@@ -159,6 +166,7 @@ skip:
 
 static int poly_tail_continue(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 169 \n"); 
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 
 	if (rctx->cryptlen == req->cryptlen) /* encrypting */
@@ -169,11 +177,13 @@ static int poly_tail_continue(struct aead_request *req)
 
 static void poly_tail_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 180 \n"); 
 	async_done_continue(areq->data, err, poly_tail_continue);
 }
 
 static int poly_tail(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 186 \n"); 
 	struct crypto_aead *tfm = crypto_aead_reqtfm(req);
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(tfm);
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
@@ -203,11 +213,13 @@ static int poly_tail(struct aead_request *req)
 
 static void poly_cipherpad_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 216 \n"); 
 	async_done_continue(areq->data, err, poly_tail);
 }
 
 static int poly_cipherpad(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 222 \n"); 
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(crypto_aead_reqtfm(req));
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 	struct poly_req *preq = &rctx->u.poly;
@@ -233,11 +245,13 @@ static int poly_cipherpad(struct aead_request *req)
 
 static void poly_cipher_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 248 \n"); 
 	async_done_continue(areq->data, err, poly_cipherpad);
 }
 
 static int poly_cipher(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 254 \n"); 
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(crypto_aead_reqtfm(req));
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 	struct poly_req *preq = &rctx->u.poly;
@@ -264,11 +278,13 @@ static int poly_cipher(struct aead_request *req)
 
 static void poly_adpad_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 281 \n"); 
 	async_done_continue(areq->data, err, poly_cipher);
 }
 
 static int poly_adpad(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 287 \n"); 
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(crypto_aead_reqtfm(req));
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 	struct poly_req *preq = &rctx->u.poly;
@@ -294,11 +310,13 @@ static int poly_adpad(struct aead_request *req)
 
 static void poly_ad_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 313 \n"); 
 	async_done_continue(areq->data, err, poly_adpad);
 }
 
 static int poly_ad(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 319 \n"); 
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(crypto_aead_reqtfm(req));
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 	struct poly_req *preq = &rctx->u.poly;
@@ -318,11 +336,13 @@ static int poly_ad(struct aead_request *req)
 
 static void poly_setkey_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 339 \n"); 
 	async_done_continue(areq->data, err, poly_ad);
 }
 
 static int poly_setkey(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 345 \n"); 
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(crypto_aead_reqtfm(req));
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 	struct poly_req *preq = &rctx->u.poly;
@@ -345,11 +365,13 @@ static int poly_setkey(struct aead_request *req)
 
 static void poly_init_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 368 \n"); 
 	async_done_continue(areq->data, err, poly_setkey);
 }
 
 static int poly_init(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 374 \n"); 
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(crypto_aead_reqtfm(req));
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 	struct poly_req *preq = &rctx->u.poly;
@@ -368,11 +390,13 @@ static int poly_init(struct aead_request *req)
 
 static void poly_genkey_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 393 \n"); 
 	async_done_continue(areq->data, err, poly_init);
 }
 
 static int poly_genkey(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 399 \n"); 
 	struct crypto_aead *tfm = crypto_aead_reqtfm(req);
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(tfm);
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
@@ -408,11 +432,13 @@ static int poly_genkey(struct aead_request *req)
 
 static void chacha_encrypt_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 435 \n"); 
 	async_done_continue(areq->data, err, poly_genkey);
 }
 
 static int chacha_encrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 441 \n"); 
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(crypto_aead_reqtfm(req));
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 	struct chacha_req *creq = &rctx->u.chacha;
@@ -448,6 +474,7 @@ skip:
 
 static int chachapoly_encrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 477 \n"); 
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 
 	rctx->cryptlen = req->cryptlen;
@@ -469,6 +496,7 @@ static int chachapoly_encrypt(struct aead_request *req)
 
 static int chachapoly_decrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 499 \n"); 
 	struct chachapoly_req_ctx *rctx = aead_request_ctx(req);
 
 	rctx->cryptlen = req->cryptlen - POLY1305_DIGEST_SIZE;
@@ -491,6 +519,7 @@ static int chachapoly_decrypt(struct aead_request *req)
 static int chachapoly_setkey(struct crypto_aead *aead, const u8 *key,
 			     unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 522 \n"); 
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(aead);
 	int err;
 
@@ -513,6 +542,7 @@ static int chachapoly_setkey(struct crypto_aead *aead, const u8 *key,
 static int chachapoly_setauthsize(struct crypto_aead *tfm,
 				  unsigned int authsize)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 545 \n"); 
 	if (authsize != POLY1305_DIGEST_SIZE)
 		return -EINVAL;
 
@@ -521,6 +551,7 @@ static int chachapoly_setauthsize(struct crypto_aead *tfm,
 
 static int chachapoly_init(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 554 \n"); 
 	struct aead_instance *inst = aead_alg_instance(tfm);
 	struct chachapoly_instance_ctx *ictx = aead_instance_ctx(inst);
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(tfm);
@@ -559,6 +590,7 @@ static int chachapoly_init(struct crypto_aead *tfm)
 
 static void chachapoly_exit(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 593 \n"); 
 	struct chachapoly_ctx *ctx = crypto_aead_ctx(tfm);
 
 	crypto_free_ahash(ctx->poly);
@@ -567,6 +599,7 @@ static void chachapoly_exit(struct crypto_aead *tfm)
 
 static void chachapoly_free(struct aead_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 602 \n"); 
 	struct chachapoly_instance_ctx *ctx = aead_instance_ctx(inst);
 
 	crypto_drop_skcipher(&ctx->chacha);
@@ -577,6 +610,7 @@ static void chachapoly_free(struct aead_instance *inst)
 static int chachapoly_create(struct crypto_template *tmpl, struct rtattr **tb,
 			     const char *name, unsigned int ivsize)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 613 \n"); 
 	struct crypto_attr_type *algt;
 	struct aead_instance *inst;
 	struct skcipher_alg *chacha;
@@ -695,11 +729,13 @@ err_free_inst:
 
 static int rfc7539_create(struct crypto_template *tmpl, struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 732 \n"); 
 	return chachapoly_create(tmpl, tb, "rfc7539", 12);
 }
 
 static int rfc7539esp_create(struct crypto_template *tmpl, struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/chacha20poly1305.c: line 738 \n"); 
 	return chachapoly_create(tmpl, tb, "rfc7539esp", 8);
 }
 

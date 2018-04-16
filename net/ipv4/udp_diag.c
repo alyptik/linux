@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * udp_diag.c	Module for monitoring UDP transport protocols sockets.
  *
@@ -22,6 +23,7 @@ static int sk_diag_dump(struct sock *sk, struct sk_buff *skb,
 			const struct inet_diag_req_v2 *req,
 			struct nlattr *bc, bool net_admin)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_diag.c: line 26 \n"); 
 	if (!inet_diag_bc_sk(bc, sk))
 		return 0;
 
@@ -35,6 +37,7 @@ static int udp_dump_one(struct udp_table *tbl, struct sk_buff *in_skb,
 			const struct nlmsghdr *nlh,
 			const struct inet_diag_req_v2 *req)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_diag.c: line 40 \n"); 
 	int err = -EINVAL;
 	struct sock *sk = NULL;
 	struct sk_buff *rep;
@@ -98,6 +101,7 @@ static void udp_dump(struct udp_table *table, struct sk_buff *skb,
 		     struct netlink_callback *cb,
 		     const struct inet_diag_req_v2 *r, struct nlattr *bc)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_diag.c: line 104 \n"); 
 	bool net_admin = netlink_net_capable(cb->skb, CAP_NET_ADMIN);
 	struct net *net = sock_net(skb->sk);
 	int num, s_num, slot, s_slot;
@@ -151,18 +155,21 @@ done:
 static void udp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
 			  const struct inet_diag_req_v2 *r, struct nlattr *bc)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_diag.c: line 158 \n"); 
 	udp_dump(&udp_table, skb, cb, r, bc);
 }
 
 static int udp_diag_dump_one(struct sk_buff *in_skb, const struct nlmsghdr *nlh,
 			     const struct inet_diag_req_v2 *req)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_diag.c: line 165 \n"); 
 	return udp_dump_one(&udp_table, in_skb, nlh, req);
 }
 
 static void udp_diag_get_info(struct sock *sk, struct inet_diag_msg *r,
 		void *info)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_diag.c: line 172 \n"); 
 	r->idiag_rqueue = sk_rmem_alloc_get(sk);
 	r->idiag_wqueue = sk_wmem_alloc_get(sk);
 }
@@ -255,12 +262,14 @@ static void udplite_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
 			      const struct inet_diag_req_v2 *r,
 			      struct nlattr *bc)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_diag.c: line 265 \n"); 
 	udp_dump(&udplite_table, skb, cb, r, bc);
 }
 
 static int udplite_diag_dump_one(struct sk_buff *in_skb, const struct nlmsghdr *nlh,
 				 const struct inet_diag_req_v2 *req)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_diag.c: line 272 \n"); 
 	return udp_dump_one(&udplite_table, in_skb, nlh, req);
 }
 

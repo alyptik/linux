@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * This is a module which is used for logging packets.
  */
@@ -31,6 +32,7 @@
 static unsigned int
 log_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_LOG.c: line 35 \n"); 
 	const struct xt_log_info *loginfo = par->targinfo;
 	struct nf_loginfo li;
 	struct net *net = par->net;
@@ -46,6 +48,7 @@ log_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int log_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_LOG.c: line 51 \n"); 
 	const struct xt_log_info *loginfo = par->targinfo;
 
 	if (par->family != NFPROTO_IPV4 && par->family != NFPROTO_IPV6)
@@ -66,6 +69,7 @@ static int log_tg_check(const struct xt_tgchk_param *par)
 
 static void log_tg_destroy(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_LOG.c: line 72 \n"); 
 	nf_logger_put(par->family, NF_LOG_TYPE_LOG);
 }
 

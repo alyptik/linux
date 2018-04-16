@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2006 Netfilter Core Team <coreteam@netfilter.org>
@@ -16,6 +17,7 @@
 
 static int xt_nat_checkentry_v0(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_nat.c: line 20 \n"); 
 	const struct nf_nat_ipv4_multi_range_compat *mr = par->targinfo;
 
 	if (mr->rangesize != 1) {
@@ -29,6 +31,7 @@ static int xt_nat_checkentry_v0(const struct xt_tgchk_param *par)
 static void xt_nat_convert_range(struct nf_nat_range *dst,
 				 const struct nf_nat_ipv4_range *src)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_nat.c: line 34 \n"); 
 	memset(&dst->min_addr, 0, sizeof(dst->min_addr));
 	memset(&dst->max_addr, 0, sizeof(dst->max_addr));
 
@@ -42,6 +45,7 @@ static void xt_nat_convert_range(struct nf_nat_range *dst,
 static unsigned int
 xt_snat_target_v0(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_nat.c: line 48 \n"); 
 	const struct nf_nat_ipv4_multi_range_compat *mr = par->targinfo;
 	struct nf_nat_range range;
 	enum ip_conntrack_info ctinfo;
@@ -59,6 +63,7 @@ xt_snat_target_v0(struct sk_buff *skb, const struct xt_action_param *par)
 static unsigned int
 xt_dnat_target_v0(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_nat.c: line 66 \n"); 
 	const struct nf_nat_ipv4_multi_range_compat *mr = par->targinfo;
 	struct nf_nat_range range;
 	enum ip_conntrack_info ctinfo;
@@ -75,6 +80,7 @@ xt_dnat_target_v0(struct sk_buff *skb, const struct xt_action_param *par)
 static unsigned int
 xt_snat_target_v1(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_nat.c: line 83 \n"); 
 	const struct nf_nat_range *range = par->targinfo;
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct;
@@ -90,6 +96,7 @@ xt_snat_target_v1(struct sk_buff *skb, const struct xt_action_param *par)
 static unsigned int
 xt_dnat_target_v1(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_nat.c: line 99 \n"); 
 	const struct nf_nat_range *range = par->targinfo;
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct;

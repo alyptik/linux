@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public License
@@ -88,12 +89,14 @@ static BLOCKING_NOTIFIER_HEAD(fib_chain);
 
 int register_fib_notifier(struct notifier_block *nb)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 92 \n"); 
 	return blocking_notifier_chain_register(&fib_chain, nb);
 }
 EXPORT_SYMBOL(register_fib_notifier);
 
 int unregister_fib_notifier(struct notifier_block *nb)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 99 \n"); 
 	return blocking_notifier_chain_unregister(&fib_chain, nb);
 }
 EXPORT_SYMBOL(unregister_fib_notifier);
@@ -201,6 +204,7 @@ static struct kmem_cache *trie_leaf_kmem __read_mostly;
 
 static inline struct tnode *tn_info(struct key_vector *kv)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 207 \n"); 
 	return container_of(kv, struct tnode, kv[0]);
 }
 
@@ -215,6 +219,7 @@ static inline struct tnode *tn_info(struct key_vector *kv)
 /* wrapper for rcu_assign_pointer */
 static inline void node_set_parent(struct key_vector *n, struct key_vector *tp)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 222 \n"); 
 	if (n)
 		rcu_assign_pointer(tn_info(n)->parent, tp);
 }
@@ -226,6 +231,7 @@ static inline void node_set_parent(struct key_vector *n, struct key_vector *tp)
  */
 static inline unsigned long child_length(const struct key_vector *tn)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 234 \n"); 
 	return (1ul << tn->bits) & ~(1ul);
 }
 
@@ -233,6 +239,7 @@ static inline unsigned long child_length(const struct key_vector *tn)
 
 static inline unsigned long get_index(t_key key, struct key_vector *kv)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 242 \n"); 
 	unsigned long index = key ^ kv->key;
 
 	if ((BITS_PER_LONG <= KEYLENGTH) && (KEYLENGTH == kv->pos))
@@ -486,12 +493,14 @@ static inline void put_child_root(struct key_vector *tp, t_key key,
 
 static inline void tnode_free_init(struct key_vector *tn)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 496 \n"); 
 	tn_info(tn)->rcu.next = NULL;
 }
 
 static inline void tnode_free_append(struct key_vector *tn,
 				     struct key_vector *n)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 503 \n"); 
 	tn_info(n)->rcu.next = tn_info(tn)->rcu.next;
 	tn_info(tn)->rcu.next = &tn_info(n)->rcu;
 }
@@ -642,6 +651,7 @@ notnode:
 static struct key_vector *halve(struct trie *t,
 				struct key_vector *oldtnode)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 654 \n"); 
 	struct key_vector *tn;
 	unsigned long i;
 
@@ -1279,6 +1289,7 @@ err:
 
 static inline t_key prefix_mismatch(t_key key, struct key_vector *n)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 1292 \n"); 
 	t_key prefix = n->key;
 
 	return (key ^ prefix) & (prefix | -prefix);
@@ -1642,6 +1653,7 @@ found:
 
 static void fib_trie_free(struct fib_table *tb)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 1656 \n"); 
 	struct trie *t = (struct trie *)tb->tb_data;
 	struct key_vector *pn = t->kv;
 	unsigned long cindex = 1;
@@ -1700,6 +1712,7 @@ static void fib_trie_free(struct fib_table *tb)
 
 struct fib_table *fib_trie_unmerge(struct fib_table *oldtb)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 1715 \n"); 
 	struct trie *ot = (struct trie *)oldtb->tb_data;
 	struct key_vector *l, *tp = ot->kv;
 	struct fib_table *local_tb;
@@ -1759,6 +1772,7 @@ out:
 /* Caller must hold RTNL */
 void fib_table_flush_external(struct fib_table *tb)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_trie.c: line 1775 \n"); 
 	struct trie *t = (struct trie *)tb->tb_data;
 	struct key_vector *pn = t->kv;
 	unsigned long cindex = 1;

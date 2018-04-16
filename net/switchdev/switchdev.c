@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/switchdev/switchdev.c - Switch device API
  * Copyright (c) 2014-2015 Jiri Pirko <jiri@resnulli.us>
@@ -40,6 +41,7 @@ void switchdev_trans_item_enqueue(struct switchdev_trans *trans,
 				  void *data, void (*destructor)(void const *),
 				  struct switchdev_trans_item *tritem)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 44 \n"); 
 	tritem->data = data;
 	tritem->destructor = destructor;
 	list_add_tail(&tritem->list, &trans->item_list);
@@ -66,6 +68,7 @@ __switchdev_trans_item_dequeue(struct switchdev_trans *trans)
  */
 void *switchdev_trans_item_dequeue(struct switchdev_trans *trans)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 71 \n"); 
 	struct switchdev_trans_item *tritem;
 
 	tritem = __switchdev_trans_item_dequeue(trans);
@@ -76,6 +79,7 @@ EXPORT_SYMBOL_GPL(switchdev_trans_item_dequeue);
 
 static void switchdev_trans_init(struct switchdev_trans *trans)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 82 \n"); 
 	INIT_LIST_HEAD(&trans->item_list);
 }
 
@@ -340,6 +344,7 @@ EXPORT_SYMBOL_GPL(switchdev_port_attr_set);
 
 static size_t switchdev_obj_size(const struct switchdev_obj *obj)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 347 \n"); 
 	switch (obj->id) {
 	case SWITCHDEV_OBJ_ID_PORT_VLAN:
 		return sizeof(struct switchdev_obj_port_vlan);
@@ -426,6 +431,7 @@ static int switchdev_port_obj_add_now(struct net_device *dev,
 static void switchdev_port_obj_add_deferred(struct net_device *dev,
 					    const void *data)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 434 \n"); 
 	const struct switchdev_obj *obj = data;
 	int err;
 
@@ -440,6 +446,7 @@ static void switchdev_port_obj_add_deferred(struct net_device *dev,
 static int switchdev_port_obj_add_defer(struct net_device *dev,
 					const struct switchdev_obj *obj)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 449 \n"); 
 	return switchdev_deferred_enqueue(dev, obj, switchdev_obj_size(obj),
 					  switchdev_port_obj_add_deferred);
 }
@@ -496,6 +503,7 @@ static int switchdev_port_obj_del_now(struct net_device *dev,
 static void switchdev_port_obj_del_deferred(struct net_device *dev,
 					    const void *data)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 506 \n"); 
 	const struct switchdev_obj *obj = data;
 	int err;
 
@@ -510,6 +518,7 @@ static void switchdev_port_obj_del_deferred(struct net_device *dev,
 static int switchdev_port_obj_del_defer(struct net_device *dev,
 					const struct switchdev_obj *obj)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 521 \n"); 
 	return switchdev_deferred_enqueue(dev, obj, switchdev_obj_size(obj),
 					  switchdev_port_obj_del_deferred);
 }
@@ -547,6 +556,7 @@ EXPORT_SYMBOL_GPL(switchdev_port_obj_del);
 int switchdev_port_obj_dump(struct net_device *dev, struct switchdev_obj *obj,
 			    switchdev_obj_dump_cb_t *cb)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 559 \n"); 
 	const struct switchdev_ops *ops = dev->switchdev_ops;
 	struct net_device *lower_dev;
 	struct list_head *iter;
@@ -601,6 +611,7 @@ EXPORT_SYMBOL_GPL(register_switchdev_notifier);
  */
 int unregister_switchdev_notifier(struct notifier_block *nb)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 614 \n"); 
 	int err;
 
 	rtnl_lock();
@@ -624,6 +635,7 @@ EXPORT_SYMBOL_GPL(unregister_switchdev_notifier);
 int call_switchdev_notifiers(unsigned long val, struct net_device *dev,
 			     struct switchdev_notifier_info *info)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 638 \n"); 
 	int err;
 
 	ASSERT_RTNL();
@@ -645,6 +657,7 @@ struct switchdev_vlan_dump {
 
 static int switchdev_port_vlan_dump_put(struct switchdev_vlan_dump *dump)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 660 \n"); 
 	struct bridge_vlan_info vinfo;
 
 	vinfo.flags = dump->flags;
@@ -675,6 +688,7 @@ static int switchdev_port_vlan_dump_put(struct switchdev_vlan_dump *dump)
 
 static int switchdev_port_vlan_dump_cb(struct switchdev_obj *obj)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 691 \n"); 
 	struct switchdev_obj_port_vlan *vlan = SWITCHDEV_OBJ_PORT_VLAN(obj);
 	struct switchdev_vlan_dump *dump =
 		container_of(vlan, struct switchdev_vlan_dump, vlan);
@@ -728,6 +742,7 @@ static int switchdev_port_vlan_dump_cb(struct switchdev_obj *obj)
 static int switchdev_port_vlan_fill(struct sk_buff *skb, struct net_device *dev,
 				    u32 filter_mask)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 745 \n"); 
 	struct switchdev_vlan_dump dump = {
 		.vlan.obj.orig_dev = dev,
 		.vlan.obj.id = SWITCHDEV_OBJ_ID_PORT_VLAN,
@@ -763,6 +778,7 @@ int switchdev_port_bridge_getlink(struct sk_buff *skb, u32 pid, u32 seq,
 				  struct net_device *dev, u32 filter_mask,
 				  int nlflags)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 781 \n"); 
 	struct switchdev_attr attr = {
 		.orig_dev = dev,
 		.id = SWITCHDEV_ATTR_ID_PORT_BRIDGE_FLAGS,
@@ -788,6 +804,7 @@ static int switchdev_port_br_setflag(struct net_device *dev,
 				     struct nlattr *nlattr,
 				     unsigned long brport_flag)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 807 \n"); 
 	struct switchdev_attr attr = {
 		.orig_dev = dev,
 		.id = SWITCHDEV_ATTR_ID_PORT_BRIDGE_FLAGS,
@@ -824,6 +841,7 @@ switchdev_port_bridge_policy[IFLA_BRPORT_MAX + 1] = {
 static int switchdev_port_br_setlink_protinfo(struct net_device *dev,
 					      struct nlattr *protinfo)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 844 \n"); 
 	struct nlattr *attr;
 	int rem;
 	int err;
@@ -862,6 +880,7 @@ static int switchdev_port_br_afspec(struct net_device *dev,
 				    int (*f)(struct net_device *dev,
 					     const struct switchdev_obj *obj))
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 883 \n"); 
 	struct nlattr *attr;
 	struct bridge_vlan_info *vinfo;
 	struct switchdev_obj_port_vlan vlan = {
@@ -925,6 +944,7 @@ static int switchdev_port_br_afspec(struct net_device *dev,
 int switchdev_port_bridge_setlink(struct net_device *dev,
 				  struct nlmsghdr *nlh, u16 flags)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 947 \n"); 
 	struct nlattr *protinfo;
 	struct nlattr *afspec;
 	int err = 0;
@@ -963,6 +983,7 @@ EXPORT_SYMBOL_GPL(switchdev_port_bridge_setlink);
 int switchdev_port_bridge_dellink(struct net_device *dev,
 				  struct nlmsghdr *nlh, u16 flags)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 986 \n"); 
 	struct nlattr *afspec;
 
 	if (!netif_is_bridge_port(dev))
@@ -993,6 +1014,7 @@ int switchdev_port_fdb_add(struct ndmsg *ndm, struct nlattr *tb[],
 			   struct net_device *dev, const unsigned char *addr,
 			   u16 vid, u16 nlm_flags)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 1017 \n"); 
 	struct switchdev_obj_port_fdb fdb = {
 		.obj.orig_dev = dev,
 		.obj.id = SWITCHDEV_OBJ_ID_PORT_FDB,
@@ -1019,6 +1041,7 @@ int switchdev_port_fdb_del(struct ndmsg *ndm, struct nlattr *tb[],
 			   struct net_device *dev, const unsigned char *addr,
 			   u16 vid)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 1044 \n"); 
 	struct switchdev_obj_port_fdb fdb = {
 		.obj.orig_dev = dev,
 		.obj.id = SWITCHDEV_OBJ_ID_PORT_FDB,
@@ -1040,6 +1063,7 @@ struct switchdev_fdb_dump {
 
 static int switchdev_port_fdb_dump_cb(struct switchdev_obj *obj)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 1066 \n"); 
 	struct switchdev_obj_port_fdb *fdb = SWITCHDEV_OBJ_PORT_FDB(obj);
 	struct switchdev_fdb_dump *dump =
 		container_of(fdb, struct switchdev_fdb_dump, fdb);
@@ -1097,6 +1121,7 @@ int switchdev_port_fdb_dump(struct sk_buff *skb, struct netlink_callback *cb,
 			    struct net_device *dev,
 			    struct net_device *filter_dev, int *idx)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 1124 \n"); 
 	struct switchdev_fdb_dump dump = {
 		.fdb.obj.orig_dev = dev,
 		.fdb.obj.id = SWITCHDEV_OBJ_ID_PORT_FDB,
@@ -1117,6 +1142,7 @@ EXPORT_SYMBOL_GPL(switchdev_port_fdb_dump);
 bool switchdev_port_same_parent_id(struct net_device *a,
 				   struct net_device *b)
 {
+	panic("We reached unpopular paths in net/switchdev/switchdev.c: line 1145 \n"); 
 	struct switchdev_attr a_attr = {
 		.orig_dev = a,
 		.id = SWITCHDEV_ATTR_ID_PORT_PARENT_ID,

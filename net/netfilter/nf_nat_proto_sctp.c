@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008 Patrick McHardy <kaber@trash.net>
  *
@@ -23,6 +24,7 @@ sctp_unique_tuple(const struct nf_nat_l3proto *l3proto,
 		  enum nf_nat_manip_type maniptype,
 		  const struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_proto_sctp.c: line 27 \n"); 
 	nf_nat_l4proto_unique_tuple(l3proto, tuple, range, maniptype, ct,
 				    &nf_sctp_port_rover);
 }
@@ -34,6 +36,7 @@ sctp_manip_pkt(struct sk_buff *skb,
 	       const struct nf_conntrack_tuple *tuple,
 	       enum nf_nat_manip_type maniptype)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_proto_sctp.c: line 39 \n"); 
 	sctp_sctphdr_t *hdr;
 
 	if (!skb_make_writable(skb, hdroff + sizeof(*hdr)))

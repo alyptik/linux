@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Directory notifications for Linux.
  *
@@ -52,6 +53,7 @@ struct dnotify_mark {
  */
 static void dnotify_recalc_inode_mask(struct fsnotify_mark *fsn_mark)
 {
+	panic("We reached unpopular paths in fs/notify/dnotify/dnotify.c: line 56 \n"); 
 	__u32 new_mask, old_mask;
 	struct dnotify_struct *dn;
 	struct dnotify_mark *dn_mark  = container_of(fsn_mark,
@@ -88,6 +90,7 @@ static int dnotify_handle_event(struct fsnotify_group *group,
 				u32 mask, void *data, int data_type,
 				const unsigned char *file_name, u32 cookie)
 {
+	panic("We reached unpopular paths in fs/notify/dnotify/dnotify.c: line 93 \n"); 
 	struct dnotify_mark *dn_mark;
 	struct dnotify_struct *dn;
 	struct dnotify_struct **prev;
@@ -127,6 +130,7 @@ static int dnotify_handle_event(struct fsnotify_group *group,
 
 static void dnotify_free_mark(struct fsnotify_mark *fsn_mark)
 {
+	panic("We reached unpopular paths in fs/notify/dnotify/dnotify.c: line 133 \n"); 
 	struct dnotify_mark *dn_mark = container_of(fsn_mark,
 						    struct dnotify_mark,
 						    fsn_mark);
@@ -198,6 +202,7 @@ void dnotify_flush(struct file *filp, fl_owner_t id)
 /* this conversion is done only at watch creation */
 static __u32 convert_arg(unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/notify/dnotify/dnotify.c: line 205 \n"); 
 	__u32 new_mask = FS_EVENT_ON_CHILD;
 
 	if (arg & DN_MULTISHOT)
@@ -227,6 +232,7 @@ static __u32 convert_arg(unsigned long arg)
 static int attach_dn(struct dnotify_struct *dn, struct dnotify_mark *dn_mark,
 		     fl_owner_t id, int fd, struct file *filp, __u32 mask)
 {
+	panic("We reached unpopular paths in fs/notify/dnotify/dnotify.c: line 235 \n"); 
 	struct dnotify_struct *odn;
 
 	odn = dn_mark->dn;
@@ -257,6 +263,7 @@ static int attach_dn(struct dnotify_struct *dn, struct dnotify_mark *dn_mark,
  */
 int fcntl_dirnotify(int fd, struct file *filp, unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/notify/dnotify/dnotify.c: line 266 \n"); 
 	struct dnotify_mark *new_dn_mark, *dn_mark;
 	struct fsnotify_mark *new_fsn_mark, *fsn_mark;
 	struct dnotify_struct *dn;

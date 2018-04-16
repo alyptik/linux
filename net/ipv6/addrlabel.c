@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPv6 Address Label subsystem
  * for the IPv6 "Default" Source Address Selection
@@ -50,6 +51,7 @@ static struct ip6addrlbl_table
 static inline
 struct net *ip6addrlbl_net(const struct ip6addrlbl_entry *lbl)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv6/addrlabel.c: line 54 \n"); 
 	return read_pnet(&lbl->lbl_net);
 }
 
@@ -127,6 +129,7 @@ static const __net_initconst struct ip6addrlbl_init_table
 /* Object management */
 static inline void ip6addrlbl_free(struct ip6addrlbl_entry *p)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv6/addrlabel.c: line 132 \n"); 
 	kfree(p);
 }
 
@@ -137,6 +140,7 @@ static void ip6addrlbl_free_rcu(struct rcu_head *h)
 
 static bool ip6addrlbl_hold(struct ip6addrlbl_entry *p)
 {
+	panic("We reached unpopular paths in net/ipv6/addrlabel.c: line 143 \n"); 
 	return atomic_inc_not_zero(&p->refcnt);
 }
 
@@ -307,6 +311,7 @@ static int __ip6addrlbl_del(struct net *net,
 			    const struct in6_addr *prefix, int prefixlen,
 			    int ifindex)
 {
+	panic("We reached unpopular paths in net/ipv6/addrlabel.c: line 314 \n"); 
 	struct ip6addrlbl_entry *p = NULL;
 	struct hlist_node *n;
 	int ret = -ESRCH;
@@ -332,6 +337,7 @@ static int ip6addrlbl_del(struct net *net,
 			  const struct in6_addr *prefix, int prefixlen,
 			  int ifindex)
 {
+	panic("We reached unpopular paths in net/ipv6/addrlabel.c: line 340 \n"); 
 	struct in6_addr prefix_buf;
 	int ret;
 
@@ -396,6 +402,7 @@ int __init ipv6_addr_label_init(void)
 
 void ipv6_addr_label_cleanup(void)
 {
+	panic("We reached unpopular paths in net/ipv6/addrlabel.c: line 405 \n"); 
 	unregister_pernet_subsys(&ipv6_addr_label_ops);
 }
 
@@ -406,6 +413,7 @@ static const struct nla_policy ifal_policy[IFAL_MAX+1] = {
 
 static int ip6addrlbl_newdel(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv6/addrlabel.c: line 416 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct ifaddrlblmsg *ifal;
 	struct nlattr *tb[IFAL_MAX+1];
@@ -456,6 +464,7 @@ static int ip6addrlbl_newdel(struct sk_buff *skb, struct nlmsghdr *nlh)
 static void ip6addrlbl_putmsg(struct nlmsghdr *nlh,
 			      int prefixlen, int ifindex, u32 lseq)
 {
+	panic("We reached unpopular paths in net/ipv6/addrlabel.c: line 467 \n"); 
 	struct ifaddrlblmsg *ifal = nlmsg_data(nlh);
 	ifal->ifal_family = AF_INET6;
 	ifal->ifal_prefixlen = prefixlen;
@@ -470,6 +479,7 @@ static int ip6addrlbl_fill(struct sk_buff *skb,
 			   u32 portid, u32 seq, int event,
 			   unsigned int flags)
 {
+	panic("We reached unpopular paths in net/ipv6/addrlabel.c: line 482 \n"); 
 	struct nlmsghdr *nlh = nlmsg_put(skb, portid, seq, event,
 					 sizeof(struct ifaddrlblmsg), flags);
 	if (!nlh)
@@ -489,6 +499,7 @@ static int ip6addrlbl_fill(struct sk_buff *skb,
 
 static int ip6addrlbl_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/ipv6/addrlabel.c: line 502 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct ip6addrlbl_entry *p;
 	int idx = 0, s_idx = cb->args[0];
@@ -516,6 +527,7 @@ static int ip6addrlbl_dump(struct sk_buff *skb, struct netlink_callback *cb)
 
 static inline int ip6addrlbl_msgsize(void)
 {
+	panic("We reached unpopular paths in net/ipv6/addrlabel.c: line 530 \n"); 
 	return NLMSG_ALIGN(sizeof(struct ifaddrlblmsg))
 		+ nla_total_size(16)	/* IFAL_ADDRESS */
 		+ nla_total_size(4);	/* IFAL_LABEL */
@@ -523,6 +535,7 @@ static inline int ip6addrlbl_msgsize(void)
 
 static int ip6addrlbl_get(struct sk_buff *in_skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv6/addrlabel.c: line 538 \n"); 
 	struct net *net = sock_net(in_skb->sk);
 	struct ifaddrlblmsg *ifal;
 	struct nlattr *tb[IFAL_MAX+1];

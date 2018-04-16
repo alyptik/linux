@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/ipc/namespace.c
  * Copyright (C) 2006 Pavel Emelyanov <xemul@openvz.org> OpenVZ, SWsoft Inc.
@@ -152,6 +153,7 @@ void put_ipc_ns(struct ipc_namespace *ns)
 
 static inline struct ipc_namespace *to_ipc_ns(struct ns_common *ns)
 {
+	// [blacklist] panic("We reached unpopular paths in ipc/namespace.c: line 156 \n"); 
 	return container_of(ns, struct ipc_namespace, ns);
 }
 
@@ -190,6 +192,7 @@ static int ipcns_install(struct nsproxy *nsproxy, struct ns_common *new)
 
 static struct user_namespace *ipcns_owner(struct ns_common *ns)
 {
+	panic("We reached unpopular paths in ipc/namespace.c: line 195 \n"); 
 	return to_ipc_ns(ns)->user_ns;
 }
 

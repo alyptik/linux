@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IP tables module for matching the value of the TTL
  * (C) 2000,2001 by Harald Welte <laforge@netfilter.org>
@@ -27,6 +28,7 @@ MODULE_ALIAS("ip6t_hl");
 
 static bool ttl_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hl.c: line 31 \n"); 
 	const struct ipt_ttl_info *info = par->matchinfo;
 	const u8 ttl = ip_hdr(skb)->ttl;
 
@@ -46,6 +48,7 @@ static bool ttl_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static bool hl_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hl.c: line 51 \n"); 
 	const struct ip6t_hl_info *info = par->matchinfo;
 	const struct ipv6hdr *ip6h = ipv6_hdr(skb);
 

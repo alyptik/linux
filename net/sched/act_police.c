@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/act_police.c	Input police filter
  *
@@ -62,6 +63,7 @@ static int tcf_act_police_walker(struct net *net, struct sk_buff *skb,
 				 struct netlink_callback *cb, int type,
 				 const struct tc_action_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_police.c: line 66 \n"); 
 	struct tc_action_net *tn = net_generic(net, police_net_id);
 
 	return tcf_generic_walker(tn, skb, cb, type, ops);
@@ -78,6 +80,7 @@ static int tcf_act_police_init(struct net *net, struct nlattr *nla,
 			       struct nlattr *est, struct tc_action **a,
 			       int ovr, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_police.c: line 83 \n"); 
 	int ret = 0, err;
 	struct nlattr *tb[TCA_POLICE_MAX + 1];
 	struct tc_police *parm;
@@ -206,6 +209,7 @@ failure:
 static int tcf_act_police(struct sk_buff *skb, const struct tc_action *a,
 			  struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/act_police.c: line 212 \n"); 
 	struct tcf_police *police = to_police(a);
 	s64 now;
 	s64 toks;
@@ -266,6 +270,7 @@ static int tcf_act_police(struct sk_buff *skb, const struct tc_action *a,
 static int tcf_act_police_dump(struct sk_buff *skb, struct tc_action *a,
 			       int bind, int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_police.c: line 273 \n"); 
 	unsigned char *b = skb_tail_pointer(skb);
 	struct tcf_police *police = to_police(a);
 	struct tc_police opt = {
@@ -307,6 +312,7 @@ nla_put_failure:
 
 static int tcf_police_search(struct net *net, struct tc_action **a, u32 index)
 {
+	panic("We reached unpopular paths in net/sched/act_police.c: line 315 \n"); 
 	struct tc_action_net *tn = net_generic(net, police_net_id);
 
 	return tcf_hash_search(tn, a, index);

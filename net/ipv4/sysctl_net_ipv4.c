@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * sysctl_net_ipv4.c: sysctl interface to net IPV4 subsystem.
  *
@@ -45,6 +46,7 @@ static int ip_ping_group_range_max[] = { GID_T_MAX, GID_T_MAX };
 /* Update system visible IP port range */
 static void set_local_port_range(struct net *net, int range[2])
 {
+	panic("We reached unpopular paths in net/ipv4/sysctl_net_ipv4.c: line 49 \n"); 
 	bool same_parity = !((range[0] ^ range[1]) & 1);
 
 	write_seqlock_bh(&net->ipv4.ip_local_ports.lock);

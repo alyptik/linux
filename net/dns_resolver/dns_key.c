@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Key type used to cache DNS lookups made by the kernel
  *
  * See Documentation/networking/dns_resolver.txt
@@ -60,6 +61,7 @@ const struct cred *dns_resolver_cache;
 static int
 dns_resolver_preparse(struct key_preparsed_payload *prep)
 {
+	panic("We reached unpopular paths in net/dns_resolver/dns_key.c: line 64 \n"); 
 	struct user_key_payload *upayload;
 	unsigned long derrno;
 	int ret;
@@ -165,6 +167,7 @@ dns_resolver_preparse(struct key_preparsed_payload *prep)
  */
 static void dns_resolver_free_preparse(struct key_preparsed_payload *prep)
 {
+	panic("We reached unpopular paths in net/dns_resolver/dns_key.c: line 170 \n"); 
 	pr_devel("==>%s()\n", __func__);
 
 	kfree(prep->payload.data[dns_key_data]);
@@ -179,6 +182,7 @@ static void dns_resolver_free_preparse(struct key_preparsed_payload *prep)
 static bool dns_resolver_cmp(const struct key *key,
 			     const struct key_match_data *match_data)
 {
+	panic("We reached unpopular paths in net/dns_resolver/dns_key.c: line 185 \n"); 
 	int slen, dlen, ret = 0;
 	const char *src = key->description, *dsp = match_data->raw_data;
 
@@ -213,6 +217,7 @@ no_match:
  */
 static int dns_resolver_match_preparse(struct key_match_data *match_data)
 {
+	panic("We reached unpopular paths in net/dns_resolver/dns_key.c: line 220 \n"); 
 	match_data->lookup_type = KEYRING_SEARCH_LOOKUP_ITERATE;
 	match_data->cmp = dns_resolver_cmp;
 	return 0;
@@ -223,6 +228,7 @@ static int dns_resolver_match_preparse(struct key_match_data *match_data)
  */
 static void dns_resolver_describe(const struct key *key, struct seq_file *m)
 {
+	panic("We reached unpopular paths in net/dns_resolver/dns_key.c: line 231 \n"); 
 	seq_puts(m, key->description);
 	if (key_is_positive(key)) {
 		int err = PTR_ERR(key->payload.data[dns_key_error]);

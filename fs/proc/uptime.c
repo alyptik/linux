@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/fs.h>
 #include <linux/init.h>
 #include <linux/proc_fs.h>
@@ -9,6 +10,7 @@
 
 static int uptime_proc_show(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/uptime.c: line 13 \n"); 
 	struct timespec uptime;
 	struct timespec idle;
 	u64 idletime;
@@ -34,6 +36,7 @@ static int uptime_proc_show(struct seq_file *m, void *v)
 
 static int uptime_proc_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/uptime.c: line 39 \n"); 
 	return single_open(file, uptime_proc_show, NULL);
 }
 

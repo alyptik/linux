@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the BSD Socket
@@ -319,6 +320,7 @@ static int __inet_check_established(struct inet_timewait_death_row *death_row,
 				    struct sock *sk, __u16 lport,
 				    struct inet_timewait_sock **twp)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_hashtables.c: line 323 \n"); 
 	struct inet_hashinfo *hinfo = death_row->hashinfo;
 	struct inet_sock *inet = inet_sk(sk);
 	__be32 daddr = inet->inet_rcv_saddr;
@@ -440,6 +442,7 @@ static int inet_reuseport_add_sock(struct sock *sk,
 						     const struct sock *sk2,
 						     bool match_wildcard))
 {
+	panic("We reached unpopular paths in net/ipv4/inet_hashtables.c: line 445 \n"); 
 	struct inet_bind_bucket *tb = inet_csk(sk)->icsk_bind_hash;
 	struct sock *sk2;
 	kuid_t uid = sock_i_uid(sk);

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -57,6 +58,7 @@
 
 static inline u8 byte(const u32 x, const unsigned n)
 {
+	panic("We reached unpopular paths in crypto/aes_generic.c: line 61 \n"); 
 	return x >> (n << 3);
 }
 
@@ -1216,6 +1218,7 @@ EXPORT_SYMBOL_GPL(crypto_il_tab);
 int crypto_aes_expand_key(struct crypto_aes_ctx *ctx, const u8 *in_key,
 		unsigned int key_len)
 {
+	panic("We reached unpopular paths in crypto/aes_generic.c: line 1221 \n"); 
 	const __le32 *key = (const __le32 *)in_key;
 	u32 i, t, u, v, w, j;
 
@@ -1282,6 +1285,7 @@ EXPORT_SYMBOL_GPL(crypto_aes_expand_key);
 int crypto_aes_set_key(struct crypto_tfm *tfm, const u8 *in_key,
 		unsigned int key_len)
 {
+	panic("We reached unpopular paths in crypto/aes_generic.c: line 1288 \n"); 
 	struct crypto_aes_ctx *ctx = crypto_tfm_ctx(tfm);
 	u32 *flags = &tfm->crt_flags;
 	int ret;
@@ -1328,6 +1332,7 @@ EXPORT_SYMBOL_GPL(crypto_aes_set_key);
 
 static void aes_encrypt(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 {
+	panic("We reached unpopular paths in crypto/aes_generic.c: line 1335 \n"); 
 	const struct crypto_aes_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __le32 *src = (const __le32 *)in;
 	__le32 *dst = (__le32 *)out;
@@ -1400,6 +1405,7 @@ static void aes_encrypt(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 
 static void aes_decrypt(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 {
+	panic("We reached unpopular paths in crypto/aes_generic.c: line 1408 \n"); 
 	const struct crypto_aes_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __le32 *src = (const __le32 *)in;
 	__le32 *dst = (__le32 *)out;

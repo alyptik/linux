@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Xtables module for matching the value of the IPv4/IPv6 and TCP ECN bits
  *
@@ -29,6 +30,7 @@ MODULE_ALIAS("ip6t_ecn");
 
 static bool match_tcp(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ecn.c: line 33 \n"); 
 	const struct xt_ecn_info *einfo = par->matchinfo;
 	struct tcphdr _tcph;
 	const struct tcphdr *th;
@@ -66,12 +68,14 @@ static bool match_tcp(const struct sk_buff *skb, struct xt_action_param *par)
 static inline bool match_ip(const struct sk_buff *skb,
 			    const struct xt_ecn_info *einfo)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ecn.c: line 71 \n"); 
 	return ((ip_hdr(skb)->tos & XT_ECN_IP_MASK) == einfo->ip_ect) ^
 	       !!(einfo->invert & XT_ECN_OP_MATCH_IP);
 }
 
 static bool ecn_mt4(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ecn.c: line 78 \n"); 
 	const struct xt_ecn_info *info = par->matchinfo;
 
 	if (info->operation & XT_ECN_OP_MATCH_IP && !match_ip(skb, info))
@@ -86,6 +90,7 @@ static bool ecn_mt4(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ecn_mt_check4(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ecn.c: line 93 \n"); 
 	const struct xt_ecn_info *info = par->matchinfo;
 	const struct ipt_ip *ip = par->entryinfo;
 
@@ -107,6 +112,7 @@ static int ecn_mt_check4(const struct xt_mtchk_param *par)
 static inline bool match_ipv6(const struct sk_buff *skb,
 			      const struct xt_ecn_info *einfo)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ecn.c: line 115 \n"); 
 	return (((ipv6_hdr(skb)->flow_lbl[0] >> 4) & XT_ECN_IP_MASK) ==
 	        einfo->ip_ect) ^
 	       !!(einfo->invert & XT_ECN_OP_MATCH_IP);
@@ -114,6 +120,7 @@ static inline bool match_ipv6(const struct sk_buff *skb,
 
 static bool ecn_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ecn.c: line 123 \n"); 
 	const struct xt_ecn_info *info = par->matchinfo;
 
 	if (info->operation & XT_ECN_OP_MATCH_IP && !match_ipv6(skb, info))
@@ -128,6 +135,7 @@ static bool ecn_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ecn_mt_check6(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_ecn.c: line 138 \n"); 
 	const struct xt_ecn_info *info = par->matchinfo;
 	const struct ip6t_ip6 *ip = par->entryinfo;
 

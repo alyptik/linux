@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *     SUCS NET3:
  *
@@ -27,6 +28,7 @@
  */
 void sk_stream_write_space(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/stream.c: line 31 \n"); 
 	struct socket *sock = sk->sk_socket;
 	struct socket_wq *wq;
 
@@ -53,6 +55,7 @@ void sk_stream_write_space(struct sock *sk)
  */
 int sk_stream_wait_connect(struct sock *sk, long *timeo_p)
 {
+	panic("We reached unpopular paths in net/core/stream.c: line 58 \n"); 
 	struct task_struct *tsk = current;
 	DEFINE_WAIT(wait);
 	int done;
@@ -87,6 +90,7 @@ EXPORT_SYMBOL(sk_stream_wait_connect);
  */
 static inline int sk_stream_closing(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/stream.c: line 93 \n"); 
 	return (1 << sk->sk_state) &
 	       (TCPF_FIN_WAIT1 | TCPF_CLOSING | TCPF_LAST_ACK);
 }
@@ -115,6 +119,7 @@ EXPORT_SYMBOL(sk_stream_wait_close);
  */
 int sk_stream_wait_memory(struct sock *sk, long *timeo_p)
 {
+	panic("We reached unpopular paths in net/core/stream.c: line 122 \n"); 
 	int err = 0;
 	long vm_wait = 0;
 	long current_timeo = *timeo_p;
@@ -178,6 +183,7 @@ EXPORT_SYMBOL(sk_stream_wait_memory);
 
 int sk_stream_error(struct sock *sk, int flags, int err)
 {
+	panic("We reached unpopular paths in net/core/stream.c: line 186 \n"); 
 	if (err == -EPIPE)
 		err = sock_error(sk) ? : -EPIPE;
 	if (err == -EPIPE && !(flags & MSG_NOSIGNAL))

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Synchronous Cryptographic Hash operations.
  *
@@ -27,6 +28,7 @@ static const struct crypto_type crypto_shash_type;
 int shash_no_setkey(struct crypto_shash *tfm, const u8 *key,
 		    unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 31 \n"); 
 	return -ENOSYS;
 }
 EXPORT_SYMBOL_GPL(shash_no_setkey);
@@ -34,6 +36,7 @@ EXPORT_SYMBOL_GPL(shash_no_setkey);
 static int shash_setkey_unaligned(struct crypto_shash *tfm, const u8 *key,
 				  unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 39 \n"); 
 	struct shash_alg *shash = crypto_shash_alg(tfm);
 	unsigned long alignmask = crypto_shash_alignmask(tfm);
 	unsigned long absize;
@@ -55,6 +58,7 @@ static int shash_setkey_unaligned(struct crypto_shash *tfm, const u8 *key,
 int crypto_shash_setkey(struct crypto_shash *tfm, const u8 *key,
 			unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 61 \n"); 
 	struct shash_alg *shash = crypto_shash_alg(tfm);
 	unsigned long alignmask = crypto_shash_alignmask(tfm);
 	int err;
@@ -75,6 +79,7 @@ EXPORT_SYMBOL_GPL(crypto_shash_setkey);
 static inline unsigned int shash_align_buffer_size(unsigned len,
 						   unsigned long mask)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 82 \n"); 
 	typedef u8 __attribute__ ((aligned)) u8_aligned;
 	return len + (mask & ~(__alignof__(u8_aligned) - 1));
 }
@@ -82,6 +87,7 @@ static inline unsigned int shash_align_buffer_size(unsigned len,
 static int shash_update_unaligned(struct shash_desc *desc, const u8 *data,
 				  unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 90 \n"); 
 	struct crypto_shash *tfm = desc->tfm;
 	struct shash_alg *shash = crypto_shash_alg(tfm);
 	unsigned long alignmask = crypto_shash_alignmask(tfm);
@@ -106,6 +112,7 @@ static int shash_update_unaligned(struct shash_desc *desc, const u8 *data,
 int crypto_shash_update(struct shash_desc *desc, const u8 *data,
 			unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 115 \n"); 
 	struct crypto_shash *tfm = desc->tfm;
 	struct shash_alg *shash = crypto_shash_alg(tfm);
 	unsigned long alignmask = crypto_shash_alignmask(tfm);
@@ -119,6 +126,7 @@ EXPORT_SYMBOL_GPL(crypto_shash_update);
 
 static int shash_final_unaligned(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 129 \n"); 
 	struct crypto_shash *tfm = desc->tfm;
 	unsigned long alignmask = crypto_shash_alignmask(tfm);
 	struct shash_alg *shash = crypto_shash_alg(tfm);
@@ -141,6 +149,7 @@ out:
 
 int crypto_shash_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 152 \n"); 
 	struct crypto_shash *tfm = desc->tfm;
 	struct shash_alg *shash = crypto_shash_alg(tfm);
 	unsigned long alignmask = crypto_shash_alignmask(tfm);
@@ -155,6 +164,7 @@ EXPORT_SYMBOL_GPL(crypto_shash_final);
 static int shash_finup_unaligned(struct shash_desc *desc, const u8 *data,
 				 unsigned int len, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 167 \n"); 
 	return crypto_shash_update(desc, data, len) ?:
 	       crypto_shash_final(desc, out);
 }
@@ -162,6 +172,7 @@ static int shash_finup_unaligned(struct shash_desc *desc, const u8 *data,
 int crypto_shash_finup(struct shash_desc *desc, const u8 *data,
 		       unsigned int len, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 175 \n"); 
 	struct crypto_shash *tfm = desc->tfm;
 	struct shash_alg *shash = crypto_shash_alg(tfm);
 	unsigned long alignmask = crypto_shash_alignmask(tfm);
@@ -176,6 +187,7 @@ EXPORT_SYMBOL_GPL(crypto_shash_finup);
 static int shash_digest_unaligned(struct shash_desc *desc, const u8 *data,
 				  unsigned int len, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 190 \n"); 
 	return crypto_shash_init(desc) ?:
 	       crypto_shash_finup(desc, data, len, out);
 }
@@ -183,6 +195,7 @@ static int shash_digest_unaligned(struct shash_desc *desc, const u8 *data,
 int crypto_shash_digest(struct shash_desc *desc, const u8 *data,
 			unsigned int len, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 198 \n"); 
 	struct crypto_shash *tfm = desc->tfm;
 	struct shash_alg *shash = crypto_shash_alg(tfm);
 	unsigned long alignmask = crypto_shash_alignmask(tfm);
@@ -199,12 +212,14 @@ EXPORT_SYMBOL_GPL(crypto_shash_digest);
 
 static int shash_default_export(struct shash_desc *desc, void *out)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 215 \n"); 
 	memcpy(out, shash_desc_ctx(desc), crypto_shash_descsize(desc->tfm));
 	return 0;
 }
 
 static int shash_default_import(struct shash_desc *desc, const void *in)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 222 \n"); 
 	memcpy(shash_desc_ctx(desc), in, crypto_shash_descsize(desc->tfm));
 	return 0;
 }
@@ -212,6 +227,7 @@ static int shash_default_import(struct shash_desc *desc, const void *in)
 static int shash_async_setkey(struct crypto_ahash *tfm, const u8 *key,
 			      unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 230 \n"); 
 	struct crypto_shash **ctx = crypto_ahash_ctx(tfm);
 
 	return crypto_shash_setkey(*ctx, key, keylen);
@@ -219,6 +235,7 @@ static int shash_async_setkey(struct crypto_ahash *tfm, const u8 *key,
 
 static int shash_async_init(struct ahash_request *req)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 238 \n"); 
 	struct crypto_shash **ctx = crypto_ahash_ctx(crypto_ahash_reqtfm(req));
 	struct shash_desc *desc = ahash_request_ctx(req);
 
@@ -230,6 +247,7 @@ static int shash_async_init(struct ahash_request *req)
 
 int shash_ahash_update(struct ahash_request *req, struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 250 \n"); 
 	struct crypto_hash_walk walk;
 	int nbytes;
 
@@ -243,16 +261,19 @@ EXPORT_SYMBOL_GPL(shash_ahash_update);
 
 static int shash_async_update(struct ahash_request *req)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 264 \n"); 
 	return shash_ahash_update(req, ahash_request_ctx(req));
 }
 
 static int shash_async_final(struct ahash_request *req)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 270 \n"); 
 	return crypto_shash_final(ahash_request_ctx(req), req->result);
 }
 
 int shash_ahash_finup(struct ahash_request *req, struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 276 \n"); 
 	struct crypto_hash_walk walk;
 	int nbytes;
 
@@ -274,6 +295,7 @@ EXPORT_SYMBOL_GPL(shash_ahash_finup);
 
 static int shash_async_finup(struct ahash_request *req)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 298 \n"); 
 	struct crypto_shash **ctx = crypto_ahash_ctx(crypto_ahash_reqtfm(req));
 	struct shash_desc *desc = ahash_request_ctx(req);
 
@@ -285,6 +307,7 @@ static int shash_async_finup(struct ahash_request *req)
 
 int shash_ahash_digest(struct ahash_request *req, struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 310 \n"); 
 	unsigned int nbytes = req->nbytes;
 	struct scatterlist *sg;
 	unsigned int offset;
@@ -310,6 +333,7 @@ EXPORT_SYMBOL_GPL(shash_ahash_digest);
 
 static int shash_async_digest(struct ahash_request *req)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 336 \n"); 
 	struct crypto_shash **ctx = crypto_ahash_ctx(crypto_ahash_reqtfm(req));
 	struct shash_desc *desc = ahash_request_ctx(req);
 
@@ -321,11 +345,13 @@ static int shash_async_digest(struct ahash_request *req)
 
 static int shash_async_export(struct ahash_request *req, void *out)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 348 \n"); 
 	return crypto_shash_export(ahash_request_ctx(req), out);
 }
 
 static int shash_async_import(struct ahash_request *req, const void *in)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 354 \n"); 
 	struct crypto_shash **ctx = crypto_ahash_ctx(crypto_ahash_reqtfm(req));
 	struct shash_desc *desc = ahash_request_ctx(req);
 
@@ -337,6 +363,7 @@ static int shash_async_import(struct ahash_request *req, const void *in)
 
 static void crypto_exit_shash_ops_async(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 366 \n"); 
 	struct crypto_shash **ctx = crypto_tfm_ctx(tfm);
 
 	crypto_free_shash(*ctx);
@@ -418,6 +445,7 @@ nla_put_failure:
 #else
 static int crypto_shash_report(struct sk_buff *skb, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 448 \n"); 
 	return -ENOSYS;
 }
 #endif
@@ -426,6 +454,7 @@ static void crypto_shash_show(struct seq_file *m, struct crypto_alg *alg)
 	__attribute__ ((unused));
 static void crypto_shash_show(struct seq_file *m, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 457 \n"); 
 	struct shash_alg *salg = __crypto_shash_alg(alg);
 
 	seq_printf(m, "type         : shash\n");
@@ -496,6 +525,7 @@ EXPORT_SYMBOL_GPL(crypto_register_shash);
 
 int crypto_unregister_shash(struct shash_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 528 \n"); 
 	return crypto_unregister_alg(&alg->base);
 }
 EXPORT_SYMBOL_GPL(crypto_unregister_shash);
@@ -522,6 +552,7 @@ EXPORT_SYMBOL_GPL(crypto_register_shashes);
 
 int crypto_unregister_shashes(struct shash_alg *algs, int count)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 555 \n"); 
 	int i, ret;
 
 	for (i = count - 1; i >= 0; --i) {
@@ -551,6 +582,7 @@ EXPORT_SYMBOL_GPL(shash_register_instance);
 
 void shash_free_instance(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/shash.c: line 585 \n"); 
 	crypto_drop_spawn(crypto_instance_ctx(inst));
 	kfree(shash_instance(inst));
 }

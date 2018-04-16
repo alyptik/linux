@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel cryptographic api.
  * cast6.c - Cast6 cipher algorithm [rfc2612].
  *
@@ -100,6 +101,7 @@ static const u8 Tr[4][8] = {
 /* forward octave */
 static inline void W(u32 *key, unsigned int i)
 {
+	panic("We reached unpopular paths in crypto/cast6_generic.c: line 104 \n"); 
 	u32 I;
 	key[6] ^= F1(key[7], Tr[i % 4][0], Tm[i][0]);
 	key[5] ^= F2(key[6], Tr[i % 4][1], Tm[i][1]);
@@ -114,6 +116,7 @@ static inline void W(u32 *key, unsigned int i)
 int __cast6_setkey(struct cast6_ctx *c, const u8 *in_key,
 		   unsigned key_len, u32 *flags)
 {
+	panic("We reached unpopular paths in crypto/cast6_generic.c: line 119 \n"); 
 	int i;
 	u32 key[8];
 	__be32 p_key[8]; /* padded key */
@@ -156,6 +159,7 @@ EXPORT_SYMBOL_GPL(__cast6_setkey);
 
 int cast6_setkey(struct crypto_tfm *tfm, const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/cast6_generic.c: line 162 \n"); 
 	return __cast6_setkey(crypto_tfm_ctx(tfm), key, keylen,
 			      &tfm->crt_flags);
 }
@@ -164,6 +168,7 @@ EXPORT_SYMBOL_GPL(cast6_setkey);
 /*forward quad round*/
 static inline void Q(u32 *block, u8 *Kr, u32 *Km)
 {
+	panic("We reached unpopular paths in crypto/cast6_generic.c: line 171 \n"); 
 	u32 I;
 	block[2] ^= F1(block[3], Kr[0], Km[0]);
 	block[1] ^= F2(block[2], Kr[1], Km[1]);
@@ -174,6 +179,7 @@ static inline void Q(u32 *block, u8 *Kr, u32 *Km)
 /*reverse quad round*/
 static inline void QBAR(u32 *block, u8 *Kr, u32 *Km)
 {
+	panic("We reached unpopular paths in crypto/cast6_generic.c: line 182 \n"); 
 	u32 I;
 	block[3] ^= F1(block[0], Kr[3], Km[3]);
 	block[0] ^= F3(block[1], Kr[2], Km[2]);
@@ -183,6 +189,7 @@ static inline void QBAR(u32 *block, u8 *Kr, u32 *Km)
 
 void __cast6_encrypt(struct cast6_ctx *c, u8 *outbuf, const u8 *inbuf)
 {
+	panic("We reached unpopular paths in crypto/cast6_generic.c: line 192 \n"); 
 	const __be32 *src = (const __be32 *)inbuf;
 	__be32 *dst = (__be32 *)outbuf;
 	u32 block[4];
@@ -216,11 +223,13 @@ EXPORT_SYMBOL_GPL(__cast6_encrypt);
 
 static void cast6_encrypt(struct crypto_tfm *tfm, u8 *outbuf, const u8 *inbuf)
 {
+	panic("We reached unpopular paths in crypto/cast6_generic.c: line 226 \n"); 
 	__cast6_encrypt(crypto_tfm_ctx(tfm), outbuf, inbuf);
 }
 
 void __cast6_decrypt(struct cast6_ctx *c, u8 *outbuf, const u8 *inbuf)
 {
+	panic("We reached unpopular paths in crypto/cast6_generic.c: line 232 \n"); 
 	const __be32 *src = (const __be32 *)inbuf;
 	__be32 *dst = (__be32 *)outbuf;
 	u32 block[4];
@@ -254,6 +263,7 @@ EXPORT_SYMBOL_GPL(__cast6_decrypt);
 
 static void cast6_decrypt(struct crypto_tfm *tfm, u8 *outbuf, const u8 *inbuf)
 {
+	panic("We reached unpopular paths in crypto/cast6_generic.c: line 266 \n"); 
 	__cast6_decrypt(crypto_tfm_ctx(tfm), outbuf, inbuf);
 }
 

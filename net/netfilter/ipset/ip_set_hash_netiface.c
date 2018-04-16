@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Copyright (C) 2011-2013 Jozsef Kadlecsik <kadlec@blackhole.kfki.hu>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -71,6 +72,7 @@ hash_netiface4_data_equal(const struct hash_netiface4_elem *ip1,
 			  const struct hash_netiface4_elem *ip2,
 			  u32 *multi)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 75 \n"); 
 	return ip1->ip == ip2->ip &&
 	       ip1->cidr == ip2->cidr &&
 	       (++*multi) &&
@@ -81,24 +83,28 @@ hash_netiface4_data_equal(const struct hash_netiface4_elem *ip1,
 static inline int
 hash_netiface4_do_data_match(const struct hash_netiface4_elem *elem)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 86 \n"); 
 	return elem->nomatch ? -ENOTEMPTY : 1;
 }
 
 static inline void
 hash_netiface4_data_set_flags(struct hash_netiface4_elem *elem, u32 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 93 \n"); 
 	elem->nomatch = (flags >> 16) & IPSET_FLAG_NOMATCH;
 }
 
 static inline void
 hash_netiface4_data_reset_flags(struct hash_netiface4_elem *elem, u8 *flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 100 \n"); 
 	swap(*flags, elem->nomatch);
 }
 
 static inline void
 hash_netiface4_data_netmask(struct hash_netiface4_elem *elem, u8 cidr)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 107 \n"); 
 	elem->ip &= ip_set_netmask(cidr);
 	elem->cidr = cidr;
 }
@@ -107,6 +113,7 @@ static bool
 hash_netiface4_data_list(struct sk_buff *skb,
 			 const struct hash_netiface4_elem *data)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 116 \n"); 
 	u32 flags = data->physdev ? IPSET_FLAG_PHYSDEV : 0;
 
 	if (data->nomatch)
@@ -127,6 +134,7 @@ static inline void
 hash_netiface4_data_next(struct hash_netiface4_elem *next,
 			 const struct hash_netiface4_elem *d)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 137 \n"); 
 	next->ip = d->ip;
 }
 
@@ -156,6 +164,7 @@ hash_netiface4_kadt(struct ip_set *set, const struct sk_buff *skb,
 		    const struct xt_action_param *par,
 		    enum ipset_adt adt, struct ip_set_adt_opt *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 167 \n"); 
 	struct hash_netiface *h = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct hash_netiface4_elem e = {
@@ -196,6 +205,7 @@ static int
 hash_netiface4_uadt(struct ip_set *set, struct nlattr *tb[],
 		    enum ipset_adt adt, u32 *lineno, u32 flags, bool retried)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 208 \n"); 
 	struct hash_netiface *h = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct hash_netiface4_elem e = { .cidr = HOST_MASK, .elem = 1 };
@@ -295,6 +305,7 @@ hash_netiface6_data_equal(const struct hash_netiface6_elem *ip1,
 			  const struct hash_netiface6_elem *ip2,
 			  u32 *multi)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 308 \n"); 
 	return ipv6_addr_equal(&ip1->ip.in6, &ip2->ip.in6) &&
 	       ip1->cidr == ip2->cidr &&
 	       (++*multi) &&
@@ -305,24 +316,28 @@ hash_netiface6_data_equal(const struct hash_netiface6_elem *ip1,
 static inline int
 hash_netiface6_do_data_match(const struct hash_netiface6_elem *elem)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 319 \n"); 
 	return elem->nomatch ? -ENOTEMPTY : 1;
 }
 
 static inline void
 hash_netiface6_data_set_flags(struct hash_netiface6_elem *elem, u32 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 326 \n"); 
 	elem->nomatch = (flags >> 16) & IPSET_FLAG_NOMATCH;
 }
 
 static inline void
 hash_netiface6_data_reset_flags(struct hash_netiface6_elem *elem, u8 *flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 333 \n"); 
 	swap(*flags, elem->nomatch);
 }
 
 static inline void
 hash_netiface6_data_netmask(struct hash_netiface6_elem *elem, u8 cidr)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 340 \n"); 
 	ip6_netmask(&elem->ip, cidr);
 	elem->cidr = cidr;
 }
@@ -331,6 +346,7 @@ static bool
 hash_netiface6_data_list(struct sk_buff *skb,
 			 const struct hash_netiface6_elem *data)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 349 \n"); 
 	u32 flags = data->physdev ? IPSET_FLAG_PHYSDEV : 0;
 
 	if (data->nomatch)
@@ -351,6 +367,7 @@ static inline void
 hash_netiface6_data_next(struct hash_netiface4_elem *next,
 			 const struct hash_netiface6_elem *d)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 370 \n"); 
 }
 
 #undef MTYPE
@@ -367,6 +384,7 @@ hash_netiface6_kadt(struct ip_set *set, const struct sk_buff *skb,
 		    const struct xt_action_param *par,
 		    enum ipset_adt adt, struct ip_set_adt_opt *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 387 \n"); 
 	struct hash_netiface *h = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct hash_netiface6_elem e = {
@@ -405,6 +423,7 @@ static int
 hash_netiface6_uadt(struct ip_set *set, struct nlattr *tb[],
 		    enum ipset_adt adt, u32 *lineno, u32 flags, bool retried)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netiface.c: line 426 \n"); 
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct hash_netiface6_elem e = { .cidr = HOST_MASK, .elem = 1 };
 	struct ip_set_ext ext = IP_SET_INIT_UEXT(set);

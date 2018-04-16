@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * xfrm_input.c
  *
@@ -41,6 +42,7 @@ EXPORT_SYMBOL(xfrm_input_register_afinfo);
 
 int xfrm_input_unregister_afinfo(struct xfrm_input_afinfo *afinfo)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_input.c: line 45 \n"); 
 	int err = 0;
 
 	if (unlikely(afinfo == NULL))
@@ -62,6 +64,7 @@ EXPORT_SYMBOL(xfrm_input_unregister_afinfo);
 
 static struct xfrm_input_afinfo *xfrm_input_get_afinfo(unsigned int family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_input.c: line 67 \n"); 
 	struct xfrm_input_afinfo *afinfo;
 
 	if (unlikely(family >= NPROTO))
@@ -75,12 +78,14 @@ static struct xfrm_input_afinfo *xfrm_input_get_afinfo(unsigned int family)
 
 static void xfrm_input_put_afinfo(struct xfrm_input_afinfo *afinfo)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_input.c: line 81 \n"); 
 	rcu_read_unlock();
 }
 
 static int xfrm_rcv_cb(struct sk_buff *skb, unsigned int family, u8 protocol,
 		       int err)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_input.c: line 88 \n"); 
 	int ret;
 	struct xfrm_input_afinfo *afinfo = xfrm_input_get_afinfo(family);
 
@@ -95,6 +100,7 @@ static int xfrm_rcv_cb(struct sk_buff *skb, unsigned int family, u8 protocol,
 
 void __secpath_destroy(struct sec_path *sp)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_input.c: line 103 \n"); 
 	int i;
 	for (i = 0; i < sp->len; i++)
 		xfrm_state_put(sp->xvec[i]);
@@ -104,6 +110,7 @@ EXPORT_SYMBOL(__secpath_destroy);
 
 struct sec_path *secpath_dup(struct sec_path *src)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_input.c: line 113 \n"); 
 	struct sec_path *sp;
 
 	sp = kmem_cache_alloc(secpath_cachep, GFP_ATOMIC);
@@ -127,6 +134,7 @@ EXPORT_SYMBOL(secpath_dup);
 
 int xfrm_parse_spi(struct sk_buff *skb, u8 nexthdr, __be32 *spi, __be32 *seq)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_input.c: line 137 \n"); 
 	int offset, offset_seq;
 	int hlen;
 
@@ -161,6 +169,7 @@ int xfrm_parse_spi(struct sk_buff *skb, u8 nexthdr, __be32 *spi, __be32 *seq)
 
 int xfrm_prepare_input(struct xfrm_state *x, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_input.c: line 172 \n"); 
 	struct xfrm_mode *inner_mode = x->inner_mode;
 	int err;
 
@@ -181,6 +190,7 @@ EXPORT_SYMBOL(xfrm_prepare_input);
 
 int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_input.c: line 193 \n"); 
 	struct net *net = dev_net(skb->dev);
 	int err;
 	__be32 seq;
@@ -388,6 +398,7 @@ EXPORT_SYMBOL(xfrm_input);
 
 int xfrm_input_resume(struct sk_buff *skb, int nexthdr)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_input.c: line 401 \n"); 
 	return xfrm_input(skb, nexthdr, 0, -1);
 }
 EXPORT_SYMBOL(xfrm_input_resume);

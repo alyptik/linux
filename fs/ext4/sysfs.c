@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/ext4/sysfs.c
  *
@@ -50,6 +51,7 @@ struct ext4_attr {
 static ssize_t session_write_kbytes_show(struct ext4_attr *a,
 					 struct ext4_sb_info *sbi, char *buf)
 {
+	panic("We reached unpopular paths in fs/ext4/sysfs.c: line 54 \n"); 
 	struct super_block *sb = sbi->s_buddy_cache->i_sb;
 
 	if (!sb->s_bdev->bd_part)
@@ -62,6 +64,7 @@ static ssize_t session_write_kbytes_show(struct ext4_attr *a,
 static ssize_t lifetime_write_kbytes_show(struct ext4_attr *a,
 					  struct ext4_sb_info *sbi, char *buf)
 {
+	panic("We reached unpopular paths in fs/ext4/sysfs.c: line 67 \n"); 
 	struct super_block *sb = sbi->s_buddy_cache->i_sb;
 
 	if (!sb->s_bdev->bd_part)
@@ -76,6 +79,7 @@ static ssize_t inode_readahead_blks_store(struct ext4_attr *a,
 					  struct ext4_sb_info *sbi,
 					  const char *buf, size_t count)
 {
+	panic("We reached unpopular paths in fs/ext4/sysfs.c: line 82 \n"); 
 	unsigned long t;
 	int ret;
 
@@ -94,6 +98,7 @@ static ssize_t reserved_clusters_store(struct ext4_attr *a,
 				   struct ext4_sb_info *sbi,
 				   const char *buf, size_t count)
 {
+	panic("We reached unpopular paths in fs/ext4/sysfs.c: line 101 \n"); 
 	unsigned long long val;
 	ext4_fsblk_t clusters = (ext4_blocks_count(sbi->s_es) >>
 				 sbi->s_cluster_bits);
@@ -111,6 +116,7 @@ static ssize_t trigger_test_error(struct ext4_attr *a,
 				  struct ext4_sb_info *sbi,
 				  const char *buf, size_t count)
 {
+	panic("We reached unpopular paths in fs/ext4/sysfs.c: line 119 \n"); 
 	int len = count;
 
 	if (!capable(CAP_SYS_ADMIN))
@@ -241,6 +247,7 @@ static struct attribute *ext4_feat_attrs[] = {
 
 static void *calc_ptr(struct ext4_attr *a, struct ext4_sb_info *sbi)
 {
+	panic("We reached unpopular paths in fs/ext4/sysfs.c: line 250 \n"); 
 	switch (a->attr_ptr) {
 	case ptr_explicit:
 		return a->u.explicit_ptr;
@@ -255,6 +262,7 @@ static void *calc_ptr(struct ext4_attr *a, struct ext4_sb_info *sbi)
 static ssize_t ext4_attr_show(struct kobject *kobj,
 			      struct attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in fs/ext4/sysfs.c: line 265 \n"); 
 	struct ext4_sb_info *sbi = container_of(kobj, struct ext4_sb_info,
 						s_kobj);
 	struct ext4_attr *a = container_of(attr, struct ext4_attr, attr);
@@ -295,6 +303,7 @@ static ssize_t ext4_attr_store(struct kobject *kobj,
 			       struct attribute *attr,
 			       const char *buf, size_t len)
 {
+	panic("We reached unpopular paths in fs/ext4/sysfs.c: line 306 \n"); 
 	struct ext4_sb_info *sbi = container_of(kobj, struct ext4_sb_info,
 						s_kobj);
 	struct ext4_attr *a = container_of(attr, struct ext4_attr, attr);
@@ -323,6 +332,7 @@ static ssize_t ext4_attr_store(struct kobject *kobj,
 
 static void ext4_sb_release(struct kobject *kobj)
 {
+	panic("We reached unpopular paths in fs/ext4/sysfs.c: line 335 \n"); 
 	struct ext4_sb_info *sbi = container_of(kobj, struct ext4_sb_info,
 						s_kobj);
 	complete(&sbi->s_kobj_unregister);
@@ -387,6 +397,7 @@ static struct ext4_proc_files {
 
 int ext4_register_sysfs(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/sysfs.c: line 400 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	struct ext4_proc_files *p;
 	int err;
@@ -411,6 +422,7 @@ int ext4_register_sysfs(struct super_block *sb)
 
 void ext4_unregister_sysfs(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/sysfs.c: line 425 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	struct ext4_proc_files *p;
 
@@ -443,6 +455,7 @@ int __init ext4_init_sysfs(void)
 
 void ext4_exit_sysfs(void)
 {
+	panic("We reached unpopular paths in fs/ext4/sysfs.c: line 458 \n"); 
 	kobject_put(&ext4_feat);
 	kset_unregister(&ext4_kset);
 	remove_proc_entry(proc_dirname, NULL);

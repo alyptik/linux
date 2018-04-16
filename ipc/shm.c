@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/ipc/shm.c
  * Copyright (C) 1992, 1993 Krishna Balasubramanian
@@ -88,6 +89,7 @@ void shm_init_ns(struct ipc_namespace *ns)
  */
 static void do_shm_rmid(struct ipc_namespace *ns, struct kern_ipc_perm *ipcp)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 92 \n"); 
 	struct shmid_kernel *shp;
 	shp = container_of(ipcp, struct shmid_kernel, shm_perm);
 
@@ -129,6 +131,7 @@ void __init shm_init(void)
 
 static inline struct shmid_kernel *shm_obtain_object(struct ipc_namespace *ns, int id)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 134 \n"); 
 	struct kern_ipc_perm *ipcp = ipc_obtain_object_idr(&shm_ids(ns), id);
 
 	if (IS_ERR(ipcp))
@@ -139,6 +142,7 @@ static inline struct shmid_kernel *shm_obtain_object(struct ipc_namespace *ns, i
 
 static inline struct shmid_kernel *shm_obtain_object_check(struct ipc_namespace *ns, int id)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 145 \n"); 
 	struct kern_ipc_perm *ipcp = ipc_obtain_object_check(&shm_ids(ns), id);
 
 	if (IS_ERR(ipcp))
@@ -153,6 +157,7 @@ static inline struct shmid_kernel *shm_obtain_object_check(struct ipc_namespace 
  */
 static inline struct shmid_kernel *shm_lock(struct ipc_namespace *ns, int id)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 160 \n"); 
 	struct kern_ipc_perm *ipcp = ipc_lock(&shm_ids(ns), id);
 
 	/*
@@ -167,12 +172,14 @@ static inline struct shmid_kernel *shm_lock(struct ipc_namespace *ns, int id)
 
 static inline void shm_lock_by_ptr(struct shmid_kernel *ipcp)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 175 \n"); 
 	rcu_read_lock();
 	ipc_lock_object(&ipcp->shm_perm);
 }
 
 static void shm_rcu_free(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 182 \n"); 
 	struct ipc_rcu *p = container_of(head, struct ipc_rcu, rcu);
 	struct shmid_kernel *shp = ipc_rcu_to_struct(p);
 
@@ -182,6 +189,7 @@ static void shm_rcu_free(struct rcu_head *head)
 
 static inline void shm_rmid(struct ipc_namespace *ns, struct shmid_kernel *s)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 192 \n"); 
 	list_del(&s->shm_clist);
 	ipc_rmid(&shm_ids(ns), &s->shm_perm);
 }
@@ -189,6 +197,7 @@ static inline void shm_rmid(struct ipc_namespace *ns, struct shmid_kernel *s)
 
 static int __shm_open(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 200 \n"); 
 	struct file *file = vma->vm_file;
 	struct shm_file_data *sfd = shm_file_data(file);
 	struct shmid_kernel *shp;
@@ -208,6 +217,7 @@ static int __shm_open(struct vm_area_struct *vma)
 /* This is called by fork, once for every shm attach. */
 static void shm_open(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 220 \n"); 
 	int err = __shm_open(vma);
 	/*
 	 * We raced in the idr lookup or with shm_destroy().
@@ -227,6 +237,7 @@ static void shm_open(struct vm_area_struct *vma)
  */
 static void shm_destroy(struct ipc_namespace *ns, struct shmid_kernel *shp)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 240 \n"); 
 	struct file *shm_file;
 
 	shm_file = shp->shm_file;
@@ -255,6 +266,7 @@ static void shm_destroy(struct ipc_namespace *ns, struct shmid_kernel *shp)
  */
 static bool shm_may_destroy(struct ipc_namespace *ns, struct shmid_kernel *shp)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 269 \n"); 
 	return (shp->shm_nattch == 0) &&
 	       (ns->shm_rmid_forced ||
 		(shp->shm_perm.mode & SHM_DEST));
@@ -268,6 +280,7 @@ static bool shm_may_destroy(struct ipc_namespace *ns, struct shmid_kernel *shp)
  */
 static void shm_close(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 283 \n"); 
 	struct file *file = vma->vm_file;
 	struct shm_file_data *sfd = shm_file_data(file);
 	struct shmid_kernel *shp;
@@ -298,6 +311,7 @@ done:
 /* Called with ns->shm_ids(ns).rwsem locked */
 static int shm_try_destroy_orphaned(int id, void *p, void *data)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 314 \n"); 
 	struct ipc_namespace *ns = data;
 	struct kern_ipc_perm *ipcp = p;
 	struct shmid_kernel *shp = container_of(ipcp, struct shmid_kernel, shm_perm);
@@ -320,6 +334,7 @@ static int shm_try_destroy_orphaned(int id, void *p, void *data)
 
 void shm_destroy_orphaned(struct ipc_namespace *ns)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 337 \n"); 
 	down_write(&shm_ids(ns).rwsem);
 	if (shm_ids(ns).in_use)
 		idr_for_each(&shm_ids(ns).ipcs_idr, &shm_try_destroy_orphaned, ns);
@@ -375,6 +390,7 @@ void exit_shm(struct task_struct *task)
 
 static int shm_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 393 \n"); 
 	struct file *file = vma->vm_file;
 	struct shm_file_data *sfd = shm_file_data(file);
 
@@ -410,6 +426,7 @@ static struct mempolicy *shm_get_policy(struct vm_area_struct *vma,
 
 static int shm_mmap(struct file *file, struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 429 \n"); 
 	struct shm_file_data *sfd = shm_file_data(file);
 	int ret;
 
@@ -436,6 +453,7 @@ static int shm_mmap(struct file *file, struct vm_area_struct *vma)
 
 static int shm_release(struct inode *ino, struct file *file)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 456 \n"); 
 	struct shm_file_data *sfd = shm_file_data(file);
 
 	put_ipc_ns(sfd->ns);
@@ -446,6 +464,7 @@ static int shm_release(struct inode *ino, struct file *file)
 
 static int shm_fsync(struct file *file, loff_t start, loff_t end, int datasync)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 467 \n"); 
 	struct shm_file_data *sfd = shm_file_data(file);
 
 	if (!sfd->file->f_op->fsync)
@@ -456,6 +475,7 @@ static int shm_fsync(struct file *file, loff_t start, loff_t end, int datasync)
 static long shm_fallocate(struct file *file, int mode, loff_t offset,
 			  loff_t len)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 478 \n"); 
 	struct shm_file_data *sfd = shm_file_data(file);
 
 	if (!sfd->file->f_op->fallocate)
@@ -467,6 +487,7 @@ static unsigned long shm_get_unmapped_area(struct file *file,
 	unsigned long addr, unsigned long len, unsigned long pgoff,
 	unsigned long flags)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 490 \n"); 
 	struct shm_file_data *sfd = shm_file_data(file);
 	return sfd->file->f_op->get_unmapped_area(sfd->file, addr, len,
 						pgoff, flags);
@@ -518,6 +539,7 @@ static const struct vm_operations_struct shm_vm_ops = {
  */
 static int newseg(struct ipc_namespace *ns, struct ipc_params *params)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 542 \n"); 
 	key_t key = params->key;
 	int shmflg = params->flg;
 	size_t size = params->u.size;
@@ -630,6 +652,7 @@ no_file:
  */
 static inline int shm_security(struct kern_ipc_perm *ipcp, int shmflg)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 655 \n"); 
 	struct shmid_kernel *shp;
 
 	shp = container_of(ipcp, struct shmid_kernel, shm_perm);
@@ -642,6 +665,7 @@ static inline int shm_security(struct kern_ipc_perm *ipcp, int shmflg)
 static inline int shm_more_checks(struct kern_ipc_perm *ipcp,
 				struct ipc_params *params)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 668 \n"); 
 	struct shmid_kernel *shp;
 
 	shp = container_of(ipcp, struct shmid_kernel, shm_perm);
@@ -755,6 +779,7 @@ static inline unsigned long copy_shminfo_to_user(void __user *buf, struct shminf
 static void shm_add_rss_swap(struct shmid_kernel *shp,
 	unsigned long *rss_add, unsigned long *swp_add)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 782 \n"); 
 	struct inode *inode;
 
 	inode = file_inode(shp->shm_file);
@@ -782,6 +807,7 @@ static void shm_add_rss_swap(struct shmid_kernel *shp,
 static void shm_get_stat(struct ipc_namespace *ns, unsigned long *rss,
 		unsigned long *swp)
 {
+	panic("We reached unpopular paths in ipc/shm.c: line 810 \n"); 
 	int next_id;
 	int total, in_use;
 

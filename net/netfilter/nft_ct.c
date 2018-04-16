@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  *
@@ -35,6 +36,7 @@ static u64 nft_ct_get_eval_counter(const struct nf_conn_counter *c,
 				   enum nft_ct_keys k,
 				   enum ip_conntrack_dir d)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_ct.c: line 39 \n"); 
 	if (d < IP_CT_DIR_MAX)
 		return k == NFT_CT_BYTES ? atomic64_read(&c[d].bytes) :
 					   atomic64_read(&c[d].packets);
@@ -47,6 +49,7 @@ static void nft_ct_get_eval(const struct nft_expr *expr,
 			    struct nft_regs *regs,
 			    const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_ct.c: line 52 \n"); 
 	const struct nft_ct *priv = nft_expr_priv(expr);
 	u32 *dest = &regs->data[priv->dreg];
 	enum ip_conntrack_info ctinfo;
@@ -166,6 +169,7 @@ static void nft_ct_set_eval(const struct nft_expr *expr,
 			    struct nft_regs *regs,
 			    const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_ct.c: line 172 \n"); 
 	const struct nft_ct *priv = nft_expr_priv(expr);
 	struct sk_buff *skb = pkt->skb;
 #ifdef CONFIG_NF_CONNTRACK_MARK
@@ -209,6 +213,7 @@ static const struct nla_policy nft_ct_policy[NFTA_CT_MAX + 1] = {
 
 static int nft_ct_l3proto_try_module_get(uint8_t family)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_ct.c: line 216 \n"); 
 	int err;
 
 	if (family == NFPROTO_INET) {
@@ -233,6 +238,7 @@ err1:
 
 static void nft_ct_l3proto_module_put(uint8_t family)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_ct.c: line 241 \n"); 
 	if (family == NFPROTO_INET) {
 		nf_ct_l3proto_module_put(NFPROTO_IPV4);
 		nf_ct_l3proto_module_put(NFPROTO_IPV6);
@@ -244,6 +250,7 @@ static int nft_ct_get_init(const struct nft_ctx *ctx,
 			   const struct nft_expr *expr,
 			   const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_ct.c: line 253 \n"); 
 	struct nft_ct *priv = nft_expr_priv(expr);
 	unsigned int len;
 	int err;
@@ -355,6 +362,7 @@ static int nft_ct_set_init(const struct nft_ctx *ctx,
 			   const struct nft_expr *expr,
 			   const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_ct.c: line 365 \n"); 
 	struct nft_ct *priv = nft_expr_priv(expr);
 	bool label_got = false;
 	unsigned int len;
@@ -404,12 +412,14 @@ err1:
 static void nft_ct_get_destroy(const struct nft_ctx *ctx,
 			       const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_ct.c: line 415 \n"); 
 	nft_ct_l3proto_module_put(ctx->afi->family);
 }
 
 static void nft_ct_set_destroy(const struct nft_ctx *ctx,
 			       const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_ct.c: line 422 \n"); 
 	struct nft_ct *priv = nft_expr_priv(expr);
 
 	switch (priv->key) {
@@ -427,6 +437,7 @@ static void nft_ct_set_destroy(const struct nft_ctx *ctx,
 
 static int nft_ct_get_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_ct.c: line 440 \n"); 
 	const struct nft_ct *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_CT_DREG, priv->dreg))
@@ -460,6 +471,7 @@ nla_put_failure:
 
 static int nft_ct_set_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_ct.c: line 474 \n"); 
 	const struct nft_ct *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_CT_SREG, priv->sreg))
@@ -495,6 +507,7 @@ static const struct nft_expr_ops *
 nft_ct_select_ops(const struct nft_ctx *ctx,
 		    const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_ct.c: line 510 \n"); 
 	if (tb[NFTA_CT_KEY] == NULL)
 		return ERR_PTR(-EINVAL);
 

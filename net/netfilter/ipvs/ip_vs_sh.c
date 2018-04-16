@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS:        Source Hashing scheduling module
  *
@@ -78,6 +79,7 @@ struct ip_vs_sh_state {
 /* Helper function to determine if server is unavailable */
 static inline bool is_unavailable(struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sh.c: line 82 \n"); 
 	return atomic_read(&dest->weight) <= 0 ||
 	       dest->flags & IP_VS_DEST_F_OVERLOAD;
 }
@@ -89,6 +91,7 @@ static inline unsigned int
 ip_vs_sh_hashkey(int af, const union nf_inet_addr *addr,
 		 __be16 port, unsigned int offset)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sh.c: line 94 \n"); 
 	__be32 addr_fold = addr->ip;
 
 #ifdef CONFIG_IP_VS_IPV6
@@ -108,6 +111,7 @@ static inline struct ip_vs_dest *
 ip_vs_sh_get(struct ip_vs_service *svc, struct ip_vs_sh_state *s,
 	     const union nf_inet_addr *addr, __be16 port)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sh.c: line 114 \n"); 
 	unsigned int hash = ip_vs_sh_hashkey(svc->af, addr, port, 0);
 	struct ip_vs_dest *dest = rcu_dereference(s->buckets[hash].dest);
 
@@ -125,6 +129,7 @@ static inline struct ip_vs_dest *
 ip_vs_sh_get_fallback(struct ip_vs_service *svc, struct ip_vs_sh_state *s,
 		      const union nf_inet_addr *addr, __be16 port)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sh.c: line 132 \n"); 
 	unsigned int offset, roffset;
 	unsigned int hash, ihash;
 	struct ip_vs_dest *dest;
@@ -166,6 +171,7 @@ ip_vs_sh_get_fallback(struct ip_vs_service *svc, struct ip_vs_sh_state *s,
 static int
 ip_vs_sh_reassign(struct ip_vs_sh_state *s, struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sh.c: line 174 \n"); 
 	int i;
 	struct ip_vs_sh_bucket *b;
 	struct list_head *p;
@@ -213,6 +219,7 @@ ip_vs_sh_reassign(struct ip_vs_sh_state *s, struct ip_vs_service *svc)
  */
 static void ip_vs_sh_flush(struct ip_vs_sh_state *s)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sh.c: line 222 \n"); 
 	int i;
 	struct ip_vs_sh_bucket *b;
 	struct ip_vs_dest *dest;
@@ -231,6 +238,7 @@ static void ip_vs_sh_flush(struct ip_vs_sh_state *s)
 
 static int ip_vs_sh_init_svc(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sh.c: line 241 \n"); 
 	struct ip_vs_sh_state *s;
 
 	/* allocate the SH table for this service */
@@ -252,6 +260,7 @@ static int ip_vs_sh_init_svc(struct ip_vs_service *svc)
 
 static void ip_vs_sh_done_svc(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sh.c: line 263 \n"); 
 	struct ip_vs_sh_state *s = svc->sched_data;
 
 	/* got to clean up hash buckets here */
@@ -267,6 +276,7 @@ static void ip_vs_sh_done_svc(struct ip_vs_service *svc)
 static int ip_vs_sh_dest_changed(struct ip_vs_service *svc,
 				 struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sh.c: line 279 \n"); 
 	struct ip_vs_sh_state *s = svc->sched_data;
 
 	/* assign the hash buckets with the updated service */
@@ -280,6 +290,7 @@ static int ip_vs_sh_dest_changed(struct ip_vs_service *svc,
 static inline __be16
 ip_vs_sh_get_port(const struct sk_buff *skb, struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sh.c: line 293 \n"); 
 	__be16 _ports[2], *ports;
 
 	/* At this point we know that we have a valid packet of some kind.
@@ -313,6 +324,7 @@ static struct ip_vs_dest *
 ip_vs_sh_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
 		  struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sh.c: line 327 \n"); 
 	struct ip_vs_dest *dest;
 	struct ip_vs_sh_state *s;
 	__be16 port = 0;

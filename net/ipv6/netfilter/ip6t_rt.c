@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match ROUTING parameters. */
 
 /* (C) 2001-2002 Andras Kis-Szabo <kisza@sch.bme.hu>
@@ -28,6 +29,7 @@ MODULE_AUTHOR("Andras Kis-Szabo <kisza@sch.bme.hu>");
 static inline bool
 segsleft_match(u_int32_t min, u_int32_t max, u_int32_t id, bool invert)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_rt.c: line 32 \n"); 
 	bool r;
 	pr_debug("segsleft_match:%c 0x%x <= 0x%x <= 0x%x\n",
 		 invert ? '!' : ' ', min, id, max);
@@ -38,6 +40,7 @@ segsleft_match(u_int32_t min, u_int32_t max, u_int32_t id, bool invert)
 
 static bool rt_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_rt.c: line 43 \n"); 
 	struct ipv6_rt_hdr _route;
 	const struct ipv6_rt_hdr *rh;
 	const struct ip6t_rt *rtinfo = par->matchinfo;
@@ -185,6 +188,7 @@ static bool rt_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int rt_mt6_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_rt.c: line 191 \n"); 
 	const struct ip6t_rt *rtinfo = par->matchinfo;
 
 	if (rtinfo->invflags & ~IP6T_RT_INV_MASK) {

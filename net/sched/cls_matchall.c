@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/cls_matchll.c		Match-all classifier
  *
@@ -27,6 +28,7 @@ struct cls_mall_head {
 static int mall_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 			 struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/cls_matchall.c: line 31 \n"); 
 	struct cls_mall_head *head = rcu_dereference_bh(tp->root);
 
 	if (tc_skip_sw(head->flags))
@@ -38,11 +40,13 @@ static int mall_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 
 static int mall_init(struct tcf_proto *tp)
 {
+	panic("We reached unpopular paths in net/sched/cls_matchall.c: line 43 \n"); 
 	return 0;
 }
 
 static void mall_destroy_rcu(struct rcu_head *rcu)
 {
+	panic("We reached unpopular paths in net/sched/cls_matchall.c: line 49 \n"); 
 	struct cls_mall_head *head = container_of(rcu, struct cls_mall_head,
 						  rcu);
 
@@ -54,6 +58,7 @@ static int mall_replace_hw_filter(struct tcf_proto *tp,
 				  struct cls_mall_head *head,
 				  unsigned long cookie)
 {
+	panic("We reached unpopular paths in net/sched/cls_matchall.c: line 61 \n"); 
 	struct net_device *dev = tp->q->dev_queue->dev;
 	struct tc_to_netdev offload;
 	struct tc_cls_matchall_offload mall_offload = {0};
@@ -72,6 +77,7 @@ static void mall_destroy_hw_filter(struct tcf_proto *tp,
 				   struct cls_mall_head *head,
 				   unsigned long cookie)
 {
+	panic("We reached unpopular paths in net/sched/cls_matchall.c: line 80 \n"); 
 	struct net_device *dev = tp->q->dev_queue->dev;
 	struct tc_to_netdev offload;
 	struct tc_cls_matchall_offload mall_offload = {0};
@@ -88,6 +94,7 @@ static void mall_destroy_hw_filter(struct tcf_proto *tp,
 
 static bool mall_destroy(struct tcf_proto *tp, bool force)
 {
+	panic("We reached unpopular paths in net/sched/cls_matchall.c: line 97 \n"); 
 	struct cls_mall_head *head = rtnl_dereference(tp->root);
 	struct net_device *dev = tp->q->dev_queue->dev;
 
@@ -103,6 +110,7 @@ static bool mall_destroy(struct tcf_proto *tp, bool force)
 
 static unsigned long mall_get(struct tcf_proto *tp, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_matchall.c: line 113 \n"); 
 	return 0UL;
 }
 
@@ -116,6 +124,7 @@ static int mall_set_parms(struct net *net, struct tcf_proto *tp,
 			  unsigned long base, struct nlattr **tb,
 			  struct nlattr *est, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_matchall.c: line 127 \n"); 
 	struct tcf_exts e;
 	int err;
 
@@ -139,6 +148,7 @@ static int mall_change(struct net *net, struct sk_buff *in_skb,
 		       u32 handle, struct nlattr **tca,
 		       unsigned long *arg, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_matchall.c: line 151 \n"); 
 	struct cls_mall_head *head = rtnl_dereference(tp->root);
 	struct net_device *dev = tp->q->dev_queue->dev;
 	struct nlattr *tb[TCA_MATCHALL_MAX + 1];
@@ -201,11 +211,13 @@ errout:
 
 static int mall_delete(struct tcf_proto *tp, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_matchall.c: line 214 \n"); 
 	return -EOPNOTSUPP;
 }
 
 static void mall_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_matchall.c: line 220 \n"); 
 	struct cls_mall_head *head = rtnl_dereference(tp->root);
 
 	if (arg->count < arg->skip)
@@ -219,6 +231,7 @@ skip:
 static int mall_dump(struct net *net, struct tcf_proto *tp, unsigned long fh,
 		     struct sk_buff *skb, struct tcmsg *t)
 {
+	panic("We reached unpopular paths in net/sched/cls_matchall.c: line 234 \n"); 
 	struct cls_mall_head *head = (struct cls_mall_head *) fh;
 	struct nlattr *nest;
 

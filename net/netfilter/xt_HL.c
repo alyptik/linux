@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * TTL modification target for IP tables
  * (C) 2000,2005 by Harald Welte <laforge@netfilter.org>
@@ -28,6 +29,7 @@ MODULE_LICENSE("GPL");
 static unsigned int
 ttl_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HL.c: line 32 \n"); 
 	struct iphdr *iph;
 	const struct ipt_TTL_info *info = par->targinfo;
 	int new_ttl;
@@ -68,6 +70,7 @@ ttl_tg(struct sk_buff *skb, const struct xt_action_param *par)
 static unsigned int
 hl_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HL.c: line 73 \n"); 
 	struct ipv6hdr *ip6h;
 	const struct ip6t_HL_info *info = par->targinfo;
 	int new_hl;
@@ -103,6 +106,7 @@ hl_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int ttl_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HL.c: line 109 \n"); 
 	const struct ipt_TTL_info *info = par->targinfo;
 
 	if (info->mode > IPT_TTL_MAXMODE) {
@@ -116,6 +120,7 @@ static int ttl_tg_check(const struct xt_tgchk_param *par)
 
 static int hl_tg6_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HL.c: line 123 \n"); 
 	const struct ip6t_HL_info *info = par->targinfo;
 
 	if (info->mode > IP6T_HL_MAXMODE) {

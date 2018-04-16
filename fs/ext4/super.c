@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/ext4/super.c
  *
@@ -141,6 +142,7 @@ MODULE_ALIAS("ext3");
 static int ext4_verify_csum_type(struct super_block *sb,
 				 struct ext4_super_block *es)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 145 \n"); 
 	if (!ext4_has_feature_metadata_csum(sb))
 		return 1;
 
@@ -150,6 +152,7 @@ static int ext4_verify_csum_type(struct super_block *sb,
 static __le32 ext4_superblock_csum(struct super_block *sb,
 				   struct ext4_super_block *es)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 155 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	int offset = offsetof(struct ext4_super_block, s_checksum);
 	__u32 csum;
@@ -162,6 +165,7 @@ static __le32 ext4_superblock_csum(struct super_block *sb,
 static int ext4_superblock_csum_verify(struct super_block *sb,
 				       struct ext4_super_block *es)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 168 \n"); 
 	if (!ext4_has_metadata_csum(sb))
 		return 1;
 
@@ -170,6 +174,7 @@ static int ext4_superblock_csum_verify(struct super_block *sb,
 
 void ext4_superblock_csum_set(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 177 \n"); 
 	struct ext4_super_block *es = EXT4_SB(sb)->s_es;
 
 	if (!ext4_has_metadata_csum(sb))
@@ -180,6 +185,7 @@ void ext4_superblock_csum_set(struct super_block *sb)
 
 void *ext4_kvmalloc(size_t size, gfp_t flags)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 188 \n"); 
 	void *ret;
 
 	ret = kmalloc(size, flags | __GFP_NOWARN);
@@ -190,6 +196,7 @@ void *ext4_kvmalloc(size_t size, gfp_t flags)
 
 void *ext4_kvzalloc(size_t size, gfp_t flags)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 199 \n"); 
 	void *ret;
 
 	ret = kzalloc(size, flags | __GFP_NOWARN);
@@ -201,6 +208,7 @@ void *ext4_kvzalloc(size_t size, gfp_t flags)
 ext4_fsblk_t ext4_block_bitmap(struct super_block *sb,
 			       struct ext4_group_desc *bg)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 211 \n"); 
 	return le32_to_cpu(bg->bg_block_bitmap_lo) |
 		(EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT ?
 		 (ext4_fsblk_t)le32_to_cpu(bg->bg_block_bitmap_hi) << 32 : 0);
@@ -209,6 +217,7 @@ ext4_fsblk_t ext4_block_bitmap(struct super_block *sb,
 ext4_fsblk_t ext4_inode_bitmap(struct super_block *sb,
 			       struct ext4_group_desc *bg)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 220 \n"); 
 	return le32_to_cpu(bg->bg_inode_bitmap_lo) |
 		(EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT ?
 		 (ext4_fsblk_t)le32_to_cpu(bg->bg_inode_bitmap_hi) << 32 : 0);
@@ -217,6 +226,7 @@ ext4_fsblk_t ext4_inode_bitmap(struct super_block *sb,
 ext4_fsblk_t ext4_inode_table(struct super_block *sb,
 			      struct ext4_group_desc *bg)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 229 \n"); 
 	return le32_to_cpu(bg->bg_inode_table_lo) |
 		(EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT ?
 		 (ext4_fsblk_t)le32_to_cpu(bg->bg_inode_table_hi) << 32 : 0);
@@ -225,6 +235,7 @@ ext4_fsblk_t ext4_inode_table(struct super_block *sb,
 __u32 ext4_free_group_clusters(struct super_block *sb,
 			       struct ext4_group_desc *bg)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 238 \n"); 
 	return le16_to_cpu(bg->bg_free_blocks_count_lo) |
 		(EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT ?
 		 (__u32)le16_to_cpu(bg->bg_free_blocks_count_hi) << 16 : 0);
@@ -233,6 +244,7 @@ __u32 ext4_free_group_clusters(struct super_block *sb,
 __u32 ext4_free_inodes_count(struct super_block *sb,
 			      struct ext4_group_desc *bg)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 247 \n"); 
 	return le16_to_cpu(bg->bg_free_inodes_count_lo) |
 		(EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT ?
 		 (__u32)le16_to_cpu(bg->bg_free_inodes_count_hi) << 16 : 0);
@@ -241,6 +253,7 @@ __u32 ext4_free_inodes_count(struct super_block *sb,
 __u32 ext4_used_dirs_count(struct super_block *sb,
 			      struct ext4_group_desc *bg)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 256 \n"); 
 	return le16_to_cpu(bg->bg_used_dirs_count_lo) |
 		(EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT ?
 		 (__u32)le16_to_cpu(bg->bg_used_dirs_count_hi) << 16 : 0);
@@ -249,6 +262,7 @@ __u32 ext4_used_dirs_count(struct super_block *sb,
 __u32 ext4_itable_unused_count(struct super_block *sb,
 			      struct ext4_group_desc *bg)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 265 \n"); 
 	return le16_to_cpu(bg->bg_itable_unused_lo) |
 		(EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT ?
 		 (__u32)le16_to_cpu(bg->bg_itable_unused_hi) << 16 : 0);
@@ -257,6 +271,7 @@ __u32 ext4_itable_unused_count(struct super_block *sb,
 void ext4_block_bitmap_set(struct super_block *sb,
 			   struct ext4_group_desc *bg, ext4_fsblk_t blk)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 274 \n"); 
 	bg->bg_block_bitmap_lo = cpu_to_le32((u32)blk);
 	if (EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT)
 		bg->bg_block_bitmap_hi = cpu_to_le32(blk >> 32);
@@ -265,6 +280,7 @@ void ext4_block_bitmap_set(struct super_block *sb,
 void ext4_inode_bitmap_set(struct super_block *sb,
 			   struct ext4_group_desc *bg, ext4_fsblk_t blk)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 283 \n"); 
 	bg->bg_inode_bitmap_lo  = cpu_to_le32((u32)blk);
 	if (EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT)
 		bg->bg_inode_bitmap_hi = cpu_to_le32(blk >> 32);
@@ -273,6 +289,7 @@ void ext4_inode_bitmap_set(struct super_block *sb,
 void ext4_inode_table_set(struct super_block *sb,
 			  struct ext4_group_desc *bg, ext4_fsblk_t blk)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 292 \n"); 
 	bg->bg_inode_table_lo = cpu_to_le32((u32)blk);
 	if (EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT)
 		bg->bg_inode_table_hi = cpu_to_le32(blk >> 32);
@@ -281,6 +298,7 @@ void ext4_inode_table_set(struct super_block *sb,
 void ext4_free_group_clusters_set(struct super_block *sb,
 				  struct ext4_group_desc *bg, __u32 count)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 301 \n"); 
 	bg->bg_free_blocks_count_lo = cpu_to_le16((__u16)count);
 	if (EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT)
 		bg->bg_free_blocks_count_hi = cpu_to_le16(count >> 16);
@@ -289,6 +307,7 @@ void ext4_free_group_clusters_set(struct super_block *sb,
 void ext4_free_inodes_set(struct super_block *sb,
 			  struct ext4_group_desc *bg, __u32 count)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 310 \n"); 
 	bg->bg_free_inodes_count_lo = cpu_to_le16((__u16)count);
 	if (EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT)
 		bg->bg_free_inodes_count_hi = cpu_to_le16(count >> 16);
@@ -297,6 +316,7 @@ void ext4_free_inodes_set(struct super_block *sb,
 void ext4_used_dirs_set(struct super_block *sb,
 			  struct ext4_group_desc *bg, __u32 count)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 319 \n"); 
 	bg->bg_used_dirs_count_lo = cpu_to_le16((__u16)count);
 	if (EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT)
 		bg->bg_used_dirs_count_hi = cpu_to_le16(count >> 16);
@@ -305,6 +325,7 @@ void ext4_used_dirs_set(struct super_block *sb,
 void ext4_itable_unused_set(struct super_block *sb,
 			  struct ext4_group_desc *bg, __u32 count)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 328 \n"); 
 	bg->bg_itable_unused_lo = cpu_to_le16((__u16)count);
 	if (EXT4_DESC_SIZE(sb) >= EXT4_MIN_DESC_SIZE_64BIT)
 		bg->bg_itable_unused_hi = cpu_to_le16(count >> 16);
@@ -314,6 +335,7 @@ void ext4_itable_unused_set(struct super_block *sb,
 static void __save_error_info(struct super_block *sb, const char *func,
 			    unsigned int line)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 338 \n"); 
 	struct ext4_super_block *es = EXT4_SB(sb)->s_es;
 
 	EXT4_SB(sb)->s_mount_state |= EXT4_ERROR_FS;
@@ -343,6 +365,7 @@ static void __save_error_info(struct super_block *sb, const char *func,
 static void save_error_info(struct super_block *sb, const char *func,
 			    unsigned int line)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 368 \n"); 
 	__save_error_info(sb, func, line);
 	ext4_commit_super(sb, 1);
 }
@@ -357,6 +380,7 @@ static void save_error_info(struct super_block *sb, const char *func,
  */
 static int block_device_ejected(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 383 \n"); 
 	struct inode *bd_inode = sb->s_bdev->bd_inode;
 	struct backing_dev_info *bdi = inode_to_bdi(bd_inode);
 
@@ -365,6 +389,7 @@ static int block_device_ejected(struct super_block *sb)
 
 static void ext4_journal_commit_callback(journal_t *journal, transaction_t *txn)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 392 \n"); 
 	struct super_block		*sb = journal->j_private;
 	struct ext4_sb_info		*sbi = EXT4_SB(sb);
 	int				error = is_journal_aborted(journal);
@@ -400,6 +425,7 @@ static void ext4_journal_commit_callback(journal_t *journal, transaction_t *txn)
 
 static void ext4_handle_error(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 428 \n"); 
 	if (sb->s_flags & MS_RDONLY)
 		return;
 
@@ -435,6 +461,7 @@ static void ext4_handle_error(struct super_block *sb)
 void __ext4_error(struct super_block *sb, const char *function,
 		  unsigned int line, const char *fmt, ...)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 464 \n"); 
 	struct va_format vaf;
 	va_list args;
 
@@ -455,6 +482,7 @@ void __ext4_error_inode(struct inode *inode, const char *function,
 			unsigned int line, ext4_fsblk_t block,
 			const char *fmt, ...)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 485 \n"); 
 	va_list args;
 	struct va_format vaf;
 	struct ext4_super_block *es = EXT4_SB(inode->i_sb)->s_es;
@@ -485,6 +513,7 @@ void __ext4_error_file(struct file *file, const char *function,
 		       unsigned int line, ext4_fsblk_t block,
 		       const char *fmt, ...)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 516 \n"); 
 	va_list args;
 	struct va_format vaf;
 	struct ext4_super_block *es;
@@ -521,6 +550,7 @@ void __ext4_error_file(struct file *file, const char *function,
 const char *ext4_decode_error(struct super_block *sb, int errno,
 			      char nbuf[16])
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 553 \n"); 
 	char *errstr = NULL;
 
 	switch (errno) {
@@ -564,6 +594,7 @@ const char *ext4_decode_error(struct super_block *sb, int errno,
 void __ext4_std_error(struct super_block *sb, const char *function,
 		      unsigned int line, int errno)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 597 \n"); 
 	char nbuf[16];
 	const char *errstr;
 
@@ -597,6 +628,7 @@ void __ext4_std_error(struct super_block *sb, const char *function,
 void __ext4_abort(struct super_block *sb, const char *function,
 		unsigned int line, const char *fmt, ...)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 631 \n"); 
 	struct va_format vaf;
 	va_list args;
 
@@ -632,6 +664,7 @@ void __ext4_abort(struct super_block *sb, const char *function,
 void __ext4_msg(struct super_block *sb,
 		const char *prefix, const char *fmt, ...)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 667 \n"); 
 	struct va_format vaf;
 	va_list args;
 
@@ -652,6 +685,7 @@ void __ext4_msg(struct super_block *sb,
 void __ext4_warning(struct super_block *sb, const char *function,
 		    unsigned int line, const char *fmt, ...)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 688 \n"); 
 	struct va_format vaf;
 	va_list args;
 
@@ -669,6 +703,7 @@ void __ext4_warning(struct super_block *sb, const char *function,
 void __ext4_warning_inode(const struct inode *inode, const char *function,
 			  unsigned int line, const char *fmt, ...)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 706 \n"); 
 	struct va_format vaf;
 	va_list args;
 
@@ -739,6 +774,7 @@ __acquires(bitlock)
 
 void ext4_update_dynamic_rev(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 777 \n"); 
 	struct ext4_super_block *es = EXT4_SB(sb)->s_es;
 
 	if (le32_to_cpu(es->s_rev_level) > EXT4_GOOD_OLD_REV)
@@ -767,6 +803,7 @@ void ext4_update_dynamic_rev(struct super_block *sb)
  */
 static struct block_device *ext4_blkdev_get(dev_t dev, struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 806 \n"); 
 	struct block_device *bdev;
 	char b[BDEVNAME_SIZE];
 
@@ -786,11 +823,13 @@ fail:
  */
 static void ext4_blkdev_put(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 826 \n"); 
 	blkdev_put(bdev, FMODE_READ|FMODE_WRITE|FMODE_EXCL);
 }
 
 static void ext4_blkdev_remove(struct ext4_sb_info *sbi)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 832 \n"); 
 	struct block_device *bdev;
 	bdev = sbi->journal_bdev;
 	if (bdev) {
@@ -801,11 +840,13 @@ static void ext4_blkdev_remove(struct ext4_sb_info *sbi)
 
 static inline struct inode *orphan_list_entry(struct list_head *l)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 843 \n"); 
 	return &list_entry(l, struct ext4_inode_info, i_orphan)->vfs_inode;
 }
 
 static void dump_orphan_list(struct super_block *sb, struct ext4_sb_info *sbi)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 849 \n"); 
 	struct list_head *l;
 
 	ext4_msg(sb, KERN_ERR, "sb orphan head is %d",
@@ -824,6 +865,7 @@ static void dump_orphan_list(struct super_block *sb, struct ext4_sb_info *sbi)
 
 static void ext4_put_super(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 868 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	struct ext4_super_block *es = sbi->s_es;
 	int aborted = 0;
@@ -918,6 +960,7 @@ static struct kmem_cache *ext4_inode_cachep;
  */
 static struct inode *ext4_alloc_inode(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 963 \n"); 
 	struct ext4_inode_info *ei;
 
 	ei = kmem_cache_alloc(ext4_inode_cachep, GFP_NOFS);
@@ -956,6 +999,7 @@ static struct inode *ext4_alloc_inode(struct super_block *sb)
 
 static int ext4_drop_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1002 \n"); 
 	int drop = generic_drop_inode(inode);
 
 	trace_ext4_drop_inode(inode, drop);
@@ -964,12 +1008,14 @@ static int ext4_drop_inode(struct inode *inode)
 
 static void ext4_i_callback(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1011 \n"); 
 	struct inode *inode = container_of(head, struct inode, i_rcu);
 	kmem_cache_free(ext4_inode_cachep, EXT4_I(inode));
 }
 
 static void ext4_destroy_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1018 \n"); 
 	if (!list_empty(&(EXT4_I(inode)->i_orphan))) {
 		ext4_msg(inode->i_sb, KERN_ERR,
 			 "Inode %lu (%p): orphan list check failed!",
@@ -984,6 +1030,7 @@ static void ext4_destroy_inode(struct inode *inode)
 
 static void init_once(void *foo)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1033 \n"); 
 	struct ext4_inode_info *ei = (struct ext4_inode_info *) foo;
 
 	INIT_LIST_HEAD(&ei->i_orphan);
@@ -1007,6 +1054,7 @@ static int __init init_inodecache(void)
 
 static void destroy_inodecache(void)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1057 \n"); 
 	/*
 	 * Make sure all delayed rcu free inodes are flushed before we
 	 * destroy cache.
@@ -1017,6 +1065,7 @@ static void destroy_inodecache(void)
 
 void ext4_clear_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1068 \n"); 
 	invalidate_inode_buffers(inode);
 	clear_inode(inode);
 	dquot_drop(inode);
@@ -1036,6 +1085,7 @@ void ext4_clear_inode(struct inode *inode)
 static struct inode *ext4_nfs_get_inode(struct super_block *sb,
 					u64 ino, u32 generation)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1088 \n"); 
 	struct inode *inode;
 
 	if (ino < EXT4_FIRST_INO(sb) && ino != EXT4_ROOT_INO)
@@ -1065,6 +1115,7 @@ static struct inode *ext4_nfs_get_inode(struct super_block *sb,
 static struct dentry *ext4_fh_to_dentry(struct super_block *sb, struct fid *fid,
 					int fh_len, int fh_type)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1118 \n"); 
 	return generic_fh_to_dentry(sb, fid, fh_len, fh_type,
 				    ext4_nfs_get_inode);
 }
@@ -1072,6 +1123,7 @@ static struct dentry *ext4_fh_to_dentry(struct super_block *sb, struct fid *fid,
 static struct dentry *ext4_fh_to_parent(struct super_block *sb, struct fid *fid,
 					int fh_len, int fh_type)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1126 \n"); 
 	return generic_fh_to_parent(sb, fid, fh_len, fh_type,
 				    ext4_nfs_get_inode);
 }
@@ -1085,6 +1137,7 @@ static struct dentry *ext4_fh_to_parent(struct super_block *sb, struct fid *fid,
 static int bdev_try_to_free_page(struct super_block *sb, struct page *page,
 				 gfp_t wait)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1140 \n"); 
 	journal_t *journal = EXT4_SB(sb)->s_journal;
 
 	WARN_ON(PageChecked(page));
@@ -1372,6 +1425,7 @@ static const match_table_t tokens = {
 
 static ext4_fsblk_t get_sb_block(void **data)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1428 \n"); 
 	ext4_fsblk_t	sb_block;
 	char		*options = (char *) *data;
 
@@ -1574,6 +1628,7 @@ static int handle_mount_opt(struct super_block *sb, char *opt, int token,
 			    substring_t *args, unsigned long *journal_devnum,
 			    unsigned int *journal_ioprio, int is_remount)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1631 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	const struct mount_opts *m;
 	kuid_t uid;
@@ -1824,6 +1879,7 @@ static int parse_options(char *options, struct super_block *sb,
 			 unsigned int *journal_ioprio,
 			 int is_remount)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1882 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	char *p;
 	substring_t args[MAX_OPT_ARGS];
@@ -1898,6 +1954,7 @@ static int parse_options(char *options, struct super_block *sb,
 static inline void ext4_show_quota_options(struct seq_file *seq,
 					   struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1957 \n"); 
 #if defined(CONFIG_QUOTA)
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 
@@ -1928,6 +1985,7 @@ static inline void ext4_show_quota_options(struct seq_file *seq,
 
 static const char *token2str(int token)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 1988 \n"); 
 	const struct match_token *t;
 
 	for (t = tokens; t->token != Opt_err; t++)
@@ -1944,6 +2002,7 @@ static const char *token2str(int token)
 static int _ext4_show_options(struct seq_file *seq, struct super_block *sb,
 			      int nodefs)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2005 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	struct ext4_super_block *es = sbi->s_es;
 	int def_errors, def_mount_opt = nodefs ? 0 : sbi->s_def_mount_opt;
@@ -2022,11 +2081,13 @@ static int _ext4_show_options(struct seq_file *seq, struct super_block *sb,
 
 static int ext4_show_options(struct seq_file *seq, struct dentry *root)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2084 \n"); 
 	return _ext4_show_options(seq, root->d_sb, 0);
 }
 
 int ext4_seq_options_show(struct seq_file *seq, void *offset)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2090 \n"); 
 	struct super_block *sb = seq->private;
 	int rc;
 
@@ -2039,6 +2100,7 @@ int ext4_seq_options_show(struct seq_file *seq, void *offset)
 static int ext4_setup_super(struct super_block *sb, struct ext4_super_block *es,
 			    int read_only)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2103 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	int res = 0;
 
@@ -2095,6 +2157,7 @@ done:
 
 int ext4_alloc_flex_bg_array(struct super_block *sb, ext4_group_t ngroup)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2160 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	struct flex_groups *new_groups;
 	int size;
@@ -2127,6 +2190,7 @@ int ext4_alloc_flex_bg_array(struct super_block *sb, ext4_group_t ngroup)
 
 static int ext4_fill_flex_info(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2193 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	struct ext4_group_desc *gdp = NULL;
 	ext4_group_t flex_group;
@@ -2162,6 +2226,7 @@ failed:
 static __le16 ext4_group_desc_csum(struct super_block *sb, __u32 block_group,
 				   struct ext4_group_desc *gdp)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2229 \n"); 
 	int offset = offsetof(struct ext4_group_desc, bg_checksum);
 	__u16 crc = 0;
 	__le32 le_group = cpu_to_le32(block_group);
@@ -2208,6 +2273,7 @@ out:
 int ext4_group_desc_csum_verify(struct super_block *sb, __u32 block_group,
 				struct ext4_group_desc *gdp)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2276 \n"); 
 	if (ext4_has_group_desc_csum(sb) &&
 	    (gdp->bg_checksum != ext4_group_desc_csum(sb, block_group, gdp)))
 		return 0;
@@ -2218,6 +2284,7 @@ int ext4_group_desc_csum_verify(struct super_block *sb, __u32 block_group,
 void ext4_group_desc_csum_set(struct super_block *sb, __u32 block_group,
 			      struct ext4_group_desc *gdp)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2287 \n"); 
 	if (!ext4_has_group_desc_csum(sb))
 		return;
 	gdp->bg_checksum = ext4_group_desc_csum(sb, block_group, gdp);
@@ -2228,6 +2295,7 @@ static int ext4_check_descriptors(struct super_block *sb,
 				  ext4_fsblk_t sb_block,
 				  ext4_group_t *first_not_zeroed)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2298 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	ext4_fsblk_t first_block = le32_to_cpu(sbi->s_es->s_first_data_block);
 	ext4_fsblk_t last_block;
@@ -2332,6 +2400,7 @@ static int ext4_check_descriptors(struct super_block *sb,
 static void ext4_orphan_cleanup(struct super_block *sb,
 				struct ext4_super_block *es)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2403 \n"); 
 	unsigned int s_flags = sb->s_flags;
 	int nr_orphans = 0, nr_truncates = 0;
 #ifdef CONFIG_QUOTA
@@ -2486,6 +2555,7 @@ static void ext4_orphan_cleanup(struct super_block *sb,
  */
 static loff_t ext4_max_size(int blkbits, int has_huge_files)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2558 \n"); 
 	loff_t res;
 	loff_t upper_limit = MAX_LFS_FILESIZE;
 
@@ -2525,6 +2595,7 @@ static loff_t ext4_max_size(int blkbits, int has_huge_files)
  */
 static loff_t ext4_max_bitmap_size(int bits, int has_huge_files)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2598 \n"); 
 	loff_t res = EXT4_NDIR_BLOCKS;
 	int meta_blocks;
 	loff_t upper_limit;
@@ -2584,6 +2655,7 @@ static loff_t ext4_max_bitmap_size(int bits, int has_huge_files)
 static ext4_fsblk_t descriptor_loc(struct super_block *sb,
 				   ext4_fsblk_t logical_sb_block, int nr)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2658 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	ext4_group_t bg, first_meta_bg;
 	int has_super = 0;
@@ -2622,6 +2694,7 @@ static ext4_fsblk_t descriptor_loc(struct super_block *sb,
  */
 static unsigned long ext4_get_stripe_size(struct ext4_sb_info *sbi)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2697 \n"); 
 	unsigned long stride = le16_to_cpu(sbi->s_es->s_raid_stride);
 	unsigned long stripe_width =
 			le32_to_cpu(sbi->s_es->s_raid_stripe_width);
@@ -2654,6 +2727,7 @@ static unsigned long ext4_get_stripe_size(struct ext4_sb_info *sbi)
  */
 static int ext4_feature_set_ok(struct super_block *sb, int readonly)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2730 \n"); 
 	if (ext4_has_unknown_ext4_incompat_features(sb)) {
 		ext4_msg(sb, KERN_ERR,
 			"Couldn't mount because of "
@@ -2722,6 +2796,7 @@ static int ext4_feature_set_ok(struct super_block *sb, int readonly)
  */
 static void print_daily_error_info(unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2799 \n"); 
 	struct super_block *sb = (struct super_block *) arg;
 	struct ext4_sb_info *sbi;
 	struct ext4_super_block *es;
@@ -2767,6 +2842,7 @@ static void print_daily_error_info(unsigned long arg)
 /* Find next suitable group and run ext4_init_inode_table */
 static int ext4_run_li_request(struct ext4_li_request *elr)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2845 \n"); 
 	struct ext4_group_desc *gdp = NULL;
 	ext4_group_t group, ngroups;
 	struct super_block *sb;
@@ -2811,6 +2887,7 @@ static int ext4_run_li_request(struct ext4_li_request *elr)
  */
 static void ext4_remove_li_request(struct ext4_li_request *elr)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2890 \n"); 
 	struct ext4_sb_info *sbi;
 
 	if (!elr)
@@ -2825,6 +2902,7 @@ static void ext4_remove_li_request(struct ext4_li_request *elr)
 
 static void ext4_unregister_li_request(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2905 \n"); 
 	mutex_lock(&ext4_li_mtx);
 	if (!ext4_li_info) {
 		mutex_unlock(&ext4_li_mtx);
@@ -2850,6 +2928,7 @@ static struct task_struct *ext4_lazyinit_task;
  */
 static int ext4_lazyinit_thread(void *arg)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 2931 \n"); 
 	struct ext4_lazy_init *eli = (struct ext4_lazy_init *)arg;
 	struct list_head *pos, *n;
 	struct ext4_li_request *elr;
@@ -2951,6 +3030,7 @@ exit_thread:
 
 static void ext4_clear_request_list(void)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 3033 \n"); 
 	struct list_head *pos, *n;
 	struct ext4_li_request *elr;
 
@@ -2965,6 +3045,7 @@ static void ext4_clear_request_list(void)
 
 static int ext4_run_lazyinit_thread(void)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 3048 \n"); 
 	ext4_lazyinit_task = kthread_run(ext4_lazyinit_thread,
 					 ext4_li_info, "ext4lazyinit");
 	if (IS_ERR(ext4_lazyinit_task)) {
@@ -2989,6 +3070,7 @@ static int ext4_run_lazyinit_thread(void)
  */
 static ext4_group_t ext4_has_uninit_itable(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 3073 \n"); 
 	ext4_group_t group, ngroups = EXT4_SB(sb)->s_groups_count;
 	struct ext4_group_desc *gdp = NULL;
 
@@ -3006,6 +3088,7 @@ static ext4_group_t ext4_has_uninit_itable(struct super_block *sb)
 
 static int ext4_li_info_new(void)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 3091 \n"); 
 	struct ext4_lazy_init *eli = NULL;
 
 	eli = kzalloc(sizeof(*eli), GFP_KERNEL);
@@ -3025,6 +3108,7 @@ static int ext4_li_info_new(void)
 static struct ext4_li_request *ext4_li_request_new(struct super_block *sb,
 					    ext4_group_t start)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 3111 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	struct ext4_li_request *elr;
 
@@ -3049,6 +3133,7 @@ static struct ext4_li_request *ext4_li_request_new(struct super_block *sb,
 int ext4_register_li_request(struct super_block *sb,
 			     ext4_group_t first_not_zeroed)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 3136 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	struct ext4_li_request *elr = NULL;
 	ext4_group_t ngroups = EXT4_SB(sb)->s_groups_count;
@@ -3111,6 +3196,7 @@ out:
  */
 static void ext4_destroy_lazyinit_thread(void)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 3199 \n"); 
 	/*
 	 * If thread exited earlier
 	 * there's nothing to be done.
@@ -3123,6 +3209,7 @@ static void ext4_destroy_lazyinit_thread(void)
 
 static int set_journal_csum_feature_set(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 3212 \n"); 
 	int ret = 1;
 	int compat, incompat;
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
@@ -3178,6 +3265,7 @@ static int set_journal_csum_feature_set(struct super_block *sb)
 static int count_overhead(struct super_block *sb, ext4_group_t grp,
 			  char *buf)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 3268 \n"); 
 	struct ext4_sb_info	*sbi = EXT4_SB(sb);
 	struct ext4_group_desc	*gdp;
 	ext4_fsblk_t		first_block, last_block, b;
@@ -3238,6 +3326,7 @@ static int count_overhead(struct super_block *sb, ext4_group_t grp,
  */
 int ext4_calculate_overhead(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 3329 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	struct ext4_super_block *es = sbi->s_es;
 	struct inode *j_inode;
@@ -3297,6 +3386,7 @@ int ext4_calculate_overhead(struct super_block *sb)
 
 static void ext4_set_resv_clusters(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 3389 \n"); 
 	ext4_fsblk_t resv_clusters;
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 
@@ -3327,6 +3417,7 @@ static void ext4_set_resv_clusters(struct super_block *sb)
 
 static int ext4_fill_super(struct super_block *sb, void *data, int silent)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 3420 \n"); 
 	char *orig_data = kstrdup(data, GFP_KERNEL);
 	struct buffer_head *bh;
 	struct ext4_super_block *es = NULL;
@@ -4301,6 +4392,7 @@ out_free_base:
  */
 static void ext4_init_journal_params(struct super_block *sb, journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4395 \n"); 
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 
 	journal->j_commit_interval = sbi->s_commit_interval;
@@ -4322,6 +4414,7 @@ static void ext4_init_journal_params(struct super_block *sb, journal_t *journal)
 static struct inode *ext4_get_journal_inode(struct super_block *sb,
 					     unsigned int journal_inum)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4417 \n"); 
 	struct inode *journal_inode;
 
 	/*
@@ -4354,6 +4447,7 @@ static struct inode *ext4_get_journal_inode(struct super_block *sb,
 static journal_t *ext4_get_journal(struct super_block *sb,
 				   unsigned int journal_inum)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4450 \n"); 
 	struct inode *journal_inode;
 	journal_t *journal;
 
@@ -4377,6 +4471,7 @@ static journal_t *ext4_get_journal(struct super_block *sb,
 static journal_t *ext4_get_dev_journal(struct super_block *sb,
 				       dev_t j_dev)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4474 \n"); 
 	struct buffer_head *bh;
 	journal_t *journal;
 	ext4_fsblk_t start;
@@ -4473,6 +4568,7 @@ static int ext4_load_journal(struct super_block *sb,
 			     struct ext4_super_block *es,
 			     unsigned long journal_devnum)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4571 \n"); 
 	journal_t *journal;
 	unsigned int journal_inum = le32_to_cpu(es->s_journal_inum);
 	dev_t journal_dev;
@@ -4563,6 +4659,7 @@ static int ext4_load_journal(struct super_block *sb,
 
 static int ext4_commit_super(struct super_block *sb, int sync)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4662 \n"); 
 	struct ext4_super_block *es = EXT4_SB(sb)->s_es;
 	struct buffer_head *sbh = EXT4_SB(sb)->s_sbh;
 	int error = 0;
@@ -4642,6 +4739,7 @@ static int ext4_commit_super(struct super_block *sb, int sync)
 static void ext4_mark_recovery_complete(struct super_block *sb,
 					struct ext4_super_block *es)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4742 \n"); 
 	journal_t *journal = EXT4_SB(sb)->s_journal;
 
 	if (!ext4_has_feature_journal(sb)) {
@@ -4670,6 +4768,7 @@ out:
 static void ext4_clear_journal_err(struct super_block *sb,
 				   struct ext4_super_block *es)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4771 \n"); 
 	journal_t *journal;
 	int j_errno;
 	const char *errstr;
@@ -4707,6 +4806,7 @@ static void ext4_clear_journal_err(struct super_block *sb,
  */
 int ext4_force_commit(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4809 \n"); 
 	journal_t *journal;
 
 	if (sb->s_flags & MS_RDONLY)
@@ -4718,6 +4818,7 @@ int ext4_force_commit(struct super_block *sb)
 
 static int ext4_sync_fs(struct super_block *sb, int wait)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4821 \n"); 
 	int ret = 0;
 	tid_t target;
 	bool needs_barrier = false;
@@ -4768,6 +4869,7 @@ static int ext4_sync_fs(struct super_block *sb, int wait)
  */
 static int ext4_freeze(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4872 \n"); 
 	int error = 0;
 	journal_t *journal;
 
@@ -4806,6 +4908,7 @@ out:
  */
 static int ext4_unfreeze(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4911 \n"); 
 	if (sb->s_flags & MS_RDONLY)
 		return 0;
 
@@ -4836,6 +4939,7 @@ struct ext4_mount_options {
 
 static int ext4_remount(struct super_block *sb, int *flags, char *data)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 4942 \n"); 
 	struct ext4_super_block *es;
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	unsigned long old_sb_flags;
@@ -5122,6 +5226,7 @@ static int ext4_statfs_project(struct super_block *sb,
 
 static int ext4_statfs(struct dentry *dentry, struct kstatfs *buf)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 5229 \n"); 
 	struct super_block *sb = dentry->d_sb;
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	struct ext4_super_block *es = sbi->s_es;
@@ -5542,6 +5647,7 @@ static int ext4_get_next_id(struct super_block *sb, struct kqid *qid)
 static struct dentry *ext4_mount(struct file_system_type *fs_type, int flags,
 		       const char *dev_name, void *data)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 5650 \n"); 
 	return mount_bdev(fs_type, flags, dev_name, data, ext4_fill_super);
 }
 
@@ -5577,6 +5683,7 @@ static inline int ext2_feature_set_ok(struct super_block *sb) { return 0; }
 
 static inline void register_as_ext3(void)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/ext4/super.c: line 5686 \n"); 
 	int err = register_filesystem(&ext3_fs_type);
 	if (err)
 		printk(KERN_WARNING
@@ -5585,11 +5692,13 @@ static inline void register_as_ext3(void)
 
 static inline void unregister_as_ext3(void)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 5695 \n"); 
 	unregister_filesystem(&ext3_fs_type);
 }
 
 static inline int ext3_feature_set_ok(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/super.c: line 5701 \n"); 
 	if (ext4_has_unknown_ext3_incompat_features(sb))
 		return 0;
 	if (!ext4_has_feature_journal(sb))

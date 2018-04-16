@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/proc/root.c
  *
@@ -76,6 +77,7 @@ int proc_parse_options(char *options, struct pid_namespace *pid)
 
 int proc_remount(struct super_block *sb, int *flags, char *data)
 {
+	panic("We reached unpopular paths in fs/proc/root.c: line 80 \n"); 
 	struct pid_namespace *pid = sb->s_fs_info;
 
 	sync_filesystem(sb);
@@ -165,6 +167,7 @@ static struct dentry *proc_root_lookup(struct inode * dir, struct dentry * dentr
 
 static int proc_root_readdir(struct file *file, struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/root.c: line 170 \n"); 
 	if (ctx->pos < FIRST_PROCESS_ENTRY) {
 		int error = proc_readdir(file, ctx);
 		if (unlikely(error <= 0))

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2013 Patrick McHardy <kaber@trash.net>
  *
@@ -31,6 +32,7 @@ bool
 synproxy_parse_options(const struct sk_buff *skb, unsigned int doff,
 		       const struct tcphdr *th, struct synproxy_options *opts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_synproxy_core.c: line 35 \n"); 
 	int length = (th->doff * 4) - sizeof(*th);
 	u8 buf[40], *ptr;
 
@@ -94,6 +96,7 @@ EXPORT_SYMBOL_GPL(synproxy_parse_options);
 
 unsigned int synproxy_options_size(const struct synproxy_options *opts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_synproxy_core.c: line 99 \n"); 
 	unsigned int size = 0;
 
 	if (opts->options & XT_SYNPROXY_OPT_MSS)
@@ -112,6 +115,7 @@ EXPORT_SYMBOL_GPL(synproxy_options_size);
 void
 synproxy_build_options(struct tcphdr *th, const struct synproxy_options *opts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_synproxy_core.c: line 118 \n"); 
 	__be32 *ptr = (__be32 *)(th + 1);
 	u8 options = opts->options;
 
@@ -151,6 +155,7 @@ EXPORT_SYMBOL_GPL(synproxy_build_options);
 void synproxy_init_timestamp_cookie(const struct xt_synproxy_info *info,
 				    struct synproxy_options *opts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_synproxy_core.c: line 158 \n"); 
 	opts->tsecr = opts->tsval;
 	opts->tsval = tcp_time_stamp & ~0x3f;
 
@@ -170,6 +175,7 @@ EXPORT_SYMBOL_GPL(synproxy_init_timestamp_cookie);
 
 void synproxy_check_timestamp_cookie(struct synproxy_options *opts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_synproxy_core.c: line 178 \n"); 
 	opts->wscale = opts->tsecr & 0xf;
 	if (opts->wscale != 0xf)
 		opts->options |= XT_SYNPROXY_OPT_WSCALE;
@@ -187,6 +193,7 @@ unsigned int synproxy_tstamp_adjust(struct sk_buff *skb,
 				    enum ip_conntrack_info ctinfo,
 				    const struct nf_conn_synproxy *synproxy)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_synproxy_core.c: line 196 \n"); 
 	unsigned int optoff, optend;
 	__be32 *ptr, old;
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/fs.h>
 #include <linux/sched.h>
 #include <linux/slab.h>
@@ -29,6 +30,7 @@ void pin_insert_group(struct fs_pin *pin, struct vfsmount *m, struct hlist_head 
 
 void pin_insert(struct fs_pin *pin, struct vfsmount *m)
 {
+	panic("We reached unpopular paths in fs/fs_pin.c: line 33 \n"); 
 	pin_insert_group(pin, m, &m->mnt_sb->s_pins);
 }
 
@@ -75,6 +77,7 @@ void pin_kill(struct fs_pin *p)
 
 void mnt_pin_kill(struct mount *m)
 {
+	panic("We reached unpopular paths in fs/fs_pin.c: line 80 \n"); 
 	while (1) {
 		struct hlist_node *p;
 		rcu_read_lock();

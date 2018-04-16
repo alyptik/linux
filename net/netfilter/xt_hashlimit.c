@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	xt_hashlimit - Netfilter module to limit the number of packets per time
  *	separately for each hashbucket (sourceip/sourceport/dstip/dstport)
@@ -118,6 +119,7 @@ struct xt_hashlimit_htable {
 static int
 cfg_copy(struct hashlimit_cfg2 *to, void *from, int revision)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 122 \n"); 
 	if (revision == 1) {
 		struct hashlimit_cfg1 *cfg = (struct hashlimit_cfg1 *)from;
 
@@ -145,12 +147,14 @@ static struct kmem_cache *hashlimit_cachep __read_mostly;
 static inline bool dst_cmp(const struct dsthash_ent *ent,
 			   const struct dsthash_dst *b)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 150 \n"); 
 	return !memcmp(&ent->dst, b, sizeof(ent->dst));
 }
 
 static u_int32_t
 hash_dst(const struct xt_hashlimit_htable *ht, const struct dsthash_dst *dst)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 157 \n"); 
 	u_int32_t hash = jhash2((const u32 *)dst,
 				sizeof(*dst)/sizeof(u32),
 				ht->rnd);
@@ -167,6 +171,7 @@ static struct dsthash_ent *
 dsthash_find(const struct xt_hashlimit_htable *ht,
 	     const struct dsthash_dst *dst)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 174 \n"); 
 	struct dsthash_ent *ent;
 	u_int32_t hash = hash_dst(ht, dst);
 
@@ -185,6 +190,7 @@ static struct dsthash_ent *
 dsthash_alloc_init(struct xt_hashlimit_htable *ht,
 		   const struct dsthash_dst *dst, bool *race)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 193 \n"); 
 	struct dsthash_ent *ent;
 
 	spin_lock(&ht->lock);
@@ -226,6 +232,7 @@ dsthash_alloc_init(struct xt_hashlimit_htable *ht,
 
 static void dsthash_free_rcu(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 235 \n"); 
 	struct dsthash_ent *ent = container_of(head, struct dsthash_ent, rcu);
 
 	kmem_cache_free(hashlimit_cachep, ent);
@@ -234,6 +241,7 @@ static void dsthash_free_rcu(struct rcu_head *head)
 static inline void
 dsthash_free(struct xt_hashlimit_htable *ht, struct dsthash_ent *ent)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 244 \n"); 
 	hlist_del_rcu(&ent->node);
 	call_rcu_bh(&ent->rcu, dsthash_free_rcu);
 	ht->count--;
@@ -245,6 +253,7 @@ static int htable_create(struct net *net, struct hashlimit_cfg2 *cfg,
 			 struct xt_hashlimit_htable **out_hinfo,
 			 int revision)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 256 \n"); 
 	struct hashlimit_net *hashlimit_net = hashlimit_pernet(net);
 	struct xt_hashlimit_htable *hinfo;
 	unsigned int size, i;
@@ -317,12 +326,14 @@ static int htable_create(struct net *net, struct hashlimit_cfg2 *cfg,
 static bool select_all(const struct xt_hashlimit_htable *ht,
 		       const struct dsthash_ent *he)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 329 \n"); 
 	return 1;
 }
 
 static bool select_gc(const struct xt_hashlimit_htable *ht,
 		      const struct dsthash_ent *he)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 336 \n"); 
 	return time_after_eq(jiffies, he->expires);
 }
 
@@ -330,6 +341,7 @@ static void htable_selective_cleanup(struct xt_hashlimit_htable *ht,
 			bool (*select)(const struct xt_hashlimit_htable *ht,
 				      const struct dsthash_ent *he))
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 344 \n"); 
 	unsigned int i;
 
 	for (i = 0; i < ht->cfg.size; i++) {
@@ -348,6 +360,7 @@ static void htable_selective_cleanup(struct xt_hashlimit_htable *ht,
 
 static void htable_gc(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 363 \n"); 
 	struct xt_hashlimit_htable *ht;
 
 	ht = container_of(work, struct xt_hashlimit_htable, gc_work.work);
@@ -360,6 +373,7 @@ static void htable_gc(struct work_struct *work)
 
 static void htable_remove_proc_entry(struct xt_hashlimit_htable *hinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 376 \n"); 
 	struct hashlimit_net *hashlimit_net = hashlimit_pernet(hinfo->net);
 	struct proc_dir_entry *parent;
 
@@ -374,6 +388,7 @@ static void htable_remove_proc_entry(struct xt_hashlimit_htable *hinfo)
 
 static void htable_destroy(struct xt_hashlimit_htable *hinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 391 \n"); 
 	cancel_delayed_work_sync(&hinfo->gc_work);
 	htable_remove_proc_entry(hinfo);
 	htable_selective_cleanup(hinfo, select_all);
@@ -385,6 +400,7 @@ static struct xt_hashlimit_htable *htable_find_get(struct net *net,
 						   const char *name,
 						   u_int8_t family)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 403 \n"); 
 	struct hashlimit_net *hashlimit_net = hashlimit_pernet(net);
 	struct xt_hashlimit_htable *hinfo;
 
@@ -400,6 +416,7 @@ static struct xt_hashlimit_htable *htable_find_get(struct net *net,
 
 static void htable_put(struct xt_hashlimit_htable *hinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 419 \n"); 
 	mutex_lock(&hashlimit_mutex);
 	if (--hinfo->use == 0) {
 		hlist_del(&hinfo->node);
@@ -457,12 +474,14 @@ static void htable_put(struct xt_hashlimit_htable *hinfo)
 
 static u32 xt_hashlimit_len_to_chunks(u32 len)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 477 \n"); 
 	return (len >> XT_HASHLIMIT_BYTE_SHIFT) + 1;
 }
 
 /* Precision saver. */
 static u64 user2credits(u64 user, int revision)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 484 \n"); 
 	if (revision == 1) {
 		/* If multiplying would overflow... */
 		if (user > 0xFFFFFFFF / (HZ*CREDITS_PER_JIFFY_v1))
@@ -484,6 +503,7 @@ static u64 user2credits(u64 user, int revision)
 
 static u32 user2credits_byte(u32 user)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 506 \n"); 
 	u64 us = user;
 	us *= HZ * CREDITS_PER_JIFFY_BYTES;
 	return (u32) (us >> 32);
@@ -492,6 +512,7 @@ static u32 user2credits_byte(u32 user)
 static void rateinfo_recalc(struct dsthash_ent *dh, unsigned long now,
 			    u32 mode, int revision)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 515 \n"); 
 	unsigned long delta = now - dh->rateinfo.prev;
 	u64 cap, cpj;
 
@@ -521,6 +542,7 @@ static void rateinfo_recalc(struct dsthash_ent *dh, unsigned long now,
 static void rateinfo_init(struct dsthash_ent *dh,
 			  struct xt_hashlimit_htable *hinfo, int revision)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 545 \n"); 
 	dh->rateinfo.prev = jiffies;
 	if (hinfo->cfg.mode & XT_HASHLIMIT_BYTES) {
 		dh->rateinfo.credit = CREDITS_PER_JIFFY_BYTES * HZ;
@@ -536,6 +558,7 @@ static void rateinfo_init(struct dsthash_ent *dh,
 
 static inline __be32 maskl(__be32 a, unsigned int l)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 561 \n"); 
 	return l ? htonl(ntohl(a) & ~0 << (32 - l)) : 0;
 }
 
@@ -569,6 +592,7 @@ hashlimit_init_dst(const struct xt_hashlimit_htable *hinfo,
 		   struct dsthash_dst *dst,
 		   const struct sk_buff *skb, unsigned int protoff)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 595 \n"); 
 	__be16 _ports[2], *ports;
 	u8 nexthdr;
 	int poff;
@@ -639,6 +663,7 @@ hashlimit_init_dst(const struct xt_hashlimit_htable *hinfo,
 
 static u32 hashlimit_byte_cost(unsigned int len, struct dsthash_ent *dh)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 666 \n"); 
 	u64 tmp = xt_hashlimit_len_to_chunks(len);
 	tmp = tmp * dh->rateinfo.cost;
 
@@ -657,6 +682,7 @@ hashlimit_mt_common(const struct sk_buff *skb, struct xt_action_param *par,
 		    struct xt_hashlimit_htable *hinfo,
 		    const struct hashlimit_cfg2 *cfg, int revision)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 685 \n"); 
 	unsigned long now = jiffies;
 	struct dsthash_ent *dh;
 	struct dsthash_dst dst;
@@ -713,6 +739,7 @@ hashlimit_mt_common(const struct sk_buff *skb, struct xt_action_param *par,
 static bool
 hashlimit_mt_v1(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 742 \n"); 
 	const struct xt_hashlimit_mtinfo1 *info = par->matchinfo;
 	struct xt_hashlimit_htable *hinfo = info->hinfo;
 	struct hashlimit_cfg2 cfg = {};
@@ -729,6 +756,7 @@ hashlimit_mt_v1(const struct sk_buff *skb, struct xt_action_param *par)
 static bool
 hashlimit_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 759 \n"); 
 	const struct xt_hashlimit_mtinfo2 *info = par->matchinfo;
 	struct xt_hashlimit_htable *hinfo = info->hinfo;
 
@@ -740,6 +768,7 @@ static int hashlimit_mt_check_common(const struct xt_mtchk_param *par,
 				     struct hashlimit_cfg2 *cfg,
 				     const char *name, int revision)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 771 \n"); 
 	struct net *net = par->net;
 	int ret;
 
@@ -790,6 +819,7 @@ static int hashlimit_mt_check_common(const struct xt_mtchk_param *par,
 
 static int hashlimit_mt_check_v1(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 822 \n"); 
 	struct xt_hashlimit_mtinfo1 *info = par->matchinfo;
 	struct hashlimit_cfg2 cfg = {};
 	int ret;
@@ -808,6 +838,7 @@ static int hashlimit_mt_check_v1(const struct xt_mtchk_param *par)
 
 static int hashlimit_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 841 \n"); 
 	struct xt_hashlimit_mtinfo2 *info = par->matchinfo;
 
 	if (info->name[sizeof(info->name) - 1] != '\0')
@@ -819,6 +850,7 @@ static int hashlimit_mt_check(const struct xt_mtchk_param *par)
 
 static void hashlimit_mt_destroy_v1(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 853 \n"); 
 	const struct xt_hashlimit_mtinfo1 *info = par->matchinfo;
 
 	htable_put(info->hinfo);
@@ -826,6 +858,7 @@ static void hashlimit_mt_destroy_v1(const struct xt_mtdtor_param *par)
 
 static void hashlimit_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 861 \n"); 
 	const struct xt_hashlimit_mtinfo2 *info = par->matchinfo;
 
 	htable_put(info->hinfo);
@@ -897,6 +930,7 @@ static void *dl_seq_start(struct seq_file *s, loff_t *pos)
 
 static void *dl_seq_next(struct seq_file *s, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 933 \n"); 
 	struct xt_hashlimit_htable *htable = s->private;
 	unsigned int *bucket = (unsigned int *)v;
 
@@ -922,6 +956,7 @@ static void dl_seq_stop(struct seq_file *s, void *v)
 static void dl_seq_print(struct dsthash_ent *ent, u_int8_t family,
 			 struct seq_file *s)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 959 \n"); 
 	switch (family) {
 	case NFPROTO_IPV4:
 		seq_printf(s, "%ld %pI4:%u->%pI4:%u %llu %llu %llu\n",
@@ -953,6 +988,7 @@ static void dl_seq_print(struct dsthash_ent *ent, u_int8_t family,
 static int dl_seq_real_show_v1(struct dsthash_ent *ent, u_int8_t family,
 			       struct seq_file *s)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 991 \n"); 
 	const struct xt_hashlimit_htable *ht = s->private;
 
 	spin_lock(&ent->lock);
@@ -968,6 +1004,7 @@ static int dl_seq_real_show_v1(struct dsthash_ent *ent, u_int8_t family,
 static int dl_seq_real_show(struct dsthash_ent *ent, u_int8_t family,
 			    struct seq_file *s)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 1007 \n"); 
 	const struct xt_hashlimit_htable *ht = s->private;
 
 	spin_lock(&ent->lock);
@@ -982,6 +1019,7 @@ static int dl_seq_real_show(struct dsthash_ent *ent, u_int8_t family,
 
 static int dl_seq_show_v1(struct seq_file *s, void *v)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 1022 \n"); 
 	struct xt_hashlimit_htable *htable = s->private;
 	unsigned int *bucket = (unsigned int *)v;
 	struct dsthash_ent *ent;
@@ -996,6 +1034,7 @@ static int dl_seq_show_v1(struct seq_file *s, void *v)
 
 static int dl_seq_show(struct seq_file *s, void *v)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 1037 \n"); 
 	struct xt_hashlimit_htable *htable = s->private;
 	unsigned int *bucket = (unsigned int *)v;
 	struct dsthash_ent *ent;
@@ -1024,6 +1063,7 @@ static const struct seq_operations dl_seq_ops = {
 
 static int dl_proc_open_v1(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 1066 \n"); 
 	int ret = seq_open(file, &dl_seq_ops_v1);
 
 	if (!ret) {
@@ -1035,6 +1075,7 @@ static int dl_proc_open_v1(struct inode *inode, struct file *file)
 
 static int dl_proc_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_hashlimit.c: line 1078 \n"); 
 	int ret = seq_open(file, &dl_seq_ops);
 
 	if (!ret) {

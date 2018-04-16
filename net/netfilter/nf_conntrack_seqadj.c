@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/types.h>
 #include <linux/netfilter.h>
 #include <net/tcp.h>
@@ -9,6 +10,7 @@
 int nf_ct_seqadj_init(struct nf_conn *ct, enum ip_conntrack_info ctinfo,
 		      s32 off)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_seqadj.c: line 13 \n"); 
 	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);
 	struct nf_conn_seqadj *seqadj;
 	struct nf_ct_seqadj *this_way;
@@ -29,6 +31,7 @@ EXPORT_SYMBOL_GPL(nf_ct_seqadj_init);
 int nf_ct_seqadj_set(struct nf_conn *ct, enum ip_conntrack_info ctinfo,
 		     __be32 seq, s32 off)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_seqadj.c: line 34 \n"); 
 	struct nf_conn_seqadj *seqadj = nfct_seqadj(ct);
 	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);
 	struct nf_ct_seqadj *this_way;
@@ -60,6 +63,7 @@ void nf_ct_tcp_seqadj_set(struct sk_buff *skb,
 			  struct nf_conn *ct, enum ip_conntrack_info ctinfo,
 			  s32 off)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_seqadj.c: line 66 \n"); 
 	const struct tcphdr *th;
 
 	if (nf_ct_protonum(ct) != IPPROTO_TCP)
@@ -77,6 +81,7 @@ static void nf_ct_sack_block_adjust(struct sk_buff *skb,
 				    unsigned int sackend,
 				    struct nf_ct_seqadj *seq)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_seqadj.c: line 84 \n"); 
 	while (sackoff < sackend) {
 		struct tcp_sack_block_wire *sack;
 		__be32 new_start_seq, new_end_seq;
@@ -119,6 +124,7 @@ static unsigned int nf_ct_sack_adjust(struct sk_buff *skb,
 				      struct nf_conn *ct,
 				      enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_seqadj.c: line 127 \n"); 
 	unsigned int dir, optoff, optend;
 	struct nf_conn_seqadj *seqadj = nfct_seqadj(ct);
 
@@ -163,6 +169,7 @@ int nf_ct_seq_adjust(struct sk_buff *skb,
 		     struct nf_conn *ct, enum ip_conntrack_info ctinfo,
 		     unsigned int protoff)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_seqadj.c: line 172 \n"); 
 	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);
 	struct tcphdr *tcph;
 	__be32 newseq, newack;
@@ -244,5 +251,6 @@ int nf_conntrack_seqadj_init(void)
 
 void nf_conntrack_seqadj_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_seqadj.c: line 254 \n"); 
 	nf_ct_extend_unregister(&nf_ct_seqadj_extend);
 }

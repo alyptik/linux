@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Authenc: Simple AEAD wrapper for IPsec
  *
@@ -44,6 +45,7 @@ struct authenc_request_ctx {
 
 static void authenc_request_complete(struct aead_request *req, int err)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 48 \n"); 
 	if (err != -EINPROGRESS)
 		aead_request_complete(req, err);
 }
@@ -51,6 +53,7 @@ static void authenc_request_complete(struct aead_request *req, int err)
 int crypto_authenc_extractkeys(struct crypto_authenc_keys *keys, const u8 *key,
 			       unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 56 \n"); 
 	struct rtattr *rta = (struct rtattr *)key;
 	struct crypto_authenc_key_param *param;
 
@@ -81,6 +84,7 @@ EXPORT_SYMBOL_GPL(crypto_authenc_extractkeys);
 static int crypto_authenc_setkey(struct crypto_aead *authenc, const u8 *key,
 				 unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 87 \n"); 
 	struct crypto_authenc_ctx *ctx = crypto_aead_ctx(authenc);
 	struct crypto_ahash *auth = ctx->auth;
 	struct crypto_skcipher *enc = ctx->enc;
@@ -117,6 +121,7 @@ badkey:
 
 static void authenc_geniv_ahash_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 124 \n"); 
 	struct aead_request *req = areq->data;
 	struct crypto_aead *authenc = crypto_aead_reqtfm(req);
 	struct aead_instance *inst = aead_alg_instance(authenc);
@@ -137,6 +142,7 @@ out:
 
 static int crypto_authenc_genicv(struct aead_request *req, unsigned int flags)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 145 \n"); 
 	struct crypto_aead *authenc = crypto_aead_reqtfm(req);
 	struct aead_instance *inst = aead_alg_instance(authenc);
 	struct crypto_authenc_ctx *ctx = crypto_aead_ctx(authenc);
@@ -169,6 +175,7 @@ static int crypto_authenc_genicv(struct aead_request *req, unsigned int flags)
 static void crypto_authenc_encrypt_done(struct crypto_async_request *req,
 					int err)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 178 \n"); 
 	struct aead_request *areq = req->data;
 
 	if (err)
@@ -182,6 +189,7 @@ out:
 
 static int crypto_authenc_copy_assoc(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 192 \n"); 
 	struct crypto_aead *authenc = crypto_aead_reqtfm(req);
 	struct crypto_authenc_ctx *ctx = crypto_aead_ctx(authenc);
 	SKCIPHER_REQUEST_ON_STACK(skreq, ctx->null);
@@ -197,6 +205,7 @@ static int crypto_authenc_copy_assoc(struct aead_request *req)
 
 static int crypto_authenc_encrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 208 \n"); 
 	struct crypto_aead *authenc = crypto_aead_reqtfm(req);
 	struct aead_instance *inst = aead_alg_instance(authenc);
 	struct crypto_authenc_ctx *ctx = crypto_aead_ctx(authenc);
@@ -235,6 +244,7 @@ static int crypto_authenc_encrypt(struct aead_request *req)
 static int crypto_authenc_decrypt_tail(struct aead_request *req,
 				       unsigned int flags)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 247 \n"); 
 	struct crypto_aead *authenc = crypto_aead_reqtfm(req);
 	struct aead_instance *inst = aead_alg_instance(authenc);
 	struct crypto_authenc_ctx *ctx = crypto_aead_ctx(authenc);
@@ -270,6 +280,7 @@ static int crypto_authenc_decrypt_tail(struct aead_request *req,
 static void authenc_verify_ahash_done(struct crypto_async_request *areq,
 				      int err)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 283 \n"); 
 	struct aead_request *req = areq->data;
 
 	if (err)
@@ -283,6 +294,7 @@ out:
 
 static int crypto_authenc_decrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 297 \n"); 
 	struct crypto_aead *authenc = crypto_aead_reqtfm(req);
 	unsigned int authsize = crypto_aead_authsize(authenc);
 	struct aead_instance *inst = aead_alg_instance(authenc);
@@ -312,6 +324,7 @@ static int crypto_authenc_decrypt(struct aead_request *req)
 
 static int crypto_authenc_init_tfm(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 327 \n"); 
 	struct aead_instance *inst = aead_alg_instance(tfm);
 	struct authenc_instance_ctx *ictx = aead_instance_ctx(inst);
 	struct crypto_authenc_ctx *ctx = crypto_aead_ctx(tfm);
@@ -359,6 +372,7 @@ err_free_ahash:
 
 static void crypto_authenc_exit_tfm(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 375 \n"); 
 	struct crypto_authenc_ctx *ctx = crypto_aead_ctx(tfm);
 
 	crypto_free_ahash(ctx->auth);
@@ -368,6 +382,7 @@ static void crypto_authenc_exit_tfm(struct crypto_aead *tfm)
 
 static void crypto_authenc_free(struct aead_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 385 \n"); 
 	struct authenc_instance_ctx *ctx = aead_instance_ctx(inst);
 
 	crypto_drop_skcipher(&ctx->enc);
@@ -378,6 +393,7 @@ static void crypto_authenc_free(struct aead_instance *inst)
 static int crypto_authenc_create(struct crypto_template *tmpl,
 				 struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/authenc.c: line 396 \n"); 
 	struct crypto_attr_type *algt;
 	struct aead_instance *inst;
 	struct hash_alg_common *auth;

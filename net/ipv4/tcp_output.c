@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -312,6 +313,7 @@ static u16 tcp_select_window(struct sock *sk)
 /* Packet ECN state for a SYN-ACK */
 static void tcp_ecn_send_synack(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 316 \n"); 
 	const struct tcp_sock *tp = tcp_sk(sk);
 
 	TCP_SKB_CB(skb)->tcp_flags &= ~TCPHDR_CWR;
@@ -347,6 +349,7 @@ static void tcp_ecn_send_syn(struct sock *sk, struct sk_buff *skb)
 
 static void tcp_ecn_clear_syn(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 352 \n"); 
 	if (sock_net(sk)->ipv4.sysctl_tcp_ecn_fallback)
 		/* tp->ecn_flags are cleared at a later point in time when
 		 * SYN ACK is ultimatively being received.
@@ -409,6 +412,7 @@ static void tcp_init_nondata_skb(struct sk_buff *skb, u32 seq, u8 flags)
 
 static inline bool tcp_urg_mode(const struct tcp_sock *tp)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 415 \n"); 
 	return tp->snd_una != tp->snd_up;
 }
 
@@ -732,6 +736,7 @@ static DEFINE_PER_CPU(struct tsq_tasklet, tsq_tasklet);
 
 static void tcp_tsq_handler(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 739 \n"); 
 	if ((1 << sk->sk_state) &
 	    (TCPF_ESTABLISHED | TCPF_FIN_WAIT1 | TCPF_CLOSING |
 	     TCPF_CLOSE_WAIT  | TCPF_LAST_ACK)) {
@@ -753,6 +758,7 @@ static void tcp_tsq_handler(struct sock *sk)
  */
 static void tcp_tasklet_func(unsigned long data)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 761 \n"); 
 	struct tsq_tasklet *tsq = (struct tsq_tasklet *)data;
 	LIST_HEAD(list);
 	unsigned long flags;
@@ -1084,6 +1090,7 @@ static void tcp_set_skb_tso_segs(struct sk_buff *skb, unsigned int mss_now)
 static void tcp_adjust_fackets_out(struct sock *sk, const struct sk_buff *skb,
 				   int decr)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1093 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 
 	if (!tp->sacked_out || tcp_is_reno(tp))
@@ -1098,6 +1105,7 @@ static void tcp_adjust_fackets_out(struct sock *sk, const struct sk_buff *skb,
  */
 static void tcp_adjust_pcount(struct sock *sk, const struct sk_buff *skb, int decr)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1108 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 
 	tp->packets_out -= decr;
@@ -1125,12 +1133,14 @@ static void tcp_adjust_pcount(struct sock *sk, const struct sk_buff *skb, int de
 
 static bool tcp_has_tx_tstamp(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1136 \n"); 
 	return TCP_SKB_CB(skb)->txstamp_ack ||
 		(skb_shinfo(skb)->tx_flags & SKBTX_ANY_TSTAMP);
 }
 
 static void tcp_fragment_tstamp(struct sk_buff *skb, struct sk_buff *skb2)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1143 \n"); 
 	struct skb_shared_info *shinfo = skb_shinfo(skb);
 
 	if (unlikely(tcp_has_tx_tstamp(skb)) &&
@@ -1148,6 +1158,7 @@ static void tcp_fragment_tstamp(struct sk_buff *skb, struct sk_buff *skb2)
 
 static void tcp_skb_fragment_eor(struct sk_buff *skb, struct sk_buff *skb2)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1161 \n"); 
 	TCP_SKB_CB(skb2)->eor = TCP_SKB_CB(skb)->eor;
 	TCP_SKB_CB(skb)->eor = 0;
 }
@@ -1160,6 +1171,7 @@ static void tcp_skb_fragment_eor(struct sk_buff *skb, struct sk_buff *skb2)
 int tcp_fragment(struct sock *sk, struct sk_buff *skb, u32 len,
 		 unsigned int mss_now, gfp_t gfp)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1174 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct sk_buff *buff;
 	int nsize, old_factor;
@@ -1251,6 +1263,7 @@ int tcp_fragment(struct sock *sk, struct sk_buff *skb, u32 len,
  */
 static int __pskb_trim_head(struct sk_buff *skb, int len)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1266 \n"); 
 	struct skb_shared_info *shinfo;
 	int i, k, eat;
 
@@ -1291,6 +1304,7 @@ static int __pskb_trim_head(struct sk_buff *skb, int len)
 /* Remove acked data from a packet in the transmit queue. */
 int tcp_trim_head(struct sock *sk, struct sk_buff *skb, u32 len)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1307 \n"); 
 	u32 delta_truesize;
 
 	if (skb_unclone(skb, GFP_ATOMIC))
@@ -1603,6 +1617,7 @@ static unsigned int tcp_mss_split_point(const struct sock *sk,
 					unsigned int max_segs,
 					int nonagle)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1620 \n"); 
 	const struct tcp_sock *tp = tcp_sk(sk);
 	u32 partial, needed, window, max_len;
 
@@ -1714,6 +1729,7 @@ static bool tcp_snd_wnd_test(const struct tcp_sock *tp,
 static unsigned int tcp_snd_test(const struct sock *sk, struct sk_buff *skb,
 				 unsigned int cur_mss, int nonagle)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1732 \n"); 
 	const struct tcp_sock *tp = tcp_sk(sk);
 	unsigned int cwnd_quota;
 
@@ -1732,6 +1748,7 @@ static unsigned int tcp_snd_test(const struct sock *sk, struct sk_buff *skb,
 /* Test if sending is allowed right now. */
 bool tcp_may_send_now(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1751 \n"); 
 	const struct tcp_sock *tp = tcp_sk(sk);
 	struct sk_buff *skb = tcp_send_head(sk);
 
@@ -1751,6 +1768,7 @@ bool tcp_may_send_now(struct sock *sk)
 static int tso_fragment(struct sock *sk, struct sk_buff *skb, unsigned int len,
 			unsigned int mss_now, gfp_t gfp)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1771 \n"); 
 	struct sk_buff *buff;
 	int nlen = skb->len - len;
 	u8 flags;
@@ -1806,6 +1824,7 @@ static int tso_fragment(struct sock *sk, struct sk_buff *skb, unsigned int len,
 static bool tcp_tso_should_defer(struct sock *sk, struct sk_buff *skb,
 				 bool *is_cwnd_limited, u32 max_segs)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1827 \n"); 
 	const struct inet_connection_sock *icsk = inet_csk(sk);
 	u32 age, send_win, cong_win, limit, in_flight;
 	struct tcp_sock *tp = tcp_sk(sk);
@@ -1884,6 +1903,7 @@ send_now:
 
 static inline void tcp_mtu_check_reprobe(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 1906 \n"); 
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct net *net = sock_net(sk);
@@ -2275,6 +2295,7 @@ bool tcp_schedule_loss_probe(struct sock *sk)
 static bool skb_still_in_host_queue(const struct sock *sk,
 				    const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 2298 \n"); 
 	if (unlikely(skb_fclone_busy(sk, skb))) {
 		NET_INC_STATS(sock_net(sk),
 			      LINUX_MIB_TCPSPURIOUS_RTX_HOSTQUEUES);
@@ -2288,6 +2309,7 @@ static bool skb_still_in_host_queue(const struct sock *sk,
  */
 void tcp_send_loss_probe(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 2312 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct sk_buff *skb;
 	int pcount;
@@ -2512,6 +2534,7 @@ u32 __tcp_select_window(struct sock *sk)
 void tcp_skb_collapse_tstamp(struct sk_buff *skb,
 			     const struct sk_buff *next_skb)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 2537 \n"); 
 	if (unlikely(tcp_has_tx_tstamp(next_skb))) {
 		const struct skb_shared_info *next_shinfo =
 			skb_shinfo(next_skb);
@@ -2527,6 +2550,7 @@ void tcp_skb_collapse_tstamp(struct sk_buff *skb,
 /* Collapses two adjacent SKB's during retransmission. */
 static void tcp_collapse_retrans(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 2553 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct sk_buff *next_skb = tcp_write_queue_next(sk, skb);
 	int skb_size, next_skb_size;
@@ -2576,6 +2600,7 @@ static void tcp_collapse_retrans(struct sock *sk, struct sk_buff *skb)
 /* Check if coalescing SKBs is legal. */
 static bool tcp_can_collapse(const struct sock *sk, const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 2603 \n"); 
 	if (tcp_skb_pcount(skb) > 1)
 		return false;
 	/* TODO: SACK collapsing could be used to remove this condition */
@@ -2598,6 +2623,7 @@ static bool tcp_can_collapse(const struct sock *sk, const struct sk_buff *skb)
 static void tcp_retrans_try_collapse(struct sock *sk, struct sk_buff *to,
 				     int space)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 2626 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct sk_buff *skb = to, *tmp;
 	bool first = true;
@@ -2642,6 +2668,7 @@ static void tcp_retrans_try_collapse(struct sock *sk, struct sk_buff *to,
  */
 int __tcp_retransmit_skb(struct sock *sk, struct sk_buff *skb, int segs)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 2671 \n"); 
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	struct tcp_sock *tp = tcp_sk(sk);
 	unsigned int cur_mss;
@@ -2737,6 +2764,7 @@ int __tcp_retransmit_skb(struct sock *sk, struct sk_buff *skb, int segs)
 
 int tcp_retransmit_skb(struct sock *sk, struct sk_buff *skb, int segs)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 2767 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	int err = __tcp_retransmit_skb(sk, skb, segs);
 
@@ -2768,6 +2796,7 @@ int tcp_retransmit_skb(struct sock *sk, struct sk_buff *skb, int segs)
  */
 static bool tcp_can_forward_retransmit(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 2799 \n"); 
 	const struct inet_connection_sock *icsk = inet_csk(sk);
 	const struct tcp_sock *tp = tcp_sk(sk);
 
@@ -2803,6 +2832,7 @@ static bool tcp_can_forward_retransmit(struct sock *sk)
  */
 void tcp_xmit_retransmit_queue(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 2835 \n"); 
 	const struct inet_connection_sock *icsk = inet_csk(sk);
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct sk_buff *skb;
@@ -2972,6 +3002,7 @@ coalesce:
  */
 void tcp_send_active_reset(struct sock *sk, gfp_t priority)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 3005 \n"); 
 	struct sk_buff *skb;
 
 	/* NOTE: No TCP options attached and we never retransmit this. */
@@ -3001,6 +3032,7 @@ void tcp_send_active_reset(struct sock *sk, gfp_t priority)
  */
 int tcp_send_synack(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 3035 \n"); 
 	struct sk_buff *skb;
 
 	skb = tcp_write_queue_head(sk);
@@ -3249,6 +3281,7 @@ static void tcp_connect_queue_skb(struct sock *sk, struct sk_buff *skb)
  */
 static int tcp_send_syn_data(struct sock *sk, struct sk_buff *syn)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 3284 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct tcp_fastopen_request *fo = tp->fastopen_req;
 	int syn_loss = 0, space, err = 0;
@@ -3507,6 +3540,7 @@ EXPORT_SYMBOL_GPL(tcp_send_ack);
  */
 static int tcp_xmit_probe_skb(struct sock *sk, int urgent, int mib)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 3543 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct sk_buff *skb;
 
@@ -3530,6 +3564,7 @@ static int tcp_xmit_probe_skb(struct sock *sk, int urgent, int mib)
 
 void tcp_send_window_probe(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 3567 \n"); 
 	if (sk->sk_state == TCP_ESTABLISHED) {
 		tcp_sk(sk)->snd_wl1 = tcp_sk(sk)->rcv_nxt - 1;
 		tcp_xmit_probe_skb(sk, 0, LINUX_MIB_TCPWINPROBE);
@@ -3539,6 +3574,7 @@ void tcp_send_window_probe(struct sock *sk)
 /* Initiate keepalive or window probe from timer. */
 int tcp_write_wakeup(struct sock *sk, int mib)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 3577 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct sk_buff *skb;
 
@@ -3584,6 +3620,7 @@ int tcp_write_wakeup(struct sock *sk, int mib)
  */
 void tcp_send_probe0(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 3623 \n"); 
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct net *net = sock_net(sk);
@@ -3622,6 +3659,7 @@ void tcp_send_probe0(struct sock *sk)
 
 int tcp_rtx_synack(const struct sock *sk, struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_output.c: line 3662 \n"); 
 	const struct tcp_request_sock_ops *af_ops = tcp_rsk(req)->af_specific;
 	struct flowi fl;
 	int res;

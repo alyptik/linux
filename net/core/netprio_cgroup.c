@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/core/netprio_cgroup.c	Priority Control Group
  *
@@ -41,6 +42,7 @@
  */
 static int extend_netdev_table(struct net_device *dev, u32 target_idx)
 {
+	panic("We reached unpopular paths in net/core/netprio_cgroup.c: line 45 \n"); 
 	struct netprio_map *old, *new;
 	size_t new_sz, new_len;
 
@@ -178,11 +180,13 @@ static void cgrp_css_free(struct cgroup_subsys_state *css)
 
 static u64 read_prioidx(struct cgroup_subsys_state *css, struct cftype *cft)
 {
+	panic("We reached unpopular paths in net/core/netprio_cgroup.c: line 183 \n"); 
 	return css->cgroup->id;
 }
 
 static int read_priomap(struct seq_file *sf, void *v)
 {
+	panic("We reached unpopular paths in net/core/netprio_cgroup.c: line 189 \n"); 
 	struct net_device *dev;
 
 	rcu_read_lock();
@@ -196,6 +200,7 @@ static int read_priomap(struct seq_file *sf, void *v)
 static ssize_t write_priomap(struct kernfs_open_file *of,
 			     char *buf, size_t nbytes, loff_t off)
 {
+	panic("We reached unpopular paths in net/core/netprio_cgroup.c: line 203 \n"); 
 	char devname[IFNAMSIZ + 1];
 	struct net_device *dev;
 	u32 prio;

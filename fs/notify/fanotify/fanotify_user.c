@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/fanotify.h>
 #include <linux/fcntl.h>
 #include <linux/file.h>
@@ -54,6 +55,7 @@ struct kmem_cache *fanotify_perm_event_cachep __read_mostly;
 static struct fsnotify_event *get_one_event(struct fsnotify_group *group,
 					    size_t count)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 58 \n"); 
 	assert_spin_locked(&group->notification_lock);
 
 	pr_debug("%s: group=%p count=%zd\n", __func__, group, count);
@@ -73,6 +75,7 @@ static int create_fd(struct fsnotify_group *group,
 		     struct fanotify_event_info *event,
 		     struct file **file)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 78 \n"); 
 	int client_fd;
 	struct file *new_file;
 
@@ -116,6 +119,7 @@ static int fill_event_metadata(struct fsnotify_group *group,
 			       struct fsnotify_event *fsn_event,
 			       struct file **file)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 122 \n"); 
 	int ret = 0;
 	struct fanotify_event_info *event;
 
@@ -240,6 +244,7 @@ out_close_fd:
 /* intofiy userspace file descriptor functions */
 static unsigned int fanotify_poll(struct file *file, poll_table *wait)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 247 \n"); 
 	struct fsnotify_group *group = file->private_data;
 	int ret = 0;
 
@@ -364,6 +369,7 @@ static ssize_t fanotify_write(struct file *file, const char __user *buf, size_t 
 
 static int fanotify_release(struct inode *ignored, struct file *file)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 372 \n"); 
 	struct fsnotify_group *group = file->private_data;
 
 #ifdef CONFIG_FANOTIFY_ACCESS_PERMISSIONS
@@ -419,6 +425,7 @@ static int fanotify_release(struct inode *ignored, struct file *file)
 
 static long fanotify_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 428 \n"); 
 	struct fsnotify_group *group;
 	struct fsnotify_event *fsn_event;
 	void __user *p;
@@ -456,6 +463,7 @@ static const struct file_operations fanotify_fops = {
 
 static void fanotify_free_mark(struct fsnotify_mark *fsn_mark)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 466 \n"); 
 	kmem_cache_free(fanotify_mark_cache, fsn_mark);
 }
 
@@ -510,6 +518,7 @@ static __u32 fanotify_mark_remove_from_mask(struct fsnotify_mark *fsn_mark,
 					    unsigned int flags,
 					    int *destroy)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 521 \n"); 
 	__u32 oldmask = 0;
 
 	spin_lock(&fsn_mark->lock);
@@ -538,6 +547,7 @@ static int fanotify_remove_vfsmount_mark(struct fsnotify_group *group,
 					 struct vfsmount *mnt, __u32 mask,
 					 unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 550 \n"); 
 	struct fsnotify_mark *fsn_mark = NULL;
 	__u32 removed;
 	int destroy_mark;
@@ -568,6 +578,7 @@ static int fanotify_remove_inode_mark(struct fsnotify_group *group,
 				      struct inode *inode, __u32 mask,
 				      unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 581 \n"); 
 	struct fsnotify_mark *fsn_mark = NULL;
 	__u32 removed;
 	int destroy_mark;
@@ -599,6 +610,7 @@ static __u32 fanotify_mark_add_to_mask(struct fsnotify_mark *fsn_mark,
 				       __u32 mask,
 				       unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 613 \n"); 
 	__u32 oldmask = -1;
 
 	spin_lock(&fsn_mark->lock);
@@ -628,6 +640,7 @@ static struct fsnotify_mark *fanotify_add_new_mark(struct fsnotify_group *group,
 						   struct inode *inode,
 						   struct vfsmount *mnt)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 643 \n"); 
 	struct fsnotify_mark *mark;
 	int ret;
 
@@ -653,6 +666,7 @@ static int fanotify_add_vfsmount_mark(struct fsnotify_group *group,
 				      struct vfsmount *mnt, __u32 mask,
 				      unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 669 \n"); 
 	struct fsnotify_mark *fsn_mark;
 	__u32 added;
 
@@ -679,6 +693,7 @@ static int fanotify_add_inode_mark(struct fsnotify_group *group,
 				   struct inode *inode, __u32 mask,
 				   unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/notify/fanotify/fanotify_user.c: line 696 \n"); 
 	struct fsnotify_mark *fsn_mark;
 	__u32 added;
 

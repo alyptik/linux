@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* 
  * Cryptographic API.
  *
@@ -41,22 +42,26 @@ struct md4_ctx {
 
 static inline u32 lshift(u32 x, unsigned int s)
 {
+	panic("We reached unpopular paths in crypto/md4.c: line 45 \n"); 
 	x &= 0xFFFFFFFF;
 	return ((x << s) & 0xFFFFFFFF) | (x >> (32 - s));
 }
 
 static inline u32 F(u32 x, u32 y, u32 z)
 {
+	panic("We reached unpopular paths in crypto/md4.c: line 52 \n"); 
 	return (x & y) | ((~x) & z);
 }
 
 static inline u32 G(u32 x, u32 y, u32 z)
 {
+	panic("We reached unpopular paths in crypto/md4.c: line 58 \n"); 
 	return (x & y) | (x & z) | (y & z);
 }
 
 static inline u32 H(u32 x, u32 y, u32 z)
 {
+	panic("We reached unpopular paths in crypto/md4.c: line 64 \n"); 
 	return x ^ y ^ z;
 }
 
@@ -67,6 +72,7 @@ static inline u32 H(u32 x, u32 y, u32 z)
 /* XXX: this stuff can be optimized */
 static inline void le32_to_cpu_array(u32 *buf, unsigned int words)
 {
+	panic("We reached unpopular paths in crypto/md4.c: line 75 \n"); 
 	while (words--) {
 		__le32_to_cpus(buf);
 		buf++;
@@ -75,6 +81,7 @@ static inline void le32_to_cpu_array(u32 *buf, unsigned int words)
 
 static inline void cpu_to_le32_array(u32 *buf, unsigned int words)
 {
+	panic("We reached unpopular paths in crypto/md4.c: line 84 \n"); 
 	while (words--) {
 		__cpu_to_le32s(buf);
 		buf++;
@@ -83,6 +90,7 @@ static inline void cpu_to_le32_array(u32 *buf, unsigned int words)
 
 static void md4_transform(u32 *hash, u32 const *in)
 {
+	panic("We reached unpopular paths in crypto/md4.c: line 93 \n"); 
 	u32 a, b, c, d;
 
 	a = hash[0];
@@ -149,12 +157,14 @@ static void md4_transform(u32 *hash, u32 const *in)
 
 static inline void md4_transform_helper(struct md4_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/md4.c: line 160 \n"); 
 	le32_to_cpu_array(ctx->block, ARRAY_SIZE(ctx->block));
 	md4_transform(ctx->hash, ctx->block);
 }
 
 static int md4_init(struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/md4.c: line 167 \n"); 
 	struct md4_ctx *mctx = shash_desc_ctx(desc);
 
 	mctx->hash[0] = 0x67452301;
@@ -168,6 +178,7 @@ static int md4_init(struct shash_desc *desc)
 
 static int md4_update(struct shash_desc *desc, const u8 *data, unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/md4.c: line 181 \n"); 
 	struct md4_ctx *mctx = shash_desc_ctx(desc);
 	const u32 avail = sizeof(mctx->block) - (mctx->byte_count & 0x3f);
 
@@ -200,6 +211,7 @@ static int md4_update(struct shash_desc *desc, const u8 *data, unsigned int len)
 
 static int md4_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/md4.c: line 214 \n"); 
 	struct md4_ctx *mctx = shash_desc_ctx(desc);
 	const unsigned int offset = mctx->byte_count & 0x3f;
 	char *p = (char *)mctx->block + offset;

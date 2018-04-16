@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2011 Patrick McHardy <kaber@trash.net>
  * Copyright (c) 2012 Intel Corporation
@@ -29,6 +30,7 @@ static unsigned int nft_nat_do_chain(void *priv,
 				     const struct nf_hook_state *state,
 				     struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nft_chain_nat_ipv6.c: line 33 \n"); 
 	struct nft_pktinfo pkt;
 
 	nft_set_pktinfo_ipv6(&pkt, skb, state);
@@ -40,6 +42,7 @@ static unsigned int nft_nat_ipv6_fn(void *priv,
 				    struct sk_buff *skb,
 				    const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nft_chain_nat_ipv6.c: line 45 \n"); 
 	return nf_nat_ipv6_fn(priv, skb, state, nft_nat_do_chain);
 }
 
@@ -47,6 +50,7 @@ static unsigned int nft_nat_ipv6_in(void *priv,
 				    struct sk_buff *skb,
 				    const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nft_chain_nat_ipv6.c: line 53 \n"); 
 	return nf_nat_ipv6_in(priv, skb, state, nft_nat_do_chain);
 }
 
@@ -54,6 +58,7 @@ static unsigned int nft_nat_ipv6_out(void *priv,
 				     struct sk_buff *skb,
 				     const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nft_chain_nat_ipv6.c: line 61 \n"); 
 	return nf_nat_ipv6_out(priv, skb, state, nft_nat_do_chain);
 }
 
@@ -61,6 +66,7 @@ static unsigned int nft_nat_ipv6_local_fn(void *priv,
 					  struct sk_buff *skb,
 					  const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nft_chain_nat_ipv6.c: line 69 \n"); 
 	return nf_nat_ipv6_local_fn(priv, skb, state, nft_nat_do_chain);
 }
 

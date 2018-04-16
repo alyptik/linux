@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/spinlock.h>
 #include <linux/slab.h>
 #include <linux/list.h>
@@ -48,6 +49,7 @@ static unsigned long mb_cache_shrink(struct mb_cache *cache,
 static inline struct hlist_bl_head *mb_cache_entry_head(struct mb_cache *cache,
 							u32 key)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 52 \n"); 
 	return &cache->c_hash[hash_32(key, cache->c_bucket_bits)];
 }
 
@@ -72,6 +74,7 @@ static inline struct hlist_bl_head *mb_cache_entry_head(struct mb_cache *cache,
 int mb_cache_entry_create(struct mb_cache *cache, gfp_t mask, u32 key,
 			  sector_t block, bool reusable)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 77 \n"); 
 	struct mb_cache_entry *entry, *dup;
 	struct hlist_bl_node *dup_node;
 	struct hlist_bl_head *head;
@@ -119,6 +122,7 @@ EXPORT_SYMBOL(mb_cache_entry_create);
 
 void __mb_cache_entry_free(struct mb_cache_entry *entry)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 125 \n"); 
 	kmem_cache_free(mb_entry_cache, entry);
 }
 EXPORT_SYMBOL(__mb_cache_entry_free);
@@ -127,6 +131,7 @@ static struct mb_cache_entry *__entry_find(struct mb_cache *cache,
 					   struct mb_cache_entry *entry,
 					   u32 key)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 134 \n"); 
 	struct mb_cache_entry *old_entry = entry;
 	struct hlist_bl_node *node;
 	struct hlist_bl_head *head;
@@ -166,6 +171,7 @@ out:
 struct mb_cache_entry *mb_cache_entry_find_first(struct mb_cache *cache,
 						 u32 key)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 174 \n"); 
 	return __entry_find(cache, NULL, key);
 }
 EXPORT_SYMBOL(mb_cache_entry_find_first);
@@ -183,6 +189,7 @@ EXPORT_SYMBOL(mb_cache_entry_find_first);
 struct mb_cache_entry *mb_cache_entry_find_next(struct mb_cache *cache,
 						struct mb_cache_entry *entry)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 192 \n"); 
 	return __entry_find(cache, entry, entry->e_key);
 }
 EXPORT_SYMBOL(mb_cache_entry_find_next);
@@ -196,6 +203,7 @@ EXPORT_SYMBOL(mb_cache_entry_find_next);
 struct mb_cache_entry *mb_cache_entry_get(struct mb_cache *cache, u32 key,
 					  sector_t block)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 206 \n"); 
 	struct hlist_bl_node *node;
 	struct hlist_bl_head *head;
 	struct mb_cache_entry *entry;
@@ -225,6 +233,7 @@ EXPORT_SYMBOL(mb_cache_entry_get);
 void mb_cache_entry_delete_block(struct mb_cache *cache, u32 key,
 				 sector_t block)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 236 \n"); 
 	struct hlist_bl_node *node;
 	struct hlist_bl_head *head;
 	struct mb_cache_entry *entry;
@@ -260,6 +269,7 @@ EXPORT_SYMBOL(mb_cache_entry_delete_block);
 void mb_cache_entry_touch(struct mb_cache *cache,
 			  struct mb_cache_entry *entry)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 272 \n"); 
 	entry->e_referenced = 1;
 }
 EXPORT_SYMBOL(mb_cache_entry_touch);
@@ -267,6 +277,7 @@ EXPORT_SYMBOL(mb_cache_entry_touch);
 static unsigned long mb_cache_count(struct shrinker *shrink,
 				    struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 280 \n"); 
 	struct mb_cache *cache = container_of(shrink, struct mb_cache,
 					      c_shrink);
 
@@ -277,6 +288,7 @@ static unsigned long mb_cache_count(struct shrinker *shrink,
 static unsigned long mb_cache_shrink(struct mb_cache *cache,
 				     unsigned int nr_to_scan)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 291 \n"); 
 	struct mb_cache_entry *entry;
 	struct hlist_bl_head *head;
 	unsigned int shrunk = 0;
@@ -317,6 +329,7 @@ static unsigned long mb_cache_shrink(struct mb_cache *cache,
 static unsigned long mb_cache_scan(struct shrinker *shrink,
 				   struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 332 \n"); 
 	int nr_to_scan = sc->nr_to_scan;
 	struct mb_cache *cache = container_of(shrink, struct mb_cache,
 					      c_shrink);
@@ -328,6 +341,7 @@ static unsigned long mb_cache_scan(struct shrinker *shrink,
 
 static void mb_cache_shrink_worker(struct work_struct *work)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 344 \n"); 
 	struct mb_cache *cache = container_of(work, struct mb_cache,
 					      c_shrink_work);
 	mb_cache_shrink(cache, cache->c_max_entries / SHRINK_DIVISOR);
@@ -341,6 +355,7 @@ static void mb_cache_shrink_worker(struct work_struct *work)
  */
 struct mb_cache *mb_cache_create(int bucket_bits)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 358 \n"); 
 	struct mb_cache *cache;
 	int bucket_count = 1 << bucket_bits;
 	int i;
@@ -392,6 +407,7 @@ EXPORT_SYMBOL(mb_cache_create);
  */
 void mb_cache_destroy(struct mb_cache *cache)
 {
+	panic("We reached unpopular paths in fs/mbcache.c: line 410 \n"); 
 	struct mb_cache_entry *entry, *next;
 
 	unregister_shrinker(&cache->c_shrink);

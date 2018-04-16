@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2016 Laura Garcia <nevola@gmail.com>
  *
@@ -30,6 +31,7 @@ static void nft_hash_eval(const struct nft_expr *expr,
 			  struct nft_regs *regs,
 			  const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_hash.c: line 34 \n"); 
 	struct nft_hash *priv = nft_expr_priv(expr);
 	const void *data = &regs->data[priv->sreg];
 	u32 h;
@@ -51,6 +53,7 @@ static int nft_hash_init(const struct nft_ctx *ctx,
 			 const struct nft_expr *expr,
 			 const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_hash.c: line 56 \n"); 
 	struct nft_hash *priv = nft_expr_priv(expr);
 	u32 len;
 	int err;
@@ -93,6 +96,7 @@ static int nft_hash_init(const struct nft_ctx *ctx,
 static int nft_hash_dump(struct sk_buff *skb,
 			 const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_hash.c: line 99 \n"); 
 	const struct nft_hash *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_HASH_SREG, priv->sreg))

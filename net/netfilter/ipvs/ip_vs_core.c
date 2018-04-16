@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS         An implementation of the IP virtual server support for the
  *              LINUX operating system.  IPVS is now implemented as a module
@@ -80,6 +81,7 @@ static atomic_t ipvs_netns_cnt = ATOMIC_INIT(0);
 
 const char *ip_vs_proto_name(unsigned int proto)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 84 \n"); 
 	static char buf[20];
 
 	switch (proto) {
@@ -112,6 +114,7 @@ void ip_vs_init_hash_table(struct list_head *table, int rows)
 static inline void
 ip_vs_in_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 117 \n"); 
 	struct ip_vs_dest *dest = cp->dest;
 	struct netns_ipvs *ipvs = cp->ipvs;
 
@@ -146,6 +149,7 @@ ip_vs_in_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
 static inline void
 ip_vs_out_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 152 \n"); 
 	struct ip_vs_dest *dest = cp->dest;
 	struct netns_ipvs *ipvs = cp->ipvs;
 
@@ -180,6 +184,7 @@ ip_vs_out_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
 static inline void
 ip_vs_conn_stats(struct ip_vs_conn *cp, struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 187 \n"); 
 	struct netns_ipvs *ipvs = svc->ipvs;
 	struct ip_vs_cpu_stats *s;
 
@@ -205,6 +210,7 @@ ip_vs_set_state(struct ip_vs_conn *cp, int direction,
 		const struct sk_buff *skb,
 		struct ip_vs_proto_data *pd)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 213 \n"); 
 	if (likely(pd->pp->state_transition))
 		pd->pp->state_transition(cp, direction, skb, pd);
 }
@@ -216,6 +222,7 @@ ip_vs_conn_fill_param_persist(const struct ip_vs_service *svc,
 			      const union nf_inet_addr *vaddr, __be16 vport,
 			      struct ip_vs_conn_param *p)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 225 \n"); 
 	ip_vs_conn_fill_param(svc->ipvs, svc->af, protocol, caddr, cport, vaddr,
 			      vport, p);
 	p->pe = rcu_dereference(svc->pe);
@@ -237,6 +244,7 @@ ip_vs_sched_persist(struct ip_vs_service *svc,
 		    struct sk_buff *skb, __be16 src_port, __be16 dst_port,
 		    int *ignored, struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 247 \n"); 
 	struct ip_vs_conn *cp = NULL;
 	struct ip_vs_dest *dest;
 	struct ip_vs_conn *ct;
@@ -425,6 +433,7 @@ ip_vs_schedule(struct ip_vs_service *svc, struct sk_buff *skb,
 	       struct ip_vs_proto_data *pd, int *ignored,
 	       struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 436 \n"); 
 	struct ip_vs_protocol *pp = pd->pp;
 	struct ip_vs_conn *cp = NULL;
 	struct ip_vs_scheduler *sched;
@@ -551,6 +560,7 @@ ip_vs_schedule(struct ip_vs_service *svc, struct sk_buff *skb,
 static inline int ip_vs_addr_is_unicast(struct net *net, int af,
 					union nf_inet_addr *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 563 \n"); 
 #ifdef CONFIG_IP_VS_IPV6
 	if (af == AF_INET6)
 		return ipv6_addr_type(&addr->in6) & IPV6_ADDR_UNICAST;
@@ -566,6 +576,7 @@ static inline int ip_vs_addr_is_unicast(struct net *net, int af,
 int ip_vs_leave(struct ip_vs_service *svc, struct sk_buff *skb,
 		struct ip_vs_proto_data *pd, struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 579 \n"); 
 	__be16 _ports[2], *pptr, dport;
 	struct netns_ipvs *ipvs = svc->ipvs;
 	struct net *net = ipvs->net;
@@ -678,11 +689,13 @@ static int sysctl_expire_nodest_conn(struct netns_ipvs *ipvs) { return 0; }
 
 __sum16 ip_vs_checksum_complete(struct sk_buff *skb, int offset)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 692 \n"); 
 	return csum_fold(skb_checksum(skb, offset, skb->len - offset, 0));
 }
 
 static inline enum ip_defrag_users ip_vs_defrag_user(unsigned int hooknum)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 698 \n"); 
 	if (NF_INET_LOCAL_IN == hooknum)
 		return IP_DEFRAG_VS_IN;
 	if (NF_INET_FORWARD == hooknum)
@@ -693,6 +706,7 @@ static inline enum ip_defrag_users ip_vs_defrag_user(unsigned int hooknum)
 static inline int ip_vs_gather_frags(struct netns_ipvs *ipvs,
 				     struct sk_buff *skb, u_int32_t user)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 709 \n"); 
 	int err;
 
 	local_bh_disable();
@@ -707,6 +721,7 @@ static inline int ip_vs_gather_frags(struct netns_ipvs *ipvs,
 static int ip_vs_route_me_harder(struct netns_ipvs *ipvs, int af,
 				 struct sk_buff *skb, unsigned int hooknum)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 724 \n"); 
 	if (!sysctl_snat_reroute(ipvs))
 		return 0;
 	/* Reroute replies only to remote clients (FORWARD and LOCAL_OUT) */
@@ -735,6 +750,7 @@ static int ip_vs_route_me_harder(struct netns_ipvs *ipvs, int af,
 void ip_vs_nat_icmp(struct sk_buff *skb, struct ip_vs_protocol *pp,
 		    struct ip_vs_conn *cp, int inout)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 753 \n"); 
 	struct iphdr *iph	 = ip_hdr(skb);
 	unsigned int icmp_offset = iph->ihl*4;
 	struct icmphdr *icmph	 = (struct icmphdr *)(skb_network_header(skb) +
@@ -847,6 +863,7 @@ static int handle_response_icmp(int af, struct sk_buff *skb,
 				unsigned int offset, unsigned int ihl,
 				unsigned int hooknum)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 866 \n"); 
 	unsigned int verdict = NF_DROP;
 
 	if (IP_VS_FWD_METHOD(cp) != IP_VS_CONN_F_MASQ)
@@ -902,6 +919,7 @@ out:
 static int ip_vs_out_icmp(struct netns_ipvs *ipvs, struct sk_buff *skb,
 			  int *related, unsigned int hooknum)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 922 \n"); 
 	struct iphdr *iph;
 	struct icmphdr	_icmph, *ic;
 	struct iphdr	_ciph, *cih;	/* The ip header contained within the ICMP */
@@ -1037,6 +1055,7 @@ static int ip_vs_out_icmp_v6(struct netns_ipvs *ipvs, struct sk_buff *skb,
  */
 static inline int is_sctp_abort(const struct sk_buff *skb, int nh_len)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 1058 \n"); 
 	sctp_chunkhdr_t *sch, schunk;
 	sch = skb_header_pointer(skb, nh_len + sizeof(sctp_sctphdr_t),
 			sizeof(schunk), &schunk);
@@ -1049,6 +1068,7 @@ static inline int is_sctp_abort(const struct sk_buff *skb, int nh_len)
 
 static inline int is_tcp_reset(const struct sk_buff *skb, int nh_len)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 1071 \n"); 
 	struct tcphdr _tcph, *th;
 
 	th = skb_header_pointer(skb, nh_len, sizeof(_tcph), &_tcph);
@@ -1060,6 +1080,7 @@ static inline int is_tcp_reset(const struct sk_buff *skb, int nh_len)
 static inline bool is_new_conn(const struct sk_buff *skb,
 			       struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 1083 \n"); 
 	switch (iph->protocol) {
 	case IPPROTO_TCP: {
 		struct tcphdr _tcph, *th;
@@ -1086,6 +1107,7 @@ static inline bool is_new_conn(const struct sk_buff *skb,
 static inline bool is_new_conn_expected(const struct ip_vs_conn *cp,
 					int conn_reuse_mode)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 1110 \n"); 
 	/* Controlled (FTP DATA or persistence)? */
 	if (cp->control)
 		return false;
@@ -1119,6 +1141,7 @@ struct ip_vs_conn *ip_vs_new_conn_out(struct ip_vs_service *svc,
 				      __be16 dport,
 				      __be16 cport)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 1144 \n"); 
 	struct ip_vs_conn_param param;
 	struct ip_vs_conn *ct = NULL, *cp = NULL;
 	const union nf_inet_addr *vaddr, *daddr, *caddr;
@@ -1210,6 +1233,7 @@ static struct ip_vs_conn *__ip_vs_rs_conn_out(unsigned int hooknum,
 					      int af, struct sk_buff *skb,
 					      const struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 1236 \n"); 
 	struct ip_vs_dest *dest;
 	struct ip_vs_conn *cp = NULL;
 	__be16 _ports[2], *pptr;
@@ -1249,6 +1273,7 @@ handle_response(int af, struct sk_buff *skb, struct ip_vs_proto_data *pd,
 		struct ip_vs_conn *cp, struct ip_vs_iphdr *iph,
 		unsigned int hooknum)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 1276 \n"); 
 	struct ip_vs_protocol *pp = pd->pp;
 
 	IP_VS_DBG_PKT(11, af, pp, skb, iph->off, "Outgoing packet");
@@ -1514,6 +1539,7 @@ ip_vs_try_to_schedule(struct netns_ipvs *ipvs, int af, struct sk_buff *skb,
 		      int *verdict, struct ip_vs_conn **cpp,
 		      struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 1542 \n"); 
 	struct ip_vs_protocol *pp = pd->pp;
 
 	if (!iph->fragoffs) {
@@ -1555,6 +1581,7 @@ static int
 ip_vs_in_icmp(struct netns_ipvs *ipvs, struct sk_buff *skb, int *related,
 	      unsigned int hooknum)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_core.c: line 1584 \n"); 
 	struct iphdr *iph;
 	struct icmphdr	_icmph, *ic;
 	struct iphdr	_ciph, *cih;	/* The ip header contained within the ICMP */

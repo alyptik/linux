@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/fs/ext4/page-io.c
  *
@@ -42,6 +43,7 @@ int __init ext4_init_pageio(void)
 
 void ext4_exit_pageio(void)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 46 \n"); 
 	kmem_cache_destroy(io_end_cachep);
 }
 
@@ -54,6 +56,7 @@ void ext4_exit_pageio(void)
  */
 static void buffer_io_error(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 59 \n"); 
 	printk_ratelimited(KERN_ERR "Buffer I/O error on device %pg, logical block %llu\n",
 		       bh->b_bdev,
 			(unsigned long long)bh->b_blocknr);
@@ -61,6 +64,7 @@ static void buffer_io_error(struct buffer_head *bh)
 
 static void ext4_finish_bio(struct bio *bio)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 67 \n"); 
 	int i;
 	struct bio_vec *bvec;
 
@@ -122,6 +126,7 @@ static void ext4_finish_bio(struct bio *bio)
 
 static void ext4_release_io_end(ext4_io_end_t *io_end)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 129 \n"); 
 	struct bio *bio, *next_bio;
 
 	BUG_ON(!list_empty(&io_end->list));
@@ -146,6 +151,7 @@ static void ext4_release_io_end(ext4_io_end_t *io_end)
  */
 static int ext4_end_io(ext4_io_end_t *io)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 154 \n"); 
 	struct inode *inode = io->inode;
 	loff_t offset = io->offset;
 	ssize_t size = io->size;
@@ -172,6 +178,7 @@ static int ext4_end_io(ext4_io_end_t *io)
 
 static void dump_completed_IO(struct inode *inode, struct list_head *head)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 181 \n"); 
 #ifdef	EXT4FS_DEBUG
 	struct list_head *cur, *before, *after;
 	ext4_io_end_t *io, *io0, *io1;
@@ -196,6 +203,7 @@ static void dump_completed_IO(struct inode *inode, struct list_head *head)
 /* Add the io_end to per-inode completed end_io list. */
 static void ext4_add_complete_io(ext4_io_end_t *io_end)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 206 \n"); 
 	struct ext4_inode_info *ei = EXT4_I(io_end->inode);
 	struct ext4_sb_info *sbi = EXT4_SB(io_end->inode->i_sb);
 	struct workqueue_struct *wq;
@@ -215,6 +223,7 @@ static void ext4_add_complete_io(ext4_io_end_t *io_end)
 static int ext4_do_flush_completed_IO(struct inode *inode,
 				      struct list_head *head)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 226 \n"); 
 	ext4_io_end_t *io;
 	struct list_head unwritten;
 	unsigned long flags;
@@ -243,6 +252,7 @@ static int ext4_do_flush_completed_IO(struct inode *inode,
  */
 void ext4_end_io_rsv_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 255 \n"); 
 	struct ext4_inode_info *ei = container_of(work, struct ext4_inode_info,
 						  i_rsv_conversion_work);
 	ext4_do_flush_completed_IO(&ei->vfs_inode, &ei->i_rsv_conversion_list);
@@ -250,6 +260,7 @@ void ext4_end_io_rsv_work(struct work_struct *work)
 
 ext4_io_end_t *ext4_init_io_end(struct inode *inode, gfp_t flags)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 263 \n"); 
 	ext4_io_end_t *io = kmem_cache_zalloc(io_end_cachep, flags);
 	if (io) {
 		io->inode = inode;
@@ -261,6 +272,7 @@ ext4_io_end_t *ext4_init_io_end(struct inode *inode, gfp_t flags)
 
 void ext4_put_io_end_defer(ext4_io_end_t *io_end)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 275 \n"); 
 	if (atomic_dec_and_test(&io_end->count)) {
 		if (!(io_end->flag & EXT4_IO_END_UNWRITTEN) || !io_end->size) {
 			ext4_release_io_end(io_end);
@@ -272,6 +284,7 @@ void ext4_put_io_end_defer(ext4_io_end_t *io_end)
 
 int ext4_put_io_end(ext4_io_end_t *io_end)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 287 \n"); 
 	int err = 0;
 
 	if (atomic_dec_and_test(&io_end->count)) {
@@ -289,6 +302,7 @@ int ext4_put_io_end(ext4_io_end_t *io_end)
 
 ext4_io_end_t *ext4_get_io_end(ext4_io_end_t *io_end)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 305 \n"); 
 	atomic_inc(&io_end->count);
 	return io_end;
 }
@@ -296,6 +310,7 @@ ext4_io_end_t *ext4_get_io_end(ext4_io_end_t *io_end)
 /* BIO completion function for page writeback */
 static void ext4_end_bio(struct bio *bio)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 313 \n"); 
 	ext4_io_end_t *io_end = bio->bi_private;
 	sector_t bi_sector = bio->bi_iter.bi_sector;
 
@@ -336,6 +351,7 @@ static void ext4_end_bio(struct bio *bio)
 
 void ext4_io_submit(struct ext4_io_submit *io)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 354 \n"); 
 	struct bio *bio = io->io_bio;
 
 	if (bio) {
@@ -350,6 +366,7 @@ void ext4_io_submit(struct ext4_io_submit *io)
 void ext4_io_submit_init(struct ext4_io_submit *io,
 			 struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 369 \n"); 
 	io->io_wbc = wbc;
 	io->io_bio = NULL;
 	io->io_end = NULL;
@@ -358,6 +375,7 @@ void ext4_io_submit_init(struct ext4_io_submit *io,
 static int io_submit_init_bio(struct ext4_io_submit *io,
 			      struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 378 \n"); 
 	struct bio *bio;
 
 	bio = bio_alloc(GFP_NOIO, BIO_MAX_PAGES);
@@ -378,6 +396,7 @@ static int io_submit_add_bh(struct ext4_io_submit *io,
 			    struct page *page,
 			    struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 399 \n"); 
 	int ret;
 
 	if (io->io_bio && bh->b_blocknr != io->io_next_block) {
@@ -403,6 +422,7 @@ int ext4_bio_write_page(struct ext4_io_submit *io,
 			struct writeback_control *wbc,
 			bool keep_towrite)
 {
+	panic("We reached unpopular paths in fs/ext4/page-io.c: line 425 \n"); 
 	struct page *data_page = NULL;
 	struct inode *inode = page->mapping->host;
 	unsigned block_start;

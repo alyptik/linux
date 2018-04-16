@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Netfilter messages via netlink socket. Allows for user space
  * protocol helpers and general trouble making from userspace.
  *
@@ -92,6 +93,7 @@ EXPORT_SYMBOL_GPL(nfnetlink_subsys_register);
 
 int nfnetlink_subsys_unregister(const struct nfnetlink_subsystem *n)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink.c: line 96 \n"); 
 	nfnl_lock(n->subsys_id);
 	table[n->subsys_id].subsys = NULL;
 	nfnl_unlock(n->subsys_id);
@@ -130,12 +132,14 @@ EXPORT_SYMBOL_GPL(nfnetlink_has_listeners);
 int nfnetlink_send(struct sk_buff *skb, struct net *net, u32 portid,
 		   unsigned int group, int echo, gfp_t flags)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink.c: line 135 \n"); 
 	return nlmsg_notify(net->nfnl, skb, portid, group, echo, flags);
 }
 EXPORT_SYMBOL_GPL(nfnetlink_send);
 
 int nfnetlink_set_err(struct net *net, u32 portid, u32 group, int error)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink.c: line 142 \n"); 
 	return netlink_set_err(net->nfnl, portid, group, error);
 }
 EXPORT_SYMBOL_GPL(nfnetlink_set_err);
@@ -143,6 +147,7 @@ EXPORT_SYMBOL_GPL(nfnetlink_set_err);
 int nfnetlink_unicast(struct sk_buff *skb, struct net *net, u32 portid,
 		      int flags)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink.c: line 150 \n"); 
 	return netlink_unicast(net->nfnl, skb, portid, flags);
 }
 EXPORT_SYMBOL_GPL(nfnetlink_unicast);
@@ -229,6 +234,7 @@ struct nfnl_err {
 
 static int nfnl_err_add(struct list_head *list, struct nlmsghdr *nlh, int err)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink.c: line 237 \n"); 
 	struct nfnl_err *nfnl_err;
 
 	nfnl_err = kmalloc(sizeof(struct nfnl_err), GFP_KERNEL);
@@ -244,12 +250,14 @@ static int nfnl_err_add(struct list_head *list, struct nlmsghdr *nlh, int err)
 
 static void nfnl_err_del(struct nfnl_err *nfnl_err)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink.c: line 253 \n"); 
 	list_del(&nfnl_err->head);
 	kfree(nfnl_err);
 }
 
 static void nfnl_err_reset(struct list_head *err_list)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink.c: line 260 \n"); 
 	struct nfnl_err *nfnl_err, *next;
 
 	list_for_each_entry_safe(nfnl_err, next, err_list, head)
@@ -258,6 +266,7 @@ static void nfnl_err_reset(struct list_head *err_list)
 
 static void nfnl_err_deliver(struct list_head *err_list, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink.c: line 269 \n"); 
 	struct nfnl_err *nfnl_err, *next;
 
 	list_for_each_entry_safe(nfnl_err, next, err_list, head) {
@@ -275,6 +284,7 @@ enum {
 static void nfnetlink_rcv_batch(struct sk_buff *skb, struct nlmsghdr *nlh,
 				u_int16_t subsys_id)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink.c: line 287 \n"); 
 	struct sk_buff *oskb = skb;
 	struct net *net = sock_net(skb->sk);
 	const struct nfnetlink_subsystem *ss;

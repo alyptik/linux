@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	common UDP/RAW code
  *	Linux INET implementation

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Spanning tree protocol; interface code
  *	Linux ethernet bridge
@@ -27,6 +28,7 @@
  */
 static inline port_id br_make_port_id(__u8 priority, __u16 port_no)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_if.c: line 31 \n"); 
 	return ((u16)priority << BR_PORT_BITS)
 		| (port_no & ((1<<BR_PORT_BITS)-1));
 }
@@ -78,6 +80,7 @@ void br_stp_enable_bridge(struct net_bridge *br)
 /* NO locks held */
 void br_stp_disable_bridge(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_if.c: line 83 \n"); 
 	struct net_bridge_port *p;
 
 	spin_lock_bh(&br->lock);
@@ -136,6 +139,7 @@ void br_stp_disable_port(struct net_bridge_port *p)
 
 static int br_stp_call_user(struct net_bridge *br, char *arg)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_if.c: line 142 \n"); 
 	char *argv[] = { BR_STP_PROG, br->dev->name, arg, NULL };
 	char *envp[] = { NULL };
 	int rc;
@@ -156,6 +160,7 @@ static int br_stp_call_user(struct net_bridge *br, char *arg)
 
 static void br_stp_start(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_if.c: line 163 \n"); 
 	struct net_bridge_port *p;
 	int err = -ENOENT;
 
@@ -195,6 +200,7 @@ static void br_stp_start(struct net_bridge *br)
 
 static void br_stp_stop(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_if.c: line 203 \n"); 
 	struct net_bridge_port *p;
 	int err;
 
@@ -218,6 +224,7 @@ static void br_stp_stop(struct net_bridge *br)
 
 void br_stp_set_enabled(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_if.c: line 227 \n"); 
 	ASSERT_RTNL();
 
 	if (val) {
@@ -292,6 +299,7 @@ bool br_stp_recalculate_bridge_id(struct net_bridge *br)
 /* Acquires and releases bridge lock */
 void br_stp_set_bridge_priority(struct net_bridge *br, u16 newprio)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_if.c: line 302 \n"); 
 	struct net_bridge_port *p;
 	int wasroot;
 
@@ -319,6 +327,7 @@ void br_stp_set_bridge_priority(struct net_bridge *br, u16 newprio)
 /* called under bridge lock */
 int br_stp_set_port_priority(struct net_bridge_port *p, unsigned long newprio)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_if.c: line 330 \n"); 
 	port_id new_port_id;
 
 	if (newprio > BR_MAX_PORT_PRIORITY)
@@ -342,6 +351,7 @@ int br_stp_set_port_priority(struct net_bridge_port *p, unsigned long newprio)
 /* called under bridge lock */
 int br_stp_set_path_cost(struct net_bridge_port *p, unsigned long path_cost)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_if.c: line 354 \n"); 
 	if (path_cost < BR_MIN_PATH_COST ||
 	    path_cost > BR_MAX_PATH_COST)
 		return -ERANGE;
@@ -355,6 +365,7 @@ int br_stp_set_path_cost(struct net_bridge_port *p, unsigned long path_cost)
 
 ssize_t br_show_bridge_id(char *buf, const struct bridge_id *id)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp_if.c: line 368 \n"); 
 	return sprintf(buf, "%.2x%.2x.%.2x%.2x%.2x%.2x%.2x%.2x\n",
 	       id->prio[0], id->prio[1],
 	       id->addr[0], id->addr[1], id->addr[2],

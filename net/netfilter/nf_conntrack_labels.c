@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * test/set flag bits stored in conntrack extension area.
  *
@@ -34,6 +35,7 @@ int nf_connlabels_replace(struct nf_conn *ct,
 			  const u32 *data,
 			  const u32 *mask, unsigned int words32)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_labels.c: line 38 \n"); 
 	struct nf_conn_labels *labels;
 	unsigned int size, i;
 	int changed = 0;
@@ -63,6 +65,7 @@ EXPORT_SYMBOL_GPL(nf_connlabels_replace);
 
 int nf_connlabels_get(struct net *net, unsigned int bits)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_labels.c: line 68 \n"); 
 	if (BIT_WORD(bits) >= NF_CT_LABELS_MAX_SIZE / sizeof(long))
 		return -ERANGE;
 
@@ -76,6 +79,7 @@ EXPORT_SYMBOL_GPL(nf_connlabels_get);
 
 void nf_connlabels_put(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_labels.c: line 82 \n"); 
 	spin_lock(&nf_connlabels_lock);
 	net->ct.labels_used--;
 	spin_unlock(&nf_connlabels_lock);
@@ -98,5 +102,6 @@ int nf_conntrack_labels_init(void)
 
 void nf_conntrack_labels_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_labels.c: line 105 \n"); 
 	nf_ct_extend_unregister(&labels_extend);
 }

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Linux network device link state notification
  *
@@ -227,6 +228,7 @@ void linkwatch_forget_dev(struct net_device *dev)
 /* Must be called with the rtnl semaphore held */
 void linkwatch_run_queue(void)
 {
+	panic("We reached unpopular paths in net/core/link_watch.c: line 231 \n"); 
 	__linkwatch_run_queue(0);
 }
 

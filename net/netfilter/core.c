@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* netfilter.c: look after the filters for various protocols.
  * Heavily influenced by the old firewall.c by David Bonn and Alan Cox.
  *
@@ -49,6 +50,7 @@ EXPORT_SYMBOL_GPL(nf_register_afinfo);
 
 void nf_unregister_afinfo(const struct nf_afinfo *afinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/core.c: line 53 \n"); 
 	mutex_lock(&afinfo_mutex);
 	RCU_INIT_POINTER(nf_afinfo[afinfo->family], NULL);
 	mutex_unlock(&afinfo_mutex);
@@ -189,6 +191,7 @@ EXPORT_SYMBOL(nf_register_net_hooks);
 void nf_unregister_net_hooks(struct net *net, const struct nf_hook_ops *reg,
 			     unsigned int n)
 {
+	panic("We reached unpopular paths in net/netfilter/core.c: line 194 \n"); 
 	while (n-- > 0)
 		nf_unregister_net_hook(net, &reg[n]);
 }
@@ -233,6 +236,7 @@ EXPORT_SYMBOL(nf_register_hook);
 
 static void _nf_unregister_hook(struct nf_hook_ops *reg)
 {
+	panic("We reached unpopular paths in net/netfilter/core.c: line 239 \n"); 
 	struct net *net;
 
 	list_del(&reg->list);
@@ -242,6 +246,7 @@ static void _nf_unregister_hook(struct nf_hook_ops *reg)
 
 void nf_unregister_hook(struct nf_hook_ops *reg)
 {
+	panic("We reached unpopular paths in net/netfilter/core.c: line 249 \n"); 
 	rtnl_lock();
 	_nf_unregister_hook(reg);
 	rtnl_unlock();
@@ -270,6 +275,7 @@ EXPORT_SYMBOL(nf_register_hooks);
 /* Caller MUST take rtnl_lock() */
 int _nf_register_hooks(struct nf_hook_ops *reg, unsigned int n)
 {
+	panic("We reached unpopular paths in net/netfilter/core.c: line 278 \n"); 
 	unsigned int i;
 	int err = 0;
 
@@ -289,6 +295,7 @@ EXPORT_SYMBOL(_nf_register_hooks);
 
 void nf_unregister_hooks(struct nf_hook_ops *reg, unsigned int n)
 {
+	panic("We reached unpopular paths in net/netfilter/core.c: line 298 \n"); 
 	while (n-- > 0)
 		nf_unregister_hook(&reg[n]);
 }
@@ -297,6 +304,7 @@ EXPORT_SYMBOL(nf_unregister_hooks);
 /* Caller MUST take rtnl_lock */
 void _nf_unregister_hooks(struct nf_hook_ops *reg, unsigned int n)
 {
+	panic("We reached unpopular paths in net/netfilter/core.c: line 307 \n"); 
 	while (n-- > 0)
 		_nf_unregister_hook(&reg[n]);
 }

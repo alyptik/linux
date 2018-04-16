@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match TCP MSS values. */
 
 /* Copyright (C) 2000 Marc Boucher <marc@mbsi.ca>
@@ -27,6 +28,7 @@ MODULE_ALIAS("ip6t_tcpmss");
 static bool
 tcpmss_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_tcpmss.c: line 31 \n"); 
 	const struct xt_tcpmss_match_info *info = par->matchinfo;
 	const struct tcphdr *th;
 	struct tcphdr _tcph;

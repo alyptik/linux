@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/file_table.c
  *
@@ -292,6 +293,7 @@ void fput(struct file *file)
  */
 void __fput_sync(struct file *file)
 {
+	panic("We reached unpopular paths in fs/file_table.c: line 296 \n"); 
 	if (atomic_long_dec_and_test(&file->f_count)) {
 		struct task_struct *task = current;
 		BUG_ON(!(task->flags & PF_KTHREAD));

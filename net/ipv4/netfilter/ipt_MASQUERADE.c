@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Masquerade.  Simple mapping which alters range to a local IP address
    (depending on route). */
 

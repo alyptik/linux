@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Copyright (C) 2010: YOSHIFUJI Hideaki <yoshfuji@linux-ipv6.org>
  * Copyright (C) 2015: Linus Lüssing <linus.luessing@c0d3.blue>
  *
@@ -82,6 +83,7 @@ static int ipv6_mc_check_mld_reportv2(struct sk_buff *skb)
 
 static int ipv6_mc_check_mld_query(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast_snoop.c: line 86 \n"); 
 	struct mld_msg *mld;
 	unsigned int len = skb_transport_offset(skb);
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * ECB: Electronic CodeBook mode
  *
@@ -25,6 +26,7 @@ struct crypto_ecb_ctx {
 static int crypto_ecb_setkey(struct crypto_tfm *parent, const u8 *key,
 			     unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/ecb.c: line 29 \n"); 
 	struct crypto_ecb_ctx *ctx = crypto_tfm_ctx(parent);
 	struct crypto_cipher *child = ctx->child;
 	int err;
@@ -43,6 +45,7 @@ static int crypto_ecb_crypt(struct blkcipher_desc *desc,
 			    struct crypto_cipher *tfm,
 			    void (*fn)(struct crypto_tfm *, u8 *, const u8 *))
 {
+	panic("We reached unpopular paths in crypto/ecb.c: line 48 \n"); 
 	int bsize = crypto_cipher_blocksize(tfm);
 	unsigned int nbytes;
 	int err;
@@ -70,6 +73,7 @@ static int crypto_ecb_encrypt(struct blkcipher_desc *desc,
 			      struct scatterlist *dst, struct scatterlist *src,
 			      unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/ecb.c: line 76 \n"); 
 	struct blkcipher_walk walk;
 	struct crypto_blkcipher *tfm = desc->tfm;
 	struct crypto_ecb_ctx *ctx = crypto_blkcipher_ctx(tfm);
@@ -84,6 +88,7 @@ static int crypto_ecb_decrypt(struct blkcipher_desc *desc,
 			      struct scatterlist *dst, struct scatterlist *src,
 			      unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/ecb.c: line 91 \n"); 
 	struct blkcipher_walk walk;
 	struct crypto_blkcipher *tfm = desc->tfm;
 	struct crypto_ecb_ctx *ctx = crypto_blkcipher_ctx(tfm);
@@ -96,6 +101,7 @@ static int crypto_ecb_decrypt(struct blkcipher_desc *desc,
 
 static int crypto_ecb_init_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/ecb.c: line 104 \n"); 
 	struct crypto_instance *inst = (void *)tfm->__crt_alg;
 	struct crypto_spawn *spawn = crypto_instance_ctx(inst);
 	struct crypto_ecb_ctx *ctx = crypto_tfm_ctx(tfm);
@@ -111,12 +117,14 @@ static int crypto_ecb_init_tfm(struct crypto_tfm *tfm)
 
 static void crypto_ecb_exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/ecb.c: line 120 \n"); 
 	struct crypto_ecb_ctx *ctx = crypto_tfm_ctx(tfm);
 	crypto_free_cipher(ctx->child);
 }
 
 static struct crypto_instance *crypto_ecb_alloc(struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/ecb.c: line 127 \n"); 
 	struct crypto_instance *inst;
 	struct crypto_alg *alg;
 	int err;
@@ -159,6 +167,7 @@ out_put_alg:
 
 static void crypto_ecb_free(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/ecb.c: line 170 \n"); 
 	crypto_drop_spawn(crypto_instance_ctx(inst));
 	kfree(inst);
 }

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * CIPSO - Commercial IP Security Option
  *
@@ -145,6 +146,7 @@ int cipso_v4_rbm_strictvalid = 1;
  */
 static void cipso_v4_cache_entry_free(struct cipso_v4_map_cache_entry *entry)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 149 \n"); 
 	if (entry->lsm_data)
 		netlbl_secattr_cache_free(entry->lsm_data);
 	kfree(entry->key);
@@ -162,6 +164,7 @@ static void cipso_v4_cache_entry_free(struct cipso_v4_map_cache_entry *entry)
  */
 static u32 cipso_v4_map_cache_hash(const unsigned char *key, u32 key_len)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 167 \n"); 
 	return jhash(key, key_len, 0);
 }
 
@@ -207,6 +210,7 @@ static int __init cipso_v4_cache_init(void)
  */
 void cipso_v4_cache_invalidate(void)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 213 \n"); 
 	struct cipso_v4_map_cache_entry *entry, *tmp_entry;
 	u32 iter;
 
@@ -249,6 +253,7 @@ static int cipso_v4_cache_check(const unsigned char *key,
 				u32 key_len,
 				struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 256 \n"); 
 	u32 bkt;
 	struct cipso_v4_map_cache_entry *entry;
 	struct cipso_v4_map_cache_entry *prev_entry = NULL;
@@ -311,6 +316,7 @@ static int cipso_v4_cache_check(const unsigned char *key,
 int cipso_v4_cache_add(const unsigned char *cipso_ptr,
 		       const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 319 \n"); 
 	int ret_val = -EPERM;
 	u32 bkt;
 	struct cipso_v4_map_cache_entry *entry = NULL;
@@ -372,6 +378,7 @@ cache_add_failure:
  */
 static struct cipso_v4_doi *cipso_v4_doi_search(u32 doi)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 381 \n"); 
 	struct cipso_v4_doi *iter;
 
 	list_for_each_entry_rcu(iter, &cipso_v4_doi_list, list)
@@ -396,6 +403,7 @@ static struct cipso_v4_doi *cipso_v4_doi_search(u32 doi)
 int cipso_v4_doi_add(struct cipso_v4_doi *doi_def,
 		     struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 406 \n"); 
 	int ret_val = -EINVAL;
 	u32 iter;
 	u32 doi;
@@ -477,6 +485,7 @@ doi_add_return:
  */
 void cipso_v4_doi_free(struct cipso_v4_doi *doi_def)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 488 \n"); 
 	if (!doi_def)
 		return;
 
@@ -503,6 +512,7 @@ void cipso_v4_doi_free(struct cipso_v4_doi *doi_def)
  */
 static void cipso_v4_doi_free_rcu(struct rcu_head *entry)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 515 \n"); 
 	struct cipso_v4_doi *doi_def;
 
 	doi_def = container_of(entry, struct cipso_v4_doi, rcu);
@@ -522,6 +532,7 @@ static void cipso_v4_doi_free_rcu(struct rcu_head *entry)
  */
 int cipso_v4_doi_remove(u32 doi, struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 535 \n"); 
 	int ret_val;
 	struct cipso_v4_doi *doi_def;
 	struct audit_buffer *audit_buf;
@@ -570,6 +581,7 @@ doi_remove_return:
  */
 struct cipso_v4_doi *cipso_v4_doi_getdef(u32 doi)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 584 \n"); 
 	struct cipso_v4_doi *doi_def;
 
 	rcu_read_lock();
@@ -594,6 +606,7 @@ doi_getdef_return:
  */
 void cipso_v4_doi_putdef(struct cipso_v4_doi *doi_def)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 609 \n"); 
 	if (!doi_def)
 		return;
 
@@ -624,6 +637,7 @@ int cipso_v4_doi_walk(u32 *skip_cnt,
 		     int (*callback) (struct cipso_v4_doi *doi_def, void *arg),
 		     void *cb_arg)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 640 \n"); 
 	int ret_val = -ENOENT;
 	u32 doi_cnt = 0;
 	struct cipso_v4_doi *iter_doi;
@@ -663,6 +677,7 @@ doi_walk_return:
  */
 static int cipso_v4_map_lvl_valid(const struct cipso_v4_doi *doi_def, u8 level)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 680 \n"); 
 	switch (doi_def->type) {
 	case CIPSO_V4_MAP_PASS:
 		return 0;
@@ -691,6 +706,7 @@ static int cipso_v4_map_lvl_hton(const struct cipso_v4_doi *doi_def,
 				 u32 host_lvl,
 				 u32 *net_lvl)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 709 \n"); 
 	switch (doi_def->type) {
 	case CIPSO_V4_MAP_PASS:
 		*net_lvl = host_lvl;
@@ -723,6 +739,7 @@ static int cipso_v4_map_lvl_ntoh(const struct cipso_v4_doi *doi_def,
 				 u32 net_lvl,
 				 u32 *host_lvl)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 742 \n"); 
 	struct cipso_v4_std_map_tbl *map_tbl;
 
 	switch (doi_def->type) {
@@ -758,6 +775,7 @@ static int cipso_v4_map_cat_rbm_valid(const struct cipso_v4_doi *doi_def,
 				      const unsigned char *bitmap,
 				      u32 bitmap_len)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 778 \n"); 
 	int cat = -1;
 	u32 bitmap_len_bits = bitmap_len * 8;
 	u32 cipso_cat_size;
@@ -807,6 +825,7 @@ static int cipso_v4_map_cat_rbm_hton(const struct cipso_v4_doi *doi_def,
 				     unsigned char *net_cat,
 				     u32 net_cat_len)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 828 \n"); 
 	int host_spot = -1;
 	u32 net_spot = CIPSO_V4_INV_CAT;
 	u32 net_spot_max = 0;
@@ -868,6 +887,7 @@ static int cipso_v4_map_cat_rbm_ntoh(const struct cipso_v4_doi *doi_def,
 				     u32 net_cat_len,
 				     struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 890 \n"); 
 	int ret_val;
 	int net_spot = -1;
 	u32 host_spot = CIPSO_V4_INV_CAT;
@@ -929,6 +949,7 @@ static int cipso_v4_map_cat_enum_valid(const struct cipso_v4_doi *doi_def,
 				       const unsigned char *enumcat,
 				       u32 enumcat_len)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 952 \n"); 
 	u16 cat;
 	int cat_prev = -1;
 	u32 iter;
@@ -965,6 +986,7 @@ static int cipso_v4_map_cat_enum_hton(const struct cipso_v4_doi *doi_def,
 				      unsigned char *net_cat,
 				      u32 net_cat_len)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 989 \n"); 
 	int cat = -1;
 	u32 cat_iter = 0;
 
@@ -1000,6 +1022,7 @@ static int cipso_v4_map_cat_enum_ntoh(const struct cipso_v4_doi *doi_def,
 				      u32 net_cat_len,
 				      struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1025 \n"); 
 	int ret_val;
 	u32 iter;
 
@@ -1030,6 +1053,7 @@ static int cipso_v4_map_cat_rng_valid(const struct cipso_v4_doi *doi_def,
 				      const unsigned char *rngcat,
 				      u32 rngcat_len)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1056 \n"); 
 	u16 cat_high;
 	u16 cat_low;
 	u32 cat_prev = CIPSO_V4_MAX_REM_CATS + 1;
@@ -1073,6 +1097,7 @@ static int cipso_v4_map_cat_rng_hton(const struct cipso_v4_doi *doi_def,
 				     unsigned char *net_cat,
 				     u32 net_cat_len)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1100 \n"); 
 	int iter = -1;
 	u16 array[CIPSO_V4_TAG_RNG_CAT_MAX * 2];
 	u32 array_cnt = 0;
@@ -1132,6 +1157,7 @@ static int cipso_v4_map_cat_rng_ntoh(const struct cipso_v4_doi *doi_def,
 				     u32 net_cat_len,
 				     struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1160 \n"); 
 	int ret_val;
 	u32 net_iter;
 	u16 cat_low;
@@ -1173,6 +1199,7 @@ static void cipso_v4_gentag_hdr(const struct cipso_v4_doi *doi_def,
 				unsigned char *buf,
 				u32 len)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1202 \n"); 
 	buf[0] = IPOPT_CIPSO;
 	buf[1] = CIPSO_V4_HDR_LEN + len;
 	*(__be32 *)&buf[2] = htonl(doi_def->doi);
@@ -1197,6 +1224,7 @@ static int cipso_v4_gentag_rbm(const struct cipso_v4_doi *doi_def,
 			       unsigned char *buffer,
 			       u32 buffer_len)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1227 \n"); 
 	int ret_val;
 	u32 tag_len;
 	u32 level;
@@ -1251,6 +1279,7 @@ static int cipso_v4_parsetag_rbm(const struct cipso_v4_doi *doi_def,
 				 const unsigned char *tag,
 				 struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1282 \n"); 
 	int ret_val;
 	u8 tag_len = tag[1];
 	u32 level;
@@ -1294,6 +1323,7 @@ static int cipso_v4_gentag_enum(const struct cipso_v4_doi *doi_def,
 				unsigned char *buffer,
 				u32 buffer_len)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1326 \n"); 
 	int ret_val;
 	u32 tag_len;
 	u32 level;
@@ -1342,6 +1372,7 @@ static int cipso_v4_parsetag_enum(const struct cipso_v4_doi *doi_def,
 				  const unsigned char *tag,
 				  struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1375 \n"); 
 	int ret_val;
 	u8 tag_len = tag[1];
 	u32 level;
@@ -1385,6 +1416,7 @@ static int cipso_v4_gentag_rng(const struct cipso_v4_doi *doi_def,
 			       unsigned char *buffer,
 			       u32 buffer_len)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1419 \n"); 
 	int ret_val;
 	u32 tag_len;
 	u32 level;
@@ -1432,6 +1464,7 @@ static int cipso_v4_parsetag_rng(const struct cipso_v4_doi *doi_def,
 				 const unsigned char *tag,
 				 struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1467 \n"); 
 	int ret_val;
 	u8 tag_len = tag[1];
 	u32 level;
@@ -1475,6 +1508,7 @@ static int cipso_v4_gentag_loc(const struct cipso_v4_doi *doi_def,
 			       unsigned char *buffer,
 			       u32 buffer_len)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1511 \n"); 
 	if (!(secattr->flags & NETLBL_SECATTR_SECID))
 		return -EPERM;
 
@@ -1500,6 +1534,7 @@ static int cipso_v4_parsetag_loc(const struct cipso_v4_doi *doi_def,
 				 const unsigned char *tag,
 				 struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1537 \n"); 
 	secattr->attr.secid = *(u32 *)&tag[2];
 	secattr->flags |= NETLBL_SECATTR_SECID;
 
@@ -1517,6 +1552,7 @@ static int cipso_v4_parsetag_loc(const struct cipso_v4_doi *doi_def,
  */
 unsigned char *cipso_v4_optptr(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1555 \n"); 
 	const struct iphdr *iph = ip_hdr(skb);
 	unsigned char *optptr = (unsigned char *)&(ip_hdr(skb)[1]);
 	int optlen;
@@ -1554,6 +1590,7 @@ unsigned char *cipso_v4_optptr(const struct sk_buff *skb)
  */
 int cipso_v4_validate(const struct sk_buff *skb, unsigned char **option)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1593 \n"); 
 	unsigned char *opt = *option;
 	unsigned char *tag;
 	unsigned char opt_iter;
@@ -1724,6 +1761,7 @@ validate_return:
  */
 void cipso_v4_error(struct sk_buff *skb, int error, u32 gateway)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1764 \n"); 
 	if (ip_hdr(skb)->protocol == IPPROTO_ICMP || error != -EACCES)
 		return;
 
@@ -1750,6 +1788,7 @@ static int cipso_v4_genopt(unsigned char *buf, u32 buf_len,
 			   const struct cipso_v4_doi *doi_def,
 			   const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1791 \n"); 
 	int ret_val;
 	u32 iter;
 
@@ -1819,6 +1858,7 @@ int cipso_v4_sock_setattr(struct sock *sk,
 			  const struct cipso_v4_doi *doi_def,
 			  const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1861 \n"); 
 	int ret_val = -EPERM;
 	unsigned char *buf = NULL;
 	u32 buf_len;
@@ -1904,6 +1944,7 @@ int cipso_v4_req_setattr(struct request_sock *req,
 			 const struct cipso_v4_doi *doi_def,
 			 const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 1947 \n"); 
 	int ret_val = -EPERM;
 	unsigned char *buf = NULL;
 	u32 buf_len;
@@ -2033,6 +2074,7 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
  */
 void cipso_v4_sock_delattr(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 2077 \n"); 
 	struct inet_sock *sk_inet;
 	int hdr_delta;
 
@@ -2056,6 +2098,7 @@ void cipso_v4_sock_delattr(struct sock *sk)
  */
 void cipso_v4_req_delattr(struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 2101 \n"); 
 	cipso_v4_delopt(&inet_rsk(req)->ireq_opt);
 }
 
@@ -2072,6 +2115,7 @@ void cipso_v4_req_delattr(struct request_sock *req)
 int cipso_v4_getattr(const unsigned char *cipso,
 		     struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 2118 \n"); 
 	int ret_val = -ENOMSG;
 	u32 doi;
 	struct cipso_v4_doi *doi_def;
@@ -2123,6 +2167,7 @@ getattr_return:
  */
 int cipso_v4_sock_getattr(struct sock *sk, struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 2170 \n"); 
 	struct ip_options_rcu *opt;
 	int res = -ENOMSG;
 
@@ -2151,6 +2196,7 @@ int cipso_v4_skbuff_setattr(struct sk_buff *skb,
 			    const struct cipso_v4_doi *doi_def,
 			    const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 2199 \n"); 
 	int ret_val;
 	struct iphdr *iph;
 	struct ip_options *opt = &IPCB(skb)->opt;
@@ -2227,6 +2273,7 @@ int cipso_v4_skbuff_setattr(struct sk_buff *skb,
  */
 int cipso_v4_skbuff_delattr(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/cipso_ipv4.c: line 2276 \n"); 
 	int ret_val;
 	struct iphdr *iph;
 	struct ip_options *opt = &IPCB(skb)->opt;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	NET3	IP device support routines.
  *
@@ -109,6 +110,7 @@ static struct hlist_head inet_addr_lst[IN4_ADDR_HSIZE];
 
 static u32 inet_addr_hash(const struct net *net, __be32 addr)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/devinet.c: line 113 \n"); 
 	u32 val = (__force u32) addr ^ net_hash_mix(net);
 
 	return hash_32(val, IN4_ADDR_HSIZE_SHIFT);
@@ -185,10 +187,12 @@ static void devinet_sysctl_unregister(struct in_device *idev);
 #else
 static int devinet_sysctl_register(struct in_device *idev)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 190 \n"); 
 	return 0;
 }
 static void devinet_sysctl_unregister(struct in_device *idev)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 195 \n"); 
 }
 #endif
 
@@ -310,6 +314,7 @@ static void inetdev_destroy(struct in_device *in_dev)
 
 int inet_addr_onlink(struct in_device *in_dev, __be32 a, __be32 b)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 317 \n"); 
 	rcu_read_lock();
 	for_primary_ifa(in_dev) {
 		if (inet_ifa_match(a, ifa)) {
@@ -501,6 +506,7 @@ static int inet_insert_ifa(struct in_ifaddr *ifa)
 
 static int inet_set_ifa(struct net_device *dev, struct in_ifaddr *ifa)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 509 \n"); 
 	struct in_device *in_dev = __in_dev_get_rtnl(dev);
 
 	ASSERT_RTNL();
@@ -543,6 +549,7 @@ EXPORT_SYMBOL(inetdev_by_index);
 struct in_ifaddr *inet_ifa_byprefix(struct in_device *in_dev, __be32 prefix,
 				    __be32 mask)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 552 \n"); 
 	ASSERT_RTNL();
 
 	for_primary_ifa(in_dev) {
@@ -554,6 +561,7 @@ struct in_ifaddr *inet_ifa_byprefix(struct in_device *in_dev, __be32 prefix,
 
 static int ip_mc_config(struct sock *sk, bool join, const struct in_ifaddr *ifa)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 564 \n"); 
 	struct ip_mreqn mreq = {
 		.imr_multiaddr.s_addr = ifa->ifa_address,
 		.imr_ifindex = ifa->ifa_dev->dev->ifindex,
@@ -574,6 +582,7 @@ static int ip_mc_config(struct sock *sk, bool join, const struct in_ifaddr *ifa)
 
 static int inet_rtm_deladdr(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 585 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct nlattr *tb[IFA_MAX+1];
 	struct in_device *in_dev;
@@ -896,6 +905,7 @@ static int inet_rtm_newaddr(struct sk_buff *skb, struct nlmsghdr *nlh)
 
 static int inet_abc_len(__be32 addr)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 908 \n"); 
 	int rc = -1;	/* Something else, probably a multicast. */
 
 	if (ipv4_is_zeronet(addr))
@@ -1267,6 +1277,7 @@ EXPORT_SYMBOL(inet_select_addr);
 static __be32 confirm_addr_indev(struct in_device *in_dev, __be32 dst,
 			      __be32 local, int scope)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 1280 \n"); 
 	int same = 0;
 	__be32 addr = 0;
 
@@ -1312,6 +1323,7 @@ static __be32 confirm_addr_indev(struct in_device *in_dev, __be32 dst,
 __be32 inet_confirm_addr(struct net *net, struct in_device *in_dev,
 			 __be32 dst, __be32 local, int scope)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 1326 \n"); 
 	__be32 addr = 0;
 	struct net_device *dev;
 
@@ -1345,6 +1357,7 @@ EXPORT_SYMBOL(register_inetaddr_notifier);
 
 int unregister_inetaddr_notifier(struct notifier_block *nb)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 1360 \n"); 
 	return blocking_notifier_chain_unregister(&inetaddr_chain, nb);
 }
 EXPORT_SYMBOL(unregister_inetaddr_notifier);
@@ -1380,6 +1393,7 @@ skip:
 
 static bool inetdev_valid_mtu(unsigned int mtu)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/devinet.c: line 1396 \n"); 
 	return mtu >= IPV4_MIN_MTU;
 }
 
@@ -1387,6 +1401,7 @@ static void inetdev_send_gratuitous_arp(struct net_device *dev,
 					struct in_device *in_dev)
 
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 1404 \n"); 
 	struct in_ifaddr *ifa;
 
 	for (ifa = in_dev->ifa_list; ifa;
@@ -1499,6 +1514,7 @@ static struct notifier_block ip_netdev_notifier = {
 
 static size_t inet_nlmsg_size(void)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/devinet.c: line 1517 \n"); 
 	return NLMSG_ALIGN(sizeof(struct ifaddrmsg))
 	       + nla_total_size(4) /* IFA_ADDRESS */
 	       + nla_total_size(4) /* IFA_LOCAL */
@@ -1510,6 +1526,7 @@ static size_t inet_nlmsg_size(void)
 
 static inline u32 cstamp_delta(unsigned long cstamp)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/devinet.c: line 1529 \n"); 
 	return (cstamp - INITIAL_JIFFIES) * 100UL / HZ;
 }
 
@@ -1708,6 +1725,7 @@ static const struct nla_policy inet_af_policy[IFLA_INET_MAX+1] = {
 static int inet_validate_link_af(const struct net_device *dev,
 				 const struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 1728 \n"); 
 	struct nlattr *a, *tb[IFLA_INET_MAX+1];
 	int err, rem;
 
@@ -1735,6 +1753,7 @@ static int inet_validate_link_af(const struct net_device *dev,
 
 static int inet_set_link_af(struct net_device *dev, const struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 1756 \n"); 
 	struct in_device *in_dev = __in_dev_get_rtnl(dev);
 	struct nlattr *a, *tb[IFLA_INET_MAX+1];
 	int rem;
@@ -1864,6 +1883,7 @@ static const struct nla_policy devconf_ipv4_policy[NETCONFA_MAX+1] = {
 static int inet_netconf_get_devconf(struct sk_buff *in_skb,
 				    struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 1886 \n"); 
 	struct net *net = sock_net(in_skb->sk);
 	struct nlattr *tb[NETCONFA_MAX+1];
 	struct netconfmsg *ncm;
@@ -1925,6 +1945,7 @@ errout:
 static int inet_netconf_dump_devconf(struct sk_buff *skb,
 				     struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/ipv4/devinet.c: line 1948 \n"); 
 	struct net *net = sock_net(skb->sk);
 	int h, s_h;
 	int idx, s_idx;

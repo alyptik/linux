@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * algif_skcipher: User-space interface for skcipher algorithms
  *
@@ -74,6 +75,7 @@ struct skcipher_async_req {
 
 static void skcipher_free_async_sgls(struct skcipher_async_req *sreq)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 78 \n"); 
 	struct skcipher_async_rsgl *rsgl, *tmp;
 	struct scatterlist *sgl;
 	struct scatterlist *sg;
@@ -99,6 +101,7 @@ static void skcipher_free_async_sgls(struct skcipher_async_req *sreq)
 
 static void skcipher_async_cb(struct crypto_async_request *req, int err)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 104 \n"); 
 	struct skcipher_async_req *sreq = req->data;
 	struct kiocb *iocb = sreq->iocb;
 
@@ -110,6 +113,7 @@ static void skcipher_async_cb(struct crypto_async_request *req, int err)
 
 static inline int skcipher_sndbuf(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 116 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct skcipher_ctx *ctx = ask->private;
 
@@ -119,11 +123,13 @@ static inline int skcipher_sndbuf(struct sock *sk)
 
 static inline bool skcipher_writable(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 126 \n"); 
 	return PAGE_SIZE <= skcipher_sndbuf(sk);
 }
 
 static int skcipher_alloc_sgl(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 132 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct skcipher_ctx *ctx = ask->private;
 	struct skcipher_sg_list *sgl;
@@ -156,6 +162,7 @@ static int skcipher_alloc_sgl(struct sock *sk)
 
 static void skcipher_pull_sgl(struct sock *sk, size_t used, int put)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 165 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct skcipher_ctx *ctx = ask->private;
 	struct skcipher_sg_list *sgl;
@@ -198,6 +205,7 @@ static void skcipher_pull_sgl(struct sock *sk, size_t used, int put)
 
 static void skcipher_free_sgl(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 208 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct skcipher_ctx *ctx = ask->private;
 
@@ -206,6 +214,7 @@ static void skcipher_free_sgl(struct sock *sk)
 
 static int skcipher_wait_for_wmem(struct sock *sk, unsigned flags)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 217 \n"); 
 	long timeout;
 	DEFINE_WAIT(wait);
 	int err = -ERESTARTSYS;
@@ -232,6 +241,7 @@ static int skcipher_wait_for_wmem(struct sock *sk, unsigned flags)
 
 static void skcipher_wmem_wakeup(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 244 \n"); 
 	struct socket_wq *wq;
 
 	if (!skcipher_writable(sk))
@@ -249,6 +259,7 @@ static void skcipher_wmem_wakeup(struct sock *sk)
 
 static int skcipher_wait_for_data(struct sock *sk, unsigned flags)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 262 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct skcipher_ctx *ctx = ask->private;
 	long timeout;
@@ -280,6 +291,7 @@ static int skcipher_wait_for_data(struct sock *sk, unsigned flags)
 
 static void skcipher_data_wakeup(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 294 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct skcipher_ctx *ctx = ask->private;
 	struct socket_wq *wq;
@@ -300,6 +312,7 @@ static void skcipher_data_wakeup(struct sock *sk)
 static int skcipher_sendmsg(struct socket *sock, struct msghdr *msg,
 			    size_t size)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 315 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct sock *psk = ask->parent;
@@ -438,6 +451,7 @@ unlock:
 static ssize_t skcipher_sendpage(struct socket *sock, struct page *page,
 				 int offset, size_t size, int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 454 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct skcipher_ctx *ctx = ask->private;
@@ -488,6 +502,7 @@ unlock:
 
 static int skcipher_all_sg_nents(struct skcipher_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 505 \n"); 
 	struct skcipher_sg_list *sgl;
 	struct scatterlist *sg;
 	int nents = 0;
@@ -506,6 +521,7 @@ static int skcipher_all_sg_nents(struct skcipher_ctx *ctx)
 static int skcipher_recvmsg_async(struct socket *sock, struct msghdr *msg,
 				  int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 524 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct sock *psk = ask->parent;
@@ -642,6 +658,7 @@ out:
 static int skcipher_recvmsg_sync(struct socket *sock, struct msghdr *msg,
 				 int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 661 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct sock *psk = ask->parent;
@@ -717,6 +734,7 @@ unlock:
 static int skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
 			    size_t ignored, int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 737 \n"); 
 	return (msg->msg_iocb && !is_sync_kiocb(msg->msg_iocb)) ?
 		skcipher_recvmsg_async(sock, msg, flags) :
 		skcipher_recvmsg_sync(sock, msg, flags);
@@ -725,6 +743,7 @@ static int skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
 static unsigned int skcipher_poll(struct file *file, struct socket *sock,
 				  poll_table *wait)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 746 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct skcipher_ctx *ctx = ask->private;
@@ -766,6 +785,7 @@ static struct proto_ops algif_skcipher_ops = {
 
 static int skcipher_check_key(struct socket *sock)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 788 \n"); 
 	int err = 0;
 	struct sock *psk;
 	struct alg_sock *pask;
@@ -805,6 +825,7 @@ unlock_child:
 static int skcipher_sendmsg_nokey(struct socket *sock, struct msghdr *msg,
 				  size_t size)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 828 \n"); 
 	int err;
 
 	err = skcipher_check_key(sock);
@@ -817,6 +838,7 @@ static int skcipher_sendmsg_nokey(struct socket *sock, struct msghdr *msg,
 static ssize_t skcipher_sendpage_nokey(struct socket *sock, struct page *page,
 				       int offset, size_t size, int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 841 \n"); 
 	int err;
 
 	err = skcipher_check_key(sock);
@@ -829,6 +851,7 @@ static ssize_t skcipher_sendpage_nokey(struct socket *sock, struct page *page,
 static int skcipher_recvmsg_nokey(struct socket *sock, struct msghdr *msg,
 				  size_t ignored, int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 854 \n"); 
 	int err;
 
 	err = skcipher_check_key(sock);
@@ -862,6 +885,7 @@ static struct proto_ops algif_skcipher_ops_nokey = {
 
 static void *skcipher_bind(const char *name, u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 888 \n"); 
 	struct skcipher_tfm *tfm;
 	struct crypto_skcipher *skcipher;
 
@@ -901,6 +925,7 @@ static int skcipher_setkey(void *private, const u8 *key, unsigned int keylen)
 
 static void skcipher_wait(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 928 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct skcipher_ctx *ctx = ask->private;
 	int ctr = 0;
@@ -911,6 +936,7 @@ static void skcipher_wait(struct sock *sk)
 
 static void skcipher_sock_destruct(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_skcipher.c: line 939 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct skcipher_ctx *ctx = ask->private;
 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(&ctx->req);

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/namespace.c
  *
@@ -287,6 +288,7 @@ EXPORT_SYMBOL_GPL(__mnt_is_readonly);
 
 static inline void mnt_inc_writers(struct mount *mnt)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/namespace.c: line 291 \n"); 
 #ifdef CONFIG_SMP
 	this_cpu_inc(mnt->mnt_pcp->mnt_writers);
 #else
@@ -296,6 +298,7 @@ static inline void mnt_inc_writers(struct mount *mnt)
 
 static inline void mnt_dec_writers(struct mount *mnt)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/namespace.c: line 301 \n"); 
 #ifdef CONFIG_SMP
 	this_cpu_dec(mnt->mnt_pcp->mnt_writers);
 #else
@@ -538,6 +541,7 @@ static int mnt_make_readonly(struct mount *mnt)
 
 static void __mnt_unmake_readonly(struct mount *mnt)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 544 \n"); 
 	lock_mount_hash();
 	mnt->mnt.mnt_flags &= ~MNT_READONLY;
 	unlock_mount_hash();
@@ -690,6 +694,7 @@ struct vfsmount *lookup_mnt(struct path *path)
  */
 bool __is_local_mountpoint(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 697 \n"); 
 	struct mnt_namespace *ns = current->nsproxy->mnt_ns;
 	struct mount *mnt;
 	bool is_covered = false;
@@ -881,6 +886,7 @@ static void attach_mnt(struct mount *mnt,
 
 void mnt_change_mountpoint(struct mount *parent, struct mountpoint *mp, struct mount *mnt)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 889 \n"); 
 	struct mountpoint *old_mp = mnt->mnt_mp;
 	struct dentry *old_mountpoint = mnt->mnt_mountpoint;
 	struct mount *old_parent = mnt->mnt_parent;
@@ -954,6 +960,7 @@ static struct mount *next_mnt(struct mount *p, struct mount *root)
 
 static struct mount *skip_mnt_tree(struct mount *p)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 963 \n"); 
 	struct list_head *prev = p->mnt_mounts.prev;
 	while (prev != &p->mnt_mounts) {
 		p = list_entry(prev, struct mount, mnt_child);
@@ -1000,6 +1007,7 @@ struct vfsmount *
 vfs_submount(const struct dentry *mountpoint, struct file_system_type *type,
 	     const char *name, void *data)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 1010 \n"); 
 	/* Until it is worked out how to pass the user namespace
 	 * through from the parent mount to the submount don't support
 	 * unprivileged mounts with submounts.
@@ -1125,6 +1133,7 @@ static void __cleanup_mnt(struct rcu_head *head)
 static LLIST_HEAD(delayed_mntput_list);
 static void delayed_mntput(struct work_struct *unused)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 1136 \n"); 
 	struct llist_node *node = llist_del_all(&delayed_mntput_list);
 	struct llist_node *next;
 
@@ -1203,6 +1212,7 @@ EXPORT_SYMBOL(mntget);
 
 struct vfsmount *mnt_clone_internal(struct path *path)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 1215 \n"); 
 	struct mount *p;
 	p = clone_mnt(real_mount(path->mnt), path->dentry, CL_PRIVATE);
 	if (IS_ERR(p))
@@ -1213,6 +1223,7 @@ struct vfsmount *mnt_clone_internal(struct path *path)
 
 static inline void mangle(struct seq_file *m, const char *s)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 1226 \n"); 
 	seq_escape(m, s, " \t\n\\");
 }
 
@@ -1261,6 +1272,7 @@ EXPORT_SYMBOL(save_mount_options);
 
 void replace_mount_options(struct super_block *sb, char *options)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 1275 \n"); 
 	char *old = sb->s_options;
 	rcu_assign_pointer(sb->s_options, options);
 	if (old) {
@@ -1332,6 +1344,7 @@ const struct seq_operations mounts_op = {
  */
 int may_umount_tree(struct vfsmount *m)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 1347 \n"); 
 	struct mount *mnt = real_mount(m);
 	int actual_refs = 0;
 	int minimum_refs = 0;
@@ -1369,6 +1382,7 @@ EXPORT_SYMBOL(may_umount_tree);
  */
 int may_umount(struct vfsmount *mnt)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 1385 \n"); 
 	int ret = 1;
 	down_read(&namespace_sem);
 	lock_mount_hash();
@@ -1606,6 +1620,7 @@ static int do_umount(struct mount *mnt, int flags)
  */
 void __detach_mounts(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 1623 \n"); 
 	struct mountpoint *mp;
 	struct mount *mnt;
 
@@ -1640,6 +1655,7 @@ static inline bool may_mount(void)
 
 static inline bool may_mandlock(void)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 1658 \n"); 
 #ifndef	CONFIG_MANDATORY_FILE_LOCKING
 	return false;
 #endif
@@ -1715,6 +1731,7 @@ static bool is_mnt_ns_file(struct dentry *dentry)
 
 struct mnt_namespace *to_mnt_ns(struct ns_common *ns)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/namespace.c: line 1734 \n"); 
 	return container_of(ns, struct mnt_namespace, ns);
 }
 
@@ -1794,6 +1811,7 @@ out:
 
 struct vfsmount *collect_mounts(struct path *path)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 1814 \n"); 
 	struct mount *tree;
 	namespace_lock();
 	if (!check_mnt(real_mount(path->mnt)))
@@ -1846,6 +1864,7 @@ EXPORT_SYMBOL_GPL(clone_private_mount);
 int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,
 		   struct vfsmount *root)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 1867 \n"); 
 	struct mount *mnt;
 	int res = f(root, arg);
 	if (res)
@@ -1860,6 +1879,7 @@ int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,
 
 static void cleanup_group_ids(struct mount *mnt, struct mount *end)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 1882 \n"); 
 	struct mount *p;
 
 	for (p = mnt; p != end; p = next_mnt(p, mnt)) {
@@ -2320,6 +2340,7 @@ static int do_remount(struct path *path, int flags, int mnt_flags,
 
 static inline int tree_contains_unbindable(struct mount *mnt)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 2343 \n"); 
 	struct mount *p;
 	for (p = mnt; p; p = next_mnt(p, mnt)) {
 		if (IS_MNT_UNBINDABLE(p))
@@ -2400,6 +2421,7 @@ out:
 
 static struct vfsmount *fs_set_subtype(struct vfsmount *mnt, const char *fstype)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 2424 \n"); 
 	int err;
 	const char *subtype = strchr(fstype, '.');
 	if (subtype) {
@@ -2507,6 +2529,7 @@ static int do_new_mount(struct path *path, const char *fstype, int flags,
 
 int finish_automount(struct vfsmount *m, struct path *path)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 2532 \n"); 
 	struct mount *mnt = real_mount(m);
 	int err;
 	/* The new mount record should have at least 2 refs to prevent it being
@@ -2542,6 +2565,7 @@ fail:
  */
 void mnt_set_expiry(struct vfsmount *mnt, struct list_head *expiry_list)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 2568 \n"); 
 	namespace_lock();
 
 	list_add_tail(&real_mount(mnt)->mnt_expire, expiry_list);
@@ -2557,6 +2581,7 @@ EXPORT_SYMBOL(mnt_set_expiry);
  */
 void mark_mounts_for_expiry(struct list_head *mounts)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 2584 \n"); 
 	struct mount *mnt, *next;
 	LIST_HEAD(graveyard);
 
@@ -2972,6 +2997,7 @@ static struct mnt_namespace *create_mnt_ns(struct vfsmount *m)
 
 struct dentry *mount_subtree(struct vfsmount *mnt, const char *name)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 3000 \n"); 
 	struct mnt_namespace *ns;
 	struct super_block *s;
 	struct path path;
@@ -3051,6 +3077,7 @@ bool is_path_reachable(struct mount *mnt, struct dentry *dentry,
 
 bool path_is_under(struct path *path1, struct path *path2)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 3080 \n"); 
 	bool res;
 	read_seqlock_excl(&mount_lock);
 	res = is_path_reachable(real_mount(path1->mnt), path1->dentry, path2);
@@ -3288,11 +3315,13 @@ EXPORT_SYMBOL(kern_unmount);
 
 bool our_mnt(struct vfsmount *mnt)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 3318 \n"); 
 	return check_mnt(real_mount(mnt));
 }
 
 bool current_chrooted(void)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 3324 \n"); 
 	/* Does the current process have a non-standard root */
 	struct path ns_root;
 	struct path fs_root;
@@ -3470,6 +3499,7 @@ static int mntns_install(struct nsproxy *nsproxy, struct ns_common *ns)
 
 static struct user_namespace *mntns_owner(struct ns_common *ns)
 {
+	panic("We reached unpopular paths in fs/namespace.c: line 3502 \n"); 
 	return to_mnt_ns(ns)->user_ns;
 }
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Expectation handling for nf_conntrack. */
 
 /* (C) 1999-2001 Paul `Rusty' Russell
@@ -48,6 +49,7 @@ static unsigned int nf_ct_expect_hashrnd __read_mostly;
 void nf_ct_unlink_expect_report(struct nf_conntrack_expect *exp,
 				u32 portid, int report)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 52 \n"); 
 	struct nf_conn_help *master_help = nfct_help(exp->master);
 	struct net *net = nf_ct_exp_net(exp);
 
@@ -69,6 +71,7 @@ EXPORT_SYMBOL_GPL(nf_ct_unlink_expect_report);
 
 static void nf_ct_expectation_timed_out(unsigned long ul_expect)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 74 \n"); 
 	struct nf_conntrack_expect *exp = (void *)ul_expect;
 
 	spin_lock_bh(&nf_conntrack_expect_lock);
@@ -79,6 +82,7 @@ static void nf_ct_expectation_timed_out(unsigned long ul_expect)
 
 static unsigned int nf_ct_expect_dst_hash(const struct net *n, const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 85 \n"); 
 	unsigned int hash, seed;
 
 	get_random_once(&nf_ct_expect_hashrnd, sizeof(nf_ct_expect_hashrnd));
@@ -98,6 +102,7 @@ nf_ct_exp_equal(const struct nf_conntrack_tuple *tuple,
 		const struct nf_conntrack_zone *zone,
 		const struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 105 \n"); 
 	return nf_ct_tuple_mask_cmp(tuple, &i->tuple, &i->mask) &&
 	       net_eq(net, nf_ct_net(i->master)) &&
 	       nf_ct_zone_equal_any(i->master, zone);
@@ -108,6 +113,7 @@ __nf_ct_expect_find(struct net *net,
 		    const struct nf_conntrack_zone *zone,
 		    const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 116 \n"); 
 	struct nf_conntrack_expect *i;
 	unsigned int h;
 
@@ -129,6 +135,7 @@ nf_ct_expect_find_get(struct net *net,
 		      const struct nf_conntrack_zone *zone,
 		      const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 138 \n"); 
 	struct nf_conntrack_expect *i;
 
 	rcu_read_lock();
@@ -148,6 +155,7 @@ nf_ct_find_expectation(struct net *net,
 		       const struct nf_conntrack_zone *zone,
 		       const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 158 \n"); 
 	struct nf_conntrack_expect *i, *exp = NULL;
 	unsigned int h;
 
@@ -224,6 +232,7 @@ EXPORT_SYMBOL_GPL(nf_ct_remove_expectations);
 static inline int expect_clash(const struct nf_conntrack_expect *a,
 			       const struct nf_conntrack_expect *b)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 235 \n"); 
 	/* Part covered by intersection of masks must be unequal,
 	   otherwise they clash */
 	struct nf_conntrack_tuple_mask intersect_mask;
@@ -244,6 +253,7 @@ static inline int expect_clash(const struct nf_conntrack_expect *a,
 static inline int expect_matches(const struct nf_conntrack_expect *a,
 				 const struct nf_conntrack_expect *b)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 256 \n"); 
 	return a->master == b->master && a->class == b->class &&
 	       nf_ct_tuple_equal(&a->tuple, &b->tuple) &&
 	       nf_ct_tuple_mask_equal(&a->mask, &b->mask) &&
@@ -254,6 +264,7 @@ static inline int expect_matches(const struct nf_conntrack_expect *a,
 /* Generally a bad idea to call this: could have matched already. */
 void nf_ct_unexpect_related(struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 267 \n"); 
 	spin_lock_bh(&nf_conntrack_expect_lock);
 	if (del_timer(&exp->timeout)) {
 		nf_ct_unlink_expect(exp);
@@ -268,6 +279,7 @@ EXPORT_SYMBOL_GPL(nf_ct_unexpect_related);
  * always killed before the conntrack itself */
 struct nf_conntrack_expect *nf_ct_expect_alloc(struct nf_conn *me)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 282 \n"); 
 	struct nf_conntrack_expect *new;
 
 	new = kmem_cache_alloc(nf_ct_expect_cachep, GFP_ATOMIC);
@@ -340,6 +352,7 @@ EXPORT_SYMBOL_GPL(nf_ct_expect_init);
 
 static void nf_ct_expect_free_rcu(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 355 \n"); 
 	struct nf_conntrack_expect *exp;
 
 	exp = container_of(head, struct nf_conntrack_expect, rcu);
@@ -348,6 +361,7 @@ static void nf_ct_expect_free_rcu(struct rcu_head *head)
 
 void nf_ct_expect_put(struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 364 \n"); 
 	if (atomic_dec_and_test(&exp->use))
 		call_rcu(&exp->rcu, nf_ct_expect_free_rcu);
 }
@@ -355,6 +369,7 @@ EXPORT_SYMBOL_GPL(nf_ct_expect_put);
 
 static int nf_ct_expect_insert(struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 372 \n"); 
 	struct nf_conn_help *master_help = nfct_help(exp->master);
 	struct nf_conntrack_helper *helper;
 	struct net *net = nf_ct_exp_net(exp);
@@ -403,6 +418,7 @@ static void evict_oldest_expect(struct nf_conn *master,
 
 static inline int __nf_ct_expect_check(struct nf_conntrack_expect *expect)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 421 \n"); 
 	const struct nf_conntrack_expect_policy *p;
 	struct nf_conntrack_expect *i;
 	struct nf_conn *master = expect->master;
@@ -457,6 +473,7 @@ out:
 int nf_ct_expect_related_report(struct nf_conntrack_expect *expect,
 				u32 portid, int report)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 476 \n"); 
 	int ret;
 
 	spin_lock_bh(&nf_conntrack_expect_lock);
@@ -671,6 +688,7 @@ int nf_conntrack_expect_init(void)
 
 void nf_conntrack_expect_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_expect.c: line 691 \n"); 
 	rcu_barrier(); /* Wait for call_rcu() before destroy */
 	kmem_cache_destroy(nf_ct_expect_cachep);
 	nf_ct_free_hashtable(nf_ct_expect_hash, nf_ct_expect_hsize);

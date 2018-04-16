@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/namei.c
  *
@@ -550,6 +551,7 @@ static void restore_nameidata(void)
 
 static int __nd_alloc_stack(struct nameidata *nd)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 554 \n"); 
 	struct saved *p;
 
 	if (nd->flags & LOOKUP_RCU) {
@@ -751,6 +753,7 @@ drop_root_mnt:
 
 static int unlazy_link(struct nameidata *nd, struct path *link, unsigned seq)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 756 \n"); 
 	if (unlikely(!legitimize_path(nd, link, seq))) {
 		drop_links(nd);
 		nd->depth = 0;
@@ -829,6 +832,7 @@ static void set_root(struct nameidata *nd)
 
 static void path_put_conditional(struct path *path, struct nameidata *nd)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 835 \n"); 
 	dput(path->dentry);
 	if (path->mnt != nd->path.mnt)
 		mntput(path->mnt);
@@ -951,6 +955,7 @@ static inline int may_follow_link(struct nameidata *nd)
  */
 static bool safe_hardlink_source(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 958 \n"); 
 	umode_t mode = inode->i_mode;
 
 	/* Special files should not get pinned to the filesystem. */
@@ -1070,6 +1075,7 @@ const char *get_link(struct nameidata *nd)
  */
 int follow_up(struct path *path)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 1078 \n"); 
 	struct mount *mnt = real_mount(path->mnt);
 	struct mount *parent;
 	struct dentry *mountpoint;
@@ -1371,6 +1377,7 @@ static int follow_dotdot_rcu(struct nameidata *nd)
  */
 int follow_down(struct path *path)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 1380 \n"); 
 	unsigned managed;
 	int ret;
 
@@ -1982,6 +1989,7 @@ inside:
 /* Return the hash of a string of known length */
 unsigned int full_name_hash(const void *salt, const char *name, unsigned int len)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 1992 \n"); 
 	unsigned long hash = init_name_hash(salt);
 	while (len--)
 		hash = partial_name_hash((unsigned char)*name++, hash);
@@ -1992,6 +2000,7 @@ EXPORT_SYMBOL(full_name_hash);
 /* Return the "hash_len" (hash and length) of a null-terminated string */
 u64 hashlen_string(const void *salt, const char *name)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 2003 \n"); 
 	unsigned long hash = init_name_hash(salt);
 	unsigned long len = 0, c;
 
@@ -2011,6 +2020,7 @@ EXPORT_SYMBOL(hashlen_string);
  */
 static inline u64 hash_name(const void *salt, const char *name)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 2023 \n"); 
 	unsigned long hash = init_name_hash(salt);
 	unsigned long len = 0, c;
 
@@ -2362,6 +2372,7 @@ static struct filename *filename_parentat(int dfd, struct filename *name,
 /* does lookup, returns the object with parent locked */
 struct dentry *kern_path_locked(const char *name, struct path *path)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 2375 \n"); 
 	struct filename *filename;
 	struct dentry *d;
 	struct qstr last;
@@ -2405,6 +2416,7 @@ int vfs_path_lookup(struct dentry *dentry, struct vfsmount *mnt,
 		    const char *name, unsigned int flags,
 		    struct path *path)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 2419 \n"); 
 	struct path root = {.mnt = mnt, .dentry = dentry};
 	/* the first argument of filename_lookup() is ignored with root */
 	return filename_lookup(AT_FDCWD, getname_kernel(name),
@@ -2729,6 +2741,7 @@ int
 kern_path_mountpoint(int dfd, const char *name, struct path *path,
 			unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 2744 \n"); 
 	return filename_mountpoint(dfd, getname_kernel(name), path, flags);
 }
 EXPORT_SYMBOL(kern_path_mountpoint);
@@ -2967,6 +2980,7 @@ static int handle_truncate(struct file *filp)
 
 static inline int open_to_namei_flags(int flag)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 2983 \n"); 
 	if ((flag & O_ACCMODE) == 3)
 		flag--;
 	return flag;
@@ -3010,6 +3024,7 @@ static int atomic_open(struct nameidata *nd, struct dentry *dentry,
 			int open_flag, umode_t mode,
 			int *opened)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 3027 \n"); 
 	struct dentry *const DENTRY_NOT_SET = (void *) -1UL;
 	struct inode *dir =  nd->path.dentry->d_inode;
 	int error;
@@ -3403,6 +3418,7 @@ static int do_tmpfile(struct nameidata *nd, unsigned flags,
 		const struct open_flags *op,
 		struct file *file, int *opened)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 3421 \n"); 
 	static const struct qstr name = QSTR_INIT("/", 1);
 	struct dentry *child;
 	struct inode *dir;
@@ -3547,6 +3563,7 @@ struct file *do_filp_open(int dfd, struct filename *pathname,
 struct file *do_file_open_root(struct dentry *dentry, struct vfsmount *mnt,
 		const char *name, const struct open_flags *op)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 3566 \n"); 
 	struct nameidata nd;
 	struct file *file;
 	struct filename *filename;
@@ -4703,6 +4720,7 @@ EXPORT_SYMBOL(vfs_get_link);
 const char *page_get_link(struct dentry *dentry, struct inode *inode,
 			  struct delayed_call *callback)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 4723 \n"); 
 	char *kaddr;
 	struct page *page;
 	struct address_space *mapping = inode->i_mapping;
@@ -4731,6 +4749,7 @@ EXPORT_SYMBOL(page_get_link);
 
 void page_put_link(void *arg)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 4752 \n"); 
 	put_page(arg);
 }
 EXPORT_SYMBOL(page_put_link);
@@ -4751,6 +4770,7 @@ EXPORT_SYMBOL(page_readlink);
  */
 int __page_symlink(struct inode *inode, const char *symname, int len, int nofs)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 4773 \n"); 
 	struct address_space *mapping = inode->i_mapping;
 	struct page *page;
 	void *fsdata;
@@ -4783,6 +4803,7 @@ EXPORT_SYMBOL(__page_symlink);
 
 int page_symlink(struct inode *inode, const char *symname, int len)
 {
+	panic("We reached unpopular paths in fs/namei.c: line 4806 \n"); 
 	return __page_symlink(inode, symname, len,
 			!mapping_gfp_constraint(inode->i_mapping, __GFP_FS));
 }

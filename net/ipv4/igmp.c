@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Linux NET3:	Internet Group Management Protocol  [IGMP]
  *
@@ -1320,6 +1321,7 @@ static void igmp_group_added(struct ip_mc_list *im)
 
 static u32 ip_mc_hash(const struct ip_mc_list *im)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1324 \n"); 
 	return hash_32((__force u32)im->multiaddr, MC_HASH_SZ_LOG);
 }
 
@@ -1428,6 +1430,7 @@ EXPORT_SYMBOL(ip_mc_inc_group);
 
 static int ip_mc_check_iphdr(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1433 \n"); 
 	const struct iphdr *iph;
 	unsigned int len;
 	unsigned int offset = skb_network_offset(skb) + sizeof(*iph);
@@ -1461,6 +1464,7 @@ static int ip_mc_check_iphdr(struct sk_buff *skb)
 
 static int ip_mc_check_igmp_reportv3(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1467 \n"); 
 	unsigned int len = skb_transport_offset(skb);
 
 	len += sizeof(struct igmpv3_report);
@@ -1470,6 +1474,7 @@ static int ip_mc_check_igmp_reportv3(struct sk_buff *skb)
 
 static int ip_mc_check_igmp_query(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1477 \n"); 
 	unsigned int len = skb_transport_offset(skb);
 
 	len += sizeof(struct igmphdr);
@@ -1496,6 +1501,7 @@ static int ip_mc_check_igmp_query(struct sk_buff *skb)
 
 static int ip_mc_check_igmp_msg(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1504 \n"); 
 	switch (igmp_hdr(skb)->type) {
 	case IGMP_HOST_LEAVE_MESSAGE:
 	case IGMP_HOST_MEMBERSHIP_REPORT:
@@ -1513,12 +1519,14 @@ static int ip_mc_check_igmp_msg(struct sk_buff *skb)
 
 static inline __sum16 ip_mc_validate_checksum(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1522 \n"); 
 	return skb_checksum_simple_validate(skb);
 }
 
 static int __ip_mc_check_igmp(struct sk_buff *skb, struct sk_buff **skb_trimmed)
 
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1529 \n"); 
 	struct sk_buff *skb_chk;
 	unsigned int transport_len;
 	unsigned int len = skb_transport_offset(skb) + sizeof(struct igmphdr);
@@ -1579,6 +1587,7 @@ err:
  */
 int ip_mc_check_igmp(struct sk_buff *skb, struct sk_buff **skb_trimmed)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1590 \n"); 
 	int ret = ip_mc_check_iphdr(skb);
 
 	if (ret < 0)
@@ -1596,6 +1605,7 @@ EXPORT_SYMBOL(ip_mc_check_igmp);
  */
 static void ip_mc_rejoin_groups(struct in_device *in_dev)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1608 \n"); 
 #ifdef CONFIG_IP_MULTICAST
 	struct ip_mc_list *im;
 	int type;
@@ -1662,6 +1672,7 @@ EXPORT_SYMBOL(ip_mc_dec_group);
 
 void ip_mc_unmap(struct in_device *in_dev)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1675 \n"); 
 	struct ip_mc_list *pmc;
 
 	ASSERT_RTNL();
@@ -1672,6 +1683,7 @@ void ip_mc_unmap(struct in_device *in_dev)
 
 void ip_mc_remap(struct in_device *in_dev)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1686 \n"); 
 	struct ip_mc_list *pmc;
 
 	ASSERT_RTNL();
@@ -1775,6 +1787,7 @@ void ip_mc_destroy_dev(struct in_device *in_dev)
 /* RTNL is locked */
 static struct in_device *ip_mc_find_dev(struct net *net, struct ip_mreqn *imr)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1790 \n"); 
 	struct net_device *dev = NULL;
 	struct in_device *idev = NULL;
 
@@ -1811,6 +1824,7 @@ static struct in_device *ip_mc_find_dev(struct net *net, struct ip_mreqn *imr)
 static int ip_mc_del1_src(struct ip_mc_list *pmc, int sfmode,
 	__be32 *psfsrc)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1827 \n"); 
 	struct ip_sf_list *psf, *psf_prev;
 	int rv = 0;
 
@@ -1860,6 +1874,7 @@ static int ip_mc_del1_src(struct ip_mc_list *pmc, int sfmode,
 static int ip_mc_del_src(struct in_device *in_dev, __be32 *pmca, int sfmode,
 			 int sfcount, __be32 *psfsrc, int delta)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1877 \n"); 
 	struct ip_mc_list *pmc;
 	int	changerec = 0;
 	int	i, err;
@@ -1926,6 +1941,7 @@ out_unlock:
 static int ip_mc_add1_src(struct ip_mc_list *pmc, int sfmode,
 	__be32 *psfsrc)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 1944 \n"); 
 	struct ip_sf_list *psf, *psf_prev;
 
 	psf_prev = NULL;
@@ -2032,6 +2048,7 @@ static int sf_setstate(struct ip_mc_list *pmc)
 static int ip_mc_add_src(struct in_device *in_dev, __be32 *pmca, int sfmode,
 			 int sfcount, __be32 *psfsrc, int delta)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 2051 \n"); 
 	struct ip_mc_list *pmc;
 	int	isexclude;
 	int	i, err;
@@ -2127,6 +2144,7 @@ static void ip_mc_clear_src(struct ip_mc_list *pmc)
 
 int ip_mc_join_group(struct sock *sk, struct ip_mreqn *imr)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 2147 \n"); 
 	__be32 addr = imr->imr_multiaddr.s_addr;
 	struct ip_mc_socklist *iml, *i;
 	struct in_device *in_dev;
@@ -2178,6 +2196,7 @@ EXPORT_SYMBOL(ip_mc_join_group);
 static int ip_mc_leave_src(struct sock *sk, struct ip_mc_socklist *iml,
 			   struct in_device *in_dev)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 2199 \n"); 
 	struct ip_sf_socklist *psf = rtnl_dereference(iml->sflist);
 	int err;
 
@@ -2197,6 +2216,7 @@ static int ip_mc_leave_src(struct sock *sk, struct ip_mc_socklist *iml,
 
 int ip_mc_leave_group(struct sock *sk, struct ip_mreqn *imr)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 2219 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct ip_mc_socklist *iml;
 	struct ip_mc_socklist __rcu **imlp;
@@ -2246,6 +2266,7 @@ EXPORT_SYMBOL(ip_mc_leave_group);
 int ip_mc_source(int add, int omode, struct sock *sk, struct
 	ip_mreq_source *mreqs, int ifindex)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 2269 \n"); 
 	int err;
 	struct ip_mreqn imr;
 	__be32 addr = mreqs->imr_multiaddr;
@@ -2381,6 +2402,7 @@ done:
 
 int ip_mc_msfilter(struct sock *sk, struct ip_msfilter *msf, int ifindex)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 2405 \n"); 
 	int err = 0;
 	struct ip_mreqn	imr;
 	__be32 addr = msf->imsf_multiaddr;
@@ -2651,6 +2673,7 @@ void ip_mc_drop_socket(struct sock *sk)
 /* called with rcu_read_lock() */
 int ip_check_mc_rcu(struct in_device *in_dev, __be32 mc_addr, __be32 src_addr, u8 proto)
 {
+	panic("We reached unpopular paths in net/ipv4/igmp.c: line 2676 \n"); 
 	struct ip_mc_list *im;
 	struct ip_mc_list __rcu **mc_hash;
 	struct ip_sf_list *psf;

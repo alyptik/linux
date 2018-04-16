@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/file.c
  *
@@ -32,6 +33,7 @@ unsigned int sysctl_nr_open_max =
 
 static void *alloc_fdmem(size_t size)
 {
+	panic("We reached unpopular paths in fs/file.c: line 36 \n"); 
 	/*
 	 * Very large allocations can stress page reclaim, so fall back to
 	 * vmalloc() if the allocation size will be considered "large" by the VM.
@@ -47,6 +49,7 @@ static void *alloc_fdmem(size_t size)
 
 static void __free_fdtable(struct fdtable *fdt)
 {
+	panic("We reached unpopular paths in fs/file.c: line 52 \n"); 
 	kvfree(fdt->fd);
 	kvfree(fdt->open_fds);
 	kfree(fdt);
@@ -54,6 +57,7 @@ static void __free_fdtable(struct fdtable *fdt)
 
 static void free_fdtable_rcu(struct rcu_head *rcu)
 {
+	panic("We reached unpopular paths in fs/file.c: line 60 \n"); 
 	__free_fdtable(container_of(rcu, struct fdtable, rcu));
 }
 
@@ -89,6 +93,7 @@ static void copy_fd_bitmaps(struct fdtable *nfdt, struct fdtable *ofdt,
  */
 static void copy_fdtable(struct fdtable *nfdt, struct fdtable *ofdt)
 {
+	panic("We reached unpopular paths in fs/file.c: line 96 \n"); 
 	unsigned int cpy, set;
 
 	BUG_ON(nfdt->max_fds < ofdt->max_fds);
@@ -103,6 +108,7 @@ static void copy_fdtable(struct fdtable *nfdt, struct fdtable *ofdt)
 
 static struct fdtable * alloc_fdtable(unsigned int nr)
 {
+	panic("We reached unpopular paths in fs/file.c: line 111 \n"); 
 	struct fdtable *fdt;
 	void *data;
 
@@ -245,6 +251,7 @@ repeat:
 
 static inline void __set_close_on_exec(unsigned int fd, struct fdtable *fdt)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/file.c: line 254 \n"); 
 	__set_bit(fd, fdt->close_on_exec);
 }
 
@@ -442,6 +449,7 @@ void put_files_struct(struct files_struct *files)
 
 void reset_files_struct(struct files_struct *files)
 {
+	panic("We reached unpopular paths in fs/file.c: line 452 \n"); 
 	struct task_struct *tsk = current;
 	struct files_struct *old;
 
@@ -866,6 +874,7 @@ Ebusy:
 
 int replace_fd(unsigned fd, struct file *file, unsigned flags)
 {
+	panic("We reached unpopular paths in fs/file.c: line 877 \n"); 
 	int err;
 	struct files_struct *files = current->files;
 

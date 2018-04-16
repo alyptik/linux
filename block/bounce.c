@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* bounce buffer handling for block devices
  *
  * - Split from highmem.c
@@ -74,6 +75,7 @@ static void bounce_copy_vec(struct bio_vec *to, unsigned char *vfrom)
  */
 static void *mempool_alloc_pages_isa(gfp_t gfp_mask, void *data)
 {
+	panic("We reached unpopular paths in block/bounce.c: line 78 \n"); 
 	return mempool_alloc_pages(gfp_mask | GFP_DMA, data);
 }
 
@@ -83,6 +85,7 @@ static void *mempool_alloc_pages_isa(gfp_t gfp_mask, void *data)
  */
 int init_emergency_isa_pool(void)
 {
+	panic("We reached unpopular paths in block/bounce.c: line 88 \n"); 
 	if (isa_page_pool)
 		return 0;
 
@@ -101,6 +104,7 @@ int init_emergency_isa_pool(void)
  */
 static void copy_to_high_bio_irq(struct bio *to, struct bio *from)
 {
+	panic("We reached unpopular paths in block/bounce.c: line 107 \n"); 
 	unsigned char *vfrom;
 	struct bio_vec tovec, *fromvec = from->bi_io_vec;
 	struct bvec_iter iter;
@@ -125,6 +129,7 @@ static void copy_to_high_bio_irq(struct bio *to, struct bio *from)
 
 static void bounce_end_io(struct bio *bio, mempool_t *pool)
 {
+	panic("We reached unpopular paths in block/bounce.c: line 132 \n"); 
 	struct bio *bio_orig = bio->bi_private;
 	struct bio_vec *bvec, *org_vec;
 	int i;
@@ -150,17 +155,20 @@ static void bounce_end_io(struct bio *bio, mempool_t *pool)
 
 static void bounce_end_io_write(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bounce.c: line 158 \n"); 
 	bounce_end_io(bio, page_pool);
 }
 
 static void bounce_end_io_write_isa(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bounce.c: line 164 \n"); 
 
 	bounce_end_io(bio, isa_page_pool);
 }
 
 static void __bounce_end_io_read(struct bio *bio, mempool_t *pool)
 {
+	panic("We reached unpopular paths in block/bounce.c: line 171 \n"); 
 	struct bio *bio_orig = bio->bi_private;
 
 	if (!bio->bi_error)
@@ -171,17 +179,20 @@ static void __bounce_end_io_read(struct bio *bio, mempool_t *pool)
 
 static void bounce_end_io_read(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bounce.c: line 182 \n"); 
 	__bounce_end_io_read(bio, page_pool);
 }
 
 static void bounce_end_io_read_isa(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bounce.c: line 188 \n"); 
 	__bounce_end_io_read(bio, isa_page_pool);
 }
 
 static void __blk_queue_bounce(struct request_queue *q, struct bio **bio_orig,
 			       mempool_t *pool)
 {
+	panic("We reached unpopular paths in block/bounce.c: line 195 \n"); 
 	struct bio *bio;
 	int rw = bio_data_dir(*bio_orig);
 	struct bio_vec *to, from;

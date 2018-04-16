@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C) 2016 Oracle.  All Rights Reserved.
  *
@@ -41,6 +42,7 @@ xfs_trans_get_bud(
 	struct xfs_trans		*tp,
 	struct xfs_bui_log_item		*buip)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_bmap.c: line 45 \n"); 
 	struct xfs_bud_log_item		*budp;
 
 	budp = xfs_bud_init(tp->t_mountp, buip);
@@ -66,6 +68,7 @@ xfs_trans_log_finish_bmap_update(
 	xfs_filblks_t			*blockcount,
 	xfs_exntst_t			state)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_bmap.c: line 71 \n"); 
 	int				error;
 
 	error = xfs_bmap_finish_one(tp, dop, ip, type, whichfork, startoff,
@@ -91,6 +94,7 @@ xfs_bmap_update_diff_items(
 	struct list_head		*a,
 	struct list_head		*b)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_bmap.c: line 97 \n"); 
 	struct xfs_bmap_intent		*ba;
 	struct xfs_bmap_intent		*bb;
 
@@ -105,6 +109,7 @@ xfs_bmap_update_create_intent(
 	struct xfs_trans		*tp,
 	unsigned int			count)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_bmap.c: line 112 \n"); 
 	struct xfs_bui_log_item		*buip;
 
 	ASSERT(count == XFS_BUI_MAX_FAST_EXTENTS);
@@ -128,6 +133,7 @@ xfs_trans_set_bmap_flags(
 	int				whichfork,
 	xfs_exntst_t			state)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_bmap.c: line 136 \n"); 
 	bmap->me_flags = 0;
 	switch (type) {
 	case XFS_BMAP_MAP:
@@ -150,6 +156,7 @@ xfs_bmap_update_log_item(
 	void				*intent,
 	struct list_head		*item)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_bmap.c: line 159 \n"); 
 	struct xfs_bui_log_item		*buip = intent;
 	struct xfs_bmap_intent		*bmap;
 	uint				next_extent;
@@ -183,6 +190,7 @@ xfs_bmap_update_create_done(
 	void				*intent,
 	unsigned int			count)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_bmap.c: line 193 \n"); 
 	return xfs_trans_get_bud(tp, intent);
 }
 
@@ -195,6 +203,7 @@ xfs_bmap_update_finish_item(
 	void				*done_item,
 	void				**state)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_bmap.c: line 206 \n"); 
 	struct xfs_bmap_intent		*bmap;
 	xfs_filblks_t			count;
 	int				error;
@@ -222,6 +231,7 @@ STATIC void
 xfs_bmap_update_abort_intent(
 	void				*intent)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_bmap.c: line 234 \n"); 
 	xfs_bui_release(intent);
 }
 
@@ -230,6 +240,7 @@ STATIC void
 xfs_bmap_update_cancel_item(
 	struct list_head		*item)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_bmap.c: line 243 \n"); 
 	struct xfs_bmap_intent		*bmap;
 
 	bmap = container_of(item, struct xfs_bmap_intent, bi_list);

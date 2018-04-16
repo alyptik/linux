@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2006 Netfilter Core Team <coreteam@netfilter.org>
@@ -31,11 +32,13 @@
 static unsigned int
 redirect_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_REDIRECT.c: line 35 \n"); 
 	return nf_nat_redirect_ipv6(skb, par->targinfo, par->hooknum);
 }
 
 static int redirect_tg6_checkentry(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_REDIRECT.c: line 41 \n"); 
 	const struct nf_nat_range *range = par->targinfo;
 
 	if (range->flags & NF_NAT_RANGE_MAP_IPS)
@@ -46,6 +49,7 @@ static int redirect_tg6_checkentry(const struct xt_tgchk_param *par)
 /* FIXME: Take multiple ranges --RR */
 static int redirect_tg4_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_REDIRECT.c: line 52 \n"); 
 	const struct nf_nat_ipv4_multi_range_compat *mr = par->targinfo;
 
 	if (mr->range[0].flags & NF_NAT_RANGE_MAP_IPS) {
@@ -62,6 +66,7 @@ static int redirect_tg4_check(const struct xt_tgchk_param *par)
 static unsigned int
 redirect_tg4(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_REDIRECT.c: line 69 \n"); 
 	return nf_nat_redirect_ipv4(skb, par->targinfo, par->hooknum);
 }
 

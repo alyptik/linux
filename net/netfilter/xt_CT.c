@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2010 Patrick McHardy <kaber@trash.net>
  *
@@ -22,6 +23,7 @@
 
 static inline int xt_ct_target(struct sk_buff *skb, struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 26 \n"); 
 	/* Previously seen (loopback)? Ignore. */
 	if (skb->nfct != NULL)
 		return XT_CONTINUE;
@@ -39,6 +41,7 @@ static inline int xt_ct_target(struct sk_buff *skb, struct nf_conn *ct)
 static unsigned int xt_ct_target_v0(struct sk_buff *skb,
 				    const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 44 \n"); 
 	const struct xt_ct_target_info *info = par->targinfo;
 	struct nf_conn *ct = info->ct;
 
@@ -48,6 +51,7 @@ static unsigned int xt_ct_target_v0(struct sk_buff *skb,
 static unsigned int xt_ct_target_v1(struct sk_buff *skb,
 				    const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 54 \n"); 
 	const struct xt_ct_target_info_v1 *info = par->targinfo;
 	struct nf_conn *ct = info->ct;
 
@@ -56,6 +60,7 @@ static unsigned int xt_ct_target_v1(struct sk_buff *skb,
 
 static u8 xt_ct_find_proto(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 63 \n"); 
 	if (par->family == NFPROTO_IPV4) {
 		const struct ipt_entry *e = par->entryinfo;
 
@@ -76,6 +81,7 @@ static int
 xt_ct_set_helper(struct nf_conn *ct, const char *helper_name,
 		 const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 84 \n"); 
 	struct nf_conntrack_helper *helper;
 	struct nf_conn_help *help;
 	u8 proto;
@@ -119,6 +125,7 @@ static int
 xt_ct_set_timeout(struct nf_conn *ct, const struct xt_tgchk_param *par,
 		  const char *timeout_name)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 128 \n"); 
 #ifdef CONFIG_NF_CONNTRACK_TIMEOUT
 	typeof(nf_ct_timeout_find_get_hook) timeout_find_get;
 	struct ctnl_timeout *timeout;
@@ -186,6 +193,7 @@ out:
 
 static u16 xt_ct_flags_to_dir(const struct xt_ct_target_info_v1 *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 196 \n"); 
 	switch (info->flags & (XT_CT_ZONE_DIR_ORIG |
 			       XT_CT_ZONE_DIR_REPL)) {
 	case XT_CT_ZONE_DIR_ORIG:
@@ -200,6 +208,7 @@ static u16 xt_ct_flags_to_dir(const struct xt_ct_target_info_v1 *info)
 static int xt_ct_tg_check(const struct xt_tgchk_param *par,
 			  struct xt_ct_target_info_v1 *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 211 \n"); 
 	struct nf_conntrack_zone zone;
 	struct nf_conn *ct;
 	int ret = -EOPNOTSUPP;
@@ -267,6 +276,7 @@ err1:
 
 static int xt_ct_tg_check_v0(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 279 \n"); 
 	struct xt_ct_target_info *info = par->targinfo;
 	struct xt_ct_target_info_v1 info_v1 = {
 		.flags 		= info->flags,
@@ -292,6 +302,7 @@ static int xt_ct_tg_check_v0(const struct xt_tgchk_param *par)
 
 static int xt_ct_tg_check_v1(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 305 \n"); 
 	struct xt_ct_target_info_v1 *info = par->targinfo;
 
 	if (info->flags & ~XT_CT_NOTRACK)
@@ -302,6 +313,7 @@ static int xt_ct_tg_check_v1(const struct xt_tgchk_param *par)
 
 static int xt_ct_tg_check_v2(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 316 \n"); 
 	struct xt_ct_target_info_v1 *info = par->targinfo;
 
 	if (info->flags & ~XT_CT_MASK)
@@ -312,6 +324,7 @@ static int xt_ct_tg_check_v2(const struct xt_tgchk_param *par)
 
 static void xt_ct_destroy_timeout(struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 327 \n"); 
 #ifdef CONFIG_NF_CONNTRACK_TIMEOUT
 	struct nf_conn_timeout *timeout_ext;
 	typeof(nf_ct_timeout_put_hook) timeout_put;
@@ -333,6 +346,7 @@ static void xt_ct_destroy_timeout(struct nf_conn *ct)
 static void xt_ct_tg_destroy(const struct xt_tgdtor_param *par,
 			     struct xt_ct_target_info_v1 *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 349 \n"); 
 	struct nf_conn *ct = info->ct;
 	struct nf_conn_help *help;
 
@@ -350,6 +364,7 @@ static void xt_ct_tg_destroy(const struct xt_tgdtor_param *par,
 
 static void xt_ct_tg_destroy_v0(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 367 \n"); 
 	struct xt_ct_target_info *info = par->targinfo;
 	struct xt_ct_target_info_v1 info_v1 = {
 		.flags 		= info->flags,
@@ -365,6 +380,7 @@ static void xt_ct_tg_destroy_v0(const struct xt_tgdtor_param *par)
 
 static void xt_ct_tg_destroy_v1(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 383 \n"); 
 	xt_ct_tg_destroy(par, par->targinfo);
 }
 
@@ -406,6 +422,7 @@ static struct xt_target xt_ct_tg_reg[] __read_mostly = {
 static unsigned int
 notrack_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 425 \n"); 
 	/* Previously seen (loopback)? Ignore. */
 	if (skb->nfct != NULL)
 		return XT_CONTINUE;
@@ -419,6 +436,7 @@ notrack_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int notrack_chk(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CT.c: line 439 \n"); 
 	if (!par->net->xt.notrack_deprecated_warning) {
 		pr_info("netfilter: NOTRACK target is deprecated, "
 			"use CT instead or upgrade iptables\n");

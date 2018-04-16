@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  Copyright (C) 2008 Red Hat, Inc., Eric Paris <eparis@redhat.com>
  *
@@ -63,6 +64,7 @@ EXPORT_SYMBOL_GPL(fsnotify_get_cookie);
 /* return true if the notify queue is empty, false otherwise */
 bool fsnotify_notify_queue_is_empty(struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/notification.c: line 67 \n"); 
 	assert_spin_locked(&group->notification_lock);
 	return list_empty(&group->notification_list) ? true : false;
 }
@@ -70,6 +72,7 @@ bool fsnotify_notify_queue_is_empty(struct fsnotify_group *group)
 void fsnotify_destroy_event(struct fsnotify_group *group,
 			    struct fsnotify_event *event)
 {
+	panic("We reached unpopular paths in fs/notify/notification.c: line 75 \n"); 
 	/* Overflow events are per-group and we don't want to free them */
 	if (!event || event->mask == FS_Q_OVERFLOW)
 		return;
@@ -99,6 +102,7 @@ int fsnotify_add_event(struct fsnotify_group *group,
 		       int (*merge)(struct list_head *,
 				    struct fsnotify_event *))
 {
+	panic("We reached unpopular paths in fs/notify/notification.c: line 105 \n"); 
 	int ret = 0;
 	struct list_head *list = &group->notification_list;
 
@@ -146,6 +150,7 @@ queue:
  */
 struct fsnotify_event *fsnotify_remove_first_event(struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/notification.c: line 153 \n"); 
 	struct fsnotify_event *event;
 
 	assert_spin_locked(&group->notification_lock);
@@ -170,6 +175,7 @@ struct fsnotify_event *fsnotify_remove_first_event(struct fsnotify_group *group)
  */
 struct fsnotify_event *fsnotify_peek_first_event(struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/notification.c: line 178 \n"); 
 	assert_spin_locked(&group->notification_lock);
 
 	return list_first_entry(&group->notification_list,
@@ -182,6 +188,7 @@ struct fsnotify_event *fsnotify_peek_first_event(struct fsnotify_group *group)
  */
 void fsnotify_flush_notify(struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/notification.c: line 191 \n"); 
 	struct fsnotify_event *event;
 
 	spin_lock(&group->notification_lock);
@@ -209,6 +216,7 @@ void fsnotify_flush_notify(struct fsnotify_group *group)
 void fsnotify_init_event(struct fsnotify_event *event, struct inode *inode,
 			 u32 mask)
 {
+	panic("We reached unpopular paths in fs/notify/notification.c: line 219 \n"); 
 	INIT_LIST_HEAD(&event->list);
 	event->inode = inode;
 	event->mask = mask;

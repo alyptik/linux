@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Linux INET6 implementation
  *	Forwarding Information Database
@@ -150,6 +151,7 @@ static struct fib6_node *node_alloc(void)
 
 static void node_free_immediate(struct fib6_node *fn)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_fib.c: line 154 \n"); 
 	kmem_cache_free(fib6_node_kmem, fn);
 }
 
@@ -293,17 +295,20 @@ static void __net_init fib6_tables_init(struct net *net)
 
 struct fib6_table *fib6_new_table(struct net *net, u32 id)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_fib.c: line 298 \n"); 
 	return fib6_get_table(net, id);
 }
 
 struct fib6_table *fib6_get_table(struct net *net, u32 id)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_fib.c: line 304 \n"); 
 	  return net->ipv6.fib6_main_tbl;
 }
 
 struct dst_entry *fib6_rule_lookup(struct net *net, struct flowi6 *fl6,
 				   int flags, pol_lookup_t lookup)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_fib.c: line 311 \n"); 
 	struct rt6_info *rt;
 
 	rt = lookup(net, net->ipv6.fib6_main_tbl, fl6, flags);
@@ -359,6 +364,7 @@ static void fib6_dump_end(struct netlink_callback *cb)
 
 static int fib6_dump_done(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_fib.c: line 367 \n"); 
 	fib6_dump_end(cb);
 	return cb->done ? cb->done(cb) : 0;
 }
@@ -685,12 +691,14 @@ insert_above:
 
 static bool rt6_qualify_for_ecmp(struct rt6_info *rt)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv6/ip6_fib.c: line 694 \n"); 
 	return (rt->rt6i_flags & (RTF_GATEWAY|RTF_ADDRCONF|RTF_DYNAMIC)) ==
 	       RTF_GATEWAY;
 }
 
 static void fib6_copy_metrics(u32 *mp, const struct mx6_config *mxc)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_fib.c: line 701 \n"); 
 	int i;
 
 	for (i = 0; i < RTAX_MAX; i++) {
@@ -1224,6 +1232,7 @@ static struct fib6_node *fib6_locate_1(struct fib6_node *root,
 				       const struct in6_addr *addr,
 				       int plen, int offset)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_fib.c: line 1235 \n"); 
 	struct fib6_node *fn;
 
 	for (fn = root; fn ; ) {
@@ -1254,6 +1263,7 @@ struct fib6_node *fib6_locate(struct fib6_node *root,
 			      const struct in6_addr *daddr, int dst_len,
 			      const struct in6_addr *saddr, int src_len)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_fib.c: line 1266 \n"); 
 	struct fib6_node *fn;
 
 	fn = fib6_locate_1(root, daddr, dst_len,
@@ -1957,6 +1967,7 @@ out_kmem_cache_create:
 
 void fib6_gc_cleanup(void)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_fib.c: line 1970 \n"); 
 	unregister_pernet_subsys(&fib6_net_ops);
 	kmem_cache_destroy(fib6_node_kmem);
 }

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * xfrm_state.c
  *
@@ -57,6 +58,7 @@ static inline unsigned int xfrm_dst_hash(struct net *net,
 					 u32 reqid,
 					 unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 61 \n"); 
 	return __xfrm_dst_hash(daddr, saddr, reqid, family, net->xfrm.state_hmask);
 }
 
@@ -65,6 +67,7 @@ static inline unsigned int xfrm_src_hash(struct net *net,
 					 const xfrm_address_t *saddr,
 					 unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 70 \n"); 
 	return __xfrm_src_hash(daddr, saddr, family, net->xfrm.state_hmask);
 }
 
@@ -72,6 +75,7 @@ static inline unsigned int
 xfrm_spi_hash(struct net *net, const xfrm_address_t *daddr,
 	      __be32 spi, u8 proto, unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 78 \n"); 
 	return __xfrm_spi_hash(daddr, spi, proto, family, net->xfrm.state_hmask);
 }
 
@@ -81,6 +85,7 @@ static void xfrm_hash_transfer(struct hlist_head *list,
 			       struct hlist_head *nspitable,
 			       unsigned int nhashmask)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 88 \n"); 
 	struct hlist_node *tmp;
 	struct xfrm_state *x;
 
@@ -108,11 +113,13 @@ static void xfrm_hash_transfer(struct hlist_head *list,
 
 static unsigned long xfrm_hash_new_size(unsigned int state_hmask)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 116 \n"); 
 	return ((state_hmask + 1) << 1) * sizeof(struct hlist_head);
 }
 
 static void xfrm_hash_resize(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 122 \n"); 
 	struct net *net = container_of(work, struct net, xfrm.state_hash_work);
 	struct hlist_head *ndst, *nsrc, *nspi, *odst, *osrc, *ospi;
 	unsigned long nsize, osize;
@@ -178,6 +185,7 @@ void km_state_expired(struct xfrm_state *x, int hard, u32 portid);
 static DEFINE_SPINLOCK(xfrm_type_lock);
 int xfrm_register_type(const struct xfrm_type *type, unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 188 \n"); 
 	struct xfrm_state_afinfo *afinfo = xfrm_state_get_afinfo(family);
 	const struct xfrm_type **typemap;
 	int err = 0;
@@ -199,6 +207,7 @@ EXPORT_SYMBOL(xfrm_register_type);
 
 int xfrm_unregister_type(const struct xfrm_type *type, unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 210 \n"); 
 	struct xfrm_state_afinfo *afinfo = xfrm_state_get_afinfo(family);
 	const struct xfrm_type **typemap;
 	int err = 0;
@@ -220,6 +229,7 @@ EXPORT_SYMBOL(xfrm_unregister_type);
 
 static const struct xfrm_type *xfrm_get_type(u8 proto, unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 232 \n"); 
 	struct xfrm_state_afinfo *afinfo;
 	const struct xfrm_type **typemap;
 	const struct xfrm_type *type;
@@ -247,12 +257,14 @@ retry:
 
 static void xfrm_put_type(const struct xfrm_type *type)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 260 \n"); 
 	module_put(type->owner);
 }
 
 static DEFINE_SPINLOCK(xfrm_mode_lock);
 int xfrm_register_mode(struct xfrm_mode *mode, int family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 267 \n"); 
 	struct xfrm_state_afinfo *afinfo;
 	struct xfrm_mode **modemap;
 	int err;
@@ -287,6 +299,7 @@ EXPORT_SYMBOL(xfrm_register_mode);
 
 int xfrm_unregister_mode(struct xfrm_mode *mode, int family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 302 \n"); 
 	struct xfrm_state_afinfo *afinfo;
 	struct xfrm_mode **modemap;
 	int err;
@@ -315,6 +328,7 @@ EXPORT_SYMBOL(xfrm_unregister_mode);
 
 static struct xfrm_mode *xfrm_get_mode(unsigned int encap, int family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 331 \n"); 
 	struct xfrm_state_afinfo *afinfo;
 	struct xfrm_mode *mode;
 	int modload_attempted = 0;
@@ -343,11 +357,13 @@ retry:
 
 static void xfrm_put_mode(struct xfrm_mode *mode)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 360 \n"); 
 	module_put(mode->owner);
 }
 
 static void xfrm_state_gc_destroy(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 366 \n"); 
 	tasklet_hrtimer_cancel(&x->mtimer);
 	del_timer_sync(&x->rtimer);
 	kfree(x->aead);
@@ -374,6 +390,7 @@ static void xfrm_state_gc_destroy(struct xfrm_state *x)
 
 static void xfrm_state_gc_task(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 393 \n"); 
 	struct xfrm_state *x;
 	struct hlist_node *tmp;
 	struct hlist_head gc_list;
@@ -390,6 +407,7 @@ static void xfrm_state_gc_task(struct work_struct *work)
 
 static inline unsigned long make_jiffies(long secs)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 410 \n"); 
 	if (secs >= (MAX_SCHEDULE_TIMEOUT-1)/HZ)
 		return MAX_SCHEDULE_TIMEOUT-1;
 	else
@@ -398,6 +416,7 @@ static inline unsigned long make_jiffies(long secs)
 
 static enum hrtimer_restart xfrm_timer_handler(struct hrtimer *me)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 419 \n"); 
 	struct tasklet_hrtimer *thr = container_of(me, struct tasklet_hrtimer, timer);
 	struct xfrm_state *x = container_of(thr, struct xfrm_state, mtimer);
 	unsigned long now = get_seconds();
@@ -487,6 +506,7 @@ static void xfrm_replay_timer_handler(unsigned long data);
 
 struct xfrm_state *xfrm_state_alloc(struct net *net)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 509 \n"); 
 	struct xfrm_state *x;
 
 	x = kzalloc(sizeof(struct xfrm_state), GFP_ATOMIC);
@@ -520,6 +540,7 @@ EXPORT_SYMBOL(xfrm_state_alloc);
 
 void __xfrm_state_destroy(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 543 \n"); 
 	WARN_ON(x->km.state != XFRM_STATE_DEAD);
 
 	spin_lock_bh(&xfrm_state_gc_lock);
@@ -531,6 +552,7 @@ EXPORT_SYMBOL(__xfrm_state_destroy);
 
 int __xfrm_state_delete(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 555 \n"); 
 	struct net *net = xs_net(x);
 	int err = -ESRCH;
 
@@ -559,6 +581,7 @@ EXPORT_SYMBOL(__xfrm_state_delete);
 
 int xfrm_state_delete(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 584 \n"); 
 	int err;
 
 	spin_lock_bh(&x->lock);
@@ -593,6 +616,7 @@ xfrm_state_flush_secctx_check(struct net *net, u8 proto, bool task_valid)
 static inline int
 xfrm_state_flush_secctx_check(struct net *net, u8 proto, bool task_valid)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 619 \n"); 
 	return 0;
 }
 #endif
@@ -639,6 +663,7 @@ EXPORT_SYMBOL(xfrm_state_flush);
 
 void xfrm_sad_getinfo(struct net *net, struct xfrmk_sadinfo *si)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 666 \n"); 
 	spin_lock_bh(&net->xfrm.xfrm_state_lock);
 	si->sadcnt = net->xfrm.state_num;
 	si->sadhcnt = net->xfrm.state_hmask;
@@ -653,6 +678,7 @@ xfrm_init_tempstate(struct xfrm_state *x, const struct flowi *fl,
 		    const xfrm_address_t *daddr, const xfrm_address_t *saddr,
 		    unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 681 \n"); 
 	struct xfrm_state_afinfo *afinfo = xfrm_state_get_afinfo(family);
 	if (!afinfo)
 		return -1;
@@ -674,6 +700,7 @@ static struct xfrm_state *__xfrm_state_lookup(struct net *net, u32 mark,
 					      __be32 spi, u8 proto,
 					      unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 703 \n"); 
 	unsigned int h = xfrm_spi_hash(net, daddr, spi, proto, family);
 	struct xfrm_state *x;
 
@@ -699,6 +726,7 @@ static struct xfrm_state *__xfrm_state_lookup_byaddr(struct net *net, u32 mark,
 						     const xfrm_address_t *saddr,
 						     u8 proto, unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 729 \n"); 
 	unsigned int h = xfrm_src_hash(net, daddr, saddr, family);
 	struct xfrm_state *x;
 
@@ -722,6 +750,7 @@ static struct xfrm_state *__xfrm_state_lookup_byaddr(struct net *net, u32 mark,
 static inline struct xfrm_state *
 __xfrm_state_locate(struct xfrm_state *x, int use_spi, int family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 753 \n"); 
 	struct net *net = xs_net(x);
 	u32 mark = x->mark.v & x->mark.m;
 
@@ -737,6 +766,7 @@ __xfrm_state_locate(struct xfrm_state *x, int use_spi, int family)
 
 static void xfrm_hash_grow_check(struct net *net, int have_hash_collision)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 769 \n"); 
 	if (have_hash_collision &&
 	    (net->xfrm.state_hmask + 1) < xfrm_state_hashmax &&
 	    net->xfrm.state_num > net->xfrm.state_hmask)
@@ -748,6 +778,7 @@ static void xfrm_state_look_at(struct xfrm_policy *pol, struct xfrm_state *x,
 			       struct xfrm_state **best, int *acq_in_progress,
 			       int *error)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 781 \n"); 
 	/* Resolution logic:
 	 * 1. There is a valid state with matching selector. Done.
 	 * 2. Valid state with inappropriate selector. Skip.
@@ -786,6 +817,7 @@ xfrm_state_find(const xfrm_address_t *daddr, const xfrm_address_t *saddr,
 		struct xfrm_policy *pol, int *err,
 		unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 820 \n"); 
 	static xfrm_address_t saddr_wildcard = { };
 	struct net *net = xp_net(pol);
 	unsigned int h, h_wildcard;
@@ -924,6 +956,7 @@ xfrm_stateonly_find(struct net *net, u32 mark,
 		    xfrm_address_t *daddr, xfrm_address_t *saddr,
 		    unsigned short family, u8 mode, u8 proto, u32 reqid)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 959 \n"); 
 	unsigned int h;
 	struct xfrm_state *rx = NULL, *x = NULL;
 
@@ -955,6 +988,7 @@ EXPORT_SYMBOL(xfrm_stateonly_find);
 struct xfrm_state *xfrm_state_lookup_byspi(struct net *net, __be32 spi,
 					      unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 991 \n"); 
 	struct xfrm_state *x;
 	struct xfrm_state_walk *w;
 
@@ -976,6 +1010,7 @@ EXPORT_SYMBOL(xfrm_state_lookup_byspi);
 
 static void __xfrm_state_insert(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1013 \n"); 
 	struct net *net = xs_net(x);
 	unsigned int h;
 
@@ -1007,6 +1042,7 @@ static void __xfrm_state_insert(struct xfrm_state *x)
 /* net->xfrm.xfrm_state_lock is held */
 static void __xfrm_state_bump_genids(struct xfrm_state *xnew)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1045 \n"); 
 	struct net *net = xs_net(xnew);
 	unsigned short family = xnew->props.family;
 	u32 reqid = xnew->props.reqid;
@@ -1027,6 +1063,7 @@ static void __xfrm_state_bump_genids(struct xfrm_state *xnew)
 
 void xfrm_state_insert(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1066 \n"); 
 	struct net *net = xs_net(x);
 
 	spin_lock_bh(&net->xfrm.xfrm_state_lock);
@@ -1045,6 +1082,7 @@ static struct xfrm_state *__find_acq_core(struct net *net,
 					  const xfrm_address_t *saddr,
 					  int create)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1085 \n"); 
 	unsigned int h = xfrm_dst_hash(net, daddr, saddr, reqid, family);
 	struct xfrm_state *x;
 	u32 mark = m->v & m->m;
@@ -1117,6 +1155,7 @@ static struct xfrm_state *__xfrm_find_acq_byseq(struct net *net, u32 mark, u32 s
 
 int xfrm_state_add(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1158 \n"); 
 	struct net *net = xs_net(x);
 	struct xfrm_state *x1, *to_put;
 	int family;
@@ -1334,6 +1373,7 @@ EXPORT_SYMBOL(xfrm_state_migrate);
 
 int xfrm_state_update(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1376 \n"); 
 	struct xfrm_state *x1, *to_put;
 	int err;
 	int use_spi = xfrm_id_proto_match(x->id.proto, IPSEC_PROTO_ANY);
@@ -1406,6 +1446,7 @@ EXPORT_SYMBOL(xfrm_state_update);
 
 int xfrm_state_check_expire(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1449 \n"); 
 	if (!x->curlft.use_time)
 		x->curlft.use_time = get_seconds();
 
@@ -1430,6 +1471,7 @@ struct xfrm_state *
 xfrm_state_lookup(struct net *net, u32 mark, const xfrm_address_t *daddr, __be32 spi,
 		  u8 proto, unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1474 \n"); 
 	struct xfrm_state *x;
 
 	rcu_read_lock();
@@ -1444,6 +1486,7 @@ xfrm_state_lookup_byaddr(struct net *net, u32 mark,
 			 const xfrm_address_t *daddr, const xfrm_address_t *saddr,
 			 u8 proto, unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1489 \n"); 
 	struct xfrm_state *x;
 
 	spin_lock_bh(&net->xfrm.xfrm_state_lock);
@@ -1458,6 +1501,7 @@ xfrm_find_acq(struct net *net, const struct xfrm_mark *mark, u8 mode, u32 reqid,
 	      u8 proto, const xfrm_address_t *daddr,
 	      const xfrm_address_t *saddr, int create, unsigned short family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1504 \n"); 
 	struct xfrm_state *x;
 
 	spin_lock_bh(&net->xfrm.xfrm_state_lock);
@@ -1512,6 +1556,7 @@ EXPORT_SYMBOL(xfrm_state_sort);
 
 static struct xfrm_state *__xfrm_find_acq_byseq(struct net *net, u32 mark, u32 seq)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1559 \n"); 
 	int i;
 
 	for (i = 0; i <= net->xfrm.state_hmask; i++) {
@@ -1531,6 +1576,7 @@ static struct xfrm_state *__xfrm_find_acq_byseq(struct net *net, u32 mark, u32 s
 
 struct xfrm_state *xfrm_find_acq_byseq(struct net *net, u32 mark, u32 seq)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1579 \n"); 
 	struct xfrm_state *x;
 
 	spin_lock_bh(&net->xfrm.xfrm_state_lock);
@@ -1542,6 +1588,7 @@ EXPORT_SYMBOL(xfrm_find_acq_byseq);
 
 u32 xfrm_get_acqseq(void)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1591 \n"); 
 	u32 res;
 	static atomic_t acqseq;
 
@@ -1555,6 +1602,7 @@ EXPORT_SYMBOL(xfrm_get_acqseq);
 
 int verify_spi_info(u8 proto, u32 min, u32 max)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1605 \n"); 
 	switch (proto) {
 	case IPPROTO_AH:
 	case IPPROTO_ESP:
@@ -1579,6 +1627,7 @@ EXPORT_SYMBOL(verify_spi_info);
 
 int xfrm_alloc_spi(struct xfrm_state *x, u32 low, u32 high)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1630 \n"); 
 	struct net *net = xs_net(x);
 	unsigned int h;
 	struct xfrm_state *x0;
@@ -1635,6 +1684,7 @@ EXPORT_SYMBOL(xfrm_alloc_spi);
 static bool __xfrm_state_filter_match(struct xfrm_state *x,
 				      struct xfrm_address_filter *filter)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1687 \n"); 
 	if (filter) {
 		if ((filter->family == AF_INET ||
 		     filter->family == AF_INET6) &&
@@ -1653,6 +1703,7 @@ int xfrm_state_walk(struct net *net, struct xfrm_state_walk *walk,
 		    int (*func)(struct xfrm_state *, int, void*),
 		    void *data)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1706 \n"); 
 	struct xfrm_state *state;
 	struct xfrm_state_walk *x;
 	int err = 0;
@@ -1694,6 +1745,7 @@ EXPORT_SYMBOL(xfrm_state_walk);
 void xfrm_state_walk_init(struct xfrm_state_walk *walk, u8 proto,
 			  struct xfrm_address_filter *filter)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1748 \n"); 
 	INIT_LIST_HEAD(&walk->all);
 	walk->proto = proto;
 	walk->state = XFRM_STATE_DEAD;
@@ -1704,6 +1756,7 @@ EXPORT_SYMBOL(xfrm_state_walk_init);
 
 void xfrm_state_walk_done(struct xfrm_state_walk *walk, struct net *net)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1759 \n"); 
 	kfree(walk->filter);
 
 	if (list_empty(&walk->all))
@@ -1717,6 +1770,7 @@ EXPORT_SYMBOL(xfrm_state_walk_done);
 
 static void xfrm_replay_timer_handler(unsigned long data)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1773 \n"); 
 	struct xfrm_state *x = (struct xfrm_state *)data;
 
 	spin_lock(&x->lock);
@@ -1735,6 +1789,7 @@ static LIST_HEAD(xfrm_km_list);
 
 void km_policy_notify(struct xfrm_policy *xp, int dir, const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1792 \n"); 
 	struct xfrm_mgr *km;
 
 	rcu_read_lock();
@@ -1746,6 +1801,7 @@ void km_policy_notify(struct xfrm_policy *xp, int dir, const struct km_event *c)
 
 void km_state_notify(struct xfrm_state *x, const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1804 \n"); 
 	struct xfrm_mgr *km;
 	rcu_read_lock();
 	list_for_each_entry_rcu(km, &xfrm_km_list, list)
@@ -1759,6 +1815,7 @@ EXPORT_SYMBOL(km_state_notify);
 
 void km_state_expired(struct xfrm_state *x, int hard, u32 portid)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1818 \n"); 
 	struct km_event c;
 
 	c.data.hard = hard;
@@ -1774,6 +1831,7 @@ EXPORT_SYMBOL(km_state_expired);
 */
 int km_query(struct xfrm_state *x, struct xfrm_tmpl *t, struct xfrm_policy *pol)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1834 \n"); 
 	int err = -EINVAL, acqret;
 	struct xfrm_mgr *km;
 
@@ -1790,6 +1848,7 @@ EXPORT_SYMBOL(km_query);
 
 int km_new_mapping(struct xfrm_state *x, xfrm_address_t *ipaddr, __be16 sport)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1851 \n"); 
 	int err = -EINVAL;
 	struct xfrm_mgr *km;
 
@@ -1807,6 +1866,7 @@ EXPORT_SYMBOL(km_new_mapping);
 
 void km_policy_expired(struct xfrm_policy *pol, int dir, int hard, u32 portid)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1869 \n"); 
 	struct km_event c;
 
 	c.data.hard = hard;
@@ -1841,6 +1901,7 @@ EXPORT_SYMBOL(km_migrate);
 
 int km_report(struct net *net, u8 proto, struct xfrm_selector *sel, xfrm_address_t *addr)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1904 \n"); 
 	int err = -EINVAL;
 	int ret;
 	struct xfrm_mgr *km;
@@ -1860,6 +1921,7 @@ EXPORT_SYMBOL(km_report);
 
 bool km_is_alive(const struct km_event *c)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1924 \n"); 
 	struct xfrm_mgr *km;
 	bool is_alive = false;
 
@@ -1929,6 +1991,7 @@ EXPORT_SYMBOL(xfrm_register_km);
 
 int xfrm_unregister_km(struct xfrm_mgr *km)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 1994 \n"); 
 	spin_lock_bh(&xfrm_km_lock);
 	list_del_rcu(&km->list);
 	spin_unlock_bh(&xfrm_km_lock);
@@ -1956,6 +2019,7 @@ EXPORT_SYMBOL(xfrm_state_register_afinfo);
 
 int xfrm_state_unregister_afinfo(struct xfrm_state_afinfo *afinfo)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 2022 \n"); 
 	int err = 0;
 	if (unlikely(afinfo == NULL))
 		return -EINVAL;
@@ -1976,6 +2040,7 @@ EXPORT_SYMBOL(xfrm_state_unregister_afinfo);
 
 struct xfrm_state_afinfo *xfrm_state_get_afinfo(unsigned int family)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 2043 \n"); 
 	struct xfrm_state_afinfo *afinfo;
 	if (unlikely(family >= NPROTO))
 		return NULL;
@@ -1988,12 +2053,14 @@ struct xfrm_state_afinfo *xfrm_state_get_afinfo(unsigned int family)
 
 void xfrm_state_put_afinfo(struct xfrm_state_afinfo *afinfo)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 2056 \n"); 
 	rcu_read_unlock();
 }
 
 /* Temporarily located here until net/xfrm/xfrm_tunnel.c is created */
 void xfrm_state_delete_tunnel(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 2063 \n"); 
 	if (x->tunnel) {
 		struct xfrm_state *t = x->tunnel;
 
@@ -2008,6 +2075,7 @@ EXPORT_SYMBOL(xfrm_state_delete_tunnel);
 
 int xfrm_state_mtu(struct xfrm_state *x, int mtu)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 2078 \n"); 
 	int res;
 
 	spin_lock_bh(&x->lock);
@@ -2022,6 +2090,7 @@ int xfrm_state_mtu(struct xfrm_state *x, int mtu)
 
 int __xfrm_init_state(struct xfrm_state *x, bool init_replay)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 2093 \n"); 
 	struct xfrm_state_afinfo *afinfo;
 	struct xfrm_mode *inner_mode;
 	int family = x->props.family;
@@ -2111,6 +2180,7 @@ EXPORT_SYMBOL(__xfrm_init_state);
 
 int xfrm_init_state(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/xfrm/xfrm_state.c: line 2183 \n"); 
 	return __xfrm_init_state(x, true);
 }
 

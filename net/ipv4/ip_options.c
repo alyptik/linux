@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -43,6 +44,7 @@
 void ip_options_build(struct sk_buff *skb, struct ip_options *opt,
 		      __be32 daddr, struct rtable *rt, int is_frag)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_options.c: line 47 \n"); 
 	unsigned char *iph = skb_network_header(skb);
 
 	memcpy(&(IPCB(skb)->opt), opt, sizeof(struct ip_options));
@@ -209,6 +211,7 @@ int __ip_options_echo(struct ip_options *dopt, struct sk_buff *skb,
 
 void ip_options_fragment(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_options.c: line 214 \n"); 
 	unsigned char *optptr = skb_network_header(skb) + sizeof(struct iphdr);
 	struct ip_options *opt = &(IPCB(skb)->opt);
 	int  l = opt->optlen;
@@ -243,6 +246,7 @@ void ip_options_fragment(struct sk_buff *skb)
  */
 static void spec_dst_fill(__be32 *spec_dst, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_options.c: line 249 \n"); 
 	if (*spec_dst == htonl(INADDR_ANY))
 		*spec_dst = fib_compute_spec_dst(skb);
 }
@@ -256,6 +260,7 @@ static void spec_dst_fill(__be32 *spec_dst, struct sk_buff *skb)
 int ip_options_compile(struct net *net,
 		       struct ip_options *opt, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_options.c: line 263 \n"); 
 	__be32 spec_dst = htonl(INADDR_ANY);
 	unsigned char *pp_ptr = NULL;
 	struct rtable *rt = NULL;
@@ -483,6 +488,7 @@ EXPORT_SYMBOL(ip_options_compile);
 
 void ip_options_undo(struct ip_options *opt)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_options.c: line 491 \n"); 
 	if (opt->srr) {
 		unsigned  char *optptr = opt->__data+opt->srr-sizeof(struct  iphdr);
 		memmove(optptr+7, optptr+3, optptr[1]-7);
@@ -510,6 +516,7 @@ void ip_options_undo(struct ip_options *opt)
 
 static struct ip_options_rcu *ip_options_get_alloc(const int optlen)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_options.c: line 519 \n"); 
 	return kzalloc(sizeof(struct ip_options_rcu) + ((optlen + 3) & ~3),
 		       GFP_KERNEL);
 }
@@ -517,6 +524,7 @@ static struct ip_options_rcu *ip_options_get_alloc(const int optlen)
 static int ip_options_get_finish(struct net *net, struct ip_options_rcu **optp,
 				 struct ip_options_rcu *opt, int optlen)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_options.c: line 527 \n"); 
 	while (optlen & 3)
 		opt->opt.__data[optlen++] = IPOPT_END;
 	opt->opt.optlen = optlen;
@@ -546,6 +554,7 @@ int ip_options_get_from_user(struct net *net, struct ip_options_rcu **optp,
 int ip_options_get(struct net *net, struct ip_options_rcu **optp,
 		   unsigned char *data, int optlen)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_options.c: line 557 \n"); 
 	struct ip_options_rcu *opt = ip_options_get_alloc(optlen);
 
 	if (!opt)
@@ -557,6 +566,7 @@ int ip_options_get(struct net *net, struct ip_options_rcu **optp,
 
 void ip_forward_options(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_options.c: line 569 \n"); 
 	struct   ip_options *opt	= &(IPCB(skb)->opt);
 	unsigned char *optptr;
 	struct rtable *rt = skb_rtable(skb);
@@ -604,6 +614,7 @@ void ip_forward_options(struct sk_buff *skb)
 
 int ip_options_rcv_srr(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_options.c: line 617 \n"); 
 	struct ip_options *opt = &(IPCB(skb)->opt);
 	int srrspace, srrptr;
 	__be32 nexthop;

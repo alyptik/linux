@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/kernel.h>
 #include <linux/netdevice.h>
 #include <linux/rtnetlink.h>
@@ -33,6 +34,7 @@ static struct net_bridge_vlan *br_vlan_lookup(struct rhashtable *tbl, u16 vid)
 
 static void __vlan_add_pvid(struct net_bridge_vlan_group *vg, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 37 \n"); 
 	if (vg->pvid == vid)
 		return;
 
@@ -42,6 +44,7 @@ static void __vlan_add_pvid(struct net_bridge_vlan_group *vg, u16 vid)
 
 static void __vlan_delete_pvid(struct net_bridge_vlan_group *vg, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 47 \n"); 
 	if (vg->pvid != vid)
 		return;
 
@@ -114,6 +117,7 @@ static void __vlan_add_list(struct net_bridge_vlan *v)
 
 static void __vlan_del_list(struct net_bridge_vlan *v)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 120 \n"); 
 	list_del_rcu(&v->vlist);
 }
 
@@ -164,6 +168,7 @@ static struct net_bridge_vlan *br_vlan_get_master(struct net_bridge *br, u16 vid
 
 static void br_master_vlan_rcu_free(struct rcu_head *rcu)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 171 \n"); 
 	struct net_bridge_vlan *v;
 
 	v = container_of(rcu, struct net_bridge_vlan, rcu);
@@ -387,6 +392,7 @@ static bool __allowed_ingress(const struct net_bridge *br,
 			      struct net_bridge_vlan_group *vg,
 			      struct sk_buff *skb, u16 *vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 395 \n"); 
 	struct br_vlan_stats *stats;
 	struct net_bridge_vlan *v;
 	bool tagged;
@@ -510,6 +516,7 @@ bool br_allowed_egress(struct net_bridge_vlan_group *vg,
 /* Called under RCU */
 bool br_should_learn(struct net_bridge_port *p, struct sk_buff *skb, u16 *vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 519 \n"); 
 	struct net_bridge_vlan_group *vg;
 	struct net_bridge *br = p->br;
 
@@ -600,6 +607,7 @@ int br_vlan_add(struct net_bridge *br, u16 vid, u16 flags)
  */
 int br_vlan_delete(struct net_bridge *br, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 610 \n"); 
 	struct net_bridge_vlan_group *vg;
 	struct net_bridge_vlan *v;
 
@@ -618,6 +626,7 @@ int br_vlan_delete(struct net_bridge *br, u16 vid)
 
 void br_vlan_flush(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 629 \n"); 
 	struct net_bridge_vlan_group *vg;
 
 	ASSERT_RTNL();
@@ -640,6 +649,7 @@ struct net_bridge_vlan *br_vlan_find(struct net_bridge_vlan_group *vg, u16 vid)
 /* Must be protected by RTNL. */
 static void recalculate_group_addr(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 652 \n"); 
 	if (br->group_addr_set)
 		return;
 
@@ -657,6 +667,7 @@ static void recalculate_group_addr(struct net_bridge *br)
 /* Must be protected by RTNL. */
 void br_recalculate_fwd_mask(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 670 \n"); 
 	if (!br->vlan_enabled || br->vlan_proto == htons(ETH_P_8021Q))
 		br->group_fwd_mask_required = BR_GROUPFWD_DEFAULT;
 	else /* vlan_enabled && ETH_P_8021AD */
@@ -666,6 +677,7 @@ void br_recalculate_fwd_mask(struct net_bridge *br)
 
 int __br_vlan_filter_toggle(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 680 \n"); 
 	struct switchdev_attr attr = {
 		.orig_dev = br->dev,
 		.id = SWITCHDEV_ATTR_ID_BRIDGE_VLAN_FILTERING,
@@ -691,11 +703,13 @@ int __br_vlan_filter_toggle(struct net_bridge *br, unsigned long val)
 
 int br_vlan_filter_toggle(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 706 \n"); 
 	return __br_vlan_filter_toggle(br, val);
 }
 
 int __br_vlan_set_proto(struct net_bridge *br, __be16 proto)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 712 \n"); 
 	int err = 0;
 	struct net_bridge_port *p;
 	struct net_bridge_vlan *vlan;
@@ -745,6 +759,7 @@ err_filt:
 
 int br_vlan_set_proto(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 762 \n"); 
 	if (val != ETH_P_8021Q && val != ETH_P_8021AD)
 		return -EPROTONOSUPPORT;
 
@@ -753,6 +768,7 @@ int br_vlan_set_proto(struct net_bridge *br, unsigned long val)
 
 int br_vlan_set_stats(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 771 \n"); 
 	switch (val) {
 	case 0:
 	case 1:
@@ -767,6 +783,7 @@ int br_vlan_set_stats(struct net_bridge *br, unsigned long val)
 
 static bool vlan_default_pvid(struct net_bridge_vlan_group *vg, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 786 \n"); 
 	struct net_bridge_vlan *v;
 
 	if (vid != vg->pvid)
@@ -782,6 +799,7 @@ static bool vlan_default_pvid(struct net_bridge_vlan_group *vg, u16 vid)
 
 static void br_vlan_disable_default_pvid(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 802 \n"); 
 	struct net_bridge_port *p;
 	u16 pvid = br->default_pvid;
 
@@ -801,6 +819,7 @@ static void br_vlan_disable_default_pvid(struct net_bridge *br)
 
 int __br_vlan_set_default_pvid(struct net_bridge *br, u16 pvid)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 822 \n"); 
 	const struct net_bridge_vlan *pvent;
 	struct net_bridge_vlan_group *vg;
 	struct net_bridge_port *p;
@@ -887,6 +906,7 @@ err_port:
 
 int br_vlan_set_default_pvid(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 909 \n"); 
 	u16 pvid = val;
 	int err = 0;
 
@@ -1029,6 +1049,7 @@ int nbp_vlan_add(struct net_bridge_port *port, u16 vid, u16 flags)
  */
 int nbp_vlan_delete(struct net_bridge_port *port, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 1052 \n"); 
 	struct net_bridge_vlan *v;
 
 	ASSERT_RTNL();
@@ -1058,6 +1079,7 @@ void nbp_vlan_flush(struct net_bridge_port *port)
 void br_vlan_get_stats(const struct net_bridge_vlan *v,
 		       struct br_vlan_stats *stats)
 {
+	panic("We reached unpopular paths in net/bridge/br_vlan.c: line 1082 \n"); 
 	int i;
 
 	memset(stats, 0, sizeof(*stats));

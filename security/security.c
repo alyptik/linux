@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Security plug functions
  *
@@ -133,24 +134,28 @@ int __init security_module_enable(const char *module)
 
 int security_binder_set_context_mgr(struct task_struct *mgr)
 {
+	panic("We reached unpopular paths in security/security.c: line 137 \n"); 
 	return call_int_hook(binder_set_context_mgr, 0, mgr);
 }
 
 int security_binder_transaction(struct task_struct *from,
 				struct task_struct *to)
 {
+	panic("We reached unpopular paths in security/security.c: line 144 \n"); 
 	return call_int_hook(binder_transaction, 0, from, to);
 }
 
 int security_binder_transfer_binder(struct task_struct *from,
 				    struct task_struct *to)
 {
+	panic("We reached unpopular paths in security/security.c: line 151 \n"); 
 	return call_int_hook(binder_transfer_binder, 0, from, to);
 }
 
 int security_binder_transfer_file(struct task_struct *from,
 				  struct task_struct *to, struct file *file)
 {
+	panic("We reached unpopular paths in security/security.c: line 158 \n"); 
 	return call_int_hook(binder_transfer_file, 0, from, to, file);
 }
 
@@ -161,6 +166,7 @@ int security_ptrace_access_check(struct task_struct *child, unsigned int mode)
 
 int security_ptrace_traceme(struct task_struct *parent)
 {
+	panic("We reached unpopular paths in security/security.c: line 169 \n"); 
 	return call_int_hook(ptrace_traceme, 0, parent);
 }
 
@@ -196,16 +202,19 @@ int security_capable_noaudit(const struct cred *cred, struct user_namespace *ns,
 
 int security_quotactl(int cmds, int type, int id, struct super_block *sb)
 {
+	panic("We reached unpopular paths in security/security.c: line 205 \n"); 
 	return call_int_hook(quotactl, 0, cmds, type, id, sb);
 }
 
 int security_quota_on(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in security/security.c: line 211 \n"); 
 	return call_int_hook(quota_on, 0, dentry);
 }
 
 int security_syslog(int type)
 {
+	panic("We reached unpopular paths in security/security.c: line 217 \n"); 
 	return call_int_hook(syslog, 0, type);
 }
 
@@ -324,6 +333,7 @@ int security_sb_set_mnt_opts(struct super_block *sb,
 				unsigned long kern_flags,
 				unsigned long *set_kern_flags)
 {
+	panic("We reached unpopular paths in security/security.c: line 336 \n"); 
 	return call_int_hook(sb_set_mnt_opts,
 				opts->num_mnt_opts ? -EOPNOTSUPP : 0, sb,
 				opts, kern_flags, set_kern_flags);
@@ -333,12 +343,14 @@ EXPORT_SYMBOL(security_sb_set_mnt_opts);
 int security_sb_clone_mnt_opts(const struct super_block *oldsb,
 				struct super_block *newsb)
 {
+	panic("We reached unpopular paths in security/security.c: line 346 \n"); 
 	return call_int_hook(sb_clone_mnt_opts, 0, oldsb, newsb);
 }
 EXPORT_SYMBOL(security_sb_clone_mnt_opts);
 
 int security_sb_parse_opts_str(char *options, struct security_mnt_opts *opts)
 {
+	panic("We reached unpopular paths in security/security.c: line 353 \n"); 
 	return call_int_hook(sb_parse_opts_str, 0, options, opts);
 }
 EXPORT_SYMBOL(security_sb_parse_opts_str);
@@ -359,6 +371,7 @@ int security_dentry_init_security(struct dentry *dentry, int mode,
 					const struct qstr *name, void **ctx,
 					u32 *ctxlen)
 {
+	panic("We reached unpopular paths in security/security.c: line 374 \n"); 
 	return call_int_hook(dentry_init_security, -EOPNOTSUPP, dentry, mode,
 				name, ctx, ctxlen);
 }
@@ -412,6 +425,7 @@ int security_old_inode_init_security(struct inode *inode, struct inode *dir,
 				     const struct qstr *qstr, const char **name,
 				     void **value, size_t *len)
 {
+	panic("We reached unpopular paths in security/security.c: line 428 \n"); 
 	if (unlikely(IS_PRIVATE(inode)))
 		return -EOPNOTSUPP;
 	return call_int_hook(inode_init_security, -EOPNOTSUPP, inode, dir,
@@ -704,6 +718,7 @@ int security_inode_need_killpriv(struct dentry *dentry)
 
 int security_inode_killpriv(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in security/security.c: line 721 \n"); 
 	return call_int_hook(inode_killpriv, 0, dentry);
 }
 
@@ -727,6 +742,7 @@ int security_inode_getsecurity(struct inode *inode, const char *name, void **buf
 
 int security_inode_setsecurity(struct inode *inode, const char *name, const void *value, size_t size, int flags)
 {
+	panic("We reached unpopular paths in security/security.c: line 745 \n"); 
 	struct security_hook_list *hp;
 	int rc;
 
@@ -746,6 +762,7 @@ int security_inode_setsecurity(struct inode *inode, const char *name, const void
 
 int security_inode_listsecurity(struct inode *inode, char *buffer, size_t buffer_size)
 {
+	panic("We reached unpopular paths in security/security.c: line 765 \n"); 
 	if (unlikely(IS_PRIVATE(inode)))
 		return 0;
 	return call_int_hook(inode_listsecurity, 0, inode, buffer, buffer_size);
@@ -754,6 +771,7 @@ EXPORT_SYMBOL(security_inode_listsecurity);
 
 void security_inode_getsecid(struct inode *inode, u32 *secid)
 {
+	panic("We reached unpopular paths in security/security.c: line 774 \n"); 
 	call_void_hook(inode_getsecid, inode, secid);
 }
 
@@ -765,6 +783,7 @@ EXPORT_SYMBOL(security_inode_copy_up);
 
 int security_inode_copy_up_xattr(const char *name)
 {
+	panic("We reached unpopular paths in security/security.c: line 786 \n"); 
 	return call_int_hook(inode_copy_up_xattr, -EOPNOTSUPP, name);
 }
 EXPORT_SYMBOL(security_inode_copy_up_xattr);
@@ -868,6 +887,7 @@ void security_file_set_fowner(struct file *file)
 int security_file_send_sigiotask(struct task_struct *tsk,
 				  struct fown_struct *fown, int sig)
 {
+	panic("We reached unpopular paths in security/security.c: line 890 \n"); 
 	return call_int_hook(file_send_sigiotask, 0, tsk, fown, sig);
 }
 
@@ -899,6 +919,7 @@ void security_task_free(struct task_struct *task)
 
 int security_cred_alloc_blank(struct cred *cred, gfp_t gfp)
 {
+	panic("We reached unpopular paths in security/security.c: line 922 \n"); 
 	return call_int_hook(cred_alloc_blank, 0, cred, gfp);
 }
 
@@ -968,11 +989,13 @@ int security_task_setpgid(struct task_struct *p, pid_t pgid)
 
 int security_task_getpgid(struct task_struct *p)
 {
+	panic("We reached unpopular paths in security/security.c: line 992 \n"); 
 	return call_int_hook(task_getpgid, 0, p);
 }
 
 int security_task_getsid(struct task_struct *p)
 {
+	panic("We reached unpopular paths in security/security.c: line 998 \n"); 
 	return call_int_hook(task_getsid, 0, p);
 }
 
@@ -990,11 +1013,13 @@ int security_task_setnice(struct task_struct *p, int nice)
 
 int security_task_setioprio(struct task_struct *p, int ioprio)
 {
+	panic("We reached unpopular paths in security/security.c: line 1016 \n"); 
 	return call_int_hook(task_setioprio, 0, p, ioprio);
 }
 
 int security_task_getioprio(struct task_struct *p)
 {
+	panic("We reached unpopular paths in security/security.c: line 1022 \n"); 
 	return call_int_hook(task_getioprio, 0, p);
 }
 
@@ -1016,6 +1041,7 @@ int security_task_getscheduler(struct task_struct *p)
 
 int security_task_movememory(struct task_struct *p)
 {
+	panic("We reached unpopular paths in security/security.c: line 1044 \n"); 
 	return call_int_hook(task_movememory, 0, p);
 }
 
@@ -1055,74 +1081,88 @@ void security_task_to_inode(struct task_struct *p, struct inode *inode)
 
 int security_ipc_permission(struct kern_ipc_perm *ipcp, short flag)
 {
+	panic("We reached unpopular paths in security/security.c: line 1084 \n"); 
 	return call_int_hook(ipc_permission, 0, ipcp, flag);
 }
 
 void security_ipc_getsecid(struct kern_ipc_perm *ipcp, u32 *secid)
 {
+	panic("We reached unpopular paths in security/security.c: line 1090 \n"); 
 	*secid = 0;
 	call_void_hook(ipc_getsecid, ipcp, secid);
 }
 
 int security_msg_msg_alloc(struct msg_msg *msg)
 {
+	panic("We reached unpopular paths in security/security.c: line 1097 \n"); 
 	return call_int_hook(msg_msg_alloc_security, 0, msg);
 }
 
 void security_msg_msg_free(struct msg_msg *msg)
 {
+	panic("We reached unpopular paths in security/security.c: line 1103 \n"); 
 	call_void_hook(msg_msg_free_security, msg);
 }
 
 int security_msg_queue_alloc(struct msg_queue *msq)
 {
+	panic("We reached unpopular paths in security/security.c: line 1109 \n"); 
 	return call_int_hook(msg_queue_alloc_security, 0, msq);
 }
 
 void security_msg_queue_free(struct msg_queue *msq)
 {
+	panic("We reached unpopular paths in security/security.c: line 1115 \n"); 
 	call_void_hook(msg_queue_free_security, msq);
 }
 
 int security_msg_queue_associate(struct msg_queue *msq, int msqflg)
 {
+	panic("We reached unpopular paths in security/security.c: line 1121 \n"); 
 	return call_int_hook(msg_queue_associate, 0, msq, msqflg);
 }
 
 int security_msg_queue_msgctl(struct msg_queue *msq, int cmd)
 {
+	panic("We reached unpopular paths in security/security.c: line 1127 \n"); 
 	return call_int_hook(msg_queue_msgctl, 0, msq, cmd);
 }
 
 int security_msg_queue_msgsnd(struct msg_queue *msq,
 			       struct msg_msg *msg, int msqflg)
 {
+	panic("We reached unpopular paths in security/security.c: line 1134 \n"); 
 	return call_int_hook(msg_queue_msgsnd, 0, msq, msg, msqflg);
 }
 
 int security_msg_queue_msgrcv(struct msg_queue *msq, struct msg_msg *msg,
 			       struct task_struct *target, long type, int mode)
 {
+	panic("We reached unpopular paths in security/security.c: line 1141 \n"); 
 	return call_int_hook(msg_queue_msgrcv, 0, msq, msg, target, type, mode);
 }
 
 int security_shm_alloc(struct shmid_kernel *shp)
 {
+	panic("We reached unpopular paths in security/security.c: line 1147 \n"); 
 	return call_int_hook(shm_alloc_security, 0, shp);
 }
 
 void security_shm_free(struct shmid_kernel *shp)
 {
+	panic("We reached unpopular paths in security/security.c: line 1153 \n"); 
 	call_void_hook(shm_free_security, shp);
 }
 
 int security_shm_associate(struct shmid_kernel *shp, int shmflg)
 {
+	panic("We reached unpopular paths in security/security.c: line 1159 \n"); 
 	return call_int_hook(shm_associate, 0, shp, shmflg);
 }
 
 int security_shm_shmctl(struct shmid_kernel *shp, int cmd)
 {
+	panic("We reached unpopular paths in security/security.c: line 1165 \n"); 
 	return call_int_hook(shm_shmctl, 0, shp, cmd);
 }
 
@@ -1133,27 +1173,32 @@ int security_shm_shmat(struct shmid_kernel *shp, char __user *shmaddr, int shmfl
 
 int security_sem_alloc(struct sem_array *sma)
 {
+	panic("We reached unpopular paths in security/security.c: line 1176 \n"); 
 	return call_int_hook(sem_alloc_security, 0, sma);
 }
 
 void security_sem_free(struct sem_array *sma)
 {
+	panic("We reached unpopular paths in security/security.c: line 1182 \n"); 
 	call_void_hook(sem_free_security, sma);
 }
 
 int security_sem_associate(struct sem_array *sma, int semflg)
 {
+	panic("We reached unpopular paths in security/security.c: line 1188 \n"); 
 	return call_int_hook(sem_associate, 0, sma, semflg);
 }
 
 int security_sem_semctl(struct sem_array *sma, int cmd)
 {
+	panic("We reached unpopular paths in security/security.c: line 1194 \n"); 
 	return call_int_hook(sem_semctl, 0, sma, cmd);
 }
 
 int security_sem_semop(struct sem_array *sma, struct sembuf *sops,
 			unsigned nsops, int alter)
 {
+	panic("We reached unpopular paths in security/security.c: line 1201 \n"); 
 	return call_int_hook(sem_semop, 0, sma, sops, nsops, alter);
 }
 
@@ -1167,11 +1212,13 @@ EXPORT_SYMBOL(security_d_instantiate);
 
 int security_getprocattr(struct task_struct *p, char *name, char **value)
 {
+	panic("We reached unpopular paths in security/security.c: line 1215 \n"); 
 	return call_int_hook(getprocattr, -EINVAL, p, name, value);
 }
 
 int security_setprocattr(struct task_struct *p, char *name, void *value, size_t size)
 {
+	panic("We reached unpopular paths in security/security.c: line 1221 \n"); 
 	return call_int_hook(setprocattr, -EINVAL, p, name, value, size);
 }
 
@@ -1182,12 +1229,14 @@ int security_netlink_send(struct sock *sk, struct sk_buff *skb)
 
 int security_ismaclabel(const char *name)
 {
+	panic("We reached unpopular paths in security/security.c: line 1232 \n"); 
 	return call_int_hook(ismaclabel, 0, name);
 }
 EXPORT_SYMBOL(security_ismaclabel);
 
 int security_secid_to_secctx(u32 secid, char **secdata, u32 *seclen)
 {
+	panic("We reached unpopular paths in security/security.c: line 1239 \n"); 
 	return call_int_hook(secid_to_secctx, -EOPNOTSUPP, secid, secdata,
 				seclen);
 }
@@ -1195,6 +1244,7 @@ EXPORT_SYMBOL(security_secid_to_secctx);
 
 int security_secctx_to_secid(const char *secdata, u32 seclen, u32 *secid)
 {
+	panic("We reached unpopular paths in security/security.c: line 1247 \n"); 
 	*secid = 0;
 	return call_int_hook(secctx_to_secid, 0, secdata, seclen, secid);
 }
@@ -1202,12 +1252,14 @@ EXPORT_SYMBOL(security_secctx_to_secid);
 
 void security_release_secctx(char *secdata, u32 seclen)
 {
+	panic("We reached unpopular paths in security/security.c: line 1255 \n"); 
 	call_void_hook(release_secctx, secdata, seclen);
 }
 EXPORT_SYMBOL(security_release_secctx);
 
 void security_inode_invalidate_secctx(struct inode *inode)
 {
+	panic("We reached unpopular paths in security/security.c: line 1262 \n"); 
 	call_void_hook(inode_invalidate_secctx, inode);
 }
 EXPORT_SYMBOL(security_inode_invalidate_secctx);
@@ -1220,12 +1272,14 @@ EXPORT_SYMBOL(security_inode_notifysecctx);
 
 int security_inode_setsecctx(struct dentry *dentry, void *ctx, u32 ctxlen)
 {
+	panic("We reached unpopular paths in security/security.c: line 1275 \n"); 
 	return call_int_hook(inode_setsecctx, 0, dentry, ctx, ctxlen);
 }
 EXPORT_SYMBOL(security_inode_setsecctx);
 
 int security_inode_getsecctx(struct inode *inode, void **ctx, u32 *ctxlen)
 {
+	panic("We reached unpopular paths in security/security.c: line 1282 \n"); 
 	return call_int_hook(inode_getsecctx, -EOPNOTSUPP, inode, ctx, ctxlen);
 }
 EXPORT_SYMBOL(security_inode_getsecctx);

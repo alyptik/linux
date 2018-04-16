@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	PF_INET6 socket protocol family
  *	Linux INET6 implementation
@@ -496,6 +497,7 @@ EXPORT_SYMBOL(inet6_getname);
 
 int inet6_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/ipv6/af_inet6.c: line 500 \n"); 
 	struct sock *sk = sock->sk;
 	struct net *net = sock_net(sk);
 
@@ -646,6 +648,7 @@ EXPORT_SYMBOL(inet6_register_protosw);
 void
 inet6_unregister_protosw(struct inet_protosw *p)
 {
+	panic("We reached unpopular paths in net/ipv6/af_inet6.c: line 651 \n"); 
 	if (INET_PROTOSW_PERMANENT & p->flags) {
 		pr_err("Attempt to unregister permanent protocol %d\n",
 		       p->protocol);
@@ -661,6 +664,7 @@ EXPORT_SYMBOL(inet6_unregister_protosw);
 
 int inet6_sk_rebuild_header(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv6/af_inet6.c: line 667 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct dst_entry *dst;
 
@@ -704,6 +708,7 @@ EXPORT_SYMBOL_GPL(inet6_sk_rebuild_header);
 bool ipv6_opt_accepted(const struct sock *sk, const struct sk_buff *skb,
 		       const struct inet6_skb_parm *opt)
 {
+	panic("We reached unpopular paths in net/ipv6/af_inet6.c: line 711 \n"); 
 	const struct ipv6_pinfo *np = inet6_sk(sk);
 
 	if (np->rxopt.all) {
@@ -734,6 +739,7 @@ static int __init ipv6_packet_init(void)
 
 static void ipv6_packet_cleanup(void)
 {
+	panic("We reached unpopular paths in net/ipv6/af_inet6.c: line 742 \n"); 
 	dev_remove_pack(&ipv6_packet_type);
 }
 

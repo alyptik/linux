@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/ipc/msg.c
  * Copyright (C) 1992 Krishna Balasubramanian
@@ -71,6 +72,7 @@ struct msg_sender {
 
 static inline struct msg_queue *msq_obtain_object(struct ipc_namespace *ns, int id)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 75 \n"); 
 	struct kern_ipc_perm *ipcp = ipc_obtain_object_idr(&msg_ids(ns), id);
 
 	if (IS_ERR(ipcp))
@@ -82,6 +84,7 @@ static inline struct msg_queue *msq_obtain_object(struct ipc_namespace *ns, int 
 static inline struct msg_queue *msq_obtain_object_check(struct ipc_namespace *ns,
 							int id)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 87 \n"); 
 	struct kern_ipc_perm *ipcp = ipc_obtain_object_check(&msg_ids(ns), id);
 
 	if (IS_ERR(ipcp))
@@ -92,11 +95,13 @@ static inline struct msg_queue *msq_obtain_object_check(struct ipc_namespace *ns
 
 static inline void msg_rmid(struct ipc_namespace *ns, struct msg_queue *s)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 98 \n"); 
 	ipc_rmid(&msg_ids(ns), &s->q_perm);
 }
 
 static void msg_rcu_free(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 104 \n"); 
 	struct ipc_rcu *p = container_of(head, struct ipc_rcu, rcu);
 	struct msg_queue *msq = ipc_rcu_to_struct(p);
 
@@ -113,6 +118,7 @@ static void msg_rcu_free(struct rcu_head *head)
  */
 static int newque(struct ipc_namespace *ns, struct ipc_params *params)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 121 \n"); 
 	struct msg_queue *msq;
 	int id, retval;
 	key_t key = params->key;
@@ -156,6 +162,7 @@ static int newque(struct ipc_namespace *ns, struct ipc_params *params)
 
 static inline bool msg_fits_inqueue(struct msg_queue *msq, size_t msgsz)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 165 \n"); 
 	return msgsz + msq->q_cbytes <= msq->q_qbytes &&
 		1 + msq->q_qnum <= msq->q_qbytes;
 }
@@ -163,6 +170,7 @@ static inline bool msg_fits_inqueue(struct msg_queue *msq, size_t msgsz)
 static inline void ss_add(struct msg_queue *msq,
 			  struct msg_sender *mss, size_t msgsz)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 173 \n"); 
 	mss->tsk = current;
 	mss->msgsz = msgsz;
 	__set_current_state(TASK_INTERRUPTIBLE);
@@ -171,6 +179,7 @@ static inline void ss_add(struct msg_queue *msq,
 
 static inline void ss_del(struct msg_sender *mss)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 182 \n"); 
 	if (mss->list.next)
 		list_del(&mss->list);
 }
@@ -178,6 +187,7 @@ static inline void ss_del(struct msg_sender *mss)
 static void ss_wakeup(struct msg_queue *msq,
 		      struct wake_q_head *wake_q, bool kill)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 190 \n"); 
 	struct msg_sender *mss, *t;
 	struct task_struct *stop_tsk = NULL;
 	struct list_head *h = &msq->q_senders;
@@ -215,6 +225,7 @@ static void ss_wakeup(struct msg_queue *msq,
 static void expunge_all(struct msg_queue *msq, int res,
 			struct wake_q_head *wake_q)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 228 \n"); 
 	struct msg_receiver *msr, *t;
 
 	list_for_each_entry_safe(msr, t, &msq->q_receivers, r_list) {
@@ -233,6 +244,7 @@ static void expunge_all(struct msg_queue *msq, int res,
  */
 static void freeque(struct ipc_namespace *ns, struct kern_ipc_perm *ipcp)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 247 \n"); 
 	struct msg_msg *msg, *t;
 	struct msg_queue *msq = container_of(ipcp, struct msg_queue, q_perm);
 	WAKE_Q(wake_q);
@@ -257,6 +269,7 @@ static void freeque(struct ipc_namespace *ns, struct kern_ipc_perm *ipcp)
  */
 static inline int msg_security(struct kern_ipc_perm *ipcp, int msgflg)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 272 \n"); 
 	struct msg_queue *msq = container_of(ipcp, struct msg_queue, q_perm);
 
 	return security_msg_queue_associate(msq, msgflg);
@@ -579,6 +592,7 @@ SYSCALL_DEFINE3(msgctl, int, msqid, int, cmd, struct msqid_ds __user *, buf)
 
 static int testmsg(struct msg_msg *msg, long type, int mode)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 595 \n"); 
 	switch (mode) {
 	case SEARCH_ANY:
 	case SEARCH_NUMBER:
@@ -602,6 +616,7 @@ static int testmsg(struct msg_msg *msg, long type, int mode)
 static inline int pipelined_send(struct msg_queue *msq, struct msg_msg *msg,
 				 struct wake_q_head *wake_q)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 619 \n"); 
 	struct msg_receiver *msr, *t;
 
 	list_for_each_entry_safe(msr, t, &msq->q_receivers, r_list) {
@@ -752,6 +767,7 @@ SYSCALL_DEFINE4(msgsnd, int, msqid, struct msgbuf __user *, msgp, size_t, msgsz,
 
 static inline int convert_mode(long *msgtyp, int msgflg)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 770 \n"); 
 	if (msgflg & MSG_COPY)
 		return SEARCH_NUMBER;
 	/*
@@ -819,11 +835,13 @@ static inline struct msg_msg *prepare_copy(void __user *buf, size_t bufsz)
 
 static inline void free_copy(struct msg_msg *copy)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 838 \n"); 
 }
 #endif
 
 static struct msg_msg *find_msg(struct msg_queue *msq, long *msgtyp, int mode)
 {
+	panic("We reached unpopular paths in ipc/msg.c: line 844 \n"); 
 	struct msg_msg *msg, *found = NULL;
 	long count = 0;
 

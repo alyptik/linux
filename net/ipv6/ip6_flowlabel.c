@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	ip6_flowlabel.c		IPv6 flowlabel manager.
  *
@@ -73,6 +74,7 @@ static DEFINE_SPINLOCK(ip6_sk_fl_lock);
 
 static inline struct ip6_flowlabel *__fl_lookup(struct net *net, __be32 label)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 77 \n"); 
 	struct ip6_flowlabel *fl;
 
 	for_each_fl_rcu(FL_HASH(label), fl) {
@@ -84,6 +86,7 @@ static inline struct ip6_flowlabel *__fl_lookup(struct net *net, __be32 label)
 
 static struct ip6_flowlabel *fl_lookup(struct net *net, __be32 label)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 89 \n"); 
 	struct ip6_flowlabel *fl;
 
 	rcu_read_lock_bh();
@@ -97,6 +100,7 @@ static struct ip6_flowlabel *fl_lookup(struct net *net, __be32 label)
 
 static void fl_free(struct ip6_flowlabel *fl)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 103 \n"); 
 	if (fl) {
 		if (fl->share == IPV6_FL_S_PROCESS)
 			put_pid(fl->owner.pid);
@@ -107,6 +111,7 @@ static void fl_free(struct ip6_flowlabel *fl)
 
 static void fl_release(struct ip6_flowlabel *fl)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 114 \n"); 
 	spin_lock_bh(&ip6_fl_lock);
 
 	fl->lastuse = jiffies;
@@ -129,6 +134,7 @@ static void fl_release(struct ip6_flowlabel *fl)
 
 static void ip6_fl_gc(unsigned long dummy)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 137 \n"); 
 	int i;
 	unsigned long now = jiffies;
 	unsigned long sched = 0;
@@ -195,6 +201,7 @@ static void __net_exit ip6_fl_purge(struct net *net)
 static struct ip6_flowlabel *fl_intern(struct net *net,
 				       struct ip6_flowlabel *fl, __be32 label)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 204 \n"); 
 	struct ip6_flowlabel *lfl;
 
 	fl->label = label & IPV6_FLOWLABEL_MASK;
@@ -240,6 +247,7 @@ static struct ip6_flowlabel *fl_intern(struct net *net,
 
 struct ip6_flowlabel *fl6_sock_lookup(struct sock *sk, __be32 label)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 250 \n"); 
 	struct ipv6_fl_socklist *sfl;
 	struct ipv6_pinfo *np = inet6_sk(sk);
 
@@ -295,6 +303,7 @@ struct ipv6_txoptions *fl6_merge_options(struct ipv6_txoptions *opt_space,
 					 struct ip6_flowlabel *fl,
 					 struct ipv6_txoptions *fopt)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 306 \n"); 
 	struct ipv6_txoptions *fl_opt = fl->opt;
 
 	if (!fopt || fopt->opt_flen == 0)
@@ -322,6 +331,7 @@ EXPORT_SYMBOL_GPL(fl6_merge_options);
 
 static unsigned long check_linger(unsigned long ttl)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 334 \n"); 
 	if (ttl < FL_MIN_LINGER)
 		return FL_MIN_LINGER*HZ;
 	if (ttl > FL_MAX_LINGER && !capable(CAP_NET_ADMIN))
@@ -331,6 +341,7 @@ static unsigned long check_linger(unsigned long ttl)
 
 static int fl6_renew(struct ip6_flowlabel *fl, unsigned long linger, unsigned long expires)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 344 \n"); 
 	linger = check_linger(linger);
 	if (!linger)
 		return -EPERM;
@@ -442,6 +453,7 @@ done:
 
 static int mem_check(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 456 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct ipv6_fl_socklist *sfl;
 	int room = FL_MAX_SIZE - atomic_read(&fl_size);
@@ -467,6 +479,7 @@ static int mem_check(struct sock *sk)
 static inline void fl_link(struct ipv6_pinfo *np, struct ipv6_fl_socklist *sfl,
 		struct ip6_flowlabel *fl)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 482 \n"); 
 	spin_lock_bh(&ip6_sk_fl_lock);
 	sfl->fl = fl;
 	sfl->next = np->ipv6_fl_list;
@@ -477,6 +490,7 @@ static inline void fl_link(struct ipv6_pinfo *np, struct ipv6_fl_socklist *sfl,
 int ipv6_flowlabel_opt_get(struct sock *sk, struct in6_flowlabel_req *freq,
 			   int flags)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 493 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct ipv6_fl_socklist *sfl;
 
@@ -858,10 +872,12 @@ static void __net_exit ip6_flowlabel_proc_fini(struct net *net)
 #else
 static inline int ip6_flowlabel_proc_init(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 875 \n"); 
 	return 0;
 }
 static inline void ip6_flowlabel_proc_fini(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 880 \n"); 
 }
 #endif
 
@@ -883,6 +899,7 @@ int ip6_flowlabel_init(void)
 
 void ip6_flowlabel_cleanup(void)
 {
+	panic("We reached unpopular paths in net/ipv6/ip6_flowlabel.c: line 902 \n"); 
 	del_timer(&ip6_fl_gc_timer);
 	unregister_pernet_subsys(&ip6_flowlabel_net_ops);
 }

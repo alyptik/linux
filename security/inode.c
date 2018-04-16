@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  inode.c - securityfs
  *
@@ -78,6 +79,7 @@ struct dentry *securityfs_create_file(const char *name, umode_t mode,
 				   struct dentry *parent, void *data,
 				   const struct file_operations *fops)
 {
+	panic("We reached unpopular paths in security/inode.c: line 82 \n"); 
 	struct dentry *dentry;
 	int is_dir = S_ISDIR(mode);
 	struct inode *dir, *inode;
@@ -164,6 +166,7 @@ EXPORT_SYMBOL_GPL(securityfs_create_file);
  */
 struct dentry *securityfs_create_dir(const char *name, struct dentry *parent)
 {
+	panic("We reached unpopular paths in security/inode.c: line 169 \n"); 
 	return securityfs_create_file(name,
 				      S_IFDIR | S_IRWXU | S_IRUGO | S_IXUGO,
 				      parent, NULL, NULL);
@@ -185,6 +188,7 @@ EXPORT_SYMBOL_GPL(securityfs_create_dir);
  */
 void securityfs_remove(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in security/inode.c: line 191 \n"); 
 	struct inode *dir;
 
 	if (!dentry || IS_ERR(dentry))

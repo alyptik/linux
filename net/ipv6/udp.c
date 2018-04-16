@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	UDP over IPv6
  *	Linux INET6 implementation
@@ -61,6 +62,7 @@ static u32 udp6_ehashfn(const struct net *net,
 			const struct in6_addr *faddr,
 			const __be16 fport)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 65 \n"); 
 	static u32 udp6_ehash_secret __read_mostly;
 	static u32 udp_ipv6_hash_secret __read_mostly;
 
@@ -120,6 +122,7 @@ static int compute_score(struct sock *sk, struct net *net,
 			 const struct in6_addr *daddr, unsigned short hnum,
 			 int dif)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 125 \n"); 
 	int score;
 	struct inet_sock *inet;
 
@@ -168,6 +171,7 @@ static struct sock *udp6_lib_lookup2(struct net *net,
 		struct udp_hslot *hslot2,
 		struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 174 \n"); 
 	struct sock *sk, *result;
 	int score, badness, matches = 0, reuseport = 0;
 	u32 hash = 0;
@@ -208,6 +212,7 @@ struct sock *__udp6_lib_lookup(struct net *net,
 				      int dif, struct udp_table *udptable,
 				      struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 215 \n"); 
 	struct sock *sk, *result;
 	unsigned short hnum = ntohs(dport);
 	unsigned int hash2, slot2, slot = udp_hashfn(net, hnum, udptable->mask);
@@ -276,6 +281,7 @@ static struct sock *__udp6_lib_lookup_skb(struct sk_buff *skb,
 					  __be16 sport, __be16 dport,
 					  struct udp_table *udptable)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 284 \n"); 
 	const struct ipv6hdr *iph = ipv6_hdr(skb);
 	struct sock *sk;
 
@@ -290,6 +296,7 @@ static struct sock *__udp6_lib_lookup_skb(struct sk_buff *skb,
 struct sock *udp6_lib_lookup_skb(struct sk_buff *skb,
 				 __be16 sport, __be16 dport)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 299 \n"); 
 	const struct ipv6hdr *iph = ipv6_hdr(skb);
 
 	return __udp6_lib_lookup(dev_net(skb->dev), &iph->saddr, sport,
@@ -325,6 +332,7 @@ EXPORT_SYMBOL_GPL(udp6_lib_lookup);
 int udpv6_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
 		  int noblock, int flags, int *addr_len)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 335 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct inet_sock *inet = inet_sk(sk);
 	struct sk_buff *skb;
@@ -468,6 +476,7 @@ void __udp6_lib_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 		    u8 type, u8 code, int offset, __be32 info,
 		    struct udp_table *udptable)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 479 \n"); 
 	struct ipv6_pinfo *np;
 	const struct ipv6hdr *hdr = (const struct ipv6hdr *)skb->data;
 	const struct in6_addr *saddr = &hdr->saddr;
@@ -516,6 +525,7 @@ out:
 
 int __udpv6_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 528 \n"); 
 	int rc;
 
 	if (!ipv6_addr_any(&sk->sk_v6_daddr)) {
@@ -543,12 +553,14 @@ static __inline__ void udpv6_err(struct sk_buff *skb,
 				 struct inet6_skb_parm *opt, u8 type,
 				 u8 code, int offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 556 \n"); 
 	__udp6_lib_err(skb, opt, type, code, offset, info, &udp_table);
 }
 
 static struct static_key udpv6_encap_needed __read_mostly;
 void udpv6_encap_enable(void)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 563 \n"); 
 	if (!static_key_enabled(&udpv6_encap_needed))
 		static_key_slow_inc(&udpv6_encap_needed);
 }
@@ -556,6 +568,7 @@ EXPORT_SYMBOL(udpv6_encap_enable);
 
 int udpv6_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 571 \n"); 
 	struct udp_sock *up = udp_sk(sk);
 	int rc;
 	int is_udplite = IS_UDPLITE(sk);
@@ -657,6 +670,7 @@ static bool __udp_v6_is_mcast_sock(struct net *net, struct sock *sk,
 				   __be16 rmt_port, const struct in6_addr *rmt_addr,
 				   int dif, unsigned short hnum)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 673 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 
 	if (!net_eq(sock_net(sk), net))
@@ -678,6 +692,7 @@ static bool __udp_v6_is_mcast_sock(struct net *net, struct sock *sk,
 
 static void udp6_csum_zero_error(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 695 \n"); 
 	/* RFC 2460 section 8.1 says that we SHOULD log
 	 * this error. Well, it is reasonable.
 	 */
@@ -694,6 +709,7 @@ static int __udp6_lib_mcast_deliver(struct net *net, struct sk_buff *skb,
 		const struct in6_addr *saddr, const struct in6_addr *daddr,
 		struct udp_table *udptable, int proto)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 712 \n"); 
 	struct sock *sk, *first = NULL;
 	const struct udphdr *uh = udp_hdr(skb);
 	unsigned short hnum = ntohs(uh->dest);
@@ -760,6 +776,7 @@ start_lookup:
 int __udp6_lib_rcv(struct sk_buff *skb, struct udp_table *udptable,
 		   int proto)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 779 \n"); 
 	const struct in6_addr *saddr, *daddr;
 	struct net *net = dev_net(skb->dev);
 	struct udphdr *uh;
@@ -868,6 +885,7 @@ discard:
 
 static __inline__ int udpv6_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 888 \n"); 
 	return __udp6_lib_rcv(skb, &udp_table, IPPROTO_UDP);
 }
 
@@ -897,6 +915,7 @@ static void udp6_hwcsum_outgoing(struct sock *sk, struct sk_buff *skb,
 				 const struct in6_addr *saddr,
 				 const struct in6_addr *daddr, int len)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 918 \n"); 
 	unsigned int offset;
 	struct udphdr *uh = udp_hdr(skb);
 	struct sk_buff *frags = skb_shinfo(skb)->frag_list;
@@ -936,6 +955,7 @@ static void udp6_hwcsum_outgoing(struct sock *sk, struct sk_buff *skb,
 
 static int udp_v6_send_skb(struct sk_buff *skb, struct flowi6 *fl6)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 958 \n"); 
 	struct sock *sk = skb->sk;
 	struct udphdr *uh;
 	int err = 0;
@@ -987,6 +1007,7 @@ send:
 
 static int udp_v6_push_pending_frames(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 1010 \n"); 
 	struct sk_buff *skb;
 	struct udp_sock  *up = udp_sk(sk);
 	struct flowi6 fl6;
@@ -1014,6 +1035,7 @@ out:
 
 int udpv6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 1038 \n"); 
 	struct ipv6_txoptions opt_space;
 	struct udp_sock *up = udp_sk(sk);
 	struct inet_sock *inet = inet_sk(sk);
@@ -1492,6 +1514,7 @@ out_udpv6_protocol:
 
 void udpv6_exit(void)
 {
+	panic("We reached unpopular paths in net/ipv6/udp.c: line 1517 \n"); 
 	inet6_unregister_protosw(&udpv6_protosw);
 	inet6_del_protocol(&udpv6_protocol, IPPROTO_UDP);
 }

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Generic parts
  *	Linux ethernet bridge
@@ -125,6 +126,7 @@ static struct notifier_block br_device_notifier = {
 static int br_switchdev_event(struct notifier_block *unused,
 			      unsigned long event, void *ptr)
 {
+	panic("We reached unpopular paths in net/bridge/br.c: line 129 \n"); 
 	struct net_device *dev = switchdev_notifier_info_to_dev(ptr);
 	struct net_bridge_port *p;
 	struct net_bridge *br;

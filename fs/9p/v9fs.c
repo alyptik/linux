@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/9p/v9fs.c
  *
@@ -84,6 +85,7 @@ static const match_table_t tokens = {
 /* Interpret mount options for cache mode */
 static int get_cache_mode(char *s)
 {
+	panic("We reached unpopular paths in fs/9p/v9fs.c: line 88 \n"); 
 	int version = -EINVAL;
 
 	if (!strcmp(s, "loose")) {
@@ -112,6 +114,7 @@ static int get_cache_mode(char *s)
 
 static int v9fs_parse_options(struct v9fs_session_info *v9ses, char *opts)
 {
+	panic("We reached unpopular paths in fs/9p/v9fs.c: line 117 \n"); 
 	char *options, *tmp_options;
 	substring_t args[MAX_OPT_ARGS];
 	char *p;
@@ -320,6 +323,7 @@ fail_option_alloc:
 struct p9_fid *v9fs_session_init(struct v9fs_session_info *v9ses,
 		  const char *dev_name, char *data)
 {
+	panic("We reached unpopular paths in fs/9p/v9fs.c: line 326 \n"); 
 	struct p9_fid *fid;
 	int rc = -ENOMEM;
 
@@ -430,6 +434,7 @@ err_names:
 
 void v9fs_session_close(struct v9fs_session_info *v9ses)
 {
+	panic("We reached unpopular paths in fs/9p/v9fs.c: line 437 \n"); 
 	if (v9ses->clnt) {
 		p9_client_destroy(v9ses->clnt);
 		v9ses->clnt = NULL;
@@ -472,6 +477,7 @@ void v9fs_session_cancel(struct v9fs_session_info *v9ses) {
 
 void v9fs_session_begin_cancel(struct v9fs_session_info *v9ses)
 {
+	panic("We reached unpopular paths in fs/9p/v9fs.c: line 480 \n"); 
 	p9_debug(P9_DEBUG_ERROR, "begin cancel session %p\n", v9ses);
 	p9_client_begin_disconnect(v9ses->clnt);
 }
@@ -552,12 +558,14 @@ static int __init v9fs_sysfs_init(void)
 
 static void v9fs_sysfs_cleanup(void)
 {
+	panic("We reached unpopular paths in fs/9p/v9fs.c: line 561 \n"); 
 	sysfs_remove_group(v9fs_kobj, &v9fs_attr_group);
 	kobject_put(v9fs_kobj);
 }
 
 static void v9fs_inode_init_once(void *foo)
 {
+	panic("We reached unpopular paths in fs/9p/v9fs.c: line 568 \n"); 
 	struct v9fs_inode *v9inode = (struct v9fs_inode *)foo;
 #ifdef CONFIG_9P_FSCACHE
 	v9inode->fscache = NULL;
@@ -589,6 +597,7 @@ static int v9fs_init_inode_cache(void)
  */
 static void v9fs_destroy_inode_cache(void)
 {
+	panic("We reached unpopular paths in fs/9p/v9fs.c: line 600 \n"); 
 	/*
 	 * Make sure all delayed rcu free inodes are flushed before we
 	 * destroy cache.
@@ -613,6 +622,7 @@ static int v9fs_cache_register(void)
 
 static void v9fs_cache_unregister(void)
 {
+	panic("We reached unpopular paths in fs/9p/v9fs.c: line 625 \n"); 
 	v9fs_destroy_inode_cache();
 #ifdef CONFIG_9P_FSCACHE
 	fscache_unregister_netfs(&v9fs_cache_netfs);

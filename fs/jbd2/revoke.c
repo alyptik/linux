@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/fs/jbd2/revoke.c
  *
@@ -133,12 +134,14 @@ static void flush_descriptor(journal_t *, struct buffer_head *, int);
 
 static inline int hash(journal_t *journal, unsigned long long block)
 {
+	panic("We reached unpopular paths in fs/jbd2/revoke.c: line 137 \n"); 
 	return hash_64(block, journal->j_revoke->hash_shift);
 }
 
 static int insert_revoke_hash(journal_t *journal, unsigned long long blocknr,
 			      tid_t seq)
 {
+	panic("We reached unpopular paths in fs/jbd2/revoke.c: line 144 \n"); 
 	struct list_head *hash_list;
 	struct jbd2_revoke_record_s *record;
 	gfp_t gfp_mask = GFP_NOFS;
@@ -163,6 +166,7 @@ static int insert_revoke_hash(journal_t *journal, unsigned long long blocknr,
 static struct jbd2_revoke_record_s *find_revoke_record(journal_t *journal,
 						      unsigned long long blocknr)
 {
+	panic("We reached unpopular paths in fs/jbd2/revoke.c: line 169 \n"); 
 	struct list_head *hash_list;
 	struct jbd2_revoke_record_s *record;
 
@@ -183,6 +187,7 @@ static struct jbd2_revoke_record_s *find_revoke_record(journal_t *journal,
 
 void jbd2_journal_destroy_revoke_caches(void)
 {
+	panic("We reached unpopular paths in fs/jbd2/revoke.c: line 190 \n"); 
 	if (jbd2_revoke_record_cache) {
 		kmem_cache_destroy(jbd2_revoke_record_cache);
 		jbd2_revoke_record_cache = NULL;
@@ -216,6 +221,7 @@ record_cache_failure:
 
 static struct jbd2_revoke_table_s *jbd2_journal_init_revoke_table(int hash_size)
 {
+	panic("We reached unpopular paths in fs/jbd2/revoke.c: line 224 \n"); 
 	int shift = 0;
 	int tmp = hash_size;
 	struct jbd2_revoke_table_s *table;
@@ -246,6 +252,7 @@ out:
 
 static void jbd2_journal_destroy_revoke_table(struct jbd2_revoke_table_s *table)
 {
+	panic("We reached unpopular paths in fs/jbd2/revoke.c: line 255 \n"); 
 	int i;
 	struct list_head *hash_list;
 
@@ -261,6 +268,7 @@ static void jbd2_journal_destroy_revoke_table(struct jbd2_revoke_table_s *table)
 /* Initialise the revoke table for a given journal to a given size. */
 int jbd2_journal_init_revoke(journal_t *journal, int hash_size)
 {
+	panic("We reached unpopular paths in fs/jbd2/revoke.c: line 271 \n"); 
 	J_ASSERT(journal->j_revoke_table[0] == NULL);
 	J_ASSERT(is_power_of_2(hash_size));
 
@@ -288,6 +296,7 @@ fail0:
 /* Destroy a journal's revoke table.  The table must already be empty! */
 void jbd2_journal_destroy_revoke(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/revoke.c: line 299 \n"); 
 	journal->j_revoke = NULL;
 	if (journal->j_revoke_table[0])
 		jbd2_journal_destroy_revoke_table(journal->j_revoke_table[0]);
@@ -679,6 +688,7 @@ int jbd2_journal_set_revoke(journal_t *journal,
 		       unsigned long long blocknr,
 		       tid_t sequence)
 {
+	panic("We reached unpopular paths in fs/jbd2/revoke.c: line 691 \n"); 
 	struct jbd2_revoke_record_s *record;
 
 	record = find_revoke_record(journal, blocknr);
@@ -703,6 +713,7 @@ int jbd2_journal_test_revoke(journal_t *journal,
 			unsigned long long blocknr,
 			tid_t sequence)
 {
+	panic("We reached unpopular paths in fs/jbd2/revoke.c: line 716 \n"); 
 	struct jbd2_revoke_record_s *record;
 
 	record = find_revoke_record(journal, blocknr);
@@ -720,6 +731,7 @@ int jbd2_journal_test_revoke(journal_t *journal,
 
 void jbd2_journal_clear_revoke(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/revoke.c: line 734 \n"); 
 	int i;
 	struct list_head *hash_list;
 	struct jbd2_revoke_record_s *record;

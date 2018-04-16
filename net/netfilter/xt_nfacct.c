@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 2011 Pablo Neira Ayuso <pablo@netfilter.org>
  * (C) 2011 Intra2net AG <http://www.intra2net.com>
@@ -21,6 +22,7 @@ MODULE_ALIAS("ip6t_nfacct");
 
 static bool nfacct_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_nfacct.c: line 25 \n"); 
 	int overquota;
 	const struct xt_nfacct_match_info *info = par->targinfo;
 
@@ -34,6 +36,7 @@ static bool nfacct_mt(const struct sk_buff *skb, struct xt_action_param *par)
 static int
 nfacct_mt_checkentry(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_nfacct.c: line 39 \n"); 
 	struct xt_nfacct_match_info *info = par->matchinfo;
 	struct nf_acct *nfacct;
 
@@ -50,6 +53,7 @@ nfacct_mt_checkentry(const struct xt_mtchk_param *par)
 static void
 nfacct_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_nfacct.c: line 56 \n"); 
 	const struct xt_nfacct_match_info *info = par->matchinfo;
 
 	nfnl_acct_put(info->nfacct);

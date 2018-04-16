@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Forwarding decision
  *	Linux ethernet bridge
@@ -117,6 +118,7 @@ static void __br_forward(const struct net_bridge_port *to,
 static int deliver_clone(const struct net_bridge_port *prev,
 			 struct sk_buff *skb, bool local_orig)
 {
+	panic("We reached unpopular paths in net/bridge/br_forward.c: line 121 \n"); 
 	struct net_device *dev = BR_INPUT_SKB_CB(skb)->brdev;
 
 	skb = skb_clone(skb, GFP_ATOMIC);

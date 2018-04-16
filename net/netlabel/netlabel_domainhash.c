@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NetLabel Domain Hash Table
  *
@@ -77,6 +78,7 @@ static struct netlbl_dom_map __rcu *netlbl_domhsh_def_ipv6;
  */
 static void netlbl_domhsh_free_entry(struct rcu_head *entry)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_domainhash.c: line 81 \n"); 
 	struct netlbl_dom_map *ptr;
 	struct netlbl_af4list *iter4;
 	struct netlbl_af4list *tmp4;
@@ -117,6 +119,7 @@ static void netlbl_domhsh_free_entry(struct rcu_head *entry)
  */
 static u32 netlbl_domhsh_hash(const char *key)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_domainhash.c: line 122 \n"); 
 	u32 iter;
 	u32 val;
 	u32 len;
@@ -131,6 +134,7 @@ static u32 netlbl_domhsh_hash(const char *key)
 
 static bool netlbl_family_match(u16 f1, u16 f2)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_domainhash.c: line 137 \n"); 
 	return (f1 == f2) || (f1 == AF_UNSPEC) || (f2 == AF_UNSPEC);
 }
 
@@ -591,6 +595,7 @@ int netlbl_domhsh_add_default(struct netlbl_dom_map *entry,
 int netlbl_domhsh_remove_entry(struct netlbl_dom_map *entry,
 			       struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_domainhash.c: line 598 \n"); 
 	int ret_val = 0;
 	struct audit_buffer *audit_buf;
 
@@ -675,6 +680,7 @@ int netlbl_domhsh_remove_af4(const char *domain,
 			     const struct in_addr *mask,
 			     struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_domainhash.c: line 683 \n"); 
 	struct netlbl_dom_map *entry_map;
 	struct netlbl_af4list *entry_addr;
 	struct netlbl_af4list *iter4;
@@ -807,6 +813,7 @@ remove_af6_failure:
 int netlbl_domhsh_remove(const char *domain, u16 family,
 			 struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_domainhash.c: line 816 \n"); 
 	int ret_val = -EINVAL;
 	struct netlbl_dom_map *entry;
 
@@ -852,6 +859,7 @@ done:
  */
 int netlbl_domhsh_remove_default(u16 family, struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_domainhash.c: line 862 \n"); 
 	return netlbl_domhsh_remove(NULL, family, audit_info);
 }
 
@@ -869,6 +877,7 @@ int netlbl_domhsh_remove_default(u16 family, struct netlbl_audit *audit_info)
  */
 struct netlbl_dom_map *netlbl_domhsh_getentry(const char *domain, u16 family)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_domainhash.c: line 880 \n"); 
 	if (family == AF_UNSPEC)
 		return NULL;
 	return netlbl_domhsh_search_def(domain, family);
@@ -888,6 +897,7 @@ struct netlbl_dom_map *netlbl_domhsh_getentry(const char *domain, u16 family)
 struct netlbl_dommap_def *netlbl_domhsh_getentry_af4(const char *domain,
 						     __be32 addr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_domainhash.c: line 900 \n"); 
 	struct netlbl_dom_map *dom_iter;
 	struct netlbl_af4list *addr_iter;
 
@@ -954,6 +964,7 @@ int netlbl_domhsh_walk(u32 *skip_bkt,
 		     int (*callback) (struct netlbl_dom_map *entry, void *arg),
 		     void *cb_arg)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_domainhash.c: line 967 \n"); 
 	int ret_val = -ENOENT;
 	u32 iter_bkt;
 	struct list_head *iter_list;

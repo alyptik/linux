@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Xtables module to match packets using a BPF filter.
  * Copyright 2013 Google Inc.
  * Written by Willem de Bruijn <willemb@google.com>
@@ -22,6 +23,7 @@ MODULE_ALIAS("ip6t_bpf");
 
 static int bpf_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_bpf.c: line 26 \n"); 
 	struct xt_bpf_info *info = par->matchinfo;
 	struct sock_fprog_kern program;
 
@@ -38,6 +40,7 @@ static int bpf_mt_check(const struct xt_mtchk_param *par)
 
 static bool bpf_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_bpf.c: line 43 \n"); 
 	const struct xt_bpf_info *info = par->matchinfo;
 
 	return BPF_PROG_RUN(info->filter, skb);
@@ -45,6 +48,7 @@ static bool bpf_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static void bpf_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_bpf.c: line 51 \n"); 
 	const struct xt_bpf_info *info = par->matchinfo;
 	bpf_prog_destroy(info->filter);
 }

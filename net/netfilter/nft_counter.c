@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  *
@@ -35,6 +36,7 @@ static void nft_counter_eval(const struct nft_expr *expr,
 			     struct nft_regs *regs,
 			     const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_counter.c: line 39 \n"); 
 	struct nft_counter_percpu_priv *priv = nft_expr_priv(expr);
 	struct nft_counter_percpu *this_cpu;
 
@@ -71,6 +73,7 @@ static void nft_counter_fetch(const struct nft_counter_percpu __percpu *counter,
 
 static int nft_counter_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_counter.c: line 76 \n"); 
 	struct nft_counter_percpu_priv *priv = nft_expr_priv(expr);
 	struct nft_counter total;
 
@@ -96,6 +99,7 @@ static int nft_counter_init(const struct nft_ctx *ctx,
 			    const struct nft_expr *expr,
 			    const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_counter.c: line 102 \n"); 
 	struct nft_counter_percpu_priv *priv = nft_expr_priv(expr);
 	struct nft_counter_percpu __percpu *cpu_stats;
 	struct nft_counter_percpu *this_cpu;
@@ -122,6 +126,7 @@ static int nft_counter_init(const struct nft_ctx *ctx,
 static void nft_counter_destroy(const struct nft_ctx *ctx,
 				const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_counter.c: line 129 \n"); 
 	struct nft_counter_percpu_priv *priv = nft_expr_priv(expr);
 
 	free_percpu(priv->counter);
@@ -129,6 +134,7 @@ static void nft_counter_destroy(const struct nft_ctx *ctx,
 
 static int nft_counter_clone(struct nft_expr *dst, const struct nft_expr *src)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_counter.c: line 137 \n"); 
 	struct nft_counter_percpu_priv *priv = nft_expr_priv(src);
 	struct nft_counter_percpu_priv *priv_clone = nft_expr_priv(dst);
 	struct nft_counter_percpu __percpu *cpu_stats;

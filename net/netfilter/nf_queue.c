@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Rusty Russell (C)2000 -- This code is GPL.
  * Patrick McHardy (c) 2006-2012
@@ -46,6 +47,7 @@ EXPORT_SYMBOL(nf_unregister_queue_handler);
 
 void nf_queue_entry_release_refs(struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_queue.c: line 50 \n"); 
 	struct nf_hook_state *state = &entry->state;
 
 	/* Release those devices we held, or Alexey will kill me. */
@@ -73,6 +75,7 @@ EXPORT_SYMBOL_GPL(nf_queue_entry_release_refs);
 /* Bump dev refs so they don't vanish while packet is out */
 void nf_queue_entry_get_refs(struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_queue.c: line 78 \n"); 
 	struct nf_hook_state *state = &entry->state;
 
 	if (state->in)
@@ -110,6 +113,7 @@ void nf_queue_nf_hook_drop(struct net *net, const struct nf_hook_entry *entry)
 static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
 		      unsigned int queuenum)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_queue.c: line 116 \n"); 
 	int status = -ENOENT;
 	struct nf_queue_entry *entry = NULL;
 	const struct nf_afinfo *afinfo;
@@ -160,6 +164,7 @@ err:
 int nf_queue(struct sk_buff *skb, struct nf_hook_state *state,
 	     struct nf_hook_entry **entryp, unsigned int verdict)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_queue.c: line 167 \n"); 
 	struct nf_hook_entry *entry = *entryp;
 	int ret;
 
@@ -179,6 +184,7 @@ int nf_queue(struct sk_buff *skb, struct nf_hook_state *state,
 
 void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_queue.c: line 187 \n"); 
 	struct nf_hook_entry *hook_entry;
 	struct sk_buff *skb = entry->skb;
 	const struct nf_afinfo *afinfo;

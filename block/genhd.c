@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  gendisk handling
  */
@@ -61,6 +62,7 @@ static void disk_release_events(struct gendisk *disk);
  */
 struct hd_struct *disk_get_part(struct gendisk *disk, int partno)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 65 \n"); 
 	struct hd_struct *part = NULL;
 	struct disk_part_tbl *ptbl;
 
@@ -195,6 +197,7 @@ EXPORT_SYMBOL_GPL(disk_part_iter_exit);
 
 static inline int sector_in_part(struct hd_struct *part, sector_t sector)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 200 \n"); 
 	return part->start_sect <= sector &&
 		sector < part->start_sect + part_nr_sects_read(part);
 }
@@ -216,6 +219,7 @@ static inline int sector_in_part(struct hd_struct *part, sector_t sector)
  */
 struct hd_struct *disk_map_sector_rcu(struct gendisk *disk, sector_t sector)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 222 \n"); 
 	struct disk_part_tbl *ptbl;
 	struct hd_struct *part;
 	int i;
@@ -251,6 +255,7 @@ static struct blk_major_name {
 /* index in the above - for now: assume no multimajor ranges */
 static inline int major_to_index(unsigned major)
 {
+	// [blacklist] panic("We reached unpopular paths in block/genhd.c: line 258 \n"); 
 	return major % BLKDEV_MAJOR_HASH_SIZE;
 }
 
@@ -342,6 +347,7 @@ EXPORT_SYMBOL(register_blkdev);
 
 void unregister_blkdev(unsigned int major, const char *name)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 350 \n"); 
 	struct blk_major_name **n;
 	struct blk_major_name *p = NULL;
 	int index = major_to_index(major);
@@ -379,6 +385,7 @@ static struct kobj_map *bdev_map;
  */
 static int blk_mangle_minor(int minor)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 388 \n"); 
 #ifdef CONFIG_DEBUG_BLOCK_EXT_DEVT
 	int i;
 
@@ -447,6 +454,7 @@ int blk_alloc_devt(struct hd_struct *part, dev_t *devt)
  */
 void blk_free_devt(dev_t devt)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 457 \n"); 
 	if (devt == MKDEV(0, 0))
 		return;
 
@@ -459,6 +467,7 @@ void blk_free_devt(dev_t devt)
 
 static char *bdevt_str(dev_t devt, char *buf)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 470 \n"); 
 	if (MAJOR(devt) <= 0xff && MINOR(devt) <= 0xff) {
 		char tbuf[BDEVT_SIZE];
 		snprintf(tbuf, BDEVT_SIZE, "%02x%02x", MAJOR(devt), MINOR(devt));
@@ -485,6 +494,7 @@ EXPORT_SYMBOL(blk_register_region);
 
 void blk_unregister_region(dev_t devt, unsigned long range)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 497 \n"); 
 	kobj_unmap(bdev_map, devt, range);
 }
 
@@ -492,6 +502,7 @@ EXPORT_SYMBOL(blk_unregister_region);
 
 static struct kobject *exact_match(dev_t devt, int *partno, void *data)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 505 \n"); 
 	struct gendisk *p = data;
 
 	return &disk_to_dev(p)->kobj;
@@ -499,6 +510,7 @@ static struct kobject *exact_match(dev_t devt, int *partno, void *data)
 
 static int exact_lock(dev_t devt, void *data)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 513 \n"); 
 	struct gendisk *p = data;
 
 	if (!get_disk(p))
@@ -638,6 +650,7 @@ EXPORT_SYMBOL(device_add_disk);
 
 void del_gendisk(struct gendisk *disk)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 653 \n"); 
 	struct disk_part_iter piter;
 	struct hd_struct *part;
 
@@ -678,6 +691,7 @@ static ssize_t disk_badblocks_show(struct device *dev,
 					struct device_attribute *attr,
 					char *page)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 694 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	if (!disk->bb)
@@ -690,6 +704,7 @@ static ssize_t disk_badblocks_store(struct device *dev,
 					struct device_attribute *attr,
 					const char *page, size_t len)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 707 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	if (!disk->bb)
@@ -708,6 +723,7 @@ static ssize_t disk_badblocks_store(struct device *dev,
  */
 struct gendisk *get_gendisk(dev_t devt, int *partno)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 726 \n"); 
 	struct gendisk *disk = NULL;
 
 	if (MAJOR(devt) != BLOCK_EXT_MAJOR) {
@@ -747,6 +763,7 @@ EXPORT_SYMBOL(get_gendisk);
  */
 struct block_device *bdget_disk(struct gendisk *disk, int partno)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 766 \n"); 
 	struct hd_struct *part;
 	struct block_device *bdev = NULL;
 
@@ -919,6 +936,7 @@ static const struct file_operations proc_partitions_operations = {
 
 static struct kobject *base_probe(dev_t devt, int *partno, void *data)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 939 \n"); 
 	if (request_module("block-major-%d-%d", MAJOR(devt), MINOR(devt)) > 0)
 		/* Make old-style 2.4 aliases work */
 		request_module("block-major-%d", MAJOR(devt));
@@ -949,6 +967,7 @@ subsys_initcall(genhd_device_init);
 static ssize_t disk_range_show(struct device *dev,
 			       struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 970 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	return sprintf(buf, "%d\n", disk->minors);
@@ -957,6 +976,7 @@ static ssize_t disk_range_show(struct device *dev,
 static ssize_t disk_ext_range_show(struct device *dev,
 				   struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 979 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	return sprintf(buf, "%d\n", disk_max_parts(disk));
@@ -965,6 +985,7 @@ static ssize_t disk_ext_range_show(struct device *dev,
 static ssize_t disk_removable_show(struct device *dev,
 				   struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 988 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	return sprintf(buf, "%d\n",
@@ -974,6 +995,7 @@ static ssize_t disk_removable_show(struct device *dev,
 static ssize_t disk_ro_show(struct device *dev,
 				   struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 998 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	return sprintf(buf, "%d\n", get_disk_ro(disk) ? 1 : 0);
@@ -982,6 +1004,7 @@ static ssize_t disk_ro_show(struct device *dev,
 static ssize_t disk_capability_show(struct device *dev,
 				    struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1007 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	return sprintf(buf, "%x\n", disk->flags);
@@ -991,6 +1014,7 @@ static ssize_t disk_alignment_offset_show(struct device *dev,
 					  struct device_attribute *attr,
 					  char *buf)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1017 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	return sprintf(buf, "%d\n", queue_alignment_offset(disk->queue));
@@ -1000,6 +1024,7 @@ static ssize_t disk_discard_alignment_show(struct device *dev,
 					   struct device_attribute *attr,
 					   char *buf)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1027 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	return sprintf(buf, "%d\n", queue_discard_alignment(disk->queue));
@@ -1135,6 +1160,7 @@ int disk_expand_part_tbl(struct gendisk *disk, int partno)
 
 static void disk_release(struct device *dev)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1163 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	blk_free_devt(dev->devt);
@@ -1248,6 +1274,7 @@ module_init(proc_genhd_init);
 
 dev_t blk_lookup_devt(const char *name, int partno)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1277 \n"); 
 	dev_t devt = MKDEV(0, 0);
 	struct class_dev_iter iter;
 	struct device *dev;
@@ -1333,6 +1360,7 @@ EXPORT_SYMBOL(alloc_disk_node);
 
 struct kobject *get_disk(struct gendisk *disk)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1363 \n"); 
 	struct module *owner;
 	struct kobject *kobj;
 
@@ -1354,6 +1382,7 @@ EXPORT_SYMBOL(get_disk);
 
 void put_disk(struct gendisk *disk)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1385 \n"); 
 	if (disk)
 		kobject_put(&disk_to_dev(disk)->kobj);
 }
@@ -1362,6 +1391,7 @@ EXPORT_SYMBOL(put_disk);
 
 static void set_disk_ro_uevent(struct gendisk *gd, int ro)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1394 \n"); 
 	char event[] = "DISK_RO=1";
 	char *envp[] = { event, NULL };
 
@@ -1372,6 +1402,7 @@ static void set_disk_ro_uevent(struct gendisk *gd, int ro)
 
 void set_device_ro(struct block_device *bdev, int flag)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1405 \n"); 
 	bdev->bd_part->policy = flag;
 }
 
@@ -1379,6 +1410,7 @@ EXPORT_SYMBOL(set_device_ro);
 
 void set_disk_ro(struct gendisk *disk, int flag)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1413 \n"); 
 	struct disk_part_iter piter;
 	struct hd_struct *part;
 
@@ -1406,6 +1438,7 @@ EXPORT_SYMBOL(bdev_read_only);
 
 int invalidate_partition(struct gendisk *disk, int partno)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1441 \n"); 
 	int res = 0;
 	struct block_device *bdev = bdget_disk(disk, partno);
 	if (bdev) {
@@ -1487,6 +1520,7 @@ static unsigned long disk_events_poll_jiffies(struct gendisk *disk)
  */
 void disk_block_events(struct gendisk *disk)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1523 \n"); 
 	struct disk_events *ev = disk->ev;
 	unsigned long flags;
 	bool cancel;
@@ -1547,6 +1581,7 @@ out_unlock:
  */
 void disk_unblock_events(struct gendisk *disk)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1584 \n"); 
 	if (disk->ev)
 		__disk_unblock_events(disk, false);
 }
@@ -1565,6 +1600,7 @@ void disk_unblock_events(struct gendisk *disk)
  */
 void disk_flush_events(struct gendisk *disk, unsigned int mask)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1603 \n"); 
 	struct disk_events *ev = disk->ev;
 
 	if (!ev)
@@ -1591,6 +1627,7 @@ void disk_flush_events(struct gendisk *disk, unsigned int mask)
  */
 unsigned int disk_clear_events(struct gendisk *disk, unsigned int mask)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1630 \n"); 
 	const struct block_device_operations *bdops = disk->fops;
 	struct disk_events *ev = disk->ev;
 	unsigned int pending;
@@ -1695,6 +1732,7 @@ static void disk_check_events(struct disk_events *ev,
  */
 static ssize_t __disk_events_show(unsigned int events, char *buf)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1735 \n"); 
 	const char *delim = "";
 	ssize_t pos = 0;
 	int i;
@@ -1713,6 +1751,7 @@ static ssize_t __disk_events_show(unsigned int events, char *buf)
 static ssize_t disk_events_show(struct device *dev,
 				struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1754 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	return __disk_events_show(disk->events, buf);
@@ -1721,6 +1760,7 @@ static ssize_t disk_events_show(struct device *dev,
 static ssize_t disk_events_async_show(struct device *dev,
 				      struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1763 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	return __disk_events_show(disk->async_events, buf);
@@ -1730,6 +1770,7 @@ static ssize_t disk_events_poll_msecs_show(struct device *dev,
 					   struct device_attribute *attr,
 					   char *buf)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1773 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 
 	return sprintf(buf, "%ld\n", disk->ev->poll_msecs);
@@ -1739,6 +1780,7 @@ static ssize_t disk_events_poll_msecs_store(struct device *dev,
 					    struct device_attribute *attr,
 					    const char *buf, size_t count)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1783 \n"); 
 	struct gendisk *disk = dev_to_disk(dev);
 	long intv;
 
@@ -1777,6 +1819,7 @@ static const struct attribute *disk_events_attrs[] = {
 static int disk_events_set_dfl_poll_msecs(const char *val,
 					  const struct kernel_param *kp)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1822 \n"); 
 	struct disk_events *ev;
 	int ret;
 
@@ -1855,6 +1898,7 @@ static void disk_add_events(struct gendisk *disk)
 
 static void disk_del_events(struct gendisk *disk)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1901 \n"); 
 	if (!disk->ev)
 		return;
 
@@ -1869,6 +1913,7 @@ static void disk_del_events(struct gendisk *disk)
 
 static void disk_release_events(struct gendisk *disk)
 {
+	panic("We reached unpopular paths in block/genhd.c: line 1916 \n"); 
 	/* the block count should be 1 from disk_del_events() */
 	WARN_ON_ONCE(disk->ev && disk->ev->block != 1);
 	kfree(disk->ev);

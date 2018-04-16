@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IP multicast routing support for mrouted 3.6/3.8
  *
@@ -264,12 +265,14 @@ static void __net_exit ipmr_rules_exit(struct net *net)
 
 static struct mr_table *ipmr_get_table(struct net *net, u32 id)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 268 \n"); 
 	return net->ipv4.mrt;
 }
 
 static int ipmr_fib_lookup(struct net *net, struct flowi4 *flp4,
 			   struct mr_table **mrt)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 275 \n"); 
 	*mrt = net->ipv4.mrt;
 	return 0;
 }
@@ -340,6 +343,7 @@ static void ipmr_free_table(struct mr_table *mrt)
 
 static void ipmr_del_tunnel(struct net_device *dev, struct vifctl *v)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 346 \n"); 
 	struct net *net = dev_net(dev);
 
 	dev_close(dev);
@@ -372,6 +376,7 @@ static void ipmr_del_tunnel(struct net_device *dev, struct vifctl *v)
 /* Initialize ipmr pimreg/tunnel in_device */
 static bool ipmr_init_vif_indev(const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 379 \n"); 
 	struct in_device *in_dev;
 
 	ASSERT_RTNL();
@@ -388,6 +393,7 @@ static bool ipmr_init_vif_indev(const struct net_device *dev)
 
 static struct net_device *ipmr_new_tunnel(struct net *net, struct vifctl *v)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 396 \n"); 
 	struct net_device  *dev;
 
 	dev = __dev_get_by_name(net, "tunl0");
@@ -559,6 +565,7 @@ static int __pim_rcv(struct mr_table *mrt, struct sk_buff *skb,
 #else
 static struct net_device *ipmr_reg_vif(struct net *net, struct mr_table *mrt)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 568 \n"); 
 	return NULL;
 }
 #endif
@@ -570,6 +577,7 @@ static struct net_device *ipmr_reg_vif(struct net *net, struct mr_table *mrt)
 static int vif_delete(struct mr_table *mrt, int vifi, int notify,
 		      struct list_head *head)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 580 \n"); 
 	struct vif_device *v;
 	struct net_device *dev;
 	struct in_device *in_dev;
@@ -623,6 +631,7 @@ static int vif_delete(struct mr_table *mrt, int vifi, int notify,
 
 static void ipmr_cache_free_rcu(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 634 \n"); 
 	struct mfc_cache *c = container_of(head, struct mfc_cache, rcu);
 
 	kmem_cache_free(mrt_cachep, c);
@@ -630,6 +639,7 @@ static void ipmr_cache_free_rcu(struct rcu_head *head)
 
 static inline void ipmr_cache_free(struct mfc_cache *c)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 642 \n"); 
 	call_rcu(&c->rcu, ipmr_cache_free_rcu);
 }
 
@@ -638,6 +648,7 @@ static inline void ipmr_cache_free(struct mfc_cache *c)
  */
 static void ipmr_destroy_unres(struct mr_table *mrt, struct mfc_cache *c)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 651 \n"); 
 	struct net *net = read_pnet(&mrt->net);
 	struct sk_buff *skb;
 	struct nlmsgerr *e;
@@ -666,6 +677,7 @@ static void ipmr_destroy_unres(struct mr_table *mrt, struct mfc_cache *c)
 /* Timer process for the unresolved queue. */
 static void ipmr_expire_process(unsigned long arg)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 680 \n"); 
 	struct mr_table *mrt = (struct mr_table *)arg;
 	unsigned long now;
 	unsigned long expires;
@@ -706,6 +718,7 @@ out:
 static void ipmr_update_thresholds(struct mr_table *mrt, struct mfc_cache *cache,
 				   unsigned char *ttls)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 721 \n"); 
 	int vifi;
 
 	cache->mfc_un.res.minvif = MAXVIFS;
@@ -728,6 +741,7 @@ static void ipmr_update_thresholds(struct mr_table *mrt, struct mfc_cache *cache
 static int vif_add(struct net *net, struct mr_table *mrt,
 		   struct vifctl *vifc, int mrtsock)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 744 \n"); 
 	int vifi = vifc->vifc_vifi;
 	struct vif_device *v = &mrt->vif_table[vifi];
 	struct net_device *dev;
@@ -834,6 +848,7 @@ static struct mfc_cache *ipmr_cache_find(struct mr_table *mrt,
 					 __be32 origin,
 					 __be32 mcastgrp)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 851 \n"); 
 	int line = MFC_HASH(mcastgrp, origin);
 	struct mfc_cache *c;
 
@@ -848,6 +863,7 @@ static struct mfc_cache *ipmr_cache_find(struct mr_table *mrt,
 static struct mfc_cache *ipmr_cache_find_any_parent(struct mr_table *mrt,
 						    int vifi)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 866 \n"); 
 	int line = MFC_HASH(htonl(INADDR_ANY), htonl(INADDR_ANY));
 	struct mfc_cache *c;
 
@@ -864,6 +880,7 @@ static struct mfc_cache *ipmr_cache_find_any_parent(struct mr_table *mrt,
 static struct mfc_cache *ipmr_cache_find_any(struct mr_table *mrt,
 					     __be32 mcastgrp, int vifi)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 883 \n"); 
 	int line = MFC_HASH(mcastgrp, htonl(INADDR_ANY));
 	struct mfc_cache *c, *proxy;
 
@@ -890,6 +907,7 @@ skip:
 /* Allocate a multicast cache entry */
 static struct mfc_cache *ipmr_cache_alloc(void)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 910 \n"); 
 	struct mfc_cache *c = kmem_cache_zalloc(mrt_cachep, GFP_KERNEL);
 
 	if (c) {
@@ -901,6 +919,7 @@ static struct mfc_cache *ipmr_cache_alloc(void)
 
 static struct mfc_cache *ipmr_cache_alloc_unres(void)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 922 \n"); 
 	struct mfc_cache *c = kmem_cache_zalloc(mrt_cachep, GFP_ATOMIC);
 
 	if (c) {
@@ -914,6 +933,7 @@ static struct mfc_cache *ipmr_cache_alloc_unres(void)
 static void ipmr_cache_resolve(struct net *net, struct mr_table *mrt,
 			       struct mfc_cache *uc, struct mfc_cache *c)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 936 \n"); 
 	struct sk_buff *skb;
 	struct nlmsgerr *e;
 
@@ -949,6 +969,7 @@ static void ipmr_cache_resolve(struct net *net, struct mr_table *mrt,
 static int ipmr_cache_report(struct mr_table *mrt,
 			     struct sk_buff *pkt, vifi_t vifi, int assert)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 972 \n"); 
 	const int ihl = ip_hdrlen(pkt);
 	struct sock *mroute_sk;
 	struct igmphdr *igmp;
@@ -1023,6 +1044,7 @@ static int ipmr_cache_report(struct mr_table *mrt,
 static int ipmr_cache_unresolved(struct mr_table *mrt, vifi_t vifi,
 				 struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 1047 \n"); 
 	bool found = false;
 	int err;
 	struct mfc_cache *c;
@@ -1090,6 +1112,7 @@ static int ipmr_cache_unresolved(struct mr_table *mrt, vifi_t vifi,
 
 static int ipmr_mfc_delete(struct mr_table *mrt, struct mfcctl *mfc, int parent)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 1115 \n"); 
 	int line;
 	struct mfc_cache *c, *next;
 
@@ -1111,6 +1134,7 @@ static int ipmr_mfc_delete(struct mr_table *mrt, struct mfcctl *mfc, int parent)
 static int ipmr_mfc_add(struct net *net, struct mr_table *mrt,
 			struct mfcctl *mfc, int mrtsock, int parent)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 1137 \n"); 
 	bool found = false;
 	int line;
 	struct mfc_cache *uc, *c;
@@ -1225,6 +1249,7 @@ static void mroute_clean_tables(struct mr_table *mrt, bool all)
  */
 static void mrtsock_destruct(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 1252 \n"); 
 	struct net *net = sock_net(sk);
 	struct mr_table *mrt;
 
@@ -1633,6 +1658,7 @@ static struct notifier_block ip_mr_notifier = {
 static void ip_encap(struct net *net, struct sk_buff *skb,
 		     __be32 saddr, __be32 daddr)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 1661 \n"); 
 	struct iphdr *iph;
 	const struct iphdr *old_iph = ip_hdr(skb);
 
@@ -1660,6 +1686,7 @@ static void ip_encap(struct net *net, struct sk_buff *skb,
 static inline int ipmr_forward_finish(struct net *net, struct sock *sk,
 				      struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 1689 \n"); 
 	struct ip_options *opt = &(IPCB(skb)->opt);
 
 	IP_INC_STATS(net, IPSTATS_MIB_OUTFORWDATAGRAMS);
@@ -1676,6 +1703,7 @@ static inline int ipmr_forward_finish(struct net *net, struct sock *sk,
 static void ipmr_queue_xmit(struct net *net, struct mr_table *mrt,
 			    struct sk_buff *skb, struct mfc_cache *c, int vifi)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 1706 \n"); 
 	const struct iphdr *iph = ip_hdr(skb);
 	struct vif_device *vif = &mrt->vif_table[vifi];
 	struct net_device *dev;
@@ -1772,6 +1800,7 @@ out_free:
 
 static int ipmr_find_vif(struct mr_table *mrt, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 1803 \n"); 
 	int ct;
 
 	for (ct = mrt->maxvif-1; ct >= 0; ct--) {
@@ -1786,6 +1815,7 @@ static void ip_mr_forward(struct net *net, struct mr_table *mrt,
 			  struct sk_buff *skb, struct mfc_cache *cache,
 			  int local)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 1818 \n"); 
 	int psend = -1;
 	int vif, ct;
 	int true_vifi = ipmr_find_vif(mrt, skb->dev);
@@ -1898,6 +1928,7 @@ dont_forward:
 
 static struct mr_table *ipmr_rt_fib_lookup(struct net *net, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 1931 \n"); 
 	struct rtable *rt = skb_rtable(skb);
 	struct iphdr *iph = ip_hdr(skb);
 	struct flowi4 fl4 = {
@@ -1925,6 +1956,7 @@ static struct mr_table *ipmr_rt_fib_lookup(struct net *net, struct sk_buff *skb)
  */
 int ip_mr_input(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 1959 \n"); 
 	struct mfc_cache *cache;
 	struct net *net = dev_net(skb->dev);
 	int local = skb_rtable(skb)->rt_flags & RTCF_LOCAL;
@@ -2073,6 +2105,7 @@ drop:
 static int __ipmr_fill_mroute(struct mr_table *mrt, struct sk_buff *skb,
 			      struct mfc_cache *c, struct rtmsg *rtm)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 2108 \n"); 
 	struct rta_mfc_stats mfcs;
 	struct nlattr *mp_attr;
 	struct rtnexthop *nhp;
@@ -2125,6 +2158,7 @@ int ipmr_get_route(struct net *net, struct sk_buff *skb,
 		   __be32 saddr, __be32 daddr,
 		   struct rtmsg *rtm, int nowait, u32 portid)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 2161 \n"); 
 	struct mfc_cache *cache;
 	struct mr_table *mrt;
 	int err;
@@ -2193,6 +2227,7 @@ static int ipmr_fill_mroute(struct mr_table *mrt, struct sk_buff *skb,
 			    u32 portid, u32 seq, struct mfc_cache *c, int cmd,
 			    int flags)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 2230 \n"); 
 	struct nlmsghdr *nlh;
 	struct rtmsg *rtm;
 	int err;
@@ -2235,6 +2270,7 @@ nla_put_failure:
 
 static size_t mroute_msgsize(bool unresolved, int maxvif)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 2273 \n"); 
 	size_t len =
 		NLMSG_ALIGN(sizeof(struct rtmsg))
 		+ nla_total_size(4)	/* RTA_TABLE */
@@ -2257,6 +2293,7 @@ static size_t mroute_msgsize(bool unresolved, int maxvif)
 static void mroute_netlink_event(struct mr_table *mrt, struct mfc_cache *mfc,
 				 int cmd)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 2296 \n"); 
 	struct net *net = read_pnet(&mrt->net);
 	struct sk_buff *skb;
 	int err = -ENOBUFS;
@@ -2281,6 +2318,7 @@ errout:
 
 static int ipmr_rtm_dumproute(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 2321 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct mr_table *mrt;
 	struct mfc_cache *mfc;
@@ -2354,6 +2392,7 @@ static const struct nla_policy rtm_ipmr_policy[RTA_MAX + 1] = {
 
 static bool ipmr_rtm_validate_proto(unsigned char rtm_protocol)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 2395 \n"); 
 	switch (rtm_protocol) {
 	case RTPROT_STATIC:
 	case RTPROT_MROUTED:
@@ -2364,6 +2403,7 @@ static bool ipmr_rtm_validate_proto(unsigned char rtm_protocol)
 
 static int ipmr_nla_get_ttls(const struct nlattr *nla, struct mfcctl *mfcc)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 2406 \n"); 
 	struct rtnexthop *rtnh = nla_data(nla);
 	int remaining = nla_len(nla), vifi = 0;
 
@@ -2382,6 +2422,7 @@ static int rtm_to_ipmr_mfcc(struct net *net, struct nlmsghdr *nlh,
 			    struct mfcctl *mfcc, int *mrtsock,
 			    struct mr_table **mrtret)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 2425 \n"); 
 	struct net_device *dev = NULL;
 	u32 tblid = RT_TABLE_DEFAULT;
 	struct mr_table *mrt;
@@ -2450,6 +2491,7 @@ out:
 /* takes care of both newroute and delroute */
 static int ipmr_rtm_route(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv4/ipmr.c: line 2494 \n"); 
 	struct net *net = sock_net(skb->sk);
 	int ret, mrtsock, parent;
 	struct mr_table *tbl;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2014 Intel Corporation
  *
@@ -22,6 +23,7 @@ static void nft_meta_bridge_get_eval(const struct nft_expr *expr,
 				     struct nft_regs *regs,
 				     const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_meta_bridge.c: line 26 \n"); 
 	const struct nft_meta *priv = nft_expr_priv(expr);
 	const struct net_device *in = pkt->in, *out = pkt->out;
 	u32 *dest = &regs->data[priv->dreg];
@@ -52,6 +54,7 @@ static int nft_meta_bridge_get_init(const struct nft_ctx *ctx,
 				    const struct nft_expr *expr,
 				    const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_meta_bridge.c: line 57 \n"); 
 	struct nft_meta *priv = nft_expr_priv(expr);
 	unsigned int len;
 
@@ -93,6 +96,7 @@ static const struct nft_expr_ops *
 nft_meta_bridge_select_ops(const struct nft_ctx *ctx,
 			   const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_meta_bridge.c: line 99 \n"); 
 	if (tb[NFTA_META_KEY] == NULL)
 		return ERR_PTR(-EINVAL);
 

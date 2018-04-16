@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/l3mdev/l3mdev.c - L3 master device implementation
  * Copyright (c) 2015 Cumulus Networks
@@ -140,6 +141,7 @@ EXPORT_SYMBOL_GPL(l3mdev_link_scope_lookup);
 int l3mdev_fib_rule_match(struct net *net, struct flowi *fl,
 			  struct fib_lookup_arg *arg)
 {
+	panic("We reached unpopular paths in net/l3mdev/l3mdev.c: line 144 \n"); 
 	struct net_device *dev;
 	int rc = 0;
 

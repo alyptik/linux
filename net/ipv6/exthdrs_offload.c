@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IPV6 GSO/GRO offload support
  *	Linux INET6 implementation

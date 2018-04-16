@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * ip_conntrack_proto_gre.c - Version 3.0
  *
@@ -82,6 +83,7 @@ static void nf_ct_gre_keymap_flush(struct net *net)
 static inline int gre_key_cmpfn(const struct nf_ct_gre_keymap *km,
 				const struct nf_conntrack_tuple *t)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_gre.c: line 86 \n"); 
 	return km->tuple.src.l3num == t->src.l3num &&
 	       !memcmp(&km->tuple.src.u3, &t->src.u3, sizeof(t->src.u3)) &&
 	       !memcmp(&km->tuple.dst.u3, &t->dst.u3, sizeof(t->dst.u3)) &&
@@ -92,6 +94,7 @@ static inline int gre_key_cmpfn(const struct nf_ct_gre_keymap *km,
 /* look up the source key for a given tuple */
 static __be16 gre_keymap_lookup(struct net *net, struct nf_conntrack_tuple *t)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_gre.c: line 97 \n"); 
 	struct netns_proto_gre *net_gre = gre_pernet(net);
 	struct nf_ct_gre_keymap *km;
 	__be16 key = 0;
@@ -115,6 +118,7 @@ static __be16 gre_keymap_lookup(struct net *net, struct nf_conntrack_tuple *t)
 int nf_ct_gre_keymap_add(struct nf_conn *ct, enum ip_conntrack_dir dir,
 			 struct nf_conntrack_tuple *t)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_gre.c: line 121 \n"); 
 	struct net *net = nf_ct_net(ct);
 	struct netns_proto_gre *net_gre = gre_pernet(net);
 	struct nf_ct_pptp_master *ct_pptp_info = nfct_help_data(ct);
@@ -156,6 +160,7 @@ EXPORT_SYMBOL_GPL(nf_ct_gre_keymap_add);
 /* destroy the keymap entries associated with specified master ct */
 void nf_ct_gre_keymap_destroy(struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_gre.c: line 163 \n"); 
 	struct net *net = nf_ct_net(ct);
 	struct netns_proto_gre *net_gre = gre_pernet(net);
 	struct nf_ct_pptp_master *ct_pptp_info = nfct_help_data(ct);
@@ -183,6 +188,7 @@ EXPORT_SYMBOL_GPL(nf_ct_gre_keymap_destroy);
 static bool gre_invert_tuple(struct nf_conntrack_tuple *tuple,
 			     const struct nf_conntrack_tuple *orig)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_gre.c: line 191 \n"); 
 	tuple->dst.u.gre.key = orig->src.u.gre.key;
 	tuple->src.u.gre.key = orig->dst.u.gre.key;
 	return true;
@@ -192,6 +198,7 @@ static bool gre_invert_tuple(struct nf_conntrack_tuple *tuple,
 static bool gre_pkt_to_tuple(const struct sk_buff *skb, unsigned int dataoff,
 			     struct net *net, struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_gre.c: line 201 \n"); 
 	const struct pptp_gre_header *pgrehdr;
 	struct pptp_gre_header _pgrehdr;
 	__be16 srckey;
@@ -228,6 +235,7 @@ static bool gre_pkt_to_tuple(const struct sk_buff *skb, unsigned int dataoff,
 static void gre_print_tuple(struct seq_file *s,
 			    const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_gre.c: line 238 \n"); 
 	seq_printf(s, "srckey=0x%x dstkey=0x%x ",
 		   ntohs(tuple->src.u.gre.key),
 		   ntohs(tuple->dst.u.gre.key));
@@ -236,6 +244,7 @@ static void gre_print_tuple(struct seq_file *s,
 /* print private data for conntrack */
 static void gre_print_conntrack(struct seq_file *s, struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_gre.c: line 247 \n"); 
 	seq_printf(s, "timeout=%u, stream_timeout=%u ",
 		   (ct->proto.gre.timeout / HZ),
 		   (ct->proto.gre.stream_timeout / HZ));
@@ -243,6 +252,7 @@ static void gre_print_conntrack(struct seq_file *s, struct nf_conn *ct)
 
 static unsigned int *gre_get_timeouts(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_gre.c: line 255 \n"); 
 	return gre_pernet(net)->gre_timeouts;
 }
 
@@ -255,6 +265,7 @@ static int gre_packet(struct nf_conn *ct,
 		      unsigned int hooknum,
 		      unsigned int *timeouts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_gre.c: line 268 \n"); 
 	/* If we've seen traffic both ways, this is a GRE connection.
 	 * Extend timeout. */
 	if (ct->status & IPS_SEEN_REPLY) {
@@ -274,6 +285,7 @@ static int gre_packet(struct nf_conn *ct,
 static bool gre_new(struct nf_conn *ct, const struct sk_buff *skb,
 		    unsigned int dataoff, unsigned int *timeouts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_gre.c: line 288 \n"); 
 	pr_debug(": ");
 	nf_ct_dump_tuple(&ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple);
 
@@ -289,6 +301,7 @@ static bool gre_new(struct nf_conn *ct, const struct sk_buff *skb,
  * and is about to be deleted from memory */
 static void gre_destroy(struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_gre.c: line 304 \n"); 
 	struct nf_conn *master = ct->master;
 	pr_debug(" entering\n");
 

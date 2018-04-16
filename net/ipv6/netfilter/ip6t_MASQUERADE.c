@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2011 Patrick McHardy <kaber@trash.net>
  *
@@ -24,11 +25,13 @@
 static unsigned int
 masquerade_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_MASQUERADE.c: line 28 \n"); 
 	return nf_nat_masquerade_ipv6(skb, par->targinfo, par->out);
 }
 
 static int masquerade_tg6_checkentry(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_MASQUERADE.c: line 34 \n"); 
 	const struct nf_nat_range *range = par->targinfo;
 
 	if (range->flags & NF_NAT_RANGE_MAP_IPS)

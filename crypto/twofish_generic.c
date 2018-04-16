@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Twofish for CryptoAPI
  *
@@ -108,6 +109,7 @@
 /* Encrypt one block.  in and out may be the same. */
 static void twofish_encrypt(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 {
+	panic("We reached unpopular paths in crypto/twofish_generic.c: line 112 \n"); 
 	struct twofish_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __le32 *src = (const __le32 *)in;
 	__le32 *dst = (__le32 *)out;
@@ -145,6 +147,7 @@ static void twofish_encrypt(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 /* Decrypt one block.  in and out may be the same. */
 static void twofish_decrypt(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 {
+	panic("We reached unpopular paths in crypto/twofish_generic.c: line 150 \n"); 
 	struct twofish_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __le32 *src = (const __le32 *)in;
 	__le32 *dst = (__le32 *)out;

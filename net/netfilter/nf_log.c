@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/kernel.h>
 #include <linux/init.h>
 #include <linux/module.h>
@@ -23,6 +24,7 @@ static DEFINE_MUTEX(nf_log_mutex);
 
 static struct nf_logger *__find_logger(int pf, const char *str_logger)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log.c: line 27 \n"); 
 	struct nf_logger *log;
 	int i;
 
@@ -108,6 +110,7 @@ EXPORT_SYMBOL(nf_log_register);
 
 void nf_log_unregister(struct nf_logger *logger)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log.c: line 113 \n"); 
 	const struct nf_logger *log;
 	int i;
 
@@ -125,6 +128,7 @@ EXPORT_SYMBOL(nf_log_unregister);
 int nf_log_bind_pf(struct net *net, u_int8_t pf,
 		   const struct nf_logger *logger)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log.c: line 131 \n"); 
 	if (pf >= ARRAY_SIZE(net->nf.nf_loggers))
 		return -EINVAL;
 	mutex_lock(&nf_log_mutex);
@@ -140,6 +144,7 @@ EXPORT_SYMBOL(nf_log_bind_pf);
 
 void nf_log_unbind_pf(struct net *net, u_int8_t pf)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log.c: line 147 \n"); 
 	if (pf >= ARRAY_SIZE(net->nf.nf_loggers))
 		return;
 	mutex_lock(&nf_log_mutex);
@@ -157,6 +162,7 @@ EXPORT_SYMBOL_GPL(nf_logger_request_module);
 
 int nf_logger_find_get(int pf, enum nf_log_type type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log.c: line 165 \n"); 
 	struct nf_logger *logger;
 	int ret = -ENOENT;
 
@@ -192,6 +198,7 @@ EXPORT_SYMBOL_GPL(nf_logger_find_get);
 
 void nf_logger_put(int pf, enum nf_log_type type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log.c: line 201 \n"); 
 	struct nf_logger *logger;
 
 	if (pf == NFPROTO_INET) {
@@ -218,6 +225,7 @@ void nf_log_packet(struct net *net,
 		   const struct nf_loginfo *loginfo,
 		   const char *fmt, ...)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log.c: line 228 \n"); 
 	va_list args;
 	char prefix[NF_LOG_PREFIXLEN];
 	const struct nf_logger *logger;
@@ -246,6 +254,7 @@ void nf_log_trace(struct net *net,
 		  const struct net_device *out,
 		  const struct nf_loginfo *loginfo, const char *fmt, ...)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log.c: line 257 \n"); 
 	va_list args;
 	char prefix[NF_LOG_PREFIXLEN];
 	const struct nf_logger *logger;
@@ -292,6 +301,7 @@ EXPORT_SYMBOL_GPL(nf_log_buf_add);
 
 struct nf_log_buf *nf_log_buf_open(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log.c: line 304 \n"); 
 	struct nf_log_buf *m = kmalloc(sizeof(*m), GFP_ATOMIC);
 
 	if (unlikely(!m)) {
@@ -307,6 +317,7 @@ EXPORT_SYMBOL_GPL(nf_log_buf_open);
 
 void nf_log_buf_close(struct nf_log_buf *m)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log.c: line 320 \n"); 
 	m->buf[m->count] = 0;
 	printk("%s\n", m->buf);
 
@@ -514,11 +525,13 @@ static void netfilter_log_sysctl_exit(struct net *net)
 #else
 static int netfilter_log_sysctl_init(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log.c: line 528 \n"); 
 	return 0;
 }
 
 static void netfilter_log_sysctl_exit(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log.c: line 534 \n"); 
 }
 #endif /* CONFIG_SYSCTL */
 

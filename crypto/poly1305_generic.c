@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Poly1305 authenticator algorithm, RFC7539
  *
@@ -20,11 +21,13 @@
 
 static inline u64 mlt(u64 a, u64 b)
 {
+	panic("We reached unpopular paths in crypto/poly1305_generic.c: line 24 \n"); 
 	return a * b;
 }
 
 static inline u32 sr(u64 v, u_char n)
 {
+	panic("We reached unpopular paths in crypto/poly1305_generic.c: line 30 \n"); 
 	return v >> n;
 }
 
@@ -35,11 +38,13 @@ static inline u32 and(u32 v, u32 mask)
 
 static inline u32 le32_to_cpuvp(const void *p)
 {
+	panic("We reached unpopular paths in crypto/poly1305_generic.c: line 41 \n"); 
 	return le32_to_cpup(p);
 }
 
 int crypto_poly1305_init(struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/poly1305_generic.c: line 47 \n"); 
 	struct poly1305_desc_ctx *dctx = shash_desc_ctx(desc);
 
 	memset(dctx->h, 0, sizeof(dctx->h));
@@ -53,6 +58,7 @@ EXPORT_SYMBOL_GPL(crypto_poly1305_init);
 
 static void poly1305_setrkey(struct poly1305_desc_ctx *dctx, const u8 *key)
 {
+	panic("We reached unpopular paths in crypto/poly1305_generic.c: line 61 \n"); 
 	/* r &= 0xffffffc0ffffffc0ffffffc0fffffff */
 	dctx->r[0] = (le32_to_cpuvp(key +  0) >> 0) & 0x3ffffff;
 	dctx->r[1] = (le32_to_cpuvp(key +  3) >> 2) & 0x3ffff03;
@@ -63,6 +69,7 @@ static void poly1305_setrkey(struct poly1305_desc_ctx *dctx, const u8 *key)
 
 static void poly1305_setskey(struct poly1305_desc_ctx *dctx, const u8 *key)
 {
+	panic("We reached unpopular paths in crypto/poly1305_generic.c: line 72 \n"); 
 	dctx->s[0] = le32_to_cpuvp(key +  0);
 	dctx->s[1] = le32_to_cpuvp(key +  4);
 	dctx->s[2] = le32_to_cpuvp(key +  8);
@@ -77,6 +84,7 @@ static void poly1305_setskey(struct poly1305_desc_ctx *dctx, const u8 *key)
 unsigned int crypto_poly1305_setdesckey(struct poly1305_desc_ctx *dctx,
 					const u8 *src, unsigned int srclen)
 {
+	panic("We reached unpopular paths in crypto/poly1305_generic.c: line 87 \n"); 
 	if (!dctx->sset) {
 		if (!dctx->rset && srclen >= POLY1305_BLOCK_SIZE) {
 			poly1305_setrkey(dctx, src);
@@ -99,6 +107,7 @@ static unsigned int poly1305_blocks(struct poly1305_desc_ctx *dctx,
 				    const u8 *src, unsigned int srclen,
 				    u32 hibit)
 {
+	panic("We reached unpopular paths in crypto/poly1305_generic.c: line 110 \n"); 
 	u32 r0, r1, r2, r3, r4;
 	u32 s1, s2, s3, s4;
 	u32 h0, h1, h2, h3, h4;
@@ -173,6 +182,7 @@ static unsigned int poly1305_blocks(struct poly1305_desc_ctx *dctx,
 int crypto_poly1305_update(struct shash_desc *desc,
 			   const u8 *src, unsigned int srclen)
 {
+	panic("We reached unpopular paths in crypto/poly1305_generic.c: line 185 \n"); 
 	struct poly1305_desc_ctx *dctx = shash_desc_ctx(desc);
 	unsigned int bytes;
 
@@ -207,6 +217,7 @@ EXPORT_SYMBOL_GPL(crypto_poly1305_update);
 
 int crypto_poly1305_final(struct shash_desc *desc, u8 *dst)
 {
+	panic("We reached unpopular paths in crypto/poly1305_generic.c: line 220 \n"); 
 	struct poly1305_desc_ctx *dctx = shash_desc_ctx(desc);
 	__le32 *mac = (__le32 *)dst;
 	u32 h0, h1, h2, h3, h4;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -249,6 +250,7 @@ EXPORT_SYMBOL_GPL(inet_csk_get_port);
  */
 static int inet_csk_wait_for_connect(struct sock *sk, long timeo)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_connection_sock.c: line 253 \n"); 
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	DEFINE_WAIT(wait);
 	int err;
@@ -391,6 +393,7 @@ EXPORT_SYMBOL(inet_csk_clear_xmit_timers);
 
 void inet_csk_delete_keepalive_timer(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_connection_sock.c: line 396 \n"); 
 	sk_stop_timer(sk, &sk->sk_timer);
 }
 EXPORT_SYMBOL(inet_csk_delete_keepalive_timer);
@@ -482,6 +485,7 @@ static inline void syn_ack_recalc(struct request_sock *req, const int thresh,
 				  const u8 rskq_defer_accept,
 				  int *expire, int *resend)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_connection_sock.c: line 488 \n"); 
 	if (!rskq_defer_accept) {
 		*expire = req->num_timeout >= thresh;
 		*resend = 1;
@@ -500,6 +504,7 @@ static inline void syn_ack_recalc(struct request_sock *req, const int thresh,
 
 int inet_rtx_syn_ack(const struct sock *parent, struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_connection_sock.c: line 507 \n"); 
 	int err = req->rsk_ops->rtx_syn_ack(parent, req);
 
 	if (!err)
@@ -538,6 +543,7 @@ EXPORT_SYMBOL(inet_csk_reqsk_queue_drop);
 
 void inet_csk_reqsk_queue_drop_and_put(struct sock *sk, struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_connection_sock.c: line 546 \n"); 
 	inet_csk_reqsk_queue_drop(sk, req);
 	reqsk_put(req);
 }
@@ -545,6 +551,7 @@ EXPORT_SYMBOL(inet_csk_reqsk_queue_drop_and_put);
 
 static void reqsk_timer_handler(unsigned long data)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_connection_sock.c: line 554 \n"); 
 	struct request_sock *req = (struct request_sock *)data;
 	struct sock *sk_listener = req->rsk_listener;
 	struct net *net = sock_net(sk_listener);
@@ -768,6 +775,7 @@ EXPORT_SYMBOL_GPL(inet_csk_listen_start);
 static void inet_child_forget(struct sock *sk, struct request_sock *req,
 			      struct sock *child)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_connection_sock.c: line 778 \n"); 
 	sk->sk_prot->disconnect(child, O_NONBLOCK);
 
 	sock_orphan(child);
@@ -837,6 +845,7 @@ EXPORT_SYMBOL(inet_csk_complete_hashdance);
  */
 void inet_csk_listen_stop(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_connection_sock.c: line 848 \n"); 
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	struct request_sock_queue *queue = &icsk->icsk_accept_queue;
 	struct request_sock *next, *req;
@@ -882,6 +891,7 @@ EXPORT_SYMBOL_GPL(inet_csk_listen_stop);
 
 void inet_csk_addr2sockaddr(struct sock *sk, struct sockaddr *uaddr)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_connection_sock.c: line 894 \n"); 
 	struct sockaddr_in *sin = (struct sockaddr_in *)uaddr;
 	const struct inet_sock *inet = inet_sk(sk);
 
@@ -921,6 +931,7 @@ EXPORT_SYMBOL_GPL(inet_csk_compat_setsockopt);
 
 static struct dst_entry *inet_csk_rebuild_route(struct sock *sk, struct flowi *fl)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_connection_sock.c: line 934 \n"); 
 	const struct inet_sock *inet = inet_sk(sk);
 	const struct ip_options_rcu *inet_opt;
 	__be32 daddr = inet->inet_daddr;
@@ -947,6 +958,7 @@ static struct dst_entry *inet_csk_rebuild_route(struct sock *sk, struct flowi *f
 
 struct dst_entry *inet_csk_update_pmtu(struct sock *sk, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_connection_sock.c: line 961 \n"); 
 	struct dst_entry *dst = __sk_dst_check(sk, 0);
 	struct inet_sock *inet = inet_sk(sk);
 

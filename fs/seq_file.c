@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/fs/seq_file.c
  *
@@ -20,6 +21,7 @@
 
 static void seq_set_overflow(struct seq_file *m)
 {
+	// [blacklist] panic("We reached unpopular paths in fs/seq_file.c: line 24 \n"); 
 	m->count = m->size;
 }
 
@@ -463,6 +465,7 @@ EXPORT_SYMBOL(mangle_path);
  */
 int seq_path(struct seq_file *m, const struct path *path, const char *esc)
 {
+	panic("We reached unpopular paths in fs/seq_file.c: line 468 \n"); 
 	char *buf;
 	size_t size = seq_get_buf(m, &buf);
 	int res = -1;
@@ -491,6 +494,7 @@ EXPORT_SYMBOL(seq_path);
  */
 int seq_file_path(struct seq_file *m, struct file *file, const char *esc)
 {
+	panic("We reached unpopular paths in fs/seq_file.c: line 497 \n"); 
 	return seq_path(m, &file->f_path, esc);
 }
 EXPORT_SYMBOL(seq_file_path);
@@ -784,6 +788,7 @@ EXPORT_SYMBOL(seq_write);
  */
 void seq_pad(struct seq_file *m, char c)
 {
+	panic("We reached unpopular paths in fs/seq_file.c: line 791 \n"); 
 	int size = m->pad_until - m->count;
 	if (size > 0)
 		seq_printf(m, "%*s", size, "");
@@ -797,6 +802,7 @@ void seq_hex_dump(struct seq_file *m, const char *prefix_str, int prefix_type,
 		  int rowsize, int groupsize, const void *buf, size_t len,
 		  bool ascii)
 {
+	panic("We reached unpopular paths in fs/seq_file.c: line 805 \n"); 
 	const u8 *ptr = buf;
 	int i, linelen, remaining = len;
 	char *buffer;
@@ -846,6 +852,7 @@ EXPORT_SYMBOL(seq_list_start);
 
 struct list_head *seq_list_start_head(struct list_head *head, loff_t pos)
 {
+	panic("We reached unpopular paths in fs/seq_file.c: line 855 \n"); 
 	if (!pos)
 		return head;
 
@@ -872,6 +879,7 @@ EXPORT_SYMBOL(seq_list_next);
  */
 struct hlist_node *seq_hlist_start(struct hlist_head *head, loff_t pos)
 {
+	panic("We reached unpopular paths in fs/seq_file.c: line 882 \n"); 
 	struct hlist_node *node;
 
 	hlist_for_each(node, head)
@@ -891,6 +899,7 @@ EXPORT_SYMBOL(seq_hlist_start);
  */
 struct hlist_node *seq_hlist_start_head(struct hlist_head *head, loff_t pos)
 {
+	panic("We reached unpopular paths in fs/seq_file.c: line 902 \n"); 
 	if (!pos)
 		return SEQ_START_TOKEN;
 
@@ -909,6 +918,7 @@ EXPORT_SYMBOL(seq_hlist_start_head);
 struct hlist_node *seq_hlist_next(void *v, struct hlist_head *head,
 				  loff_t *ppos)
 {
+	panic("We reached unpopular paths in fs/seq_file.c: line 921 \n"); 
 	struct hlist_node *node = v;
 
 	++*ppos;
@@ -933,6 +943,7 @@ EXPORT_SYMBOL(seq_hlist_next);
 struct hlist_node *seq_hlist_start_rcu(struct hlist_head *head,
 				       loff_t pos)
 {
+	panic("We reached unpopular paths in fs/seq_file.c: line 946 \n"); 
 	struct hlist_node *node;
 
 	__hlist_for_each_rcu(node, head)
@@ -957,6 +968,7 @@ EXPORT_SYMBOL(seq_hlist_start_rcu);
 struct hlist_node *seq_hlist_start_head_rcu(struct hlist_head *head,
 					    loff_t pos)
 {
+	panic("We reached unpopular paths in fs/seq_file.c: line 971 \n"); 
 	if (!pos)
 		return SEQ_START_TOKEN;
 
@@ -980,6 +992,7 @@ struct hlist_node *seq_hlist_next_rcu(void *v,
 				      struct hlist_head *head,
 				      loff_t *ppos)
 {
+	panic("We reached unpopular paths in fs/seq_file.c: line 995 \n"); 
 	struct hlist_node *node = v;
 
 	++*ppos;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/core/dst_cache.c - dst entry cache
  *
@@ -31,6 +32,7 @@ struct dst_cache_pcpu {
 static void dst_cache_per_cpu_dst_set(struct dst_cache_pcpu *dst_cache,
 				      struct dst_entry *dst, u32 cookie)
 {
+	panic("We reached unpopular paths in net/core/dst_cache.c: line 35 \n"); 
 	dst_release(dst_cache->dst);
 	if (dst)
 		dst_hold(dst);
@@ -42,6 +44,7 @@ static void dst_cache_per_cpu_dst_set(struct dst_cache_pcpu *dst_cache,
 static struct dst_entry *dst_cache_per_cpu_get(struct dst_cache *dst_cache,
 					       struct dst_cache_pcpu *idst)
 {
+	panic("We reached unpopular paths in net/core/dst_cache.c: line 47 \n"); 
 	struct dst_entry *dst;
 
 	dst = idst->dst;
@@ -66,6 +69,7 @@ fail:
 
 struct dst_entry *dst_cache_get(struct dst_cache *dst_cache)
 {
+	panic("We reached unpopular paths in net/core/dst_cache.c: line 72 \n"); 
 	if (!dst_cache->cache)
 		return NULL;
 
@@ -75,6 +79,7 @@ EXPORT_SYMBOL_GPL(dst_cache_get);
 
 struct rtable *dst_cache_get_ip4(struct dst_cache *dst_cache, __be32 *saddr)
 {
+	panic("We reached unpopular paths in net/core/dst_cache.c: line 82 \n"); 
 	struct dst_cache_pcpu *idst;
 	struct dst_entry *dst;
 
@@ -94,6 +99,7 @@ EXPORT_SYMBOL_GPL(dst_cache_get_ip4);
 void dst_cache_set_ip4(struct dst_cache *dst_cache, struct dst_entry *dst,
 		       __be32 saddr)
 {
+	panic("We reached unpopular paths in net/core/dst_cache.c: line 102 \n"); 
 	struct dst_cache_pcpu *idst;
 
 	if (!dst_cache->cache)

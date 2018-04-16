@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  Copyright (C) 2008 Red Hat, Inc., Eric Paris <eparis@redhat.com>
  *
@@ -50,6 +51,7 @@ void __fsnotify_vfsmount_delete(struct vfsmount *mnt)
  */
 void __fsnotify_update_child_dentry_flags(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/notify/fsnotify.c: line 54 \n"); 
 	struct dentry *alias;
 	int watched;
 
@@ -133,6 +135,7 @@ static int send_to_group(struct inode *to_tell,
 			 int data_is, u32 cookie,
 			 const unsigned char *file_name)
 {
+	panic("We reached unpopular paths in fs/notify/fsnotify.c: line 138 \n"); 
 	struct fsnotify_group *group = NULL;
 	__u32 inode_test_mask = 0;
 	__u32 vfsmount_test_mask = 0;

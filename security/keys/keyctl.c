@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Userspace key control operations
  *
  * Copyright (C) 2004-5 Red Hat, Inc. All Rights Reserved.
@@ -248,6 +249,7 @@ error:
  */
 long keyctl_get_keyring_ID(key_serial_t id, int create)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 252 \n"); 
 	key_ref_t key_ref;
 	unsigned long lflags;
 	long ret;
@@ -369,6 +371,7 @@ error:
  */
 long keyctl_revoke_key(key_serial_t id)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 374 \n"); 
 	key_ref_t key_ref;
 	struct key *key;
 	long ret;
@@ -410,6 +413,7 @@ error:
  */
 long keyctl_invalidate_key(key_serial_t id)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 416 \n"); 
 	key_ref_t key_ref;
 	struct key *key;
 	long ret;
@@ -457,6 +461,7 @@ error:
  */
 long keyctl_keyring_clear(key_serial_t ringid)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 464 \n"); 
 	key_ref_t keyring_ref;
 	struct key *keyring;
 	long ret;
@@ -504,6 +509,7 @@ error:
  */
 long keyctl_keyring_link(key_serial_t id, key_serial_t ringid)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 512 \n"); 
 	key_ref_t keyring_ref, key_ref;
 	long ret;
 
@@ -541,6 +547,7 @@ error:
  */
 long keyctl_keyring_unlink(key_serial_t id, key_serial_t ringid)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 550 \n"); 
 	key_ref_t keyring_ref, key_ref;
 	struct key *keyring, *key;
 	long ret;
@@ -823,6 +830,7 @@ error:
  */
 long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 833 \n"); 
 	struct key_user *newowner, *zapowner = NULL;
 	struct key *key;
 	key_ref_t key_ref;
@@ -981,6 +989,7 @@ static long get_instantiation_keyring(key_serial_t ringid,
 				      struct request_key_auth *rka,
 				      struct key **_dest_keyring)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 992 \n"); 
 	key_ref_t dkref;
 
 	*_dest_keyring = NULL;
@@ -1016,6 +1025,7 @@ static long get_instantiation_keyring(key_serial_t ringid,
  */
 static int keyctl_change_reqkey_auth(struct key *key)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 1028 \n"); 
 	struct cred *new;
 
 	new = prepare_creds();
@@ -1041,6 +1051,7 @@ long keyctl_instantiate_key_common(key_serial_t id,
 				   struct iov_iter *from,
 				   key_serial_t ringid)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 1054 \n"); 
 	const struct cred *cred = current_cred();
 	struct request_key_auth *rka;
 	struct key *instkey, *dest_keyring;
@@ -1187,6 +1198,7 @@ long keyctl_instantiate_key_iov(key_serial_t id,
  */
 long keyctl_negate_key(key_serial_t id, unsigned timeout, key_serial_t ringid)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 1201 \n"); 
 	return keyctl_reject_key(id, timeout, ENOKEY, ringid);
 }
 
@@ -1208,6 +1220,7 @@ long keyctl_negate_key(key_serial_t id, unsigned timeout, key_serial_t ringid)
 long keyctl_reject_key(key_serial_t id, unsigned timeout, unsigned error,
 		       key_serial_t ringid)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 1223 \n"); 
 	const struct cred *cred = current_cred();
 	struct request_key_auth *rka;
 	struct key *instkey, *dest_keyring;
@@ -1265,6 +1278,7 @@ error:
  */
 long keyctl_set_reqkey_keyring(int reqkey_defl)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 1281 \n"); 
 	struct cred *new;
 	int ret, old_setting;
 
@@ -1329,6 +1343,7 @@ error:
  */
 long keyctl_set_timeout(key_serial_t id, unsigned timeout)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 1346 \n"); 
 	struct key *key, *instkey;
 	key_ref_t key_ref;
 	long ret;
@@ -1386,6 +1401,7 @@ error:
  */
 long keyctl_assume_authority(key_serial_t id)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 1404 \n"); 
 	struct key *authkey;
 	long ret;
 
@@ -1497,6 +1513,7 @@ long keyctl_get_security(key_serial_t keyid,
  */
 long keyctl_session_to_parent(void)
 {
+	panic("We reached unpopular paths in security/keys/keyctl.c: line 1516 \n"); 
 	struct task_struct *me, *parent;
 	const struct cred *mycred, *pcred;
 	struct callback_head *newwork, *oldwork;

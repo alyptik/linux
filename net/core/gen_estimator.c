@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/gen_estimator.c	Simple rate estimator.
  *
@@ -113,6 +114,7 @@ static DEFINE_SPINLOCK(est_tree_lock);
 
 static void est_timer(unsigned long arg)
 {
+	panic("We reached unpopular paths in net/core/gen_estimator.c: line 117 \n"); 
 	int idx = (int)arg;
 	struct gen_estimator *e;
 
@@ -153,6 +155,7 @@ skip:
 
 static void gen_add_node(struct gen_estimator *est)
 {
+	panic("We reached unpopular paths in net/core/gen_estimator.c: line 158 \n"); 
 	struct rb_node **p = &est_root.rb_node, *parent = NULL;
 
 	while (*p) {
@@ -326,6 +329,7 @@ EXPORT_SYMBOL(gen_replace_estimator);
 bool gen_estimator_active(const struct gnet_stats_basic_packed *bstats,
 			  const struct gnet_stats_rate_est64 *rate_est)
 {
+	panic("We reached unpopular paths in net/core/gen_estimator.c: line 332 \n"); 
 	bool res;
 
 	ASSERT_RTNL();

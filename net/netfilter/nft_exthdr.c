@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008 Patrick McHardy <kaber@trash.net>
  *
@@ -29,6 +30,7 @@ static void nft_exthdr_eval(const struct nft_expr *expr,
 			    struct nft_regs *regs,
 			    const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_exthdr.c: line 33 \n"); 
 	struct nft_exthdr *priv = nft_expr_priv(expr);
 	u32 *dest = &regs->data[priv->dreg];
 	unsigned int offset = 0;
@@ -58,6 +60,7 @@ static int nft_exthdr_init(const struct nft_ctx *ctx,
 			   const struct nft_expr *expr,
 			   const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_exthdr.c: line 63 \n"); 
 	struct nft_exthdr *priv = nft_expr_priv(expr);
 	u32 offset, len;
 	int err;
@@ -87,6 +90,7 @@ static int nft_exthdr_init(const struct nft_ctx *ctx,
 
 static int nft_exthdr_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_exthdr.c: line 93 \n"); 
 	const struct nft_exthdr *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_EXTHDR_DREG, priv->dreg))

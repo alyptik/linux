@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Kernel module to match various things tied to sockets associated with
  * locally generated outgoing packets.
@@ -20,6 +21,7 @@
 
 static int owner_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_owner.c: line 24 \n"); 
 	struct xt_owner_match_info *info = par->matchinfo;
 	struct net *net = par->net;
 
@@ -60,6 +62,7 @@ static int owner_check(const struct xt_mtchk_param *par)
 static bool
 owner_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_owner.c: line 65 \n"); 
 	const struct xt_owner_match_info *info = par->matchinfo;
 	const struct file *filp;
 	struct sock *sk = skb_to_full_sk(skb);

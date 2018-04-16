@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * TCP CUBIC: Binary Increase Congestion control for TCP v2.3
  * Home page:
@@ -178,6 +179,7 @@ static void bictcp_cwnd_event(struct sock *sk, enum tcp_ca_event event)
  */
 static u32 cubic_root(u64 a)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cubic.c: line 182 \n"); 
 	u32 x, b, shift;
 	/*
 	 * cbrt(x) MSB values for x MSB values in [0..63].
@@ -225,6 +227,7 @@ static u32 cubic_root(u64 a)
  */
 static inline void bictcp_update(struct bictcp *ca, u32 cwnd, u32 acked)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cubic.c: line 230 \n"); 
 	u32 delta, bic_target, max_cnt;
 	u64 offs, t;
 
@@ -354,6 +357,7 @@ static void bictcp_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 
 static u32 bictcp_recalc_ssthresh(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cubic.c: line 360 \n"); 
 	const struct tcp_sock *tp = tcp_sk(sk);
 	struct bictcp *ca = inet_csk_ca(sk);
 
@@ -373,6 +377,7 @@ static u32 bictcp_recalc_ssthresh(struct sock *sk)
 
 static u32 bictcp_undo_cwnd(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cubic.c: line 380 \n"); 
 	struct bictcp *ca = inet_csk_ca(sk);
 
 	return max(tcp_sk(sk)->snd_cwnd, ca->loss_cwnd);
@@ -388,6 +393,7 @@ static void bictcp_state(struct sock *sk, u8 new_state)
 
 static void hystart_update(struct sock *sk, u32 delay)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_cubic.c: line 396 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct bictcp *ca = inet_csk_ca(sk);
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Copyright (C) 2000-2002 Joakim Axelsson <gozem@linux.nu>
  *                         Patrick Schaaf <bof@bof.de>
  *                         Martin Josefsson <gandalf@wlug.westbo.se>
@@ -34,6 +35,7 @@ match_set(ip_set_id_t index, const struct sk_buff *skb,
 	  const struct xt_action_param *par,
 	  struct ip_set_adt_opt *opt, int inv)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 38 \n"); 
 	if (ip_set_test(index, skb, par, opt))
 		inv = !inv;
 	return inv;
@@ -53,6 +55,7 @@ struct ip_set_adt_opt n = {		\
 static bool
 set_match_v0(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 58 \n"); 
 	const struct xt_set_info_match_v0 *info = par->matchinfo;
 
 	ADT_OPT(opt, par->family, info->match_set.u.compat.dim,
@@ -65,6 +68,7 @@ set_match_v0(const struct sk_buff *skb, struct xt_action_param *par)
 static void
 compat_flags(struct xt_set_info_v0 *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 71 \n"); 
 	u_int8_t i;
 
 	/* Fill out compatibility data according to enum ip_set_kopt */
@@ -81,6 +85,7 @@ compat_flags(struct xt_set_info_v0 *info)
 static int
 set_match_v0_checkentry(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 88 \n"); 
 	struct xt_set_info_match_v0 *info = par->matchinfo;
 	ip_set_id_t index;
 
@@ -106,6 +111,7 @@ set_match_v0_checkentry(const struct xt_mtchk_param *par)
 static void
 set_match_v0_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 114 \n"); 
 	struct xt_set_info_match_v0 *info = par->matchinfo;
 
 	ip_set_nfnl_put(par->net, info->match_set.index);
@@ -116,6 +122,7 @@ set_match_v0_destroy(const struct xt_mtdtor_param *par)
 static bool
 set_match_v1(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 125 \n"); 
 	const struct xt_set_info_match_v1 *info = par->matchinfo;
 
 	ADT_OPT(opt, par->family, info->match_set.dim,
@@ -131,6 +138,7 @@ set_match_v1(const struct sk_buff *skb, struct xt_action_param *par)
 static int
 set_match_v1_checkentry(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 141 \n"); 
 	struct xt_set_info_match_v1 *info = par->matchinfo;
 	ip_set_id_t index;
 
@@ -153,6 +161,7 @@ set_match_v1_checkentry(const struct xt_mtchk_param *par)
 static void
 set_match_v1_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 164 \n"); 
 	struct xt_set_info_match_v1 *info = par->matchinfo;
 
 	ip_set_nfnl_put(par->net, info->match_set.index);
@@ -163,6 +172,7 @@ set_match_v1_destroy(const struct xt_mtdtor_param *par)
 static bool
 match_counter0(u64 counter, const struct ip_set_counter_match0 *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 175 \n"); 
 	switch (info->op) {
 	case IPSET_COUNTER_NONE:
 		return true;
@@ -181,6 +191,7 @@ match_counter0(u64 counter, const struct ip_set_counter_match0 *info)
 static bool
 set_match_v3(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 194 \n"); 
 	const struct xt_set_info_match_v3 *info = par->matchinfo;
 	int ret;
 
@@ -210,6 +221,7 @@ set_match_v3(const struct sk_buff *skb, struct xt_action_param *par)
 static bool
 match_counter(u64 counter, const struct ip_set_counter_match *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 224 \n"); 
 	switch (info->op) {
 	case IPSET_COUNTER_NONE:
 		return true;
@@ -228,6 +240,7 @@ match_counter(u64 counter, const struct ip_set_counter_match *info)
 static bool
 set_match_v4(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 243 \n"); 
 	const struct xt_set_info_match_v4 *info = par->matchinfo;
 	int ret;
 
@@ -257,6 +270,7 @@ set_match_v4(const struct sk_buff *skb, struct xt_action_param *par)
 static unsigned int
 set_target_v0(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 273 \n"); 
 	const struct xt_set_info_target_v0 *info = par->targinfo;
 
 	ADT_OPT(add_opt, par->family, info->add_set.u.compat.dim,
@@ -275,6 +289,7 @@ set_target_v0(struct sk_buff *skb, const struct xt_action_param *par)
 static int
 set_target_v0_checkentry(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 292 \n"); 
 	struct xt_set_info_target_v0 *info = par->targinfo;
 	ip_set_id_t index;
 
@@ -317,6 +332,7 @@ set_target_v0_checkentry(const struct xt_tgchk_param *par)
 static void
 set_target_v0_destroy(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 335 \n"); 
 	const struct xt_set_info_target_v0 *info = par->targinfo;
 
 	if (info->add_set.index != IPSET_INVALID_ID)
@@ -330,6 +346,7 @@ set_target_v0_destroy(const struct xt_tgdtor_param *par)
 static unsigned int
 set_target_v1(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 349 \n"); 
 	const struct xt_set_info_target_v1 *info = par->targinfo;
 
 	ADT_OPT(add_opt, par->family, info->add_set.dim,
@@ -348,6 +365,7 @@ set_target_v1(struct sk_buff *skb, const struct xt_action_param *par)
 static int
 set_target_v1_checkentry(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 368 \n"); 
 	const struct xt_set_info_target_v1 *info = par->targinfo;
 	ip_set_id_t index;
 
@@ -386,6 +404,7 @@ set_target_v1_checkentry(const struct xt_tgchk_param *par)
 static void
 set_target_v1_destroy(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 407 \n"); 
 	const struct xt_set_info_target_v1 *info = par->targinfo;
 
 	if (info->add_set.index != IPSET_INVALID_ID)
@@ -399,6 +418,7 @@ set_target_v1_destroy(const struct xt_tgdtor_param *par)
 static unsigned int
 set_target_v2(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 421 \n"); 
 	const struct xt_set_info_target_v2 *info = par->targinfo;
 
 	ADT_OPT(add_opt, par->family, info->add_set.dim,
@@ -426,6 +446,7 @@ set_target_v2(struct sk_buff *skb, const struct xt_action_param *par)
 static unsigned int
 set_target_v3(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 449 \n"); 
 	const struct xt_set_info_target_v3 *info = par->targinfo;
 	int ret;
 
@@ -468,6 +489,7 @@ set_target_v3(struct sk_buff *skb, const struct xt_action_param *par)
 static int
 set_target_v3_checkentry(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 492 \n"); 
 	const struct xt_set_info_target_v3 *info = par->targinfo;
 	ip_set_id_t index;
 
@@ -541,6 +563,7 @@ set_target_v3_checkentry(const struct xt_tgchk_param *par)
 static void
 set_target_v3_destroy(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_set.c: line 566 \n"); 
 	const struct xt_set_info_target_v3 *info = par->targinfo;
 
 	if (info->add_set.index != IPSET_INVALID_ID)

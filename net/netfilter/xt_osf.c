@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2003+ Evgeniy Polyakov <zbr@ioremap.net>
  *
@@ -66,6 +67,7 @@ static int xt_osf_add_callback(struct net *net, struct sock *ctnl,
 			       struct sk_buff *skb, const struct nlmsghdr *nlh,
 			       const struct nlattr * const osf_attrs[])
 {
+	panic("We reached unpopular paths in net/netfilter/xt_osf.c: line 70 \n"); 
 	struct xt_osf_user_finger *f;
 	struct xt_osf_finger *kf = NULL, *sf;
 	int err = 0;
@@ -113,6 +115,7 @@ static int xt_osf_remove_callback(struct net *net, struct sock *ctnl,
 				  const struct nlmsghdr *nlh,
 				  const struct nlattr * const osf_attrs[])
 {
+	panic("We reached unpopular paths in net/netfilter/xt_osf.c: line 118 \n"); 
 	struct xt_osf_user_finger *f;
 	struct xt_osf_finger *sf;
 	int err = -ENOENT;
@@ -165,6 +168,7 @@ static const struct nfnetlink_subsystem xt_osf_nfnetlink = {
 static inline int xt_osf_ttl(const struct sk_buff *skb, const struct xt_osf_info *info,
 			    unsigned char f_ttl)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_osf.c: line 171 \n"); 
 	const struct iphdr *ip = ip_hdr(skb);
 
 	if (info->flags & XT_OSF_TTL) {
@@ -196,6 +200,7 @@ static inline int xt_osf_ttl(const struct sk_buff *skb, const struct xt_osf_info
 static bool
 xt_osf_match_packet(const struct sk_buff *skb, struct xt_action_param *p)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_osf.c: line 203 \n"); 
 	const struct xt_osf_info *info = p->matchinfo;
 	const struct iphdr *ip = ip_hdr(skb);
 	const struct tcphdr *tcp;

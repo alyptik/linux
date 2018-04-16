@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Anycast support for IPv6
  *	Linux INET6 implementation
@@ -52,6 +53,7 @@ static int ipv6_dev_ac_dec(struct net_device *dev, const struct in6_addr *addr);
 
 int ipv6_sock_ac_join(struct sock *sk, int ifindex, const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/anycast.c: line 56 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct net_device *dev = NULL;
 	struct inet6_dev *idev;
@@ -141,6 +143,7 @@ error:
  */
 int ipv6_sock_ac_drop(struct sock *sk, int ifindex, const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/anycast.c: line 146 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct net_device *dev;
 	struct ipv6_ac_socklist *pac, *prev_pac;
@@ -203,11 +206,13 @@ void ipv6_sock_ac_close(struct sock *sk)
 
 static void aca_get(struct ifacaddr6 *aca)
 {
+	panic("We reached unpopular paths in net/ipv6/anycast.c: line 209 \n"); 
 	atomic_inc(&aca->aca_refcnt);
 }
 
 static void aca_put(struct ifacaddr6 *ac)
 {
+	panic("We reached unpopular paths in net/ipv6/anycast.c: line 215 \n"); 
 	if (atomic_dec_and_test(&ac->aca_refcnt)) {
 		in6_dev_put(ac->aca_idev);
 		dst_release(&ac->aca_rt->dst);
@@ -218,6 +223,7 @@ static void aca_put(struct ifacaddr6 *ac)
 static struct ifacaddr6 *aca_alloc(struct rt6_info *rt,
 				   const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/anycast.c: line 226 \n"); 
 	struct inet6_dev *idev = rt->rt6i_idev;
 	struct ifacaddr6 *aca;
 
@@ -242,6 +248,7 @@ static struct ifacaddr6 *aca_alloc(struct rt6_info *rt,
  */
 int __ipv6_dev_ac_inc(struct inet6_dev *idev, const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/anycast.c: line 251 \n"); 
 	struct ifacaddr6 *aca;
 	struct rt6_info *rt;
 	int err;
@@ -299,6 +306,7 @@ out:
  */
 int __ipv6_dev_ac_dec(struct inet6_dev *idev, const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/anycast.c: line 309 \n"); 
 	struct ifacaddr6 *aca, *prev_aca;
 
 	ASSERT_RTNL();
@@ -335,6 +343,7 @@ int __ipv6_dev_ac_dec(struct inet6_dev *idev, const struct in6_addr *addr)
 /* called with rtnl_lock() */
 static int ipv6_dev_ac_dec(struct net_device *dev, const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/anycast.c: line 346 \n"); 
 	struct inet6_dev *idev = __in6_dev_get(dev);
 
 	if (!idev)
@@ -369,6 +378,7 @@ void ipv6_ac_destroy_dev(struct inet6_dev *idev)
  */
 static bool ipv6_chk_acast_dev(struct net_device *dev, const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/anycast.c: line 381 \n"); 
 	struct inet6_dev *idev;
 	struct ifacaddr6 *aca;
 
@@ -390,6 +400,7 @@ static bool ipv6_chk_acast_dev(struct net_device *dev, const struct in6_addr *ad
 bool ipv6_chk_acast_addr(struct net *net, struct net_device *dev,
 			 const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/anycast.c: line 403 \n"); 
 	bool found = false;
 
 	rcu_read_lock();
@@ -411,6 +422,7 @@ bool ipv6_chk_acast_addr(struct net *net, struct net_device *dev,
 bool ipv6_chk_acast_addr_src(struct net *net, struct net_device *dev,
 			     const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/anycast.c: line 425 \n"); 
 	return ipv6_chk_acast_addr(net,
 				   (ipv6_addr_type(addr) & IPV6_ADDR_LINKLOCAL ?
 				    dev : NULL),

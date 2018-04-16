@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPv6 specific functions of netfilter core
  *
@@ -20,6 +21,7 @@
 
 int ip6_route_me_harder(struct net *net, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter.c: line 24 \n"); 
 	const struct ipv6hdr *iph = ipv6_hdr(skb);
 	unsigned int hh_len;
 	struct dst_entry *dst;
@@ -81,6 +83,7 @@ struct ip6_rt_info {
 static void nf_ip6_saveroute(const struct sk_buff *skb,
 			     struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter.c: line 86 \n"); 
 	struct ip6_rt_info *rt_info = nf_queue_entry_reroute(entry);
 
 	if (entry->state.hook == NF_INET_LOCAL_OUT) {
@@ -95,6 +98,7 @@ static void nf_ip6_saveroute(const struct sk_buff *skb,
 static int nf_ip6_reroute(struct net *net, struct sk_buff *skb,
 			  const struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter.c: line 101 \n"); 
 	struct ip6_rt_info *rt_info = nf_queue_entry_reroute(entry);
 
 	if (entry->state.hook == NF_INET_LOCAL_OUT) {
@@ -110,6 +114,7 @@ static int nf_ip6_reroute(struct net *net, struct sk_buff *skb,
 static int nf_ip6_route(struct net *net, struct dst_entry **dst,
 			struct flowi *fl, bool strict)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter.c: line 117 \n"); 
 	static const struct ipv6_pinfo fake_pinfo;
 	static const struct inet_sock fake_sk = {
 		/* makes ip6_route_output set RT6_LOOKUP_F_IFACE: */
@@ -132,6 +137,7 @@ static int nf_ip6_route(struct net *net, struct dst_entry **dst,
 __sum16 nf_ip6_checksum(struct sk_buff *skb, unsigned int hook,
 			     unsigned int dataoff, u_int8_t protocol)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter.c: line 140 \n"); 
 	const struct ipv6hdr *ip6h = ipv6_hdr(skb);
 	__sum16 csum = 0;
 
@@ -166,6 +172,7 @@ static __sum16 nf_ip6_checksum_partial(struct sk_buff *skb, unsigned int hook,
 				       unsigned int dataoff, unsigned int len,
 				       u_int8_t protocol)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter.c: line 175 \n"); 
 	const struct ipv6hdr *ip6h = ipv6_hdr(skb);
 	__wsum hsum;
 	__sum16 csum = 0;
@@ -215,6 +222,7 @@ int __init ipv6_netfilter_init(void)
  */
 void ipv6_netfilter_fini(void)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter.c: line 225 \n"); 
 	RCU_INIT_POINTER(nf_ipv6_ops, NULL);
 	nf_unregister_afinfo(&nf_ip6_afinfo);
 }

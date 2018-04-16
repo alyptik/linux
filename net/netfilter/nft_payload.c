@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  *
@@ -22,6 +23,7 @@
 static bool
 nft_payload_copy_vlan(u32 *d, const struct sk_buff *skb, u8 offset, u8 len)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_payload.c: line 26 \n"); 
 	int mac_off = skb_mac_header(skb) - skb->data;
 	u8 vlan_len, *vlanh, *dst_u8 = (u8 *) d;
 	struct vlan_ethhdr veth;
@@ -69,6 +71,7 @@ static void nft_payload_eval(const struct nft_expr *expr,
 			     struct nft_regs *regs,
 			     const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_payload.c: line 74 \n"); 
 	const struct nft_payload *priv = nft_expr_priv(expr);
 	const struct sk_buff *skb = pkt->skb;
 	u32 *dest = &regs->data[priv->dreg];
@@ -122,6 +125,7 @@ static int nft_payload_init(const struct nft_ctx *ctx,
 			    const struct nft_expr *expr,
 			    const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_payload.c: line 128 \n"); 
 	struct nft_payload *priv = nft_expr_priv(expr);
 
 	priv->base   = ntohl(nla_get_be32(tb[NFTA_PAYLOAD_BASE]));
@@ -135,6 +139,7 @@ static int nft_payload_init(const struct nft_ctx *ctx,
 
 static int nft_payload_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_payload.c: line 142 \n"); 
 	const struct nft_payload *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_PAYLOAD_DREG, priv->dreg) ||
@@ -169,6 +174,7 @@ static void nft_payload_set_eval(const struct nft_expr *expr,
 				 struct nft_regs *regs,
 				 const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_payload.c: line 177 \n"); 
 	const struct nft_payload_set *priv = nft_expr_priv(expr);
 	struct sk_buff *skb = pkt->skb;
 	const u32 *src = &regs->data[priv->sreg];
@@ -228,6 +234,7 @@ static int nft_payload_set_init(const struct nft_ctx *ctx,
 				const struct nft_expr *expr,
 				const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_payload.c: line 237 \n"); 
 	struct nft_payload_set *priv = nft_expr_priv(expr);
 
 	priv->base        = ntohl(nla_get_be32(tb[NFTA_PAYLOAD_BASE]));
@@ -255,6 +262,7 @@ static int nft_payload_set_init(const struct nft_ctx *ctx,
 
 static int nft_payload_set_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_payload.c: line 265 \n"); 
 	const struct nft_payload_set *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_PAYLOAD_SREG, priv->sreg) ||
@@ -283,6 +291,7 @@ static const struct nft_expr_ops *
 nft_payload_select_ops(const struct nft_ctx *ctx,
 		       const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_payload.c: line 294 \n"); 
 	enum nft_payload_bases base;
 	unsigned int offset, len;
 
@@ -335,5 +344,6 @@ int __init nft_payload_module_init(void)
 
 void nft_payload_module_exit(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_payload.c: line 347 \n"); 
 	nft_unregister_expr(&nft_payload_type);
 }

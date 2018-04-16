@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * The Virtio 9p transport driver
  *
@@ -105,6 +106,7 @@ static struct list_head virtio_chan_list;
 /* How many bytes left in this page. */
 static unsigned int rest_of_page(void *data)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 109 \n"); 
 	return PAGE_SIZE - offset_in_page(data);
 }
 
@@ -119,6 +121,7 @@ static unsigned int rest_of_page(void *data)
 
 static void p9_virtio_close(struct p9_client *client)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 124 \n"); 
 	struct virtio_chan *chan = client->trans;
 
 	mutex_lock(&virtio_9p_lock);
@@ -142,6 +145,7 @@ static void p9_virtio_close(struct p9_client *client)
 
 static void req_done(struct virtqueue *vq)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 148 \n"); 
 	struct virtio_chan *chan = vq->vdev->priv;
 	unsigned int len;
 	struct p9_req_t *req;
@@ -182,6 +186,7 @@ static void req_done(struct virtqueue *vq)
 static int pack_sg_list(struct scatterlist *sg, int start,
 			int limit, char *data, int count)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 189 \n"); 
 	int s;
 	int index = start;
 
@@ -204,6 +209,7 @@ static int pack_sg_list(struct scatterlist *sg, int start,
 /* We don't currently allow canceling of virtio requests */
 static int p9_virtio_cancel(struct p9_client *client, struct p9_req_t *req)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 212 \n"); 
 	return 1;
 }
 
@@ -221,6 +227,7 @@ static int
 pack_sg_list_p(struct scatterlist *sg, int start, int limit,
 	       struct page **pdata, int nr_pages, size_t offs, int count)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 230 \n"); 
 	int i = 0, s;
 	int data_off = offs;
 	int index = start;
@@ -257,6 +264,7 @@ pack_sg_list_p(struct scatterlist *sg, int start, int limit,
 static int
 p9_virtio_request(struct p9_client *client, struct p9_req_t *req)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 267 \n"); 
 	int err;
 	int in, out, out_sgs, in_sgs;
 	unsigned long flags;
@@ -315,6 +323,7 @@ static int p9_get_mapped_pages(struct virtio_chan *chan,
 			       size_t *offs,
 			       int *need_drop)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 326 \n"); 
 	int nr_pages;
 	int err;
 
@@ -394,6 +403,7 @@ p9_virtio_zc_request(struct p9_client *client, struct p9_req_t *req,
 		     struct iov_iter *uidata, struct iov_iter *uodata,
 		     int inlen, int outlen, int in_hdr_len)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 406 \n"); 
 	int in, out, err, out_sgs, in_sgs;
 	unsigned long flags;
 	int in_nr_pages = 0, out_nr_pages = 0;
@@ -515,6 +525,7 @@ err_out:
 static ssize_t p9_mount_tag_show(struct device *dev,
 				struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 528 \n"); 
 	struct virtio_chan *chan;
 	struct virtio_device *vdev;
 
@@ -539,6 +550,7 @@ static DEVICE_ATTR(mount_tag, 0444, p9_mount_tag_show, NULL);
 
 static int p9_virtio_probe(struct virtio_device *vdev)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 553 \n"); 
 	__u16 tag_len;
 	char *tag;
 	int err;
@@ -639,6 +651,7 @@ fail:
 static int
 p9_virtio_create(struct p9_client *client, const char *devname, char *args)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 654 \n"); 
 	struct virtio_chan *chan;
 	int ret = -ENOENT;
 	int found = 0;
@@ -677,6 +690,7 @@ p9_virtio_create(struct p9_client *client, const char *devname, char *args)
 
 static void p9_virtio_remove(struct virtio_device *vdev)
 {
+	panic("We reached unpopular paths in net/9p/trans_virtio.c: line 693 \n"); 
 	struct virtio_chan *chan = vdev->priv;
 	unsigned long warning_time;
 

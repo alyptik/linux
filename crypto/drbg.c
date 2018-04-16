@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * DRBG: Deterministic Random Bits Generator
  *       Based on NIST Recommended DRBG from NIST SP800-90A with the following
@@ -207,6 +208,7 @@ static int drbg_uninstantiate(struct drbg_state *drbg);
  */
 static inline unsigned short drbg_sec_strength(drbg_flag_t flags)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 211 \n"); 
 	switch (flags & DRBG_STRENGTH_MASK) {
 	case DRBG_STRENGTH128:
 		return 16;
@@ -988,6 +990,7 @@ static const struct drbg_state_ops drbg_hash_ops = {
 static inline int __drbg_seed(struct drbg_state *drbg, struct list_head *seed,
 			      int reseed)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 993 \n"); 
 	int ret = drbg->d_ops->update(drbg, seed, reseed);
 
 	if (ret)
@@ -1002,6 +1005,7 @@ static inline int __drbg_seed(struct drbg_state *drbg, struct list_head *seed,
 
 static void drbg_async_seed(struct work_struct *work)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1008 \n"); 
 	struct drbg_string data;
 	LIST_HEAD(seedlist);
 	struct drbg_state *drbg = container_of(work, struct drbg_state,
@@ -1051,6 +1055,7 @@ static void drbg_async_seed(struct work_struct *work)
 static int drbg_seed(struct drbg_state *drbg, struct drbg_string *pers,
 		     bool reseed)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1058 \n"); 
 	int ret;
 	unsigned char entropy[((32 + 16) * 2)];
 	unsigned int entropylen = drbg_sec_strength(drbg->core->flags);
@@ -1131,6 +1136,7 @@ static int drbg_seed(struct drbg_state *drbg, struct drbg_string *pers,
 /* Free all substructures in a DRBG state without the DRBG state structure */
 static inline void drbg_dealloc_state(struct drbg_state *drbg)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1139 \n"); 
 	if (!drbg)
 		return;
 	kzfree(drbg->Vbuf);
@@ -1150,6 +1156,7 @@ static inline void drbg_dealloc_state(struct drbg_state *drbg)
  */
 static inline int drbg_alloc_state(struct drbg_state *drbg)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1159 \n"); 
 	int ret = -ENOMEM;
 	unsigned int sb_size = 0;
 
@@ -1244,6 +1251,7 @@ static int drbg_generate(struct drbg_state *drbg,
 			 unsigned char *buf, unsigned int buflen,
 			 struct drbg_string *addtl)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1254 \n"); 
 	int len = 0;
 	LIST_HEAD(addtllist);
 
@@ -1371,6 +1379,7 @@ static int drbg_generate_long(struct drbg_state *drbg,
 			      unsigned char *buf, unsigned int buflen,
 			      struct drbg_string *addtl)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1382 \n"); 
 	unsigned int len = 0;
 	unsigned int slice = 0;
 	do {
@@ -1390,6 +1399,7 @@ static int drbg_generate_long(struct drbg_state *drbg,
 
 static void drbg_schedule_async_seed(struct random_ready_callback *rdy)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1402 \n"); 
 	struct drbg_state *drbg = container_of(rdy, struct drbg_state,
 					       random_ready);
 
@@ -1398,6 +1408,7 @@ static void drbg_schedule_async_seed(struct random_ready_callback *rdy)
 
 static int drbg_prepare_hrng(struct drbg_state *drbg)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1411 \n"); 
 	int err;
 
 	/* We do not need an HRNG in test mode. */
@@ -1455,6 +1466,7 @@ static int drbg_prepare_hrng(struct drbg_state *drbg)
 static int drbg_instantiate(struct drbg_state *drbg, struct drbg_string *pers,
 			    int coreref, bool pr)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1469 \n"); 
 	int ret;
 	bool reseed = true;
 
@@ -1526,6 +1538,7 @@ free_everything:
  */
 static int drbg_uninstantiate(struct drbg_state *drbg)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1541 \n"); 
 	if (drbg->random_ready.func) {
 		del_random_ready_callback(&drbg->random_ready);
 		cancel_work_sync(&drbg->seed_work);
@@ -1550,6 +1563,7 @@ static int drbg_uninstantiate(struct drbg_state *drbg)
 static void drbg_kcapi_set_entropy(struct crypto_rng *tfm,
 				   const u8 *data, unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1566 \n"); 
 	struct drbg_state *drbg = crypto_rng_ctx(tfm);
 
 	mutex_lock(&drbg->drbg_mutex);
@@ -1809,6 +1823,7 @@ out:
 static inline void drbg_convert_tfm_core(const char *cra_driver_name,
 					 int *coreref, bool *pr)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1826 \n"); 
 	int i = 0;
 	size_t start = 0;
 	int len = 0;
@@ -1837,6 +1852,7 @@ static inline void drbg_convert_tfm_core(const char *cra_driver_name,
 
 static int drbg_kcapi_init(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1855 \n"); 
 	struct drbg_state *drbg = crypto_tfm_ctx(tfm);
 
 	mutex_init(&drbg->drbg_mutex);
@@ -1846,6 +1862,7 @@ static int drbg_kcapi_init(struct crypto_tfm *tfm)
 
 static void drbg_kcapi_cleanup(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1865 \n"); 
 	drbg_uninstantiate(crypto_tfm_ctx(tfm));
 }
 
@@ -1862,6 +1879,7 @@ static int drbg_kcapi_random(struct crypto_rng *tfm,
 			     const u8 *src, unsigned int slen,
 			     u8 *dst, unsigned int dlen)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1882 \n"); 
 	struct drbg_state *drbg = crypto_rng_ctx(tfm);
 	struct drbg_string *addtl = NULL;
 	struct drbg_string string;
@@ -1881,6 +1899,7 @@ static int drbg_kcapi_random(struct crypto_rng *tfm,
 static int drbg_kcapi_seed(struct crypto_rng *tfm,
 			   const u8 *seed, unsigned int slen)
 {
+	panic("We reached unpopular paths in crypto/drbg.c: line 1902 \n"); 
 	struct drbg_state *drbg = crypto_rng_ctx(tfm);
 	struct crypto_tfm *tfm_base = crypto_rng_tfm(tfm);
 	bool pr = false;

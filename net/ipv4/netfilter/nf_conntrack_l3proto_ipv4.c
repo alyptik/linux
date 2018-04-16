@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2004 Netfilter Core Team <coreteam@netfilter.org>
@@ -59,6 +60,7 @@ static bool ipv4_invert_tuple(struct nf_conntrack_tuple *tuple,
 static void ipv4_print_tuple(struct seq_file *s,
 			    const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_conntrack_l3proto_ipv4.c: line 63 \n"); 
 	seq_printf(s, "src=%pI4 dst=%pI4 ",
 		   &tuple->src.u3.ip, &tuple->dst.u3.ip);
 }

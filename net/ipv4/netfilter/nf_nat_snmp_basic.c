@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * nf_nat_snmp_basic.c
  *
@@ -153,6 +154,7 @@ static void asn1_open(struct asn1_ctx *ctx,
 		      unsigned char *buf,
 		      unsigned int len)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 157 \n"); 
 	ctx->begin = buf;
 	ctx->end = buf + len;
 	ctx->pointer = buf;
@@ -161,6 +163,7 @@ static void asn1_open(struct asn1_ctx *ctx,
 
 static unsigned char asn1_octet_decode(struct asn1_ctx *ctx, unsigned char *ch)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 166 \n"); 
 	if (ctx->pointer >= ctx->end) {
 		ctx->error = ASN1_ERR_DEC_EMPTY;
 		return 0;
@@ -171,6 +174,7 @@ static unsigned char asn1_octet_decode(struct asn1_ctx *ctx, unsigned char *ch)
 
 static unsigned char asn1_tag_decode(struct asn1_ctx *ctx, unsigned int *tag)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 177 \n"); 
 	unsigned char ch;
 
 	*tag = 0;
@@ -190,6 +194,7 @@ static unsigned char asn1_id_decode(struct asn1_ctx *ctx,
 				    unsigned int *con,
 				    unsigned int *tag)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 197 \n"); 
 	unsigned char ch;
 
 	if (!asn1_octet_decode(ctx, &ch))
@@ -210,6 +215,7 @@ static unsigned char asn1_length_decode(struct asn1_ctx *ctx,
 					unsigned int *def,
 					unsigned int *len)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 218 \n"); 
 	unsigned char ch, cnt;
 
 	if (!asn1_octet_decode(ctx, &ch))
@@ -249,6 +255,7 @@ static unsigned char asn1_header_decode(struct asn1_ctx *ctx,
 					unsigned int *con,
 					unsigned int *tag)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 258 \n"); 
 	unsigned int def, len;
 
 	if (!asn1_id_decode(ctx, cls, con, tag))
@@ -271,6 +278,7 @@ static unsigned char asn1_header_decode(struct asn1_ctx *ctx,
 
 static unsigned char asn1_eoc_decode(struct asn1_ctx *ctx, unsigned char *eoc)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 281 \n"); 
 	unsigned char ch;
 
 	if (eoc == NULL) {
@@ -301,6 +309,7 @@ static unsigned char asn1_eoc_decode(struct asn1_ctx *ctx, unsigned char *eoc)
 
 static unsigned char asn1_null_decode(struct asn1_ctx *ctx, unsigned char *eoc)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 312 \n"); 
 	ctx->pointer = eoc;
 	return 1;
 }
@@ -309,6 +318,7 @@ static unsigned char asn1_long_decode(struct asn1_ctx *ctx,
 				      unsigned char *eoc,
 				      long *integer)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 321 \n"); 
 	unsigned char ch;
 	unsigned int  len;
 
@@ -337,6 +347,7 @@ static unsigned char asn1_uint_decode(struct asn1_ctx *ctx,
 				      unsigned char *eoc,
 				      unsigned int *integer)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 350 \n"); 
 	unsigned char ch;
 	unsigned int  len;
 
@@ -366,6 +377,7 @@ static unsigned char asn1_ulong_decode(struct asn1_ctx *ctx,
 				       unsigned char *eoc,
 				       unsigned long *integer)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 380 \n"); 
 	unsigned char ch;
 	unsigned int  len;
 
@@ -396,6 +408,7 @@ static unsigned char asn1_octets_decode(struct asn1_ctx *ctx,
 					unsigned char **octets,
 					unsigned int *len)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 411 \n"); 
 	unsigned char *ptr;
 
 	*len = 0;
@@ -419,6 +432,7 @@ static unsigned char asn1_octets_decode(struct asn1_ctx *ctx,
 static unsigned char asn1_subid_decode(struct asn1_ctx *ctx,
 				       unsigned long *subid)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 435 \n"); 
 	unsigned char ch;
 
 	*subid = 0;
@@ -438,6 +452,7 @@ static unsigned char asn1_oid_decode(struct asn1_ctx *ctx,
 				     unsigned long **oid,
 				     unsigned int *len)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 455 \n"); 
 	unsigned long subid;
 	unsigned long *optr;
 	size_t size;
@@ -654,6 +669,7 @@ static unsigned char snmp_tag_cls2syntax(unsigned int tag,
 					 unsigned int cls,
 					 unsigned short *syntax)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 672 \n"); 
 	const struct snmp_cnv *cnv;
 
 	cnv = snmp_conv;
@@ -671,6 +687,7 @@ static unsigned char snmp_tag_cls2syntax(unsigned int tag,
 static unsigned char snmp_object_decode(struct asn1_ctx *ctx,
 					struct snmp_object **obj)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 690 \n"); 
 	unsigned int cls, con, tag, len, idlen;
 	unsigned short type;
 	unsigned char *eoc, *end, *p;
@@ -830,6 +847,7 @@ static unsigned char snmp_object_decode(struct asn1_ctx *ctx,
 static unsigned char snmp_request_decode(struct asn1_ctx *ctx,
 					 struct snmp_request *request)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 850 \n"); 
 	unsigned int cls, con, tag;
 	unsigned char *end;
 
@@ -872,6 +890,7 @@ static void fast_csum(__sum16 *csum,
 		      const unsigned char *nptr,
 		      int offset)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 893 \n"); 
 	unsigned char s[4];
 
 	if (offset & 1) {
@@ -899,6 +918,7 @@ static inline void mangle_address(unsigned char *begin,
 				  const struct oct1_map *map,
 				  __sum16 *check)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 921 \n"); 
 	if (map->from == NOCT1(addr)) {
 		u_int32_t old;
 
@@ -925,6 +945,7 @@ static unsigned char snmp_trap_decode(struct asn1_ctx *ctx,
 				      const struct oct1_map *map,
 				      __sum16 *check)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 948 \n"); 
 	unsigned int cls, con, tag, len;
 	unsigned char *end;
 
@@ -1000,6 +1021,7 @@ err_id_free:
 
 static void hex_dump(const unsigned char *buf, size_t len)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 1024 \n"); 
 	size_t i;
 
 	for (i = 0; i < len; i++) {
@@ -1019,6 +1041,7 @@ static int snmp_parse_mangle(unsigned char *msg,
 			     const struct oct1_map *map,
 			     __sum16 *check)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 1044 \n"); 
 	unsigned char *eoc, *end;
 	unsigned int cls, con, tag, vers, pdutype;
 	struct asn1_ctx ctx;
@@ -1181,6 +1204,7 @@ static int snmp_translate(struct nf_conn *ct,
 			  enum ip_conntrack_info ctinfo,
 			  struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 1207 \n"); 
 	struct iphdr *iph = ip_hdr(skb);
 	struct udphdr *udph = (struct udphdr *)((__be32 *)iph + iph->ihl);
 	u_int16_t udplen = ntohs(udph->len);
@@ -1219,6 +1243,7 @@ static int help(struct sk_buff *skb, unsigned int protoff,
 		struct nf_conn *ct,
 		enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_snmp_basic.c: line 1246 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	unsigned int ret;
 	const struct iphdr *iph = ip_hdr(skb);

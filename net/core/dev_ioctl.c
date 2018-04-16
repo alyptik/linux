@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/kmod.h>
 #include <linux/netdevice.h>
 #include <linux/etherdevice.h>
@@ -187,6 +188,7 @@ static int dev_ifsioc_locked(struct net *net, struct ifreq *ifr, unsigned int cm
 
 static int net_hwtstamp_validate(struct ifreq *ifr)
 {
+	panic("We reached unpopular paths in net/core/dev_ioctl.c: line 191 \n"); 
 	struct hwtstamp_config cfg;
 	enum hwtstamp_tx_types tx_type;
 	enum hwtstamp_rx_filters rx_filter;
@@ -241,6 +243,7 @@ static int net_hwtstamp_validate(struct ifreq *ifr)
  */
 static int dev_ifsioc(struct net *net, struct ifreq *ifr, unsigned int cmd)
 {
+	panic("We reached unpopular paths in net/core/dev_ioctl.c: line 246 \n"); 
 	int err;
 	struct net_device *dev = __dev_get_by_name(net, ifr->ifr_name);
 	const struct net_device_ops *ops;

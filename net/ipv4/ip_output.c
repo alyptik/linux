@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -307,6 +308,7 @@ static int ip_finish_output(struct net *net, struct sock *sk, struct sk_buff *sk
 
 int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_output.c: line 311 \n"); 
 	struct rtable *rt = skb_rtable(skb);
 	struct net_device *dev = rt->dst.dev;
 
@@ -390,6 +392,7 @@ int ip_output(struct net *net, struct sock *sk, struct sk_buff *skb)
  */
 static void ip_copy_addrs(struct iphdr *iph, const struct flowi4 *fl4)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_output.c: line 395 \n"); 
 	BUILD_BUG_ON(offsetof(typeof(*fl4), daddr) !=
 		     offsetof(typeof(*fl4), saddr) + sizeof(fl4->saddr));
 	memcpy(&iph->saddr, &fl4->saddr,
@@ -489,6 +492,7 @@ EXPORT_SYMBOL(ip_queue_xmit);
 
 static void ip_copy_metadata(struct sk_buff *to, struct sk_buff *from)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_output.c: line 495 \n"); 
 	to->pkt_type = from->pkt_type;
 	to->priority = from->priority;
 	to->protocol = from->protocol;
@@ -514,6 +518,7 @@ static int ip_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
 		       unsigned int mtu,
 		       int (*output)(struct net *, struct sock *, struct sk_buff *))
 {
+	panic("We reached unpopular paths in net/ipv4/ip_output.c: line 521 \n"); 
 	struct iphdr *iph = ip_hdr(skb);
 
 	if ((iph->frag_off & htons(IP_DF)) == 0)
@@ -542,6 +547,7 @@ static int ip_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
 int ip_do_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
 		   int (*output)(struct net *, struct sock *, struct sk_buff *))
 {
+	panic("We reached unpopular paths in net/ipv4/ip_output.c: line 550 \n"); 
 	struct iphdr *iph;
 	int ptr;
 	struct sk_buff *skb2;
@@ -819,6 +825,7 @@ EXPORT_SYMBOL(ip_generic_getfrag);
 static inline __wsum
 csum_page(struct page *page, int offset, int copy)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_output.c: line 828 \n"); 
 	char *kaddr;
 	__wsum csum;
 	kaddr = kmap(page);
@@ -834,6 +841,7 @@ static inline int ip_ufo_append_data(struct sock *sk,
 			void *from, int length, int hh_len, int fragheaderlen,
 			int transhdrlen, int maxfraglen, unsigned int flags)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_output.c: line 844 \n"); 
 	struct sk_buff *skb;
 	int err;
 
@@ -1211,6 +1219,7 @@ int ip_append_data(struct sock *sk, struct flowi4 *fl4,
 ssize_t	ip_append_page(struct sock *sk, struct flowi4 *fl4, struct page *page,
 		       int offset, size_t size, int flags)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_output.c: line 1222 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct sk_buff *skb;
 	struct rtable *rt;

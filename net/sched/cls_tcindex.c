@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/cls_tcindex.c	Packet classifier for skb->tc_index
  *
@@ -52,12 +53,14 @@ struct tcindex_data {
 
 static inline int tcindex_filter_is_set(struct tcindex_filter_result *r)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 56 \n"); 
 	return tcf_exts_is_predicative(&r->exts) || r->res.classid;
 }
 
 static struct tcindex_filter_result *tcindex_lookup(struct tcindex_data *p,
 						    u16 key)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 63 \n"); 
 	if (p->perfect) {
 		struct tcindex_filter_result *f = p->perfect + key;
 
@@ -81,6 +84,7 @@ static struct tcindex_filter_result *tcindex_lookup(struct tcindex_data *p,
 static int tcindex_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 			    struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 87 \n"); 
 	struct tcindex_data *p = rcu_dereference_bh(tp->root);
 	struct tcindex_filter_result *f;
 	int key = (skb->tc_index & p->mask) >> p->shift;
@@ -106,6 +110,7 @@ static int tcindex_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 
 static unsigned long tcindex_get(struct tcf_proto *tp, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 113 \n"); 
 	struct tcindex_data *p = rtnl_dereference(tp->root);
 	struct tcindex_filter_result *r;
 
@@ -118,6 +123,7 @@ static unsigned long tcindex_get(struct tcf_proto *tp, u32 handle)
 
 static int tcindex_init(struct tcf_proto *tp)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 126 \n"); 
 	struct tcindex_data *p;
 
 	pr_debug("tcindex_init(tp %p)\n", tp);
@@ -135,6 +141,7 @@ static int tcindex_init(struct tcf_proto *tp)
 
 static void tcindex_destroy_rexts(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 144 \n"); 
 	struct tcindex_filter_result *r;
 
 	r = container_of(head, struct tcindex_filter_result, rcu);
@@ -143,6 +150,7 @@ static void tcindex_destroy_rexts(struct rcu_head *head)
 
 static void tcindex_destroy_fexts(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 153 \n"); 
 	struct tcindex_filter *f = container_of(head, struct tcindex_filter,
 						rcu);
 
@@ -152,6 +160,7 @@ static void tcindex_destroy_fexts(struct rcu_head *head)
 
 static int tcindex_delete(struct tcf_proto *tp, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 163 \n"); 
 	struct tcindex_data *p = rtnl_dereference(tp->root);
 	struct tcindex_filter_result *r = (struct tcindex_filter_result *) arg;
 	struct tcindex_filter __rcu **walk;
@@ -193,11 +202,13 @@ static int tcindex_destroy_element(struct tcf_proto *tp,
 				   unsigned long arg,
 				   struct tcf_walker *walker)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 205 \n"); 
 	return tcindex_delete(tp, arg);
 }
 
 static void __tcindex_destroy(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 211 \n"); 
 	struct tcindex_data *p = container_of(head, struct tcindex_data, rcu);
 
 	kfree(p->perfect);
@@ -208,6 +219,7 @@ static void __tcindex_destroy(struct rcu_head *head)
 static inline int
 valid_perfect_hash(struct tcindex_data *p)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 222 \n"); 
 	return  p->hash > (p->mask >> p->shift);
 }
 
@@ -221,12 +233,14 @@ static const struct nla_policy tcindex_policy[TCA_TCINDEX_MAX + 1] = {
 
 static int tcindex_filter_result_init(struct tcindex_filter_result *r)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 236 \n"); 
 	memset(r, 0, sizeof(*r));
 	return tcf_exts_init(&r->exts, TCA_TCINDEX_ACT, TCA_TCINDEX_POLICE);
 }
 
 static void __tcindex_partial_destroy(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 243 \n"); 
 	struct tcindex_data *p = container_of(head, struct tcindex_data, rcu);
 
 	kfree(p->perfect);
@@ -235,6 +249,7 @@ static void __tcindex_partial_destroy(struct rcu_head *head)
 
 static void tcindex_free_perfect_hash(struct tcindex_data *cp)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 252 \n"); 
 	int i;
 
 	for (i = 0; i < cp->hash; i++)
@@ -244,6 +259,7 @@ static void tcindex_free_perfect_hash(struct tcindex_data *cp)
 
 static int tcindex_alloc_perfect_hash(struct tcindex_data *cp)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 262 \n"); 
 	int i, err = 0;
 
 	cp->perfect = kcalloc(cp->hash, sizeof(struct tcindex_filter_result),
@@ -271,6 +287,7 @@ tcindex_set_parms(struct net *net, struct tcf_proto *tp, unsigned long base,
 		  struct tcindex_filter_result *r, struct nlattr **tb,
 		  struct nlattr *est, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 290 \n"); 
 	struct tcindex_filter_result new_filter_result, *old_r = r;
 	struct tcindex_filter_result cr;
 	struct tcindex_data *cp = NULL, *oldp;
@@ -469,6 +486,7 @@ tcindex_change(struct net *net, struct sk_buff *in_skb,
 	       struct tcf_proto *tp, unsigned long base, u32 handle,
 	       struct nlattr **tca, unsigned long *arg, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 489 \n"); 
 	struct nlattr *opt = tca[TCA_OPTIONS];
 	struct nlattr *tb[TCA_TCINDEX_MAX + 1];
 	struct tcindex_data *p = rtnl_dereference(tp->root);
@@ -492,6 +510,7 @@ tcindex_change(struct net *net, struct sk_buff *in_skb,
 
 static void tcindex_walk(struct tcf_proto *tp, struct tcf_walker *walker)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 513 \n"); 
 	struct tcindex_data *p = rtnl_dereference(tp->root);
 	struct tcindex_filter *f, *next;
 	int i;
@@ -531,6 +550,7 @@ static void tcindex_walk(struct tcf_proto *tp, struct tcf_walker *walker)
 
 static bool tcindex_destroy(struct tcf_proto *tp, bool force)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 553 \n"); 
 	struct tcindex_data *p = rtnl_dereference(tp->root);
 	struct tcf_walker walker;
 
@@ -551,6 +571,7 @@ static bool tcindex_destroy(struct tcf_proto *tp, bool force)
 static int tcindex_dump(struct net *net, struct tcf_proto *tp, unsigned long fh,
 			struct sk_buff *skb, struct tcmsg *t)
 {
+	panic("We reached unpopular paths in net/sched/cls_tcindex.c: line 574 \n"); 
 	struct tcindex_data *p = rtnl_dereference(tp->root);
 	struct tcindex_filter_result *r = (struct tcindex_filter_result *) fh;
 	struct nlattr *nest;

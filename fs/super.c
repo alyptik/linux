@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/super.c
  *
@@ -56,6 +57,7 @@ static char *sb_writers_name[SB_FREEZE_LEVELS] = {
 static unsigned long super_cache_scan(struct shrinker *shrink,
 				      struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in fs/super.c: line 60 \n"); 
 	struct super_block *sb;
 	long	fs_objects = 0;
 	long	total_objects;
@@ -113,6 +115,7 @@ static unsigned long super_cache_scan(struct shrinker *shrink,
 static unsigned long super_cache_count(struct shrinker *shrink,
 				       struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in fs/super.c: line 118 \n"); 
 	struct super_block *sb;
 	long	total_objects = 0;
 
@@ -390,6 +393,7 @@ static int grab_super(struct super_block *s) __releases(sb_lock)
  */
 bool trylock_super(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/super.c: line 396 \n"); 
 	if (down_read_trylock(&sb->s_umount)) {
 		if (!hlist_unhashed(&sb->s_instances) &&
 		    sb->s_root && (sb->s_flags & MS_BORN))
@@ -563,6 +567,7 @@ EXPORT_SYMBOL(sget);
 
 void drop_super(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/super.c: line 570 \n"); 
 	up_read(&sb->s_umount);
 	put_super(sb);
 }
@@ -579,6 +584,7 @@ EXPORT_SYMBOL(drop_super);
  */
 void iterate_supers(void (*f)(struct super_block *, void *), void *arg)
 {
+	// [blacklist] panic("We reached unpopular paths in fs/super.c: line 587 \n"); 
 	struct super_block *sb, *p = NULL;
 
 	spin_lock(&sb_lock);
@@ -615,6 +621,7 @@ void iterate_supers(void (*f)(struct super_block *, void *), void *arg)
 void iterate_supers_type(struct file_system_type *type,
 	void (*f)(struct super_block *, void *), void *arg)
 {
+	panic("We reached unpopular paths in fs/super.c: line 624 \n"); 
 	struct super_block *sb, *p = NULL;
 
 	spin_lock(&sb_lock);
@@ -649,6 +656,7 @@ EXPORT_SYMBOL(iterate_supers_type);
 
 struct super_block *get_super(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/super.c: line 659 \n"); 
 	struct super_block *sb;
 
 	if (!bdev)
@@ -690,6 +698,7 @@ EXPORT_SYMBOL(get_super);
  */
 struct super_block *get_super_thawed(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/super.c: line 701 \n"); 
 	while (1) {
 		struct super_block *s = get_super(bdev);
 		if (!s || s->s_writers.frozen == SB_UNFROZEN)
@@ -712,6 +721,7 @@ EXPORT_SYMBOL(get_super_thawed);
  */
 struct super_block *get_active_super(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in fs/super.c: line 724 \n"); 
 	struct super_block *sb;
 
 	if (!bdev)
@@ -735,6 +745,7 @@ restart:
  
 struct super_block *user_get_super(dev_t dev)
 {
+	panic("We reached unpopular paths in fs/super.c: line 748 \n"); 
 	struct super_block *sb;
 
 	spin_lock(&sb_lock);
@@ -845,6 +856,7 @@ cancel_readonly:
 
 static void do_emergency_remount(struct work_struct *work)
 {
+	panic("We reached unpopular paths in fs/super.c: line 859 \n"); 
 	struct super_block *sb, *p = NULL;
 
 	spin_lock(&sb_lock);
@@ -876,6 +888,7 @@ static void do_emergency_remount(struct work_struct *work)
 
 void emergency_remount(void)
 {
+	panic("We reached unpopular paths in fs/super.c: line 891 \n"); 
 	struct work_struct *work;
 
 	work = kmalloc(sizeof(*work), GFP_ATOMIC);
@@ -1279,6 +1292,7 @@ EXPORT_SYMBOL(__sb_start_write);
  */
 static void sb_wait_write(struct super_block *sb, int level)
 {
+	panic("We reached unpopular paths in fs/super.c: line 1295 \n"); 
 	percpu_down_write(sb->s_writers.rw_sem + level-1);
 }
 
@@ -1288,6 +1302,7 @@ static void sb_wait_write(struct super_block *sb, int level)
  */
 static void lockdep_sb_freeze_release(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/super.c: line 1305 \n"); 
 	int level;
 
 	for (level = SB_FREEZE_LEVELS - 1; level >= 0; level--)
@@ -1299,6 +1314,7 @@ static void lockdep_sb_freeze_release(struct super_block *sb)
  */
 static void lockdep_sb_freeze_acquire(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/super.c: line 1317 \n"); 
 	int level;
 
 	for (level = 0; level < SB_FREEZE_LEVELS; ++level)
@@ -1307,6 +1323,7 @@ static void lockdep_sb_freeze_acquire(struct super_block *sb)
 
 static void sb_freeze_unlock(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/super.c: line 1326 \n"); 
 	int level;
 
 	for (level = SB_FREEZE_LEVELS - 1; level >= 0; level--)
@@ -1348,6 +1365,7 @@ static void sb_freeze_unlock(struct super_block *sb)
  */
 int freeze_super(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/super.c: line 1368 \n"); 
 	int ret;
 
 	atomic_inc(&sb->s_active);
@@ -1417,6 +1435,7 @@ EXPORT_SYMBOL(freeze_super);
  */
 int thaw_super(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/super.c: line 1438 \n"); 
 	int error;
 
 	down_write(&sb->s_umount);

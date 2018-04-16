@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * algif_rng: User-space interface for random number generators
  *
@@ -58,6 +59,7 @@ struct rng_ctx {
 static int rng_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
 		       int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_rng.c: line 62 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct rng_ctx *ctx = ask->private;
@@ -116,6 +118,7 @@ static struct proto_ops algif_rng_ops = {
 
 static void *rng_bind(const char *name, u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/algif_rng.c: line 121 \n"); 
 	return crypto_alloc_rng(name, type, mask);
 }
 
@@ -126,6 +129,7 @@ static void rng_release(void *private)
 
 static void rng_sock_destruct(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_rng.c: line 132 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct rng_ctx *ctx = ask->private;
 

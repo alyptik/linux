@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	common UDP/RAW code
  *	Linux INET6 implementation
@@ -37,6 +38,7 @@
 
 static bool ipv6_mapped_addr_any(const struct in6_addr *a)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 41 \n"); 
 	return ipv6_addr_v4mapped(a) && (a->s6_addr32[3] == 0);
 }
 
@@ -273,6 +275,7 @@ EXPORT_SYMBOL_GPL(ip6_datagram_connect);
 int ip6_datagram_connect_v6_only(struct sock *sk, struct sockaddr *uaddr,
 				 int addr_len)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 278 \n"); 
 	DECLARE_SOCKADDR(struct sockaddr_in6 *, sin6, uaddr);
 	if (sin6->sin6_family != AF_INET6)
 		return -EAFNOSUPPORT;
@@ -283,6 +286,7 @@ EXPORT_SYMBOL_GPL(ip6_datagram_connect_v6_only);
 void ipv6_icmp_error(struct sock *sk, struct sk_buff *skb, int err,
 		     __be16 port, u32 info, u8 *payload)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 289 \n"); 
 	struct ipv6_pinfo *np  = inet6_sk(sk);
 	struct icmp6hdr *icmph = icmp6_hdr(skb);
 	struct sock_exterr_skb *serr;
@@ -317,6 +321,7 @@ void ipv6_icmp_error(struct sock *sk, struct sk_buff *skb, int err,
 
 void ipv6_local_error(struct sock *sk, int err, struct flowi6 *fl6, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 324 \n"); 
 	const struct ipv6_pinfo *np = inet6_sk(sk);
 	struct sock_exterr_skb *serr;
 	struct ipv6hdr *iph;
@@ -356,6 +361,7 @@ void ipv6_local_error(struct sock *sk, int err, struct flowi6 *fl6, u32 info)
 
 void ipv6_local_rxpmtu(struct sock *sk, struct flowi6 *fl6, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 364 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct ipv6hdr *iph;
 	struct sk_buff *skb;
@@ -394,6 +400,7 @@ void ipv6_local_rxpmtu(struct sock *sk, struct flowi6 *fl6, u32 mtu)
  */
 static inline bool ipv6_datagram_support_addr(struct sock_exterr_skb *serr)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 403 \n"); 
 	return serr->ee.ee_origin == SO_EE_ORIGIN_ICMP6 ||
 	       serr->ee.ee_origin == SO_EE_ORIGIN_ICMP ||
 	       serr->ee.ee_origin == SO_EE_ORIGIN_LOCAL || serr->port;
@@ -408,6 +415,7 @@ static inline bool ipv6_datagram_support_addr(struct sock_exterr_skb *serr)
 static bool ip6_datagram_support_cmsg(struct sk_buff *skb,
 				      struct sock_exterr_skb *serr)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 418 \n"); 
 	if (serr->ee.ee_origin == SO_EE_ORIGIN_ICMP ||
 	    serr->ee.ee_origin == SO_EE_ORIGIN_ICMP6)
 		return true;
@@ -426,6 +434,7 @@ static bool ip6_datagram_support_cmsg(struct sk_buff *skb,
  */
 int ipv6_recv_error(struct sock *sk, struct msghdr *msg, int len, int *addr_len)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 437 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct sock_exterr_skb *serr;
 	struct sk_buff *skb;
@@ -520,6 +529,7 @@ EXPORT_SYMBOL_GPL(ipv6_recv_error);
 int ipv6_recv_rxpmtu(struct sock *sk, struct msghdr *msg, int len,
 		     int *addr_len)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 532 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct sk_buff *skb;
 	struct ip6_mtuinfo mtu_info;
@@ -568,6 +578,7 @@ out:
 void ip6_datagram_recv_common_ctl(struct sock *sk, struct msghdr *msg,
 				 struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 581 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	bool is_ipv6 = skb->protocol == htons(ETH_P_IPV6);
 
@@ -593,6 +604,7 @@ void ip6_datagram_recv_common_ctl(struct sock *sk, struct msghdr *msg,
 void ip6_datagram_recv_specific_ctl(struct sock *sk, struct msghdr *msg,
 				    struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 607 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct inet6_skb_parm *opt = IP6CB(skb);
 	unsigned char *nh = skb_network_header(skb);
@@ -718,6 +730,7 @@ void ip6_datagram_recv_specific_ctl(struct sock *sk, struct msghdr *msg,
 void ip6_datagram_recv_ctl(struct sock *sk, struct msghdr *msg,
 			  struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 733 \n"); 
 	ip6_datagram_recv_common_ctl(sk, msg, skb);
 	ip6_datagram_recv_specific_ctl(sk, msg, skb);
 }
@@ -1010,6 +1023,7 @@ EXPORT_SYMBOL_GPL(ip6_datagram_send_ctl);
 void ip6_dgram_sock_seq_show(struct seq_file *seq, struct sock *sp,
 			     __u16 srcp, __u16 destp, int bucket)
 {
+	panic("We reached unpopular paths in net/ipv6/datagram.c: line 1026 \n"); 
 	const struct in6_addr *dest, *src;
 
 	dest  = &sp->sk_v6_daddr;

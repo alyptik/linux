@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * "security" table for IPv6
  *

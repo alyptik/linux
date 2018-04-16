@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/cls_basic.c	Basic Packet Classifier.
  *
@@ -40,6 +41,7 @@ struct basic_filter {
 static int basic_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 			  struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/cls_basic.c: line 44 \n"); 
 	int r;
 	struct basic_head *head = rcu_dereference_bh(tp->root);
 	struct basic_filter *f;
@@ -58,6 +60,7 @@ static int basic_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 
 static unsigned long basic_get(struct tcf_proto *tp, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_basic.c: line 63 \n"); 
 	unsigned long l = 0UL;
 	struct basic_head *head = rtnl_dereference(tp->root);
 	struct basic_filter *f;
@@ -74,6 +77,7 @@ static unsigned long basic_get(struct tcf_proto *tp, u32 handle)
 
 static int basic_init(struct tcf_proto *tp)
 {
+	panic("We reached unpopular paths in net/sched/cls_basic.c: line 80 \n"); 
 	struct basic_head *head;
 
 	head = kzalloc(sizeof(*head), GFP_KERNEL);
@@ -86,6 +90,7 @@ static int basic_init(struct tcf_proto *tp)
 
 static void basic_delete_filter(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/sched/cls_basic.c: line 93 \n"); 
 	struct basic_filter *f = container_of(head, struct basic_filter, rcu);
 
 	tcf_exts_destroy(&f->exts);
@@ -95,6 +100,7 @@ static void basic_delete_filter(struct rcu_head *head)
 
 static bool basic_destroy(struct tcf_proto *tp, bool force)
 {
+	panic("We reached unpopular paths in net/sched/cls_basic.c: line 103 \n"); 
 	struct basic_head *head = rtnl_dereference(tp->root);
 	struct basic_filter *f, *n;
 
@@ -112,6 +118,7 @@ static bool basic_destroy(struct tcf_proto *tp, bool force)
 
 static int basic_delete(struct tcf_proto *tp, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_basic.c: line 121 \n"); 
 	struct basic_filter *f = (struct basic_filter *) arg;
 
 	list_del_rcu(&f->link);
@@ -130,6 +137,7 @@ static int basic_set_parms(struct net *net, struct tcf_proto *tp,
 			   struct nlattr **tb,
 			   struct nlattr *est, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_basic.c: line 140 \n"); 
 	int err;
 	struct tcf_exts e;
 	struct tcf_ematch_tree t;
@@ -164,6 +172,7 @@ static int basic_change(struct net *net, struct sk_buff *in_skb,
 			struct tcf_proto *tp, unsigned long base, u32 handle,
 			struct nlattr **tca, unsigned long *arg, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_basic.c: line 175 \n"); 
 	int err;
 	struct basic_head *head = rtnl_dereference(tp->root);
 	struct nlattr *tb[TCA_BASIC_MAX + 1];
@@ -234,6 +243,7 @@ errout:
 
 static void basic_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_basic.c: line 246 \n"); 
 	struct basic_head *head = rtnl_dereference(tp->root);
 	struct basic_filter *f;
 
@@ -253,6 +263,7 @@ skip:
 static int basic_dump(struct net *net, struct tcf_proto *tp, unsigned long fh,
 		      struct sk_buff *skb, struct tcmsg *t)
 {
+	panic("We reached unpopular paths in net/sched/cls_basic.c: line 266 \n"); 
 	struct basic_filter *f = (struct basic_filter *) fh;
 	struct nlattr *nest;
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2011 Patrick McHardy <kaber@trash.net>
  *
@@ -29,6 +30,7 @@ unsigned int
 nf_nat_masquerade_ipv6(struct sk_buff *skb, const struct nf_nat_range *range,
 		       const struct net_device *out)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_nat_masquerade_ipv6.c: line 33 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct in6_addr src;
 	struct nf_conn *ct;
@@ -175,6 +177,7 @@ EXPORT_SYMBOL_GPL(nf_nat_masquerade_ipv6_register_notifier);
 
 void nf_nat_masquerade_ipv6_unregister_notifier(void)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_nat_masquerade_ipv6.c: line 180 \n"); 
 	/* check if the notifier still has clients */
 	if (atomic_dec_return(&masquerade_notifier_refcount) > 0)
 		return;

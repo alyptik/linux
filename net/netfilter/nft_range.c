@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2016 Pablo Neira Ayuso <pablo@netfilter.org>
  *
@@ -27,6 +28,7 @@ static void nft_range_eval(const struct nft_expr *expr,
 			 struct nft_regs *regs,
 			 const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_range.c: line 31 \n"); 
 	const struct nft_range_expr *priv = nft_expr_priv(expr);
 	int d1, d2;
 
@@ -54,6 +56,7 @@ static const struct nla_policy nft_range_policy[NFTA_RANGE_MAX + 1] = {
 static int nft_range_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
 			const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_range.c: line 59 \n"); 
 	struct nft_range_expr *priv = nft_expr_priv(expr);
 	struct nft_data_desc desc_from, desc_to;
 	int err;
@@ -110,6 +113,7 @@ err1:
 
 static int nft_range_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_range.c: line 116 \n"); 
 	const struct nft_range_expr *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_RANGE_SREG, priv->sreg))
@@ -152,5 +156,6 @@ int __init nft_range_module_init(void)
 
 void nft_range_module_exit(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_range.c: line 159 \n"); 
 	nft_unregister_expr(&nft_range_type);
 }

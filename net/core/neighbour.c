@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Generic address resolution entity
  *
@@ -90,6 +91,7 @@ static const struct file_operations neigh_stat_seq_fops;
 
 static int neigh_blackhole(struct neighbour *neigh, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 94 \n"); 
 	kfree_skb(skb);
 	return -ENETDOWN;
 }
@@ -118,6 +120,7 @@ EXPORT_SYMBOL(neigh_rand_reach_time);
 
 static int neigh_forced_gc(struct neigh_table *tbl)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 123 \n"); 
 	int shrunk = 0;
 	int i;
 	struct neigh_hash_table *nht;
@@ -420,6 +423,7 @@ EXPORT_SYMBOL(neigh_lookup);
 struct neighbour *neigh_lookup_nodev(struct neigh_table *tbl, struct net *net,
 				     const void *pkey)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 426 \n"); 
 	struct neighbour *n;
 	int key_len = tbl->key_len;
 	u32 hash_val;
@@ -538,6 +542,7 @@ EXPORT_SYMBOL(__neigh_create);
 
 static u32 pneigh_hash(const void *pkey, int key_len)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 545 \n"); 
 	u32 hash_val = *(u32 *)(pkey + key_len - 4);
 	hash_val ^= (hash_val >> 16);
 	hash_val ^= hash_val >> 8;
@@ -552,6 +557,7 @@ static struct pneigh_entry *__pneigh_lookup_1(struct pneigh_entry *n,
 					      int key_len,
 					      struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 560 \n"); 
 	while (n) {
 		if (!memcmp(n->key, pkey, key_len) &&
 		    net_eq(pneigh_net(n), net) &&
@@ -565,6 +571,7 @@ static struct pneigh_entry *__pneigh_lookup_1(struct pneigh_entry *n,
 struct pneigh_entry *__pneigh_lookup(struct neigh_table *tbl,
 		struct net *net, const void *pkey, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 574 \n"); 
 	int key_len = tbl->key_len;
 	u32 hash_val = pneigh_hash(pkey, key_len);
 
@@ -577,6 +584,7 @@ struct pneigh_entry * pneigh_lookup(struct neigh_table *tbl,
 				    struct net *net, const void *pkey,
 				    struct net_device *dev, int creat)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 587 \n"); 
 	struct pneigh_entry *n;
 	int key_len = tbl->key_len;
 	u32 hash_val = pneigh_hash(pkey, key_len);
@@ -622,6 +630,7 @@ EXPORT_SYMBOL(pneigh_lookup);
 int pneigh_delete(struct neigh_table *tbl, struct net *net, const void *pkey,
 		  struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 633 \n"); 
 	struct pneigh_entry *n, **np;
 	int key_len = tbl->key_len;
 	u32 hash_val = pneigh_hash(pkey, key_len);
@@ -720,6 +729,7 @@ EXPORT_SYMBOL(neigh_destroy);
  */
 static void neigh_suspect(struct neighbour *neigh)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 732 \n"); 
 	neigh_dbg(2, "neigh %p is suspected\n", neigh);
 
 	neigh->output = neigh->ops->output;
@@ -732,6 +742,7 @@ static void neigh_suspect(struct neighbour *neigh)
  */
 static void neigh_connect(struct neighbour *neigh)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 745 \n"); 
 	neigh_dbg(2, "neigh %p is connected\n", neigh);
 
 	neigh->output = neigh->ops->connected_output;
@@ -1240,6 +1251,7 @@ EXPORT_SYMBOL(neigh_update);
  */
 void __neigh_set_probe_once(struct neighbour *neigh)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1254 \n"); 
 	if (neigh->dead)
 		return;
 	neigh->updated = jiffies;
@@ -1322,6 +1334,7 @@ EXPORT_SYMBOL(neigh_resolve_output);
 
 int neigh_connected_output(struct neighbour *neigh, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1337 \n"); 
 	struct net_device *dev = neigh->dev;
 	unsigned int seq;
 	int err;
@@ -1345,12 +1358,14 @@ EXPORT_SYMBOL(neigh_connected_output);
 
 int neigh_direct_output(struct neighbour *neigh, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1361 \n"); 
 	return dev_queue_xmit(skb);
 }
 EXPORT_SYMBOL(neigh_direct_output);
 
 static void neigh_proxy_process(unsigned long arg)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1368 \n"); 
 	struct neigh_table *tbl = (struct neigh_table *)arg;
 	long sched_next = 0;
 	unsigned long now = jiffies;
@@ -1386,6 +1401,7 @@ static void neigh_proxy_process(unsigned long arg)
 void pneigh_enqueue(struct neigh_table *tbl, struct neigh_parms *p,
 		    struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1404 \n"); 
 	unsigned long now = jiffies;
 
 	unsigned long sched_next = now + (prandom_u32() %
@@ -1415,6 +1431,7 @@ EXPORT_SYMBOL(pneigh_enqueue);
 static inline struct neigh_parms *lookup_neigh_parms(struct neigh_table *tbl,
 						      struct net *net, int ifindex)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1434 \n"); 
 	struct neigh_parms *p;
 
 	list_for_each_entry(p, &tbl->parms_list, list) {
@@ -1484,6 +1501,7 @@ EXPORT_SYMBOL(neigh_parms_release);
 
 static void neigh_parms_destroy(struct neigh_parms *parms)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/neighbour.c: line 1504 \n"); 
 	kfree(parms);
 }
 
@@ -1544,6 +1562,7 @@ EXPORT_SYMBOL(neigh_table_init);
 
 int neigh_table_clear(int index, struct neigh_table *tbl)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1565 \n"); 
 	neigh_tables[index] = NULL;
 	/* It is not clean... Fix it to unload IPv6 module safely */
 	cancel_delayed_work_sync(&tbl->gc_work);
@@ -1571,6 +1590,7 @@ EXPORT_SYMBOL(neigh_table_clear);
 
 static struct neigh_table *neigh_find_table(int family)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1593 \n"); 
 	struct neigh_table *tbl = NULL;
 
 	switch (family) {
@@ -1590,6 +1610,7 @@ static struct neigh_table *neigh_find_table(int family)
 
 static int neigh_delete(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1613 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct ndmsg *ndm;
 	struct nlattr *dst_attr;
@@ -1647,6 +1668,7 @@ out:
 
 static int neigh_add(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1671 \n"); 
 	int flags = NEIGH_UPDATE_F_ADMIN | NEIGH_UPDATE_F_OVERRIDE;
 	struct net *net = sock_net(skb->sk);
 	struct ndmsg *ndm;
@@ -1738,6 +1760,7 @@ out:
 
 static int neightbl_fill_parms(struct sk_buff *skb, struct neigh_parms *parms)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1763 \n"); 
 	struct nlattr *nest;
 
 	nest = nla_nest_start(skb, NDTA_PARMS);
@@ -1787,6 +1810,7 @@ nla_put_failure:
 static int neightbl_fill_info(struct sk_buff *skb, struct neigh_table *tbl,
 			      u32 pid, u32 seq, int type, int flags)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1813 \n"); 
 	struct nlmsghdr *nlh;
 	struct ndtmsg *ndtmsg;
 
@@ -1879,6 +1903,7 @@ static int neightbl_fill_param_info(struct sk_buff *skb,
 				    u32 pid, u32 seq, int type,
 				    unsigned int flags)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1906 \n"); 
 	struct ndtmsg *ndtmsg;
 	struct nlmsghdr *nlh;
 
@@ -1934,6 +1959,7 @@ static const struct nla_policy nl_ntbl_parm_policy[NDTPA_MAX+1] = {
 
 static int neightbl_set(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 1962 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct neigh_table *tbl;
 	struct ndtmsg *ndtmsg;
@@ -2094,6 +2120,7 @@ errout:
 
 static int neightbl_dump_info(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 2123 \n"); 
 	struct net *net = sock_net(skb->sk);
 	int family, tidx, nidx = 0;
 	int tbl_skip = cb->args[0];
@@ -2202,6 +2229,7 @@ static int pneigh_fill_info(struct sk_buff *skb, struct pneigh_entry *pn,
 			    u32 pid, u32 seq, int type, unsigned int flags,
 			    struct neigh_table *tbl)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 2232 \n"); 
 	struct nlmsghdr *nlh;
 	struct ndmsg *ndm;
 
@@ -2237,6 +2265,7 @@ static void neigh_update_notify(struct neighbour *neigh)
 
 static bool neigh_master_filtered(struct net_device *dev, int master_idx)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 2268 \n"); 
 	struct net_device *master;
 
 	if (!master_idx)
@@ -2251,6 +2280,7 @@ static bool neigh_master_filtered(struct net_device *dev, int master_idx)
 
 static bool neigh_ifindex_filtered(struct net_device *dev, int filter_idx)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 2283 \n"); 
 	if (filter_idx && dev->ifindex != filter_idx)
 		return true;
 
@@ -2260,6 +2290,7 @@ static bool neigh_ifindex_filtered(struct net_device *dev, int filter_idx)
 static int neigh_dump_table(struct neigh_table *tbl, struct sk_buff *skb,
 			    struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 2293 \n"); 
 	struct net *net = sock_net(skb->sk);
 	const struct nlmsghdr *nlh = cb->nlh;
 	struct nlattr *tb[NDA_MAX + 1];
@@ -2322,6 +2353,7 @@ out:
 static int pneigh_dump_table(struct neigh_table *tbl, struct sk_buff *skb,
 			     struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 2356 \n"); 
 	struct pneigh_entry *n;
 	struct net *net = sock_net(skb->sk);
 	int rc, h, s_h = cb->args[3];
@@ -2361,6 +2393,7 @@ out:
 
 static int neigh_dump_info(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 2396 \n"); 
 	struct neigh_table *tbl;
 	int t, family, s_t;
 	int proxy = 0;
@@ -2401,6 +2434,7 @@ static int neigh_dump_info(struct sk_buff *skb, struct netlink_callback *cb)
 
 void neigh_for_each(struct neigh_table *tbl, void (*cb)(struct neighbour *, void *), void *cookie)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 2437 \n"); 
 	int chain;
 	struct neigh_hash_table *nht;
 
@@ -2425,6 +2459,7 @@ EXPORT_SYMBOL(neigh_for_each);
 void __neigh_for_each_release(struct neigh_table *tbl,
 			      int (*cb)(struct neighbour *))
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 2462 \n"); 
 	int chain;
 	struct neigh_hash_table *nht;
 
@@ -2459,6 +2494,7 @@ EXPORT_SYMBOL(__neigh_for_each_release);
 int neigh_xmit(int index, struct net_device *dev,
 	       const void *addr, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 2497 \n"); 
 	int err = -EAFNOSUPPORT;
 	if (likely(index < NEIGH_NR_TABLES)) {
 		struct neigh_table *tbl;
@@ -2828,6 +2864,7 @@ static const struct file_operations neigh_stat_seq_fops = {
 
 static inline size_t neigh_nlmsg_size(void)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 2867 \n"); 
 	return NLMSG_ALIGN(sizeof(struct ndmsg))
 	       + nla_total_size(MAX_ADDR_LEN) /* NDA_DST */
 	       + nla_total_size(MAX_ADDR_LEN) /* NDA_LLADDR */
@@ -2861,6 +2898,7 @@ errout:
 
 void neigh_app_ns(struct neighbour *n)
 {
+	panic("We reached unpopular paths in net/core/neighbour.c: line 2901 \n"); 
 	__neigh_notify(n, RTM_GETNEIGH, NLM_F_REQUEST);
 }
 EXPORT_SYMBOL(neigh_app_ns);

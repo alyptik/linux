@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/kernel.h>
 #include <linux/skbuff.h>
 #include <linux/export.h>
@@ -24,6 +25,7 @@
 static void dissector_set_key(struct flow_dissector *flow_dissector,
 			      enum flow_dissector_key_id key_id)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/flow_dissector.c: line 28 \n"); 
 	flow_dissector->used_keys |= (1 << key_id);
 }
 
@@ -577,6 +579,7 @@ static __always_inline u32 __flow_hash_words(const u32 *words, u32 length,
 
 static inline const u32 *flow_keys_hash_start(const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 582 \n"); 
 	const void *p = flow;
 
 	BUILD_BUG_ON(FLOW_KEYS_HASH_OFFSET % sizeof(u32));
@@ -606,6 +609,7 @@ static inline size_t flow_keys_hash_length(const struct flow_keys *flow)
 
 __be32 flow_get_u32_src(const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 612 \n"); 
 	switch (flow->control.addr_type) {
 	case FLOW_DISSECTOR_KEY_IPV4_ADDRS:
 		return flow->addrs.v4addrs.src;
@@ -622,6 +626,7 @@ EXPORT_SYMBOL(flow_get_u32_src);
 
 __be32 flow_get_u32_dst(const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 629 \n"); 
 	switch (flow->control.addr_type) {
 	case FLOW_DISSECTOR_KEY_IPV4_ADDRS:
 		return flow->addrs.v4addrs.dst;
@@ -691,6 +696,7 @@ EXPORT_SYMBOL(flow_hash_from_keys);
 static inline u32 ___skb_get_hash(const struct sk_buff *skb,
 				  struct flow_keys *keys, u32 keyval)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 699 \n"); 
 	skb_flow_dissect_flow_keys(skb, keys,
 				   FLOW_DISSECTOR_F_STOP_AT_FLOW_LABEL);
 
@@ -709,6 +715,7 @@ struct _flow_keys_digest_data {
 void make_flow_keys_digest(struct flow_keys_digest *digest,
 			   const struct flow_keys *flow)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 718 \n"); 
 	struct _flow_keys_digest_data *data =
 	    (struct _flow_keys_digest_data *)digest;
 
@@ -728,6 +735,7 @@ static struct flow_dissector flow_keys_dissector_symmetric __read_mostly;
 
 u32 __skb_get_hash_symmetric(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 738 \n"); 
 	struct flow_keys keys;
 
 	__flow_hash_secret_init();
@@ -752,6 +760,7 @@ EXPORT_SYMBOL_GPL(__skb_get_hash_symmetric);
  */
 void __skb_get_hash(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 763 \n"); 
 	struct flow_keys keys;
 	u32 hash;
 
@@ -765,6 +774,7 @@ EXPORT_SYMBOL(__skb_get_hash);
 
 __u32 skb_get_hash_perturb(const struct sk_buff *skb, u32 perturb)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 777 \n"); 
 	struct flow_keys keys;
 
 	return ___skb_get_hash(skb, &keys, perturb);
@@ -773,6 +783,7 @@ EXPORT_SYMBOL(skb_get_hash_perturb);
 
 __u32 __skb_get_hash_flowi6(struct sk_buff *skb, const struct flowi6 *fl6)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 786 \n"); 
 	struct flow_keys keys;
 
 	memset(&keys, 0, sizeof(keys));
@@ -797,6 +808,7 @@ EXPORT_SYMBOL(__skb_get_hash_flowi6);
 
 __u32 __skb_get_hash_flowi4(struct sk_buff *skb, const struct flowi4 *fl4)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 811 \n"); 
 	struct flow_keys keys;
 
 	memset(&keys, 0, sizeof(keys));
@@ -819,6 +831,7 @@ EXPORT_SYMBOL(__skb_get_hash_flowi4);
 u32 __skb_get_poff(const struct sk_buff *skb, void *data,
 		   const struct flow_keys *keys, int hlen)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 834 \n"); 
 	u32 poff = keys->control.thoff;
 
 	/* skip L4 headers for fragments after the first */
@@ -878,6 +891,7 @@ u32 __skb_get_poff(const struct sk_buff *skb, void *data,
  */
 u32 skb_get_poff(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 894 \n"); 
 	struct flow_keys keys;
 
 	if (!skb_flow_dissect_flow_keys(skb, &keys, 0))
@@ -907,6 +921,7 @@ EXPORT_SYMBOL(__get_hash_from_flowi6);
 
 __u32 __get_hash_from_flowi4(const struct flowi4 *fl4, struct flow_keys *keys)
 {
+	panic("We reached unpopular paths in net/core/flow_dissector.c: line 924 \n"); 
 	memset(keys, 0, sizeof(*keys));
 
 	keys->addrs.v4addrs.src = fl4->saddr;

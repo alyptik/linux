@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Handle firewalling
  *	Linux ethernet bridge
@@ -102,6 +103,7 @@ static inline __be16 vlan_proto(const struct sk_buff *skb)
 
 static inline __be16 pppoe_proto(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 106 \n"); 
 	return *((__be16 *)(skb_mac_header(skb) + ETH_HLEN +
 			    sizeof(struct pppoe_hdr)));
 }
@@ -131,6 +133,7 @@ static DEFINE_PER_CPU(struct brnf_frag_data, brnf_frag_data_storage);
 
 static void nf_bridge_info_free(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 136 \n"); 
 	if (skb->nf_bridge) {
 		nf_bridge_put(skb->nf_bridge);
 		skb->nf_bridge = NULL;
@@ -147,6 +150,7 @@ static inline struct net_device *bridge_parent(const struct net_device *dev)
 
 static inline struct nf_bridge_info *nf_bridge_unshare(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 153 \n"); 
 	struct nf_bridge_info *nf_bridge = skb->nf_bridge;
 
 	if (atomic_read(&nf_bridge->use) > 1) {
@@ -176,6 +180,7 @@ unsigned int nf_bridge_encap_header_len(const struct sk_buff *skb)
 
 static inline void nf_bridge_pull_encap_header(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 183 \n"); 
 	unsigned int len = nf_bridge_encap_header_len(skb);
 
 	skb_pull(skb, len);
@@ -263,6 +268,7 @@ void nf_bridge_update_protocol(struct sk_buff *skb)
  */
 int br_nf_pre_routing_finish_bridge(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 271 \n"); 
 	struct neighbour *neigh;
 	struct dst_entry *dst;
 
@@ -305,6 +311,7 @@ static inline bool
 br_nf_ipv4_daddr_was_changed(const struct sk_buff *skb,
 			     const struct nf_bridge_info *nf_bridge)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 314 \n"); 
 	return ip_hdr(skb)->daddr != nf_bridge->ipv4_daddr;
 }
 
@@ -524,6 +531,7 @@ static unsigned int br_nf_pre_routing(void *priv,
 /* PF_BRIDGE/FORWARD *************************************************/
 static int br_nf_forward_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 534 \n"); 
 	struct nf_bridge_info *nf_bridge = nf_bridge_info_get(skb);
 	struct net_device *in;
 
@@ -561,6 +569,7 @@ static unsigned int br_nf_forward_ip(void *priv,
 				     struct sk_buff *skb,
 				     const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 572 \n"); 
 	struct nf_bridge_info *nf_bridge;
 	struct net_device *parent;
 	u_int8_t pf;
@@ -624,6 +633,7 @@ static unsigned int br_nf_forward_arp(void *priv,
 				      struct sk_buff *skb,
 				      const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 636 \n"); 
 	struct net_bridge_port *p;
 	struct net_bridge *br;
 	struct net_device **d = (struct net_device **)(skb->cb);
@@ -656,6 +666,7 @@ static unsigned int br_nf_forward_arp(void *priv,
 
 static int br_nf_push_frag_xmit(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 669 \n"); 
 	struct brnf_frag_data *data;
 	int err;
 
@@ -683,6 +694,7 @@ static int
 br_nf_ip_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
 		  int (*output)(struct net *, struct sock *, struct sk_buff *))
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 697 \n"); 
 	unsigned int mtu = ip_skb_dst_mtu(sk, skb);
 	struct iphdr *iph = ip_hdr(skb);
 
@@ -699,6 +711,7 @@ br_nf_ip_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
 
 static unsigned int nf_bridge_mtu_reduction(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 714 \n"); 
 	if (skb->nf_bridge->orig_proto == BRNF_PROTO_PPPOE)
 		return PPPOE_SES_HLEN;
 	return 0;
@@ -706,6 +719,7 @@ static unsigned int nf_bridge_mtu_reduction(const struct sk_buff *skb)
 
 static int br_nf_dev_queue_xmit(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 722 \n"); 
 	struct nf_bridge_info *nf_bridge = nf_bridge_info_get(skb);
 	unsigned int mtu, mtu_reserved;
 
@@ -849,6 +863,7 @@ static unsigned int ip_sabotage_in(void *priv,
  */
 static void br_nf_pre_routing_finish_bridge_slow(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 866 \n"); 
 	struct nf_bridge_info *nf_bridge = nf_bridge_info_get(skb);
 
 	skb_pull(skb, ETH_HLEN);
@@ -880,6 +895,7 @@ static const struct nf_br_ops br_ops = {
 
 void br_netfilter_enable(void)
 {
+	panic("We reached unpopular paths in net/bridge/br_netfilter_hooks.c: line 898 \n"); 
 }
 EXPORT_SYMBOL_GPL(br_netfilter_enable);
 

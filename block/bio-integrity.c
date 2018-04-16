@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * bio-integrity.c - bio data integrity extensions
  *
@@ -35,6 +36,7 @@ static struct workqueue_struct *kintegrityd_wq;
 
 void blk_flush_integrity(void)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 39 \n"); 
 	flush_workqueue(kintegrityd_wq);
 }
 
@@ -52,6 +54,7 @@ struct bio_integrity_payload *bio_integrity_alloc(struct bio *bio,
 						  gfp_t gfp_mask,
 						  unsigned int nr_vecs)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 57 \n"); 
 	struct bio_integrity_payload *bip;
 	struct bio_set *bs = bio->bi_pool;
 	unsigned inline_vecs;
@@ -104,6 +107,7 @@ EXPORT_SYMBOL(bio_integrity_alloc);
  */
 void bio_integrity_free(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 110 \n"); 
 	struct bio_integrity_payload *bip = bio_integrity(bio);
 	struct bio_set *bs = bio->bi_pool;
 
@@ -135,6 +139,7 @@ EXPORT_SYMBOL(bio_integrity_free);
 int bio_integrity_add_page(struct bio *bio, struct page *page,
 			   unsigned int len, unsigned int offset)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 142 \n"); 
 	struct bio_integrity_payload *bip = bio_integrity(bio);
 	struct bio_vec *iv;
 
@@ -170,6 +175,7 @@ EXPORT_SYMBOL(bio_integrity_add_page);
  */
 bool bio_integrity_enabled(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 178 \n"); 
 	struct blk_integrity *bi = bdev_get_integrity(bio->bi_bdev);
 
 	if (!bio_is_rw(bio))
@@ -207,12 +213,14 @@ EXPORT_SYMBOL(bio_integrity_enabled);
 static inline unsigned int bio_integrity_intervals(struct blk_integrity *bi,
 						   unsigned int sectors)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 216 \n"); 
 	return sectors >> (bi->interval_exp - 9);
 }
 
 static inline unsigned int bio_integrity_bytes(struct blk_integrity *bi,
 					       unsigned int sectors)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 223 \n"); 
 	return bio_integrity_intervals(bi, sectors) * bi->tuple_size;
 }
 
@@ -224,6 +232,7 @@ static inline unsigned int bio_integrity_bytes(struct blk_integrity *bi,
 static int bio_integrity_process(struct bio *bio,
 				 integrity_processing_fn *proc_fn)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 235 \n"); 
 	struct blk_integrity *bi = bdev_get_integrity(bio->bi_bdev);
 	struct blk_integrity_iter iter;
 	struct bvec_iter bviter;
@@ -268,6 +277,7 @@ static int bio_integrity_process(struct bio *bio,
  */
 int bio_integrity_prep(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 280 \n"); 
 	struct bio_integrity_payload *bip;
 	struct blk_integrity *bi;
 	struct request_queue *q;
@@ -361,6 +371,7 @@ EXPORT_SYMBOL(bio_integrity_prep);
  */
 static void bio_integrity_verify_fn(struct work_struct *work)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 374 \n"); 
 	struct bio_integrity_payload *bip =
 		container_of(work, struct bio_integrity_payload, bip_work);
 	struct bio *bio = bip->bip_bio;
@@ -387,6 +398,7 @@ static void bio_integrity_verify_fn(struct work_struct *work)
  */
 void bio_integrity_endio(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 401 \n"); 
 	struct bio_integrity_payload *bip = bio_integrity(bio);
 
 	BUG_ON(bip->bip_bio != bio);
@@ -418,6 +430,7 @@ EXPORT_SYMBOL(bio_integrity_endio);
  */
 void bio_integrity_advance(struct bio *bio, unsigned int bytes_done)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 433 \n"); 
 	struct bio_integrity_payload *bip = bio_integrity(bio);
 	struct blk_integrity *bi = bdev_get_integrity(bio->bi_bdev);
 	unsigned bytes = bio_integrity_bytes(bi, bytes_done >> 9);
@@ -440,6 +453,7 @@ EXPORT_SYMBOL(bio_integrity_advance);
 void bio_integrity_trim(struct bio *bio, unsigned int offset,
 			unsigned int sectors)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 456 \n"); 
 	struct bio_integrity_payload *bip = bio_integrity(bio);
 	struct blk_integrity *bi = bdev_get_integrity(bio->bi_bdev);
 
@@ -459,6 +473,7 @@ EXPORT_SYMBOL(bio_integrity_trim);
 int bio_integrity_clone(struct bio *bio, struct bio *bio_src,
 			gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 476 \n"); 
 	struct bio_integrity_payload *bip_src = bio_integrity(bio_src);
 	struct bio_integrity_payload *bip;
 
@@ -499,6 +514,7 @@ EXPORT_SYMBOL(bioset_integrity_create);
 
 void bioset_integrity_free(struct bio_set *bs)
 {
+	panic("We reached unpopular paths in block/bio-integrity.c: line 517 \n"); 
 	if (bs->bio_integrity_pool)
 		mempool_destroy(bs->bio_integrity_pool);
 

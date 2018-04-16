@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C) 1991, 1992 Linus Torvalds
  * Copyright (C) 1994,      Karl Keyte: Added support for disk statistics
@@ -79,6 +80,7 @@ static void blk_clear_congested(struct request_list *rl, int sync)
 
 static void blk_set_congested(struct request_list *rl, int sync)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 83 \n"); 
 #ifdef CONFIG_CGROUP_WRITEBACK
 	set_wb_congested(rl->blkg->wb_congested, sync);
 #else
@@ -113,6 +115,7 @@ void blk_queue_congestion_threshold(struct request_queue *q)
  */
 struct backing_dev_info *blk_get_backing_dev_info(struct block_device *bdev)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 118 \n"); 
 	struct request_queue *q = bdev_get_queue(bdev);
 
 	return &q->backing_dev_info;
@@ -157,6 +160,7 @@ static void req_bio_endio(struct request *rq, struct bio *bio,
 
 void blk_dump_rq_flags(struct request *rq, char *msg)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 163 \n"); 
 	int bit;
 
 	printk(KERN_INFO "%s: dev %s: type=%x, flags=%llx\n", msg,
@@ -180,6 +184,7 @@ EXPORT_SYMBOL(blk_dump_rq_flags);
 
 static void blk_delay_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 187 \n"); 
 	struct request_queue *q;
 
 	q = container_of(work, struct request_queue, delay_work.work);
@@ -200,6 +205,7 @@ static void blk_delay_work(struct work_struct *work)
  */
 void blk_delay_queue(struct request_queue *q, unsigned long msecs)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 208 \n"); 
 	if (likely(!blk_queue_dead(q)))
 		queue_delayed_work(kblockd_workqueue, &q->delay_work,
 				   msecs_to_jiffies(msecs));
@@ -217,6 +223,7 @@ EXPORT_SYMBOL(blk_delay_queue);
  **/
 void blk_start_queue_async(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 226 \n"); 
 	queue_flag_clear(QUEUE_FLAG_STOPPED, q);
 	blk_run_queue_async(q);
 }
@@ -233,6 +240,7 @@ EXPORT_SYMBOL(blk_start_queue_async);
  **/
 void blk_start_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 243 \n"); 
 	WARN_ON(!in_interrupt() && !irqs_disabled());
 
 	queue_flag_clear(QUEUE_FLAG_STOPPED, q);
@@ -256,6 +264,7 @@ EXPORT_SYMBOL(blk_start_queue);
  **/
 void blk_stop_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 267 \n"); 
 	cancel_delayed_work(&q->delay_work);
 	queue_flag_set(QUEUE_FLAG_STOPPED, q);
 }
@@ -281,6 +290,7 @@ EXPORT_SYMBOL(blk_stop_queue);
  */
 void blk_sync_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 293 \n"); 
 	del_timer_sync(&q->timeout);
 	cancel_work_sync(&q->timeout_work);
 
@@ -354,6 +364,7 @@ EXPORT_SYMBOL(__blk_run_queue);
  */
 void blk_run_queue_async(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 367 \n"); 
 	if (likely(!blk_queue_stopped(q) && !blk_queue_dead(q)))
 		mod_delayed_work(kblockd_workqueue, &q->delay_work, 0);
 }
@@ -379,6 +390,7 @@ EXPORT_SYMBOL(blk_run_queue);
 
 void blk_put_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 393 \n"); 
 	kobject_put(&q->kobj);
 }
 EXPORT_SYMBOL(blk_put_queue);
@@ -516,6 +528,7 @@ EXPORT_SYMBOL_GPL(blk_queue_bypass_end);
 
 void blk_set_queue_dying(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 531 \n"); 
 	spin_lock_irq(q->queue_lock);
 	queue_flag_set(QUEUE_FLAG_DYING, q);
 	spin_unlock_irq(q->queue_lock);
@@ -544,6 +557,7 @@ EXPORT_SYMBOL_GPL(blk_set_queue_dying);
  */
 void blk_cleanup_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 560 \n"); 
 	spinlock_t *lock = q->queue_lock;
 
 	/* mark @q DYING, no new request or merges will be allowed afterwards */
@@ -639,18 +653,21 @@ int blk_init_rl(struct request_list *rl, struct request_queue *q,
 
 void blk_exit_rl(struct request_list *rl)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 656 \n"); 
 	if (rl->rq_pool)
 		mempool_destroy(rl->rq_pool);
 }
 
 struct request_queue *blk_alloc_queue(gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 663 \n"); 
 	return blk_alloc_queue_node(gfp_mask, NUMA_NO_NODE);
 }
 EXPORT_SYMBOL(blk_alloc_queue);
 
 int blk_queue_enter(struct request_queue *q, bool nowait)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 670 \n"); 
 	while (true) {
 		int ret;
 
@@ -672,11 +689,13 @@ int blk_queue_enter(struct request_queue *q, bool nowait)
 
 void blk_queue_exit(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 692 \n"); 
 	percpu_ref_put(&q->q_usage_counter);
 }
 
 static void blk_queue_usage_counter_release(struct percpu_ref *ref)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 698 \n"); 
 	struct request_queue *q =
 		container_of(ref, struct request_queue, q_usage_counter);
 
@@ -937,6 +956,7 @@ static inline int ioc_batching(struct request_queue *q, struct io_context *ioc)
  */
 static void ioc_set_batching(struct request_queue *q, struct io_context *ioc)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 959 \n"); 
 	if (!ioc || ioc_batching(q, ioc))
 		return;
 
@@ -981,6 +1001,7 @@ static void freed_request(struct request_list *rl, int op, unsigned int flags)
 
 int blk_update_nr_requests(struct request_queue *q, unsigned int nr)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1004 \n"); 
 	struct request_list *rl;
 	int on_thresh, off_thresh;
 
@@ -1345,6 +1366,7 @@ EXPORT_SYMBOL(blk_rq_set_block_pc);
  */
 void blk_requeue_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1369 \n"); 
 	blk_delete_timer(rq);
 	blk_clear_rq_complete(rq);
 	trace_block_rq_requeue(q, rq);
@@ -1361,6 +1383,7 @@ EXPORT_SYMBOL(blk_requeue_request);
 static void add_acct_request(struct request_queue *q, struct request *rq,
 			     int where)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1386 \n"); 
 	blk_account_io_start(rq, true);
 	__elv_add_request(q, rq, where);
 }
@@ -1368,6 +1391,7 @@ static void add_acct_request(struct request_queue *q, struct request *rq,
 static void part_round_stats_single(int cpu, struct hd_struct *part,
 				    unsigned long now)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1394 \n"); 
 	int inflight;
 
 	if (now == part->stamp)
@@ -1400,6 +1424,7 @@ static void part_round_stats_single(int cpu, struct hd_struct *part,
  */
 void part_round_stats(int cpu, struct hd_struct *part)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1427 \n"); 
 	unsigned long now = jiffies;
 
 	if (part->partno)
@@ -1423,6 +1448,7 @@ static inline void blk_pm_put_request(struct request *rq) {}
  */
 void __blk_put_request(struct request_queue *q, struct request *req)
 {
+	// [blacklist] panic("We reached unpopular paths in block/blk-core.c: line 1451 \n"); 
 	if (unlikely(!q))
 		return;
 
@@ -1490,6 +1516,7 @@ EXPORT_SYMBOL(blk_put_request);
 void blk_add_request_payload(struct request *rq, struct page *page,
 		int offset, unsigned int len)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1519 \n"); 
 	struct bio *bio = rq->bio;
 
 	bio->bi_io_vec->bv_page = page;
@@ -1508,6 +1535,7 @@ EXPORT_SYMBOL_GPL(blk_add_request_payload);
 bool bio_attempt_back_merge(struct request_queue *q, struct request *req,
 			    struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1538 \n"); 
 	const int ff = bio->bi_opf & REQ_FAILFAST_MASK;
 
 	if (!ll_back_merge_fn(q, req, bio))
@@ -1530,6 +1558,7 @@ bool bio_attempt_back_merge(struct request_queue *q, struct request *req,
 bool bio_attempt_front_merge(struct request_queue *q, struct request *req,
 			     struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1561 \n"); 
 	const int ff = bio->bi_opf & REQ_FAILFAST_MASK;
 
 	if (!ll_front_merge_fn(q, req, bio))
@@ -1577,6 +1606,7 @@ bool blk_attempt_plug_merge(struct request_queue *q, struct bio *bio,
 			    unsigned int *request_count,
 			    struct request **same_queue_rq)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1609 \n"); 
 	struct blk_plug *plug;
 	struct request *rq;
 	bool ret = false;
@@ -1626,6 +1656,7 @@ out:
 
 unsigned int blk_plug_queued_count(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1659 \n"); 
 	struct blk_plug *plug;
 	struct request *rq;
 	struct list_head *plug_list;
@@ -1650,6 +1681,7 @@ out:
 
 void init_request_from_bio(struct request *req, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1684 \n"); 
 	req->cmd_type = REQ_TYPE_FS;
 
 	req->cmd_flags |= bio->bi_opf & REQ_COMMON_MASK;
@@ -1664,6 +1696,7 @@ void init_request_from_bio(struct request *req, struct bio *bio)
 
 static blk_qc_t blk_queue_bio(struct request_queue *q, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1699 \n"); 
 	const bool sync = !!(bio->bi_opf & REQ_SYNC);
 	struct blk_plug *plug;
 	int el_ret, rw_flags = 0, where = ELEVATOR_INSERT_SORT;
@@ -1788,6 +1821,7 @@ out_unlock:
  */
 static inline void blk_partition_remap(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1824 \n"); 
 	struct block_device *bdev = bio->bi_bdev;
 
 	if (bio_sectors(bio) && bdev != bdev->bd_contains) {
@@ -1804,6 +1838,7 @@ static inline void blk_partition_remap(struct bio *bio)
 
 static void handle_bad_sector(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1841 \n"); 
 	char b[BDEVNAME_SIZE];
 
 	printk(KERN_INFO "attempt to access beyond end of device\n");
@@ -1844,6 +1879,7 @@ late_initcall(fail_make_request_debugfs);
 static inline bool should_fail_request(struct hd_struct *part,
 					unsigned int bytes)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1882 \n"); 
 	return false;
 }
 
@@ -1854,6 +1890,7 @@ static inline bool should_fail_request(struct hd_struct *part,
  */
 static inline int bio_check_eod(struct bio *bio, unsigned int nr_sectors)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 1893 \n"); 
 	sector_t maxsector;
 
 	if (!nr_sectors)
@@ -1996,6 +2033,7 @@ end_io:
  */
 blk_qc_t generic_make_request(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2036 \n"); 
 	/*
 	 * bio_list_on_stack[0] contains bios submitted by the current
 	 * make_request_fn.
@@ -2091,6 +2129,7 @@ EXPORT_SYMBOL(generic_make_request);
  */
 blk_qc_t submit_bio(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2132 \n"); 
 	/*
 	 * If it's a regular read/write or a barrier with data attached,
 	 * go through the normal accounting stuff before submission.
@@ -2145,6 +2184,7 @@ EXPORT_SYMBOL(submit_bio);
 static int blk_cloned_rq_check_limits(struct request_queue *q,
 				      struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2187 \n"); 
 	if (blk_rq_sectors(rq) > blk_queue_get_max_sectors(q, req_op(rq))) {
 		printk(KERN_ERR "%s: over max size limit.\n", __func__);
 		return -EIO;
@@ -2172,6 +2212,7 @@ static int blk_cloned_rq_check_limits(struct request_queue *q,
  */
 int blk_insert_cloned_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2215 \n"); 
 	unsigned long flags;
 	int where = ELEVATOR_INSERT_BACK;
 
@@ -2231,6 +2272,7 @@ EXPORT_SYMBOL_GPL(blk_insert_cloned_request);
  */
 unsigned int blk_rq_err_bytes(const struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2275 \n"); 
 	unsigned int ff = rq->cmd_flags & REQ_FAILFAST_MASK;
 	unsigned int bytes = 0;
 	struct bio *bio;
@@ -2315,12 +2357,14 @@ static struct request *blk_pm_peek_request(struct request_queue *q,
 static inline struct request *blk_pm_peek_request(struct request_queue *q,
 						  struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2360 \n"); 
 	return rq;
 }
 #endif
 
 void blk_account_io_start(struct request *rq, bool new_io)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2367 \n"); 
 	struct hd_struct *part;
 	int rw = rq_data_dir(rq);
 	int cpu;
@@ -2530,6 +2574,7 @@ EXPORT_SYMBOL(blk_start_request);
  */
 struct request *blk_fetch_request(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2577 \n"); 
 	struct request *rq;
 
 	rq = blk_peek_request(q);
@@ -2680,6 +2725,7 @@ static bool blk_update_bidi_request(struct request *rq, int error,
 				    unsigned int nr_bytes,
 				    unsigned int bidi_bytes)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2728 \n"); 
 	if (blk_update_request(rq, error, nr_bytes))
 		return true;
 
@@ -2765,6 +2811,7 @@ EXPORT_SYMBOL(blk_finish_request);
 static bool blk_end_bidi_request(struct request *rq, int error,
 				 unsigned int nr_bytes, unsigned int bidi_bytes)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2814 \n"); 
 	struct request_queue *q = rq->q;
 	unsigned long flags;
 
@@ -2796,6 +2843,7 @@ static bool blk_end_bidi_request(struct request *rq, int error,
 bool __blk_end_bidi_request(struct request *rq, int error,
 				   unsigned int nr_bytes, unsigned int bidi_bytes)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2846 \n"); 
 	if (blk_update_bidi_request(rq, error, nr_bytes, bidi_bytes))
 		return true;
 
@@ -2820,6 +2868,7 @@ bool __blk_end_bidi_request(struct request *rq, int error,
  **/
 bool blk_end_request(struct request *rq, int error, unsigned int nr_bytes)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2871 \n"); 
 	return blk_end_bidi_request(rq, error, nr_bytes, 0);
 }
 EXPORT_SYMBOL(blk_end_request);
@@ -2834,6 +2883,7 @@ EXPORT_SYMBOL(blk_end_request);
  */
 void blk_end_request_all(struct request *rq, int error)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2886 \n"); 
 	bool pending;
 	unsigned int bidi_bytes = 0;
 
@@ -2859,6 +2909,7 @@ EXPORT_SYMBOL(blk_end_request_all);
  */
 bool blk_end_request_cur(struct request *rq, int error)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2912 \n"); 
 	return blk_end_request(rq, error, blk_rq_cur_bytes(rq));
 }
 EXPORT_SYMBOL(blk_end_request_cur);
@@ -2877,6 +2928,7 @@ EXPORT_SYMBOL(blk_end_request_cur);
  */
 bool blk_end_request_err(struct request *rq, int error)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2931 \n"); 
 	WARN_ON(error >= 0);
 	return blk_end_request(rq, error, blk_rq_err_bytes(rq));
 }
@@ -2897,6 +2949,7 @@ EXPORT_SYMBOL_GPL(blk_end_request_err);
  **/
 bool __blk_end_request(struct request *rq, int error, unsigned int nr_bytes)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2952 \n"); 
 	return __blk_end_bidi_request(rq, error, nr_bytes, 0);
 }
 EXPORT_SYMBOL(__blk_end_request);
@@ -2911,6 +2964,7 @@ EXPORT_SYMBOL(__blk_end_request);
  */
 void __blk_end_request_all(struct request *rq, int error)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2967 \n"); 
 	bool pending;
 	unsigned int bidi_bytes = 0;
 
@@ -2937,6 +2991,7 @@ EXPORT_SYMBOL(__blk_end_request_all);
  */
 bool __blk_end_request_cur(struct request *rq, int error)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 2994 \n"); 
 	return __blk_end_request(rq, error, blk_rq_cur_bytes(rq));
 }
 EXPORT_SYMBOL(__blk_end_request_cur);
@@ -2956,6 +3011,7 @@ EXPORT_SYMBOL(__blk_end_request_cur);
  */
 bool __blk_end_request_err(struct request *rq, int error)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 3014 \n"); 
 	WARN_ON(error >= 0);
 	return __blk_end_request(rq, error, blk_rq_err_bytes(rq));
 }
@@ -3016,6 +3072,7 @@ EXPORT_SYMBOL_GPL(rq_flush_dcache_pages);
  */
 int blk_lld_busy(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 3075 \n"); 
 	if (q->lld_busy_fn)
 		return q->lld_busy_fn(q);
 
@@ -3032,6 +3089,7 @@ EXPORT_SYMBOL_GPL(blk_lld_busy);
  */
 void blk_rq_unprep_clone(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 3092 \n"); 
 	struct bio *bio;
 
 	while ((bio = rq->bio) != NULL) {
@@ -3048,6 +3106,7 @@ EXPORT_SYMBOL_GPL(blk_rq_unprep_clone);
  */
 static void __blk_rq_prep_clone(struct request *dst, struct request *src)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 3109 \n"); 
 	dst->cpu = src->cpu;
 	req_set_op_attrs(dst, req_op(src),
 			 (src->cmd_flags & REQ_CLONE_MASK) | REQ_NOMERGE);
@@ -3083,6 +3142,7 @@ int blk_rq_prep_clone(struct request *rq, struct request *rq_src,
 		      int (*bio_ctr)(struct bio *, struct bio *, void *),
 		      void *data)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 3145 \n"); 
 	struct bio *bio, *bio_src;
 
 	if (!bs)
@@ -3124,6 +3184,7 @@ EXPORT_SYMBOL(kblockd_schedule_work);
 
 int kblockd_schedule_work_on(int cpu, struct work_struct *work)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 3187 \n"); 
 	return queue_work_on(cpu, kblockd_workqueue, work);
 }
 EXPORT_SYMBOL(kblockd_schedule_work_on);
@@ -3131,6 +3192,7 @@ EXPORT_SYMBOL(kblockd_schedule_work_on);
 int kblockd_schedule_delayed_work(struct delayed_work *dwork,
 				  unsigned long delay)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 3195 \n"); 
 	return queue_delayed_work(kblockd_workqueue, dwork, delay);
 }
 EXPORT_SYMBOL(kblockd_schedule_delayed_work);
@@ -3138,6 +3200,7 @@ EXPORT_SYMBOL(kblockd_schedule_delayed_work);
 int kblockd_schedule_delayed_work_on(int cpu, struct delayed_work *dwork,
 				     unsigned long delay)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 3203 \n"); 
 	return queue_delayed_work_on(cpu, kblockd_workqueue, dwork, delay);
 }
 EXPORT_SYMBOL(kblockd_schedule_delayed_work_on);
@@ -3179,6 +3242,7 @@ EXPORT_SYMBOL(blk_start_plug);
 
 static int plug_rq_cmp(void *priv, struct list_head *a, struct list_head *b)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 3245 \n"); 
 	struct request *rqa = container_of(a, struct request, queuelist);
 	struct request *rqb = container_of(b, struct request, queuelist);
 
@@ -3225,6 +3289,7 @@ static void flush_plug_callbacks(struct blk_plug *plug, bool from_schedule)
 struct blk_plug_cb *blk_check_plugged(blk_plug_cb_fn unplug, void *data,
 				      int size)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 3292 \n"); 
 	struct blk_plug *plug = current->plug;
 	struct blk_plug_cb *cb;
 
@@ -3330,6 +3395,7 @@ EXPORT_SYMBOL(blk_finish_plug);
 
 bool blk_poll(struct request_queue *q, blk_qc_t cookie)
 {
+	panic("We reached unpopular paths in block/blk-core.c: line 3398 \n"); 
 	struct blk_plug *plug;
 	long state;
 	unsigned int queue_num;

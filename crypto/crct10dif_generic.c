@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -41,6 +42,7 @@ struct chksum_desc_ctx {
 
 static int chksum_init(struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/crct10dif_generic.c: line 45 \n"); 
 	struct chksum_desc_ctx *ctx = shash_desc_ctx(desc);
 
 	ctx->crc = 0;
@@ -51,6 +53,7 @@ static int chksum_init(struct shash_desc *desc)
 static int chksum_update(struct shash_desc *desc, const u8 *data,
 			 unsigned int length)
 {
+	panic("We reached unpopular paths in crypto/crct10dif_generic.c: line 56 \n"); 
 	struct chksum_desc_ctx *ctx = shash_desc_ctx(desc);
 
 	ctx->crc = crc_t10dif_generic(ctx->crc, data, length);
@@ -59,6 +62,7 @@ static int chksum_update(struct shash_desc *desc, const u8 *data,
 
 static int chksum_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crct10dif_generic.c: line 65 \n"); 
 	struct chksum_desc_ctx *ctx = shash_desc_ctx(desc);
 
 	*(__u16 *)out = ctx->crc;
@@ -68,6 +72,7 @@ static int chksum_final(struct shash_desc *desc, u8 *out)
 static int __chksum_finup(__u16 *crcp, const u8 *data, unsigned int len,
 			u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crct10dif_generic.c: line 75 \n"); 
 	*(__u16 *)out = crc_t10dif_generic(*crcp, data, len);
 	return 0;
 }
@@ -75,6 +80,7 @@ static int __chksum_finup(__u16 *crcp, const u8 *data, unsigned int len,
 static int chksum_finup(struct shash_desc *desc, const u8 *data,
 			unsigned int len, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crct10dif_generic.c: line 83 \n"); 
 	struct chksum_desc_ctx *ctx = shash_desc_ctx(desc);
 
 	return __chksum_finup(&ctx->crc, data, len, out);
@@ -83,6 +89,7 @@ static int chksum_finup(struct shash_desc *desc, const u8 *data,
 static int chksum_digest(struct shash_desc *desc, const u8 *data,
 			 unsigned int length, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crct10dif_generic.c: line 92 \n"); 
 	struct chksum_desc_ctx *ctx = shash_desc_ctx(desc);
 
 	return __chksum_finup(&ctx->crc, data, length, out);

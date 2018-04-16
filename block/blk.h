@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #ifndef BLK_INTERNAL_H
 #define BLK_INTERNAL_H
 
@@ -46,6 +47,7 @@ static inline struct blk_flush_queue *blk_get_flush_queue(
 
 static inline void __blk_get_queue(struct request_queue *q)
 {
+	// [blacklist] panic("We reached unpopular paths in block/blk.h: line 50 \n"); 
 	kobject_get(&q->kobj);
 }
 
@@ -69,6 +71,7 @@ void blk_freeze_queue(struct request_queue *q);
 
 static inline void blk_queue_enter_live(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk.h: line 74 \n"); 
 	/*
 	 * Given that running in generic_make_request() context
 	 * guarantees that a live reference against q_usage_counter has
@@ -83,6 +86,7 @@ void blk_flush_integrity(void);
 #else
 static inline void blk_flush_integrity(void)
 {
+	panic("We reached unpopular paths in block/blk.h: line 89 \n"); 
 }
 #endif
 
@@ -124,6 +128,7 @@ static inline int blk_mark_rq_complete(struct request *rq)
 
 static inline void blk_clear_rq_complete(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk.h: line 131 \n"); 
 	clear_bit(REQ_ATOM_COMPLETE, &rq->atomic_flags);
 }
 
@@ -173,6 +178,7 @@ static inline struct request *__elv_next_request(struct request_queue *q)
 
 static inline void elv_activate_rq(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk.h: line 181 \n"); 
 	struct elevator_queue *e = q->elevator;
 
 	if (e->type->ops.elevator_activate_req_fn)
@@ -181,6 +187,7 @@ static inline void elv_activate_rq(struct request_queue *q, struct request *rq)
 
 static inline void elv_deactivate_rq(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk.h: line 190 \n"); 
 	struct elevator_queue *e = q->elevator;
 
 	if (e->type->ops.elevator_deactivate_req_fn)
@@ -195,6 +202,7 @@ ssize_t part_timeout_store(struct device *, struct device_attribute *,
 #else
 static inline int blk_should_fake_timeout(struct request_queue *q)
 {
+	// [blacklist] panic("We reached unpopular paths in block/blk.h: line 205 \n"); 
 	return 0;
 }
 #endif
@@ -224,6 +232,7 @@ int blk_dev_init(void);
  */
 static inline int queue_congestion_on_threshold(struct request_queue *q)
 {
+	// [blacklist] panic("We reached unpopular paths in block/blk.h: line 235 \n"); 
 	return q->nr_congestion_on;
 }
 
@@ -232,6 +241,7 @@ static inline int queue_congestion_on_threshold(struct request_queue *q)
  */
 static inline int queue_congestion_off_threshold(struct request_queue *q)
 {
+	// [blacklist] panic("We reached unpopular paths in block/blk.h: line 244 \n"); 
 	return q->nr_congestion_off;
 }
 

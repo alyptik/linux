@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -326,6 +327,7 @@ EXPORT_SYMBOL(tcp_memory_pressure);
 
 void tcp_enter_memory_pressure(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 330 \n"); 
 	if (!tcp_memory_pressure) {
 		NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMEMORYPRESSURES);
 		tcp_memory_pressure = 1;
@@ -356,6 +358,7 @@ static u8 secs_to_retrans(int seconds, int timeout, int rto_max)
 /* Convert retransmits to seconds based on initial and max timeout */
 static int retrans_to_secs(u8 retrans, int timeout, int rto_max)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 361 \n"); 
 	int period = 0;
 
 	if (retrans > 0) {
@@ -594,6 +597,7 @@ EXPORT_SYMBOL(tcp_ioctl);
 
 static inline void tcp_mark_push(struct tcp_sock *tp, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 600 \n"); 
 	TCP_SKB_CB(skb)->tcp_flags |= TCPHDR_PSH;
 	tp->pushed_seq = tp->write_seq;
 }
@@ -685,6 +689,7 @@ static void tcp_push(struct sock *sk, int flags, int mss_now,
 static int tcp_splice_data_recv(read_descriptor_t *rd_desc, struct sk_buff *skb,
 				unsigned int offset, size_t len)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 692 \n"); 
 	struct tcp_splice_state *tss = rd_desc->arg.data;
 	int ret;
 
@@ -697,6 +702,7 @@ static int tcp_splice_data_recv(read_descriptor_t *rd_desc, struct sk_buff *skb,
 
 static int __tcp_splice_read(struct sock *sk, struct tcp_splice_state *tss)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 705 \n"); 
 	/* Store TCP splice context information in read_descriptor_t. */
 	read_descriptor_t rd_desc = {
 		.arg.data = tss,
@@ -722,6 +728,7 @@ ssize_t tcp_splice_read(struct socket *sock, loff_t *ppos,
 			struct pipe_inode_info *pipe, size_t len,
 			unsigned int flags)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 731 \n"); 
 	struct sock *sk = sock->sk;
 	struct tcp_splice_state tss = {
 		.pipe = pipe,
@@ -1042,6 +1049,7 @@ EXPORT_SYMBOL(tcp_sendpage);
  */
 static int linear_payload_sz(bool first_skb)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 1052 \n"); 
 	if (first_skb)
 		return SKB_WITH_OVERHEAD(2048 - MAX_TCP_HEADER);
 	return 0;
@@ -1078,6 +1086,7 @@ void tcp_free_fastopen_req(struct tcp_sock *tp)
 static int tcp_sendmsg_fastopen(struct sock *sk, struct msghdr *msg,
 				int *copied, size_t size)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 1089 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct sockaddr *uaddr = msg->msg_name;
 	int err, flags;
@@ -1358,6 +1367,7 @@ EXPORT_SYMBOL(tcp_sendmsg);
 
 static int tcp_recv_urg(struct sock *sk, struct msghdr *msg, int len, int flags)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 1370 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 
 	/* No URG data to read. */
@@ -1402,6 +1412,7 @@ static int tcp_recv_urg(struct sock *sk, struct msghdr *msg, int len, int flags)
 
 static int tcp_peek_sndq(struct sock *sk, struct msghdr *msg, int len)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 1415 \n"); 
 	struct sk_buff *skb;
 	int copied = 0, err = 0;
 
@@ -1498,6 +1509,7 @@ static void tcp_prequeue_process(struct sock *sk)
 
 static struct sk_buff *tcp_recv_skb(struct sock *sk, u32 seq, u32 *off)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 1512 \n"); 
 	struct sk_buff *skb;
 	u32 offset;
 
@@ -1534,6 +1546,7 @@ static struct sk_buff *tcp_recv_skb(struct sock *sk, u32 seq, u32 *off)
 int tcp_read_sock(struct sock *sk, read_descriptor_t *desc,
 		  sk_read_actor_t recv_actor)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 1549 \n"); 
 	struct sk_buff *skb;
 	struct tcp_sock *tp = tcp_sk(sk);
 	u32 seq = tp->copied_seq;
@@ -1605,6 +1618,7 @@ EXPORT_SYMBOL(tcp_read_sock);
 
 int tcp_peek_len(struct socket *sock)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 1621 \n"); 
 	return tcp_inq(sock->sk);
 }
 EXPORT_SYMBOL(tcp_peek_len);
@@ -2244,6 +2258,7 @@ EXPORT_SYMBOL(tcp_close);
 
 static inline bool tcp_need_reset(int state)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 2261 \n"); 
 	return (1 << state) &
 	       (TCPF_ESTABLISHED | TCPF_CLOSE_WAIT | TCPF_FIN_WAIT1 |
 		TCPF_FIN_WAIT2 | TCPF_SYN_RECV);
@@ -2251,6 +2266,7 @@ static inline bool tcp_need_reset(int state)
 
 int tcp_disconnect(struct sock *sk, int flags)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 2269 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	struct tcp_sock *tp = tcp_sk(sk);
@@ -2329,6 +2345,7 @@ EXPORT_SYMBOL(tcp_disconnect);
 
 static inline bool tcp_can_repair_sock(const struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 2348 \n"); 
 	return ns_capable(sock_net(sk)->user_ns, CAP_NET_ADMIN) &&
 		((1 << sk->sk_state) & (TCPF_CLOSE | TCPF_ESTABLISHED));
 }
@@ -2735,6 +2752,7 @@ EXPORT_SYMBOL(compat_tcp_setsockopt);
 /* Return information about state of tcp endpoint in API format. */
 void tcp_get_info(struct sock *sk, struct tcp_info *info)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 2755 \n"); 
 	const struct tcp_sock *tp = tcp_sk(sk); /* iff sk_type == SOCK_STREAM */
 	const struct inet_connection_sock *icsk = inet_csk(sk);
 	u32 now = tcp_time_stamp, intv;
@@ -3231,6 +3249,7 @@ EXPORT_SYMBOL_GPL(tcp_done);
 
 int tcp_abort(struct sock *sk, int err)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp.c: line 3252 \n"); 
 	if (!sk_fullsock(sk)) {
 		if (sk->sk_state == TCP_NEW_SYN_RECV) {
 			struct request_sock *req = inet_reqsk(sk);

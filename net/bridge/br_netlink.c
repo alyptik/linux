@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Bridge netlink control interface
  *
@@ -116,6 +117,7 @@ static size_t br_get_link_af_size_filtered(const struct net_device *dev,
 
 static inline size_t br_port_info_size(void)
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 120 \n"); 
 	return nla_total_size(1)	/* IFLA_BRPORT_STATE  */
 		+ nla_total_size(2)	/* IFLA_BRPORT_PRIORITY */
 		+ nla_total_size(4)	/* IFLA_BRPORT_COST */
@@ -306,6 +308,7 @@ initvars:
 static int br_fill_ifvlaninfo(struct sk_buff *skb,
 			      struct net_bridge_vlan_group *vg)
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 311 \n"); 
 	struct bridge_vlan_info vinfo;
 	struct net_bridge_vlan *v;
 	u16 pvid;
@@ -470,6 +473,7 @@ errout:
 int br_getlink(struct sk_buff *skb, u32 pid, u32 seq,
 	       struct net_device *dev, u32 filter_mask, int nlflags)
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 476 \n"); 
 	struct net_bridge_port *port = br_port_get_rtnl(dev);
 
 	if (!port && !(filter_mask & RTEXT_FILTER_BRVLAN) &&
@@ -483,6 +487,7 @@ int br_getlink(struct sk_buff *skb, u32 pid, u32 seq,
 static int br_vlan_info(struct net_bridge *br, struct net_bridge_port *p,
 			int cmd, struct bridge_vlan_info *vinfo)
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 490 \n"); 
 	int err = 0;
 
 	switch (cmd) {
@@ -519,6 +524,7 @@ static int br_afspec(struct net_bridge *br,
 		     struct nlattr *af_spec,
 		     int cmd)
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 527 \n"); 
 	struct bridge_vlan_info *vinfo_start = NULL;
 	struct bridge_vlan_info *vinfo = NULL;
 	struct nlattr *attr;
@@ -591,6 +597,7 @@ static const struct nla_policy br_port_policy[IFLA_BRPORT_MAX + 1] = {
 /* Change the state of the port and notify spanning tree */
 static int br_set_port_state(struct net_bridge_port *p, u8 state)
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 600 \n"); 
 	if (state > BR_STATE_BLOCKING)
 		return -EINVAL;
 
@@ -614,6 +621,7 @@ static int br_set_port_state(struct net_bridge_port *p, u8 state)
 static void br_set_port_flag(struct net_bridge_port *p, struct nlattr *tb[],
 			   int attrtype, unsigned long mask)
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 624 \n"); 
 	if (tb[attrtype]) {
 		u8 flag = nla_get_u8(tb[attrtype]);
 		if (flag)
@@ -626,6 +634,7 @@ static void br_set_port_flag(struct net_bridge_port *p, struct nlattr *tb[],
 /* Process bridge protocol info on port */
 static int br_setport(struct net_bridge_port *p, struct nlattr *tb[])
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 637 \n"); 
 	int err;
 	unsigned long old_flags = p->flags;
 
@@ -676,6 +685,7 @@ static int br_setport(struct net_bridge_port *p, struct nlattr *tb[])
 /* Change state and parameters on port. */
 int br_setlink(struct net_device *dev, struct nlmsghdr *nlh, u16 flags)
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 688 \n"); 
 	struct nlattr *protinfo;
 	struct nlattr *afspec;
 	struct net_bridge_port *p;
@@ -731,6 +741,7 @@ out:
 /* Delete port information */
 int br_dellink(struct net_device *dev, struct nlmsghdr *nlh, u16 flags)
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 744 \n"); 
 	struct nlattr *afspec;
 	struct net_bridge_port *p;
 	int err = 0;
@@ -793,6 +804,7 @@ static int br_port_slave_changelink(struct net_device *brdev,
 				    struct nlattr *tb[],
 				    struct nlattr *data[])
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 807 \n"); 
 	struct net_bridge *br = netdev_priv(brdev);
 	int ret;
 
@@ -1269,6 +1281,7 @@ static int br_fill_info(struct sk_buff *skb, const struct net_device *brdev)
 
 static size_t br_get_linkxstats_size(const struct net_device *dev, int attr)
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 1284 \n"); 
 	struct net_bridge_port *p = NULL;
 	struct net_bridge_vlan_group *vg;
 	struct net_bridge_vlan *v;
@@ -1306,6 +1319,7 @@ static int br_fill_linkxstats(struct sk_buff *skb,
 			      const struct net_device *dev,
 			      int *prividx, int attr)
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 1322 \n"); 
 	struct nlattr *nla __maybe_unused;
 	struct net_bridge_port *p = NULL;
 	struct net_bridge_vlan_group *vg;
@@ -1430,6 +1444,7 @@ out_af:
 
 void br_netlink_fini(void)
 {
+	panic("We reached unpopular paths in net/bridge/br_netlink.c: line 1447 \n"); 
 	br_mdb_uninit();
 	rtnl_af_unregister(&br_af_ops);
 	rtnl_link_unregister(&br_link_ops);

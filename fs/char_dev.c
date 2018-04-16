@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/char_dev.c
  *
@@ -40,6 +41,7 @@ static struct char_device_struct {
 /* index in the above */
 static inline int major_to_index(unsigned major)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/char_dev.c: line 44 \n"); 
 	return major % CHRDEV_MAJOR_HASH_SIZE;
 }
 
@@ -149,6 +151,7 @@ out:
 static struct char_device_struct *
 __unregister_chrdev_region(unsigned major, unsigned baseminor, int minorct)
 {
+	panic("We reached unpopular paths in fs/char_dev.c: line 154 \n"); 
 	struct char_device_struct *cd = NULL, **cp;
 	int i = major_to_index(major);
 
@@ -288,6 +291,7 @@ out2:
  */
 void unregister_chrdev_region(dev_t from, unsigned count)
 {
+	panic("We reached unpopular paths in fs/char_dev.c: line 294 \n"); 
 	dev_t to = from + count;
 	dev_t n, next;
 
@@ -313,6 +317,7 @@ void unregister_chrdev_region(dev_t from, unsigned count)
 void __unregister_chrdev(unsigned int major, unsigned int baseminor,
 			 unsigned int count, const char *name)
 {
+	panic("We reached unpopular paths in fs/char_dev.c: line 320 \n"); 
 	struct char_device_struct *cd;
 
 	cd = __unregister_chrdev_region(major, baseminor, count);
@@ -412,6 +417,7 @@ void cd_forget(struct inode *inode)
 
 static void cdev_purge(struct cdev *cdev)
 {
+	panic("We reached unpopular paths in fs/char_dev.c: line 420 \n"); 
 	spin_lock(&cdev_lock);
 	while (!list_empty(&cdev->list)) {
 		struct inode *inode;
@@ -473,6 +479,7 @@ int cdev_add(struct cdev *p, dev_t dev, unsigned count)
 
 static void cdev_unmap(dev_t dev, unsigned count)
 {
+	panic("We reached unpopular paths in fs/char_dev.c: line 482 \n"); 
 	kobj_unmap(cdev_map, dev, count);
 }
 
@@ -485,6 +492,7 @@ static void cdev_unmap(dev_t dev, unsigned count)
  */
 void cdev_del(struct cdev *p)
 {
+	panic("We reached unpopular paths in fs/char_dev.c: line 495 \n"); 
 	cdev_unmap(p->dev, p->count);
 	kobject_put(&p->kobj);
 }
@@ -492,6 +500,7 @@ void cdev_del(struct cdev *p)
 
 static void cdev_default_release(struct kobject *kobj)
 {
+	panic("We reached unpopular paths in fs/char_dev.c: line 503 \n"); 
 	struct cdev *p = container_of(kobj, struct cdev, kobj);
 	struct kobject *parent = kobj->parent;
 
@@ -501,6 +510,7 @@ static void cdev_default_release(struct kobject *kobj)
 
 static void cdev_dynamic_release(struct kobject *kobj)
 {
+	panic("We reached unpopular paths in fs/char_dev.c: line 513 \n"); 
 	struct cdev *p = container_of(kobj, struct cdev, kobj);
 	struct kobject *parent = kobj->parent;
 
@@ -550,6 +560,7 @@ void cdev_init(struct cdev *cdev, const struct file_operations *fops)
 
 static struct kobject *base_probe(dev_t dev, int *part, void *data)
 {
+	panic("We reached unpopular paths in fs/char_dev.c: line 563 \n"); 
 	if (request_module("char-major-%d-%d", MAJOR(dev), MINOR(dev)) > 0)
 		/* Make old-style 2.4 aliases work */
 		request_module("char-major-%d", MAJOR(dev));

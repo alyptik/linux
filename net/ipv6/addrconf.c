@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IPv6 Address [auto]configuration
  *	Linux INET6 implementation
@@ -109,6 +110,7 @@
 
 static inline u32 cstamp_delta(unsigned long cstamp)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 113 \n"); 
 	return (cstamp - INITIAL_JIFFIES) * 100UL / HZ;
 }
 
@@ -139,11 +141,13 @@ static void addrconf_sysctl_unregister(struct inet6_dev *idev);
 #else
 static inline int addrconf_sysctl_register(struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 144 \n"); 
 	return 0;
 }
 
 static inline void addrconf_sysctl_unregister(struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 150 \n"); 
 }
 #endif
 
@@ -592,6 +596,7 @@ static const struct nla_policy devconf_ipv6_policy[NETCONFA_MAX+1] = {
 static int inet6_netconf_get_devconf(struct sk_buff *in_skb,
 				     struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 599 \n"); 
 	struct net *net = sock_net(in_skb->sk);
 	struct nlattr *tb[NETCONFA_MAX+1];
 	struct netconfmsg *ncm;
@@ -653,6 +658,7 @@ errout:
 static int inet6_netconf_dump_devconf(struct sk_buff *skb,
 				      struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 661 \n"); 
 	struct net *net = sock_net(skb->sk);
 	int h, s_h;
 	int idx, s_idx;
@@ -1061,6 +1067,7 @@ enum cleanup_prefix_rt_t {
 static enum cleanup_prefix_rt_t
 check_cleanup_prefix_route(struct inet6_ifaddr *ifp, unsigned long *expires)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 1070 \n"); 
 	struct inet6_ifaddr *ifa;
 	struct inet6_dev *idev = ifp->idev;
 	unsigned long lifetime;
@@ -1098,6 +1105,7 @@ check_cleanup_prefix_route(struct inet6_ifaddr *ifp, unsigned long *expires)
 static void
 cleanup_prefix_route(struct inet6_ifaddr *ifp, unsigned long expires, bool del_rt)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 1108 \n"); 
 	struct rt6_info *rt;
 
 	rt = addrconf_get_prefix_route(&ifp->addr,
@@ -1120,6 +1128,7 @@ cleanup_prefix_route(struct inet6_ifaddr *ifp, unsigned long expires, bool del_r
 
 static void ipv6_del_addr(struct inet6_ifaddr *ifp)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 1131 \n"); 
 	int state;
 	enum cleanup_prefix_rt_t action = CLEANUP_PREFIX_RT_NOP;
 	unsigned long expires;
@@ -1176,6 +1185,7 @@ out:
 
 static int ipv6_create_tempaddr(struct inet6_ifaddr *ifp, struct inet6_ifaddr *ift)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 1188 \n"); 
 	struct inet6_dev *idev = ifp->idev;
 	struct in6_addr addr, *tmpaddr;
 	unsigned long tmp_prefered_lft, tmp_valid_lft, tmp_tstamp, age;
@@ -1342,6 +1352,7 @@ struct ipv6_saddr_dst {
 
 static inline int ipv6_saddr_preferred(int type)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 1355 \n"); 
 	if (type & (IPV6_ADDR_MAPPED|IPV6_ADDR_COMPATv4|IPV6_ADDR_LOOPBACK))
 		return 1;
 	return 0;
@@ -1349,6 +1360,7 @@ static inline int ipv6_saddr_preferred(int type)
 
 static inline bool ipv6_use_optimistic_addr(struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 1363 \n"); 
 #ifdef CONFIG_IPV6_OPTIMISTIC_DAD
 	return idev && idev->cnf.optimistic_dad && idev->cnf.use_optimistic;
 #else
@@ -1576,6 +1588,7 @@ static int ipv6_get_saddr_master(struct net *net,
 				 struct ipv6_saddr_score *scores,
 				 int hiscore_idx)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 1591 \n"); 
 	struct inet6_dev *idev;
 
 	idev = __in6_dev_get(dst_dev);
@@ -1727,6 +1740,7 @@ int ipv6_get_lladdr(struct net_device *dev, struct in6_addr *addr,
 
 static int ipv6_count_addresses(struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 1743 \n"); 
 	int cnt = 0;
 	struct inet6_ifaddr *ifp;
 
@@ -1799,6 +1813,7 @@ static bool ipv6_chk_same_addr(struct net *net, const struct in6_addr *addr,
 bool ipv6_chk_custom_prefix(const struct in6_addr *addr,
 	const unsigned int prefix_len, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 1816 \n"); 
 	struct inet6_dev *idev;
 	struct inet6_ifaddr *ifa;
 	bool ret = false;
@@ -1822,6 +1837,7 @@ EXPORT_SYMBOL(ipv6_chk_custom_prefix);
 
 int ipv6_chk_prefix(const struct in6_addr *addr, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 1840 \n"); 
 	struct inet6_dev *idev;
 	struct inet6_ifaddr *ifa;
 	int	onlink;
@@ -1872,6 +1888,7 @@ struct inet6_ifaddr *ipv6_get_ifaddr(struct net *net, const struct in6_addr *add
 
 static void addrconf_dad_stop(struct inet6_ifaddr *ifp, int dad_failed)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 1891 \n"); 
 	if (dad_failed)
 		ifp->flags |= IFA_F_DADFAILED;
 
@@ -1917,6 +1934,7 @@ static int addrconf_dad_end(struct inet6_ifaddr *ifp)
 
 void addrconf_dad_failure(struct inet6_ifaddr *ifp)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 1937 \n"); 
 	struct inet6_dev *idev = ifp->idev;
 	struct net *net = dev_net(ifp->idev->dev);
 
@@ -2017,6 +2035,7 @@ void addrconf_leave_solict(struct inet6_dev *idev, const struct in6_addr *addr)
 /* caller must hold RTNL */
 static void addrconf_join_anycast(struct inet6_ifaddr *ifp)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2038 \n"); 
 	struct in6_addr addr;
 
 	if (ifp->prefix_len >= 127) /* RFC 6164 */
@@ -2030,6 +2049,7 @@ static void addrconf_join_anycast(struct inet6_ifaddr *ifp)
 /* caller must hold RTNL */
 static void addrconf_leave_anycast(struct inet6_ifaddr *ifp)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2052 \n"); 
 	struct in6_addr addr;
 
 	if (ifp->prefix_len >= 127) /* RFC 6164 */
@@ -2042,6 +2062,7 @@ static void addrconf_leave_anycast(struct inet6_ifaddr *ifp)
 
 static int addrconf_ifid_eui64(u8 *eui, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2065 \n"); 
 	if (dev->addr_len != EUI64_ADDR_LEN)
 		return -1;
 	memcpy(eui, dev->dev_addr, EUI64_ADDR_LEN);
@@ -2051,6 +2072,7 @@ static int addrconf_ifid_eui64(u8 *eui, struct net_device *dev)
 
 static int addrconf_ifid_ieee1394(u8 *eui, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2075 \n"); 
 	union fwnet_hwaddr *ha;
 
 	if (dev->addr_len != FWNET_ALEN)
@@ -2065,6 +2087,7 @@ static int addrconf_ifid_ieee1394(u8 *eui, struct net_device *dev)
 
 static int addrconf_ifid_arcnet(u8 *eui, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2090 \n"); 
 	/* XXX: inherit EUI-64 from other interface -- yoshfuji */
 	if (dev->addr_len != ARCNET_ALEN)
 		return -1;
@@ -2075,6 +2098,7 @@ static int addrconf_ifid_arcnet(u8 *eui, struct net_device *dev)
 
 static int addrconf_ifid_infiniband(u8 *eui, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2101 \n"); 
 	if (dev->addr_len != INFINIBAND_ALEN)
 		return -1;
 	memcpy(eui, dev->dev_addr + 12, 8);
@@ -2084,6 +2108,7 @@ static int addrconf_ifid_infiniband(u8 *eui, struct net_device *dev)
 
 static int __ipv6_isatap_ifid(u8 *eui, __be32 addr)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2111 \n"); 
 	if (addr == 0)
 		return -1;
 	eui[0] = (ipv4_is_zeronet(addr) || ipv4_is_private_10(addr) ||
@@ -2101,6 +2126,7 @@ static int __ipv6_isatap_ifid(u8 *eui, __be32 addr)
 
 static int addrconf_ifid_sit(u8 *eui, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2129 \n"); 
 	if (dev->priv_flags & IFF_ISATAP)
 		return __ipv6_isatap_ifid(eui, *(__be32 *)dev->dev_addr);
 	return -1;
@@ -2108,11 +2134,13 @@ static int addrconf_ifid_sit(u8 *eui, struct net_device *dev)
 
 static int addrconf_ifid_gre(u8 *eui, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2137 \n"); 
 	return __ipv6_isatap_ifid(eui, *(__be32 *)dev->dev_addr);
 }
 
 static int addrconf_ifid_ip6tnl(u8 *eui, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2143 \n"); 
 	memcpy(eui, dev->perm_addr, 3);
 	memcpy(eui + 5, dev->perm_addr + 3, 3);
 	eui[3] = 0xFF;
@@ -2147,6 +2175,7 @@ static int ipv6_generate_eui64(u8 *eui, struct net_device *dev)
 
 static int ipv6_inherit_eui64(u8 *eui, struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2178 \n"); 
 	int err = -1;
 	struct inet6_ifaddr *ifp;
 
@@ -2196,6 +2225,7 @@ regen:
 
 static void  ipv6_try_regen_rndid(struct inet6_dev *idev, struct in6_addr *tmpaddr)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2228 \n"); 
 	if (tmpaddr && memcmp(idev->rndid, &tmpaddr->s6_addr[8], 8) == 0)
 		ipv6_regen_rndid(idev);
 }
@@ -2239,6 +2269,7 @@ static struct rt6_info *addrconf_get_prefix_route(const struct in6_addr *pfx,
 						  const struct net_device *dev,
 						  u32 flags, u32 noflags)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2272 \n"); 
 	struct fib6_node *fn;
 	struct rt6_info *rt = NULL;
 	struct fib6_table *table;
@@ -2313,6 +2344,7 @@ static void manage_tempaddrs(struct inet6_dev *idev,
 			     __u32 valid_lft, __u32 prefered_lft,
 			     bool create, unsigned long now)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2347 \n"); 
 	u32 flags;
 	struct inet6_ifaddr *ift;
 
@@ -2377,6 +2409,7 @@ static void manage_tempaddrs(struct inet6_dev *idev,
 
 static bool is_addr_mode_generate_stable(struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2412 \n"); 
 	return idev->addr_gen_mode == IN6_ADDR_GEN_MODE_STABLE_PRIVACY ||
 	       idev->addr_gen_mode == IN6_ADDR_GEN_MODE_RANDOM;
 }
@@ -2388,6 +2421,7 @@ int addrconf_prefix_rcv_add_addr(struct net *net, struct net_device *dev,
 				 u32 addr_flags, bool sllao, bool tokenized,
 				 __u32 valid_lft, u32 prefered_lft)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2424 \n"); 
 	struct inet6_ifaddr *ifp = ipv6_get_ifaddr(net, addr, dev, 1);
 	int create = 0, update_lft = 0;
 
@@ -2480,6 +2514,7 @@ EXPORT_SYMBOL_GPL(addrconf_prefix_rcv_add_addr);
 
 void addrconf_prefix_rcv(struct net_device *dev, u8 *opt, int len, bool sllao)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2517 \n"); 
 	struct prefix_info *pinfo;
 	__u32 valid_lft;
 	__u32 prefered_lft;
@@ -2698,6 +2733,7 @@ err_exit:
 static int ipv6_mc_config(struct sock *sk, bool join,
 			  const struct in6_addr *addr, int ifindex)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2736 \n"); 
 	int ret;
 
 	ASSERT_RTNL();
@@ -2809,6 +2845,7 @@ static int inet6_addr_add(struct net *net, int ifindex,
 static int inet6_addr_del(struct net *net, int ifindex, u32 ifa_flags,
 			  const struct in6_addr *pfx, unsigned int plen)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 2848 \n"); 
 	struct inet6_ifaddr *ifp;
 	struct inet6_dev *idev;
 	struct net_device *dev;
@@ -3045,6 +3082,7 @@ EXPORT_SYMBOL_GPL(addrconf_add_linklocal);
 
 static bool ipv6_reserved_interfaceid(struct in6_addr address)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 3085 \n"); 
 	if ((address.s6_addr32[2] | address.s6_addr32[3]) == 0)
 		return true;
 
@@ -3063,6 +3101,7 @@ static int ipv6_generate_stable_address(struct in6_addr *address,
 					u8 dad_count,
 					const struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 3104 \n"); 
 	static DEFINE_SPINLOCK(lock);
 	static __u32 digest[SHA_DIGEST_WORDS];
 	static __u32 workspace[SHA_WORKSPACE_WORDS];
@@ -3123,6 +3162,7 @@ retry:
 
 static void ipv6_gen_mode_random_init(struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 3165 \n"); 
 	struct ipv6_stable_secret *s = &idev->cnf.stable_secret;
 
 	if (s->initialized)
@@ -3253,6 +3293,7 @@ static void addrconf_gre_config(struct net_device *dev)
 static int fixup_permanent_addr(struct inet6_dev *idev,
 				struct inet6_ifaddr *ifp)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 3296 \n"); 
 	/* rt6i_ref == 0 means the host route was removed from the
 	 * FIB, for example, if 'lo' device is taken down. In that
 	 * case regenerate the host route.
@@ -3505,6 +3546,7 @@ static struct notifier_block ipv6_dev_notf = {
 
 static void addrconf_type_change(struct net_device *dev, unsigned long event)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 3549 \n"); 
 	struct inet6_dev *idev;
 	ASSERT_RTNL();
 
@@ -3518,6 +3560,7 @@ static void addrconf_type_change(struct net_device *dev, unsigned long event)
 
 static bool addr_is_local(const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 3563 \n"); 
 	return ipv6_addr_type(addr) &
 		(IPV6_ADDR_LINKLOCAL | IPV6_ADDR_LOOPBACK);
 }
@@ -4370,6 +4413,7 @@ static const struct nla_policy ifa_ipv6_policy[IFA_MAX+1] = {
 static int
 inet6_rtm_deladdr(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 4416 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct ifaddrmsg *ifm;
 	struct nlattr *tb[IFA_MAX+1];
@@ -4398,6 +4442,7 @@ inet6_rtm_deladdr(struct sk_buff *skb, struct nlmsghdr *nlh)
 static int inet6_addr_modify(struct inet6_ifaddr *ifp, u32 ifa_flags,
 			     u32 prefered_lft, u32 valid_lft)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 4445 \n"); 
 	u32 flags;
 	clock_t expires;
 	unsigned long timeout;
@@ -4544,6 +4589,7 @@ inet6_rtm_newaddr(struct sk_buff *skb, struct nlmsghdr *nlh)
 static void put_ifaddrmsg(struct nlmsghdr *nlh, u8 prefixlen, u32 flags,
 			  u8 scope, int ifindex)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 4592 \n"); 
 	struct ifaddrmsg *ifm;
 
 	ifm = nlmsg_data(nlh);
@@ -4581,6 +4627,7 @@ static inline int rt_scope(int ifa_scope)
 
 static inline int inet6_ifaddr_msgsize(void)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 4630 \n"); 
 	return NLMSG_ALIGN(sizeof(struct ifaddrmsg))
 	       + nla_total_size(16) /* IFA_LOCAL */
 	       + nla_total_size(16) /* IFA_ADDRESS */
@@ -4648,6 +4695,7 @@ error:
 static int inet6_fill_ifmcaddr(struct sk_buff *skb, struct ifmcaddr6 *ifmca,
 				u32 portid, u32 seq, int event, u16 flags)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 4698 \n"); 
 	struct nlmsghdr  *nlh;
 	u8 scope = RT_SCOPE_UNIVERSE;
 	int ifindex = ifmca->idev->dev->ifindex;
@@ -4674,6 +4722,7 @@ static int inet6_fill_ifmcaddr(struct sk_buff *skb, struct ifmcaddr6 *ifmca,
 static int inet6_fill_ifacaddr(struct sk_buff *skb, struct ifacaddr6 *ifaca,
 				u32 portid, u32 seq, int event, unsigned int flags)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 4725 \n"); 
 	struct nlmsghdr  *nlh;
 	u8 scope = RT_SCOPE_UNIVERSE;
 	int ifindex = ifaca->aca_idev->dev->ifindex;
@@ -4826,6 +4875,7 @@ static int inet6_dump_ifaddr(struct sk_buff *skb, struct netlink_callback *cb)
 
 static int inet6_dump_ifmcaddr(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 4878 \n"); 
 	enum addr_type_t type = MULTICAST_ADDR;
 
 	return inet6_dump_addr(skb, cb, type);
@@ -4834,6 +4884,7 @@ static int inet6_dump_ifmcaddr(struct sk_buff *skb, struct netlink_callback *cb)
 
 static int inet6_dump_ifacaddr(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 4887 \n"); 
 	enum addr_type_t type = ANYCAST_ADDR;
 
 	return inet6_dump_addr(skb, cb, type);
@@ -4841,6 +4892,7 @@ static int inet6_dump_ifacaddr(struct sk_buff *skb, struct netlink_callback *cb)
 
 static int inet6_rtm_getaddr(struct sk_buff *in_skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 4895 \n"); 
 	struct net *net = sock_net(in_skb->sk);
 	struct ifaddrmsg *ifm;
 	struct nlattr *tb[IFA_MAX+1];
@@ -4983,6 +5035,7 @@ static inline void ipv6_store_devconf(struct ipv6_devconf *cnf,
 
 static inline size_t inet6_ifla6_size(void)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 5038 \n"); 
 	return nla_total_size(4) /* IFLA_INET6_FLAGS */
 	     + nla_total_size(sizeof(struct ifla_cacheinfo))
 	     + nla_total_size(DEVCONF_MAX * 4) /* IFLA_INET6_CONF */
@@ -4993,6 +5046,7 @@ static inline size_t inet6_ifla6_size(void)
 
 static inline size_t inet6_if_nlmsg_size(void)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 5049 \n"); 
 	return NLMSG_ALIGN(sizeof(struct ifinfomsg))
 	       + nla_total_size(IFNAMSIZ) /* IFLA_IFNAME */
 	       + nla_total_size(MAX_ADDR_LEN) /* IFLA_ADDRESS */
@@ -5041,6 +5095,7 @@ static inline void __snmp6_fill_stats64(u64 *stats, void __percpu *mib,
 static void snmp6_fill_stats(u64 *stats, struct inet6_dev *idev, int attrtype,
 			     int bytes)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 5098 \n"); 
 	switch (attrtype) {
 	case IFLA_INET6_STATS:
 		__snmp6_fill_stats64(stats, idev->stats.ipv6, bytes,
@@ -5128,6 +5183,7 @@ static int inet6_fill_link_af(struct sk_buff *skb, const struct net_device *dev,
 
 static int inet6_set_iftoken(struct inet6_dev *idev, struct in6_addr *token)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 5186 \n"); 
 	struct inet6_ifaddr *ifp;
 	struct net_device *dev = idev->dev;
 	bool clear_token, update_rs = false;
@@ -5294,6 +5350,7 @@ nla_put_failure:
 
 static int inet6_dump_ifinfo(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 5353 \n"); 
 	struct net *net = sock_net(skb->sk);
 	int h, s_h;
 	int idx = 0, s_idx;
@@ -5357,6 +5414,7 @@ errout:
 
 static inline size_t inet6_prefix_nlmsg_size(void)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 5417 \n"); 
 	return NLMSG_ALIGN(sizeof(struct prefixmsg))
 	       + nla_total_size(sizeof(struct in6_addr))
 	       + nla_total_size(sizeof(struct prefix_cacheinfo));
@@ -5366,6 +5424,7 @@ static int inet6_fill_prefix(struct sk_buff *skb, struct inet6_dev *idev,
 			     struct prefix_info *pinfo, u32 portid, u32 seq,
 			     int event, unsigned int flags)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 5427 \n"); 
 	struct prefixmsg *pmsg;
 	struct nlmsghdr *nlh;
 	struct prefix_cacheinfo	ci;
@@ -5405,6 +5464,7 @@ nla_put_failure:
 static void inet6_prefix_notify(int event, struct inet6_dev *idev,
 			 struct prefix_info *pinfo)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 5467 \n"); 
 	struct sk_buff *skb;
 	struct net *net = dev_net(idev->dev);
 	int err = -ENOBUFS;
@@ -6325,6 +6385,7 @@ out:
 
 void addrconf_cleanup(void)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf.c: line 6388 \n"); 
 	struct net_device *dev;
 	int i;
 

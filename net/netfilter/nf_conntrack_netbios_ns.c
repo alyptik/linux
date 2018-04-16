@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *      NetBIOS name service broadcast connection tracking helper
  *
@@ -43,6 +44,7 @@ static struct nf_conntrack_expect_policy exp_policy = {
 static int netbios_ns_help(struct sk_buff *skb, unsigned int protoff,
 		   struct nf_conn *ct, enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_netbios_ns.c: line 47 \n"); 
 	return nf_conntrack_broadcast_help(skb, protoff, ct, ctinfo, timeout);
 }
 

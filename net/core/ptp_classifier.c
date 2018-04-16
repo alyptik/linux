@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* PTP classifier
  *
  * This program is free software; you can redistribute it and/or
@@ -111,6 +112,7 @@ static struct bpf_prog *ptp_insns __read_mostly;
 
 unsigned int ptp_classify_raw(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/ptp_classifier.c: line 115 \n"); 
 	return BPF_PROG_RUN(ptp_insns, skb);
 }
 EXPORT_SYMBOL_GPL(ptp_classify_raw);

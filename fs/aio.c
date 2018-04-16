@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	An async IO implementation for Linux
  *	Written by Benjamin LaHaise <bcrl@kvack.org>
@@ -273,6 +274,7 @@ __initcall(aio_setup);
 
 static void put_aio_ring_file(struct kioctx *ctx)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 277 \n"); 
 	struct file *aio_ring_file = ctx->aio_ring_file;
 	struct address_space *i_mapping;
 
@@ -292,6 +294,7 @@ static void put_aio_ring_file(struct kioctx *ctx)
 
 static void aio_free_ring(struct kioctx *ctx)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 297 \n"); 
 	int i;
 
 	/* Disconnect the kiotx from the ring file.  This prevents future
@@ -318,6 +321,7 @@ static void aio_free_ring(struct kioctx *ctx)
 
 static int aio_ring_mremap(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 324 \n"); 
 	struct file *file = vma->vm_file;
 	struct mm_struct *mm = vma->vm_mm;
 	struct kioctx_table *table;
@@ -545,6 +549,7 @@ static int aio_setup_ring(struct kioctx *ctx)
 
 void kiocb_set_cancel_fn(struct kiocb *iocb, kiocb_cancel_fn *cancel)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 552 \n"); 
 	struct aio_kiocb *req = container_of(iocb, struct aio_kiocb, common);
 	struct kioctx *ctx = req->ki_ctx;
 	unsigned long flags;
@@ -562,6 +567,7 @@ EXPORT_SYMBOL(kiocb_set_cancel_fn);
 
 static int kiocb_cancel(struct aio_kiocb *kiocb)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 570 \n"); 
 	kiocb_cancel_fn *old, *cancel;
 
 	/*
@@ -583,6 +589,7 @@ static int kiocb_cancel(struct aio_kiocb *kiocb)
 
 static void free_ioctx(struct work_struct *work)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 592 \n"); 
 	struct kioctx *ctx = container_of(work, struct kioctx, free_work);
 
 	pr_debug("freeing %p\n", ctx);
@@ -596,6 +603,7 @@ static void free_ioctx(struct work_struct *work)
 
 static void free_ioctx_reqs(struct percpu_ref *ref)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 606 \n"); 
 	struct kioctx *ctx = container_of(ref, struct kioctx, reqs);
 
 	/* At this point we know that there are no any in-flight requests */
@@ -613,6 +621,7 @@ static void free_ioctx_reqs(struct percpu_ref *ref)
  */
 static void free_ioctx_users(struct percpu_ref *ref)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 624 \n"); 
 	struct kioctx *ctx = container_of(ref, struct kioctx, users);
 	struct aio_kiocb *req;
 
@@ -689,6 +698,7 @@ static int ioctx_add_table(struct kioctx *ctx, struct mm_struct *mm)
 
 static void aio_nr_sub(unsigned nr)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 701 \n"); 
 	spin_lock(&aio_nr_lock);
 	if (WARN_ON(aio_nr - nr > aio_nr))
 		aio_nr = 0;
@@ -812,6 +822,7 @@ err:
 static int kill_ioctx(struct mm_struct *mm, struct kioctx *ctx,
 		      struct ctx_rq_wait *wait)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 825 \n"); 
 	struct kioctx_table *table;
 
 	spin_lock(&mm->ioctx_lock);
@@ -896,6 +907,7 @@ void exit_aio(struct mm_struct *mm)
 
 static void put_reqs_available(struct kioctx *ctx, unsigned nr)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 910 \n"); 
 	struct kioctx_cpu *kcpu;
 	unsigned long flags;
 
@@ -913,6 +925,7 @@ static void put_reqs_available(struct kioctx *ctx, unsigned nr)
 
 static bool get_reqs_available(struct kioctx *ctx)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 928 \n"); 
 	struct kioctx_cpu *kcpu;
 	bool ret = false;
 	unsigned long flags;
@@ -951,6 +964,7 @@ out:
 static void refill_reqs_available(struct kioctx *ctx, unsigned head,
                                   unsigned tail)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 967 \n"); 
 	unsigned events_in_ring, completed;
 
 	/* Clamp head since userland can write to it. */
@@ -979,6 +993,7 @@ static void refill_reqs_available(struct kioctx *ctx, unsigned head,
  */
 static void user_refill_reqs_available(struct kioctx *ctx)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 996 \n"); 
 	spin_lock_irq(&ctx->completion_lock);
 	if (ctx->completed_events) {
 		struct aio_ring *ring;
@@ -1009,6 +1024,7 @@ static void user_refill_reqs_available(struct kioctx *ctx)
  */
 static inline struct aio_kiocb *aio_get_req(struct kioctx *ctx)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 1027 \n"); 
 	struct aio_kiocb *req;
 
 	if (!get_reqs_available(ctx)) {
@@ -1032,6 +1048,7 @@ out_put:
 
 static void kiocb_free(struct aio_kiocb *req)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 1051 \n"); 
 	if (req->common.ki_filp)
 		fput(req->common.ki_filp);
 	if (req->ki_eventfd != NULL)
@@ -1041,6 +1058,7 @@ static void kiocb_free(struct aio_kiocb *req)
 
 static struct kioctx *lookup_ioctx(unsigned long ctx_id)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 1061 \n"); 
 	struct aio_ring __user *ring  = (void __user *)ctx_id;
 	struct mm_struct *mm = current->mm;
 	struct kioctx *ctx, *ret = NULL;
@@ -1071,6 +1089,7 @@ out:
  */
 static void aio_complete(struct kiocb *kiocb, long res, long res2)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 1092 \n"); 
 	struct aio_kiocb *iocb = container_of(kiocb, struct aio_kiocb, common);
 	struct kioctx	*ctx = iocb->ki_ctx;
 	struct aio_ring	*ring;
@@ -1407,6 +1426,7 @@ SYSCALL_DEFINE1(io_destroy, aio_context_t, ctx)
 static int aio_setup_rw(int rw, struct iocb *iocb, struct iovec **iovec,
 		bool vectored, bool compat, struct iov_iter *iter)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 1429 \n"); 
 	void __user *buf = (void __user *)(uintptr_t)iocb->aio_buf;
 	size_t len = iocb->aio_nbytes;
 
@@ -1425,6 +1445,7 @@ static int aio_setup_rw(int rw, struct iocb *iocb, struct iovec **iovec,
 
 static inline ssize_t aio_ret(struct kiocb *req, ssize_t ret)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 1448 \n"); 
 	switch (ret) {
 	case -EIOCBQUEUED:
 		return ret;
@@ -1447,6 +1468,7 @@ static inline ssize_t aio_ret(struct kiocb *req, ssize_t ret)
 static ssize_t aio_read(struct kiocb *req, struct iocb *iocb, bool vectored,
 		bool compat)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 1471 \n"); 
 	struct file *file = req->ki_filp;
 	struct iovec inline_vecs[UIO_FASTIOV], *iovec = inline_vecs;
 	struct iov_iter iter;
@@ -1470,6 +1492,7 @@ static ssize_t aio_read(struct kiocb *req, struct iocb *iocb, bool vectored,
 static ssize_t aio_write(struct kiocb *req, struct iocb *iocb, bool vectored,
 		bool compat)
 {
+	panic("We reached unpopular paths in fs/aio.c: line 1495 \n"); 
 	struct file *file = req->ki_filp;
 	struct iovec inline_vecs[UIO_FASTIOV], *iovec = inline_vecs;
 	struct iov_iter iter;

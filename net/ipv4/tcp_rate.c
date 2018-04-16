@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <net/tcp.h>
 
 /* The bandwidth estimator estimates the rate at which the network

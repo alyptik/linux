@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * xfrm4_state.c
  *
@@ -16,6 +17,7 @@
 
 static int xfrm4_init_flags(struct xfrm_state *x)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_state.c: line 20 \n"); 
 	if (xs_net(x)->ipv4.sysctl_ip_no_pmtu_disc)
 		x->props.flags |= XFRM_STATE_NOPMTUDISC;
 	return 0;
@@ -24,6 +26,7 @@ static int xfrm4_init_flags(struct xfrm_state *x)
 static void
 __xfrm4_init_tempsel(struct xfrm_selector *sel, const struct flowi *fl)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_state.c: line 29 \n"); 
 	const struct flowi4 *fl4 = &fl->u.ip4;
 
 	sel->daddr.a4 = fl4->daddr;
@@ -43,6 +46,7 @@ static void
 xfrm4_init_temprop(struct xfrm_state *x, const struct xfrm_tmpl *tmpl,
 		   const xfrm_address_t *daddr, const xfrm_address_t *saddr)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_state.c: line 49 \n"); 
 	x->id = tmpl->id;
 	if (x->id.daddr.a4 == 0)
 		x->id.daddr.a4 = daddr->a4;
@@ -56,6 +60,7 @@ xfrm4_init_temprop(struct xfrm_state *x, const struct xfrm_tmpl *tmpl,
 
 int xfrm4_extract_header(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_state.c: line 63 \n"); 
 	const struct iphdr *iph = ip_hdr(skb);
 
 	XFRM_MODE_SKB_CB(skb)->ihl = sizeof(*iph);

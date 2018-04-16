@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2009 Patrick McHardy <kaber@trash.net>
  *
@@ -30,6 +31,7 @@ static void nft_lookup_eval(const struct nft_expr *expr,
 			    struct nft_regs *regs,
 			    const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_lookup.c: line 34 \n"); 
 	const struct nft_lookup *priv = nft_expr_priv(expr);
 	const struct nft_set *set = priv->set;
 	const struct nft_set_ext *ext;
@@ -61,6 +63,7 @@ static int nft_lookup_init(const struct nft_ctx *ctx,
 			   const struct nft_expr *expr,
 			   const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_lookup.c: line 66 \n"); 
 	struct nft_lookup *priv = nft_expr_priv(expr);
 	u8 genmask = nft_genmask_next(ctx->net);
 	struct nft_set *set;
@@ -130,6 +133,7 @@ static int nft_lookup_init(const struct nft_ctx *ctx,
 static void nft_lookup_destroy(const struct nft_ctx *ctx,
 			       const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_lookup.c: line 136 \n"); 
 	struct nft_lookup *priv = nft_expr_priv(expr);
 
 	nf_tables_unbind_set(ctx, priv->set, &priv->binding);
@@ -137,6 +141,7 @@ static void nft_lookup_destroy(const struct nft_ctx *ctx,
 
 static int nft_lookup_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_lookup.c: line 144 \n"); 
 	const struct nft_lookup *priv = nft_expr_priv(expr);
 	u32 flags = priv->invert ? NFT_LOOKUP_F_INV : 0;
 
@@ -180,5 +185,6 @@ int __init nft_lookup_module_init(void)
 
 void nft_lookup_module_exit(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_lookup.c: line 188 \n"); 
 	nft_unregister_expr(&nft_lookup_type);
 }

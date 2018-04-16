@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * xfrm4_policy.c
  *
@@ -24,6 +25,7 @@ static struct dst_entry *__xfrm4_dst_lookup(struct net *net, struct flowi4 *fl4,
 					    const xfrm_address_t *saddr,
 					    const xfrm_address_t *daddr)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 28 \n"); 
 	struct rtable *rt;
 
 	memset(fl4, 0, sizeof(*fl4));
@@ -46,6 +48,7 @@ static struct dst_entry *xfrm4_dst_lookup(struct net *net, int tos, int oif,
 					  const xfrm_address_t *saddr,
 					  const xfrm_address_t *daddr)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 51 \n"); 
 	struct flowi4 fl4;
 
 	return __xfrm4_dst_lookup(net, &fl4, tos, oif, saddr, daddr);
@@ -54,6 +57,7 @@ static struct dst_entry *xfrm4_dst_lookup(struct net *net, int tos, int oif,
 static int xfrm4_get_saddr(struct net *net, int oif,
 			   xfrm_address_t *saddr, xfrm_address_t *daddr)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 60 \n"); 
 	struct dst_entry *dst;
 	struct flowi4 fl4;
 
@@ -68,18 +72,21 @@ static int xfrm4_get_saddr(struct net *net, int oif,
 
 static int xfrm4_get_tos(const struct flowi *fl)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 75 \n"); 
 	return IPTOS_RT_MASK & fl->u.ip4.flowi4_tos; /* Strip ECN bits */
 }
 
 static int xfrm4_init_path(struct xfrm_dst *path, struct dst_entry *dst,
 			   int nfheader_len)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 82 \n"); 
 	return 0;
 }
 
 static int xfrm4_fill_dst(struct xfrm_dst *xdst, struct net_device *dev,
 			  const struct flowi *fl)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 89 \n"); 
 	struct rtable *rt = (struct rtable *)xdst->route;
 	const struct flowi4 *fl4 = &fl->u.ip4;
 
@@ -217,6 +224,7 @@ _decode_session4(struct sk_buff *skb, struct flowi *fl, int reverse)
 
 static inline int xfrm4_garbage_collect(struct dst_ops *ops)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 227 \n"); 
 	struct net *net = container_of(ops, struct net, xfrm.xfrm4_dst_ops);
 
 	xfrm4_policy_afinfo.garbage_collect(net);
@@ -226,6 +234,7 @@ static inline int xfrm4_garbage_collect(struct dst_ops *ops)
 static void xfrm4_update_pmtu(struct dst_entry *dst, struct sock *sk,
 			      struct sk_buff *skb, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 237 \n"); 
 	struct xfrm_dst *xdst = (struct xfrm_dst *)dst;
 	struct dst_entry *path = xdst->route;
 
@@ -235,6 +244,7 @@ static void xfrm4_update_pmtu(struct dst_entry *dst, struct sock *sk,
 static void xfrm4_redirect(struct dst_entry *dst, struct sock *sk,
 			   struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 247 \n"); 
 	struct xfrm_dst *xdst = (struct xfrm_dst *)dst;
 	struct dst_entry *path = xdst->route;
 
@@ -243,6 +253,7 @@ static void xfrm4_redirect(struct dst_entry *dst, struct sock *sk,
 
 static void xfrm4_dst_destroy(struct dst_entry *dst)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 256 \n"); 
 	struct xfrm_dst *xdst = (struct xfrm_dst *)dst;
 
 	dst_destroy_metrics_generic(dst);
@@ -253,6 +264,7 @@ static void xfrm4_dst_destroy(struct dst_entry *dst)
 static void xfrm4_dst_ifdown(struct dst_entry *dst, struct net_device *dev,
 			     int unregister)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 267 \n"); 
 	if (!unregister)
 		return;
 
@@ -338,11 +350,13 @@ static __net_exit void xfrm4_net_sysctl_exit(struct net *net)
 #else /* CONFIG_SYSCTL */
 static inline int xfrm4_net_sysctl_init(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 353 \n"); 
 	return 0;
 }
 
 static inline void xfrm4_net_sysctl_exit(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv4/xfrm4_policy.c: line 359 \n"); 
 }
 #endif
 

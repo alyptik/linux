@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2011 Patrick McHardy <kaber@trash.net>
  *
@@ -21,6 +22,7 @@ MODULE_ALIAS("ip6t_devgroup");
 
 static bool devgroup_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_devgroup.c: line 25 \n"); 
 	const struct xt_devgroup_info *info = par->matchinfo;
 
 	if (info->flags & XT_DEVGROUP_MATCH_SRC &&
@@ -38,6 +40,7 @@ static bool devgroup_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int devgroup_mt_checkentry(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_devgroup.c: line 43 \n"); 
 	const struct xt_devgroup_info *info = par->matchinfo;
 
 	if (info->flags & ~(XT_DEVGROUP_MATCH_SRC | XT_DEVGROUP_INVERT_SRC |

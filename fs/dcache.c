@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/dcache.c
  *
@@ -210,6 +211,7 @@ static inline int dentry_string_cmp(const unsigned char *cs, const unsigned char
 
 static inline int dentry_string_cmp(const unsigned char *cs, const unsigned char *ct, unsigned tcount)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 214 \n"); 
 	do {
 		if (*cs != *ct)
 			return 1;
@@ -255,6 +257,7 @@ struct external_name {
 
 static inline struct external_name *external_name(struct dentry *dentry)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/dcache.c: line 260 \n"); 
 	return container_of(dentry->d_name.name, struct external_name, name[0]);
 }
 
@@ -274,6 +277,7 @@ static void __d_free_external(struct rcu_head *head)
 
 static inline int dname_external(const struct dentry *dentry)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/dcache.c: line 280 \n"); 
 	return dentry->d_name.name != dentry->d_iname;
 }
 
@@ -308,6 +312,7 @@ static inline void __d_set_inode_and_type(struct dentry *dentry,
 					  struct inode *inode,
 					  unsigned type_flags)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/dcache.c: line 315 \n"); 
 	unsigned flags;
 
 	dentry->d_inode = inode;
@@ -425,6 +430,7 @@ static void d_shrink_add(struct dentry *dentry, struct list_head *list)
  */
 static void d_lru_isolate(struct list_lru_one *lru, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 433 \n"); 
 	D_FLAG_VERIFY(dentry, DCACHE_LRU_LIST);
 	dentry->d_flags &= ~DCACHE_LRU_LIST;
 	this_cpu_dec(nr_dentry_unused);
@@ -434,6 +440,7 @@ static void d_lru_isolate(struct list_lru_one *lru, struct dentry *dentry)
 static void d_lru_shrink_move(struct list_lru_one *lru, struct dentry *dentry,
 			      struct list_head *list)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 443 \n"); 
 	D_FLAG_VERIFY(dentry, DCACHE_LRU_LIST);
 	dentry->d_flags |= DCACHE_SHRINK_LIST;
 	list_lru_isolate_move(lru, &dentry->d_lru, list);
@@ -827,11 +834,13 @@ EXPORT_SYMBOL(dput);
 /* This must be called with d_lock held */
 static inline void __dget_dlock(struct dentry *dentry)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/dcache.c: line 837 \n"); 
 	dentry->d_lockref.count++;
 }
 
 static inline void __dget(struct dentry *dentry)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/dcache.c: line 843 \n"); 
 	lockref_get(&dentry->d_lockref);
 }
 
@@ -891,6 +900,7 @@ EXPORT_SYMBOL(dget_parent);
  */
 static struct dentry *__d_find_alias(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 903 \n"); 
 	struct dentry *alias, *discon_alias;
 
 again:
@@ -925,6 +935,7 @@ again:
 
 struct dentry *d_find_alias(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 938 \n"); 
 	struct dentry *de = NULL;
 
 	if (!hlist_empty(&inode->i_dentry)) {
@@ -942,6 +953,7 @@ EXPORT_SYMBOL(d_find_alias);
  */
 void d_prune_aliases(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 956 \n"); 
 	struct dentry *dentry;
 restart:
 	spin_lock(&inode->i_lock);
@@ -1046,6 +1058,7 @@ static void shrink_dentry_list(struct list_head *list)
 static enum lru_status dentry_lru_isolate(struct list_head *item,
 		struct list_lru_one *lru, spinlock_t *lru_lock, void *arg)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 1061 \n"); 
 	struct list_head *freeable = arg;
 	struct dentry	*dentry = container_of(item, struct dentry, d_lru);
 
@@ -1115,6 +1128,7 @@ static enum lru_status dentry_lru_isolate(struct list_head *item,
  */
 long prune_dcache_sb(struct super_block *sb, struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 1131 \n"); 
 	LIST_HEAD(dispose);
 	long freed;
 
@@ -1127,6 +1141,7 @@ long prune_dcache_sb(struct super_block *sb, struct shrink_control *sc)
 static enum lru_status dentry_lru_isolate_shrink(struct list_head *item,
 		struct list_lru_one *lru, spinlock_t *lru_lock, void *arg)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 1144 \n"); 
 	struct list_head *freeable = arg;
 	struct dentry	*dentry = container_of(item, struct dentry, d_lru);
 
@@ -1309,6 +1324,7 @@ rename_retry:
 
 static enum d_walk_ret check_mount(void *data, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 1327 \n"); 
 	int *ret = data;
 	if (d_mountpoint(dentry)) {
 		*ret = 1;
@@ -1326,6 +1342,7 @@ static enum d_walk_ret check_mount(void *data, struct dentry *dentry)
  */
 int have_submounts(struct dentry *parent)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 1345 \n"); 
 	int ret = 0;
 
 	d_walk(parent, &ret, check_mount, NULL);
@@ -1765,6 +1782,7 @@ EXPORT_SYMBOL(d_set_d_op);
  */
 void d_set_fallthru(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 1785 \n"); 
 	spin_lock(&dentry->d_lock);
 	dentry->d_flags |= DCACHE_FALLTHRU;
 	spin_unlock(&dentry->d_lock);
@@ -1858,6 +1876,7 @@ EXPORT_SYMBOL(d_instantiate);
  */
 int d_instantiate_no_diralias(struct dentry *entry, struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 1879 \n"); 
 	BUG_ON(!hlist_unhashed(&entry->d_u.d_alias));
 
 	security_d_instantiate(entry, inode);
@@ -1920,6 +1939,7 @@ EXPORT_SYMBOL(d_find_any_alias);
 
 static struct dentry *__d_obtain_alias(struct inode *inode, int disconnected)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 1942 \n"); 
 	struct dentry *tmp;
 	struct dentry *res;
 	unsigned add_flags;
@@ -1990,6 +2010,7 @@ static struct dentry *__d_obtain_alias(struct inode *inode, int disconnected)
  */
 struct dentry *d_obtain_alias(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 2013 \n"); 
 	return __d_obtain_alias(inode, 1);
 }
 EXPORT_SYMBOL(d_obtain_alias);
@@ -2011,6 +2032,7 @@ EXPORT_SYMBOL(d_obtain_alias);
  */
 struct dentry *d_obtain_root(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 2035 \n"); 
 	return __d_obtain_alias(inode, 0);
 }
 EXPORT_SYMBOL(d_obtain_root);
@@ -2034,6 +2056,7 @@ EXPORT_SYMBOL(d_obtain_root);
 struct dentry *d_add_ci(struct dentry *dentry, struct inode *inode,
 			struct qstr *name)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 2059 \n"); 
 	struct dentry *found, *res;
 
 	/*
@@ -2407,6 +2430,7 @@ static inline unsigned start_dir_add(struct inode *dir)
 
 static inline void end_dir_add(struct inode *dir, unsigned n)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/dcache.c: line 2433 \n"); 
 	smp_store_release(&dir->i_dir_seq, n + 2);
 }
 
@@ -2603,6 +2627,7 @@ EXPORT_SYMBOL(d_add);
  */
 struct dentry *d_exact_alias(struct dentry *entry, struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 2630 \n"); 
 	struct dentry *alias;
 	unsigned int hash = entry->d_name.hash;
 
@@ -2652,6 +2677,7 @@ EXPORT_SYMBOL(d_exact_alias);
  */
 void dentry_update_name_case(struct dentry *dentry, const struct qstr *name)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 2680 \n"); 
 	BUG_ON(!inode_is_locked(dentry->d_parent->d_inode));
 	BUG_ON(dentry->d_name.len != name->len); /* d_lookup gives this */
 
@@ -2665,6 +2691,7 @@ EXPORT_SYMBOL(dentry_update_name_case);
 
 static void swap_names(struct dentry *dentry, struct dentry *target)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 2694 \n"); 
 	if (unlikely(dname_external(target))) {
 		if (unlikely(dname_external(dentry))) {
 			/*
@@ -2875,6 +2902,7 @@ EXPORT_SYMBOL(d_move);
  */
 void d_exchange(struct dentry *dentry1, struct dentry *dentry2)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 2905 \n"); 
 	write_seqlock(&rename_lock);
 
 	WARN_ON(!dentry1->d_inode);
@@ -2918,6 +2946,7 @@ struct dentry *d_ancestor(struct dentry *p1, struct dentry *p2)
 static int __d_unalias(struct inode *inode,
 		struct dentry *dentry, struct dentry *alias)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 2949 \n"); 
 	struct mutex *m1 = NULL;
 	struct rw_semaphore *m2 = NULL;
 	int ret = -ESTALE;
@@ -3202,6 +3231,7 @@ char *__d_path(const struct path *path,
 char *d_absolute_path(const struct path *path,
 	       char *buf, int buflen)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 3234 \n"); 
 	struct path root = {};
 	char *res = buf + buflen;
 	int error;
@@ -3235,6 +3265,7 @@ static int path_with_deleted(const struct path *path,
 
 static int prepend_unreachable(char **buffer, int *buflen)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 3268 \n"); 
 	return prepend(buffer, buflen, "(unreachable)", 13);
 }
 
@@ -3319,6 +3350,7 @@ char *dynamic_dname(struct dentry *dentry, char *buffer, int buflen,
 
 char *simple_dname(struct dentry *dentry, char *buffer, int buflen)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 3353 \n"); 
 	char *end = buffer + buflen;
 	/* these dentries are never renamed, so d_lock is not needed */
 	if (prepend(&end, &buflen, " (deleted)", 11) ||
@@ -3379,6 +3411,7 @@ Elong:
 
 char *dentry_path_raw(struct dentry *dentry, char *buf, int buflen)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 3414 \n"); 
 	return __dentry_path(dentry, buf, buflen);
 }
 EXPORT_SYMBOL(dentry_path_raw);
@@ -3544,6 +3577,7 @@ void d_genocide(struct dentry *parent)
 
 void d_tmpfile(struct dentry *dentry, struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/dcache.c: line 3580 \n"); 
 	inode_dec_link_count(inode);
 	BUG_ON(dentry->d_name.name != dentry->d_iname ||
 		!hlist_unhashed(&dentry->d_u.d_alias) ||

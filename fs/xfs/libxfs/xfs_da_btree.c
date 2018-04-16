@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2000-2005 Silicon Graphics, Inc.
  * Copyright (c) 2013 Red Hat, Inc.
@@ -99,6 +100,7 @@ kmem_zone_t *xfs_da_state_zone;	/* anchor for state struct zone */
 xfs_da_state_t *
 xfs_da_state_alloc(void)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 103 \n"); 
 	return kmem_zone_zalloc(xfs_da_state_zone, KM_NOFS);
 }
 
@@ -108,6 +110,7 @@ xfs_da_state_alloc(void)
 STATIC void
 xfs_da_state_kill_altpath(xfs_da_state_t *state)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 113 \n"); 
 	int	i;
 
 	for (i = 0; i < state->altpath.active; i++)
@@ -121,6 +124,7 @@ xfs_da_state_kill_altpath(xfs_da_state_t *state)
 void
 xfs_da_state_free(xfs_da_state_t *state)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 127 \n"); 
 	xfs_da_state_kill_altpath(state);
 #ifdef DEBUG
 	memset((char *)state, 0, sizeof(*state));
@@ -132,6 +136,7 @@ static bool
 xfs_da3_node_verify(
 	struct xfs_buf		*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 139 \n"); 
 	struct xfs_mount	*mp = bp->b_target->bt_mount;
 	struct xfs_da_intnode	*hdr = bp->b_addr;
 	struct xfs_da3_icnode_hdr ichdr;
@@ -181,6 +186,7 @@ static void
 xfs_da3_node_write_verify(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 189 \n"); 
 	struct xfs_mount	*mp = bp->b_target->bt_mount;
 	struct xfs_buf_log_item	*bip = bp->b_fspriv;
 	struct xfs_da3_node_hdr *hdr3 = bp->b_addr;
@@ -210,6 +216,7 @@ static void
 xfs_da3_node_read_verify(
 	struct xfs_buf		*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 219 \n"); 
 	struct xfs_da_blkinfo	*info = bp->b_addr;
 
 	switch (be16_to_cpu(info->magic)) {
@@ -259,6 +266,7 @@ xfs_da3_node_read(
 	struct xfs_buf		**bpp,
 	int			which_fork)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 269 \n"); 
 	int			err;
 
 	err = xfs_da_read_buf(tp, dp, bno, mappedbno, bpp,
@@ -305,6 +313,7 @@ xfs_da3_node_create(
 	struct xfs_buf		**bpp,
 	int			whichfork)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 316 \n"); 
 	struct xfs_da_intnode	*node;
 	struct xfs_trans	*tp = args->trans;
 	struct xfs_mount	*mp = tp->t_mountp;
@@ -352,6 +361,7 @@ int							/* error */
 xfs_da3_split(
 	struct xfs_da_state	*state)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 364 \n"); 
 	struct xfs_da_state_blk	*oldblk;
 	struct xfs_da_state_blk	*newblk;
 	struct xfs_da_state_blk	*addblk;
@@ -509,6 +519,7 @@ xfs_da3_root_split(
 	struct xfs_da_state_blk	*blk1,
 	struct xfs_da_state_blk	*blk2)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 522 \n"); 
 	struct xfs_da_intnode	*node;
 	struct xfs_da_intnode	*oldroot;
 	struct xfs_da_node_entry *btree;
@@ -643,6 +654,7 @@ xfs_da3_node_split(
 	int			treelevel,
 	int			*result)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 657 \n"); 
 	struct xfs_da_intnode	*node;
 	struct xfs_da3_icnode_hdr nodehdr;
 	xfs_dablk_t		blkno;
@@ -737,6 +749,7 @@ xfs_da3_node_rebalance(
 	struct xfs_da_state_blk	*blk1,
 	struct xfs_da_state_blk	*blk2)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 752 \n"); 
 	struct xfs_da_intnode	*node1;
 	struct xfs_da_intnode	*node2;
 	struct xfs_da_intnode	*tmpnode;
@@ -880,6 +893,7 @@ xfs_da3_node_add(
 	struct xfs_da_state_blk	*oldblk,
 	struct xfs_da_state_blk	*newblk)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 896 \n"); 
 	struct xfs_da_intnode	*node;
 	struct xfs_da3_icnode_hdr nodehdr;
 	struct xfs_da_node_entry *btree;
@@ -935,6 +949,7 @@ int
 xfs_da3_join(
 	struct xfs_da_state	*state)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 952 \n"); 
 	struct xfs_da_state_blk	*drop_blk;
 	struct xfs_da_state_blk	*save_blk;
 	int			action = 0;
@@ -1045,6 +1060,7 @@ xfs_da3_root_join(
 	struct xfs_da_state	*state,
 	struct xfs_da_state_blk	*root_blk)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 1063 \n"); 
 	struct xfs_da_intnode	*oldroot;
 	struct xfs_da_args	*args;
 	xfs_dablk_t		child;
@@ -1117,6 +1133,7 @@ xfs_da3_node_toosmall(
 	struct xfs_da_state	*state,
 	int			*action)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 1136 \n"); 
 	struct xfs_da_intnode	*node;
 	struct xfs_da_state_blk	*blk;
 	struct xfs_da_blkinfo	*info;
@@ -1263,6 +1280,7 @@ xfs_da3_fixhashpath(
 	struct xfs_da_state	*state,
 	struct xfs_da_state_path *path)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 1283 \n"); 
 	struct xfs_da_state_blk	*blk;
 	struct xfs_da_intnode	*node;
 	struct xfs_da_node_entry *btree;
@@ -1318,6 +1336,7 @@ xfs_da3_node_remove(
 	struct xfs_da_state	*state,
 	struct xfs_da_state_blk	*drop_blk)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 1339 \n"); 
 	struct xfs_da_intnode	*node;
 	struct xfs_da3_icnode_hdr nodehdr;
 	struct xfs_da_node_entry *btree;
@@ -1369,6 +1388,7 @@ xfs_da3_node_unbalance(
 	struct xfs_da_state_blk	*drop_blk,
 	struct xfs_da_state_blk	*save_blk)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 1391 \n"); 
 	struct xfs_da_intnode	*drop_node;
 	struct xfs_da_intnode	*save_node;
 	struct xfs_da_node_entry *drop_btree;
@@ -1452,6 +1472,7 @@ xfs_da3_node_lookup_int(
 	struct xfs_da_state	*state,
 	int			*result)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 1475 \n"); 
 	struct xfs_da_state_blk	*blk;
 	struct xfs_da_blkinfo	*curr;
 	struct xfs_da_intnode	*node;
@@ -1614,6 +1635,7 @@ xfs_da3_node_order(
 	struct xfs_buf	*node1_bp,
 	struct xfs_buf	*node2_bp)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 1638 \n"); 
 	struct xfs_da_intnode	*node1;
 	struct xfs_da_intnode	*node2;
 	struct xfs_da_node_entry *btree1;
@@ -1646,6 +1668,7 @@ xfs_da3_blk_link(
 	struct xfs_da_state_blk	*old_blk,
 	struct xfs_da_state_blk	*new_blk)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 1671 \n"); 
 	struct xfs_da_blkinfo	*old_info;
 	struct xfs_da_blkinfo	*new_info;
 	struct xfs_da_blkinfo	*tmp_info;
@@ -1739,6 +1762,7 @@ xfs_da3_blk_unlink(
 	struct xfs_da_state_blk	*drop_blk,
 	struct xfs_da_state_blk	*save_blk)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 1765 \n"); 
 	struct xfs_da_blkinfo	*drop_info;
 	struct xfs_da_blkinfo	*save_info;
 	struct xfs_da_blkinfo	*tmp_info;
@@ -1821,6 +1845,7 @@ xfs_da3_path_shift(
 	int			release,
 	int			*result)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 1848 \n"); 
 	struct xfs_da_state_blk	*blk;
 	struct xfs_da_blkinfo	*info;
 	struct xfs_da_intnode	*node;
@@ -1985,6 +2010,7 @@ xfs_da_compname(
 	const unsigned char *name,
 	int		len)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 2013 \n"); 
 	return (args->namelen == len && memcmp(args->name, name, len) == 0) ?
 					XFS_CMP_EXACT : XFS_CMP_DIFFERENT;
 }
@@ -1993,6 +2019,7 @@ static xfs_dahash_t
 xfs_default_hashname(
 	struct xfs_name	*name)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 2022 \n"); 
 	return xfs_da_hashname(name->name, name->len);
 }
 
@@ -2007,6 +2034,7 @@ xfs_da_grow_inode_int(
 	xfs_fileoff_t		*bno,
 	int			count)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 2037 \n"); 
 	struct xfs_trans	*tp = args->trans;
 	struct xfs_inode	*dp = args->dp;
 	int			w = args->whichfork;
@@ -2096,6 +2124,7 @@ xfs_da_grow_inode(
 	struct xfs_da_args	*args,
 	xfs_dablk_t		*new_blkno)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 2127 \n"); 
 	xfs_fileoff_t		bno;
 	int			error;
 
@@ -2122,6 +2151,7 @@ xfs_da3_swap_lastblock(
 	xfs_dablk_t		*dead_blknop,
 	struct xfs_buf		**dead_bufp)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 2154 \n"); 
 	struct xfs_da_blkinfo	*dead_info;
 	struct xfs_da_blkinfo	*sib_info;
 	struct xfs_da_intnode	*par_node;
@@ -2345,6 +2375,7 @@ xfs_da_shrink_inode(
 	xfs_dablk_t	dead_blkno,
 	struct xfs_buf	*dead_buf)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 2378 \n"); 
 	xfs_inode_t *dp;
 	int done, error, w, count;
 	xfs_trans_t *tp;
@@ -2389,6 +2420,7 @@ xfs_da_map_covers_blocks(
 	xfs_dablk_t	bno,
 	int		count)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 2423 \n"); 
 	int		i;
 	xfs_fileoff_t	off;
 
@@ -2421,6 +2453,7 @@ xfs_buf_map_from_irec(
 	struct xfs_bmbt_irec	*irecs,
 	int			nirecs)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 2456 \n"); 
 	struct xfs_buf_map	*map;
 	int			i;
 
@@ -2463,6 +2496,7 @@ xfs_dabuf_map(
 	struct xfs_buf_map	**map,
 	int			*nmaps)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 2499 \n"); 
 	struct xfs_mount	*mp = dp->i_mount;
 	int			nfsb;
 	int			error = 0;
@@ -2545,6 +2579,7 @@ xfs_da_get_buf(
 	struct xfs_buf		**bpp,
 	int			whichfork)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 2582 \n"); 
 	struct xfs_buf		*bp;
 	struct xfs_buf_map	map;
 	struct xfs_buf_map	*mapp;
@@ -2594,6 +2629,7 @@ xfs_da_read_buf(
 	int			whichfork,
 	const struct xfs_buf_ops *ops)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 2632 \n"); 
 	struct xfs_buf		*bp;
 	struct xfs_buf_map	map;
 	struct xfs_buf_map	*mapp;
@@ -2641,6 +2677,7 @@ xfs_da_reada_buf(
 	int			whichfork,
 	const struct xfs_buf_ops *ops)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_da_btree.c: line 2680 \n"); 
 	struct xfs_buf_map	map;
 	struct xfs_buf_map	*mapp;
 	int			nmap;

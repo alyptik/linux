@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * virtio transport for vsock
  *
@@ -64,11 +65,13 @@ struct virtio_vsock {
 
 static struct virtio_vsock *virtio_vsock_get(void)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 68 \n"); 
 	return the_virtio_vsock;
 }
 
 static u32 virtio_transport_get_local_cid(void)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 74 \n"); 
 	struct virtio_vsock *vsock = virtio_vsock_get();
 
 	return vsock->guest_cid;
@@ -77,6 +80,7 @@ static u32 virtio_transport_get_local_cid(void)
 static void
 virtio_transport_send_pkt_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 83 \n"); 
 	struct virtio_vsock *vsock =
 		container_of(work, struct virtio_vsock, send_pkt_work);
 	struct virtqueue *vq;
@@ -150,6 +154,7 @@ virtio_transport_send_pkt_work(struct work_struct *work)
 static int
 virtio_transport_send_pkt(struct virtio_vsock_pkt *pkt)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 157 \n"); 
 	struct virtio_vsock *vsock;
 	int len = pkt->len;
 
@@ -172,6 +177,7 @@ virtio_transport_send_pkt(struct virtio_vsock_pkt *pkt)
 
 static void virtio_vsock_rx_fill(struct virtio_vsock *vsock)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 180 \n"); 
 	int buf_len = VIRTIO_VSOCK_DEFAULT_RX_BUF_SIZE;
 	struct virtio_vsock_pkt *pkt;
 	struct scatterlist hdr, buf, *sgs[2];
@@ -212,6 +218,7 @@ static void virtio_vsock_rx_fill(struct virtio_vsock *vsock)
 
 static void virtio_transport_tx_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 221 \n"); 
 	struct virtio_vsock *vsock =
 		container_of(work, struct virtio_vsock, tx_work);
 	struct virtqueue *vq;
@@ -238,6 +245,7 @@ static void virtio_transport_tx_work(struct work_struct *work)
 /* Is there space left for replies to rx packets? */
 static bool virtio_transport_more_replies(struct virtio_vsock *vsock)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 248 \n"); 
 	struct virtqueue *vq = vsock->vqs[VSOCK_VQ_RX];
 	int val;
 
@@ -249,6 +257,7 @@ static bool virtio_transport_more_replies(struct virtio_vsock *vsock)
 
 static void virtio_transport_rx_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 260 \n"); 
 	struct virtio_vsock *vsock =
 		container_of(work, struct virtio_vsock, rx_work);
 	struct virtqueue *vq;
@@ -300,6 +309,7 @@ out:
 static int virtio_vsock_event_fill_one(struct virtio_vsock *vsock,
 				       struct virtio_vsock_event *event)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 312 \n"); 
 	struct scatterlist sg;
 	struct virtqueue *vq;
 
@@ -313,6 +323,7 @@ static int virtio_vsock_event_fill_one(struct virtio_vsock *vsock,
 /* event_lock must be held */
 static void virtio_vsock_event_fill(struct virtio_vsock *vsock)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 326 \n"); 
 	size_t i;
 
 	for (i = 0; i < ARRAY_SIZE(vsock->event_list); i++) {
@@ -326,6 +337,7 @@ static void virtio_vsock_event_fill(struct virtio_vsock *vsock)
 
 static void virtio_vsock_reset_sock(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 340 \n"); 
 	lock_sock(sk);
 	sk->sk_state = SS_UNCONNECTED;
 	sk->sk_err = ECONNRESET;
@@ -335,6 +347,7 @@ static void virtio_vsock_reset_sock(struct sock *sk)
 
 static void virtio_vsock_update_guest_cid(struct virtio_vsock *vsock)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 350 \n"); 
 	struct virtio_device *vdev = vsock->vdev;
 	u64 guest_cid;
 
@@ -347,6 +360,7 @@ static void virtio_vsock_update_guest_cid(struct virtio_vsock *vsock)
 static void virtio_vsock_event_handle(struct virtio_vsock *vsock,
 				      struct virtio_vsock_event *event)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 363 \n"); 
 	switch (le32_to_cpu(event->id)) {
 	case VIRTIO_VSOCK_EVENT_TRANSPORT_RESET:
 		virtio_vsock_update_guest_cid(vsock);
@@ -357,6 +371,7 @@ static void virtio_vsock_event_handle(struct virtio_vsock *vsock,
 
 static void virtio_transport_event_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 374 \n"); 
 	struct virtio_vsock *vsock =
 		container_of(work, struct virtio_vsock, event_work);
 	struct virtqueue *vq;
@@ -385,6 +400,7 @@ static void virtio_transport_event_work(struct work_struct *work)
 
 static void virtio_vsock_event_done(struct virtqueue *vq)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 403 \n"); 
 	struct virtio_vsock *vsock = vq->vdev->priv;
 
 	if (!vsock)
@@ -394,6 +410,7 @@ static void virtio_vsock_event_done(struct virtqueue *vq)
 
 static void virtio_vsock_tx_done(struct virtqueue *vq)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 413 \n"); 
 	struct virtio_vsock *vsock = vq->vdev->priv;
 
 	if (!vsock)
@@ -403,6 +420,7 @@ static void virtio_vsock_tx_done(struct virtqueue *vq)
 
 static void virtio_vsock_rx_done(struct virtqueue *vq)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 423 \n"); 
 	struct virtio_vsock *vsock = vq->vdev->priv;
 
 	if (!vsock)
@@ -457,6 +475,7 @@ static struct virtio_transport virtio_transport = {
 
 static int virtio_vsock_probe(struct virtio_device *vdev)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 478 \n"); 
 	vq_callback_t *callbacks[] = {
 		virtio_vsock_rx_done,
 		virtio_vsock_tx_done,
@@ -536,6 +555,7 @@ out:
 
 static void virtio_vsock_remove(struct virtio_device *vdev)
 {
+	panic("We reached unpopular paths in net/vmw_vsock/virtio_transport.c: line 558 \n"); 
 	struct virtio_vsock *vsock = vdev->priv;
 	struct virtio_vsock_pkt *pkt;
 

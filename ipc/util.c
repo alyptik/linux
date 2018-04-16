@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/ipc/util.c
  * Copyright (C) 1992 Krishna Balasubramanian
@@ -151,6 +152,7 @@ void __init ipc_init_proc_interface(const char *path, const char *header,
  */
 static struct kern_ipc_perm *ipc_findkey(struct ipc_ids *ids, key_t key)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 155 \n"); 
 	struct kern_ipc_perm *ipc;
 	int next_id;
 	int total;
@@ -182,6 +184,7 @@ static struct kern_ipc_perm *ipc_findkey(struct ipc_ids *ids, key_t key)
  */
 int ipc_get_maxid(struct ipc_ids *ids)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 187 \n"); 
 	struct kern_ipc_perm *ipc;
 	int max_id = -1;
 	int total, id;
@@ -279,6 +282,7 @@ int ipc_addid(struct ipc_ids *ids, struct kern_ipc_perm *new, int size)
 static int ipcget_new(struct ipc_namespace *ns, struct ipc_ids *ids,
 		const struct ipc_ops *ops, struct ipc_params *params)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 285 \n"); 
 	int err;
 
 	down_write(&ids->rwsem);
@@ -307,6 +311,7 @@ static int ipc_check_perms(struct ipc_namespace *ns,
 			   const struct ipc_ops *ops,
 			   struct ipc_params *params)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 314 \n"); 
 	int err;
 
 	if (ipcperms(ns, ipcp, params->flg))
@@ -337,6 +342,7 @@ static int ipc_check_perms(struct ipc_namespace *ns,
 static int ipcget_public(struct ipc_namespace *ns, struct ipc_ids *ids,
 		const struct ipc_ops *ops, struct ipc_params *params)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 345 \n"); 
 	struct kern_ipc_perm *ipcp;
 	int flg = params->flg;
 	int err;
@@ -387,6 +393,7 @@ static int ipcget_public(struct ipc_namespace *ns, struct ipc_ids *ids,
  */
 void ipc_rmid(struct ipc_ids *ids, struct kern_ipc_perm *ipcp)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 396 \n"); 
 	int lid = ipcid_to_idx(ipcp->id);
 
 	idr_remove(&ids->ipcs_idr, lid);
@@ -403,6 +410,7 @@ void ipc_rmid(struct ipc_ids *ids, struct kern_ipc_perm *ipcp)
  */
 void *ipc_alloc(int size)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 413 \n"); 
 	void *out;
 	if (size > PAGE_SIZE)
 		out = vmalloc(size);
@@ -419,6 +427,7 @@ void *ipc_alloc(int size)
  */
 void ipc_free(void *ptr)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 430 \n"); 
 	kvfree(ptr);
 }
 
@@ -431,6 +440,7 @@ void ipc_free(void *ptr)
  */
 void *ipc_rcu_alloc(int size)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 443 \n"); 
 	/*
 	 * We prepend the allocation with the rcu struct
 	 */
@@ -443,6 +453,7 @@ void *ipc_rcu_alloc(int size)
 
 int ipc_rcu_getref(void *ptr)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 456 \n"); 
 	struct ipc_rcu *p = ((struct ipc_rcu *)ptr) - 1;
 
 	return atomic_inc_not_zero(&p->refcount);
@@ -450,6 +461,7 @@ int ipc_rcu_getref(void *ptr)
 
 void ipc_rcu_putref(void *ptr, void (*func)(struct rcu_head *head))
 {
+	panic("We reached unpopular paths in ipc/util.c: line 464 \n"); 
 	struct ipc_rcu *p = ((struct ipc_rcu *)ptr) - 1;
 
 	if (!atomic_dec_and_test(&p->refcount))
@@ -460,6 +472,7 @@ void ipc_rcu_putref(void *ptr, void (*func)(struct rcu_head *head))
 
 void ipc_rcu_free(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 475 \n"); 
 	struct ipc_rcu *p = container_of(head, struct ipc_rcu, rcu);
 
 	kvfree(p);
@@ -478,6 +491,7 @@ void ipc_rcu_free(struct rcu_head *head)
  */
 int ipcperms(struct ipc_namespace *ns, struct kern_ipc_perm *ipcp, short flag)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 494 \n"); 
 	kuid_t euid = current_euid();
 	int requested_mode, granted_mode;
 
@@ -512,6 +526,7 @@ int ipcperms(struct ipc_namespace *ns, struct kern_ipc_perm *ipcp, short flag)
  */
 void kernel_to_ipc64_perm(struct kern_ipc_perm *in, struct ipc64_perm *out)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 529 \n"); 
 	out->key	= in->key;
 	out->uid	= from_kuid_munged(current_user_ns(), in->uid);
 	out->gid	= from_kgid_munged(current_user_ns(), in->gid);
@@ -531,6 +546,7 @@ void kernel_to_ipc64_perm(struct kern_ipc_perm *in, struct ipc64_perm *out)
  */
 void ipc64_perm_to_ipc_perm(struct ipc64_perm *in, struct ipc_perm *out)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 549 \n"); 
 	out->key	= in->key;
 	SET_UID(out->uid, in->uid);
 	SET_GID(out->gid, in->gid);
@@ -552,6 +568,7 @@ void ipc64_perm_to_ipc_perm(struct ipc64_perm *in, struct ipc_perm *out)
  */
 struct kern_ipc_perm *ipc_obtain_object_idr(struct ipc_ids *ids, int id)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 571 \n"); 
 	struct kern_ipc_perm *out;
 	int lid = ipcid_to_idx(id);
 
@@ -573,6 +590,7 @@ struct kern_ipc_perm *ipc_obtain_object_idr(struct ipc_ids *ids, int id)
  */
 struct kern_ipc_perm *ipc_lock(struct ipc_ids *ids, int id)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 593 \n"); 
 	struct kern_ipc_perm *out;
 
 	rcu_read_lock();
@@ -611,6 +629,7 @@ err:
  */
 struct kern_ipc_perm *ipc_obtain_object_check(struct ipc_ids *ids, int id)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 632 \n"); 
 	struct kern_ipc_perm *out = ipc_obtain_object_idr(ids, id);
 
 	if (IS_ERR(out))
@@ -635,6 +654,7 @@ out:
 int ipcget(struct ipc_namespace *ns, struct ipc_ids *ids,
 			const struct ipc_ops *ops, struct ipc_params *params)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 657 \n"); 
 	if (params->key == IPC_PRIVATE)
 		return ipcget_new(ns, ids, ops, params);
 	else
@@ -648,6 +668,7 @@ int ipcget(struct ipc_namespace *ns, struct ipc_ids *ids,
  */
 int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 671 \n"); 
 	kuid_t uid = make_kuid(current_user_ns(), in->uid);
 	kgid_t gid = make_kgid(current_user_ns(), in->gid);
 	if (!uid_valid(uid) || !gid_valid(gid))
@@ -683,6 +704,7 @@ struct kern_ipc_perm *ipcctl_pre_down_nolock(struct ipc_namespace *ns,
 					struct ipc_ids *ids, int id, int cmd,
 					struct ipc64_perm *perm, int extra_perm)
 {
+	panic("We reached unpopular paths in ipc/util.c: line 707 \n"); 
 	kuid_t euid;
 	int err = -EPERM;
 	struct kern_ipc_perm *ipcp;

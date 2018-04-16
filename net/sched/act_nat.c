@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Stateless NAT actions
  *
@@ -41,6 +42,7 @@ static const struct nla_policy nat_policy[TCA_NAT_MAX + 1] = {
 static int tcf_nat_init(struct net *net, struct nlattr *nla, struct nlattr *est,
 			struct tc_action **a, int ovr, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_nat.c: line 45 \n"); 
 	struct tc_action_net *tn = net_generic(net, nat_net_id);
 	struct nlattr *tb[TCA_NAT_MAX + 1];
 	struct tc_nat *parm;
@@ -91,6 +93,7 @@ static int tcf_nat_init(struct net *net, struct nlattr *nla, struct nlattr *est,
 static int tcf_nat(struct sk_buff *skb, const struct tc_action *a,
 		   struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/act_nat.c: line 96 \n"); 
 	struct tcf_nat *p = to_tcf_nat(a);
 	struct iphdr *iph;
 	__be32 old_addr;
@@ -248,6 +251,7 @@ drop:
 static int tcf_nat_dump(struct sk_buff *skb, struct tc_action *a,
 			int bind, int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_nat.c: line 254 \n"); 
 	unsigned char *b = skb_tail_pointer(skb);
 	struct tcf_nat *p = to_tcf_nat(a);
 	struct tc_nat opt = {
@@ -281,6 +285,7 @@ static int tcf_nat_walker(struct net *net, struct sk_buff *skb,
 			  struct netlink_callback *cb, int type,
 			  const struct tc_action_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_nat.c: line 288 \n"); 
 	struct tc_action_net *tn = net_generic(net, nat_net_id);
 
 	return tcf_generic_walker(tn, skb, cb, type, ops);
@@ -288,6 +293,7 @@ static int tcf_nat_walker(struct net *net, struct sk_buff *skb,
 
 static int tcf_nat_search(struct net *net, struct tc_action **a, u32 index)
 {
+	panic("We reached unpopular paths in net/sched/act_nat.c: line 296 \n"); 
 	struct tc_action_net *tn = net_generic(net, nat_net_id);
 
 	return tcf_hash_search(tn, a, index);

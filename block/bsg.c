@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * bsg.c - block layer implementation of the sg v4 interface
  *
@@ -90,6 +91,7 @@ struct bsg_command {
 
 static void bsg_free_command(struct bsg_command *bc)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 94 \n"); 
 	struct bsg_device *bd = bc->bd;
 	unsigned long flags;
 
@@ -104,6 +106,7 @@ static void bsg_free_command(struct bsg_command *bc)
 
 static struct bsg_command *bsg_alloc_command(struct bsg_device *bd)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 109 \n"); 
 	struct bsg_command *bc = ERR_PTR(-EINVAL);
 
 	spin_lock_irq(&bd->lock);
@@ -133,6 +136,7 @@ out:
 
 static inline struct hlist_head *bsg_dev_idx_hash(int index)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 139 \n"); 
 	return &bsg_device_list[index & (BSG_LIST_ARRAY_SIZE - 1)];
 }
 
@@ -140,6 +144,7 @@ static int blk_fill_sgv4_hdr_rq(struct request_queue *q, struct request *rq,
 				struct sg_io_v4 *hdr, struct bsg_device *bd,
 				fmode_t has_write_perm)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 147 \n"); 
 	if (hdr->request_len > BLK_MAX_CDB) {
 		rq->cmd = kzalloc(hdr->request_len, GFP_KERNEL);
 		if (!rq->cmd)
@@ -178,6 +183,7 @@ static int blk_fill_sgv4_hdr_rq(struct request_queue *q, struct request *rq,
 static int
 bsg_validate_sgv4_hdr(struct request_queue *q, struct sg_io_v4 *hdr, int *rw)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 186 \n"); 
 	int ret = 0;
 
 	if (hdr->guard != 'Q')
@@ -208,6 +214,7 @@ static struct request *
 bsg_map_hdr(struct bsg_device *bd, struct sg_io_v4 *hdr, fmode_t has_write_perm,
 	    u8 *sense)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 217 \n"); 
 	struct request_queue *q = bd->queue;
 	struct request *rq, *next_rq = NULL;
 	int ret, rw;
@@ -301,6 +308,7 @@ out:
  */
 static void bsg_rq_end_io(struct request *rq, int uptodate)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 311 \n"); 
 	struct bsg_command *bc = rq->end_io_data;
 	struct bsg_device *bd = bc->bd;
 	unsigned long flags;
@@ -325,6 +333,7 @@ static void bsg_rq_end_io(struct request *rq, int uptodate)
 static void bsg_add_command(struct bsg_device *bd, struct request_queue *q,
 			    struct bsg_command *bc, struct request *rq)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 336 \n"); 
 	int at_head = (0 == (bc->hdr.flags & BSG_FLAG_Q_AT_TAIL));
 
 	/*
@@ -347,6 +356,7 @@ static void bsg_add_command(struct bsg_device *bd, struct request_queue *q,
 
 static struct bsg_command *bsg_next_done_cmd(struct bsg_device *bd)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 359 \n"); 
 	struct bsg_command *bc = NULL;
 
 	spin_lock_irq(&bd->lock);
@@ -365,6 +375,7 @@ static struct bsg_command *bsg_next_done_cmd(struct bsg_device *bd)
  */
 static struct bsg_command *bsg_get_done_cmd(struct bsg_device *bd)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 378 \n"); 
 	struct bsg_command *bc;
 	int ret;
 
@@ -393,6 +404,7 @@ static struct bsg_command *bsg_get_done_cmd(struct bsg_device *bd)
 static int blk_complete_sgv4_hdr_rq(struct request *rq, struct sg_io_v4 *hdr,
 				    struct bio *bio, struct bio *bidi_bio)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 407 \n"); 
 	int ret = 0;
 
 	dprintk("rq %p bio %p 0x%x\n", rq, bio, rq->errors);
@@ -448,6 +460,7 @@ static int blk_complete_sgv4_hdr_rq(struct request *rq, struct sg_io_v4 *hdr,
 
 static bool bsg_complete(struct bsg_device *bd)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 463 \n"); 
 	bool ret = false;
 	bool spin;
 
@@ -472,6 +485,7 @@ static bool bsg_complete(struct bsg_device *bd)
 
 static int bsg_complete_all_commands(struct bsg_device *bd)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 488 \n"); 
 	struct bsg_command *bc;
 	int ret, tret;
 
@@ -554,6 +568,7 @@ __bsg_read(char __user *buf, size_t count, struct bsg_device *bd,
 
 static inline void bsg_set_block(struct bsg_device *bd, struct file *file)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 571 \n"); 
 	if (file->f_flags & O_NONBLOCK)
 		clear_bit(BSG_F_BLOCK, &bd->flags);
 	else
@@ -565,6 +580,7 @@ static inline void bsg_set_block(struct bsg_device *bd, struct file *file)
  */
 static inline int err_block_err(int ret)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 583 \n"); 
 	if (ret && ret != -ENOSPC && ret != -ENODATA && ret != -EAGAIN)
 		return 1;
 
@@ -678,6 +694,7 @@ bsg_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
 
 static struct bsg_device *bsg_alloc_device(void)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 697 \n"); 
 	struct bsg_device *bd;
 
 	bd = kzalloc(sizeof(struct bsg_device), GFP_KERNEL);
@@ -699,6 +716,7 @@ static struct bsg_device *bsg_alloc_device(void)
 
 static void bsg_kref_release_function(struct kref *kref)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 719 \n"); 
 	struct bsg_class_device *bcd =
 		container_of(kref, struct bsg_class_device, ref);
 	struct device *parent = bcd->parent;
@@ -711,6 +729,7 @@ static void bsg_kref_release_function(struct kref *kref)
 
 static int bsg_put_device(struct bsg_device *bd)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 732 \n"); 
 	int ret = 0, do_free;
 	struct request_queue *q = bd->queue;
 
@@ -751,6 +770,7 @@ static struct bsg_device *bsg_add_device(struct inode *inode,
 					 struct request_queue *rq,
 					 struct file *file)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 773 \n"); 
 	struct bsg_device *bd;
 #ifdef BSG_DEBUG
 	unsigned char buf[32];
@@ -782,6 +802,7 @@ static struct bsg_device *bsg_add_device(struct inode *inode,
 
 static struct bsg_device *__bsg_get_device(int minor, struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 805 \n"); 
 	struct bsg_device *bd;
 
 	mutex_lock(&bsg_mutex);
@@ -800,6 +821,7 @@ found:
 
 static struct bsg_device *bsg_get_device(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 824 \n"); 
 	struct bsg_device *bd;
 	struct bsg_class_device *bcd;
 
@@ -828,6 +850,7 @@ static struct bsg_device *bsg_get_device(struct inode *inode, struct file *file)
 
 static int bsg_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 853 \n"); 
 	struct bsg_device *bd;
 
 	bd = bsg_get_device(inode, file);
@@ -841,6 +864,7 @@ static int bsg_open(struct inode *inode, struct file *file)
 
 static int bsg_release(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 867 \n"); 
 	struct bsg_device *bd = file->private_data;
 
 	file->private_data = NULL;
@@ -849,6 +873,7 @@ static int bsg_release(struct inode *inode, struct file *file)
 
 static unsigned int bsg_poll(struct file *file, poll_table *wait)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 876 \n"); 
 	struct bsg_device *bd = file->private_data;
 	unsigned int mask = 0;
 
@@ -867,6 +892,7 @@ static unsigned int bsg_poll(struct file *file, poll_table *wait)
 
 static long bsg_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 895 \n"); 
 	struct bsg_device *bd = file->private_data;
 	int __user *uarg = (int __user *) arg;
 	int ret;
@@ -958,6 +984,7 @@ static const struct file_operations bsg_fops = {
 
 void bsg_unregister_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/bsg.c: line 987 \n"); 
 	struct bsg_class_device *bcd = &q->bsg_dev;
 
 	if (!bcd->class_dev)

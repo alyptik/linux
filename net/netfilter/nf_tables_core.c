@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008 Patrick McHardy <kaber@trash.net>
  *
@@ -65,6 +66,7 @@ static inline void nft_trace_packet(struct nft_traceinfo *info,
 				    int rulenum,
 				    enum nft_trace_types type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_core.c: line 69 \n"); 
 	if (static_branch_unlikely(&nft_trace_enabled)) {
 		info->rule = rule;
 		__nft_trace_packet(info, chain, rulenum, type);
@@ -74,6 +76,7 @@ static inline void nft_trace_packet(struct nft_traceinfo *info,
 static void nft_cmp_fast_eval(const struct nft_expr *expr,
 			      struct nft_regs *regs)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_core.c: line 79 \n"); 
 	const struct nft_cmp_fast_expr *priv = nft_expr_priv(expr);
 	u32 mask = nft_cmp_fast_mask(priv->len);
 
@@ -86,6 +89,7 @@ static bool nft_payload_fast_eval(const struct nft_expr *expr,
 				  struct nft_regs *regs,
 				  const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_core.c: line 92 \n"); 
 	const struct nft_payload *priv = nft_expr_priv(expr);
 	const struct sk_buff *skb = pkt->skb;
 	u32 *dest = &regs->data[priv->dreg];
@@ -123,6 +127,7 @@ struct nft_jumpstack {
 unsigned int
 nft_do_chain(struct nft_pktinfo *pkt, void *priv)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_core.c: line 130 \n"); 
 	const struct nft_chain *chain = priv, *basechain = chain;
 	const struct net *net = pkt->net;
 	const struct nft_rule *rule;
@@ -288,6 +293,7 @@ err1:
 
 void nf_tables_core_module_exit(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_core.c: line 296 \n"); 
 	nft_dynset_module_exit();
 	nft_payload_module_exit();
 	nft_byteorder_module_exit();

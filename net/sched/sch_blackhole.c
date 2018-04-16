@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/sch_blackhole.c	Black hole queue
  *
@@ -20,12 +21,14 @@
 static int blackhole_enqueue(struct sk_buff *skb, struct Qdisc *sch,
 			     struct sk_buff **to_free)
 {
+	panic("We reached unpopular paths in net/sched/sch_blackhole.c: line 24 \n"); 
 	qdisc_drop(skb, sch, to_free);
 	return NET_XMIT_SUCCESS;
 }
 
 static struct sk_buff *blackhole_dequeue(struct Qdisc *sch)
 {
+	panic("We reached unpopular paths in net/sched/sch_blackhole.c: line 31 \n"); 
 	return NULL;
 }
 

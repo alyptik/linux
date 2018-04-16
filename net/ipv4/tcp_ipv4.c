@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -105,6 +106,7 @@ static  __u32 tcp_v4_init_sequence(const struct sk_buff *skb)
 
 int tcp_twsk_unique(struct sock *sk, struct sock *sktw, void *twp)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_ipv4.c: line 109 \n"); 
 	const struct tcp_timewait_sock *tcptw = tcp_twsk(sktw);
 	struct tcp_sock *tp = tcp_sk(sk);
 
@@ -269,6 +271,7 @@ EXPORT_SYMBOL(tcp_v4_connect);
  */
 void tcp_v4_mtu_reduced(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_ipv4.c: line 274 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct dst_entry *dst;
 	u32 mtu;
@@ -305,6 +308,7 @@ EXPORT_SYMBOL(tcp_v4_mtu_reduced);
 
 static void do_redirect(struct sk_buff *skb, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_ipv4.c: line 311 \n"); 
 	struct dst_entry *dst = __sk_dst_check(sk, 0);
 
 	if (dst)
@@ -315,6 +319,7 @@ static void do_redirect(struct sk_buff *skb, struct sock *sk)
 /* handle ICMP messages on TCP_NEW_SYN_RECV request sockets */
 void tcp_req_err(struct sock *sk, u32 seq, bool abort)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_ipv4.c: line 322 \n"); 
 	struct request_sock *req = inet_reqsk(sk);
 	struct net *net = sock_net(sk);
 
@@ -355,6 +360,7 @@ EXPORT_SYMBOL(tcp_req_err);
 
 void tcp_v4_err(struct sk_buff *icmp_skb, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_ipv4.c: line 363 \n"); 
 	const struct iphdr *iph = (const struct iphdr *)icmp_skb->data;
 	struct tcphdr *th = (struct tcphdr *)(icmp_skb->data + (iph->ihl << 2));
 	struct inet_connection_sock *icsk;
@@ -583,6 +589,7 @@ EXPORT_SYMBOL(tcp_v4_send_check);
 
 static void tcp_v4_send_reset(const struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_ipv4.c: line 592 \n"); 
 	const struct tcphdr *th = tcp_hdr(skb);
 	struct {
 		struct tcphdr th;
@@ -811,6 +818,7 @@ static void tcp_v4_timewait_ack(struct sock *sk, struct sk_buff *skb)
 static void tcp_v4_reqsk_send_ack(const struct sock *sk, struct sk_buff *skb,
 				  struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_ipv4.c: line 821 \n"); 
 	/* sk->sk_state == TCP_LISTEN -> for regular TCP_SYN_RECV
 	 * sk->sk_state == TCP_SYN_RECV -> for Fast Open.
 	 */

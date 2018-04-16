@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Copyright (C) 2003-2013 Jozsef Kadlecsik <kadlec@blackhole.kfki.hu>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -66,6 +67,7 @@ hash_netport4_data_equal(const struct hash_netport4_elem *ip1,
 			 const struct hash_netport4_elem *ip2,
 			 u32 *multi)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 70 \n"); 
 	return ip1->ip == ip2->ip &&
 	       ip1->port == ip2->port &&
 	       ip1->proto == ip2->proto &&
@@ -75,24 +77,28 @@ hash_netport4_data_equal(const struct hash_netport4_elem *ip1,
 static inline int
 hash_netport4_do_data_match(const struct hash_netport4_elem *elem)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 80 \n"); 
 	return elem->nomatch ? -ENOTEMPTY : 1;
 }
 
 static inline void
 hash_netport4_data_set_flags(struct hash_netport4_elem *elem, u32 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 87 \n"); 
 	elem->nomatch = !!((flags >> 16) & IPSET_FLAG_NOMATCH);
 }
 
 static inline void
 hash_netport4_data_reset_flags(struct hash_netport4_elem *elem, u8 *flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 94 \n"); 
 	swap(*flags, elem->nomatch);
 }
 
 static inline void
 hash_netport4_data_netmask(struct hash_netport4_elem *elem, u8 cidr)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 101 \n"); 
 	elem->ip &= ip_set_netmask(cidr);
 	elem->cidr = cidr - 1;
 }
@@ -101,6 +107,7 @@ static bool
 hash_netport4_data_list(struct sk_buff *skb,
 			const struct hash_netport4_elem *data)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 110 \n"); 
 	u32 flags = data->nomatch ? IPSET_FLAG_NOMATCH : 0;
 
 	if (nla_put_ipaddr4(skb, IPSET_ATTR_IP, data->ip) ||
@@ -120,6 +127,7 @@ static inline void
 hash_netport4_data_next(struct hash_netport4_elem *next,
 			const struct hash_netport4_elem *d)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 130 \n"); 
 	next->ip = d->ip;
 	next->port = d->port;
 }
@@ -133,6 +141,7 @@ hash_netport4_kadt(struct ip_set *set, const struct sk_buff *skb,
 		   const struct xt_action_param *par,
 		   enum ipset_adt adt, struct ip_set_adt_opt *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 144 \n"); 
 	const struct hash_netport *h = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct hash_netport4_elem e = {
@@ -157,6 +166,7 @@ static int
 hash_netport4_uadt(struct ip_set *set, struct nlattr *tb[],
 		   enum ipset_adt adt, u32 *lineno, u32 flags, bool retried)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 169 \n"); 
 	const struct hash_netport *h = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct hash_netport4_elem e = { .cidr = HOST_MASK - 1 };
@@ -278,6 +288,7 @@ hash_netport6_data_equal(const struct hash_netport6_elem *ip1,
 			 const struct hash_netport6_elem *ip2,
 			 u32 *multi)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 291 \n"); 
 	return ipv6_addr_equal(&ip1->ip.in6, &ip2->ip.in6) &&
 	       ip1->port == ip2->port &&
 	       ip1->proto == ip2->proto &&
@@ -287,24 +298,28 @@ hash_netport6_data_equal(const struct hash_netport6_elem *ip1,
 static inline int
 hash_netport6_do_data_match(const struct hash_netport6_elem *elem)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 301 \n"); 
 	return elem->nomatch ? -ENOTEMPTY : 1;
 }
 
 static inline void
 hash_netport6_data_set_flags(struct hash_netport6_elem *elem, u32 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 308 \n"); 
 	elem->nomatch = !!((flags >> 16) & IPSET_FLAG_NOMATCH);
 }
 
 static inline void
 hash_netport6_data_reset_flags(struct hash_netport6_elem *elem, u8 *flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 315 \n"); 
 	swap(*flags, elem->nomatch);
 }
 
 static inline void
 hash_netport6_data_netmask(struct hash_netport6_elem *elem, u8 cidr)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 322 \n"); 
 	ip6_netmask(&elem->ip, cidr);
 	elem->cidr = cidr - 1;
 }
@@ -313,6 +328,7 @@ static bool
 hash_netport6_data_list(struct sk_buff *skb,
 			const struct hash_netport6_elem *data)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 331 \n"); 
 	u32 flags = data->nomatch ? IPSET_FLAG_NOMATCH : 0;
 
 	if (nla_put_ipaddr6(skb, IPSET_ATTR_IP, &data->ip.in6) ||
@@ -332,6 +348,7 @@ static inline void
 hash_netport6_data_next(struct hash_netport4_elem *next,
 			const struct hash_netport6_elem *d)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 351 \n"); 
 	next->port = d->port;
 }
 
@@ -348,6 +365,7 @@ hash_netport6_kadt(struct ip_set *set, const struct sk_buff *skb,
 		   const struct xt_action_param *par,
 		   enum ipset_adt adt, struct ip_set_adt_opt *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 368 \n"); 
 	const struct hash_netport *h = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct hash_netport6_elem e = {
@@ -372,6 +390,7 @@ static int
 hash_netport6_uadt(struct ip_set *set, struct nlattr *tb[],
 		   enum ipset_adt adt, u32 *lineno, u32 flags, bool retried)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_netport.c: line 393 \n"); 
 	const struct hash_netport *h = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct hash_netport6_elem e = { .cidr = HOST_MASK  - 1 };

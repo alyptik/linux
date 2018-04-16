@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/kernfs/kernfs-internal.h - kernfs internal header file
  *

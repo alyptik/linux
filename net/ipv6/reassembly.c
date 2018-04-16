@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IPv6 fragment reassembly
  *	Linux INET6 implementation
@@ -71,6 +72,7 @@ struct ip6frag_skb_cb {
 
 static u8 ip6_frag_ecn(const struct ipv6hdr *ipv6h)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 75 \n"); 
 	return 1 << (ipv6_get_dsfield(ipv6h) & INET_ECN_MASK);
 }
 
@@ -86,6 +88,7 @@ static int ip6_frag_reasm(struct frag_queue *fq, struct sk_buff *prev,
 static unsigned int inet6_hash_frag(__be32 id, const struct in6_addr *saddr,
 				    const struct in6_addr *daddr)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 91 \n"); 
 	net_get_random_once(&ip6_frags.rnd, sizeof(ip6_frags.rnd));
 	return jhash_3words(ipv6_addr_hash(saddr), ipv6_addr_hash(daddr),
 			    (__force u32)id, ip6_frags.rnd);
@@ -93,6 +96,7 @@ static unsigned int inet6_hash_frag(__be32 id, const struct in6_addr *saddr,
 
 static unsigned int ip6_hashfn(const struct inet_frag_queue *q)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 99 \n"); 
 	const struct frag_queue *fq;
 
 	fq = container_of(q, struct frag_queue, q);
@@ -101,6 +105,7 @@ static unsigned int ip6_hashfn(const struct inet_frag_queue *q)
 
 bool ip6_frag_match(const struct inet_frag_queue *q, const void *a)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 108 \n"); 
 	const struct frag_queue *fq;
 	const struct ip6_create_arg *arg = a;
 
@@ -117,6 +122,7 @@ EXPORT_SYMBOL(ip6_frag_match);
 
 void ip6_frag_init(struct inet_frag_queue *q, const void *a)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 125 \n"); 
 	struct frag_queue *fq = container_of(q, struct frag_queue, q);
 	const struct ip6_create_arg *arg = a;
 
@@ -131,6 +137,7 @@ EXPORT_SYMBOL(ip6_frag_init);
 void ip6_expire_frag_queue(struct net *net, struct frag_queue *fq,
 			   struct inet_frags *frags)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 140 \n"); 
 	struct net_device *dev = NULL;
 
 	spin_lock(&fq->q.lock);
@@ -172,6 +179,7 @@ EXPORT_SYMBOL(ip6_expire_frag_queue);
 
 static void ip6_frag_expire(unsigned long data)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 182 \n"); 
 	struct frag_queue *fq;
 	struct net *net;
 
@@ -185,6 +193,7 @@ static struct frag_queue *
 fq_find(struct net *net, __be32 id, const struct in6_addr *src,
 	const struct in6_addr *dst, int iif, u8 ecn)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 196 \n"); 
 	struct inet_frag_queue *q;
 	struct ip6_create_arg arg;
 	unsigned int hash;
@@ -209,6 +218,7 @@ fq_find(struct net *net, __be32 id, const struct in6_addr *src,
 static int ip6_frag_queue(struct frag_queue *fq, struct sk_buff *skb,
 			   struct frag_hdr *fhdr, int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 221 \n"); 
 	struct sk_buff *prev, *next;
 	struct net_device *dev;
 	int offset, end;
@@ -379,6 +389,7 @@ err:
 static int ip6_frag_reasm(struct frag_queue *fq, struct sk_buff *prev,
 			  struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 392 \n"); 
 	struct net *net = container_of(fq->q.net, struct net, ipv6.frags);
 	struct sk_buff *fp, *head = fq->q.fragments;
 	int    payload_len;
@@ -521,6 +532,7 @@ out_fail:
 
 static int ipv6_frag_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 535 \n"); 
 	struct frag_hdr *fhdr;
 	struct frag_queue *fq;
 	const struct ipv6hdr *hdr = ipv6_hdr(skb);
@@ -690,20 +702,24 @@ static void ip6_frags_sysctl_unregister(void)
 #else
 static int ip6_frags_ns_sysctl_register(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 705 \n"); 
 	return 0;
 }
 
 static void ip6_frags_ns_sysctl_unregister(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 711 \n"); 
 }
 
 static int ip6_frags_sysctl_register(void)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 716 \n"); 
 	return 0;
 }
 
 static void ip6_frags_sysctl_unregister(void)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 722 \n"); 
 }
 #endif
 
@@ -767,6 +783,7 @@ err_sysctl:
 
 void ipv6_frag_exit(void)
 {
+	panic("We reached unpopular paths in net/ipv6/reassembly.c: line 786 \n"); 
 	inet_frags_fini(&ip6_frags);
 	ip6_frags_sysctl_unregister();
 	unregister_pernet_subsys(&ip6_frags_ops);

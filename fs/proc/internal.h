@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Internal procfs definitions
  *
  * Copyright (C) 2004 Red Hat, Inc. All Rights Reserved.
@@ -74,21 +75,25 @@ struct proc_inode {
  */
 static inline struct proc_inode *PROC_I(const struct inode *inode)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/proc/internal.h: line 78 \n"); 
 	return container_of(inode, struct proc_inode, vfs_inode);
 }
 
 static inline struct proc_dir_entry *PDE(const struct inode *inode)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/proc/internal.h: line 84 \n"); 
 	return PROC_I(inode)->pde;
 }
 
 static inline void *__PDE_DATA(const struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/proc/internal.h: line 90 \n"); 
 	return PDE(inode)->data;
 }
 
 static inline struct pid *proc_pid(struct inode *inode)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/proc/internal.h: line 96 \n"); 
 	return PROC_I(inode)->pid;
 }
 

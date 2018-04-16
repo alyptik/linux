@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #ifndef __BEN_VLAN_802_1Q_INC__
 #define __BEN_VLAN_802_1Q_INC__
 
@@ -37,6 +38,7 @@ struct vlan_info {
 
 static inline unsigned int vlan_proto_idx(__be16 proto)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.h: line 41 \n"); 
 	switch (proto) {
 	case htons(ETH_P_8021Q):
 		return VLAN_PROTO_8021Q;
@@ -63,6 +65,7 @@ static inline struct net_device *vlan_group_get_device(struct vlan_group *vg,
 						       __be16 vlan_proto,
 						       u16 vlan_id)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.h: line 68 \n"); 
 	return __vlan_group_get_device(vg, vlan_proto_idx(vlan_proto), vlan_id);
 }
 
@@ -70,6 +73,7 @@ static inline void vlan_group_set_device(struct vlan_group *vg,
 					 __be16 vlan_proto, u16 vlan_id,
 					 struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.h: line 76 \n"); 
 	struct net_device **array;
 	if (!vg)
 		return;
@@ -82,6 +86,7 @@ static inline void vlan_group_set_device(struct vlan_group *vg,
 static inline struct net_device *vlan_find_dev(struct net_device *real_dev,
 					       __be16 vlan_proto, u16 vlan_id)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.h: line 89 \n"); 
 	struct vlan_info *vlan_info = rcu_dereference_rtnl(real_dev->vlan_info);
 
 	if (vlan_info)
@@ -115,6 +120,7 @@ bool vlan_dev_inherit_address(struct net_device *dev,
 static inline u32 vlan_get_ingress_priority(struct net_device *dev,
 					    u16 vlan_tci)
 {
+	panic("We reached unpopular paths in net/8021q/vlan.h: line 123 \n"); 
 	struct vlan_dev_priv *vip = vlan_dev_priv(dev);
 
 	return vip->ingress_priority_map[(vlan_tci >> VLAN_PRIO_SHIFT) & 0x7];

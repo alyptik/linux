@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Bridge multicast support.
  *
@@ -71,6 +72,7 @@ static inline int br_ip_equal(const struct br_ip *a, const struct br_ip *b)
 static inline int __br_ip4_hash(struct net_bridge_mdb_htable *mdb, __be32 ip,
 				__u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 75 \n"); 
 	return jhash_2words((__force u32)ip, vid, mdb->secret) & (mdb->max - 1);
 }
 
@@ -123,6 +125,7 @@ struct net_bridge_mdb_entry *br_mdb_ip_get(struct net_bridge_mdb_htable *mdb,
 static struct net_bridge_mdb_entry *br_mdb_ip4_get(
 	struct net_bridge_mdb_htable *mdb, __be32 dst, __u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 128 \n"); 
 	struct br_ip br_dst;
 
 	br_dst.u.ip4 = dst;
@@ -180,6 +183,7 @@ struct net_bridge_mdb_entry *br_mdb_get(struct net_bridge *br,
 
 static void br_mdb_free(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 186 \n"); 
 	struct net_bridge_mdb_htable *mdb =
 		container_of(head, struct net_bridge_mdb_htable, rcu);
 	struct net_bridge_mdb_htable *old = mdb->old;
@@ -220,6 +224,7 @@ static int br_mdb_copy(struct net_bridge_mdb_htable *new,
 
 void br_multicast_free_pg(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 227 \n"); 
 	struct net_bridge_port_group *p =
 		container_of(head, struct net_bridge_port_group, rcu);
 
@@ -263,6 +268,7 @@ out:
 static void br_multicast_del_pg(struct net_bridge *br,
 				struct net_bridge_port_group *pg)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 271 \n"); 
 	struct net_bridge_mdb_htable *mdb;
 	struct net_bridge_mdb_entry *mp;
 	struct net_bridge_port_group *p;
@@ -299,6 +305,7 @@ static void br_multicast_del_pg(struct net_bridge *br,
 
 static void br_multicast_port_group_expired(unsigned long data)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 308 \n"); 
 	struct net_bridge_port_group *pg = (void *)data;
 	struct net_bridge *br = pg->port->br;
 
@@ -364,6 +371,7 @@ static struct sk_buff *br_ip4_multicast_alloc_query(struct net_bridge *br,
 						    __be32 group,
 						    u8 *igmp_type)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 374 \n"); 
 	struct sk_buff *skb;
 	struct igmphdr *ih;
 	struct ethhdr *eth;
@@ -520,6 +528,7 @@ static struct sk_buff *br_multicast_alloc_query(struct net_bridge *br,
 						struct br_ip *addr,
 						u8 *igmp_type)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 531 \n"); 
 	switch (addr->proto) {
 	case htons(ETH_P_IP):
 		return br_ip4_multicast_alloc_query(br, addr->u.ip4, igmp_type);
@@ -732,6 +741,7 @@ static int br_ip4_multicast_add_group(struct net_bridge *br,
 				      __be32 group,
 				      __u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 744 \n"); 
 	struct br_ip br_group;
 
 	if (ipv4_is_local_multicast(group))
@@ -765,6 +775,7 @@ static int br_ip6_multicast_add_group(struct net_bridge *br,
 
 static void br_multicast_router_expired(unsigned long data)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 778 \n"); 
 	struct net_bridge_port *port = (void *)data;
 	struct net_bridge *br = port->br;
 
@@ -787,11 +798,13 @@ out:
 
 static void br_multicast_local_router_expired(unsigned long data)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 801 \n"); 
 }
 
 static void br_multicast_querier_expired(struct net_bridge *br,
 					 struct bridge_mcast_own_query *query)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 807 \n"); 
 	spin_lock(&br->multicast_lock);
 	if (!netif_running(br->dev) || br->multicast_disabled)
 		goto out;
@@ -804,6 +817,7 @@ out:
 
 static void br_ip4_multicast_querier_expired(unsigned long data)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 820 \n"); 
 	struct net_bridge *br = (void *)data;
 
 	br_multicast_querier_expired(br, &br->ip4_own_query);
@@ -822,6 +836,7 @@ static void br_multicast_select_own_querier(struct net_bridge *br,
 					    struct br_ip *ip,
 					    struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 839 \n"); 
 	if (ip->proto == htons(ETH_P_IP))
 		br->ip4_querier.addr.u.ip4 = ip_hdr(skb)->saddr;
 #if IS_ENABLED(CONFIG_IPV6)
@@ -834,6 +849,7 @@ static void __br_multicast_send_query(struct net_bridge *br,
 				      struct net_bridge_port *port,
 				      struct br_ip *ip)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 852 \n"); 
 	struct sk_buff *skb;
 	u8 igmp_type;
 
@@ -1028,6 +1044,7 @@ static int br_ip4_multicast_igmp3_report(struct net_bridge *br,
 					 struct sk_buff *skb,
 					 u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1047 \n"); 
 	struct igmpv3_report *ih;
 	struct igmpv3_grec *grec;
 	int i;
@@ -1156,6 +1173,7 @@ static bool br_ip4_multicast_select_querier(struct net_bridge *br,
 					    struct net_bridge_port *port,
 					    __be32 saddr)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1176 \n"); 
 	if (!timer_pending(&br->ip4_own_query.timer) &&
 	    !timer_pending(&br->ip4_other_query.timer))
 		goto update;
@@ -1205,6 +1223,7 @@ static bool br_multicast_select_querier(struct net_bridge *br,
 					struct net_bridge_port *port,
 					struct br_ip *saddr)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1226 \n"); 
 	switch (saddr->proto) {
 	case htons(ETH_P_IP):
 		return br_ip4_multicast_select_querier(br, port, saddr->u.ip4);
@@ -1222,6 +1241,7 @@ br_multicast_update_query_timer(struct net_bridge *br,
 				struct bridge_mcast_other_query *query,
 				unsigned long max_delay)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1244 \n"); 
 	if (!timer_pending(&query->timer))
 		query->delay_time = jiffies + max_delay;
 
@@ -1236,6 +1256,7 @@ br_multicast_update_query_timer(struct net_bridge *br,
 static void br_multicast_add_router(struct net_bridge *br,
 				    struct net_bridge_port *port)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1259 \n"); 
 	struct net_bridge_port *p;
 	struct hlist_node *slot = NULL;
 
@@ -1258,6 +1279,7 @@ static void br_multicast_add_router(struct net_bridge *br,
 static void br_multicast_mark_router(struct net_bridge *br,
 				     struct net_bridge_port *port)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1282 \n"); 
 	unsigned long now = jiffies;
 
 	if (!port) {
@@ -1283,6 +1305,7 @@ static void br_multicast_query_received(struct net_bridge *br,
 					struct br_ip *saddr,
 					unsigned long max_delay)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1308 \n"); 
 	if (!br_multicast_select_querier(br, port, saddr))
 		return;
 
@@ -1295,6 +1318,7 @@ static int br_ip4_multicast_query(struct net_bridge *br,
 				  struct sk_buff *skb,
 				  u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1321 \n"); 
 	const struct iphdr *iph = ip_hdr(skb);
 	struct igmphdr *ih = igmp_hdr(skb);
 	struct net_bridge_mdb_entry *mp;
@@ -1460,6 +1484,7 @@ br_multicast_leave_group(struct net_bridge *br,
 			 struct bridge_mcast_other_query *other_query,
 			 struct bridge_mcast_own_query *own_query)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1487 \n"); 
 	struct net_bridge_mdb_htable *mdb;
 	struct net_bridge_mdb_entry *mp;
 	struct net_bridge_port_group *p;
@@ -1566,6 +1591,7 @@ static void br_ip4_multicast_leave_group(struct net_bridge *br,
 					 __be32 group,
 					 __u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1594 \n"); 
 	struct br_ip br_group;
 	struct bridge_mcast_own_query *own_query;
 
@@ -1609,6 +1635,7 @@ static void br_multicast_err_count(const struct net_bridge *br,
 				   const struct net_bridge_port *p,
 				   __be16 proto)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1638 \n"); 
 	struct bridge_mcast_stats __percpu *stats;
 	struct bridge_mcast_stats *pstats;
 
@@ -1643,6 +1670,7 @@ static int br_multicast_ipv4_rcv(struct net_bridge *br,
 				 struct sk_buff *skb,
 				 u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1673 \n"); 
 	struct sk_buff *skb_trimmed = NULL;
 	struct igmphdr *ih;
 	int err;
@@ -1853,6 +1881,7 @@ void br_multicast_open(struct net_bridge *br)
 
 void br_multicast_stop(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1884 \n"); 
 	del_timer_sync(&br->multicast_router_timer);
 	del_timer_sync(&br->ip4_other_query.timer);
 	del_timer_sync(&br->ip4_own_query.timer);
@@ -1864,6 +1893,7 @@ void br_multicast_stop(struct net_bridge *br)
 
 void br_multicast_dev_del(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1896 \n"); 
 	struct net_bridge_mdb_htable *mdb;
 	struct net_bridge_mdb_entry *mp;
 	struct hlist_node *n;
@@ -1904,6 +1934,7 @@ out:
 
 int br_multicast_set_router(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1937 \n"); 
 	int err = -EINVAL;
 
 	spin_lock_bh(&br->multicast_lock);
@@ -1926,6 +1957,7 @@ int br_multicast_set_router(struct net_bridge *br, unsigned long val)
 
 static void __del_port_router(struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1960 \n"); 
 	if (hlist_unhashed(&p->rlist))
 		return;
 	hlist_del_init_rcu(&p->rlist);
@@ -1934,6 +1966,7 @@ static void __del_port_router(struct net_bridge_port *p)
 
 int br_multicast_set_port_router(struct net_bridge_port *p, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 1969 \n"); 
 	struct net_bridge *br = p->br;
 	unsigned long now = jiffies;
 	int err = -EINVAL;
@@ -1979,6 +2012,7 @@ unlock:
 static void br_multicast_start_querier(struct net_bridge *br,
 				       struct bridge_mcast_own_query *query)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 2015 \n"); 
 	struct net_bridge_port *port;
 
 	__br_multicast_open(br, query);
@@ -1999,6 +2033,7 @@ static void br_multicast_start_querier(struct net_bridge *br,
 
 int br_multicast_toggle(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 2036 \n"); 
 	struct net_bridge_mdb_htable *mdb;
 	struct net_bridge_port *port;
 	int err = 0;
@@ -2041,6 +2076,7 @@ unlock:
 
 int br_multicast_set_querier(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 2079 \n"); 
 	unsigned long max_delay;
 
 	val = !!val;
@@ -2075,6 +2111,7 @@ unlock:
 
 int br_multicast_set_hash_max(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 2114 \n"); 
 	int err = -EINVAL;
 	u32 old;
 	struct net_bridge_mdb_htable *mdb;
@@ -2132,6 +2169,7 @@ unlock:
 int br_multicast_list_adjacent(struct net_device *dev,
 			       struct list_head *br_ip_list)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 2172 \n"); 
 	struct net_bridge *br;
 	struct net_bridge_port *port;
 	struct net_bridge_port_group *group;
@@ -2180,6 +2218,7 @@ EXPORT_SYMBOL_GPL(br_multicast_list_adjacent);
  */
 bool br_multicast_has_querier_anywhere(struct net_device *dev, int proto)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 2221 \n"); 
 	struct net_bridge *br;
 	struct net_bridge_port *port;
 	struct ethhdr eth;
@@ -2217,6 +2256,7 @@ EXPORT_SYMBOL_GPL(br_multicast_has_querier_anywhere);
  */
 bool br_multicast_has_querier_adjacent(struct net_device *dev, int proto)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 2259 \n"); 
 	struct net_bridge *br;
 	struct net_bridge_port *port;
 	bool ret = false;
@@ -2356,6 +2396,7 @@ int br_multicast_init_stats(struct net_bridge *br)
 
 static void mcast_stats_add_dir(u64 *dst, u64 *src)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 2399 \n"); 
 	dst[BR_MCAST_DIR_RX] += src[BR_MCAST_DIR_RX];
 	dst[BR_MCAST_DIR_TX] += src[BR_MCAST_DIR_TX];
 }
@@ -2364,6 +2405,7 @@ void br_multicast_get_stats(const struct net_bridge *br,
 			    const struct net_bridge_port *p,
 			    struct br_mcast_stats *dest)
 {
+	panic("We reached unpopular paths in net/bridge/br_multicast.c: line 2408 \n"); 
 	struct bridge_mcast_stats __percpu *stats;
 	struct br_mcast_stats tdst;
 	int i;

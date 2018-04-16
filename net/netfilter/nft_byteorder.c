@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  *
@@ -30,6 +31,7 @@ static void nft_byteorder_eval(const struct nft_expr *expr,
 			       struct nft_regs *regs,
 			       const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_byteorder.c: line 34 \n"); 
 	const struct nft_byteorder *priv = nft_expr_priv(expr);
 	u32 *src = &regs->data[priv->sreg];
 	u32 *dst = &regs->data[priv->dreg];
@@ -98,6 +100,7 @@ static int nft_byteorder_init(const struct nft_ctx *ctx,
 			      const struct nft_expr *expr,
 			      const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_byteorder.c: line 103 \n"); 
 	struct nft_byteorder *priv = nft_expr_priv(expr);
 	u32 size, len;
 	int err;
@@ -151,6 +154,7 @@ static int nft_byteorder_init(const struct nft_ctx *ctx,
 
 static int nft_byteorder_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_byteorder.c: line 157 \n"); 
 	const struct nft_byteorder *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_BYTEORDER_SREG, priv->sreg))
@@ -193,5 +197,6 @@ int __init nft_byteorder_module_init(void)
 
 void nft_byteorder_module_exit(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_byteorder.c: line 200 \n"); 
 	nft_unregister_expr(&nft_byteorder_type);
 }

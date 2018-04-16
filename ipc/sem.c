@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/ipc/sem.c
  * Copyright (C) 1992 Krishna Balasubramanian
@@ -219,6 +220,7 @@ void __init sem_init(void)
  */
 static void unmerge_queues(struct sem_array *sma)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 223 \n"); 
 	struct sem_queue *q, *tq;
 
 	/* complex operations still around? */
@@ -249,6 +251,7 @@ static void unmerge_queues(struct sem_array *sma)
  */
 static void merge_queues(struct sem_array *sma)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 254 \n"); 
 	int i;
 	for (i = 0; i < sma->sem_nsems; i++) {
 		struct sem *sem = sma->sem_base + i;
@@ -259,6 +262,7 @@ static void merge_queues(struct sem_array *sma)
 
 static void sem_rcu_free(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 265 \n"); 
 	struct ipc_rcu *p = container_of(head, struct ipc_rcu, rcu);
 	struct sem_array *sma = ipc_rcu_to_struct(p);
 
@@ -272,6 +276,7 @@ static void sem_rcu_free(struct rcu_head *head)
  */
 static void complexmode_enter(struct sem_array *sma)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 279 \n"); 
 	int i;
 	struct sem *sem;
 
@@ -306,6 +311,7 @@ static void complexmode_enter(struct sem_array *sma)
  */
 static void complexmode_tryleave(struct sem_array *sma)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 314 \n"); 
 	if (sma->complex_count)  {
 		/* Complex ops are sleeping.
 		 * We must stay in complex mode
@@ -332,6 +338,7 @@ static void complexmode_tryleave(struct sem_array *sma)
 static inline int sem_lock(struct sem_array *sma, struct sembuf *sops,
 			      int nsops)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 341 \n"); 
 	struct sem *sem;
 
 	if (nsops != 1) {
@@ -400,6 +407,7 @@ static inline int sem_lock(struct sem_array *sma, struct sembuf *sops,
 
 static inline void sem_unlock(struct sem_array *sma, int locknum)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 410 \n"); 
 	if (locknum == SEM_GLOBAL_LOCK) {
 		unmerge_queues(sma);
 		complexmode_tryleave(sma);
@@ -419,6 +427,7 @@ static inline void sem_unlock(struct sem_array *sma, int locknum)
 static inline struct sem_array *sem_obtain_lock(struct ipc_namespace *ns,
 			int id, struct sembuf *sops, int nsops, int *locknum)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 430 \n"); 
 	struct kern_ipc_perm *ipcp;
 	struct sem_array *sma;
 
@@ -441,6 +450,7 @@ static inline struct sem_array *sem_obtain_lock(struct ipc_namespace *ns,
 
 static inline struct sem_array *sem_obtain_object(struct ipc_namespace *ns, int id)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 453 \n"); 
 	struct kern_ipc_perm *ipcp = ipc_obtain_object_idr(&sem_ids(ns), id);
 
 	if (IS_ERR(ipcp))
@@ -452,6 +462,7 @@ static inline struct sem_array *sem_obtain_object(struct ipc_namespace *ns, int 
 static inline struct sem_array *sem_obtain_object_check(struct ipc_namespace *ns,
 							int id)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 465 \n"); 
 	struct kern_ipc_perm *ipcp = ipc_obtain_object_check(&sem_ids(ns), id);
 
 	if (IS_ERR(ipcp))
@@ -462,12 +473,14 @@ static inline struct sem_array *sem_obtain_object_check(struct ipc_namespace *ns
 
 static inline void sem_lock_and_putref(struct sem_array *sma)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 476 \n"); 
 	sem_lock(sma, NULL, -1);
 	ipc_rcu_putref(sma, sem_rcu_free);
 }
 
 static inline void sem_rmid(struct ipc_namespace *ns, struct sem_array *s)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 483 \n"); 
 	ipc_rmid(&sem_ids(ns), &s->sem_perm);
 }
 
@@ -514,6 +527,7 @@ static inline void sem_rmid(struct ipc_namespace *ns, struct sem_array *s)
  */
 static int newary(struct ipc_namespace *ns, struct ipc_params *params)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 530 \n"); 
 	int id;
 	int retval;
 	struct sem_array *sma;
@@ -580,6 +594,7 @@ static int newary(struct ipc_namespace *ns, struct ipc_params *params)
  */
 static inline int sem_security(struct kern_ipc_perm *ipcp, int semflg)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 597 \n"); 
 	struct sem_array *sma;
 
 	sma = container_of(ipcp, struct sem_array, sem_perm);
@@ -592,6 +607,7 @@ static inline int sem_security(struct kern_ipc_perm *ipcp, int semflg)
 static inline int sem_more_checks(struct kern_ipc_perm *ipcp,
 				struct ipc_params *params)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 610 \n"); 
 	struct sem_array *sma;
 
 	sma = container_of(ipcp, struct sem_array, sem_perm);
@@ -634,6 +650,7 @@ SYSCALL_DEFINE3(semget, key_t, key, int, nsems, int, semflg)
  */
 static int perform_atomic_semop(struct sem_array *sma, struct sem_queue *q)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 653 \n"); 
 	int result, sem_op, nsops, pid;
 	struct sembuf *sop;
 	struct sem *curr;
@@ -712,6 +729,7 @@ undo:
 static void wake_up_sem_queue_prepare(struct list_head *pt,
 				struct sem_queue *q, int error)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 732 \n"); 
 	if (list_empty(pt)) {
 		/*
 		 * Hold preempt off so that we don't get preempted and have the
@@ -736,6 +754,7 @@ static void wake_up_sem_queue_prepare(struct list_head *pt,
  */
 static void wake_up_sem_queue_do(struct list_head *pt)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 757 \n"); 
 	struct sem_queue *q, *t;
 	int did_something;
 
@@ -752,6 +771,7 @@ static void wake_up_sem_queue_do(struct list_head *pt)
 
 static void unlink_queue(struct sem_array *sma, struct sem_queue *q)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 774 \n"); 
 	list_del(&q->list);
 	if (q->nsops > 1)
 		sma->complex_count--;
@@ -769,6 +789,7 @@ static void unlink_queue(struct sem_array *sma, struct sem_queue *q)
  */
 static int check_restart(struct sem_array *sma, struct sem_queue *q)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 792 \n"); 
 	/* pending complex alter operations are too difficult to analyse */
 	if (!list_empty(&sma->pending_alter))
 		return 1;
@@ -808,6 +829,7 @@ static int check_restart(struct sem_array *sma, struct sem_queue *q)
 static int wake_const_ops(struct sem_array *sma, int semnum,
 				struct list_head *pt)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 832 \n"); 
 	struct sem_queue *q;
 	struct list_head *walk;
 	struct list_head *pending_list;
@@ -854,6 +876,7 @@ static int wake_const_ops(struct sem_array *sma, int semnum,
 static int do_smart_wakeup_zero(struct sem_array *sma, struct sembuf *sops,
 					int nsops, struct list_head *pt)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 879 \n"); 
 	int i;
 	int semop_completed = 0;
 	int got_zero = 0;
@@ -909,6 +932,7 @@ static int do_smart_wakeup_zero(struct sem_array *sma, struct sembuf *sops,
  */
 static int update_queue(struct sem_array *sma, int semnum, struct list_head *pt)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 935 \n"); 
 	struct sem_queue *q;
 	struct list_head *walk;
 	struct list_head *pending_list;
@@ -970,6 +994,7 @@ again:
  */
 static void set_semotime(struct sem_array *sma, struct sembuf *sops)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 997 \n"); 
 	if (sops == NULL) {
 		sma->sem_base[0].sem_otime = get_seconds();
 	} else {
@@ -995,6 +1020,7 @@ static void set_semotime(struct sem_array *sma, struct sembuf *sops)
 static void do_smart_update(struct sem_array *sma, struct sembuf *sops, int nsops,
 			int otime, struct list_head *pt)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 1023 \n"); 
 	int i;
 
 	otime |= do_smart_wakeup_zero(sma, sops, nsops, pt);
@@ -1038,6 +1064,7 @@ static void do_smart_update(struct sem_array *sma, struct sembuf *sops, int nsop
 static int check_qop(struct sem_array *sma, int semnum, struct sem_queue *q,
 			bool count_zero)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 1067 \n"); 
 	struct sembuf *sop = q->blocking;
 
 	/*
@@ -1072,6 +1099,7 @@ static int check_qop(struct sem_array *sma, int semnum, struct sem_queue *q,
 static int count_semcnt(struct sem_array *sma, ushort semnum,
 			bool count_zero)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 1102 \n"); 
 	struct list_head *l;
 	struct sem_queue *q;
 	int semcnt;
@@ -1108,6 +1136,7 @@ static int count_semcnt(struct sem_array *sma, ushort semnum,
  */
 static void freeary(struct ipc_namespace *ns, struct kern_ipc_perm *ipcp)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 1139 \n"); 
 	struct sem_undo *un, *tu;
 	struct sem_queue *q, *tq;
 	struct sem_array *sma = container_of(ipcp, struct sem_array, sem_perm);
@@ -1184,6 +1213,7 @@ static unsigned long copy_semid_to_user(void __user *buf, struct semid64_ds *in,
 
 static time_t get_semotime(struct sem_array *sma)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 1216 \n"); 
 	int i;
 	time_t res;
 
@@ -1289,6 +1319,7 @@ out_unlock:
 static int semctl_setval(struct ipc_namespace *ns, int semid, int semnum,
 		unsigned long arg)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 1322 \n"); 
 	struct sem_undo *un;
 	struct sem_array *sma;
 	struct sem *curr;
@@ -1675,6 +1706,7 @@ static inline int get_undo_list(struct sem_undo_list **undo_listp)
 
 static struct sem_undo *__lookup_undo(struct sem_undo_list *ulp, int semid)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 1709 \n"); 
 	struct sem_undo *un;
 
 	list_for_each_entry_rcu(un, &ulp->list_proc, list_proc) {
@@ -1686,6 +1718,7 @@ static struct sem_undo *__lookup_undo(struct sem_undo_list *ulp, int semid)
 
 static struct sem_undo *lookup_undo(struct sem_undo_list *ulp, int semid)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 1721 \n"); 
 	struct sem_undo *un;
 
 	assert_spin_locked(&ulp->lock);
@@ -1711,6 +1744,7 @@ static struct sem_undo *lookup_undo(struct sem_undo_list *ulp, int semid)
  */
 static struct sem_undo *find_alloc_undo(struct ipc_namespace *ns, int semid)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 1747 \n"); 
 	struct sem_array *sma;
 	struct sem_undo_list *ulp;
 	struct sem_undo *un, *new;
@@ -1802,6 +1836,7 @@ out:
  */
 static int get_queue_result(struct sem_queue *q)
 {
+	panic("We reached unpopular paths in ipc/sem.c: line 1839 \n"); 
 	int error;
 
 	error = q->status;

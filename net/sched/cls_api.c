@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/cls_api.c	Packet classifier API.
  *
@@ -40,6 +41,7 @@ static DEFINE_RWLOCK(cls_mod_lock);
 
 static const struct tcf_proto_ops *tcf_proto_lookup_ops(struct nlattr *kind)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 44 \n"); 
 	const struct tcf_proto_ops *t, *res = NULL;
 
 	if (kind) {
@@ -78,6 +80,7 @@ EXPORT_SYMBOL(register_tcf_proto_ops);
 
 int unregister_tcf_proto_ops(struct tcf_proto_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 83 \n"); 
 	struct tcf_proto_ops *t;
 	int rc = -ENOENT;
 
@@ -119,6 +122,7 @@ static void tfilter_notify_chain(struct net *net, struct sk_buff *oskb,
 
 static inline u32 tcf_auto_prio(struct tcf_proto *tp)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 125 \n"); 
 	u32 first = TC_H_MAKE(0xC0000000U, 0U);
 
 	if (tp)
@@ -131,6 +135,7 @@ static inline u32 tcf_auto_prio(struct tcf_proto *tp)
 
 static int tc_ctl_tfilter(struct sk_buff *skb, struct nlmsghdr *n)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 138 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct nlattr *tca[TCA_MAX + 1];
 	struct tcmsg *t;
@@ -390,6 +395,7 @@ static int tcf_fill_node(struct net *net, struct sk_buff *skb,
 			 struct tcf_proto *tp, unsigned long fh, u32 portid,
 			 u32 seq, u16 flags, int event)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 398 \n"); 
 	struct tcmsg *tcm;
 	struct nlmsghdr  *nlh;
 	unsigned char *b = skb_tail_pointer(skb);
@@ -425,6 +431,7 @@ static int tfilter_notify(struct net *net, struct sk_buff *oskb,
 			  struct nlmsghdr *n, struct tcf_proto *tp,
 			  unsigned long fh, int event, bool unicast)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 434 \n"); 
 	struct sk_buff *skb;
 	u32 portid = oskb ? NETLINK_CB(oskb).portid : 0;
 
@@ -454,6 +461,7 @@ struct tcf_dump_args {
 static int tcf_node_dump(struct tcf_proto *tp, unsigned long n,
 			 struct tcf_walker *arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 464 \n"); 
 	struct tcf_dump_args *a = (void *)arg;
 	struct net *net = sock_net(a->skb->sk);
 
@@ -465,6 +473,7 @@ static int tcf_node_dump(struct tcf_proto *tp, unsigned long n,
 /* called with RTNL */
 static int tc_dump_tfilter(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 476 \n"); 
 	struct net *net = sock_net(skb->sk);
 	int t;
 	int s_t;
@@ -551,6 +560,7 @@ out:
 
 void tcf_exts_destroy(struct tcf_exts *exts)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 563 \n"); 
 #ifdef CONFIG_NET_CLS_ACT
 	LIST_HEAD(actions);
 
@@ -565,6 +575,7 @@ EXPORT_SYMBOL(tcf_exts_destroy);
 int tcf_exts_validate(struct net *net, struct tcf_proto *tp, struct nlattr **tb,
 		      struct nlattr *rate_tlv, struct tcf_exts *exts, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 578 \n"); 
 #ifdef CONFIG_NET_CLS_ACT
 	{
 		struct tc_action *act;
@@ -605,6 +616,7 @@ EXPORT_SYMBOL(tcf_exts_validate);
 void tcf_exts_change(struct tcf_proto *tp, struct tcf_exts *dst,
 		     struct tcf_exts *src)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 619 \n"); 
 #ifdef CONFIG_NET_CLS_ACT
 	struct tcf_exts old = *dst;
 
@@ -631,6 +643,7 @@ static struct tc_action *tcf_exts_first_act(struct tcf_exts *exts)
 
 int tcf_exts_dump(struct sk_buff *skb, struct tcf_exts *exts)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 646 \n"); 
 #ifdef CONFIG_NET_CLS_ACT
 	struct nlattr *nest;
 
@@ -675,6 +688,7 @@ EXPORT_SYMBOL(tcf_exts_dump);
 
 int tcf_exts_dump_stats(struct sk_buff *skb, struct tcf_exts *exts)
 {
+	panic("We reached unpopular paths in net/sched/cls_api.c: line 691 \n"); 
 #ifdef CONFIG_NET_CLS_ACT
 	struct tc_action *a = tcf_exts_first_act(exts);
 	if (a != NULL && tcf_action_copy_stats(skb, a, 1) < 0)

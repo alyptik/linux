@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/buffer.c
  *
@@ -61,6 +62,7 @@ EXPORT_SYMBOL(init_buffer);
 
 inline void touch_buffer(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 65 \n"); 
 	trace_block_touch_buffer(bh);
 	mark_page_accessed(bh->b_page);
 }
@@ -68,12 +70,14 @@ EXPORT_SYMBOL(touch_buffer);
 
 void __lock_buffer(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 73 \n"); 
 	wait_on_bit_lock_io(&bh->b_state, BH_Lock, TASK_UNINTERRUPTIBLE);
 }
 EXPORT_SYMBOL(__lock_buffer);
 
 void unlock_buffer(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 80 \n"); 
 	clear_bit_unlock(BH_Lock, &bh->b_state);
 	smp_mb__after_atomic();
 	wake_up_bit(&bh->b_state, BH_Lock);
@@ -88,6 +92,7 @@ EXPORT_SYMBOL(unlock_buffer);
 void buffer_check_dirty_writeback(struct page *page,
 				     bool *dirty, bool *writeback)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 95 \n"); 
 	struct buffer_head *head, *bh;
 	*dirty = false;
 	*writeback = false;
@@ -121,6 +126,7 @@ EXPORT_SYMBOL(buffer_check_dirty_writeback);
  */
 void __wait_on_buffer(struct buffer_head * bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 129 \n"); 
 	wait_on_bit_io(&bh->b_state, BH_Lock, TASK_UNINTERRUPTIBLE);
 }
 EXPORT_SYMBOL(__wait_on_buffer);
@@ -128,6 +134,7 @@ EXPORT_SYMBOL(__wait_on_buffer);
 static void
 __clear_page_buffers(struct page *page)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 137 \n"); 
 	ClearPagePrivate(page);
 	set_page_private(page, 0);
 	put_page(page);
@@ -135,6 +142,7 @@ __clear_page_buffers(struct page *page)
 
 static void buffer_io_error(struct buffer_head *bh, char *msg)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 145 \n"); 
 	if (!test_bit(BH_Quiet, &bh->b_state))
 		printk_ratelimited(KERN_ERR
 			"Buffer I/O error on dev %pg, logical block %llu%s\n",
@@ -151,6 +159,7 @@ static void buffer_io_error(struct buffer_head *bh, char *msg)
  */
 static void __end_buffer_read_notouch(struct buffer_head *bh, int uptodate)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 162 \n"); 
 	if (uptodate) {
 		set_buffer_uptodate(bh);
 	} else {
@@ -166,6 +175,7 @@ static void __end_buffer_read_notouch(struct buffer_head *bh, int uptodate)
  */
 void end_buffer_read_sync(struct buffer_head *bh, int uptodate)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 178 \n"); 
 	__end_buffer_read_notouch(bh, uptodate);
 	put_bh(bh);
 }
@@ -173,6 +183,7 @@ EXPORT_SYMBOL(end_buffer_read_sync);
 
 void end_buffer_write_sync(struct buffer_head *bh, int uptodate)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 186 \n"); 
 	if (uptodate) {
 		set_buffer_uptodate(bh);
 	} else {
@@ -199,6 +210,7 @@ EXPORT_SYMBOL(end_buffer_write_sync);
 static struct buffer_head *
 __find_get_block_slow(struct block_device *bdev, sector_t block)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 213 \n"); 
 	struct inode *bd_inode = bdev->bd_inode;
 	struct address_space *bd_mapping = bd_inode->i_mapping;
 	struct buffer_head *ret = NULL;
@@ -256,6 +268,7 @@ out:
  */
 static void free_more_memory(void)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 271 \n"); 
 	struct zoneref *z;
 	int nid;
 
@@ -278,6 +291,7 @@ static void free_more_memory(void)
  */
 static void end_buffer_async_read(struct buffer_head *bh, int uptodate)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 294 \n"); 
 	unsigned long flags;
 	struct buffer_head *first;
 	struct buffer_head *tmp;
@@ -339,6 +353,7 @@ still_busy:
  */
 void end_buffer_async_write(struct buffer_head *bh, int uptodate)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 356 \n"); 
 	unsigned long flags;
 	struct buffer_head *first;
 	struct buffer_head *tmp;
@@ -406,6 +421,7 @@ EXPORT_SYMBOL(end_buffer_async_write);
  */
 static void mark_buffer_async_read(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 424 \n"); 
 	bh->b_end_io = end_buffer_async_read;
 	set_buffer_async_read(bh);
 }
@@ -413,12 +429,14 @@ static void mark_buffer_async_read(struct buffer_head *bh)
 static void mark_buffer_async_write_endio(struct buffer_head *bh,
 					  bh_end_io_t *handler)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 432 \n"); 
 	bh->b_end_io = handler;
 	set_buffer_async_write(bh);
 }
 
 void mark_buffer_async_write(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 439 \n"); 
 	mark_buffer_async_write_endio(bh, end_buffer_async_write);
 }
 EXPORT_SYMBOL(mark_buffer_async_write);
@@ -478,6 +496,7 @@ EXPORT_SYMBOL(mark_buffer_async_write);
  */
 static void __remove_assoc_queue(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 499 \n"); 
 	list_del_init(&bh->b_assoc_buffers);
 	WARN_ON(!bh->b_assoc_map);
 	if (buffer_write_io_error(bh))
@@ -502,6 +521,7 @@ int inode_has_buffers(struct inode *inode)
  */
 static int osync_buffers_list(spinlock_t *lock, struct list_head *list)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 524 \n"); 
 	struct buffer_head *bh;
 	struct list_head *p;
 	int err = 0;
@@ -527,12 +547,14 @@ repeat:
 
 static void do_thaw_one(struct super_block *sb, void *unused)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 550 \n"); 
 	while (sb->s_bdev && !thaw_bdev(sb->s_bdev, sb))
 		printk(KERN_WARNING "Emergency Thaw on %pg\n", sb->s_bdev);
 }
 
 static void do_thaw_all(struct work_struct *work)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 557 \n"); 
 	iterate_supers(do_thaw_one, NULL);
 	kfree(work);
 	printk(KERN_WARNING "Emergency Thaw complete\n");
@@ -545,6 +567,7 @@ static void do_thaw_all(struct work_struct *work)
  */
 void emergency_thaw_all(void)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 570 \n"); 
 	struct work_struct *work;
 
 	work = kmalloc(sizeof(*work), GFP_ATOMIC);
@@ -567,6 +590,7 @@ void emergency_thaw_all(void)
  */
 int sync_mapping_buffers(struct address_space *mapping)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 593 \n"); 
 	struct address_space *buffer_mapping = mapping->private_data;
 
 	if (buffer_mapping == NULL || list_empty(&mapping->private_list))
@@ -586,6 +610,7 @@ EXPORT_SYMBOL(sync_mapping_buffers);
 void write_boundary_block(struct block_device *bdev,
 			sector_t bblock, unsigned blocksize)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 613 \n"); 
 	struct buffer_head *bh = __find_get_block(bdev, bblock + 1, blocksize);
 	if (bh) {
 		if (buffer_dirty(bh))
@@ -596,6 +621,7 @@ void write_boundary_block(struct block_device *bdev,
 
 void mark_buffer_dirty_inode(struct buffer_head *bh, struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 624 \n"); 
 	struct address_space *mapping = inode->i_mapping;
 	struct address_space *buffer_mapping = bh->b_page->mapping;
 
@@ -627,6 +653,7 @@ EXPORT_SYMBOL(mark_buffer_dirty_inode);
 static void __set_page_dirty(struct page *page, struct address_space *mapping,
 			     int warn)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 656 \n"); 
 	unsigned long flags;
 
 	spin_lock_irqsave(&mapping->tree_lock, flags);
@@ -666,6 +693,7 @@ static void __set_page_dirty(struct page *page, struct address_space *mapping,
  */
 int __set_page_dirty_buffers(struct page *page)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 696 \n"); 
 	int newly_dirty;
 	struct address_space *mapping = page_mapping(page);
 
@@ -723,6 +751,7 @@ EXPORT_SYMBOL(__set_page_dirty_buffers);
  */
 static int fsync_buffers_list(spinlock_t *lock, struct list_head *list)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 754 \n"); 
 	struct buffer_head *bh;
 	struct list_head tmp;
 	struct address_space *mapping;
@@ -811,6 +840,7 @@ static int fsync_buffers_list(spinlock_t *lock, struct list_head *list)
  */
 void invalidate_inode_buffers(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 843 \n"); 
 	if (inode_has_buffers(inode)) {
 		struct address_space *mapping = &inode->i_data;
 		struct list_head *list = &mapping->private_list;
@@ -832,6 +862,7 @@ EXPORT_SYMBOL(invalidate_inode_buffers);
  */
 int remove_inode_buffers(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 865 \n"); 
 	int ret = 1;
 
 	if (inode_has_buffers(inode)) {
@@ -865,6 +896,7 @@ int remove_inode_buffers(struct inode *inode)
 struct buffer_head *alloc_page_buffers(struct page *page, unsigned long size,
 		int retry)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 899 \n"); 
 	struct buffer_head *bh, *head;
 	long offset;
 
@@ -921,6 +953,7 @@ EXPORT_SYMBOL_GPL(alloc_page_buffers);
 static inline void
 link_dev_buffers(struct page *page, struct buffer_head *head)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 956 \n"); 
 	struct buffer_head *bh, *tail;
 
 	bh = head;
@@ -934,6 +967,7 @@ link_dev_buffers(struct page *page, struct buffer_head *head)
 
 static sector_t blkdev_max_block(struct block_device *bdev, unsigned int size)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 970 \n"); 
 	sector_t retval = ~((sector_t)0);
 	loff_t sz = i_size_read(bdev->bd_inode);
 
@@ -951,6 +985,7 @@ static sector_t
 init_page_buffers(struct page *page, struct block_device *bdev,
 			sector_t block, int size)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 988 \n"); 
 	struct buffer_head *head = page_buffers(page);
 	struct buffer_head *bh = head;
 	int uptodate = PageUptodate(page);
@@ -985,6 +1020,7 @@ static int
 grow_dev_page(struct block_device *bdev, sector_t block,
 	      pgoff_t index, int size, int sizebits, gfp_t gfp)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1023 \n"); 
 	struct inode *inode = bdev->bd_inode;
 	struct page *page;
 	struct buffer_head *bh;
@@ -1052,6 +1088,7 @@ failed:
 static int
 grow_buffers(struct block_device *bdev, sector_t block, int size, gfp_t gfp)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1091 \n"); 
 	pgoff_t index;
 	int sizebits;
 
@@ -1082,6 +1119,7 @@ static struct buffer_head *
 __getblk_slow(struct block_device *bdev, sector_t block,
 	     unsigned size, gfp_t gfp)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1122 \n"); 
 	/* Size must be multiple of hard sectorsize */
 	if (unlikely(size & (bdev_logical_block_size(bdev)-1) ||
 			(size < 512 || size > PAGE_SIZE))) {
@@ -1147,6 +1185,7 @@ __getblk_slow(struct block_device *bdev, sector_t block,
  */
 void mark_buffer_dirty(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1188 \n"); 
 	WARN_ON_ONCE(!buffer_uptodate(bh));
 
 	trace_block_dirty_buffer(bh);
@@ -1189,6 +1228,7 @@ EXPORT_SYMBOL(mark_buffer_dirty);
  */
 void __brelse(struct buffer_head * buf)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1231 \n"); 
 	if (atomic_read(&buf->b_count)) {
 		put_bh(buf);
 		return;
@@ -1203,6 +1243,7 @@ EXPORT_SYMBOL(__brelse);
  */
 void __bforget(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1246 \n"); 
 	clear_buffer_dirty(bh);
 	if (bh->b_assoc_map) {
 		struct address_space *buffer_mapping = bh->b_page->mapping;
@@ -1218,6 +1259,7 @@ EXPORT_SYMBOL(__bforget);
 
 static struct buffer_head *__bread_slow(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1262 \n"); 
 	lock_buffer(bh);
 	if (buffer_uptodate(bh)) {
 		unlock_buffer(bh);
@@ -1266,6 +1308,7 @@ static DEFINE_PER_CPU(struct bh_lru, bh_lrus) = {{ NULL }};
 
 static inline void check_irqs_on(void)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1311 \n"); 
 #ifdef irqs_disabled
 	BUG_ON(irqs_disabled());
 #endif
@@ -1276,6 +1319,7 @@ static inline void check_irqs_on(void)
  */
 static void bh_lru_install(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1322 \n"); 
 	struct buffer_head *evictee = NULL;
 
 	check_irqs_on();
@@ -1318,6 +1362,7 @@ static void bh_lru_install(struct buffer_head *bh)
 static struct buffer_head *
 lookup_bh_lru(struct block_device *bdev, sector_t block, unsigned size)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1365 \n"); 
 	struct buffer_head *ret = NULL;
 	unsigned int i;
 
@@ -1353,6 +1398,7 @@ lookup_bh_lru(struct block_device *bdev, sector_t block, unsigned size)
 struct buffer_head *
 __find_get_block(struct block_device *bdev, sector_t block, unsigned size)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1401 \n"); 
 	struct buffer_head *bh = lookup_bh_lru(bdev, block, size);
 
 	if (bh == NULL) {
@@ -1379,6 +1425,7 @@ struct buffer_head *
 __getblk_gfp(struct block_device *bdev, sector_t block,
 	     unsigned size, gfp_t gfp)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1428 \n"); 
 	struct buffer_head *bh = __find_get_block(bdev, block, size);
 
 	might_sleep();
@@ -1393,6 +1440,7 @@ EXPORT_SYMBOL(__getblk_gfp);
  */
 void __breadahead(struct block_device *bdev, sector_t block, unsigned size)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1443 \n"); 
 	struct buffer_head *bh = __getblk(bdev, block, size);
 	if (likely(bh)) {
 		ll_rw_block(REQ_OP_READ, REQ_RAHEAD, 1, &bh);
@@ -1417,6 +1465,7 @@ struct buffer_head *
 __bread_gfp(struct block_device *bdev, sector_t block,
 		   unsigned size, gfp_t gfp)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1468 \n"); 
 	struct buffer_head *bh = __getblk_gfp(bdev, block, size, gfp);
 
 	if (likely(bh) && !buffer_uptodate(bh))
@@ -1432,6 +1481,7 @@ EXPORT_SYMBOL(__bread_gfp);
  */
 static void invalidate_bh_lru(void *arg)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1484 \n"); 
 	struct bh_lru *b = &get_cpu_var(bh_lrus);
 	int i;
 
@@ -1444,6 +1494,7 @@ static void invalidate_bh_lru(void *arg)
 
 static bool has_bh_in_lru(int cpu, void *dummy)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1497 \n"); 
 	struct bh_lru *b = per_cpu_ptr(&bh_lrus, cpu);
 	int i;
 	
@@ -1457,6 +1508,7 @@ static bool has_bh_in_lru(int cpu, void *dummy)
 
 void invalidate_bh_lrus(void)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1511 \n"); 
 	on_each_cpu_cond(has_bh_in_lru, invalidate_bh_lru, NULL, 1, GFP_KERNEL);
 }
 EXPORT_SYMBOL_GPL(invalidate_bh_lrus);
@@ -1464,6 +1516,7 @@ EXPORT_SYMBOL_GPL(invalidate_bh_lrus);
 void set_bh_page(struct buffer_head *bh,
 		struct page *page, unsigned long offset)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1519 \n"); 
 	bh->b_page = page;
 	BUG_ON(offset >= PAGE_SIZE);
 	if (PageHighMem(page))
@@ -1487,6 +1540,7 @@ EXPORT_SYMBOL(set_bh_page);
 
 static void discard_buffer(struct buffer_head * bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1543 \n"); 
 	unsigned long b_state, b_state_old;
 
 	lock_buffer(bh);
@@ -1522,6 +1576,7 @@ static void discard_buffer(struct buffer_head * bh)
 void block_invalidatepage(struct page *page, unsigned int offset,
 			  unsigned int length)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1579 \n"); 
 	struct buffer_head *head, *bh, *next;
 	unsigned int curr_off = 0;
 	unsigned int stop = length + offset;
@@ -1577,6 +1632,7 @@ EXPORT_SYMBOL(block_invalidatepage);
 void create_empty_buffers(struct page *page,
 			unsigned long blocksize, unsigned long b_state)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1635 \n"); 
 	struct buffer_head *bh, *head, *tail;
 
 	head = alloc_page_buffers(page, blocksize, 1);
@@ -1622,6 +1678,7 @@ EXPORT_SYMBOL(create_empty_buffers);
  */
 void unmap_underlying_metadata(struct block_device *bdev, sector_t block)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1681 \n"); 
 	struct buffer_head *old_bh;
 
 	might_sleep();
@@ -1646,11 +1703,13 @@ EXPORT_SYMBOL(unmap_underlying_metadata);
  */
 static inline int block_size_bits(unsigned int blocksize)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1706 \n"); 
 	return ilog2(blocksize);
 }
 
 static struct buffer_head *create_page_buffers(struct page *page, struct inode *inode, unsigned int b_state)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1712 \n"); 
 	BUG_ON(!PageLocked(page));
 
 	if (!page_has_buffers(page))
@@ -1691,6 +1750,7 @@ int __block_write_full_page(struct inode *inode, struct page *page,
 			get_block_t *get_block, struct writeback_control *wbc,
 			bh_end_io_t *handler)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1753 \n"); 
 	int err;
 	sector_t block;
 	sector_t last_block;
@@ -1857,6 +1917,7 @@ EXPORT_SYMBOL(__block_write_full_page);
  */
 void page_zero_new_buffers(struct page *page, unsigned from, unsigned to)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1920 \n"); 
 	unsigned int block_start, block_end;
 	struct buffer_head *head, *bh;
 
@@ -1896,6 +1957,7 @@ static void
 iomap_to_bh(struct inode *inode, sector_t block, struct buffer_head *bh,
 		struct iomap *iomap)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 1960 \n"); 
 	loff_t offset = block << inode->i_blkbits;
 
 	bh->b_bdev = iomap->bdev;
@@ -1949,6 +2011,7 @@ iomap_to_bh(struct inode *inode, sector_t block, struct buffer_head *bh,
 int __block_write_begin_int(struct page *page, loff_t pos, unsigned len,
 		get_block_t *get_block, struct iomap *iomap)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2014 \n"); 
 	unsigned from = pos & (PAGE_SIZE - 1);
 	unsigned to = from + len;
 	struct inode *inode = page->mapping->host;
@@ -2035,6 +2098,7 @@ int __block_write_begin_int(struct page *page, loff_t pos, unsigned len,
 int __block_write_begin(struct page *page, loff_t pos, unsigned len,
 		get_block_t *get_block)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2101 \n"); 
 	return __block_write_begin_int(page, pos, len, get_block, NULL);
 }
 EXPORT_SYMBOL(__block_write_begin);
@@ -2042,6 +2106,7 @@ EXPORT_SYMBOL(__block_write_begin);
 static int __block_commit_write(struct inode *inode, struct page *page,
 		unsigned from, unsigned to)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2109 \n"); 
 	unsigned block_start, block_end;
 	int partial = 0;
 	unsigned blocksize;
@@ -2086,6 +2151,7 @@ static int __block_commit_write(struct inode *inode, struct page *page,
 int block_write_begin(struct address_space *mapping, loff_t pos, unsigned len,
 		unsigned flags, struct page **pagep, get_block_t *get_block)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2154 \n"); 
 	pgoff_t index = pos >> PAGE_SHIFT;
 	struct page *page;
 	int status;
@@ -2110,6 +2176,7 @@ int block_write_end(struct file *file, struct address_space *mapping,
 			loff_t pos, unsigned len, unsigned copied,
 			struct page *page, void *fsdata)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2179 \n"); 
 	struct inode *inode = mapping->host;
 	unsigned start;
 
@@ -2146,6 +2213,7 @@ int generic_write_end(struct file *file, struct address_space *mapping,
 			loff_t pos, unsigned len, unsigned copied,
 			struct page *page, void *fsdata)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2216 \n"); 
 	struct inode *inode = mapping->host;
 	loff_t old_size = inode->i_size;
 	int i_size_changed = 0;
@@ -2192,6 +2260,7 @@ EXPORT_SYMBOL(generic_write_end);
 int block_is_partially_uptodate(struct page *page, unsigned long from,
 					unsigned long count)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2263 \n"); 
 	unsigned block_start, block_end, blocksize;
 	unsigned to;
 	struct buffer_head *bh, *head;
@@ -2236,6 +2305,7 @@ EXPORT_SYMBOL(block_is_partially_uptodate);
  */
 int block_read_full_page(struct page *page, get_block_t *get_block)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2308 \n"); 
 	struct inode *inode = page->mapping->host;
 	sector_t iblock, lblock;
 	struct buffer_head *bh, *head, *arr[MAX_BUF_PER_PAGE];
@@ -2326,6 +2396,7 @@ EXPORT_SYMBOL(block_read_full_page);
  */
 int generic_cont_expand_simple(struct inode *inode, loff_t size)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2399 \n"); 
 	struct address_space *mapping = inode->i_mapping;
 	struct page *page;
 	void *fsdata;
@@ -2352,6 +2423,7 @@ EXPORT_SYMBOL(generic_cont_expand_simple);
 static int cont_expand_zero(struct file *file, struct address_space *mapping,
 			    loff_t pos, loff_t *bytes)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2426 \n"); 
 	struct inode *inode = mapping->host;
 	unsigned int blocksize = i_blocksize(inode);
 	struct page *page;
@@ -2432,6 +2504,7 @@ int cont_write_begin(struct file *file, struct address_space *mapping,
 			struct page **pagep, void **fsdata,
 			get_block_t *get_block, loff_t *bytes)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2507 \n"); 
 	struct inode *inode = mapping->host;
 	unsigned int blocksize = i_blocksize(inode);
 	unsigned int zerofrom;
@@ -2453,6 +2526,7 @@ EXPORT_SYMBOL(cont_write_begin);
 
 int block_commit_write(struct page *page, unsigned from, unsigned to)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2529 \n"); 
 	struct inode *inode = page->mapping->host;
 	__block_commit_write(inode,page,from,to);
 	return 0;
@@ -2480,6 +2554,7 @@ EXPORT_SYMBOL(block_commit_write);
 int block_page_mkwrite(struct vm_area_struct *vma, struct vm_fault *vmf,
 			 get_block_t get_block)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2557 \n"); 
 	struct page *page = vmf->page;
 	struct inode *inode = file_inode(vma->vm_file);
 	unsigned long end;
@@ -2523,6 +2598,7 @@ EXPORT_SYMBOL(block_page_mkwrite);
  */
 static void end_buffer_read_nobh(struct buffer_head *bh, int uptodate)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2601 \n"); 
 	__end_buffer_read_notouch(bh, uptodate);
 }
 
@@ -2533,6 +2609,7 @@ static void end_buffer_read_nobh(struct buffer_head *bh, int uptodate)
  */
 static void attach_nobh_buffers(struct page *page, struct buffer_head *head)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2612 \n"); 
 	struct buffer_head *bh;
 
 	BUG_ON(!PageLocked(page));
@@ -2560,6 +2637,7 @@ int nobh_write_begin(struct address_space *mapping,
 			struct page **pagep, void **fsdata,
 			get_block_t *get_block)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2640 \n"); 
 	struct inode *inode = mapping->host;
 	const unsigned blkbits = inode->i_blkbits;
 	const unsigned blocksize = 1 << blkbits;
@@ -2700,6 +2778,7 @@ int nobh_write_end(struct file *file, struct address_space *mapping,
 			loff_t pos, unsigned len, unsigned copied,
 			struct page *page, void *fsdata)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2781 \n"); 
 	struct inode *inode = page->mapping->host;
 	struct buffer_head *head = fsdata;
 	struct buffer_head *bh;
@@ -2739,6 +2818,7 @@ EXPORT_SYMBOL(nobh_write_end);
 int nobh_writepage(struct page *page, get_block_t *get_block,
 			struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2821 \n"); 
 	struct inode * const inode = page->mapping->host;
 	loff_t i_size = i_size_read(inode);
 	const pgoff_t end_index = i_size >> PAGE_SHIFT;
@@ -2786,6 +2866,7 @@ EXPORT_SYMBOL(nobh_writepage);
 int nobh_truncate_page(struct address_space *mapping,
 			loff_t from, get_block_t *get_block)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2869 \n"); 
 	pgoff_t index = from >> PAGE_SHIFT;
 	unsigned offset = from & (PAGE_SIZE-1);
 	unsigned blocksize;
@@ -2864,6 +2945,7 @@ EXPORT_SYMBOL(nobh_truncate_page);
 int block_truncate_page(struct address_space *mapping,
 			loff_t from, get_block_t *get_block)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 2948 \n"); 
 	pgoff_t index = from >> PAGE_SHIFT;
 	unsigned offset = from & (PAGE_SIZE-1);
 	unsigned blocksize;
@@ -2943,6 +3025,7 @@ EXPORT_SYMBOL(block_truncate_page);
 int block_write_full_page(struct page *page, get_block_t *get_block,
 			struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3028 \n"); 
 	struct inode * const inode = page->mapping->host;
 	loff_t i_size = i_size_read(inode);
 	const pgoff_t end_index = i_size >> PAGE_SHIFT;
@@ -2982,6 +3065,7 @@ EXPORT_SYMBOL(block_write_full_page);
 sector_t generic_block_bmap(struct address_space *mapping, sector_t block,
 			    get_block_t *get_block)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3068 \n"); 
 	struct buffer_head tmp;
 	struct inode *inode = mapping->host;
 	tmp.b_state = 0;
@@ -2994,6 +3078,7 @@ EXPORT_SYMBOL(generic_block_bmap);
 
 static void end_bio_bh_io_sync(struct bio *bio)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3081 \n"); 
 	struct buffer_head *bh = bio->bi_private;
 
 	if (unlikely(bio_flagged(bio, BIO_QUIET)))
@@ -3017,6 +3102,7 @@ static void end_bio_bh_io_sync(struct bio *bio)
  */
 void guard_bio_eod(int op, struct bio *bio)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3105 \n"); 
 	sector_t maxsector;
 	struct bio_vec *bvec = &bio->bi_io_vec[bio->bi_vcnt - 1];
 	unsigned truncated_bytes;
@@ -3054,6 +3140,7 @@ void guard_bio_eod(int op, struct bio *bio)
 static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
 			 unsigned long bio_flags, struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3143 \n"); 
 	struct bio *bio;
 
 	BUG_ON(!buffer_locked(bh));
@@ -3105,12 +3192,14 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
 int _submit_bh(int op, int op_flags, struct buffer_head *bh,
 	       unsigned long bio_flags)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3195 \n"); 
 	return submit_bh_wbc(op, op_flags, bh, bio_flags, NULL);
 }
 EXPORT_SYMBOL_GPL(_submit_bh);
 
 int submit_bh(int op, int op_flags,  struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3202 \n"); 
 	return submit_bh_wbc(op, op_flags, bh, 0, NULL);
 }
 EXPORT_SYMBOL(submit_bh);
@@ -3143,6 +3232,7 @@ EXPORT_SYMBOL(submit_bh);
  */
 void ll_rw_block(int op, int op_flags,  int nr, struct buffer_head *bhs[])
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3235 \n"); 
 	int i;
 
 	for (i = 0; i < nr; i++) {
@@ -3172,6 +3262,7 @@ EXPORT_SYMBOL(ll_rw_block);
 
 void write_dirty_buffer(struct buffer_head *bh, int op_flags)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3265 \n"); 
 	lock_buffer(bh);
 	if (!test_clear_buffer_dirty(bh)) {
 		unlock_buffer(bh);
@@ -3190,6 +3281,7 @@ EXPORT_SYMBOL(write_dirty_buffer);
  */
 int __sync_dirty_buffer(struct buffer_head *bh, int op_flags)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3284 \n"); 
 	int ret = 0;
 
 	WARN_ON(atomic_read(&bh->b_count) < 1);
@@ -3210,6 +3302,7 @@ EXPORT_SYMBOL(__sync_dirty_buffer);
 
 int sync_dirty_buffer(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3305 \n"); 
 	return __sync_dirty_buffer(bh, WRITE_SYNC);
 }
 EXPORT_SYMBOL(sync_dirty_buffer);
@@ -3236,6 +3329,7 @@ EXPORT_SYMBOL(sync_dirty_buffer);
  */
 static inline int buffer_busy(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3332 \n"); 
 	return atomic_read(&bh->b_count) |
 		(bh->b_state & ((1 << BH_Dirty) | (1 << BH_Lock)));
 }
@@ -3243,6 +3337,7 @@ static inline int buffer_busy(struct buffer_head *bh)
 static int
 drop_buffers(struct page *page, struct buffer_head **buffers_to_free)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3340 \n"); 
 	struct buffer_head *head = page_buffers(page);
 	struct buffer_head *bh;
 
@@ -3271,6 +3366,7 @@ failed:
 
 int try_to_free_buffers(struct page *page)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3369 \n"); 
 	struct address_space * const mapping = page->mapping;
 	struct buffer_head *buffers_to_free = NULL;
 	int ret = 0;
@@ -3367,6 +3463,7 @@ static DEFINE_PER_CPU(struct bh_accounting, bh_accounting) = {0, 0};
 
 static void recalc_bh_state(void)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3466 \n"); 
 	int i;
 	int tot = 0;
 
@@ -3380,6 +3477,7 @@ static void recalc_bh_state(void)
 
 struct buffer_head *alloc_buffer_head(gfp_t gfp_flags)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3480 \n"); 
 	struct buffer_head *ret = kmem_cache_zalloc(bh_cachep, gfp_flags);
 	if (ret) {
 		INIT_LIST_HEAD(&ret->b_assoc_buffers);
@@ -3394,6 +3492,7 @@ EXPORT_SYMBOL(alloc_buffer_head);
 
 void free_buffer_head(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3495 \n"); 
 	BUG_ON(!list_empty(&bh->b_assoc_buffers));
 	kmem_cache_free(bh_cachep, bh);
 	preempt_disable();
@@ -3405,6 +3504,7 @@ EXPORT_SYMBOL(free_buffer_head);
 
 static void buffer_exit_cpu(int cpu)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3507 \n"); 
 	int i;
 	struct bh_lru *b = &per_cpu(bh_lrus, cpu);
 
@@ -3419,6 +3519,7 @@ static void buffer_exit_cpu(int cpu)
 static int buffer_cpu_notify(struct notifier_block *self,
 			      unsigned long action, void *hcpu)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3522 \n"); 
 	if (action == CPU_DEAD || action == CPU_DEAD_FROZEN)
 		buffer_exit_cpu((unsigned long)hcpu);
 	return NOTIFY_OK;
@@ -3433,6 +3534,7 @@ static int buffer_cpu_notify(struct notifier_block *self,
  */
 int bh_uptodate_or_lock(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3537 \n"); 
 	if (!buffer_uptodate(bh)) {
 		lock_buffer(bh);
 		if (!buffer_uptodate(bh))
@@ -3451,6 +3553,7 @@ EXPORT_SYMBOL(bh_uptodate_or_lock);
  */
 int bh_submit_read(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/buffer.c: line 3556 \n"); 
 	BUG_ON(!buffer_locked(bh));
 
 	if (buffer_uptodate(bh)) {

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* FS-Cache netfs (client) registration
  *
  * Copyright (C) 2008 Red Hat, Inc. All Rights Reserved.
@@ -86,6 +87,7 @@ EXPORT_SYMBOL(__fscache_register_netfs);
  */
 void __fscache_unregister_netfs(struct fscache_netfs *netfs)
 {
+	panic("We reached unpopular paths in fs/fscache/netfs.c: line 90 \n"); 
 	_enter("{%s.%u}", netfs->name, netfs->version);
 
 	down_write(&fscache_addremove_sem);

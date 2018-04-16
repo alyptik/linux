@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Key Wrapping: RFC3394 / NIST SP800-38F
  *
@@ -100,6 +101,7 @@ struct crypto_kw_block {
 /* convert 64 bit integer into its string representation */
 static inline void crypto_kw_cpu_to_be64(u64 val, u8 *buf)
 {
+	panic("We reached unpopular paths in crypto/keywrap.c: line 104 \n"); 
 	__be64 *a = (__be64 *)buf;
 
 	*a = cpu_to_be64(val);
@@ -114,6 +116,7 @@ static void crypto_kw_scatterlist_ff(struct scatter_walk *walk,
 				     struct scatterlist *sg,
 				     unsigned int end)
 {
+	panic("We reached unpopular paths in crypto/keywrap.c: line 119 \n"); 
 	unsigned int skip = 0;
 
 	/* The caller should only operate on full SEMIBLOCKs. */
@@ -136,6 +139,7 @@ static int crypto_kw_decrypt(struct blkcipher_desc *desc,
 			     struct scatterlist *dst, struct scatterlist *src,
 			     unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/keywrap.c: line 142 \n"); 
 	struct crypto_blkcipher *tfm = desc->tfm;
 	struct crypto_kw_ctx *ctx = crypto_blkcipher_ctx(tfm);
 	struct crypto_cipher *child = ctx->child;
@@ -221,6 +225,7 @@ static int crypto_kw_encrypt(struct blkcipher_desc *desc,
 			     struct scatterlist *dst, struct scatterlist *src,
 			     unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/keywrap.c: line 228 \n"); 
 	struct crypto_blkcipher *tfm = desc->tfm;
 	struct crypto_kw_ctx *ctx = crypto_blkcipher_ctx(tfm);
 	struct crypto_cipher *child = ctx->child;
@@ -305,6 +310,7 @@ static int crypto_kw_encrypt(struct blkcipher_desc *desc,
 static int crypto_kw_setkey(struct crypto_tfm *parent, const u8 *key,
 			    unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/keywrap.c: line 313 \n"); 
 	struct crypto_kw_ctx *ctx = crypto_tfm_ctx(parent);
 	struct crypto_cipher *child = ctx->child;
 	int err;
@@ -320,6 +326,7 @@ static int crypto_kw_setkey(struct crypto_tfm *parent, const u8 *key,
 
 static int crypto_kw_init_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/keywrap.c: line 329 \n"); 
 	struct crypto_instance *inst = crypto_tfm_alg_instance(tfm);
 	struct crypto_spawn *spawn = crypto_instance_ctx(inst);
 	struct crypto_kw_ctx *ctx = crypto_tfm_ctx(tfm);
@@ -335,6 +342,7 @@ static int crypto_kw_init_tfm(struct crypto_tfm *tfm)
 
 static void crypto_kw_exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/keywrap.c: line 345 \n"); 
 	struct crypto_kw_ctx *ctx = crypto_tfm_ctx(tfm);
 
 	crypto_free_cipher(ctx->child);
@@ -342,6 +350,7 @@ static void crypto_kw_exit_tfm(struct crypto_tfm *tfm)
 
 static struct crypto_instance *crypto_kw_alloc(struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/keywrap.c: line 353 \n"); 
 	struct crypto_instance *inst = NULL;
 	struct crypto_alg *alg = NULL;
 	int err;
@@ -389,6 +398,7 @@ err:
 
 static void crypto_kw_free(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/keywrap.c: line 401 \n"); 
 	crypto_drop_spawn(crypto_instance_ctx(inst));
 	kfree(inst);
 }

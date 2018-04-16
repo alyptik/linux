@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Xtables module to match the process control group.
  *
@@ -26,6 +27,7 @@ MODULE_ALIAS("ip6t_cgroup");
 
 static int cgroup_mt_check_v0(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cgroup.c: line 30 \n"); 
 	struct xt_cgroup_info_v0 *info = par->matchinfo;
 
 	if (info->invert & ~1)
@@ -36,6 +38,7 @@ static int cgroup_mt_check_v0(const struct xt_mtchk_param *par)
 
 static int cgroup_mt_check_v1(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cgroup.c: line 41 \n"); 
 	struct xt_cgroup_info_v1 *info = par->matchinfo;
 	struct cgroup *cgrp;
 
@@ -69,6 +72,7 @@ static int cgroup_mt_check_v1(const struct xt_mtchk_param *par)
 static bool
 cgroup_mt_v0(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cgroup.c: line 75 \n"); 
 	const struct xt_cgroup_info_v0 *info = par->matchinfo;
 
 	if (skb->sk == NULL || !sk_fullsock(skb->sk))
@@ -80,6 +84,7 @@ cgroup_mt_v0(const struct sk_buff *skb, struct xt_action_param *par)
 
 static bool cgroup_mt_v1(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cgroup.c: line 87 \n"); 
 	const struct xt_cgroup_info_v1 *info = par->matchinfo;
 	struct sock_cgroup_data *skcd = &skb->sk->sk_cgrp_data;
 	struct cgroup *ancestor = info->priv;
@@ -97,6 +102,7 @@ static bool cgroup_mt_v1(const struct sk_buff *skb, struct xt_action_param *par)
 
 static void cgroup_mt_destroy_v1(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cgroup.c: line 105 \n"); 
 	struct xt_cgroup_info_v1 *info = par->matchinfo;
 
 	if (info->priv)

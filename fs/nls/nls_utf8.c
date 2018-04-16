@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Module for handling utf8 just like any other charset.
  * By Urban Widmark 2000
@@ -13,6 +14,7 @@ static unsigned char identity[256];
 
 static int uni2char(wchar_t uni, unsigned char *out, int boundlen)
 {
+	panic("We reached unpopular paths in fs/nls/nls_utf8.c: line 17 \n"); 
 	int n;
 
 	if (boundlen <= 0)
@@ -28,6 +30,7 @@ static int uni2char(wchar_t uni, unsigned char *out, int boundlen)
 
 static int char2uni(const unsigned char *rawstring, int boundlen, wchar_t *uni)
 {
+	panic("We reached unpopular paths in fs/nls/nls_utf8.c: line 33 \n"); 
 	int n;
 	unicode_t u;
 

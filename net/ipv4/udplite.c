@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  UDPLITE     An implementation of the UDP-Lite protocol (RFC 3828).
  *
@@ -21,11 +22,13 @@ EXPORT_SYMBOL(udplite_table);
 
 static int udplite_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/udplite.c: line 25 \n"); 
 	return __udp4_lib_rcv(skb, &udplite_table, IPPROTO_UDPLITE);
 }
 
 static void udplite_err(struct sk_buff *skb, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/udplite.c: line 31 \n"); 
 	__udp4_lib_err(skb, info, &udplite_table);
 }
 
@@ -113,6 +116,7 @@ static __init int udplite4_proc_init(void)
 #else
 static inline int udplite4_proc_init(void)
 {
+	panic("We reached unpopular paths in net/ipv4/udplite.c: line 119 \n"); 
 	return 0;
 }
 #endif

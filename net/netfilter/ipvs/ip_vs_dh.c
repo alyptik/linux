@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS:        Destination Hashing scheduling module
  *
@@ -74,6 +75,7 @@ struct ip_vs_dh_state {
  */
 static inline unsigned int ip_vs_dh_hashkey(int af, const union nf_inet_addr *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_dh.c: line 78 \n"); 
 	__be32 addr_fold = addr->ip;
 
 #ifdef CONFIG_IP_VS_IPV6
@@ -91,6 +93,7 @@ static inline unsigned int ip_vs_dh_hashkey(int af, const union nf_inet_addr *ad
 static inline struct ip_vs_dest *
 ip_vs_dh_get(int af, struct ip_vs_dh_state *s, const union nf_inet_addr *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_dh.c: line 96 \n"); 
 	return rcu_dereference(s->buckets[ip_vs_dh_hashkey(af, addr)].dest);
 }
 
@@ -101,6 +104,7 @@ ip_vs_dh_get(int af, struct ip_vs_dh_state *s, const union nf_inet_addr *addr)
 static int
 ip_vs_dh_reassign(struct ip_vs_dh_state *s, struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_dh.c: line 107 \n"); 
 	int i;
 	struct ip_vs_dh_bucket *b;
 	struct list_head *p;
@@ -137,6 +141,7 @@ ip_vs_dh_reassign(struct ip_vs_dh_state *s, struct ip_vs_service *svc)
  */
 static void ip_vs_dh_flush(struct ip_vs_dh_state *s)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_dh.c: line 144 \n"); 
 	int i;
 	struct ip_vs_dh_bucket *b;
 	struct ip_vs_dest *dest;
@@ -155,6 +160,7 @@ static void ip_vs_dh_flush(struct ip_vs_dh_state *s)
 
 static int ip_vs_dh_init_svc(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_dh.c: line 163 \n"); 
 	struct ip_vs_dh_state *s;
 
 	/* allocate the DH table for this service */
@@ -176,6 +182,7 @@ static int ip_vs_dh_init_svc(struct ip_vs_service *svc)
 
 static void ip_vs_dh_done_svc(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_dh.c: line 185 \n"); 
 	struct ip_vs_dh_state *s = svc->sched_data;
 
 	/* got to clean up hash buckets here */
@@ -191,6 +198,7 @@ static void ip_vs_dh_done_svc(struct ip_vs_service *svc)
 static int ip_vs_dh_dest_changed(struct ip_vs_service *svc,
 				 struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_dh.c: line 201 \n"); 
 	struct ip_vs_dh_state *s = svc->sched_data;
 
 	/* assign the hash buckets with the updated service */
@@ -206,6 +214,7 @@ static int ip_vs_dh_dest_changed(struct ip_vs_service *svc,
  */
 static inline int is_overloaded(struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_dh.c: line 217 \n"); 
 	return dest->flags & IP_VS_DEST_F_OVERLOAD;
 }
 
@@ -217,6 +226,7 @@ static struct ip_vs_dest *
 ip_vs_dh_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
 		  struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_dh.c: line 229 \n"); 
 	struct ip_vs_dest *dest;
 	struct ip_vs_dh_state *s;
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* xfrm6_protocol.c - Generic xfrm protocol multiplexer for ipv6.
  *
  * Copyright (C) 2013 secunet Security Networks AG
@@ -48,6 +49,7 @@ static inline struct xfrm6_protocol __rcu **proto_handlers(u8 protocol)
 
 int xfrm6_rcv_cb(struct sk_buff *skb, u8 protocol, int err)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_protocol.c: line 52 \n"); 
 	int ret;
 	struct xfrm6_protocol *handler;
 	struct xfrm6_protocol __rcu **head = proto_handlers(protocol);
@@ -65,6 +67,7 @@ EXPORT_SYMBOL(xfrm6_rcv_cb);
 
 static int xfrm6_esp_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_protocol.c: line 70 \n"); 
 	int ret;
 	struct xfrm6_protocol *handler;
 
@@ -83,6 +86,7 @@ static int xfrm6_esp_rcv(struct sk_buff *skb)
 static void xfrm6_esp_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 			  u8 type, u8 code, int offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_protocol.c: line 89 \n"); 
 	struct xfrm6_protocol *handler;
 
 	for_each_protocol_rcu(esp6_handlers, handler)
@@ -92,6 +96,7 @@ static void xfrm6_esp_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 
 static int xfrm6_ah_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_protocol.c: line 99 \n"); 
 	int ret;
 	struct xfrm6_protocol *handler;
 
@@ -110,6 +115,7 @@ static int xfrm6_ah_rcv(struct sk_buff *skb)
 static void xfrm6_ah_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 			 u8 type, u8 code, int offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_protocol.c: line 118 \n"); 
 	struct xfrm6_protocol *handler;
 
 	for_each_protocol_rcu(ah6_handlers, handler)
@@ -119,6 +125,7 @@ static void xfrm6_ah_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 
 static int xfrm6_ipcomp_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_protocol.c: line 128 \n"); 
 	int ret;
 	struct xfrm6_protocol *handler;
 
@@ -137,6 +144,7 @@ static int xfrm6_ipcomp_rcv(struct sk_buff *skb)
 static void xfrm6_ipcomp_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 			     u8 type, u8 code, int offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_protocol.c: line 147 \n"); 
 	struct xfrm6_protocol *handler;
 
 	for_each_protocol_rcu(ipcomp6_handlers, handler)
@@ -170,6 +178,7 @@ static struct xfrm_input_afinfo xfrm6_input_afinfo = {
 
 static inline const struct inet6_protocol *netproto(unsigned char protocol)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_protocol.c: line 181 \n"); 
 	switch (protocol) {
 	case IPPROTO_ESP:
 		return &esp6_protocol;
@@ -185,6 +194,7 @@ static inline const struct inet6_protocol *netproto(unsigned char protocol)
 int xfrm6_protocol_register(struct xfrm6_protocol *handler,
 			    unsigned char protocol)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_protocol.c: line 197 \n"); 
 	struct xfrm6_protocol __rcu **pprev;
 	struct xfrm6_protocol *t;
 	bool add_netproto = false;
@@ -232,6 +242,7 @@ EXPORT_SYMBOL(xfrm6_protocol_register);
 int xfrm6_protocol_deregister(struct xfrm6_protocol *handler,
 			      unsigned char protocol)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_protocol.c: line 245 \n"); 
 	struct xfrm6_protocol __rcu **pprev;
 	struct xfrm6_protocol *t;
 	int ret = -ENOENT;
@@ -275,5 +286,6 @@ int __init xfrm6_protocol_init(void)
 
 void xfrm6_protocol_fini(void)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_protocol.c: line 289 \n"); 
 	xfrm_input_unregister_afinfo(&xfrm6_input_afinfo);
 }

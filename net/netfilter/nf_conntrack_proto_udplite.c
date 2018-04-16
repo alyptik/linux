@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2004 Netfilter Core Team <coreteam@netfilter.org>
  * (C) 2007 Patrick McHardy <kaber@trash.net>
@@ -51,6 +52,7 @@ static bool udplite_pkt_to_tuple(const struct sk_buff *skb,
 				 struct net *net,
 				 struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_udplite.c: line 55 \n"); 
 	const struct udphdr *hp;
 	struct udphdr _hdr;
 
@@ -67,6 +69,7 @@ static bool udplite_pkt_to_tuple(const struct sk_buff *skb,
 static bool udplite_invert_tuple(struct nf_conntrack_tuple *tuple,
 				 const struct nf_conntrack_tuple *orig)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_udplite.c: line 72 \n"); 
 	tuple->src.u.udp.port = orig->dst.u.udp.port;
 	tuple->dst.u.udp.port = orig->src.u.udp.port;
 	return true;
@@ -76,6 +79,7 @@ static bool udplite_invert_tuple(struct nf_conntrack_tuple *tuple,
 static void udplite_print_tuple(struct seq_file *s,
 				const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_udplite.c: line 82 \n"); 
 	seq_printf(s, "sport=%hu dport=%hu ",
 		   ntohs(tuple->src.u.udp.port),
 		   ntohs(tuple->dst.u.udp.port));
@@ -83,6 +87,7 @@ static void udplite_print_tuple(struct seq_file *s,
 
 static unsigned int *udplite_get_timeouts(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_udplite.c: line 90 \n"); 
 	return udplite_pernet(net)->timeouts;
 }
 
@@ -95,6 +100,7 @@ static int udplite_packet(struct nf_conn *ct,
 			  unsigned int hooknum,
 			  unsigned int *timeouts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_udplite.c: line 103 \n"); 
 	/* If we've seen traffic both ways, this is some kind of UDP
 	   stream.  Extend timeout. */
 	if (test_bit(IPS_SEEN_REPLY_BIT, &ct->status)) {
@@ -114,6 +120,7 @@ static int udplite_packet(struct nf_conn *ct,
 static bool udplite_new(struct nf_conn *ct, const struct sk_buff *skb,
 			unsigned int dataoff, unsigned int *timeouts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_udplite.c: line 123 \n"); 
 	return true;
 }
 
@@ -124,6 +131,7 @@ static int udplite_error(struct net *net, struct nf_conn *tmpl,
 			 u_int8_t pf,
 			 unsigned int hooknum)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_udplite.c: line 134 \n"); 
 	unsigned int udplen = skb->len - dataoff;
 	const struct udphdr *hdr;
 	struct udphdr _hdr;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 2014 by Pablo Neira Ayuso <pablo@netfilter.org>
  *
@@ -24,6 +25,7 @@ static void nf_log_bridge_packet(struct net *net, u_int8_t pf,
 				 const struct nf_loginfo *loginfo,
 				 const char *prefix)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nf_log_bridge.c: line 28 \n"); 
 	switch (eth_hdr(skb)->h_proto) {
 	case htons(ETH_P_IP):
 		nf_log_packet(net, NFPROTO_IPV4, hooknum, skb, in, out,

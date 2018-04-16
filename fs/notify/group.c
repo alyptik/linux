@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  Copyright (C) 2008 Red Hat, Inc., Eric Paris <eparis@redhat.com>
  *
@@ -33,6 +34,7 @@
  */
 static void fsnotify_final_destroy_group(struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/group.c: line 37 \n"); 
 	if (group->ops->free_group_priv)
 		group->ops->free_group_priv(group);
 
@@ -45,6 +47,7 @@ static void fsnotify_final_destroy_group(struct fsnotify_group *group)
  */
 void fsnotify_group_stop_queueing(struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/group.c: line 50 \n"); 
 	spin_lock(&group->notification_lock);
 	group->shutdown = true;
 	spin_unlock(&group->notification_lock);
@@ -58,6 +61,7 @@ void fsnotify_group_stop_queueing(struct fsnotify_group *group)
  */
 void fsnotify_destroy_group(struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/group.c: line 64 \n"); 
 	/*
 	 * Stop queueing new events. The code below is careful enough to not
 	 * require this but fanotify needs to stop queuing events even before
@@ -98,6 +102,7 @@ void fsnotify_destroy_group(struct fsnotify_group *group)
  */
 void fsnotify_get_group(struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/group.c: line 105 \n"); 
 	atomic_inc(&group->refcnt);
 }
 
@@ -106,6 +111,7 @@ void fsnotify_get_group(struct fsnotify_group *group)
  */
 void fsnotify_put_group(struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/group.c: line 114 \n"); 
 	if (atomic_dec_and_test(&group->refcnt))
 		fsnotify_final_destroy_group(group);
 }
@@ -140,6 +146,7 @@ struct fsnotify_group *fsnotify_alloc_group(const struct fsnotify_ops *ops)
 
 int fsnotify_fasync(int fd, struct file *file, int on)
 {
+	panic("We reached unpopular paths in fs/notify/group.c: line 149 \n"); 
 	struct fsnotify_group *group = file->private_data;
 
 	return fasync_helper(fd, file, on, &group->fsn_fa) >= 0 ? 0 : -EIO;

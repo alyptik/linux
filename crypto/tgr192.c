@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -400,6 +401,7 @@ static const u64 sbox4[256] = {
 
 static void tgr192_round(u64 * ra, u64 * rb, u64 * rc, u64 x, int mul)
 {
+	panic("We reached unpopular paths in crypto/tgr192.c: line 404 \n"); 
 	u64 a = *ra;
 	u64 b = *rb;
 	u64 c = *rc;
@@ -419,6 +421,7 @@ static void tgr192_round(u64 * ra, u64 * rb, u64 * rc, u64 x, int mul)
 
 static void tgr192_pass(u64 * ra, u64 * rb, u64 * rc, u64 * x, int mul)
 {
+	panic("We reached unpopular paths in crypto/tgr192.c: line 424 \n"); 
 	u64 a = *ra;
 	u64 b = *rb;
 	u64 c = *rc;
@@ -440,6 +443,7 @@ static void tgr192_pass(u64 * ra, u64 * rb, u64 * rc, u64 * x, int mul)
 
 static void tgr192_key_schedule(u64 * x)
 {
+	panic("We reached unpopular paths in crypto/tgr192.c: line 446 \n"); 
 	x[0] -= x[7] ^ 0xa5a5a5a5a5a5a5a5ULL;
 	x[1] ^= x[0];
 	x[2] += x[1];
@@ -465,6 +469,7 @@ static void tgr192_key_schedule(u64 * x)
 
 static void tgr192_transform(struct tgr192_ctx *tctx, const u8 * data)
 {
+	panic("We reached unpopular paths in crypto/tgr192.c: line 472 \n"); 
 	u64 a, b, c, aa, bb, cc;
 	u64 x[8];
 	int i;
@@ -497,6 +502,7 @@ static void tgr192_transform(struct tgr192_ctx *tctx, const u8 * data)
 
 static int tgr192_init(struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/tgr192.c: line 505 \n"); 
 	struct tgr192_ctx *tctx = shash_desc_ctx(desc);
 
 	tctx->a = 0x0123456789abcdefULL;
@@ -514,6 +520,7 @@ static int tgr192_init(struct shash_desc *desc)
 static int tgr192_update(struct shash_desc *desc, const u8 *inbuf,
 			  unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/tgr192.c: line 523 \n"); 
 	struct tgr192_ctx *tctx = shash_desc_ctx(desc);
 
 	if (tctx->count == 64) {	/* flush the buffer */
@@ -554,6 +561,7 @@ static int tgr192_update(struct shash_desc *desc, const u8 *inbuf,
 /* The routine terminates the computation */
 static int tgr192_final(struct shash_desc *desc, u8 * out)
 {
+	panic("We reached unpopular paths in crypto/tgr192.c: line 564 \n"); 
 	struct tgr192_ctx *tctx = shash_desc_ctx(desc);
 	__be64 *dst = (__be64 *)out;
 	__be64 *be64p;
@@ -608,6 +616,7 @@ static int tgr192_final(struct shash_desc *desc, u8 * out)
 
 static int tgr160_final(struct shash_desc *desc, u8 * out)
 {
+	panic("We reached unpopular paths in crypto/tgr192.c: line 619 \n"); 
 	u8 D[64];
 
 	tgr192_final(desc, D);
@@ -619,6 +628,7 @@ static int tgr160_final(struct shash_desc *desc, u8 * out)
 
 static int tgr128_final(struct shash_desc *desc, u8 * out)
 {
+	panic("We reached unpopular paths in crypto/tgr192.c: line 631 \n"); 
 	u8 D[64];
 
 	tgr192_final(desc, D);

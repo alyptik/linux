@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/sysfs/symlink.c - sysfs symlink implementation
  *
@@ -61,6 +62,7 @@ static int sysfs_do_create_link_sd(struct kernfs_node *parent,
 int sysfs_create_link_sd(struct kernfs_node *kn, struct kobject *target,
 			 const char *name)
 {
+	panic("We reached unpopular paths in fs/sysfs/symlink.c: line 65 \n"); 
 	return sysfs_do_create_link_sd(kn, target, name, 1);
 }
 
@@ -105,6 +107,7 @@ EXPORT_SYMBOL_GPL(sysfs_create_link);
 int sysfs_create_link_nowarn(struct kobject *kobj, struct kobject *target,
 			     const char *name)
 {
+	panic("We reached unpopular paths in fs/sysfs/symlink.c: line 110 \n"); 
 	return sysfs_do_create_link(kobj, target, name, 0);
 }
 

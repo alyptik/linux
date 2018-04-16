@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/exec.c
  *
@@ -87,6 +88,7 @@ EXPORT_SYMBOL(__register_binfmt);
 
 void unregister_binfmt(struct linux_binfmt * fmt)
 {
+	panic("We reached unpopular paths in fs/exec.c: line 91 \n"); 
 	write_lock(&binfmt_lock);
 	list_del(&fmt->lh);
 	write_unlock(&binfmt_lock);
@@ -96,6 +98,7 @@ EXPORT_SYMBOL(unregister_binfmt);
 
 static inline void put_binfmt(struct linux_binfmt * fmt)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/exec.c: line 101 \n"); 
 	module_put(fmt->module);
 }
 
@@ -334,11 +337,13 @@ static bool valid_arg_len(struct linux_binprm *bprm, long len)
 
 static inline void acct_arg_size(struct linux_binprm *bprm, unsigned long pages)
 {
+	panic("We reached unpopular paths in fs/exec.c: line 340 \n"); 
 }
 
 static struct page *get_arg_page(struct linux_binprm *bprm, unsigned long pos,
 		int write)
 {
+	panic("We reached unpopular paths in fs/exec.c: line 346 \n"); 
 	struct page *page;
 
 	page = bprm->page[pos / PAGE_SIZE];
@@ -354,10 +359,12 @@ static struct page *get_arg_page(struct linux_binprm *bprm, unsigned long pos,
 
 static void put_arg_page(struct page *page)
 {
+	panic("We reached unpopular paths in fs/exec.c: line 362 \n"); 
 }
 
 static void free_arg_page(struct linux_binprm *bprm, int i)
 {
+	panic("We reached unpopular paths in fs/exec.c: line 367 \n"); 
 	if (bprm->page[i]) {
 		__free_page(bprm->page[i]);
 		bprm->page[i] = NULL;
@@ -366,6 +373,7 @@ static void free_arg_page(struct linux_binprm *bprm, int i)
 
 static void free_arg_pages(struct linux_binprm *bprm)
 {
+	panic("We reached unpopular paths in fs/exec.c: line 376 \n"); 
 	int i;
 
 	for (i = 0; i < MAX_ARG_PAGES; i++)
@@ -375,16 +383,19 @@ static void free_arg_pages(struct linux_binprm *bprm)
 static void flush_arg_page(struct linux_binprm *bprm, unsigned long pos,
 		struct page *page)
 {
+	panic("We reached unpopular paths in fs/exec.c: line 386 \n"); 
 }
 
 static int __bprm_mm_init(struct linux_binprm *bprm)
 {
+	panic("We reached unpopular paths in fs/exec.c: line 391 \n"); 
 	bprm->p = PAGE_SIZE * MAX_ARG_PAGES - sizeof(void *);
 	return 0;
 }
 
 static bool valid_arg_len(struct linux_binprm *bprm, long len)
 {
+	panic("We reached unpopular paths in fs/exec.c: line 398 \n"); 
 	return len <= bprm->p;
 }
 
@@ -797,6 +808,7 @@ EXPORT_SYMBOL(setup_arg_pages);
 int transfer_args_to_stack(struct linux_binprm *bprm,
 			   unsigned long *sp_location)
 {
+	panic("We reached unpopular paths in fs/exec.c: line 811 \n"); 
 	unsigned long index, stop, sp;
 	int ret = 0;
 
@@ -972,6 +984,7 @@ EXPORT_SYMBOL_GPL(kernel_read_file);
 int kernel_read_file_from_path(char *path, void **buf, loff_t *size,
 			       loff_t max_size, enum kernel_read_file_id id)
 {
+	panic("We reached unpopular paths in fs/exec.c: line 987 \n"); 
 	struct file *file;
 	int ret;
 
@@ -1006,6 +1019,7 @@ EXPORT_SYMBOL_GPL(kernel_read_file_from_fd);
 
 ssize_t read_code(struct file *file, unsigned long addr, loff_t pos, size_t len)
 {
+	panic("We reached unpopular paths in fs/exec.c: line 1022 \n"); 
 	ssize_t res = vfs_read(file, (void __user *)addr, len, &pos);
 	if (res > 0)
 		flush_icache_range(addr, addr + len);

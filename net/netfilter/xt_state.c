@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match connection tracking information. */
 
 /* (C) 1999-2001 Paul `Rusty' Russell
@@ -23,6 +24,7 @@ MODULE_ALIAS("ip6t_state");
 static bool
 state_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_state.c: line 27 \n"); 
 	const struct xt_state_info *sinfo = par->matchinfo;
 	enum ip_conntrack_info ctinfo;
 	unsigned int statebit;
@@ -41,6 +43,7 @@ state_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int state_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_state.c: line 46 \n"); 
 	int ret;
 
 	ret = nf_ct_l3proto_try_module_get(par->family);
@@ -52,6 +55,7 @@ static int state_mt_check(const struct xt_mtchk_param *par)
 
 static void state_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_state.c: line 58 \n"); 
 	nf_ct_l3proto_module_put(par->family);
 }
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* IP tables module for matching the routing realm
  *
  * (C) 2003 by Sampsa Ranta <sampsa@netsonic.fi>
@@ -24,6 +25,7 @@ MODULE_ALIAS("ipt_realm");
 static bool
 realm_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_realm.c: line 28 \n"); 
 	const struct xt_realm_info *info = par->matchinfo;
 	const struct dst_entry *dst = skb_dst(skb);
 

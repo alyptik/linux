@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/sched.h>
 #include <linux/errno.h>
 #include <linux/dcache.h>
@@ -18,6 +19,7 @@
 
 static int seq_show(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/fd.c: line 22 \n"); 
 	struct files_struct *files = NULL;
 	int f_flags = 0, ret = -ENOENT;
 	struct file *file = NULL;
@@ -70,6 +72,7 @@ out:
 
 static int seq_fdinfo_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/fd.c: line 75 \n"); 
 	return single_open(file, seq_show, inode);
 }
 
@@ -318,6 +321,7 @@ static int
 proc_fdinfo_instantiate(struct inode *dir, struct dentry *dentry,
 			struct task_struct *task, const void *ptr)
 {
+	panic("We reached unpopular paths in fs/proc/fd.c: line 324 \n"); 
 	unsigned fd = (unsigned long)ptr;
 	struct proc_inode *ei;
 	struct inode *inode;
@@ -345,11 +349,13 @@ proc_fdinfo_instantiate(struct inode *dir, struct dentry *dentry,
 static struct dentry *
 proc_lookupfdinfo(struct inode *dir, struct dentry *dentry, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/proc/fd.c: line 352 \n"); 
 	return proc_lookupfd_common(dir, dentry, proc_fdinfo_instantiate);
 }
 
 static int proc_readfdinfo(struct file *file, struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/fd.c: line 358 \n"); 
 	return proc_readfd_common(file, ctx,
 				  proc_fdinfo_instantiate);
 }

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match Hop-by-Hop and Destination parameters. */
 
 /* (C) 2001-2002 Andras Kis-Szabo <kisza@sch.bme.hu>
@@ -46,6 +47,7 @@ static struct xt_match hbh_mt6_reg[] __read_mostly;
 static bool
 hbh_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_hbh.c: line 50 \n"); 
 	struct ipv6_opt_hdr _optsh;
 	const struct ipv6_opt_hdr *oh;
 	const struct ip6t_opts *optinfo = par->matchinfo;
@@ -166,6 +168,7 @@ hbh_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int hbh_mt6_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_hbh.c: line 171 \n"); 
 	const struct ip6t_opts *optsinfo = par->matchinfo;
 
 	if (optsinfo->invflags & ~IP6T_OPTS_INV_MASK) {

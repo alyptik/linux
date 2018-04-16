@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_limit
  *
@@ -34,6 +35,7 @@ static DEFINE_SPINLOCK(limit_lock);
 static bool
 ebt_limit_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_limit.c: line 38 \n"); 
 	struct ebt_limit_info *info = (void *)par->matchinfo;
 	unsigned long now = jiffies;
 
@@ -57,6 +59,7 @@ ebt_limit_mt(const struct sk_buff *skb, struct xt_action_param *par)
 static u_int32_t
 user2credits(u_int32_t user)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_limit.c: line 62 \n"); 
 	/* If multiplying would overflow... */
 	if (user > 0xFFFFFFFF / (HZ*CREDITS_PER_JIFFY))
 		/* Divide first. */
@@ -67,6 +70,7 @@ user2credits(u_int32_t user)
 
 static int ebt_limit_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_limit.c: line 73 \n"); 
 	struct ebt_limit_info *info = par->matchinfo;
 
 	/* Check for overflow. */

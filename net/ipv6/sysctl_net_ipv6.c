@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * sysctl_net_ipv6.c: sysctl interface to net IPV6 subsystem.
  *
@@ -235,6 +236,7 @@ err_pernet:
 
 void ipv6_sysctl_unregister(void)
 {
+	panic("We reached unpopular paths in net/ipv6/sysctl_net_ipv6.c: line 239 \n"); 
 	unregister_net_sysctl_table(ip6_header);
 	unregister_pernet_subsys(&ipv6_sysctl_net_ops);
 }

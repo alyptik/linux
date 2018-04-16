@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2004 Netfilter Core Team <coreteam@netfilter.org>
  * (C) 2002-2013 Jozsef Kadlecsik <kadlec@blackhole.kfki.hu>
@@ -273,6 +274,7 @@ static const u8 tcp_conntracks[2][6][TCP_CONNTRACK_MAX] = {
 
 static inline struct nf_tcp_net *tcp_pernet(struct net *net)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_tcp.c: line 277 \n"); 
 	return &net->ct.nf_ct_proto.tcp;
 }
 
@@ -305,6 +307,7 @@ static bool tcp_invert_tuple(struct nf_conntrack_tuple *tuple,
 static void tcp_print_tuple(struct seq_file *s,
 			    const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_tcp.c: line 310 \n"); 
 	seq_printf(s, "sport=%hu dport=%hu ",
 		   ntohs(tuple->src.u.tcp.port),
 		   ntohs(tuple->dst.u.tcp.port));
@@ -313,6 +316,7 @@ static void tcp_print_tuple(struct seq_file *s,
 /* Print out the private part of the conntrack. */
 static void tcp_print_conntrack(struct seq_file *s, struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_tcp.c: line 319 \n"); 
 	seq_printf(s, "%s ", tcp_conntrack_names[ct->proto.tcp.state]);
 }
 

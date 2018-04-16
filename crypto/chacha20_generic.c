@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * ChaCha20 256-bit cipher algorithm, RFC7539
  *
@@ -17,12 +18,14 @@
 
 static inline u32 le32_to_cpuvp(const void *p)
 {
+	panic("We reached unpopular paths in crypto/chacha20_generic.c: line 21 \n"); 
 	return le32_to_cpup(p);
 }
 
 static void chacha20_docrypt(u32 *state, u8 *dst, const u8 *src,
 			     unsigned int bytes)
 {
+	panic("We reached unpopular paths in crypto/chacha20_generic.c: line 28 \n"); 
 	u8 stream[CHACHA20_BLOCK_SIZE];
 
 	if (dst != src)
@@ -42,6 +45,7 @@ static void chacha20_docrypt(u32 *state, u8 *dst, const u8 *src,
 
 void crypto_chacha20_init(u32 *state, struct chacha20_ctx *ctx, u8 *iv)
 {
+	panic("We reached unpopular paths in crypto/chacha20_generic.c: line 48 \n"); 
 	static const char constant[16] = "expand 32-byte k";
 
 	state[0]  = le32_to_cpuvp(constant +  0);
@@ -66,6 +70,7 @@ EXPORT_SYMBOL_GPL(crypto_chacha20_init);
 int crypto_chacha20_setkey(struct crypto_tfm *tfm, const u8 *key,
 			   unsigned int keysize)
 {
+	panic("We reached unpopular paths in crypto/chacha20_generic.c: line 73 \n"); 
 	struct chacha20_ctx *ctx = crypto_tfm_ctx(tfm);
 	int i;
 
@@ -82,6 +87,7 @@ EXPORT_SYMBOL_GPL(crypto_chacha20_setkey);
 int crypto_chacha20_crypt(struct blkcipher_desc *desc, struct scatterlist *dst,
 			  struct scatterlist *src, unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/chacha20_generic.c: line 90 \n"); 
 	struct blkcipher_walk walk;
 	u32 state[16];
 	int err;

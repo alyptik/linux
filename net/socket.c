@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NET		An implementation of the SOCKET network access protocol.
  *
@@ -312,6 +313,7 @@ static const struct super_operations sockfs_ops = {
  */
 static char *sockfs_dname(struct dentry *dentry, char *buffer, int buflen)
 {
+	panic("We reached unpopular paths in net/socket.c: line 316 \n"); 
 	return dynamic_dname(dentry, buffer, buflen, "socket:[%lu]",
 				d_inode(dentry)->i_ino);
 }
@@ -324,6 +326,7 @@ static int sockfs_xattr_get(const struct xattr_handler *handler,
 			    struct dentry *dentry, struct inode *inode,
 			    const char *suffix, void *value, size_t size)
 {
+	panic("We reached unpopular paths in net/socket.c: line 329 \n"); 
 	if (value) {
 		if (dentry->d_name.len + 1 > size)
 			return -ERANGE;
@@ -346,6 +349,7 @@ static int sockfs_security_xattr_set(const struct xattr_handler *handler,
 				     const char *suffix, const void *value,
 				     size_t size, int flags)
 {
+	panic("We reached unpopular paths in net/socket.c: line 352 \n"); 
 	/* Handled by LSM. */
 	return -EAGAIN;
 }
@@ -472,6 +476,7 @@ EXPORT_SYMBOL(sock_from_file);
 
 struct socket *sockfd_lookup(int fd, int *err)
 {
+	panic("We reached unpopular paths in net/socket.c: line 479 \n"); 
 	struct file *file;
 	struct socket *sock;
 
@@ -508,6 +513,7 @@ static struct socket *sockfd_lookup_light(int fd, int *err, int *fput_needed)
 static ssize_t sockfs_listxattr(struct dentry *dentry, char *buffer,
 				size_t size)
 {
+	panic("We reached unpopular paths in net/socket.c: line 516 \n"); 
 	ssize_t len;
 	ssize_t used = 0;
 
@@ -601,6 +607,7 @@ EXPORT_SYMBOL(sock_release);
 
 void __sock_tx_timestamp(__u16 tsflags, __u8 *tx_flags)
 {
+	panic("We reached unpopular paths in net/socket.c: line 610 \n"); 
 	u8 flags = *tx_flags;
 
 	if (tsflags & SOF_TIMESTAMPING_TX_HARDWARE)
@@ -635,6 +642,7 @@ EXPORT_SYMBOL(sock_sendmsg);
 int kernel_sendmsg(struct socket *sock, struct msghdr *msg,
 		   struct kvec *vec, size_t num, size_t size)
 {
+	panic("We reached unpopular paths in net/socket.c: line 645 \n"); 
 	iov_iter_kvec(&msg->msg_iter, WRITE | ITER_KVEC, vec, num, size);
 	return sock_sendmsg(sock, msg);
 }
@@ -688,6 +696,7 @@ EXPORT_SYMBOL_GPL(__sock_recv_timestamp);
 void __sock_recv_wifi_status(struct msghdr *msg, struct sock *sk,
 	struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/socket.c: line 699 \n"); 
 	int ack;
 
 	if (!sock_flag(sk, SOCK_WIFI_STATUS))
@@ -749,6 +758,7 @@ EXPORT_SYMBOL(sock_recvmsg);
 int kernel_recvmsg(struct socket *sock, struct msghdr *msg,
 		   struct kvec *vec, size_t num, size_t size, int flags)
 {
+	panic("We reached unpopular paths in net/socket.c: line 761 \n"); 
 	mm_segment_t oldfs = get_fs();
 	int result;
 
@@ -779,6 +789,7 @@ static ssize_t sock_splice_read(struct file *file, loff_t *ppos,
 				struct pipe_inode_info *pipe, size_t len,
 				unsigned int flags)
 {
+	panic("We reached unpopular paths in net/socket.c: line 792 \n"); 
 	struct socket *sock = file->private_data;
 
 	if (unlikely(!sock->ops->splice_read))
@@ -1022,6 +1033,7 @@ static unsigned int sock_poll(struct file *file, poll_table *wait)
 
 static int sock_mmap(struct file *file, struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in net/socket.c: line 1036 \n"); 
 	struct socket *sock = file->private_data;
 
 	return sock->ops->mmap(file, sock, vma);
@@ -1070,6 +1082,7 @@ static int sock_fasync(int fd, struct file *filp, int on)
 
 int sock_wake_async(struct socket_wq *wq, int how, int band)
 {
+	panic("We reached unpopular paths in net/socket.c: line 1085 \n"); 
 	if (!wq || !wq->fasync_list)
 		return -1;
 
@@ -2484,6 +2497,7 @@ EXPORT_SYMBOL(sock_register);
  */
 void sock_unregister(int family)
 {
+	panic("We reached unpopular paths in net/socket.c: line 2500 \n"); 
 	BUG_ON(family < 0 || family >= NPROTO);
 
 	spin_lock(&net_family_lock);
@@ -3196,18 +3210,21 @@ static long compat_sock_ioctl(struct file *file, unsigned int cmd,
 
 int kernel_bind(struct socket *sock, struct sockaddr *addr, int addrlen)
 {
+	panic("We reached unpopular paths in net/socket.c: line 3213 \n"); 
 	return sock->ops->bind(sock, addr, addrlen);
 }
 EXPORT_SYMBOL(kernel_bind);
 
 int kernel_listen(struct socket *sock, int backlog)
 {
+	panic("We reached unpopular paths in net/socket.c: line 3220 \n"); 
 	return sock->ops->listen(sock, backlog);
 }
 EXPORT_SYMBOL(kernel_listen);
 
 int kernel_accept(struct socket *sock, struct socket **newsock, int flags)
 {
+	panic("We reached unpopular paths in net/socket.c: line 3227 \n"); 
 	struct sock *sk = sock->sk;
 	int err;
 
@@ -3234,6 +3251,7 @@ EXPORT_SYMBOL(kernel_accept);
 int kernel_connect(struct socket *sock, struct sockaddr *addr, int addrlen,
 		   int flags)
 {
+	panic("We reached unpopular paths in net/socket.c: line 3254 \n"); 
 	return sock->ops->connect(sock, addr, addrlen, flags);
 }
 EXPORT_SYMBOL(kernel_connect);
@@ -3241,6 +3259,7 @@ EXPORT_SYMBOL(kernel_connect);
 int kernel_getsockname(struct socket *sock, struct sockaddr *addr,
 			 int *addrlen)
 {
+	panic("We reached unpopular paths in net/socket.c: line 3262 \n"); 
 	return sock->ops->getname(sock, addr, addrlen, 0);
 }
 EXPORT_SYMBOL(kernel_getsockname);
@@ -3248,6 +3267,7 @@ EXPORT_SYMBOL(kernel_getsockname);
 int kernel_getpeername(struct socket *sock, struct sockaddr *addr,
 			 int *addrlen)
 {
+	panic("We reached unpopular paths in net/socket.c: line 3270 \n"); 
 	return sock->ops->getname(sock, addr, addrlen, 1);
 }
 EXPORT_SYMBOL(kernel_getpeername);
@@ -3255,6 +3275,7 @@ EXPORT_SYMBOL(kernel_getpeername);
 int kernel_getsockopt(struct socket *sock, int level, int optname,
 			char *optval, int *optlen)
 {
+	panic("We reached unpopular paths in net/socket.c: line 3278 \n"); 
 	mm_segment_t oldfs = get_fs();
 	char __user *uoptval;
 	int __user *uoptlen;
@@ -3277,6 +3298,7 @@ EXPORT_SYMBOL(kernel_getsockopt);
 int kernel_setsockopt(struct socket *sock, int level, int optname,
 			char *optval, unsigned int optlen)
 {
+	panic("We reached unpopular paths in net/socket.c: line 3301 \n"); 
 	mm_segment_t oldfs = get_fs();
 	char __user *uoptval;
 	int err;
@@ -3306,6 +3328,7 @@ EXPORT_SYMBOL(kernel_sendpage);
 
 int kernel_sock_ioctl(struct socket *sock, int cmd, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/socket.c: line 3331 \n"); 
 	mm_segment_t oldfs = get_fs();
 	int err;
 
@@ -3319,6 +3342,7 @@ EXPORT_SYMBOL(kernel_sock_ioctl);
 
 int kernel_sock_shutdown(struct socket *sock, enum sock_shutdown_cmd how)
 {
+	panic("We reached unpopular paths in net/socket.c: line 3345 \n"); 
 	return sock->ops->shutdown(sock, how);
 }
 EXPORT_SYMBOL(kernel_sock_shutdown);

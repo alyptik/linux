@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Persistent Storage - ramfs parts.
  *
@@ -65,6 +66,7 @@ struct pstore_ftrace_seq_data {
 
 static void *pstore_ftrace_seq_start(struct seq_file *s, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 69 \n"); 
 	struct pstore_private *ps = s->private;
 	struct pstore_ftrace_seq_data *data;
 
@@ -85,11 +87,13 @@ static void *pstore_ftrace_seq_start(struct seq_file *s, loff_t *pos)
 
 static void pstore_ftrace_seq_stop(struct seq_file *s, void *v)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 90 \n"); 
 	kfree(v);
 }
 
 static void *pstore_ftrace_seq_next(struct seq_file *s, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 96 \n"); 
 	struct pstore_private *ps = s->private;
 	struct pstore_ftrace_seq_data *data = v;
 
@@ -103,6 +107,7 @@ static void *pstore_ftrace_seq_next(struct seq_file *s, void *v, loff_t *pos)
 
 static int pstore_ftrace_seq_show(struct seq_file *s, void *v)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 110 \n"); 
 	struct pstore_private *ps = s->private;
 	struct pstore_ftrace_seq_data *data = v;
 	struct pstore_ftrace_record *rec = (void *)(ps->data + data->off);
@@ -123,6 +128,7 @@ static const struct seq_operations pstore_ftrace_seq_ops = {
 
 static int pstore_check_syslog_permissions(struct pstore_private *ps)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 131 \n"); 
 	switch (ps->type) {
 	case PSTORE_TYPE_DMESG:
 	case PSTORE_TYPE_CONSOLE:
@@ -146,6 +152,7 @@ static ssize_t pstore_file_read(struct file *file, char __user *userbuf,
 
 static int pstore_file_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 155 \n"); 
 	struct pstore_private *ps = inode->i_private;
 	struct seq_file *sf;
 	int err;
@@ -170,6 +177,7 @@ static int pstore_file_open(struct inode *inode, struct file *file)
 
 static loff_t pstore_file_llseek(struct file *file, loff_t off, int whence)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 180 \n"); 
 	struct seq_file *sf = file->private_data;
 
 	if (sf->op)
@@ -190,6 +198,7 @@ static const struct file_operations pstore_file_operations = {
  */
 static int pstore_unlink(struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 201 \n"); 
 	struct pstore_private *p = d_inode(dentry)->i_private;
 	int err;
 
@@ -208,6 +217,7 @@ static int pstore_unlink(struct inode *dir, struct dentry *dentry)
 
 static void pstore_evict_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 220 \n"); 
 	struct pstore_private	*p = inode->i_private;
 	unsigned long		flags;
 
@@ -271,6 +281,7 @@ static void parse_options(char *options)
 
 static int pstore_remount(struct super_block *sb, int *flags, char *data)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 284 \n"); 
 	sync_filesystem(sb);
 	parse_options(data);
 
@@ -289,6 +300,7 @@ static struct super_block *pstore_sb;
 
 bool pstore_is_mounted(void)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 303 \n"); 
 	return pstore_sb != NULL;
 }
 
@@ -301,6 +313,7 @@ int pstore_mkfile(enum pstore_type_id type, char *psname, u64 id, int count,
 		  char *data, bool compressed, size_t size,
 		  struct timespec time, struct pstore_info *psi)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 316 \n"); 
 	struct dentry		*root = pstore_sb->s_root;
 	struct dentry		*dentry;
 	struct inode		*inode;
@@ -451,6 +464,7 @@ static struct dentry *pstore_mount(struct file_system_type *fs_type,
 
 static void pstore_kill_sb(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/pstore/inode.c: line 467 \n"); 
 	kill_litter_super(sb);
 	pstore_sb = NULL;
 }

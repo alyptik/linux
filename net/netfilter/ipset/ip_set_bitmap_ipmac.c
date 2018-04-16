@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Copyright (C) 2000-2002 Joakim Axelsson <gozem@linux.nu>
  *                         Patrick Schaaf <bof@bof.de>
  *			   Martin Josefsson <gandalf@wlug.westbo.se>
@@ -71,6 +72,7 @@ struct bitmap_ipmac_elem {
 static inline u32
 ip_to_id(const struct bitmap_ipmac *m, u32 ip)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 75 \n"); 
 	return ip - m->first_ip;
 }
 
@@ -86,6 +88,7 @@ static inline int
 bitmap_ipmac_do_test(const struct bitmap_ipmac_adt_elem *e,
 		     const struct bitmap_ipmac *map, size_t dsize)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 91 \n"); 
 	const struct bitmap_ipmac_elem *elem;
 
 	if (!test_bit(e->id, map->members))
@@ -100,6 +103,7 @@ bitmap_ipmac_do_test(const struct bitmap_ipmac_adt_elem *e,
 static inline int
 bitmap_ipmac_gc_test(u16 id, const struct bitmap_ipmac *map, size_t dsize)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 106 \n"); 
 	const struct bitmap_ipmac_elem *elem;
 
 	if (!test_bit(id, map->members))
@@ -112,6 +116,7 @@ bitmap_ipmac_gc_test(u16 id, const struct bitmap_ipmac *map, size_t dsize)
 static inline int
 bitmap_ipmac_is_filled(const struct bitmap_ipmac_elem *elem)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 119 \n"); 
 	return elem->filled == MAC_FILLED;
 }
 
@@ -121,6 +126,7 @@ bitmap_ipmac_add_timeout(unsigned long *timeout,
 			 const struct ip_set_ext *ext, struct ip_set *set,
 			 struct bitmap_ipmac *map, int mode)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 129 \n"); 
 	u32 t = ext->timeout;
 
 	if (mode == IPSET_ADD_START_STORED_TIMEOUT) {
@@ -146,6 +152,7 @@ static inline int
 bitmap_ipmac_do_add(const struct bitmap_ipmac_adt_elem *e,
 		    struct bitmap_ipmac *map, u32 flags, size_t dsize)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 155 \n"); 
 	struct bitmap_ipmac_elem *elem;
 
 	elem = get_elem(map->extensions, e->id, dsize);
@@ -184,6 +191,7 @@ static inline int
 bitmap_ipmac_do_del(const struct bitmap_ipmac_adt_elem *e,
 		    struct bitmap_ipmac *map)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 194 \n"); 
 	return !test_and_clear_bit(e->id, map->members);
 }
 
@@ -191,6 +199,7 @@ static inline int
 bitmap_ipmac_do_list(struct sk_buff *skb, const struct bitmap_ipmac *map,
 		     u32 id, size_t dsize)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 202 \n"); 
 	const struct bitmap_ipmac_elem *elem =
 		get_const_elem(map->extensions, id, dsize);
 
@@ -203,6 +212,7 @@ bitmap_ipmac_do_list(struct sk_buff *skb, const struct bitmap_ipmac *map,
 static inline int
 bitmap_ipmac_do_head(struct sk_buff *skb, const struct bitmap_ipmac *map)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 215 \n"); 
 	return nla_put_ipaddr4(skb, IPSET_ATTR_IP, htonl(map->first_ip)) ||
 	       nla_put_ipaddr4(skb, IPSET_ATTR_IP_TO, htonl(map->last_ip));
 }
@@ -212,6 +222,7 @@ bitmap_ipmac_kadt(struct ip_set *set, const struct sk_buff *skb,
 		  const struct xt_action_param *par,
 		  enum ipset_adt adt, struct ip_set_adt_opt *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 225 \n"); 
 	struct bitmap_ipmac *map = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct bitmap_ipmac_adt_elem e = { .id = 0, .add_mac = 1 };
@@ -241,6 +252,7 @@ static int
 bitmap_ipmac_uadt(struct ip_set *set, struct nlattr *tb[],
 		  enum ipset_adt adt, u32 *lineno, u32 flags, bool retried)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 255 \n"); 
 	const struct bitmap_ipmac *map = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct bitmap_ipmac_adt_elem e = { .id = 0 };
@@ -280,6 +292,7 @@ bitmap_ipmac_uadt(struct ip_set *set, struct nlattr *tb[],
 static bool
 bitmap_ipmac_same_set(const struct ip_set *a, const struct ip_set *b)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 295 \n"); 
 	const struct bitmap_ipmac *x = a->data;
 	const struct bitmap_ipmac *y = b->data;
 
@@ -299,6 +312,7 @@ static bool
 init_map_ipmac(struct ip_set *set, struct bitmap_ipmac *map,
 	       u32 first_ip, u32 last_ip, u32 elements)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 315 \n"); 
 	map->members = ip_set_alloc(map->memsize);
 	if (!map->members)
 		return false;
@@ -317,6 +331,7 @@ static int
 bitmap_ipmac_create(struct net *net, struct ip_set *set, struct nlattr *tb[],
 		    u32 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_ipmac.c: line 334 \n"); 
 	u32 first_ip = 0, last_ip = 0;
 	u64 elements;
 	struct bitmap_ipmac *map;

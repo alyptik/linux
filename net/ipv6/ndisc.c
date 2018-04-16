@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Neighbour Discovery for IPv6
  *	Linux INET6 implementation
@@ -174,6 +175,7 @@ static inline void ndisc_fill_redirect_addr_option(struct sk_buff *skb,
 						   void *ha,
 						   const u8 *ops_data)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 178 \n"); 
 	ndisc_fill_addr_option(skb, ND_OPT_TARGET_LL_ADDR, ha, NDISC_REDIRECT);
 	ndisc_ops_fill_redirect_addr_option(skb->dev, skb, ops_data);
 }
@@ -181,6 +183,7 @@ static inline void ndisc_fill_redirect_addr_option(struct sk_buff *skb,
 static struct nd_opt_hdr *ndisc_next_option(struct nd_opt_hdr *cur,
 					    struct nd_opt_hdr *end)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 186 \n"); 
 	int type;
 	if (!cur || !end || cur >= end)
 		return NULL;
@@ -194,6 +197,7 @@ static struct nd_opt_hdr *ndisc_next_option(struct nd_opt_hdr *cur,
 static inline int ndisc_is_useropt(const struct net_device *dev,
 				   struct nd_opt_hdr *opt)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 200 \n"); 
 	return opt->nd_opt_type == ND_OPT_RDNSS ||
 		opt->nd_opt_type == ND_OPT_DNSSL ||
 		ndisc_ops_is_useropt(dev, opt->nd_opt_type);
@@ -203,6 +207,7 @@ static struct nd_opt_hdr *ndisc_next_useropt(const struct net_device *dev,
 					     struct nd_opt_hdr *cur,
 					     struct nd_opt_hdr *end)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 210 \n"); 
 	if (!cur || !end || cur >= end)
 		return NULL;
 	do {
@@ -215,6 +220,7 @@ struct ndisc_options *ndisc_parse_options(const struct net_device *dev,
 					  u8 *opt, int opt_len,
 					  struct ndisc_options *ndopts)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 223 \n"); 
 	struct nd_opt_hdr *nd_opt = (struct nd_opt_hdr *)opt;
 
 	if (!nd_opt || opt_len < 0 || !ndopts)
@@ -314,6 +320,7 @@ static u32 ndisc_hash(const void *pkey,
 
 static bool ndisc_key_eq(const struct neighbour *n, const void *pkey)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 323 \n"); 
 	return neigh_key_eq128(n, pkey);
 }
 
@@ -367,6 +374,7 @@ static int ndisc_constructor(struct neighbour *neigh)
 
 static int pndisc_constructor(struct pneigh_entry *n)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 377 \n"); 
 	struct in6_addr *addr = (struct in6_addr *)&n->key;
 	struct in6_addr maddr;
 	struct net_device *dev = n->dev;
@@ -380,6 +388,7 @@ static int pndisc_constructor(struct pneigh_entry *n)
 
 static void pndisc_destructor(struct pneigh_entry *n)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 391 \n"); 
 	struct in6_addr *addr = (struct in6_addr *)&n->key;
 	struct in6_addr maddr;
 	struct net_device *dev = n->dev;
@@ -494,6 +503,7 @@ void ndisc_send_na(struct net_device *dev, const struct in6_addr *daddr,
 		   const struct in6_addr *solicited_addr,
 		   bool router, bool solicited, bool override, bool inc_opt)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 506 \n"); 
 	struct sk_buff *skb;
 	struct in6_addr tmpaddr;
 	struct inet6_ifaddr *ifp;
@@ -548,6 +558,7 @@ void ndisc_send_na(struct net_device *dev, const struct in6_addr *daddr,
 
 static void ndisc_send_unsol_na(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 561 \n"); 
 	struct inet6_dev *idev;
 	struct inet6_ifaddr *ifa;
 
@@ -664,6 +675,7 @@ void ndisc_send_rs(struct net_device *dev, const struct in6_addr *saddr,
 
 static void ndisc_error_report(struct neighbour *neigh, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 678 \n"); 
 	/*
 	 *	"The sender MUST return an ICMP
 	 *	 destination unreachable"
@@ -676,6 +688,7 @@ static void ndisc_error_report(struct neighbour *neigh, struct sk_buff *skb)
 
 static void ndisc_solicit(struct neighbour *neigh, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 691 \n"); 
 	struct in6_addr *saddr = NULL;
 	struct in6_addr mcaddr;
 	struct net_device *dev = neigh->dev;
@@ -705,6 +718,7 @@ static void ndisc_solicit(struct neighbour *neigh, struct sk_buff *skb)
 static int pndisc_is_router(const void *pkey,
 			    struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 721 \n"); 
 	struct pneigh_entry *n;
 	int ret = -1;
 
@@ -728,6 +742,7 @@ void ndisc_update(const struct net_device *dev, struct neighbour *neigh,
 
 static void ndisc_recv_ns(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 745 \n"); 
 	struct nd_msg *msg = (struct nd_msg *)skb_transport_header(skb);
 	const struct in6_addr *saddr = &ipv6_hdr(skb)->saddr;
 	const struct in6_addr *daddr = &ipv6_hdr(skb)->daddr;
@@ -900,6 +915,7 @@ out:
 
 static void ndisc_recv_na(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 918 \n"); 
 	struct nd_msg *msg = (struct nd_msg *)skb_transport_header(skb);
 	struct in6_addr *saddr = &ipv6_hdr(skb)->saddr;
 	const struct in6_addr *daddr = &ipv6_hdr(skb)->daddr;
@@ -1014,6 +1030,7 @@ out:
 
 static void ndisc_recv_rs(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 1033 \n"); 
 	struct rs_msg *rs_msg = (struct rs_msg *)skb_transport_header(skb);
 	unsigned long ndoptlen = skb->len - sizeof(*rs_msg);
 	struct neighbour *neigh;
@@ -1070,6 +1087,7 @@ out:
 
 static void ndisc_ra_useropt(struct sk_buff *ra, struct nd_opt_hdr *opt)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 1090 \n"); 
 	struct icmp6hdr *icmp6h = (struct icmp6hdr *)skb_transport_header(ra);
 	struct sk_buff *skb;
 	struct nlmsghdr *nlh;
@@ -1116,6 +1134,7 @@ errout:
 
 static void ndisc_router_discovery(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 1137 \n"); 
 	struct ra_msg *ra_msg = (struct ra_msg *)skb_transport_header(skb);
 	struct neighbour *neigh = NULL;
 	struct inet6_dev *in6_dev;
@@ -1466,6 +1485,7 @@ out:
 
 static void ndisc_redirect_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 1488 \n"); 
 	u8 *hdr;
 	struct ndisc_options ndopts;
 	struct rd_msg *msg = (struct rd_msg *)skb_transport_header(skb);
@@ -1509,6 +1529,7 @@ static void ndisc_fill_redirect_hdr_option(struct sk_buff *skb,
 					   struct sk_buff *orig_skb,
 					   int rd_len)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 1532 \n"); 
 	u8 *opt = skb_put(skb, rd_len);
 
 	memset(opt, 0, 8);
@@ -1521,6 +1542,7 @@ static void ndisc_fill_redirect_hdr_option(struct sk_buff *skb,
 
 void ndisc_send_redirect(struct sk_buff *skb, const struct in6_addr *target)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 1545 \n"); 
 	struct net_device *dev = skb->dev;
 	struct net *net = dev_net(dev);
 	struct sock *sk = net->ipv6.ndisc_sk;
@@ -1641,12 +1663,14 @@ release:
 
 static void pndisc_redo(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 1666 \n"); 
 	ndisc_recv_ns(skb);
 	kfree_skb(skb);
 }
 
 static bool ndisc_suppress_frag_ndisc(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 1673 \n"); 
 	struct inet6_dev *idev = __in6_dev_get(skb->dev);
 
 	if (!idev)
@@ -1661,6 +1685,7 @@ static bool ndisc_suppress_frag_ndisc(struct sk_buff *skb)
 
 int ndisc_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 1688 \n"); 
 	struct nd_msg *msg;
 
 	if (ndisc_suppress_frag_ndisc(skb))
@@ -1877,11 +1902,13 @@ int __init ndisc_late_init(void)
 
 void ndisc_late_cleanup(void)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 1905 \n"); 
 	unregister_netdevice_notifier(&ndisc_netdev_notifier);
 }
 
 void ndisc_cleanup(void)
 {
+	panic("We reached unpopular paths in net/ipv6/ndisc.c: line 1911 \n"); 
 #ifdef CONFIG_SYSCTL
 	neigh_sysctl_unregister(&nd_tbl.parms);
 #endif

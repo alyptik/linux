@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Accouting handling for netfilter. */
 
 /*
@@ -39,6 +40,7 @@ static struct ctl_table acct_sysctl_table[] = {
 unsigned int
 seq_print_acct(struct seq_file *s, const struct nf_conn *ct, int dir)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_acct.c: line 43 \n"); 
 	struct nf_conn_acct *acct;
 	struct nf_conn_counter *counter;
 
@@ -102,11 +104,13 @@ static void nf_conntrack_acct_fini_sysctl(struct net *net)
 #else
 static int nf_conntrack_acct_init_sysctl(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_acct.c: line 107 \n"); 
 	return 0;
 }
 
 static void nf_conntrack_acct_fini_sysctl(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_acct.c: line 113 \n"); 
 }
 #endif
 
@@ -131,5 +135,6 @@ int nf_conntrack_acct_init(void)
 
 void nf_conntrack_acct_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_acct.c: line 138 \n"); 
 	nf_ct_extend_unregister(&acct_extend);
 }

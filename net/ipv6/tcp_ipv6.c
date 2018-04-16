@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	TCP over IPv6
  *	Linux INET6 implementation
@@ -84,12 +85,14 @@ static const struct tcp_sock_af_ops tcp_sock_ipv6_mapped_specific;
 static struct tcp_md5sig_key *tcp_v6_md5_do_lookup(const struct sock *sk,
 						   const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 88 \n"); 
 	return NULL;
 }
 #endif
 
 static void inet6_sk_rx_dst_set(struct sock *sk, const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 95 \n"); 
 	struct dst_entry *dst = skb_dst(skb);
 
 	if (dst && dst_hold_safe(dst)) {
@@ -103,6 +106,7 @@ static void inet6_sk_rx_dst_set(struct sock *sk, const struct sk_buff *skb)
 
 static __u32 tcp_v6_init_sequence(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 109 \n"); 
 	return secure_tcpv6_sequence_number(ipv6_hdr(skb)->daddr.s6_addr32,
 					    ipv6_hdr(skb)->saddr.s6_addr32,
 					    tcp_hdr(skb)->dest,
@@ -112,6 +116,7 @@ static __u32 tcp_v6_init_sequence(const struct sk_buff *skb)
 static int tcp_v6_connect(struct sock *sk, struct sockaddr *uaddr,
 			  int addr_len)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 119 \n"); 
 	struct sockaddr_in6 *usin = (struct sockaddr_in6 *) uaddr;
 	struct inet_sock *inet = inet_sk(sk);
 	struct inet_connection_sock *icsk = inet_csk(sk);
@@ -306,6 +311,7 @@ failure:
 
 static void tcp_v6_mtu_reduced(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 314 \n"); 
 	struct dst_entry *dst;
 
 	if ((1 << sk->sk_state) & (TCPF_LISTEN | TCPF_CLOSE))
@@ -324,6 +330,7 @@ static void tcp_v6_mtu_reduced(struct sock *sk)
 static void tcp_v6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 		u8 type, u8 code, int offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 333 \n"); 
 	const struct ipv6hdr *hdr = (const struct ipv6hdr *)skb->data;
 	const struct tcphdr *th = (struct tcphdr *)(skb->data+offset);
 	struct net *net = dev_net(skb->dev);
@@ -448,6 +455,7 @@ static int tcp_v6_send_synack(const struct sock *sk, struct dst_entry *dst,
 			      struct tcp_fastopen_cookie *foc,
 			      enum tcp_synack_type synack_type)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 458 \n"); 
 	struct inet_request_sock *ireq = inet_rsk(req);
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct ipv6_txoptions *opt;
@@ -486,6 +494,7 @@ done:
 
 static void tcp_v6_reqsk_destructor(struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 497 \n"); 
 	kfree(inet_rsk(req)->ipv6_opt);
 	kfree_skb(inet_rsk(req)->pktopts);
 }
@@ -647,6 +656,7 @@ clear_hash_noput:
 static bool tcp_v6_inbound_md5_hash(const struct sock *sk,
 				    const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 659 \n"); 
 #ifdef CONFIG_TCP_MD5SIG
 	const __u8 *hash_location = NULL;
 	struct tcp_md5sig_key *hash_expected;
@@ -693,6 +703,7 @@ static void tcp_v6_init_req(struct request_sock *req,
 			    const struct sock *sk_listener,
 			    struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 706 \n"); 
 	struct inet_request_sock *ireq = inet_rsk(req);
 	const struct ipv6_pinfo *np = inet6_sk(sk_listener);
 
@@ -719,6 +730,7 @@ static struct dst_entry *tcp_v6_route_req(const struct sock *sk,
 					  const struct request_sock *req,
 					  bool *strict)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 733 \n"); 
 	if (strict)
 		*strict = true;
 	return inet6_csk_route_req(sk, &fl->u.ip6, req, IPPROTO_TCP);
@@ -755,6 +767,7 @@ static void tcp_v6_send_response(const struct sock *sk, struct sk_buff *skb, u32
 				 int oif, struct tcp_md5sig_key *key, int rst,
 				 u8 tclass, __be32 label)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 770 \n"); 
 	const struct tcphdr *th = tcp_hdr(skb);
 	struct tcphdr *t1;
 	struct sk_buff *buff;
@@ -856,6 +869,7 @@ static void tcp_v6_send_response(const struct sock *sk, struct sk_buff *skb, u32
 
 static void tcp_v6_send_reset(const struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 872 \n"); 
 	const struct tcphdr *th = tcp_hdr(skb);
 	u32 seq = 0, ack_seq = 0;
 	struct tcp_md5sig_key *key = NULL;
@@ -928,12 +942,14 @@ static void tcp_v6_send_ack(const struct sock *sk, struct sk_buff *skb, u32 seq,
 			    struct tcp_md5sig_key *key, u8 tclass,
 			    __be32 label)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 945 \n"); 
 	tcp_v6_send_response(sk, skb, seq, ack, win, tsval, tsecr, oif, key, 0,
 			     tclass, label);
 }
 
 static void tcp_v6_timewait_ack(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 952 \n"); 
 	struct inet_timewait_sock *tw = inet_twsk(sk);
 	struct tcp_timewait_sock *tcptw = tcp_twsk(sk);
 
@@ -949,6 +965,7 @@ static void tcp_v6_timewait_ack(struct sock *sk, struct sk_buff *skb)
 static void tcp_v6_reqsk_send_ack(const struct sock *sk, struct sk_buff *skb,
 				  struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 968 \n"); 
 	/* sk->sk_state == TCP_LISTEN -> for regular TCP_SYN_RECV
 	 * sk->sk_state == TCP_SYN_RECV -> for Fast Open.
 	 */
@@ -969,6 +986,7 @@ static void tcp_v6_reqsk_send_ack(const struct sock *sk, struct sk_buff *skb,
 
 static struct sock *tcp_v6_cookie_check(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 989 \n"); 
 #ifdef CONFIG_SYN_COOKIES
 	const struct tcphdr *th = tcp_hdr(skb);
 
@@ -996,6 +1014,7 @@ drop:
 
 static void tcp_v6_restore_cb(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 1017 \n"); 
 	/* We need to move header back to the beginning if xfrm6_policy_check()
 	 * and tcp_v6_fill_cb() are going to be called again.
 	 * ip6_datagram_recv_specific_ctl() also expects IP6CB to be there.
@@ -1225,6 +1244,7 @@ out:
  */
 static int tcp_v6_do_rcv(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 1247 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct tcp_sock *tp;
 	struct sk_buff *opt_skb = NULL;
@@ -1359,6 +1379,7 @@ ipv6_pktoptions:
 static void tcp_v6_fill_cb(struct sk_buff *skb, const struct ipv6hdr *hdr,
 			   const struct tcphdr *th)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 1382 \n"); 
 	/* This is tricky: we move IP6CB at its correct location into
 	 * TCP_SKB_CB(). It must be done after xfrm6_policy_check(), because
 	 * _decode_session6() uses IP6CB().
@@ -1380,6 +1401,7 @@ static void tcp_v6_fill_cb(struct sk_buff *skb, const struct ipv6hdr *hdr,
 
 static int tcp_v6_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 1404 \n"); 
 	const struct tcphdr *th;
 	const struct ipv6hdr *hdr;
 	bool refcounted;
@@ -1572,6 +1594,7 @@ do_time_wait:
 
 static void tcp_v6_early_demux(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 1597 \n"); 
 	const struct ipv6hdr *hdr;
 	const struct tcphdr *th;
 	struct sock *sk;
@@ -1992,6 +2015,7 @@ out_tcpv6_protocol:
 
 void tcpv6_exit(void)
 {
+	panic("We reached unpopular paths in net/ipv6/tcp_ipv6.c: line 2018 \n"); 
 	unregister_pernet_subsys(&tcpv6_net_ops);
 	inet6_unregister_protosw(&tcpv6_protosw);
 	inet6_del_protocol(&tcpv6_protocol, IPPROTO_TCP);

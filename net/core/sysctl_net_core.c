@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* -*- linux-c -*-
  * sysctl_net_core.c: sysctl interface to net core subsystem.
  *

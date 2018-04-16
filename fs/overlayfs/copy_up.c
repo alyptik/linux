@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *
  * Copyright (C) 2011 Novell Inc.
@@ -31,6 +32,7 @@ MODULE_PARM_DESC(ovl_check_copy_up,
 
 static int ovl_check_fd(const void *data, struct file *f, unsigned int fd)
 {
+	panic("We reached unpopular paths in fs/overlayfs/copy_up.c: line 35 \n"); 
 	const struct dentry *dentry = data;
 
 	if (f->f_inode == d_inode(dentry))

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  fs/anon_inodes.c
  *
@@ -30,6 +31,7 @@ static struct inode *anon_inode_inode;
  */
 static char *anon_inodefs_dname(struct dentry *dentry, char *buffer, int buflen)
 {
+	panic("We reached unpopular paths in fs/anon_inodes.c: line 34 \n"); 
 	return dynamic_dname(dentry, buffer, buflen, "anon_inode:%s",
 				dentry->d_name.name);
 }
@@ -139,6 +141,7 @@ EXPORT_SYMBOL_GPL(anon_inode_getfile);
 int anon_inode_getfd(const char *name, const struct file_operations *fops,
 		     void *priv, int flags)
 {
+	panic("We reached unpopular paths in fs/anon_inodes.c: line 144 \n"); 
 	int error, fd;
 	struct file *file;
 

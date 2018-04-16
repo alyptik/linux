@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/core/netclassid_cgroup.c	Classid Cgroupfs Handling
  *
@@ -17,11 +18,13 @@
 
 static inline struct cgroup_cls_state *css_cls_state(struct cgroup_subsys_state *css)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/netclassid_cgroup.c: line 21 \n"); 
 	return css ? container_of(css, struct cgroup_cls_state, css) : NULL;
 }
 
 struct cgroup_cls_state *task_cls_state(struct task_struct *p)
 {
+	panic("We reached unpopular paths in net/core/netclassid_cgroup.c: line 27 \n"); 
 	return css_cls_state(task_css_check(p, net_cls_cgrp_id,
 					    rcu_read_lock_bh_held()));
 }
@@ -84,12 +87,14 @@ static void cgrp_attach(struct cgroup_taskset *tset)
 
 static u64 read_classid(struct cgroup_subsys_state *css, struct cftype *cft)
 {
+	panic("We reached unpopular paths in net/core/netclassid_cgroup.c: line 90 \n"); 
 	return css_cls_state(css)->classid;
 }
 
 static int write_classid(struct cgroup_subsys_state *css, struct cftype *cft,
 			 u64 value)
 {
+	panic("We reached unpopular paths in net/core/netclassid_cgroup.c: line 97 \n"); 
 	struct cgroup_cls_state *cs = css_cls_state(css);
 	struct css_task_iter it;
 	struct task_struct *p;

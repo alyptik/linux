@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/fs/9p/error.c
  *
@@ -220,6 +221,7 @@ EXPORT_SYMBOL(p9_error_init);
 
 int p9_errstr2errno(char *errstr, int len)
 {
+	panic("We reached unpopular paths in net/9p/error.c: line 224 \n"); 
 	int errno;
 	struct errormap *c;
 	int bucket;

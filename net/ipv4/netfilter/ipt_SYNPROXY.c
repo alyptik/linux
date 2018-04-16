@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2013 Patrick McHardy <kaber@trash.net>
  *
@@ -21,6 +22,7 @@ static struct iphdr *
 synproxy_build_ip(struct net *net, struct sk_buff *skb, __be32 saddr,
 		  __be32 daddr)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_SYNPROXY.c: line 25 \n"); 
 	struct iphdr *iph;
 
 	skb_reset_network_header(skb);
@@ -46,6 +48,7 @@ synproxy_send_tcp(struct net *net,
 		  struct iphdr *niph, struct tcphdr *nth,
 		  unsigned int tcp_hdr_size)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_SYNPROXY.c: line 51 \n"); 
 	nth->check = ~tcp_v4_check(tcp_hdr_size, niph->saddr, niph->daddr, 0);
 	nskb->ip_summed   = CHECKSUM_PARTIAL;
 	nskb->csum_start  = (unsigned char *)nth - nskb->head;
@@ -74,6 +77,7 @@ synproxy_send_client_synack(struct net *net,
 			    const struct sk_buff *skb, const struct tcphdr *th,
 			    const struct synproxy_options *opts)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_SYNPROXY.c: line 80 \n"); 
 	struct sk_buff *nskb;
 	struct iphdr *iph, *niph;
 	struct tcphdr *nth;
@@ -116,6 +120,7 @@ synproxy_send_server_syn(struct net *net,
 			 const struct sk_buff *skb, const struct tcphdr *th,
 			 const struct synproxy_options *opts, u32 recv_seq)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_SYNPROXY.c: line 123 \n"); 
 	struct synproxy_net *snet = synproxy_pernet(net);
 	struct sk_buff *nskb;
 	struct iphdr *iph, *niph;
@@ -162,6 +167,7 @@ synproxy_send_server_ack(struct net *net,
 			 const struct sk_buff *skb, const struct tcphdr *th,
 			 const struct synproxy_options *opts)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_SYNPROXY.c: line 170 \n"); 
 	struct sk_buff *nskb;
 	struct iphdr *iph, *niph;
 	struct tcphdr *nth;
@@ -200,6 +206,7 @@ synproxy_send_client_ack(struct net *net,
 			 const struct sk_buff *skb, const struct tcphdr *th,
 			 const struct synproxy_options *opts)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_SYNPROXY.c: line 209 \n"); 
 	struct sk_buff *nskb;
 	struct iphdr *iph, *niph;
 	struct tcphdr *nth;
@@ -239,6 +246,7 @@ synproxy_recv_client_ack(struct net *net,
 			 const struct sk_buff *skb, const struct tcphdr *th,
 			 struct synproxy_options *opts, u32 recv_seq)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_SYNPROXY.c: line 249 \n"); 
 	struct synproxy_net *snet = synproxy_pernet(net);
 	int mss;
 
@@ -262,6 +270,7 @@ synproxy_recv_client_ack(struct net *net,
 static unsigned int
 synproxy_tg4(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_SYNPROXY.c: line 273 \n"); 
 	const struct xt_synproxy_info *info = par->targinfo;
 	struct net *net = par->net;
 	struct synproxy_net *snet = synproxy_pernet(net);
@@ -412,6 +421,7 @@ static unsigned int ipv4_synproxy_hook(void *priv,
 
 static int synproxy_tg4_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_SYNPROXY.c: line 424 \n"); 
 	const struct ipt_entry *e = par->entryinfo;
 
 	if (e->ip.proto != IPPROTO_TCP ||
@@ -423,6 +433,7 @@ static int synproxy_tg4_check(const struct xt_tgchk_param *par)
 
 static void synproxy_tg4_destroy(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_SYNPROXY.c: line 436 \n"); 
 	nf_ct_l3proto_module_put(par->family);
 }
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_arpreply
  *
@@ -18,6 +19,7 @@
 static unsigned int
 ebt_arpreply_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_arpreply.c: line 22 \n"); 
 	const struct ebt_arpreply_info *info = par->targinfo;
 	const __be32 *siptr, *diptr;
 	__be32 _sip, _dip;
@@ -59,6 +61,7 @@ ebt_arpreply_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int ebt_arpreply_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_arpreply.c: line 64 \n"); 
 	const struct ebt_arpreply_info *info = par->targinfo;
 	const struct ebt_entry *e = par->entryinfo;
 

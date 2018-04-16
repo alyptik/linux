@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  fs/timerfd.c
  *
@@ -49,6 +50,7 @@ static DEFINE_SPINLOCK(cancel_lock);
 
 static inline bool isalarm(struct timerfd_ctx *ctx)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 53 \n"); 
 	return ctx->clockid == CLOCK_REALTIME_ALARM ||
 		ctx->clockid == CLOCK_BOOTTIME_ALARM;
 }
@@ -60,6 +62,7 @@ static inline bool isalarm(struct timerfd_ctx *ctx)
  */
 static void timerfd_triggered(struct timerfd_ctx *ctx)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 65 \n"); 
 	unsigned long flags;
 
 	spin_lock_irqsave(&ctx->wqh.lock, flags);
@@ -71,6 +74,7 @@ static void timerfd_triggered(struct timerfd_ctx *ctx)
 
 static enum hrtimer_restart timerfd_tmrproc(struct hrtimer *htmr)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 77 \n"); 
 	struct timerfd_ctx *ctx = container_of(htmr, struct timerfd_ctx,
 					       t.tmr);
 	timerfd_triggered(ctx);
@@ -80,6 +84,7 @@ static enum hrtimer_restart timerfd_tmrproc(struct hrtimer *htmr)
 static enum alarmtimer_restart timerfd_alarmproc(struct alarm *alarm,
 	ktime_t now)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 87 \n"); 
 	struct timerfd_ctx *ctx = container_of(alarm, struct timerfd_ctx,
 					       t.alarm);
 	timerfd_triggered(ctx);
@@ -115,6 +120,7 @@ void timerfd_clock_was_set(void)
 
 static void __timerfd_remove_cancel(struct timerfd_ctx *ctx)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 123 \n"); 
 	if (ctx->might_cancel) {
 		ctx->might_cancel = false;
 		spin_lock(&cancel_lock);
@@ -125,6 +131,7 @@ static void __timerfd_remove_cancel(struct timerfd_ctx *ctx)
 
 static void timerfd_remove_cancel(struct timerfd_ctx *ctx)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 134 \n"); 
 	spin_lock(&ctx->cancel_lock);
 	__timerfd_remove_cancel(ctx);
 	spin_unlock(&ctx->cancel_lock);
@@ -132,6 +139,7 @@ static void timerfd_remove_cancel(struct timerfd_ctx *ctx)
 
 static bool timerfd_canceled(struct timerfd_ctx *ctx)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 142 \n"); 
 	if (!ctx->might_cancel || ctx->moffs.tv64 != KTIME_MAX)
 		return false;
 	ctx->moffs = ktime_mono_to_real((ktime_t){ .tv64 = 0 });
@@ -140,6 +148,7 @@ static bool timerfd_canceled(struct timerfd_ctx *ctx)
 
 static void timerfd_setup_cancel(struct timerfd_ctx *ctx, int flags)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 151 \n"); 
 	spin_lock(&ctx->cancel_lock);
 	if ((ctx->clockid == CLOCK_REALTIME ||
 	     ctx->clockid == CLOCK_REALTIME_ALARM) &&
@@ -158,6 +167,7 @@ static void timerfd_setup_cancel(struct timerfd_ctx *ctx, int flags)
 
 static ktime_t timerfd_get_remaining(struct timerfd_ctx *ctx)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 170 \n"); 
 	ktime_t remaining;
 
 	if (isalarm(ctx))
@@ -171,6 +181,7 @@ static ktime_t timerfd_get_remaining(struct timerfd_ctx *ctx)
 static int timerfd_setup(struct timerfd_ctx *ctx, int flags,
 			 const struct itimerspec *ktmr)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 184 \n"); 
 	enum hrtimer_mode htmode;
 	ktime_t texp;
 	int clockid = ctx->clockid;
@@ -214,6 +225,7 @@ static int timerfd_setup(struct timerfd_ctx *ctx, int flags,
 
 static int timerfd_release(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 228 \n"); 
 	struct timerfd_ctx *ctx = file->private_data;
 
 	timerfd_remove_cancel(ctx);
@@ -228,6 +240,7 @@ static int timerfd_release(struct inode *inode, struct file *file)
 
 static unsigned int timerfd_poll(struct file *file, poll_table *wait)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 243 \n"); 
 	struct timerfd_ctx *ctx = file->private_data;
 	unsigned int events = 0;
 	unsigned long flags;
@@ -372,6 +385,7 @@ static const struct file_operations timerfd_fops = {
 
 static int timerfd_fget(int fd, struct fd *p)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 388 \n"); 
 	struct fd f = fdget(fd);
 	if (!f.file)
 		return -EBADF;
@@ -502,6 +516,7 @@ static int do_timerfd_settime(int ufd, int flags,
 
 static int do_timerfd_gettime(int ufd, struct itimerspec *t)
 {
+	panic("We reached unpopular paths in fs/timerfd.c: line 519 \n"); 
 	struct fd f;
 	struct timerfd_ctx *ctx;
 	int ret = timerfd_fget(ufd, &f);

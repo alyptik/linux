@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * algif_hash: User-space interface for hash algorithms
  *
@@ -36,6 +37,7 @@ struct hash_ctx {
 
 static int hash_alloc_result(struct sock *sk, struct hash_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 40 \n"); 
 	unsigned ds;
 
 	if (ctx->result)
@@ -54,6 +56,7 @@ static int hash_alloc_result(struct sock *sk, struct hash_ctx *ctx)
 
 static void hash_free_result(struct sock *sk, struct hash_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 59 \n"); 
 	unsigned ds;
 
 	if (!ctx->result)
@@ -68,6 +71,7 @@ static void hash_free_result(struct sock *sk, struct hash_ctx *ctx)
 static int hash_sendmsg(struct socket *sock, struct msghdr *msg,
 			size_t ignored)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 74 \n"); 
 	int limit = ALG_MAX_PAGES * PAGE_SIZE;
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
@@ -137,6 +141,7 @@ unlock:
 static ssize_t hash_sendpage(struct socket *sock, struct page *page,
 			     int offset, size_t size, int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 144 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct hash_ctx *ctx = ask->private;
@@ -189,6 +194,7 @@ unlock:
 static int hash_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
 			int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 197 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct hash_ctx *ctx = ask->private;
@@ -236,6 +242,7 @@ unlock:
 
 static int hash_accept(struct socket *sock, struct socket *newsock, int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 245 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct hash_ctx *ctx = ask->private;
@@ -300,6 +307,7 @@ static struct proto_ops algif_hash_ops = {
 
 static int hash_check_key(struct socket *sock)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 310 \n"); 
 	int err = 0;
 	struct sock *psk;
 	struct alg_sock *pask;
@@ -339,6 +347,7 @@ unlock_child:
 static int hash_sendmsg_nokey(struct socket *sock, struct msghdr *msg,
 			      size_t size)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 350 \n"); 
 	int err;
 
 	err = hash_check_key(sock);
@@ -351,6 +360,7 @@ static int hash_sendmsg_nokey(struct socket *sock, struct msghdr *msg,
 static ssize_t hash_sendpage_nokey(struct socket *sock, struct page *page,
 				   int offset, size_t size, int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 363 \n"); 
 	int err;
 
 	err = hash_check_key(sock);
@@ -363,6 +373,7 @@ static ssize_t hash_sendpage_nokey(struct socket *sock, struct page *page,
 static int hash_recvmsg_nokey(struct socket *sock, struct msghdr *msg,
 			      size_t ignored, int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 376 \n"); 
 	int err;
 
 	err = hash_check_key(sock);
@@ -375,6 +386,7 @@ static int hash_recvmsg_nokey(struct socket *sock, struct msghdr *msg,
 static int hash_accept_nokey(struct socket *sock, struct socket *newsock,
 			     int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 389 \n"); 
 	int err;
 
 	err = hash_check_key(sock);
@@ -408,6 +420,7 @@ static struct proto_ops algif_hash_ops_nokey = {
 
 static void *hash_bind(const char *name, u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 423 \n"); 
 	return crypto_alloc_ahash(name, type, mask);
 }
 
@@ -423,6 +436,7 @@ static int hash_setkey(void *private, const u8 *key, unsigned int keylen)
 
 static void hash_sock_destruct(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_hash.c: line 439 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct hash_ctx *ctx = ask->private;
 

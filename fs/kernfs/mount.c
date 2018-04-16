@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/kernfs/mount.c - kernfs mount implementation
  *
@@ -23,6 +24,7 @@ struct kmem_cache *kernfs_node_cache;
 
 static int kernfs_sop_remount_fs(struct super_block *sb, int *flags, char *data)
 {
+	panic("We reached unpopular paths in fs/kernfs/mount.c: line 27 \n"); 
 	struct kernfs_root *root = kernfs_info(sb)->root;
 	struct kernfs_syscall_ops *scops = root->syscall_ops;
 
@@ -73,6 +75,7 @@ const struct super_operations kernfs_sops = {
  */
 struct kernfs_root *kernfs_root_from_sb(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/kernfs/mount.c: line 78 \n"); 
 	if (sb->s_op == &kernfs_sops)
 		return kernfs_info(sb)->root;
 	return NULL;
@@ -89,6 +92,7 @@ struct kernfs_root *kernfs_root_from_sb(struct super_block *sb)
 static struct kernfs_node *find_next_ancestor(struct kernfs_node *child,
 					      struct kernfs_node *parent)
 {
+	panic("We reached unpopular paths in fs/kernfs/mount.c: line 95 \n"); 
 	if (child == parent) {
 		pr_crit_once("BUG in find_next_ancestor: called with parent == child");
 		return NULL;
@@ -111,6 +115,7 @@ static struct kernfs_node *find_next_ancestor(struct kernfs_node *child,
 struct dentry *kernfs_node_dentry(struct kernfs_node *kn,
 				  struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/kernfs/mount.c: line 118 \n"); 
 	struct dentry *dentry;
 	struct kernfs_node *knparent = NULL;
 
@@ -312,6 +317,7 @@ void kernfs_kill_sb(struct super_block *sb)
  */
 struct super_block *kernfs_pin_sb(struct kernfs_root *root, const void *ns)
 {
+	panic("We reached unpopular paths in fs/kernfs/mount.c: line 320 \n"); 
 	struct kernfs_super_info *info;
 	struct super_block *sb = NULL;
 

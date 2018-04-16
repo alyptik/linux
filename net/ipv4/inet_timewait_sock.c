@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -84,12 +85,14 @@ EXPORT_SYMBOL_GPL(inet_twsk_put);
 static void inet_twsk_add_node_rcu(struct inet_timewait_sock *tw,
 				   struct hlist_nulls_head *list)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_timewait_sock.c: line 88 \n"); 
 	hlist_nulls_add_head_rcu(&tw->tw_node, list);
 }
 
 static void inet_twsk_add_bind_node(struct inet_timewait_sock *tw,
 				    struct hlist_head *list)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_timewait_sock.c: line 95 \n"); 
 	hlist_add_head(&tw->tw_bind_node, list);
 }
 
@@ -214,6 +217,7 @@ EXPORT_SYMBOL_GPL(inet_twsk_alloc);
  */
 void inet_twsk_deschedule_put(struct inet_timewait_sock *tw)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_timewait_sock.c: line 220 \n"); 
 	if (del_timer_sync(&tw->tw_timer))
 		inet_twsk_kill(tw);
 	inet_twsk_put(tw);

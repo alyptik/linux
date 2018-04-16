@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/open.c
  *
@@ -67,6 +68,7 @@ int do_truncate(struct dentry *dentry, loff_t length, unsigned int time_attrs,
 
 long vfs_truncate(const struct path *path, loff_t length)
 {
+	panic("We reached unpopular paths in fs/open.c: line 71 \n"); 
 	struct inode *inode;
 	struct dentry *upperdentry;
 	long error;
@@ -808,6 +810,7 @@ int finish_open(struct file *file, struct dentry *dentry,
 		int (*open)(struct inode *, struct file *),
 		int *opened)
 {
+	panic("We reached unpopular paths in fs/open.c: line 813 \n"); 
 	int error;
 	BUG_ON(*opened & FILE_OPENED); /* once it's opened, it's opened */
 
@@ -837,6 +840,7 @@ EXPORT_SYMBOL(finish_open);
  */
 int finish_no_open(struct file *file, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/open.c: line 843 \n"); 
 	file->f_path.dentry = dentry;
 	return 1;
 }
@@ -844,6 +848,7 @@ EXPORT_SYMBOL(finish_no_open);
 
 char *file_path(struct file *filp, char *buf, int buflen)
 {
+	panic("We reached unpopular paths in fs/open.c: line 851 \n"); 
 	return d_path(&filp->f_path, buf, buflen);
 }
 EXPORT_SYMBOL(file_path);
@@ -981,6 +986,7 @@ static inline int build_open_flags(int flags, umode_t mode, struct open_flags *o
  */
 struct file *file_open_name(struct filename *name, int flags, umode_t mode)
 {
+	panic("We reached unpopular paths in fs/open.c: line 989 \n"); 
 	struct open_flags op;
 	int err = build_open_flags(flags, mode, &op);
 	return err ? ERR_PTR(err) : do_filp_open(AT_FDCWD, name, &op);
@@ -999,6 +1005,7 @@ struct file *file_open_name(struct filename *name, int flags, umode_t mode)
  */
 struct file *filp_open(const char *filename, int flags, umode_t mode)
 {
+	panic("We reached unpopular paths in fs/open.c: line 1008 \n"); 
 	struct filename *name = getname_kernel(filename);
 	struct file *file = ERR_CAST(name);
 	
@@ -1013,6 +1020,7 @@ EXPORT_SYMBOL(filp_open);
 struct file *file_open_root(struct dentry *dentry, struct vfsmount *mnt,
 			    const char *filename, int flags, umode_t mode)
 {
+	panic("We reached unpopular paths in fs/open.c: line 1023 \n"); 
 	struct open_flags op;
 	int err = build_open_flags(flags, mode, &op);
 	if (err)
@@ -1023,6 +1031,7 @@ EXPORT_SYMBOL(file_open_root);
 
 struct file *filp_clone_open(struct file *oldfile)
 {
+	panic("We reached unpopular paths in fs/open.c: line 1034 \n"); 
 	struct file *file;
 	int retval;
 
@@ -1166,6 +1175,7 @@ SYSCALL_DEFINE0(vhangup)
  */
 int generic_file_open(struct inode * inode, struct file * filp)
 {
+	panic("We reached unpopular paths in fs/open.c: line 1178 \n"); 
 	if (!(filp->f_flags & O_LARGEFILE) && i_size_read(inode) > MAX_NON_LFS)
 		return -EOVERFLOW;
 	return 0;

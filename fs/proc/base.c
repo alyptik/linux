@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/proc/base.c
  *
@@ -156,6 +157,7 @@ static unsigned int pid_entry_count_dirs(const struct pid_entry *entries,
 
 static int get_task_root(struct task_struct *task, struct path *root)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 160 \n"); 
 	int result = -ENOENT;
 
 	task_lock(task);
@@ -169,6 +171,7 @@ static int get_task_root(struct task_struct *task, struct path *root)
 
 static int proc_cwd_link(struct dentry *dentry, struct path *path)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 174 \n"); 
 	struct task_struct *task = get_proc_task(d_inode(dentry));
 	int result = -ENOENT;
 
@@ -186,6 +189,7 @@ static int proc_cwd_link(struct dentry *dentry, struct path *path)
 
 static int proc_root_link(struct dentry *dentry, struct path *path)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 192 \n"); 
 	struct task_struct *task = get_proc_task(d_inode(dentry));
 	int result = -ENOENT;
 
@@ -425,6 +429,7 @@ static int proc_pid_wchan(struct seq_file *m, struct pid_namespace *ns,
 
 static int lock_trace(struct task_struct *task)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 432 \n"); 
 	int err = mutex_lock_killable(&task->signal->cred_guard_mutex);
 	if (err)
 		return err;
@@ -437,6 +442,7 @@ static int lock_trace(struct task_struct *task)
 
 static void unlock_trace(struct task_struct *task)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 445 \n"); 
 	mutex_unlock(&task->signal->cred_guard_mutex);
 }
 
@@ -559,6 +565,7 @@ static const struct file_operations proc_lstats_operations = {
 static int proc_oom_score(struct seq_file *m, struct pid_namespace *ns,
 			  struct pid *pid, struct task_struct *task)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 568 \n"); 
 	unsigned long totalpages = totalram_pages + total_swap_pages;
 	unsigned long points = 0;
 
@@ -597,6 +604,7 @@ static const struct limit_names lnames[RLIM_NLIMITS] = {
 static int proc_pid_limits(struct seq_file *m, struct pid_namespace *ns,
 			   struct pid *pid, struct task_struct *task)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 607 \n"); 
 	unsigned int i;
 	unsigned long flags;
 
@@ -686,6 +694,7 @@ static int proc_fd_access_allowed(struct inode *inode)
 
 int proc_setattr(struct dentry *dentry, struct iattr *attr)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 697 \n"); 
 	int error;
 	struct inode *inode = d_inode(dentry);
 
@@ -786,6 +795,7 @@ static const struct file_operations proc_single_file_operations = {
 
 struct mm_struct *proc_mem_open(struct inode *inode, unsigned int mode)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 798 \n"); 
 	struct task_struct *task = get_proc_task(inode);
 	struct mm_struct *mm = ERR_PTR(-ESRCH);
 
@@ -806,6 +816,7 @@ struct mm_struct *proc_mem_open(struct inode *inode, unsigned int mode)
 
 static int __mem_open(struct inode *inode, struct file *file, unsigned int mode)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 819 \n"); 
 	struct mm_struct *mm = proc_mem_open(inode, mode);
 
 	if (IS_ERR(mm))
@@ -817,6 +828,7 @@ static int __mem_open(struct inode *inode, struct file *file, unsigned int mode)
 
 static int mem_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 831 \n"); 
 	int ret = __mem_open(inode, file, PTRACE_MODE_ATTACH);
 
 	/* OK to pass negative loff_t, we can catch out-of-range */
@@ -897,6 +909,7 @@ static ssize_t mem_write(struct file *file, const char __user *buf,
 
 loff_t mem_lseek(struct file *file, loff_t offset, int orig)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 912 \n"); 
 	switch (orig) {
 	case 0:
 		file->f_pos = offset;
@@ -913,6 +926,7 @@ loff_t mem_lseek(struct file *file, loff_t offset, int orig)
 
 static int mem_release(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 929 \n"); 
 	struct mm_struct *mm = file->private_data;
 	if (mm)
 		mmdrop(mm);
@@ -929,6 +943,7 @@ static const struct file_operations proc_mem_operations = {
 
 static int environ_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 946 \n"); 
 	return __mem_open(inode, file, PTRACE_MODE_READ);
 }
 
@@ -1004,6 +1019,7 @@ static const struct file_operations proc_environ_operations = {
 
 static int auxv_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 1022 \n"); 
 	return __mem_open(inode, file, PTRACE_MODE_READ_FSCREDS);
 }
 
@@ -1539,6 +1555,7 @@ static ssize_t comm_write(struct file *file, const char __user *buf,
 
 static int comm_show(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 1558 \n"); 
 	struct inode *inode = m->private;
 	struct task_struct *p;
 
@@ -1557,6 +1574,7 @@ static int comm_show(struct seq_file *m, void *v)
 
 static int comm_open(struct inode *inode, struct file *filp)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 1577 \n"); 
 	return single_open(filp, comm_show, inode);
 }
 
@@ -1708,6 +1726,7 @@ out_unlock:
 
 int pid_getattr(struct vfsmount *mnt, struct dentry *dentry, struct kstat *stat)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 1729 \n"); 
 	struct inode *inode = d_inode(dentry);
 	struct task_struct *task;
 	const struct cred *cred;
@@ -1790,6 +1809,7 @@ int pid_revalidate(struct dentry *dentry, unsigned int flags)
 
 static inline bool proc_inode_is_dead(struct inode *inode)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/proc/base.c: line 1812 \n"); 
 	return !proc_pid(inode)->tasks[PIDTYPE_PID].first;
 }
 
@@ -1864,6 +1884,7 @@ end_instantiate:
 static int dname_to_vma_addr(struct dentry *dentry,
 			     unsigned long *start, unsigned long *end)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 1887 \n"); 
 	if (sscanf(dentry->d_name.name, "%lx-%lx", start, end) != 2)
 		return -EINVAL;
 
@@ -1872,6 +1893,7 @@ static int dname_to_vma_addr(struct dentry *dentry,
 
 static int map_files_d_revalidate(struct dentry *dentry, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 1896 \n"); 
 	unsigned long vm_start, vm_end;
 	bool exact_vma_exists = false;
 	struct mm_struct *mm = NULL;
@@ -1929,6 +1951,7 @@ static const struct dentry_operations tid_map_files_dentry_operations = {
 
 static int map_files_get_link(struct dentry *dentry, struct path *path)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 1954 \n"); 
 	unsigned long vm_start, vm_end;
 	struct vm_area_struct *vma;
 	struct task_struct *task;
@@ -1981,6 +2004,7 @@ proc_map_files_get_link(struct dentry *dentry,
 			struct inode *inode,
 		        struct delayed_call *done)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 2007 \n"); 
 	if (!capable(CAP_SYS_ADMIN))
 		return ERR_PTR(-EPERM);
 
@@ -2000,6 +2024,7 @@ static int
 proc_map_files_instantiate(struct inode *dir, struct dentry *dentry,
 			   struct task_struct *task, const void *ptr)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 2027 \n"); 
 	fmode_t mode = (fmode_t)(unsigned long)ptr;
 	struct proc_inode *ei;
 	struct inode *inode;
@@ -2029,6 +2054,7 @@ proc_map_files_instantiate(struct inode *dir, struct dentry *dentry,
 static struct dentry *proc_map_files_lookup(struct inode *dir,
 		struct dentry *dentry, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 2057 \n"); 
 	unsigned long vm_start, vm_end;
 	struct vm_area_struct *vma;
 	struct task_struct *task;
@@ -2079,6 +2105,7 @@ static const struct inode_operations proc_map_files_inode_operations = {
 static int
 proc_map_files_readdir(struct file *file, struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 2108 \n"); 
 	struct vm_area_struct *vma;
 	struct task_struct *task;
 	struct mm_struct *mm;
@@ -2323,6 +2350,7 @@ out:
 
 static int timerslack_ns_show(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 2353 \n"); 
 	struct inode *inode = m->private;
 	struct task_struct *p;
 	int err = 0;
@@ -2354,6 +2382,7 @@ out:
 
 static int timerslack_ns_open(struct inode *inode, struct file *filp)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 2385 \n"); 
 	return single_open(filp, timerslack_ns_show, inode);
 }
 
@@ -2432,6 +2461,7 @@ out_no_task:
 static int proc_pident_readdir(struct file *file, struct dir_context *ctx,
 		const struct pid_entry *ents, unsigned int nents)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 2464 \n"); 
 	struct task_struct *task = get_proc_task(file_inode(file));
 	const struct pid_entry *p;
 
@@ -2833,6 +2863,7 @@ static const struct file_operations proc_setgroups_operations = {
 static int proc_pid_personality(struct seq_file *m, struct pid_namespace *ns,
 				struct pid *pid, struct task_struct *task)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 2866 \n"); 
 	int err = lock_trace(task);
 	if (!err) {
 		seq_printf(m, "%08x\n", task->personality);
@@ -2944,6 +2975,7 @@ static const struct pid_entry tgid_base_stuff[] = {
 
 static int proc_tgid_base_readdir(struct file *file, struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 2978 \n"); 
 	return proc_pident_readdir(file, ctx,
 				   tgid_base_stuff, ARRAY_SIZE(tgid_base_stuff));
 }
@@ -3117,6 +3149,7 @@ struct tgid_iter {
 };
 static struct tgid_iter next_tgid(struct pid_namespace *ns, struct tgid_iter iter)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 3152 \n"); 
 	struct pid *pid;
 
 	if (iter.task)
@@ -3155,6 +3188,7 @@ retry:
 /* for the /proc/ directory itself, after non-process stuff has been done */
 int proc_pid_readdir(struct file *file, struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 3191 \n"); 
 	struct tgid_iter iter;
 	struct pid_namespace *ns = file_inode(file)->i_sb->s_fs_info;
 	loff_t pos = ctx->pos;
@@ -3212,6 +3246,7 @@ int proc_pid_readdir(struct file *file, struct dir_context *ctx)
  */
 static int proc_tid_comm_permission(struct inode *inode, int mask)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 3249 \n"); 
 	bool is_same_tgroup;
 	struct task_struct *task;
 
@@ -3328,6 +3363,7 @@ static const struct pid_entry tid_base_stuff[] = {
 
 static int proc_tid_base_readdir(struct file *file, struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 3366 \n"); 
 	return proc_pident_readdir(file, ctx,
 				   tid_base_stuff, ARRAY_SIZE(tid_base_stuff));
 }
@@ -3426,6 +3462,7 @@ out_no_task:
 static struct task_struct *first_tid(struct pid *pid, int tid, loff_t f_pos,
 					struct pid_namespace *ns)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 3465 \n"); 
 	struct task_struct *pos, *task;
 	unsigned long nr = f_pos;
 
@@ -3474,6 +3511,7 @@ out:
  */
 static struct task_struct *next_tid(struct task_struct *start)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 3514 \n"); 
 	struct task_struct *pos = NULL;
 	rcu_read_lock();
 	if (pid_alive(start)) {
@@ -3491,6 +3529,7 @@ static struct task_struct *next_tid(struct task_struct *start)
 /* for the /proc/TGID/task/ directories */
 static int proc_task_readdir(struct file *file, struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 3532 \n"); 
 	struct inode *inode = file_inode(file);
 	struct task_struct *task;
 	struct pid_namespace *ns;
@@ -3530,6 +3569,7 @@ static int proc_task_readdir(struct file *file, struct dir_context *ctx)
 
 static int proc_task_getattr(struct vfsmount *mnt, struct dentry *dentry, struct kstat *stat)
 {
+	panic("We reached unpopular paths in fs/proc/base.c: line 3572 \n"); 
 	struct inode *inode = d_inode(dentry);
 	struct task_struct *p = get_proc_task(inode);
 	generic_fillattr(inode, stat);

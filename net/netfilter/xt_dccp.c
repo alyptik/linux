@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * iptables module for DCCP protocol header matching
  *
@@ -40,6 +41,7 @@ dccp_find_option(u_int8_t option,
 		 const struct dccp_hdr *dh,
 		 bool *hotdrop)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_dccp.c: line 44 \n"); 
 	/* tcp.doff is only 4 bits, ie. max 15 * 4 bytes */
 	const unsigned char *op;
 	unsigned int optoff = __dccp_hdr_len(dh);
@@ -85,6 +87,7 @@ invalid:
 static inline bool
 match_types(const struct dccp_hdr *dh, u_int16_t typemask)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_dccp.c: line 90 \n"); 
 	return typemask & (1 << dh->dccph_type);
 }
 
@@ -92,12 +95,14 @@ static inline bool
 match_option(u_int8_t option, const struct sk_buff *skb, unsigned int protoff,
 	     const struct dccp_hdr *dh, bool *hotdrop)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_dccp.c: line 98 \n"); 
 	return dccp_find_option(option, skb, protoff, dh, hotdrop);
 }
 
 static bool
 dccp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_dccp.c: line 105 \n"); 
 	const struct xt_dccp_info *info = par->matchinfo;
 	const struct dccp_hdr *dh;
 	struct dccp_hdr _dh;
@@ -126,6 +131,7 @@ dccp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int dccp_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_dccp.c: line 134 \n"); 
 	const struct xt_dccp_info *info = par->matchinfo;
 
 	if (info->flags & ~XT_DCCP_VALID_FLAGS)

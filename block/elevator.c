@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  Block device elevator/IO-scheduler.
  *
@@ -55,6 +56,7 @@ static LIST_HEAD(elv_list);
  */
 static int elv_iosched_allow_bio_merge(struct request *rq, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 59 \n"); 
 	struct request_queue *q = rq->q;
 	struct elevator_queue *e = q->elevator;
 
@@ -69,6 +71,7 @@ static int elv_iosched_allow_bio_merge(struct request *rq, struct bio *bio)
  */
 bool elv_bio_merge_ok(struct request *rq, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 74 \n"); 
 	if (!blk_rq_merge_ok(rq, bio))
 		return false;
 
@@ -93,6 +96,7 @@ static struct elevator_type *elevator_find(const char *name)
 
 static void elevator_put(struct elevator_type *e)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 99 \n"); 
 	module_put(e->elevator_owner);
 }
 
@@ -170,6 +174,7 @@ EXPORT_SYMBOL(elevator_alloc);
 
 static void elevator_release(struct kobject *kobj)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 177 \n"); 
 	struct elevator_queue *e;
 
 	e = container_of(kobj, struct elevator_queue, kobj);
@@ -233,6 +238,7 @@ EXPORT_SYMBOL(elevator_init);
 
 void elevator_exit(struct elevator_queue *e)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 241 \n"); 
 	mutex_lock(&e->sysfs_lock);
 	if (e->type->ops.elevator_exit_fn)
 		e->type->ops.elevator_exit_fn(e);
@@ -244,18 +250,21 @@ EXPORT_SYMBOL(elevator_exit);
 
 static inline void __elv_rqhash_del(struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 253 \n"); 
 	hash_del(&rq->hash);
 	rq->cmd_flags &= ~REQ_HASHED;
 }
 
 static void elv_rqhash_del(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 260 \n"); 
 	if (ELV_ON_HASH(rq))
 		__elv_rqhash_del(rq);
 }
 
 static void elv_rqhash_add(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 267 \n"); 
 	struct elevator_queue *e = q->elevator;
 
 	BUG_ON(ELV_ON_HASH(rq));
@@ -265,12 +274,14 @@ static void elv_rqhash_add(struct request_queue *q, struct request *rq)
 
 static void elv_rqhash_reposition(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 277 \n"); 
 	__elv_rqhash_del(rq);
 	elv_rqhash_add(q, rq);
 }
 
 static struct request *elv_rqhash_find(struct request_queue *q, sector_t offset)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 284 \n"); 
 	struct elevator_queue *e = q->elevator;
 	struct hlist_node *next;
 	struct request *rq;
@@ -296,6 +307,7 @@ static struct request *elv_rqhash_find(struct request_queue *q, sector_t offset)
  */
 void elv_rb_add(struct rb_root *root, struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 310 \n"); 
 	struct rb_node **p = &root->rb_node;
 	struct rb_node *parent = NULL;
 	struct request *__rq;
@@ -317,6 +329,7 @@ EXPORT_SYMBOL(elv_rb_add);
 
 void elv_rb_del(struct rb_root *root, struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 332 \n"); 
 	BUG_ON(RB_EMPTY_NODE(&rq->rb_node));
 	rb_erase(&rq->rb_node, root);
 	RB_CLEAR_NODE(&rq->rb_node);
@@ -325,6 +338,7 @@ EXPORT_SYMBOL(elv_rb_del);
 
 struct request *elv_rb_find(struct rb_root *root, sector_t sector)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 341 \n"); 
 	struct rb_node *n = root->rb_node;
 	struct request *rq;
 
@@ -350,6 +364,7 @@ EXPORT_SYMBOL(elv_rb_find);
  */
 void elv_dispatch_sort(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 367 \n"); 
 	sector_t boundary;
 	struct list_head *entry;
 	int stop_flags;
@@ -394,6 +409,7 @@ EXPORT_SYMBOL(elv_dispatch_sort);
  */
 void elv_dispatch_add_tail(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 412 \n"); 
 	if (q->last_merge == rq)
 		q->last_merge = NULL;
 
@@ -409,6 +425,7 @@ EXPORT_SYMBOL(elv_dispatch_add_tail);
 
 int elv_merge(struct request_queue *q, struct request **req, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 428 \n"); 
 	struct elevator_queue *e = q->elevator;
 	struct request *__rq;
 	int ret;
@@ -461,6 +478,7 @@ int elv_merge(struct request_queue *q, struct request **req, struct bio *bio)
 static bool elv_attempt_insert_merge(struct request_queue *q,
 				     struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 481 \n"); 
 	struct request *__rq;
 	bool ret;
 
@@ -495,6 +513,7 @@ static bool elv_attempt_insert_merge(struct request_queue *q,
 
 void elv_merged_request(struct request_queue *q, struct request *rq, int type)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 516 \n"); 
 	struct elevator_queue *e = q->elevator;
 
 	if (e->type->ops.elevator_merged_fn)
@@ -509,6 +528,7 @@ void elv_merged_request(struct request_queue *q, struct request *rq, int type)
 void elv_merge_requests(struct request_queue *q, struct request *rq,
 			     struct request *next)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 531 \n"); 
 	struct elevator_queue *e = q->elevator;
 	const int next_sorted = next->cmd_flags & REQ_SORTED;
 
@@ -528,6 +548,7 @@ void elv_merge_requests(struct request_queue *q, struct request *rq,
 void elv_bio_merged(struct request_queue *q, struct request *rq,
 			struct bio *bio)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 551 \n"); 
 	struct elevator_queue *e = q->elevator;
 
 	if (e->type->ops.elevator_bio_merged_fn)
@@ -552,11 +573,13 @@ static inline void blk_pm_requeue_request(struct request *rq) {}
 static inline void blk_pm_add_request(struct request_queue *q,
 				      struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 576 \n"); 
 }
 #endif
 
 void elv_requeue_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 582 \n"); 
 	/*
 	 * it already went through dequeue, we need to decrement the
 	 * in_flight count again
@@ -576,6 +599,7 @@ void elv_requeue_request(struct request_queue *q, struct request *rq)
 
 void elv_drain_elevator(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 602 \n"); 
 	static int printed;
 
 	lockdep_assert_held(q->queue_lock);
@@ -672,6 +696,7 @@ EXPORT_SYMBOL(__elv_add_request);
 
 void elv_add_request(struct request_queue *q, struct request *rq, int where)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 699 \n"); 
 	unsigned long flags;
 
 	spin_lock_irqsave(q->queue_lock, flags);
@@ -682,6 +707,7 @@ EXPORT_SYMBOL(elv_add_request);
 
 struct request *elv_latter_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 710 \n"); 
 	struct elevator_queue *e = q->elevator;
 
 	if (e->type->ops.elevator_latter_req_fn)
@@ -691,6 +717,7 @@ struct request *elv_latter_request(struct request_queue *q, struct request *rq)
 
 struct request *elv_former_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 720 \n"); 
 	struct elevator_queue *e = q->elevator;
 
 	if (e->type->ops.elevator_former_req_fn)
@@ -746,6 +773,7 @@ void elv_completed_request(struct request_queue *q, struct request *rq)
 static ssize_t
 elv_attr_show(struct kobject *kobj, struct attribute *attr, char *page)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 776 \n"); 
 	struct elv_fs_entry *entry = to_elv(attr);
 	struct elevator_queue *e;
 	ssize_t error;
@@ -764,6 +792,7 @@ static ssize_t
 elv_attr_store(struct kobject *kobj, struct attribute *attr,
 	       const char *page, size_t length)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 795 \n"); 
 	struct elv_fs_entry *entry = to_elv(attr);
 	struct elevator_queue *e;
 	ssize_t error;
@@ -814,6 +843,7 @@ EXPORT_SYMBOL(elv_register_queue);
 
 void elv_unregister_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 846 \n"); 
 	if (q) {
 		struct elevator_queue *e = q->elevator;
 
@@ -867,6 +897,7 @@ EXPORT_SYMBOL_GPL(elv_register);
 
 void elv_unregister(struct elevator_type *e)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 900 \n"); 
 	/* unregister */
 	spin_lock(&elv_list_lock);
 	list_del_init(&e->list);
@@ -892,6 +923,7 @@ EXPORT_SYMBOL_GPL(elv_unregister);
  */
 static int elevator_switch(struct request_queue *q, struct elevator_type *new_e)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 926 \n"); 
 	struct elevator_queue *old = q->elevator;
 	bool registered = old->registered;
 	int err;
@@ -948,6 +980,7 @@ fail_init:
  */
 static int __elevator_change(struct request_queue *q, const char *name)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 983 \n"); 
 	char elevator_name[ELV_NAME_MAX];
 	struct elevator_type *e;
 
@@ -971,6 +1004,7 @@ static int __elevator_change(struct request_queue *q, const char *name)
 
 int elevator_change(struct request_queue *q, const char *name)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 1007 \n"); 
 	int ret;
 
 	/* Protect q->elevator from elevator_init() */
@@ -985,6 +1019,7 @@ EXPORT_SYMBOL(elevator_change);
 ssize_t elv_iosched_store(struct request_queue *q, const char *name,
 			  size_t count)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 1022 \n"); 
 	int ret;
 
 	if (!q->elevator)
@@ -1000,6 +1035,7 @@ ssize_t elv_iosched_store(struct request_queue *q, const char *name,
 
 ssize_t elv_iosched_show(struct request_queue *q, char *name)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 1038 \n"); 
 	struct elevator_queue *e = q->elevator;
 	struct elevator_type *elv;
 	struct elevator_type *__e;
@@ -1026,6 +1062,7 @@ ssize_t elv_iosched_show(struct request_queue *q, char *name)
 struct request *elv_rb_former_request(struct request_queue *q,
 				      struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 1065 \n"); 
 	struct rb_node *rbprev = rb_prev(&rq->rb_node);
 
 	if (rbprev)
@@ -1038,6 +1075,7 @@ EXPORT_SYMBOL(elv_rb_former_request);
 struct request *elv_rb_latter_request(struct request_queue *q,
 				      struct request *rq)
 {
+	panic("We reached unpopular paths in block/elevator.c: line 1078 \n"); 
 	struct rb_node *rbnext = rb_next(&rq->rb_node);
 
 	if (rbnext)

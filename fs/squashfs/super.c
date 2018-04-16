@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Squashfs - a compressed read only filesystem for Linux
  *
@@ -52,6 +53,7 @@ static const struct super_operations squashfs_super_ops;
 static const struct squashfs_decompressor *supported_squashfs_filesystem(short
 	major, short minor, short id)
 {
+	panic("We reached unpopular paths in fs/squashfs/super.c: line 56 \n"); 
 	const struct squashfs_decompressor *decompressor;
 
 	if (major < SQUASHFS_MAJOR) {
@@ -78,6 +80,7 @@ static const struct squashfs_decompressor *supported_squashfs_filesystem(short
 
 static int squashfs_fill_super(struct super_block *sb, void *data, int silent)
 {
+	panic("We reached unpopular paths in fs/squashfs/super.c: line 83 \n"); 
 	struct squashfs_sb_info *msblk;
 	struct squashfs_super_block *sblk = NULL;
 	struct inode *root;
@@ -351,6 +354,7 @@ failed_mount:
 
 static int squashfs_statfs(struct dentry *dentry, struct kstatfs *buf)
 {
+	panic("We reached unpopular paths in fs/squashfs/super.c: line 357 \n"); 
 	struct squashfs_sb_info *msblk = dentry->d_sb->s_fs_info;
 	u64 id = huge_encode_dev(dentry->d_sb->s_bdev->bd_dev);
 
@@ -372,6 +376,7 @@ static int squashfs_statfs(struct dentry *dentry, struct kstatfs *buf)
 
 static int squashfs_remount(struct super_block *sb, int *flags, char *data)
 {
+	panic("We reached unpopular paths in fs/squashfs/super.c: line 379 \n"); 
 	sync_filesystem(sb);
 	*flags |= MS_RDONLY;
 	return 0;
@@ -380,6 +385,7 @@ static int squashfs_remount(struct super_block *sb, int *flags, char *data)
 
 static void squashfs_put_super(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/squashfs/super.c: line 388 \n"); 
 	if (sb->s_fs_info) {
 		struct squashfs_sb_info *sbi = sb->s_fs_info;
 		squashfs_cache_delete(sbi->block_cache);
@@ -400,6 +406,7 @@ static void squashfs_put_super(struct super_block *sb)
 static struct dentry *squashfs_mount(struct file_system_type *fs_type,
 				int flags, const char *dev_name, void *data)
 {
+	panic("We reached unpopular paths in fs/squashfs/super.c: line 409 \n"); 
 	return mount_bdev(fs_type, flags, dev_name, data, squashfs_fill_super);
 }
 
@@ -409,6 +416,7 @@ static struct kmem_cache *squashfs_inode_cachep;
 
 static void init_once(void *foo)
 {
+	panic("We reached unpopular paths in fs/squashfs/super.c: line 419 \n"); 
 	struct squashfs_inode_info *ei = foo;
 
 	inode_init_once(&ei->vfs_inode);
@@ -428,6 +436,7 @@ static int __init init_inodecache(void)
 
 static void destroy_inodecache(void)
 {
+	panic("We reached unpopular paths in fs/squashfs/super.c: line 439 \n"); 
 	/*
 	 * Make sure all delayed rcu free inodes are flushed before we
 	 * destroy cache.
@@ -465,6 +474,7 @@ static void __exit exit_squashfs_fs(void)
 
 static struct inode *squashfs_alloc_inode(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/squashfs/super.c: line 477 \n"); 
 	struct squashfs_inode_info *ei =
 		kmem_cache_alloc(squashfs_inode_cachep, GFP_KERNEL);
 
@@ -474,12 +484,14 @@ static struct inode *squashfs_alloc_inode(struct super_block *sb)
 
 static void squashfs_i_callback(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in fs/squashfs/super.c: line 487 \n"); 
 	struct inode *inode = container_of(head, struct inode, i_rcu);
 	kmem_cache_free(squashfs_inode_cachep, squashfs_i(inode));
 }
 
 static void squashfs_destroy_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/squashfs/super.c: line 494 \n"); 
 	call_rcu(&inode->i_rcu, squashfs_i_callback);
 }
 

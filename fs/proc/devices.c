@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/fs.h>
 #include <linux/init.h>
 #include <linux/proc_fs.h>
@@ -5,6 +6,7 @@
 
 static int devinfo_show(struct seq_file *f, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/devices.c: line 9 \n"); 
 	int i = *(loff_t *) v;
 
 	if (i < CHRDEV_MAJOR_HASH_SIZE) {
@@ -25,6 +27,7 @@ static int devinfo_show(struct seq_file *f, void *v)
 
 static void *devinfo_start(struct seq_file *f, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/proc/devices.c: line 30 \n"); 
 	if (*pos < (BLKDEV_MAJOR_HASH_SIZE + CHRDEV_MAJOR_HASH_SIZE))
 		return pos;
 	return NULL;
@@ -32,6 +35,7 @@ static void *devinfo_start(struct seq_file *f, loff_t *pos)
 
 static void *devinfo_next(struct seq_file *f, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/proc/devices.c: line 38 \n"); 
 	(*pos)++;
 	if (*pos >= (BLKDEV_MAJOR_HASH_SIZE + CHRDEV_MAJOR_HASH_SIZE))
 		return NULL;
@@ -40,6 +44,7 @@ static void *devinfo_next(struct seq_file *f, void *v, loff_t *pos)
 
 static void devinfo_stop(struct seq_file *f, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/devices.c: line 47 \n"); 
 	/* Nothing to do */
 }
 
@@ -52,6 +57,7 @@ static const struct seq_operations devinfo_ops = {
 
 static int devinfo_open(struct inode *inode, struct file *filp)
 {
+	panic("We reached unpopular paths in fs/proc/devices.c: line 60 \n"); 
 	return seq_open(filp, &devinfo_ops);
 }
 

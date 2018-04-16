@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 2001-2002 Magnus Boden <mb@ozaba.mine.nu>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,6 +23,7 @@ static unsigned int help(struct sk_buff *skb,
 			 enum ip_conntrack_info ctinfo,
 			 struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_tftp.c: line 26 \n"); 
 	const struct nf_conn *ct = exp->master;
 
 	exp->saved_proto.udp.port

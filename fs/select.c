@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * This file contains the procedures for the handling of select and poll
  *
@@ -948,6 +949,7 @@ out_fds:
 
 static long do_restart_poll(struct restart_block *restart_block)
 {
+	panic("We reached unpopular paths in fs/select.c: line 952 \n"); 
 	struct pollfd __user *ufds = restart_block->poll.ufds;
 	int nfds = restart_block->poll.nfds;
 	struct timespec64 *to = NULL, end_time;

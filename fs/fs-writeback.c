@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/fs-writeback.c
  *
@@ -86,6 +87,7 @@ unsigned int dirtytime_expire_interval = 12 * 60 * 60;
 
 static inline struct inode *wb_inode(struct list_head *head)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 90 \n"); 
 	return list_entry(head, struct inode, i_io_list);
 }
 
@@ -167,6 +169,7 @@ static void inode_io_list_del_locked(struct inode *inode,
 
 static void wb_wakeup(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 172 \n"); 
 	spin_lock_bh(&wb->work_lock);
 	if (test_bit(WB_registered, &wb->state))
 		mod_delayed_work(bdi_wq, &wb->dwork, 0);
@@ -176,6 +179,7 @@ static void wb_wakeup(struct bdi_writeback *wb)
 static void finish_writeback_work(struct bdi_writeback *wb,
 				  struct wb_writeback_work *work)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 182 \n"); 
 	struct wb_completion *done = work->done;
 
 	if (work->auto_free)
@@ -187,6 +191,7 @@ static void finish_writeback_work(struct bdi_writeback *wb,
 static void wb_queue_work(struct bdi_writeback *wb,
 			  struct wb_writeback_work *work)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 194 \n"); 
 	trace_writeback_queue(wb, work);
 
 	if (work->done)
@@ -217,6 +222,7 @@ static void wb_queue_work(struct bdi_writeback *wb,
 static void wb_wait_for_completion(struct backing_dev_info *bdi,
 				   struct wb_completion *done)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 225 \n"); 
 	atomic_dec(&done->cnt);		/* put down the initial count */
 	wait_event(bdi->wb_waitq, !atomic_read(&done->cnt));
 }
@@ -916,6 +922,7 @@ static struct bdi_writeback *inode_to_wb_and_lock_list(struct inode *inode)
 
 static long wb_split_bdi_pages(struct bdi_writeback *wb, long nr_pages)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 925 \n"); 
 	return nr_pages;
 }
 
@@ -923,6 +930,7 @@ static void bdi_split_work_to_wbs(struct backing_dev_info *bdi,
 				  struct wb_writeback_work *base_work,
 				  bool skip_if_busy)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 933 \n"); 
 	might_sleep();
 
 	if (!skip_if_busy || !writeback_in_progress(&bdi->wb)) {
@@ -936,6 +944,7 @@ static void bdi_split_work_to_wbs(struct backing_dev_info *bdi,
 void wb_start_writeback(struct bdi_writeback *wb, long nr_pages,
 			bool range_cyclic, enum wb_reason reason)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 947 \n"); 
 	struct wb_writeback_work *work;
 
 	if (!wb_has_dirty_io(wb))
@@ -974,6 +983,7 @@ void wb_start_writeback(struct bdi_writeback *wb, long nr_pages,
  */
 void wb_start_background_writeback(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 986 \n"); 
 	/*
 	 * We just wake up the flusher thread. It will perform background
 	 * writeback as soon as there is no other work to do.
@@ -999,6 +1009,7 @@ void inode_io_list_del(struct inode *inode)
  */
 void sb_mark_inode_writeback(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1012 \n"); 
 	struct super_block *sb = inode->i_sb;
 	unsigned long flags;
 
@@ -1017,6 +1028,7 @@ void sb_mark_inode_writeback(struct inode *inode)
  */
 void sb_clear_inode_writeback(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1031 \n"); 
 	struct super_block *sb = inode->i_sb;
 	unsigned long flags;
 
@@ -1041,6 +1053,7 @@ void sb_clear_inode_writeback(struct inode *inode)
  */
 static void redirty_tail(struct inode *inode, struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1056 \n"); 
 	if (!list_empty(&wb->b_dirty)) {
 		struct inode *tail;
 
@@ -1056,11 +1069,13 @@ static void redirty_tail(struct inode *inode, struct bdi_writeback *wb)
  */
 static void requeue_io(struct inode *inode, struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1072 \n"); 
 	inode_io_list_move_locked(inode, wb, &wb->b_more_io);
 }
 
 static void inode_sync_complete(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1078 \n"); 
 	inode->i_state &= ~I_SYNC;
 	/* If inode is clean an unused, put it into LRU now... */
 	inode_add_lru(inode);
@@ -1071,6 +1086,7 @@ static void inode_sync_complete(struct inode *inode)
 
 static bool inode_dirtied_after(struct inode *inode, unsigned long t)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1089 \n"); 
 	bool ret = time_after(inode->dirtied_when, t);
 #ifndef CONFIG_64BIT
 	/*
@@ -1095,6 +1111,7 @@ static int move_expired_inodes(struct list_head *delaying_queue,
 			       int flags,
 			       struct wb_writeback_work *work)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1114 \n"); 
 	unsigned long *older_than_this = NULL;
 	unsigned long expire_time;
 	LIST_HEAD(tmp);
@@ -1158,6 +1175,7 @@ out:
  */
 static void queue_io(struct bdi_writeback *wb, struct wb_writeback_work *work)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1178 \n"); 
 	int moved;
 
 	assert_spin_locked(&wb->list_lock);
@@ -1172,6 +1190,7 @@ static void queue_io(struct bdi_writeback *wb, struct wb_writeback_work *work)
 
 static int write_inode(struct inode *inode, struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1193 \n"); 
 	int ret;
 
 	if (inode->i_sb->s_op->write_inode && !is_bad_inode(inode)) {
@@ -1244,6 +1263,7 @@ static void inode_sleep_on_writeback(struct inode *inode)
 static void requeue_inode(struct inode *inode, struct bdi_writeback *wb,
 			  struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1266 \n"); 
 	if (inode->i_state & I_FREEING)
 		return;
 
@@ -1307,6 +1327,7 @@ static void requeue_inode(struct inode *inode, struct bdi_writeback *wb,
 static int
 __writeback_single_inode(struct inode *inode, struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1330 \n"); 
 	struct address_space *mapping = inode->i_mapping;
 	long nr_to_write = wbc->nr_to_write;
 	unsigned dirty;
@@ -1394,6 +1415,7 @@ __writeback_single_inode(struct inode *inode, struct writeback_control *wbc)
 static int writeback_single_inode(struct inode *inode,
 				  struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1418 \n"); 
 	struct bdi_writeback *wb;
 	int ret = 0;
 
@@ -1451,6 +1473,7 @@ out:
 static long writeback_chunk_size(struct bdi_writeback *wb,
 				 struct wb_writeback_work *work)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1476 \n"); 
 	long pages;
 
 	/*
@@ -1492,6 +1515,7 @@ static long writeback_sb_inodes(struct super_block *sb,
 				struct bdi_writeback *wb,
 				struct wb_writeback_work *work)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1518 \n"); 
 	struct writeback_control wbc = {
 		.sync_mode		= work->sync_mode,
 		.tagged_writepages	= work->tagged_writepages,
@@ -1633,6 +1657,7 @@ static long writeback_sb_inodes(struct super_block *sb,
 static long __writeback_inodes_wb(struct bdi_writeback *wb,
 				  struct wb_writeback_work *work)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1660 \n"); 
 	unsigned long start_time = jiffies;
 	long wrote = 0;
 
@@ -1667,6 +1692,7 @@ static long __writeback_inodes_wb(struct bdi_writeback *wb,
 static long writeback_inodes_wb(struct bdi_writeback *wb, long nr_pages,
 				enum wb_reason reason)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1695 \n"); 
 	struct wb_writeback_work work = {
 		.nr_pages	= nr_pages,
 		.sync_mode	= WB_SYNC_NONE,
@@ -1704,6 +1730,7 @@ static long writeback_inodes_wb(struct bdi_writeback *wb, long nr_pages,
 static long wb_writeback(struct bdi_writeback *wb,
 			 struct wb_writeback_work *work)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1733 \n"); 
 	unsigned long wb_start = jiffies;
 	long nr_pages = work->nr_pages;
 	unsigned long oldest_jif;
@@ -1804,6 +1831,7 @@ static long wb_writeback(struct bdi_writeback *wb,
  */
 static struct wb_writeback_work *get_next_work_item(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1834 \n"); 
 	struct wb_writeback_work *work = NULL;
 
 	spin_lock_bh(&wb->work_lock);
@@ -1829,6 +1857,7 @@ static unsigned long get_nr_dirty_pages(void)
 
 static long wb_check_background_flush(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1860 \n"); 
 	if (wb_over_bg_thresh(wb)) {
 
 		struct wb_writeback_work work = {
@@ -1847,6 +1876,7 @@ static long wb_check_background_flush(struct bdi_writeback *wb)
 
 static long wb_check_old_data_flush(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1879 \n"); 
 	unsigned long expired;
 	long nr_pages;
 
@@ -1884,6 +1914,7 @@ static long wb_check_old_data_flush(struct bdi_writeback *wb)
  */
 static long wb_do_writeback(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1917 \n"); 
 	struct wb_writeback_work *work;
 	long wrote = 0;
 
@@ -1910,6 +1941,7 @@ static long wb_do_writeback(struct bdi_writeback *wb)
  */
 void wb_workfn(struct work_struct *work)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 1944 \n"); 
 	struct bdi_writeback *wb = container_of(to_delayed_work(work),
 						struct bdi_writeback, dwork);
 	long pages_written;
@@ -1954,6 +1986,7 @@ void wb_workfn(struct work_struct *work)
  */
 void wakeup_flusher_threads(long nr_pages, enum wb_reason reason)
 {
+	// [blacklist] panic("We reached unpopular paths in fs/fs-writeback.c: line 1989 \n"); 
 	struct backing_dev_info *bdi;
 
 	/*
@@ -1999,6 +2032,7 @@ static DECLARE_DELAYED_WORK(dirtytime_work, wakeup_dirtytime_writeback);
 
 static void wakeup_dirtytime_writeback(struct work_struct *w)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 2035 \n"); 
 	struct backing_dev_info *bdi;
 
 	rcu_read_lock();
@@ -2204,6 +2238,7 @@ EXPORT_SYMBOL(__mark_inode_dirty);
  */
 static void wait_sb_inodes(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 2241 \n"); 
 	LIST_HEAD(sync_list);
 
 	/*
@@ -2354,6 +2389,7 @@ EXPORT_SYMBOL(writeback_inodes_sb);
 bool try_to_writeback_inodes_sb_nr(struct super_block *sb, unsigned long nr,
 				   enum wb_reason reason)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 2392 \n"); 
 	if (!down_read_trylock(&sb->s_umount))
 		return false;
 
@@ -2373,6 +2409,7 @@ EXPORT_SYMBOL(try_to_writeback_inodes_sb_nr);
  */
 bool try_to_writeback_inodes_sb(struct super_block *sb, enum wb_reason reason)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 2412 \n"); 
 	return try_to_writeback_inodes_sb_nr(sb, get_nr_dirty_pages(), reason);
 }
 EXPORT_SYMBOL(try_to_writeback_inodes_sb);
@@ -2426,6 +2463,7 @@ EXPORT_SYMBOL(sync_inodes_sb);
  */
 int write_inode_now(struct inode *inode, int sync)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 2466 \n"); 
 	struct writeback_control wbc = {
 		.nr_to_write = LONG_MAX,
 		.sync_mode = sync ? WB_SYNC_ALL : WB_SYNC_NONE,
@@ -2454,6 +2492,7 @@ EXPORT_SYMBOL(write_inode_now);
  */
 int sync_inode(struct inode *inode, struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 2495 \n"); 
 	return writeback_single_inode(inode, wbc);
 }
 EXPORT_SYMBOL(sync_inode);
@@ -2469,6 +2508,7 @@ EXPORT_SYMBOL(sync_inode);
  */
 int sync_inode_metadata(struct inode *inode, int wait)
 {
+	panic("We reached unpopular paths in fs/fs-writeback.c: line 2511 \n"); 
 	struct writeback_control wbc = {
 		.sync_mode = wait ? WB_SYNC_ALL : WB_SYNC_NONE,
 		.nr_to_write = 0, /* metadata-only */

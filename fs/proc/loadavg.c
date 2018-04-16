@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/fs.h>
 #include <linux/init.h>
 #include <linux/pid_namespace.h>
@@ -12,6 +13,7 @@
 
 static int loadavg_proc_show(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/loadavg.c: line 16 \n"); 
 	unsigned long avnrun[3];
 
 	get_avenrun(avnrun, FIXED_1/200, 0);
@@ -27,6 +29,7 @@ static int loadavg_proc_show(struct seq_file *m, void *v)
 
 static int loadavg_proc_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/loadavg.c: line 32 \n"); 
 	return single_open(file, loadavg_proc_show, NULL);
 }
 

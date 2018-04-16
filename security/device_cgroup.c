@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * device_cgroup.c - device cgroup subsystem
  *
@@ -53,6 +54,7 @@ struct dev_cgroup {
 
 static inline struct dev_cgroup *css_to_devcgroup(struct cgroup_subsys_state *s)
 {
+	// [blacklist] panic("We reached unpopular paths in security/device_cgroup.c: line 57 \n"); 
 	return s ? container_of(s, struct dev_cgroup, css) : NULL;
 }
 
@@ -163,6 +165,7 @@ static void __dev_exception_clean(struct dev_cgroup *dev_cgroup)
  */
 static void dev_exception_clean(struct dev_cgroup *dev_cgroup)
 {
+	panic("We reached unpopular paths in security/device_cgroup.c: line 168 \n"); 
 	lockdep_assert_held(&devcgroup_mutex);
 
 	__dev_exception_clean(dev_cgroup);
@@ -170,6 +173,7 @@ static void dev_exception_clean(struct dev_cgroup *dev_cgroup)
 
 static inline bool is_devcg_online(const struct dev_cgroup *devcg)
 {
+	panic("We reached unpopular paths in security/device_cgroup.c: line 176 \n"); 
 	return (devcg->behavior != DEVCG_DEFAULT_NONE);
 }
 
@@ -243,6 +247,7 @@ static void devcgroup_css_free(struct cgroup_subsys_state *css)
 
 static void set_access(char *acc, short access)
 {
+	panic("We reached unpopular paths in security/device_cgroup.c: line 250 \n"); 
 	int idx = 0;
 	memset(acc, 0, ACCLEN);
 	if (access & ACC_READ)
@@ -255,6 +260,7 @@ static void set_access(char *acc, short access)
 
 static char type_to_char(short type)
 {
+	panic("We reached unpopular paths in security/device_cgroup.c: line 263 \n"); 
 	if (type == DEV_ALL)
 		return 'a';
 	if (type == DEV_CHAR)
@@ -266,6 +272,7 @@ static char type_to_char(short type)
 
 static void set_majmin(char *str, unsigned m)
 {
+	panic("We reached unpopular paths in security/device_cgroup.c: line 275 \n"); 
 	if (m == ~0)
 		strcpy(str, "*");
 	else
@@ -274,6 +281,7 @@ static void set_majmin(char *str, unsigned m)
 
 static int devcgroup_seq_show(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in security/device_cgroup.c: line 284 \n"); 
 	struct dev_cgroup *devcgroup = css_to_devcgroup(seq_css(m));
 	struct dev_exception_item *ex;
 	char maj[MAJMINLEN], min[MAJMINLEN], acc[ACCLEN];
@@ -501,6 +509,7 @@ static bool parent_allows_removal(struct dev_cgroup *childcg,
  */
 static inline int may_allow_all(struct dev_cgroup *parent)
 {
+	panic("We reached unpopular paths in security/device_cgroup.c: line 512 \n"); 
 	if (!parent)
 		return 1;
 	return parent->behavior == DEVCG_DEFAULT_ALLOW;
@@ -521,6 +530,7 @@ static inline int may_allow_all(struct dev_cgroup *parent)
  */
 static void revalidate_active_exceptions(struct dev_cgroup *devcg)
 {
+	panic("We reached unpopular paths in security/device_cgroup.c: line 533 \n"); 
 	struct dev_exception_item *ex;
 	struct list_head *this, *tmp;
 

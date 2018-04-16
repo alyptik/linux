@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* -*- linux-c -*- ------------------------------------------------------- *
  *   
  *   Copyright 2001 H. Peter Anvin - All Rights Reserved
@@ -45,6 +46,7 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
 				      struct page **pages, unsigned poffset,
 				      int *errp)
 {
+	panic("We reached unpopular paths in fs/isofs/compress.c: line 49 \n"); 
 	unsigned int zisofs_block_shift = ISOFS_I(inode)->i_format_parm[1];
 	unsigned int bufsize = ISOFS_BUFFER_SIZE(inode);
 	unsigned int bufshift = ISOFS_BUFFER_BITS(inode);
@@ -199,6 +201,7 @@ b_eio:
 static int zisofs_fill_pages(struct inode *inode, int full_page, int pcount,
 			     struct page **pages)
 {
+	panic("We reached unpopular paths in fs/isofs/compress.c: line 204 \n"); 
 	loff_t start_off, end_off;
 	loff_t block_start, block_end;
 	unsigned int header_size = ISOFS_I(inode)->i_format_parm[0];
@@ -296,6 +299,7 @@ static int zisofs_fill_pages(struct inode *inode, int full_page, int pcount,
  */
 static int zisofs_readpage(struct file *file, struct page *page)
 {
+	panic("We reached unpopular paths in fs/isofs/compress.c: line 302 \n"); 
 	struct inode *inode = file_inode(file);
 	struct address_space *mapping = inode->i_mapping;
 	int err;
@@ -375,5 +379,6 @@ int __init zisofs_init(void)
 
 void zisofs_cleanup(void)
 {
+	panic("We reached unpopular paths in fs/isofs/compress.c: line 382 \n"); 
 	vfree(zisofs_zlib_workspace);
 }

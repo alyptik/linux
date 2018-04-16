@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Multicast support for IPv6
  *	Linux INET6 implementation
@@ -134,6 +135,7 @@ static int unsolicited_report_interval(struct inet6_dev *idev)
 
 int ipv6_sock_mc_join(struct sock *sk, int ifindex, const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 138 \n"); 
 	struct net_device *dev = NULL;
 	struct ipv6_mc_socklist *mc_lst;
 	struct ipv6_pinfo *np = inet6_sk(sk);
@@ -206,6 +208,7 @@ EXPORT_SYMBOL(ipv6_sock_mc_join);
  */
 int ipv6_sock_mc_drop(struct sock *sk, int ifindex, const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 211 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct ipv6_mc_socklist *mc_lst;
 	struct ipv6_mc_socklist __rcu **lnk;
@@ -250,6 +253,7 @@ static struct inet6_dev *ip6_mc_find_dev_rcu(struct net *net,
 					     const struct in6_addr *group,
 					     int ifindex)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 256 \n"); 
 	struct net_device *dev = NULL;
 	struct inet6_dev *idev = NULL;
 
@@ -278,6 +282,7 @@ static struct inet6_dev *ip6_mc_find_dev_rcu(struct net *net,
 
 void __ipv6_sock_mc_close(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 285 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct ipv6_mc_socklist *mc_lst;
 	struct net *net = sock_net(sk);
@@ -318,6 +323,7 @@ void ipv6_sock_mc_close(struct sock *sk)
 int ip6_mc_source(int add, int omode, struct sock *sk,
 	struct group_source_req *pgsr)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 326 \n"); 
 	struct in6_addr *source, *group;
 	struct ipv6_mc_socklist *pmc;
 	struct inet6_dev *idev;
@@ -449,6 +455,7 @@ done:
 
 int ip6_mc_msfilter(struct sock *sk, struct group_filter *gsf)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 458 \n"); 
 	const struct in6_addr *group;
 	struct ipv6_mc_socklist *pmc;
 	struct inet6_dev *idev;
@@ -610,6 +617,7 @@ done:
 bool inet6_mc_check(struct sock *sk, const struct in6_addr *mc_addr,
 		    const struct in6_addr *src_addr)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 620 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct ipv6_mc_socklist *mc;
 	struct ip6_sf_socklist *psl;
@@ -949,6 +957,7 @@ int __ipv6_dev_mc_dec(struct inet6_dev *idev, const struct in6_addr *addr)
 
 int ipv6_dev_mc_dec(struct net_device *dev, const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 960 \n"); 
 	struct inet6_dev *idev;
 	int err;
 
@@ -1008,6 +1017,7 @@ bool ipv6_chk_mcast_addr(struct net_device *dev, const struct in6_addr *group,
 
 static void mld_gq_start_timer(struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1020 \n"); 
 	unsigned long tv = prandom_u32() % idev->mc_maxdelay;
 
 	idev->mc_gq_running = 1;
@@ -1057,6 +1067,7 @@ static void mld_dad_stop_timer(struct inet6_dev *idev)
 
 static void igmp6_group_queried(struct ifmcaddr6 *ma, unsigned long resptime)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1070 \n"); 
 	unsigned long delay = resptime;
 
 	/* Do not start timer for these addresses */
@@ -1082,6 +1093,7 @@ static void igmp6_group_queried(struct ifmcaddr6 *ma, unsigned long resptime)
 static bool mld_xmarksources(struct ifmcaddr6 *pmc, int nsrcs,
 			     const struct in6_addr *srcs)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1096 \n"); 
 	struct ip6_sf_list *psf;
 	int i, scount;
 
@@ -1110,6 +1122,7 @@ static bool mld_xmarksources(struct ifmcaddr6 *pmc, int nsrcs,
 static bool mld_marksources(struct ifmcaddr6 *pmc, int nsrcs,
 			    const struct in6_addr *srcs)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1125 \n"); 
 	struct ip6_sf_list *psf;
 	int i, scount;
 
@@ -1175,6 +1188,7 @@ static bool mld_in_v1_mode(const struct inet6_dev *idev)
 
 static void mld_set_v1_mode(struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1191 \n"); 
 	/* RFC3810, relevant sections:
 	 *  - 9.1. Robustness Variable
 	 *  - 9.2. Query Interval
@@ -1191,6 +1205,7 @@ static void mld_set_v1_mode(struct inet6_dev *idev)
 static void mld_update_qrv(struct inet6_dev *idev,
 			   const struct mld2_query *mlh2)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1208 \n"); 
 	/* RFC3810, relevant sections:
 	 *  - 5.1.8. QRV (Querier's Robustness Variable)
 	 *  - 9.1. Robustness Variable
@@ -1216,6 +1231,7 @@ static void mld_update_qrv(struct inet6_dev *idev,
 static void mld_update_qi(struct inet6_dev *idev,
 			  const struct mld2_query *mlh2)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1234 \n"); 
 	/* RFC3810, relevant sections:
 	 *  - 5.1.9. QQIC (Querier's Query Interval Code)
 	 *  - 9.2. Query Interval
@@ -1241,6 +1257,7 @@ static void mld_update_qi(struct inet6_dev *idev,
 static void mld_update_qri(struct inet6_dev *idev,
 			   const struct mld2_query *mlh2)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1260 \n"); 
 	/* RFC3810, relevant sections:
 	 *  - 5.1.3. Maximum Response Code
 	 *  - 9.3. Query Response Interval
@@ -1251,6 +1268,7 @@ static void mld_update_qri(struct inet6_dev *idev,
 static int mld_process_v1(struct inet6_dev *idev, struct mld_msg *mld,
 			  unsigned long *max_delay, bool v1_query)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1271 \n"); 
 	unsigned long mldv1_md;
 
 	/* Ignore v1 queries */
@@ -1297,6 +1315,7 @@ static int mld_process_v1(struct inet6_dev *idev, struct mld_msg *mld,
 static int mld_process_v2(struct inet6_dev *idev, struct mld2_query *mld,
 			  unsigned long *max_delay)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1318 \n"); 
 	*max_delay = max(msecs_to_jiffies(mldv2_mrc(mld)), 1UL);
 
 	mld_update_qrv(idev, mld);
@@ -1311,6 +1330,7 @@ static int mld_process_v2(struct inet6_dev *idev, struct mld2_query *mld,
 /* called with rcu_read_lock() */
 int igmp6_event_query(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1333 \n"); 
 	struct mld2_query *mlh2 = NULL;
 	struct ifmcaddr6 *ma;
 	const struct in6_addr *group;
@@ -1431,6 +1451,7 @@ int igmp6_event_query(struct sk_buff *skb)
 /* called with rcu_read_lock() */
 int igmp6_event_report(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1454 \n"); 
 	struct ifmcaddr6 *ma;
 	struct inet6_dev *idev;
 	struct mld_msg *mld;
@@ -1482,6 +1503,7 @@ int igmp6_event_report(struct sk_buff *skb)
 static bool is_in(struct ifmcaddr6 *pmc, struct ip6_sf_list *psf, int type,
 		  int gdeleted, int sdeleted)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1506 \n"); 
 	switch (type) {
 	case MLD2_MODE_IS_INCLUDE:
 	case MLD2_MODE_IS_EXCLUDE:
@@ -1526,6 +1548,7 @@ static bool is_in(struct ifmcaddr6 *pmc, struct ip6_sf_list *psf, int type,
 static int
 mld_scount(struct ifmcaddr6 *pmc, int type, int gdeleted, int sdeleted)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1551 \n"); 
 	struct ip6_sf_list *psf;
 	int scount = 0;
 
@@ -1678,6 +1701,7 @@ err_out:
 
 static int grec_size(struct ifmcaddr6 *pmc, int type, int gdel, int sdel)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1704 \n"); 
 	return sizeof(struct mld2_grec) + 16 * mld_scount(pmc,type,gdel,sdel);
 }
 
@@ -1832,6 +1856,7 @@ empty_source:
 
 static void mld_send_report(struct inet6_dev *idev, struct ifmcaddr6 *pmc)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1859 \n"); 
 	struct sk_buff *skb = NULL;
 	int type;
 
@@ -1867,6 +1892,7 @@ static void mld_send_report(struct inet6_dev *idev, struct ifmcaddr6 *pmc)
  */
 static void mld_clear_zeros(struct ip6_sf_list **ppsf)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1895 \n"); 
 	struct ip6_sf_list *psf_prev, *psf_next, *psf;
 
 	psf_prev = NULL;
@@ -1958,6 +1984,7 @@ static void mld_send_cr(struct inet6_dev *idev)
 
 static void igmp6_send(struct in6_addr *addr, struct net_device *dev, int type)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 1987 \n"); 
 	struct net *net = dev_net(dev);
 	struct sock *sk = net->ipv6.igmp_sk;
 	struct inet6_dev *idev;
@@ -2105,6 +2132,7 @@ static void mld_dad_timer_expire(unsigned long data)
 static int ip6_mc_del1_src(struct ifmcaddr6 *pmc, int sfmode,
 	const struct in6_addr *psfsrc)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2135 \n"); 
 	struct ip6_sf_list *psf, *psf_prev;
 	int rv = 0;
 
@@ -2143,6 +2171,7 @@ static int ip6_mc_del_src(struct inet6_dev *idev, const struct in6_addr *pmca,
 			  int sfmode, int sfcount, const struct in6_addr *psfsrc,
 			  int delta)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2174 \n"); 
 	struct ifmcaddr6 *pmc;
 	int	changerec = 0;
 	int	i, err;
@@ -2202,6 +2231,7 @@ static int ip6_mc_del_src(struct inet6_dev *idev, const struct in6_addr *pmca,
 static int ip6_mc_add1_src(struct ifmcaddr6 *pmc, int sfmode,
 	const struct in6_addr *psfsrc)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2234 \n"); 
 	struct ip6_sf_list *psf, *psf_prev;
 
 	psf_prev = NULL;
@@ -2227,6 +2257,7 @@ static int ip6_mc_add1_src(struct ifmcaddr6 *pmc, int sfmode,
 
 static void sf_markstate(struct ifmcaddr6 *pmc)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2260 \n"); 
 	struct ip6_sf_list *psf;
 	int mca_xcount = pmc->mca_sfcount[MCAST_EXCLUDE];
 
@@ -2241,6 +2272,7 @@ static void sf_markstate(struct ifmcaddr6 *pmc)
 
 static int sf_setstate(struct ifmcaddr6 *pmc)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2275 \n"); 
 	struct ip6_sf_list *psf, *dpsf;
 	int mca_xcount = pmc->mca_sfcount[MCAST_EXCLUDE];
 	int qrv = pmc->idev->mc_qrv;
@@ -2307,6 +2339,7 @@ static int ip6_mc_add_src(struct inet6_dev *idev, const struct in6_addr *pmca,
 			  int sfmode, int sfcount, const struct in6_addr *psfsrc,
 			  int delta)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2342 \n"); 
 	struct ifmcaddr6 *pmc;
 	int	isexclude;
 	int	i, err;
@@ -2386,6 +2419,7 @@ static void ip6_mc_clear_src(struct ifmcaddr6 *pmc)
 
 static void igmp6_join_group(struct ifmcaddr6 *ma)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2422 \n"); 
 	unsigned long delay;
 
 	if (ma->mca_flags & MAF_NOREPORT)
@@ -2410,6 +2444,7 @@ static void igmp6_join_group(struct ifmcaddr6 *ma)
 static int ip6_mc_leave_src(struct sock *sk, struct ipv6_mc_socklist *iml,
 			    struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2447 \n"); 
 	int err;
 
 	/* callers have the socket lock and rtnl lock
@@ -2440,6 +2475,7 @@ static void igmp6_leave_group(struct ifmcaddr6 *ma)
 
 static void mld_gq_timer_expire(unsigned long data)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2478 \n"); 
 	struct inet6_dev *idev = (struct inet6_dev *)data;
 
 	idev->mc_gq_running = 0;
@@ -2471,6 +2507,7 @@ static void mld_ifc_event(struct inet6_dev *idev)
 
 static void igmp6_timer_handler(unsigned long data)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2510 \n"); 
 	struct ifmcaddr6 *ma = (struct ifmcaddr6 *) data;
 
 	if (mld_in_v1_mode(ma->idev))
@@ -2489,6 +2526,7 @@ static void igmp6_timer_handler(unsigned long data)
 
 void ipv6_mc_unmap(struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2529 \n"); 
 	struct ifmcaddr6 *i;
 
 	/* Install multicast list, except for all-nodes (already installed) */
@@ -2501,6 +2539,7 @@ void ipv6_mc_unmap(struct inet6_dev *idev)
 
 void ipv6_mc_remap(struct inet6_dev *idev)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2542 \n"); 
 	ipv6_mc_up(idev);
 }
 
@@ -2915,10 +2954,12 @@ static void __net_exit igmp6_proc_exit(struct net *net)
 #else
 static inline int igmp6_proc_init(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2957 \n"); 
 	return 0;
 }
 static inline void igmp6_proc_exit(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 2962 \n"); 
 }
 #endif
 
@@ -2977,5 +3018,6 @@ int __init igmp6_init(void)
 
 void igmp6_cleanup(void)
 {
+	panic("We reached unpopular paths in net/ipv6/mcast.c: line 3021 \n"); 
 	unregister_pernet_subsys(&igmp6_net_ops);
 }

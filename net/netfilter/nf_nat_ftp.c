@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* FTP extension for TCP NAT alteration. */
 
 /* (C) 1999-2001 Paul `Rusty' Russell
@@ -30,6 +31,7 @@ static int nf_nat_ftp_fmt_cmd(struct nf_conn *ct, enum nf_ct_ftp_type type,
 			      char *buffer, size_t buflen,
 			      union nf_inet_addr *addr, u16 port)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_ftp.c: line 34 \n"); 
 	switch (type) {
 	case NF_CT_FTP_PORT:
 	case NF_CT_FTP_PASV:
@@ -64,6 +66,7 @@ static unsigned int nf_nat_ftp(struct sk_buff *skb,
 			       unsigned int matchlen,
 			       struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_ftp.c: line 69 \n"); 
 	union nf_inet_addr newaddr;
 	u_int16_t port;
 	int dir = CTINFO2DIR(ctinfo);
@@ -136,6 +139,7 @@ static int __init nf_nat_ftp_init(void)
 /* Prior to 2.6.11, we had a ports param.  No longer, but don't break users. */
 static int warn_set(const char *val, struct kernel_param *kp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_ftp.c: line 142 \n"); 
 	printk(KERN_INFO KBUILD_MODNAME
 	       ": kernel >= 2.6.10 only uses 'ports' for conntrack modules\n");
 	return 0;

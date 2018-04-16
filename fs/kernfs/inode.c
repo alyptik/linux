@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/kernfs/inode.c - kernfs inode implementation
  *
@@ -101,6 +102,7 @@ static int __kernfs_setattr(struct kernfs_node *kn, const struct iattr *iattr)
  */
 int kernfs_setattr(struct kernfs_node *kn, const struct iattr *iattr)
 {
+	panic("We reached unpopular paths in fs/kernfs/inode.c: line 105 \n"); 
 	int ret;
 
 	mutex_lock(&kernfs_mutex);
@@ -138,6 +140,7 @@ out:
 static int kernfs_node_setsecdata(struct kernfs_iattrs *attrs, void **secdata,
 				  u32 *secdata_len)
 {
+	panic("We reached unpopular paths in fs/kernfs/inode.c: line 143 \n"); 
 	void *old_secdata;
 	size_t old_secdata_len;
 
@@ -154,6 +157,7 @@ static int kernfs_node_setsecdata(struct kernfs_iattrs *attrs, void **secdata,
 
 ssize_t kernfs_iop_listxattr(struct dentry *dentry, char *buf, size_t size)
 {
+	panic("We reached unpopular paths in fs/kernfs/inode.c: line 160 \n"); 
 	struct kernfs_node *kn = dentry->d_fsdata;
 	struct kernfs_iattrs *attrs;
 
@@ -324,6 +328,7 @@ static int kernfs_xattr_set(const struct xattr_handler *handler,
 			    const char *suffix, const void *value,
 			    size_t size, int flags)
 {
+	panic("We reached unpopular paths in fs/kernfs/inode.c: line 331 \n"); 
 	const char *name = xattr_full_name(handler, suffix);
 	struct kernfs_node *kn = inode->i_private;
 	struct kernfs_iattrs *attrs;
@@ -346,6 +351,7 @@ static int kernfs_security_xattr_set(const struct xattr_handler *handler,
 				     const char *suffix, const void *value,
 				     size_t size, int flags)
 {
+	panic("We reached unpopular paths in fs/kernfs/inode.c: line 354 \n"); 
 	struct kernfs_node *kn = inode->i_private;
 	struct kernfs_iattrs *attrs;
 	void *secdata;

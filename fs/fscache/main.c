@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* General filesystem local caching manager
  *
  * Copyright (C) 2004-2007 Red Hat, Inc. All Rights Reserved.
@@ -201,6 +202,7 @@ module_exit(fscache_exit);
  */
 int fscache_wait_atomic_t(atomic_t *p)
 {
+	panic("We reached unpopular paths in fs/fscache/main.c: line 205 \n"); 
 	schedule();
 	return 0;
 }

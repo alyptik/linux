@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * POSIX message queues filesystem for Linux.
  *
@@ -95,6 +96,7 @@ static struct ctl_table_header *mq_sysctl_table;
 
 static inline struct mqueue_inode_info *MQUEUE_I(struct inode *inode)
 {
+	// [blacklist] panic("We reached unpopular paths in ipc/mqueue.c: line 99 \n"); 
 	return container_of(inode, struct mqueue_inode_info, vfs_inode);
 }
 
@@ -103,11 +105,13 @@ static inline struct mqueue_inode_info *MQUEUE_I(struct inode *inode)
  */
 static inline struct ipc_namespace *__get_ns_from_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 108 \n"); 
 	return get_ipc_ns(inode->i_sb->s_fs_info);
 }
 
 static struct ipc_namespace *get_ns_from_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 114 \n"); 
 	struct ipc_namespace *ns;
 
 	spin_lock(&mq_lock);
@@ -119,6 +123,7 @@ static struct ipc_namespace *get_ns_from_inode(struct inode *inode)
 /* Auxiliary functions to manipulate messages' list */
 static int msg_insert(struct msg_msg *msg, struct mqueue_inode_info *info)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 126 \n"); 
 	struct rb_node **p, *parent = NULL;
 	struct posix_msg_tree_node *leaf;
 
@@ -155,6 +160,7 @@ insert_msg:
 
 static inline struct msg_msg *msg_get(struct mqueue_inode_info *info)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 163 \n"); 
 	struct rb_node **p, *parent = NULL;
 	struct posix_msg_tree_node *leaf;
 	struct msg_msg *msg;
@@ -416,6 +422,7 @@ static void mqueue_evict_inode(struct inode *inode)
 static int mqueue_create(struct inode *dir, struct dentry *dentry,
 				umode_t mode, bool excl)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 425 \n"); 
 	struct inode *inode;
 	struct mq_attr *attr = dentry->d_fsdata;
 	int error;
@@ -460,6 +467,7 @@ out_unlock:
 
 static int mqueue_unlink(struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 470 \n"); 
 	struct inode *inode = d_inode(dentry);
 
 	dir->i_ctime = dir->i_mtime = dir->i_atime = current_time(dir);
@@ -506,6 +514,7 @@ static ssize_t mqueue_read_file(struct file *filp, char __user *u_data,
 
 static int mqueue_flush_file(struct file *filp, fl_owner_t id)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 517 \n"); 
 	struct mqueue_inode_info *info = MQUEUE_I(file_inode(filp));
 
 	spin_lock(&info->lock);
@@ -518,6 +527,7 @@ static int mqueue_flush_file(struct file *filp, fl_owner_t id)
 
 static unsigned int mqueue_poll_file(struct file *filp, struct poll_table_struct *poll_tab)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 530 \n"); 
 	struct mqueue_inode_info *info = MQUEUE_I(file_inode(filp));
 	int retval = 0;
 
@@ -538,6 +548,7 @@ static unsigned int mqueue_poll_file(struct file *filp, struct poll_table_struct
 static void wq_add(struct mqueue_inode_info *info, int sr,
 			struct ext_wait_queue *ewp)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 551 \n"); 
 	struct ext_wait_queue *walk;
 
 	ewp->task = current;
@@ -559,6 +570,7 @@ static void wq_add(struct mqueue_inode_info *info, int sr,
 static int wq_sleep(struct mqueue_inode_info *info, int sr,
 		    ktime_t *timeout, struct ext_wait_queue *ewp)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 573 \n"); 
 	int retval;
 	signed long time;
 
@@ -602,6 +614,7 @@ out:
 static struct ext_wait_queue *wq_get_first_waiter(
 		struct mqueue_inode_info *info, int sr)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 617 \n"); 
 	struct list_head *ptr;
 
 	ptr = info->e_wait_q[sr].list.prev;
@@ -613,6 +626,7 @@ static struct ext_wait_queue *wq_get_first_waiter(
 
 static inline void set_cookie(struct sk_buff *skb, char code)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 629 \n"); 
 	((char *)skb->data)[NOTIFY_COOKIE_LEN-1] = code;
 }
 
@@ -621,6 +635,7 @@ static inline void set_cookie(struct sk_buff *skb, char code)
  */
 static void __do_notify(struct mqueue_inode_info *info)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 638 \n"); 
 	/* notification
 	 * invoked when there is registered process and there isn't process
 	 * waiting synchronously for message AND state of queue changed from
@@ -677,6 +692,7 @@ static int prepare_timeout(const struct timespec __user *u_abs_timeout,
 
 static void remove_notification(struct mqueue_inode_info *info)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 695 \n"); 
 	if (info->notify_owner != NULL &&
 	    info->notify.sigev_notify == SIGEV_THREAD) {
 		set_cookie(info->notify_cookie, NOTIFY_REMOVED);
@@ -690,6 +706,7 @@ static void remove_notification(struct mqueue_inode_info *info)
 
 static int mq_attr_ok(struct ipc_namespace *ipc_ns, struct mq_attr *attr)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 709 \n"); 
 	int mq_treesize;
 	unsigned long total_size;
 
@@ -723,6 +740,7 @@ static struct file *do_create(struct ipc_namespace *ipc_ns, struct inode *dir,
 			struct path *path, int oflag, umode_t mode,
 			struct mq_attr *attr)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 743 \n"); 
 	const struct cred *cred = current_cred();
 	int ret;
 
@@ -755,6 +773,7 @@ static struct file *do_create(struct ipc_namespace *ipc_ns, struct inode *dir,
 /* Opens existing queue */
 static struct file *do_open(struct path *path, int oflag)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 776 \n"); 
 	static const int oflag2acc[O_ACCMODE] = { MAY_READ, MAY_WRITE,
 						  MAY_READ | MAY_WRITE };
 	int acc;
@@ -919,6 +938,7 @@ static inline void pipelined_send(struct wake_q_head *wake_q,
 				  struct msg_msg *message,
 				  struct ext_wait_queue *receiver)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 941 \n"); 
 	receiver->msg = message;
 	list_del(&receiver->list);
 	wake_q_add(wake_q, receiver->task);
@@ -938,6 +958,7 @@ static inline void pipelined_send(struct wake_q_head *wake_q,
 static inline void pipelined_receive(struct wake_q_head *wake_q,
 				     struct mqueue_inode_info *info)
 {
+	panic("We reached unpopular paths in ipc/mqueue.c: line 961 \n"); 
 	struct ext_wait_queue *sender = wq_get_first_waiter(info, SEND);
 
 	if (!sender) {

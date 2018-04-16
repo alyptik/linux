@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/fs.h>
 #include <linux/init.h>
 #include <linux/kernel.h>
@@ -21,6 +22,7 @@
 
 void __attribute__((weak)) arch_report_meminfo(struct seq_file *m)
 {
+	panic("We reached unpopular paths in fs/proc/meminfo.c: line 25 \n"); 
 }
 
 static void show_val_kb(struct seq_file *m, const char *s, unsigned long num)

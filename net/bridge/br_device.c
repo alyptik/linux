@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Device handling code
  *	Linux ethernet bridge
@@ -94,6 +95,7 @@ out:
 
 static void br_set_lockdep_class(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/bridge/br_device.c: line 98 \n"); 
 	lockdep_set_class(&dev->addr_list_lock, &bridge_netdev_addr_lock_key);
 }
 
@@ -140,12 +142,14 @@ static void br_dev_set_multicast_list(struct net_device *dev)
 
 static void br_dev_change_rx_flags(struct net_device *dev, int change)
 {
+	panic("We reached unpopular paths in net/bridge/br_device.c: line 145 \n"); 
 	if (change & IFF_PROMISC)
 		br_manage_promisc(netdev_priv(dev));
 }
 
 static int br_dev_stop(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/bridge/br_device.c: line 152 \n"); 
 	struct net_bridge *br = netdev_priv(dev);
 
 	br_stp_disable_bridge(br);
@@ -187,6 +191,7 @@ static struct rtnl_link_stats64 *br_get_stats64(struct net_device *dev,
 
 static int br_change_mtu(struct net_device *dev, int new_mtu)
 {
+	panic("We reached unpopular paths in net/bridge/br_device.c: line 194 \n"); 
 	struct net_bridge *br = netdev_priv(dev);
 	if (new_mtu < 68 || new_mtu > br_min_mtu(br))
 		return -EINVAL;
@@ -222,6 +227,7 @@ static int br_set_mac_address(struct net_device *dev, void *p)
 
 static void br_getinfo(struct net_device *dev, struct ethtool_drvinfo *info)
 {
+	panic("We reached unpopular paths in net/bridge/br_device.c: line 230 \n"); 
 	strlcpy(info->driver, "bridge", sizeof(info->driver));
 	strlcpy(info->version, BR_VERSION, sizeof(info->version));
 	strlcpy(info->fw_version, "N/A", sizeof(info->fw_version));
@@ -323,6 +329,7 @@ static int br_add_slave(struct net_device *dev, struct net_device *slave_dev)
 
 static int br_del_slave(struct net_device *dev, struct net_device *slave_dev)
 {
+	panic("We reached unpopular paths in net/bridge/br_device.c: line 332 \n"); 
 	struct net_bridge *br = netdev_priv(dev);
 
 	return br_del_if(br, slave_dev);
@@ -365,6 +372,7 @@ static const struct net_device_ops br_netdev_ops = {
 
 static void br_dev_free(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/bridge/br_device.c: line 375 \n"); 
 	struct net_bridge *br = netdev_priv(dev);
 
 	free_percpu(br->stats);

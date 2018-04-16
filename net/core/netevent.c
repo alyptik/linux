@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Network event notifiers
  *
@@ -31,6 +32,7 @@ static ATOMIC_NOTIFIER_HEAD(netevent_notif_chain);
  */
 int register_netevent_notifier(struct notifier_block *nb)
 {
+	panic("We reached unpopular paths in net/core/netevent.c: line 35 \n"); 
 	return atomic_notifier_chain_register(&netevent_notif_chain, nb);
 }
 EXPORT_SYMBOL_GPL(register_netevent_notifier);
@@ -47,6 +49,7 @@ EXPORT_SYMBOL_GPL(register_netevent_notifier);
 
 int unregister_netevent_notifier(struct notifier_block *nb)
 {
+	panic("We reached unpopular paths in net/core/netevent.c: line 52 \n"); 
 	return atomic_notifier_chain_unregister(&netevent_notif_chain, nb);
 }
 EXPORT_SYMBOL_GPL(unregister_netevent_notifier);

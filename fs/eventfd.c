@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  fs/eventfd.c
  *
@@ -69,6 +70,7 @@ EXPORT_SYMBOL_GPL(eventfd_signal);
 
 static void eventfd_free_ctx(struct eventfd_ctx *ctx)
 {
+	// [blacklist] panic("We reached unpopular paths in fs/eventfd.c: line 73 \n"); 
 	kfree(ctx);
 }
 
@@ -87,6 +89,7 @@ static void eventfd_free(struct kref *kref)
  */
 struct eventfd_ctx *eventfd_ctx_get(struct eventfd_ctx *ctx)
 {
+	// [blacklist] panic("We reached unpopular paths in fs/eventfd.c: line 92 \n"); 
 	kref_get(&ctx->kref);
 	return ctx;
 }
@@ -194,6 +197,7 @@ static void eventfd_ctx_do_read(struct eventfd_ctx *ctx, __u64 *cnt)
 int eventfd_ctx_remove_wait_queue(struct eventfd_ctx *ctx, wait_queue_t *wait,
 				  __u64 *cnt)
 {
+	panic("We reached unpopular paths in fs/eventfd.c: line 200 \n"); 
 	unsigned long flags;
 
 	spin_lock_irqsave(&ctx->wqh.lock, flags);
@@ -359,6 +363,7 @@ static const struct file_operations eventfd_fops = {
  */
 struct file *eventfd_fget(int fd)
 {
+	panic("We reached unpopular paths in fs/eventfd.c: line 366 \n"); 
 	struct file *file;
 
 	file = fget(fd);
@@ -384,6 +389,7 @@ EXPORT_SYMBOL_GPL(eventfd_fget);
  */
 struct eventfd_ctx *eventfd_ctx_fdget(int fd)
 {
+	panic("We reached unpopular paths in fs/eventfd.c: line 392 \n"); 
 	struct eventfd_ctx *ctx;
 	struct fd f = fdget(fd);
 	if (!f.file)

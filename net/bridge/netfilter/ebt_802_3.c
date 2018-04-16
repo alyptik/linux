@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * 802_3
  *
@@ -15,6 +16,7 @@
 static bool
 ebt_802_3_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_802_3.c: line 19 \n"); 
 	const struct ebt_802_3_info *info = par->matchinfo;
 	const struct ebt_802_3_hdr *hdr = ebt_802_3_hdr(skb);
 	__be16 type = hdr->llc.ui.ctrl & IS_UI ? hdr->llc.ui.type : hdr->llc.ni.type;
@@ -38,6 +40,7 @@ ebt_802_3_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ebt_802_3_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_802_3.c: line 43 \n"); 
 	const struct ebt_802_3_info *info = par->matchinfo;
 
 	if (info->bitmask & ~EBT_802_3_MASK || info->invflags & ~EBT_802_3_MASK)

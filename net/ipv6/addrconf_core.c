@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPv6 library code, needed by static components when full IPv6 support is
  * not configured or static.
@@ -97,6 +98,7 @@ EXPORT_SYMBOL(register_inet6addr_notifier);
 
 int unregister_inet6addr_notifier(struct notifier_block *nb)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf_core.c: line 101 \n"); 
 	return atomic_notifier_chain_unregister(&inet6addr_chain, nb);
 }
 EXPORT_SYMBOL(unregister_inet6addr_notifier);
@@ -111,6 +113,7 @@ static int eafnosupport_ipv6_dst_lookup(struct net *net, struct sock *u1,
 					struct dst_entry **u2,
 					struct flowi6 *u3)
 {
+	panic("We reached unpopular paths in net/ipv6/addrconf_core.c: line 116 \n"); 
 	return -EAFNOSUPPORT;
 }
 

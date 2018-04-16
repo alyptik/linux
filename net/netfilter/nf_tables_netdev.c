@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2015 Pablo Neira Ayuso <pablo@netfilter.org>
  *
@@ -19,6 +20,7 @@ static unsigned int
 nft_do_chain_netdev(void *priv, struct sk_buff *skb,
 		    const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_netdev.c: line 23 \n"); 
 	struct nft_pktinfo pkt;
 
 	switch (skb->protocol) {
@@ -86,6 +88,7 @@ static const struct nf_chain_type nft_filter_chain_netdev = {
 static void nft_netdev_event(unsigned long event, struct net_device *dev,
 			     struct nft_ctx *ctx)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_netdev.c: line 91 \n"); 
 	struct nft_base_chain *basechain = nft_base_chain(ctx->chain);
 
 	switch (event) {

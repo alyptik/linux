@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -232,6 +233,7 @@
 int __serpent_setkey(struct serpent_ctx *ctx, const u8 *key,
 		     unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/serpent_generic.c: line 236 \n"); 
 	u32 *k = ctx->expkey;
 	u8  *k8 = (u8 *)k;
 	u32 r0, r1, r2, r3, r4;
@@ -438,12 +440,14 @@ EXPORT_SYMBOL_GPL(__serpent_setkey);
 
 int serpent_setkey(struct crypto_tfm *tfm, const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/serpent_generic.c: line 443 \n"); 
 	return __serpent_setkey(crypto_tfm_ctx(tfm), key, keylen);
 }
 EXPORT_SYMBOL_GPL(serpent_setkey);
 
 void __serpent_encrypt(struct serpent_ctx *ctx, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/serpent_generic.c: line 450 \n"); 
 	const u32 *k = ctx->expkey;
 	const __le32 *s = (const __le32 *)src;
 	__le32	*d = (__le32 *)dst;
@@ -502,6 +506,7 @@ EXPORT_SYMBOL_GPL(__serpent_encrypt);
 
 static void serpent_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/serpent_generic.c: line 509 \n"); 
 	struct serpent_ctx *ctx = crypto_tfm_ctx(tfm);
 
 	__serpent_encrypt(ctx, dst, src);
@@ -509,6 +514,7 @@ static void serpent_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 
 void __serpent_decrypt(struct serpent_ctx *ctx, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/serpent_generic.c: line 517 \n"); 
 	const u32 *k = ctx->expkey;
 	const __le32 *s = (const __le32 *)src;
 	__le32	*d = (__le32 *)dst;
@@ -562,6 +568,7 @@ EXPORT_SYMBOL_GPL(__serpent_decrypt);
 
 static void serpent_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/serpent_generic.c: line 571 \n"); 
 	struct serpent_ctx *ctx = crypto_tfm_ctx(tfm);
 
 	__serpent_decrypt(ctx, dst, src);
@@ -570,6 +577,7 @@ static void serpent_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 static int tnepres_setkey(struct crypto_tfm *tfm, const u8 *key,
 			  unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/serpent_generic.c: line 580 \n"); 
 	u8 rev_key[SERPENT_MAX_KEY_SIZE];
 	int i;
 
@@ -581,6 +589,7 @@ static int tnepres_setkey(struct crypto_tfm *tfm, const u8 *key,
 
 static void tnepres_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/serpent_generic.c: line 592 \n"); 
 	const u32 * const s = (const u32 * const)src;
 	u32 * const d = (u32 * const)dst;
 
@@ -601,6 +610,7 @@ static void tnepres_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 
 static void tnepres_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/serpent_generic.c: line 613 \n"); 
 	const u32 * const s = (const u32 * const)src;
 	u32 * const d = (u32 * const)dst;
 

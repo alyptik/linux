@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* SHA-512 code by Jean-Luc Cooke <jlcooke@certainkey.com>
  *
  * Copyright (c) Jean-Luc Cooke <jlcooke@certainkey.com>
@@ -25,11 +26,13 @@
 
 static inline u64 Ch(u64 x, u64 y, u64 z)
 {
+	panic("We reached unpopular paths in crypto/sha512_generic.c: line 29 \n"); 
         return z ^ (x & (y ^ z));
 }
 
 static inline u64 Maj(u64 x, u64 y, u64 z)
 {
+	panic("We reached unpopular paths in crypto/sha512_generic.c: line 35 \n"); 
         return (x & y) | (z & (x | y));
 }
 
@@ -70,17 +73,20 @@ static const u64 sha512_K[80] = {
 
 static inline void LOAD_OP(int I, u64 *W, const u8 *input)
 {
+	panic("We reached unpopular paths in crypto/sha512_generic.c: line 76 \n"); 
 	W[I] = get_unaligned_be64((__u64 *)input + I);
 }
 
 static inline void BLEND_OP(int I, u64 *W)
 {
+	panic("We reached unpopular paths in crypto/sha512_generic.c: line 82 \n"); 
 	W[I & 15] += s1(W[(I-2) & 15]) + W[(I-7) & 15] + s0(W[(I-15) & 15]);
 }
 
 static void
 sha512_transform(u64 *state, const u8 *input)
 {
+	panic("We reached unpopular paths in crypto/sha512_generic.c: line 89 \n"); 
 	u64 a, b, c, d, e, f, g, h, t1, t2;
 
 	int i;
@@ -134,6 +140,7 @@ sha512_transform(u64 *state, const u8 *input)
 static void sha512_generic_block_fn(struct sha512_state *sst, u8 const *src,
 				    int blocks)
 {
+	panic("We reached unpopular paths in crypto/sha512_generic.c: line 143 \n"); 
 	while (blocks--) {
 		sha512_transform(sst->state, src);
 		src += SHA512_BLOCK_SIZE;
@@ -143,12 +150,14 @@ static void sha512_generic_block_fn(struct sha512_state *sst, u8 const *src,
 int crypto_sha512_update(struct shash_desc *desc, const u8 *data,
 			unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/sha512_generic.c: line 153 \n"); 
 	return sha512_base_do_update(desc, data, len, sha512_generic_block_fn);
 }
 EXPORT_SYMBOL(crypto_sha512_update);
 
 static int sha512_final(struct shash_desc *desc, u8 *hash)
 {
+	panic("We reached unpopular paths in crypto/sha512_generic.c: line 160 \n"); 
 	sha512_base_do_finalize(desc, sha512_generic_block_fn);
 	return sha512_base_finish(desc, hash);
 }
@@ -156,6 +165,7 @@ static int sha512_final(struct shash_desc *desc, u8 *hash)
 int crypto_sha512_finup(struct shash_desc *desc, const u8 *data,
 			unsigned int len, u8 *hash)
 {
+	panic("We reached unpopular paths in crypto/sha512_generic.c: line 168 \n"); 
 	sha512_base_do_update(desc, data, len, sha512_generic_block_fn);
 	return sha512_final(desc, hash);
 }

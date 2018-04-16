@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * H.323 connection tracking helper
  *
@@ -120,6 +121,7 @@ static int get_tpkt_data(struct sk_buff *skb, unsigned int protoff,
 			 struct nf_conn *ct, enum ip_conntrack_info ctinfo,
 			 unsigned char **data, int *datalen, int *dataoff)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 124 \n"); 
 	struct nf_ct_h323_master *info = nfct_help_data(ct);
 	int dir = CTINFO2DIR(ctinfo);
 	const struct tcphdr *th;
@@ -224,6 +226,7 @@ static int get_h245_addr(struct nf_conn *ct, const unsigned char *data,
 			 H245_TransportAddress *taddr,
 			 union nf_inet_addr *addr, __be16 *port)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 229 \n"); 
 	const unsigned char *p;
 	int len;
 
@@ -261,6 +264,7 @@ static int expect_rtp_rtcp(struct sk_buff *skb, struct nf_conn *ct,
 			   unsigned char **data, int dataoff,
 			   H245_TransportAddress *taddr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 267 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	int ret = 0;
 	__be16 port;
@@ -336,6 +340,7 @@ static int expect_t120(struct sk_buff *skb,
 		       unsigned char **data, int dataoff,
 		       H245_TransportAddress *taddr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 343 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	int ret = 0;
 	__be16 port;
@@ -388,6 +393,7 @@ static int process_h245_channel(struct sk_buff *skb,
 				unsigned char **data, int dataoff,
 				H2250LogicalChannelParameters *channel)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 396 \n"); 
 	int ret;
 
 	if (channel->options & eH2250LogicalChannelParameters_mediaChannel) {
@@ -417,6 +423,7 @@ static int process_olc(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned char **data, int dataoff,
 		       OpenLogicalChannel *olc)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 426 \n"); 
 	int ret;
 
 	pr_debug("nf_ct_h323: OpenLogicalChannel\n");
@@ -478,6 +485,7 @@ static int process_olca(struct sk_buff *skb, struct nf_conn *ct,
 			unsigned int protoff, unsigned char **data, int dataoff,
 			OpenLogicalChannelAck *olca)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 488 \n"); 
 	H2250LogicalChannelAckParameters *ack;
 	int ret;
 
@@ -548,6 +556,7 @@ static int process_h245(struct sk_buff *skb, struct nf_conn *ct,
 			unsigned int protoff, unsigned char **data, int dataoff,
 			MultimediaSystemControlMessage *mscm)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 559 \n"); 
 	switch (mscm->choice) {
 	case eMultimediaSystemControlMessage_request:
 		if (mscm->request.choice ==
@@ -582,6 +591,7 @@ static int process_h245(struct sk_buff *skb, struct nf_conn *ct,
 static int h245_help(struct sk_buff *skb, unsigned int protoff,
 		     struct nf_conn *ct, enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 594 \n"); 
 	static MultimediaSystemControlMessage mscm;
 	unsigned char *data = NULL;
 	int datalen;
@@ -649,6 +659,7 @@ int get_h225_addr(struct nf_conn *ct, unsigned char *data,
 		  TransportAddress *taddr,
 		  union nf_inet_addr *addr, __be16 *port)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 662 \n"); 
 	const unsigned char *p;
 	int len;
 
@@ -682,6 +693,7 @@ static int expect_h245(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff, unsigned char **data, int dataoff,
 		       TransportAddress *taddr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 696 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	int ret = 0;
 	__be16 port;
@@ -733,6 +745,7 @@ static int callforward_do_filter(struct net *net,
 				 const union nf_inet_addr *dst,
 				 u_int8_t family)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 748 \n"); 
 	const struct nf_afinfo *afinfo;
 	int ret = 0;
 
@@ -803,6 +816,7 @@ static int expect_callforwarding(struct sk_buff *skb,
 				 unsigned char **data, int dataoff,
 				 TransportAddress *taddr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 819 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	int ret = 0;
 	__be16 port;
@@ -862,6 +876,7 @@ static int process_setup(struct sk_buff *skb, struct nf_conn *ct,
 			 unsigned char **data, int dataoff,
 			 Setup_UUIE *setup)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 879 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	int ret;
 	int i;
@@ -934,6 +949,7 @@ static int process_callproceeding(struct sk_buff *skb,
 				  unsigned char **data, int dataoff,
 				  CallProceeding_UUIE *callproc)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 952 \n"); 
 	int ret;
 	int i;
 
@@ -966,6 +982,7 @@ static int process_connect(struct sk_buff *skb, struct nf_conn *ct,
 			   unsigned char **data, int dataoff,
 			   Connect_UUIE *connect)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 985 \n"); 
 	int ret;
 	int i;
 
@@ -998,6 +1015,7 @@ static int process_alerting(struct sk_buff *skb, struct nf_conn *ct,
 			    unsigned char **data, int dataoff,
 			    Alerting_UUIE *alert)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1018 \n"); 
 	int ret;
 	int i;
 
@@ -1030,6 +1048,7 @@ static int process_facility(struct sk_buff *skb, struct nf_conn *ct,
 			    unsigned char **data, int dataoff,
 			    Facility_UUIE *facility)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1051 \n"); 
 	int ret;
 	int i;
 
@@ -1071,6 +1090,7 @@ static int process_progress(struct sk_buff *skb, struct nf_conn *ct,
 			    unsigned char **data, int dataoff,
 			    Progress_UUIE *progress)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1093 \n"); 
 	int ret;
 	int i;
 
@@ -1102,6 +1122,7 @@ static int process_q931(struct sk_buff *skb, struct nf_conn *ct,
 			unsigned int protoff, unsigned char **data, int dataoff,
 			Q931 *q931)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1125 \n"); 
 	H323_UU_PDU *pdu = &q931->UUIE.h323_uu_pdu;
 	int i;
 	int ret = 0;
@@ -1159,6 +1180,7 @@ static int process_q931(struct sk_buff *skb, struct nf_conn *ct,
 static int q931_help(struct sk_buff *skb, unsigned int protoff,
 		     struct nf_conn *ct, enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1183 \n"); 
 	static Q931 q931;
 	unsigned char *data = NULL;
 	int datalen;
@@ -1237,6 +1259,7 @@ static struct nf_conntrack_helper nf_conntrack_helper_q931[] __read_mostly = {
 static unsigned char *get_udp_data(struct sk_buff *skb, unsigned int protoff,
 				   int *datalen)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1262 \n"); 
 	const struct udphdr *uh;
 	struct udphdr _uh;
 	int dataoff;
@@ -1256,6 +1279,7 @@ static struct nf_conntrack_expect *find_expect(struct nf_conn *ct,
 					       union nf_inet_addr *addr,
 					       __be16 port)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1282 \n"); 
 	struct net *net = nf_ct_net(ct);
 	struct nf_conntrack_expect *exp;
 	struct nf_conntrack_tuple tuple;
@@ -1278,6 +1302,7 @@ static int expect_q931(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff, unsigned char **data,
 		       TransportAddress *taddr, int count)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1305 \n"); 
 	struct nf_ct_h323_master *info = nfct_help_data(ct);
 	int dir = CTINFO2DIR(ctinfo);
 	int ret = 0;
@@ -1336,6 +1361,7 @@ static int process_grq(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff,
 		       unsigned char **data, GatekeeperRequest *grq)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1364 \n"); 
 	typeof(set_ras_addr_hook) set_ras_addr;
 
 	pr_debug("nf_ct_ras: GRQ\n");
@@ -1354,6 +1380,7 @@ static int process_gcf(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff,
 		       unsigned char **data, GatekeeperConfirm *gcf)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1383 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	int ret = 0;
 	__be16 port;
@@ -1399,6 +1426,7 @@ static int process_rrq(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff,
 		       unsigned char **data, RegistrationRequest *rrq)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1429 \n"); 
 	struct nf_ct_h323_master *info = nfct_help_data(ct);
 	int ret;
 	typeof(set_ras_addr_hook) set_ras_addr;
@@ -1436,6 +1464,7 @@ static int process_rcf(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff,
 		       unsigned char **data, RegistrationConfirm *rcf)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1467 \n"); 
 	struct nf_ct_h323_master *info = nfct_help_data(ct);
 	int dir = CTINFO2DIR(ctinfo);
 	int ret;
@@ -1488,6 +1517,7 @@ static int process_urq(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff,
 		       unsigned char **data, UnregistrationRequest *urq)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1520 \n"); 
 	struct nf_ct_h323_master *info = nfct_help_data(ct);
 	int dir = CTINFO2DIR(ctinfo);
 	int ret;
@@ -1522,6 +1552,7 @@ static int process_arq(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff,
 		       unsigned char **data, AdmissionRequest *arq)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1555 \n"); 
 	const struct nf_ct_h323_master *info = nfct_help_data(ct);
 	int dir = CTINFO2DIR(ctinfo);
 	__be16 port;
@@ -1567,6 +1598,7 @@ static int process_acf(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff,
 		       unsigned char **data, AdmissionConfirm *acf)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1601 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	int ret = 0;
 	__be16 port;
@@ -1616,6 +1648,7 @@ static int process_lrq(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff,
 		       unsigned char **data, LocationRequest *lrq)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1651 \n"); 
 	typeof(set_ras_addr_hook) set_ras_addr;
 
 	pr_debug("nf_ct_ras: LRQ\n");
@@ -1634,6 +1667,7 @@ static int process_lcf(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff,
 		       unsigned char **data, LocationConfirm *lcf)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1670 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	int ret = 0;
 	__be16 port;
@@ -1674,6 +1708,7 @@ static int process_irr(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff,
 		       unsigned char **data, InfoRequestResponse *irr)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1711 \n"); 
 	int ret;
 	typeof(set_ras_addr_hook) set_ras_addr;
 	typeof(set_sig_addr_hook) set_sig_addr;
@@ -1708,6 +1743,7 @@ static int process_ras(struct sk_buff *skb, struct nf_conn *ct,
 		       unsigned int protoff,
 		       unsigned char **data, RasMessage *ras)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1746 \n"); 
 	switch (ras->choice) {
 	case eRasMessage_gatekeeperRequest:
 		return process_grq(skb, ct, ctinfo, protoff, data,
@@ -1751,6 +1787,7 @@ static int process_ras(struct sk_buff *skb, struct nf_conn *ct,
 static int ras_help(struct sk_buff *skb, unsigned int protoff,
 		    struct nf_conn *ct, enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_h323_main.c: line 1790 \n"); 
 	static RasMessage ras;
 	unsigned char *data;
 	int datalen = 0;

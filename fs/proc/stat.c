@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/cpumask.h>
 #include <linux/fs.h>
 #include <linux/init.h>

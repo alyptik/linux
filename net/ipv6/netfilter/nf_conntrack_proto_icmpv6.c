@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C)2003,2004 USAGI/WIDE Project
  *
@@ -31,6 +32,7 @@ static unsigned int nf_ct_icmpv6_timeout __read_mostly = 30*HZ;
 
 static inline struct nf_icmp_net *icmpv6_pernet(struct net *net)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_proto_icmpv6.c: line 35 \n"); 
 	return &net->ct.nf_ct_proto.icmpv6;
 }
 
@@ -39,6 +41,7 @@ static bool icmpv6_pkt_to_tuple(const struct sk_buff *skb,
 				struct net *net,
 				struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_proto_icmpv6.c: line 44 \n"); 
 	const struct icmp6hdr *hp;
 	struct icmp6hdr _hdr;
 
@@ -74,6 +77,7 @@ static const u_int8_t noct_valid_new[] = {
 static bool icmpv6_invert_tuple(struct nf_conntrack_tuple *tuple,
 				const struct nf_conntrack_tuple *orig)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_proto_icmpv6.c: line 80 \n"); 
 	int type = orig->dst.u.icmp.type - 128;
 	if (type < 0 || type >= sizeof(invmap) || !invmap[type])
 		return false;
@@ -88,6 +92,7 @@ static bool icmpv6_invert_tuple(struct nf_conntrack_tuple *tuple,
 static void icmpv6_print_tuple(struct seq_file *s,
 			      const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_proto_icmpv6.c: line 95 \n"); 
 	seq_printf(s, "type=%u code=%u id=%u ",
 		   tuple->dst.u.icmp.type,
 		   tuple->dst.u.icmp.code,
@@ -96,6 +101,7 @@ static void icmpv6_print_tuple(struct seq_file *s,
 
 static unsigned int *icmpv6_get_timeouts(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_proto_icmpv6.c: line 104 \n"); 
 	return &icmpv6_pernet(net)->timeout;
 }
 
@@ -108,6 +114,7 @@ static int icmpv6_packet(struct nf_conn *ct,
 		       unsigned int hooknum,
 		       unsigned int *timeout)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_proto_icmpv6.c: line 117 \n"); 
 	/* Do not immediately delete the connection after the first
 	   successful reply to avoid excessive conntrackd traffic
 	   and also to handle correctly ICMP echo reply duplicates. */
@@ -120,6 +127,7 @@ static int icmpv6_packet(struct nf_conn *ct,
 static bool icmpv6_new(struct nf_conn *ct, const struct sk_buff *skb,
 		       unsigned int dataoff, unsigned int *timeouts)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_proto_icmpv6.c: line 130 \n"); 
 	static const u_int8_t valid_new[] = {
 		[ICMPV6_ECHO_REQUEST - 128] = 1,
 		[ICMPV6_NI_QUERY - 128] = 1
@@ -148,6 +156,7 @@ icmpv6_error_message(struct net *net, struct nf_conn *tmpl,
 		     enum ip_conntrack_info *ctinfo,
 		     unsigned int hooknum)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_conntrack_proto_icmpv6.c: line 159 \n"); 
 	struct nf_conntrack_tuple intuple, origtuple;
 	const struct nf_conntrack_tuple_hash *h;
 	const struct nf_conntrack_l4proto *inproto;

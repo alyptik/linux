@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/mount.h>
 #include <linux/seq_file.h>
 #include <linux/poll.h>
@@ -75,11 +76,13 @@ struct mount {
 
 static inline struct mount *real_mount(struct vfsmount *mnt)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/mount.h: line 79 \n"); 
 	return container_of(mnt, struct mount, mnt);
 }
 
 static inline int mnt_has_parent(struct mount *mnt)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/mount.h: line 85 \n"); 
 	return mnt != mnt->mnt_parent;
 }
 

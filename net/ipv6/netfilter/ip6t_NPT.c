@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2011, 2012 Patrick McHardy <kaber@trash.net>
  *
@@ -17,6 +18,7 @@
 
 static int ip6t_npt_checkentry(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_NPT.c: line 21 \n"); 
 	struct ip6t_npt_tginfo *npt = par->targinfo;
 	struct in6_addr pfx;
 	__wsum src_sum, dst_sum;
@@ -42,6 +44,7 @@ static int ip6t_npt_checkentry(const struct xt_tgchk_param *par)
 static bool ip6t_npt_map_pfx(const struct ip6t_npt_tginfo *npt,
 			     struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_NPT.c: line 47 \n"); 
 	unsigned int pfx_len;
 	unsigned int i, idx;
 	__be32 mask;
@@ -83,6 +86,7 @@ static bool ip6t_npt_map_pfx(const struct ip6t_npt_tginfo *npt,
 static unsigned int
 ip6t_snpt_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_NPT.c: line 89 \n"); 
 	const struct ip6t_npt_tginfo *npt = par->targinfo;
 
 	if (!ip6t_npt_map_pfx(npt, &ipv6_hdr(skb)->saddr)) {
@@ -96,6 +100,7 @@ ip6t_snpt_tg(struct sk_buff *skb, const struct xt_action_param *par)
 static unsigned int
 ip6t_dnpt_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_NPT.c: line 103 \n"); 
 	const struct ip6t_npt_tginfo *npt = par->targinfo;
 
 	if (!ip6t_npt_map_pfx(npt, &ipv6_hdr(skb)->daddr)) {

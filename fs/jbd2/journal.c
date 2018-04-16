@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/fs/jbd2/journal.c
  *
@@ -125,6 +126,7 @@ EXPORT_SYMBOL(__jbd2_debug);
 /* Checksumming functions */
 static int jbd2_verify_csum_type(journal_t *j, journal_superblock_t *sb)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 129 \n"); 
 	if (!jbd2_journal_has_csum_v2or3_feature(j))
 		return 1;
 
@@ -133,6 +135,7 @@ static int jbd2_verify_csum_type(journal_t *j, journal_superblock_t *sb)
 
 static __be32 jbd2_superblock_csum(journal_t *j, journal_superblock_t *sb)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 138 \n"); 
 	__u32 csum;
 	__be32 old_csum;
 
@@ -146,6 +149,7 @@ static __be32 jbd2_superblock_csum(journal_t *j, journal_superblock_t *sb)
 
 static int jbd2_superblock_csum_verify(journal_t *j, journal_superblock_t *sb)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 152 \n"); 
 	if (!jbd2_journal_has_csum_v2or3(j))
 		return 1;
 
@@ -154,6 +158,7 @@ static int jbd2_superblock_csum_verify(journal_t *j, journal_superblock_t *sb)
 
 static void jbd2_superblock_csum_set(journal_t *j, journal_superblock_t *sb)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 161 \n"); 
 	if (!jbd2_journal_has_csum_v2or3(j))
 		return;
 
@@ -166,6 +171,7 @@ static void jbd2_superblock_csum_set(journal_t *j, journal_superblock_t *sb)
 
 static void commit_timeout(unsigned long __data)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 174 \n"); 
 	struct task_struct * p = (struct task_struct *) __data;
 
 	wake_up_process(p);
@@ -189,6 +195,7 @@ static void commit_timeout(unsigned long __data)
 
 static int kjournald2(void *arg)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 198 \n"); 
 	journal_t *journal = arg;
 	transaction_t *transaction;
 
@@ -286,6 +293,7 @@ end_loop:
 
 static int jbd2_journal_start_thread(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 296 \n"); 
 	struct task_struct *t;
 
 	t = kthread_run(kjournald2, journal, "jbd2/%s",
@@ -299,6 +307,7 @@ static int jbd2_journal_start_thread(journal_t *journal)
 
 static void journal_kill_thread(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 310 \n"); 
 	write_lock(&journal->j_state_lock);
 	journal->j_flags |= JBD2_UNMOUNT;
 
@@ -351,6 +360,7 @@ int jbd2_journal_write_metadata_buffer(transaction_t *transaction,
 				  struct buffer_head **bh_out,
 				  sector_t blocknr)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 363 \n"); 
 	int need_copy_out = 0;
 	int done_copy_out = 0;
 	int do_escape = 0;
@@ -494,6 +504,7 @@ repeat:
  */
 int __jbd2_log_start_commit(journal_t *journal, tid_t target)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 507 \n"); 
 	/* Return if the txn has already requested to be committed */
 	if (journal->j_commit_request == target)
 		return 0;
@@ -531,6 +542,7 @@ int __jbd2_log_start_commit(journal_t *journal, tid_t target)
 
 int jbd2_log_start_commit(journal_t *journal, tid_t tid)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 545 \n"); 
 	int ret;
 
 	write_lock(&journal->j_state_lock);
@@ -548,6 +560,7 @@ int jbd2_log_start_commit(journal_t *journal, tid_t tid)
  */
 static int __jbd2_journal_force_commit(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 563 \n"); 
 	transaction_t *transaction = NULL;
 	tid_t tid;
 	int need_to_start = 0, ret = 0;
@@ -586,6 +599,7 @@ static int __jbd2_journal_force_commit(journal_t *journal)
  */
 int jbd2_journal_force_commit_nested(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 602 \n"); 
 	int ret;
 
 	ret = __jbd2_journal_force_commit(journal);
@@ -601,6 +615,7 @@ int jbd2_journal_force_commit_nested(journal_t *journal)
  */
 int jbd2_journal_force_commit(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 618 \n"); 
 	int ret;
 
 	J_ASSERT(!current->journal_info);
@@ -617,6 +632,7 @@ int jbd2_journal_force_commit(journal_t *journal)
  */
 int jbd2_journal_start_commit(journal_t *journal, tid_t *ptid)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 635 \n"); 
 	int ret = 0;
 
 	write_lock(&journal->j_state_lock);
@@ -650,6 +666,7 @@ int jbd2_journal_start_commit(journal_t *journal, tid_t *ptid)
  */
 int jbd2_trans_will_send_data_barrier(journal_t *journal, tid_t tid)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 669 \n"); 
 	int ret = 0;
 	transaction_t *commit_trans;
 
@@ -689,6 +706,7 @@ EXPORT_SYMBOL(jbd2_trans_will_send_data_barrier);
  */
 int jbd2_log_wait_commit(journal_t *journal, tid_t tid)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 709 \n"); 
 	int err = 0;
 
 	jbd2_might_wait_for_commit(journal);
@@ -725,6 +743,7 @@ int jbd2_log_wait_commit(journal_t *journal, tid_t tid)
  */
 int jbd2_complete_transaction(journal_t *journal, tid_t tid)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 746 \n"); 
 	int	need_to_wait = 1;
 
 	read_lock(&journal->j_state_lock);
@@ -753,6 +772,7 @@ EXPORT_SYMBOL(jbd2_complete_transaction);
 
 int jbd2_journal_next_log_block(journal_t *journal, unsigned long long *retp)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 775 \n"); 
 	unsigned long blocknr;
 
 	write_lock(&journal->j_state_lock);
@@ -777,6 +797,7 @@ int jbd2_journal_next_log_block(journal_t *journal, unsigned long long *retp)
 int jbd2_journal_bmap(journal_t *journal, unsigned long blocknr,
 		 unsigned long long *retp)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 800 \n"); 
 	int err = 0;
 	unsigned long long ret;
 
@@ -810,6 +831,7 @@ int jbd2_journal_bmap(journal_t *journal, unsigned long blocknr,
 struct buffer_head *
 jbd2_journal_get_descriptor_buffer(transaction_t *transaction, int type)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 834 \n"); 
 	journal_t *journal = transaction->t_journal;
 	struct buffer_head *bh;
 	unsigned long long blocknr;
@@ -838,6 +860,7 @@ jbd2_journal_get_descriptor_buffer(transaction_t *transaction, int type)
 
 void jbd2_descriptor_block_csum_set(journal_t *j, struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 863 \n"); 
 	struct jbd2_journal_block_tail *tail;
 	__u32 csum;
 
@@ -864,6 +887,7 @@ void jbd2_descriptor_block_csum_set(journal_t *j, struct buffer_head *bh)
 int jbd2_journal_get_log_tail(journal_t *journal, tid_t *tid,
 			      unsigned long *block)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 890 \n"); 
 	transaction_t *transaction;
 	int ret;
 
@@ -902,6 +926,7 @@ int jbd2_journal_get_log_tail(journal_t *journal, tid_t *tid,
  */
 int __jbd2_update_log_tail(journal_t *journal, tid_t tid, unsigned long block)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 929 \n"); 
 	unsigned long freed;
 	int ret;
 
@@ -944,6 +969,7 @@ out:
  */
 void jbd2_update_log_tail(journal_t *journal, tid_t tid, unsigned long block)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 972 \n"); 
 	mutex_lock(&journal->j_checkpoint_mutex);
 	if (tid_gt(tid, journal->j_tail_sequence))
 		__jbd2_update_log_tail(journal, tid, block);
@@ -959,16 +985,19 @@ struct jbd2_stats_proc_session {
 
 static void *jbd2_seq_info_start(struct seq_file *seq, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 988 \n"); 
 	return *pos ? NULL : SEQ_START_TOKEN;
 }
 
 static void *jbd2_seq_info_next(struct seq_file *seq, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 994 \n"); 
 	return NULL;
 }
 
 static int jbd2_seq_info_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1000 \n"); 
 	struct jbd2_stats_proc_session *s = seq->private;
 
 	if (v != SEQ_START_TOKEN)
@@ -1006,6 +1035,7 @@ static int jbd2_seq_info_show(struct seq_file *seq, void *v)
 
 static void jbd2_seq_info_stop(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1038 \n"); 
 }
 
 static const struct seq_operations jbd2_seq_info_ops = {
@@ -1017,6 +1047,7 @@ static const struct seq_operations jbd2_seq_info_ops = {
 
 static int jbd2_seq_info_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1050 \n"); 
 	journal_t *journal = PDE_DATA(inode);
 	struct jbd2_stats_proc_session *s;
 	int rc, size;
@@ -1049,6 +1080,7 @@ static int jbd2_seq_info_open(struct inode *inode, struct file *file)
 
 static int jbd2_seq_info_release(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1083 \n"); 
 	struct seq_file *seq = file->private_data;
 	struct jbd2_stats_proc_session *s = seq->private;
 	kfree(s->stats);
@@ -1068,6 +1100,7 @@ static struct proc_dir_entry *proc_jbd2_stats;
 
 static void jbd2_stats_proc_init(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1103 \n"); 
 	journal->j_proc_entry = proc_mkdir(journal->j_devname, proc_jbd2_stats);
 	if (journal->j_proc_entry) {
 		proc_create_data("info", S_IRUGO, journal->j_proc_entry,
@@ -1077,6 +1110,7 @@ static void jbd2_stats_proc_init(journal_t *journal)
 
 static void jbd2_stats_proc_exit(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1113 \n"); 
 	remove_proc_entry("info", journal->j_proc_entry);
 	remove_proc_entry(journal->j_devname, proc_jbd2_stats);
 }
@@ -1094,6 +1128,7 @@ static journal_t *journal_init_common(struct block_device *bdev,
 			struct block_device *fs_dev,
 			unsigned long long start, int len, int blocksize)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1131 \n"); 
 	static struct lock_class_key jbd2_trans_commit_key;
 	journal_t *journal;
 	int err;
@@ -1191,6 +1226,7 @@ journal_t *jbd2_journal_init_dev(struct block_device *bdev,
 			struct block_device *fs_dev,
 			unsigned long long start, int len, int blocksize)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1229 \n"); 
 	journal_t *journal;
 
 	journal = journal_init_common(bdev, fs_dev, start, len, blocksize);
@@ -1214,6 +1250,7 @@ journal_t *jbd2_journal_init_dev(struct block_device *bdev,
  */
 journal_t *jbd2_journal_init_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1253 \n"); 
 	journal_t *journal;
 	char *p;
 	unsigned long long blocknr;
@@ -1251,6 +1288,7 @@ journal_t *jbd2_journal_init_inode(struct inode *inode)
  */
 static void journal_fail_superblock (journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1291 \n"); 
 	struct buffer_head *bh = journal->j_sb_buffer;
 	brelse(bh);
 	journal->j_sb_buffer = NULL;
@@ -1265,6 +1303,7 @@ static void journal_fail_superblock (journal_t *journal)
 
 static int journal_reset(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1306 \n"); 
 	journal_superblock_t *sb = journal->j_superblock;
 	unsigned long long first, last;
 
@@ -1322,6 +1361,7 @@ static int journal_reset(journal_t *journal)
 
 static int jbd2_write_superblock(journal_t *journal, int write_flags)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1364 \n"); 
 	struct buffer_head *bh = journal->j_sb_buffer;
 	journal_superblock_t *sb = journal->j_superblock;
 	int ret;
@@ -1378,6 +1418,7 @@ static int jbd2_write_superblock(journal_t *journal, int write_flags)
 int jbd2_journal_update_sb_log_tail(journal_t *journal, tid_t tail_tid,
 				     unsigned long tail_block, int write_op)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1421 \n"); 
 	journal_superblock_t *sb = journal->j_superblock;
 	int ret;
 
@@ -1412,6 +1453,7 @@ out:
  */
 static void jbd2_mark_journal_empty(journal_t *journal, int write_op)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1456 \n"); 
 	journal_superblock_t *sb = journal->j_superblock;
 
 	BUG_ON(!mutex_is_locked(&journal->j_checkpoint_mutex));
@@ -1446,6 +1488,7 @@ static void jbd2_mark_journal_empty(journal_t *journal, int write_op)
  */
 void jbd2_journal_update_sb_errno(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1491 \n"); 
 	journal_superblock_t *sb = journal->j_superblock;
 
 	read_lock(&journal->j_state_lock);
@@ -1464,6 +1507,7 @@ EXPORT_SYMBOL(jbd2_journal_update_sb_errno);
  */
 static int journal_get_superblock(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1510 \n"); 
 	struct buffer_head *bh;
 	journal_superblock_t *sb;
 	int err = -EIO;
@@ -1581,6 +1625,7 @@ out:
 
 static int load_superblock(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1628 \n"); 
 	int err;
 	journal_superblock_t *sb;
 
@@ -1610,6 +1655,7 @@ static int load_superblock(journal_t *journal)
  */
 int jbd2_journal_load(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1658 \n"); 
 	int err;
 	journal_superblock_t *sb;
 
@@ -1676,6 +1722,7 @@ recovery_error:
  */
 int jbd2_journal_destroy(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1725 \n"); 
 	int err = 0;
 
 	/* Wait for the commit thread to wake up and die. */
@@ -1755,6 +1802,7 @@ int jbd2_journal_destroy(journal_t *journal)
 int jbd2_journal_check_used_features (journal_t *journal, unsigned long compat,
 				 unsigned long ro, unsigned long incompat)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1805 \n"); 
 	journal_superblock_t *sb;
 
 	if (!compat && !ro && !incompat)
@@ -1790,6 +1838,7 @@ int jbd2_journal_check_used_features (journal_t *journal, unsigned long compat,
 int jbd2_journal_check_available_features (journal_t *journal, unsigned long compat,
 				      unsigned long ro, unsigned long incompat)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1841 \n"); 
 	if (!compat && !ro && !incompat)
 		return 1;
 
@@ -1823,6 +1872,7 @@ int jbd2_journal_check_available_features (journal_t *journal, unsigned long com
 int jbd2_journal_set_features (journal_t *journal, unsigned long compat,
 			  unsigned long ro, unsigned long incompat)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1875 \n"); 
 #define INCOMPAT_FEATURE_ON(f) \
 		((incompat & (f)) && !(sb->s_feature_incompat & cpu_to_be32(f)))
 #define COMPAT_FEATURE_ON(f) \
@@ -1904,6 +1954,7 @@ int jbd2_journal_set_features (journal_t *journal, unsigned long compat,
 void jbd2_journal_clear_features(journal_t *journal, unsigned long compat,
 				unsigned long ro, unsigned long incompat)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1957 \n"); 
 	journal_superblock_t *sb;
 
 	jbd_debug(1, "Clear features 0x%lx/0x%lx/0x%lx\n",
@@ -1928,6 +1979,7 @@ EXPORT_SYMBOL(jbd2_journal_clear_features);
 
 int jbd2_journal_flush(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 1982 \n"); 
 	int err = 0;
 	transaction_t *transaction = NULL;
 
@@ -2007,6 +2059,7 @@ out:
 
 int jbd2_journal_wipe(journal_t *journal, int write)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2062 \n"); 
 	int err = 0;
 
 	J_ASSERT (!(journal->j_flags & JBD2_LOADED));
@@ -2048,6 +2101,7 @@ int jbd2_journal_wipe(journal_t *journal, int write)
  */
 void __jbd2_journal_abort_hard(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2104 \n"); 
 	transaction_t *transaction;
 
 	if (journal->j_flags & JBD2_ABORT)
@@ -2068,6 +2122,7 @@ void __jbd2_journal_abort_hard(journal_t *journal)
  * but don't do any other IO. */
 static void __journal_abort_soft (journal_t *journal, int errno)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2125 \n"); 
 	if (journal->j_flags & JBD2_ABORT)
 		return;
 
@@ -2132,6 +2187,7 @@ static void __journal_abort_soft (journal_t *journal, int errno)
 
 void jbd2_journal_abort(journal_t *journal, int errno)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2190 \n"); 
 	__journal_abort_soft(journal, errno);
 }
 
@@ -2148,6 +2204,7 @@ void jbd2_journal_abort(journal_t *journal, int errno)
  */
 int jbd2_journal_errno(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2207 \n"); 
 	int err;
 
 	read_lock(&journal->j_state_lock);
@@ -2168,6 +2225,7 @@ int jbd2_journal_errno(journal_t *journal)
  */
 int jbd2_journal_clear_err(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2228 \n"); 
 	int err = 0;
 
 	write_lock(&journal->j_state_lock);
@@ -2188,6 +2246,7 @@ int jbd2_journal_clear_err(journal_t *journal)
  */
 void jbd2_journal_ack_err(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2249 \n"); 
 	write_lock(&journal->j_state_lock);
 	if (journal->j_errno)
 		journal->j_flags |= JBD2_ACK_ERR;
@@ -2196,6 +2255,7 @@ void jbd2_journal_ack_err(journal_t *journal)
 
 int jbd2_journal_blocks_per_page(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2258 \n"); 
 	return 1 << (PAGE_SHIFT - inode->i_sb->s_blocksize_bits);
 }
 
@@ -2204,6 +2264,7 @@ int jbd2_journal_blocks_per_page(struct inode *inode)
  */
 size_t journal_tag_bytes(journal_t *journal)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2267 \n"); 
 	size_t sz;
 
 	if (jbd2_has_feature_csum3(journal))
@@ -2246,6 +2307,7 @@ static const char *jbd2_slab_names[JBD2_MAX_SLABS] = {
 
 static void jbd2_journal_destroy_slabs(void)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2310 \n"); 
 	int i;
 
 	for (i = 0; i < JBD2_MAX_SLABS; i++) {
@@ -2257,6 +2319,7 @@ static void jbd2_journal_destroy_slabs(void)
 
 static int jbd2_journal_create_slab(size_t size)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2322 \n"); 
 	static DEFINE_MUTEX(jbd2_slab_create_mutex);
 	int i = order_base_2(size) - 10;
 	size_t slab_size;
@@ -2288,6 +2351,7 @@ static int jbd2_journal_create_slab(size_t size)
 
 static struct kmem_cache *get_slab(size_t size)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2354 \n"); 
 	int i = order_base_2(size) - 10;
 
 	BUG_ON(i >= JBD2_MAX_SLABS);
@@ -2299,6 +2363,7 @@ static struct kmem_cache *get_slab(size_t size)
 
 void *jbd2_alloc(size_t size, gfp_t flags)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2366 \n"); 
 	void *ptr;
 
 	BUG_ON(size & (size-1)); /* Must be a power of 2 */
@@ -2317,6 +2382,7 @@ void *jbd2_alloc(size_t size, gfp_t flags)
 
 void jbd2_free(void *ptr, size_t size)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2385 \n"); 
 	if (size < PAGE_SIZE)
 		kmem_cache_free(get_slab(size), ptr);
 	else
@@ -2351,6 +2417,7 @@ static int jbd2_journal_init_journal_head_cache(void)
 
 static void jbd2_journal_destroy_journal_head_cache(void)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2420 \n"); 
 	if (jbd2_journal_head_cache) {
 		kmem_cache_destroy(jbd2_journal_head_cache);
 		jbd2_journal_head_cache = NULL;
@@ -2362,6 +2429,7 @@ static void jbd2_journal_destroy_journal_head_cache(void)
  */
 static struct journal_head *journal_alloc_journal_head(void)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2432 \n"); 
 	struct journal_head *ret;
 
 #ifdef CONFIG_JBD2_DEBUG
@@ -2379,6 +2447,7 @@ static struct journal_head *journal_alloc_journal_head(void)
 
 static void journal_free_journal_head(struct journal_head *jh)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2450 \n"); 
 #ifdef CONFIG_JBD2_DEBUG
 	atomic_dec(&nr_journal_heads);
 	memset(jh, JBD2_POISON_FREE, sizeof(*jh));
@@ -2429,6 +2498,7 @@ static void journal_free_journal_head(struct journal_head *jh)
  */
 struct journal_head *jbd2_journal_add_journal_head(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2501 \n"); 
 	struct journal_head *jh;
 	struct journal_head *new_jh = NULL;
 
@@ -2470,6 +2540,7 @@ repeat:
  */
 struct journal_head *jbd2_journal_grab_journal_head(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2543 \n"); 
 	struct journal_head *jh = NULL;
 
 	jbd_lock_bh_journal_head(bh);
@@ -2483,6 +2554,7 @@ struct journal_head *jbd2_journal_grab_journal_head(struct buffer_head *bh)
 
 static void __journal_remove_journal_head(struct buffer_head *bh)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2557 \n"); 
 	struct journal_head *jh = bh2jh(bh);
 
 	J_ASSERT_JH(jh, jh->b_jcount >= 0);
@@ -2513,6 +2585,7 @@ static void __journal_remove_journal_head(struct buffer_head *bh)
  */
 void jbd2_journal_put_journal_head(struct journal_head *jh)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2588 \n"); 
 	struct buffer_head *bh = jh2bh(jh);
 
 	jbd_lock_bh_journal_head(bh);
@@ -2531,6 +2604,7 @@ void jbd2_journal_put_journal_head(struct journal_head *jh)
  */
 void jbd2_journal_init_jbd_inode(struct jbd2_inode *jinode, struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2607 \n"); 
 	jinode->i_transaction = NULL;
 	jinode->i_next_transaction = NULL;
 	jinode->i_vfs_inode = inode;
@@ -2546,6 +2620,7 @@ void jbd2_journal_init_jbd_inode(struct jbd2_inode *jinode, struct inode *inode)
 void jbd2_journal_release_jbd_inode(journal_t *journal,
 				    struct jbd2_inode *jinode)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2623 \n"); 
 	if (!journal)
 		return;
 restart:
@@ -2612,6 +2687,7 @@ static int __init jbd2_journal_init_handle_cache(void)
 
 static void jbd2_journal_destroy_handle_cache(void)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2690 \n"); 
 	if (jbd2_handle_cache)
 		kmem_cache_destroy(jbd2_handle_cache);
 	if (jbd2_inode_cache)
@@ -2639,6 +2715,7 @@ static int __init journal_init_caches(void)
 
 static void jbd2_journal_destroy_caches(void)
 {
+	panic("We reached unpopular paths in fs/jbd2/journal.c: line 2718 \n"); 
 	jbd2_journal_destroy_revoke_caches();
 	jbd2_journal_destroy_journal_head_cache();
 	jbd2_journal_destroy_handle_cache();

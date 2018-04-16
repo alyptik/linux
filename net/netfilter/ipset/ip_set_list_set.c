@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Copyright (C) 2008-2013 Jozsef Kadlecsik <kadlec@blackhole.kfki.hu>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -53,6 +54,7 @@ list_set_ktest(struct ip_set *set, const struct sk_buff *skb,
 	       const struct xt_action_param *par,
 	       struct ip_set_adt_opt *opt, const struct ip_set_ext *ext)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 57 \n"); 
 	struct list_set *map = set->data;
 	struct set_elem *e;
 	u32 cmdflags = opt->cmdflags;
@@ -87,6 +89,7 @@ list_set_kadd(struct ip_set *set, const struct sk_buff *skb,
 	      const struct xt_action_param *par,
 	      struct ip_set_adt_opt *opt, const struct ip_set_ext *ext)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 92 \n"); 
 	struct list_set *map = set->data;
 	struct set_elem *e;
 	int ret;
@@ -107,6 +110,7 @@ list_set_kdel(struct ip_set *set, const struct sk_buff *skb,
 	      const struct xt_action_param *par,
 	      struct ip_set_adt_opt *opt, const struct ip_set_ext *ext)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 113 \n"); 
 	struct list_set *map = set->data;
 	struct set_elem *e;
 	int ret;
@@ -127,6 +131,7 @@ list_set_kadt(struct ip_set *set, const struct sk_buff *skb,
 	      const struct xt_action_param *par,
 	      enum ipset_adt adt, struct ip_set_adt_opt *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 134 \n"); 
 	struct ip_set_ext ext = IP_SET_INIT_KEXT(skb, opt, set);
 	int ret = -EINVAL;
 
@@ -154,6 +159,7 @@ list_set_kadt(struct ip_set *set, const struct sk_buff *skb,
 static void
 __list_set_del_rcu(struct rcu_head * rcu)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 162 \n"); 
 	struct set_elem *e = container_of(rcu, struct set_elem, rcu);
 	struct ip_set *set = e->set;
 	struct list_set *map = set->data;
@@ -166,6 +172,7 @@ __list_set_del_rcu(struct rcu_head * rcu)
 static inline void
 list_set_del(struct ip_set *set, struct set_elem *e)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 175 \n"); 
 	list_del_rcu(&e->list);
 	call_rcu(&e->rcu, __list_set_del_rcu);
 }
@@ -173,6 +180,7 @@ list_set_del(struct ip_set *set, struct set_elem *e)
 static inline void
 list_set_replace(struct set_elem *e, struct set_elem *old)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 183 \n"); 
 	list_replace_rcu(&old->list, &e->list);
 	call_rcu(&old->rcu, __list_set_del_rcu);
 }
@@ -180,6 +188,7 @@ list_set_replace(struct set_elem *e, struct set_elem *old)
 static void
 set_cleanup_entries(struct ip_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 191 \n"); 
 	struct list_set *map = set->data;
 	struct set_elem *e, *n;
 
@@ -192,6 +201,7 @@ static int
 list_set_utest(struct ip_set *set, void *value, const struct ip_set_ext *ext,
 	       struct ip_set_ext *mext, u32 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 204 \n"); 
 	struct list_set *map = set->data;
 	struct set_adt_elem *d = value;
 	struct set_elem *e, *next, *prev = NULL;
@@ -224,6 +234,7 @@ static void
 list_set_init_extensions(struct ip_set *set, const struct ip_set_ext *ext,
 			 struct set_elem *e)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 237 \n"); 
 	if (SET_WITH_COUNTER(set))
 		ip_set_init_counter(ext_counter(e, set), ext);
 	if (SET_WITH_COMMENT(set))
@@ -239,6 +250,7 @@ static int
 list_set_uadd(struct ip_set *set, void *value, const struct ip_set_ext *ext,
 	      struct ip_set_ext *mext, u32 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 253 \n"); 
 	struct list_set *map = set->data;
 	struct set_adt_elem *d = value;
 	struct set_elem *e, *n, *prev, *next;
@@ -317,6 +329,7 @@ static int
 list_set_udel(struct ip_set *set, void *value, const struct ip_set_ext *ext,
 	      struct ip_set_ext *mext, u32 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 332 \n"); 
 	struct list_set *map = set->data;
 	struct set_adt_elem *d = value;
 	struct set_elem *e, *next, *prev = NULL;
@@ -349,6 +362,7 @@ static int
 list_set_uadt(struct ip_set *set, struct nlattr *tb[],
 	      enum ipset_adt adt, u32 *lineno, u32 flags, bool retried)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 365 \n"); 
 	struct list_set *map = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct set_adt_elem e = { .refid = IPSET_INVALID_ID };
@@ -414,6 +428,7 @@ finish:
 static void
 list_set_flush(struct ip_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 431 \n"); 
 	struct list_set *map = set->data;
 	struct set_elem *e, *n;
 
@@ -424,6 +439,7 @@ list_set_flush(struct ip_set *set)
 static void
 list_set_destroy(struct ip_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 442 \n"); 
 	struct list_set *map = set->data;
 	struct set_elem *e, *n;
 
@@ -444,6 +460,7 @@ list_set_destroy(struct ip_set *set)
 static int
 list_set_head(struct ip_set *set, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 463 \n"); 
 	const struct list_set *map = set->data;
 	struct nlattr *nested;
 	struct set_elem *e;
@@ -475,6 +492,7 @@ static int
 list_set_list(const struct ip_set *set,
 	      struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 495 \n"); 
 	const struct list_set *map = set->data;
 	struct nlattr *atd, *nested;
 	u32 i = 0, first = cb->args[IPSET_CB_ARG0];
@@ -528,6 +546,7 @@ out:
 static bool
 list_set_same_set(const struct ip_set *a, const struct ip_set *b)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 549 \n"); 
 	const struct list_set *x = a->data;
 	const struct list_set *y = b->data;
 
@@ -554,6 +573,7 @@ static const struct ip_set_type_variant set_variant = {
 static void
 list_set_gc(unsigned long ul_set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 576 \n"); 
 	struct ip_set *set = (struct ip_set *)ul_set;
 	struct list_set *map = set->data;
 
@@ -568,6 +588,7 @@ list_set_gc(unsigned long ul_set)
 static void
 list_set_gc_init(struct ip_set *set, void (*gc)(unsigned long ul_set))
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 591 \n"); 
 	struct list_set *map = set->data;
 
 	init_timer(&map->gc);
@@ -582,6 +603,7 @@ list_set_gc_init(struct ip_set *set, void (*gc)(unsigned long ul_set))
 static bool
 init_list_set(struct net *net, struct ip_set *set, u32 size)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 606 \n"); 
 	struct list_set *map;
 
 	map = kzalloc(sizeof(*map), GFP_KERNEL);
@@ -600,6 +622,7 @@ static int
 list_set_create(struct net *net, struct ip_set *set, struct nlattr *tb[],
 		u32 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_list_set.c: line 625 \n"); 
 	u32 size = IP_SET_LIST_DEFAULT_SIZE;
 
 	if (unlikely(!ip_set_optattr_netorder(tb, IPSET_ATTR_SIZE) ||

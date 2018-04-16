@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *
  * Copyright (C) 2011 Novell Inc.
@@ -19,6 +20,7 @@
 
 void ovl_cleanup(struct inode *wdir, struct dentry *wdentry)
 {
+	panic("We reached unpopular paths in fs/overlayfs/dir.c: line 23 \n"); 
 	int err;
 
 	dget(wdentry);
@@ -123,11 +125,13 @@ int ovl_create_real(struct inode *dir, struct dentry *newdentry,
 
 static int ovl_set_opaque(struct dentry *upperdentry)
 {
+	panic("We reached unpopular paths in fs/overlayfs/dir.c: line 128 \n"); 
 	return ovl_do_setxattr(upperdentry, OVL_XATTR_OPAQUE, "y", 1, 0);
 }
 
 static void ovl_remove_opaque(struct dentry *upperdentry)
 {
+	panic("We reached unpopular paths in fs/overlayfs/dir.c: line 134 \n"); 
 	int err;
 
 	err = ovl_do_removexattr(upperdentry, OVL_XATTR_OPAQUE);
@@ -236,6 +240,7 @@ err:
 static struct dentry *ovl_clear_empty(struct dentry *dentry,
 				      struct list_head *list)
 {
+	panic("We reached unpopular paths in fs/overlayfs/dir.c: line 243 \n"); 
 	struct dentry *workdir = ovl_workdir(dentry);
 	struct inode *wdir = workdir->d_inode;
 	struct dentry *upperdir = ovl_dentry_upper(dentry->d_parent);
@@ -313,6 +318,7 @@ out:
 
 static struct dentry *ovl_check_empty_and_clear(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/overlayfs/dir.c: line 321 \n"); 
 	int err;
 	struct dentry *ret = NULL;
 	enum ovl_path_type type = ovl_path_type(dentry);

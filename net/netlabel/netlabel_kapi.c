@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NetLabel Kernel API
  *
@@ -73,6 +74,7 @@ int netlbl_cfg_map_del(const char *domain,
 		       const void *mask,
 		       struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 77 \n"); 
 	if (addr == NULL && mask == NULL) {
 		return netlbl_domhsh_remove(domain, family, audit_info);
 	} else if (addr != NULL && mask != NULL) {
@@ -112,6 +114,7 @@ int netlbl_cfg_unlbl_map_add(const char *domain,
 			     const void *mask,
 			     struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 117 \n"); 
 	int ret_val = -ENOMEM;
 	struct netlbl_dom_map *entry;
 	struct netlbl_domaddr_map *addrmap = NULL;
@@ -227,6 +230,7 @@ int netlbl_cfg_unlbl_static_add(struct net *net,
 				u32 secid,
 				struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 233 \n"); 
 	u32 addr_len;
 
 	switch (family) {
@@ -269,6 +273,7 @@ int netlbl_cfg_unlbl_static_del(struct net *net,
 				u16 family,
 				struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 276 \n"); 
 	u32 addr_len;
 
 	switch (family) {
@@ -302,6 +307,7 @@ int netlbl_cfg_unlbl_static_del(struct net *net,
 int netlbl_cfg_cipsov4_add(struct cipso_v4_doi *doi_def,
 			   struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 310 \n"); 
 	return cipso_v4_doi_add(doi_def, audit_info);
 }
 
@@ -317,6 +323,7 @@ int netlbl_cfg_cipsov4_add(struct cipso_v4_doi *doi_def,
  */
 void netlbl_cfg_cipsov4_del(u32 doi, struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 326 \n"); 
 	cipso_v4_doi_remove(doi, audit_info);
 }
 
@@ -340,6 +347,7 @@ int netlbl_cfg_cipsov4_map_add(u32 doi,
 			       const struct in_addr *mask,
 			       struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 350 \n"); 
 	int ret_val = -ENOMEM;
 	struct cipso_v4_doi *doi_def;
 	struct netlbl_dom_map *entry;
@@ -421,6 +429,7 @@ out_entry:
 int netlbl_cfg_calipso_add(struct calipso_doi *doi_def,
 			   struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 432 \n"); 
 #if IS_ENABLED(CONFIG_IPV6)
 	return calipso_doi_add(doi_def, audit_info);
 #else /* IPv6 */
@@ -440,6 +449,7 @@ int netlbl_cfg_calipso_add(struct calipso_doi *doi_def,
  */
 void netlbl_cfg_calipso_del(u32 doi, struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 452 \n"); 
 #if IS_ENABLED(CONFIG_IPV6)
 	calipso_doi_remove(doi, audit_info);
 #endif /* IPv6 */
@@ -465,6 +475,7 @@ int netlbl_cfg_calipso_map_add(u32 doi,
 			       const struct in6_addr *mask,
 			       struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 478 \n"); 
 #if IS_ENABLED(CONFIG_IPV6)
 	int ret_val = -ENOMEM;
 	struct calipso_doi *doi_def;
@@ -570,6 +581,7 @@ static struct netlbl_lsm_catmap *_netlbl_catmap_getnode(
 					     unsigned int cm_flags,
 					     gfp_t gfp_flags)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 584 \n"); 
 	struct netlbl_lsm_catmap *iter = *catmap;
 	struct netlbl_lsm_catmap *prev = NULL;
 
@@ -621,6 +633,7 @@ catmap_getnode_alloc:
  */
 int netlbl_catmap_walk(struct netlbl_lsm_catmap *catmap, u32 offset)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 636 \n"); 
 	struct netlbl_lsm_catmap *iter = catmap;
 	u32 idx;
 	u32 bit;
@@ -676,6 +689,7 @@ EXPORT_SYMBOL(netlbl_catmap_walk);
  */
 int netlbl_catmap_walkrng(struct netlbl_lsm_catmap *catmap, u32 offset)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 692 \n"); 
 	struct netlbl_lsm_catmap *iter;
 	struct netlbl_lsm_catmap *prev = NULL;
 	u32 idx;
@@ -740,6 +754,7 @@ int netlbl_catmap_getlong(struct netlbl_lsm_catmap *catmap,
 			  u32 *offset,
 			  unsigned long *bitmap)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 757 \n"); 
 	struct netlbl_lsm_catmap *iter;
 	u32 off = *offset;
 	u32 idx;
@@ -784,6 +799,7 @@ int netlbl_catmap_setbit(struct netlbl_lsm_catmap **catmap,
 			 u32 bit,
 			 gfp_t flags)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 802 \n"); 
 	struct netlbl_lsm_catmap *iter;
 	u32 idx;
 
@@ -816,6 +832,7 @@ int netlbl_catmap_setrng(struct netlbl_lsm_catmap **catmap,
 			 u32 end,
 			 gfp_t flags)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 835 \n"); 
 	int rc = 0;
 	u32 spot = start;
 
@@ -852,6 +869,7 @@ int netlbl_catmap_setlong(struct netlbl_lsm_catmap **catmap,
 			  unsigned long bitmap,
 			  gfp_t flags)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 872 \n"); 
 	struct netlbl_lsm_catmap *iter;
 	u32 idx;
 
@@ -888,6 +906,7 @@ int netlbl_catmap_setlong(struct netlbl_lsm_catmap **catmap,
 int netlbl_bitmap_walk(const unsigned char *bitmap, u32 bitmap_len,
 		       u32 offset, u8 state)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 909 \n"); 
 	u32 bit_spot;
 	u32 byte_offset;
 	unsigned char bitmask;
@@ -927,6 +946,7 @@ EXPORT_SYMBOL(netlbl_bitmap_walk);
  */
 void netlbl_bitmap_setbit(unsigned char *bitmap, u32 bit, u8 state)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 949 \n"); 
 	u32 byte_spot;
 	u8 bitmask;
 
@@ -958,6 +978,7 @@ EXPORT_SYMBOL(netlbl_bitmap_setbit);
  */
 int netlbl_enabled(void)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 981 \n"); 
 	/* At some point we probably want to expose this mechanism to the user
 	 * as well so that admins can toggle NetLabel regardless of the
 	 * configuration */
@@ -983,6 +1004,7 @@ int netlbl_sock_setattr(struct sock *sk,
 			u16 family,
 			const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 1007 \n"); 
 	int ret_val;
 	struct netlbl_dom_map *dom_entry;
 
@@ -1049,6 +1071,7 @@ socket_setattr_return:
  */
 void netlbl_sock_delattr(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 1074 \n"); 
 	switch (sk->sk_family) {
 	case AF_INET:
 		cipso_v4_sock_delattr(sk);
@@ -1076,6 +1099,7 @@ void netlbl_sock_delattr(struct sock *sk)
 int netlbl_sock_getattr(struct sock *sk,
 			struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 1102 \n"); 
 	int ret_val;
 
 	switch (sk->sk_family) {
@@ -1110,6 +1134,7 @@ int netlbl_conn_setattr(struct sock *sk,
 			struct sockaddr *addr,
 			const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 1137 \n"); 
 	int ret_val;
 	struct sockaddr_in *addr4;
 #if IS_ENABLED(CONFIG_IPV6)
@@ -1189,6 +1214,7 @@ conn_setattr_return:
 int netlbl_req_setattr(struct request_sock *req,
 		       const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 1217 \n"); 
 	int ret_val;
 	struct netlbl_dommap_def *entry;
 	struct inet_request_sock *ireq = inet_rsk(req);
@@ -1256,6 +1282,7 @@ req_setattr_return:
 */
 void netlbl_req_delattr(struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 1285 \n"); 
 	switch (req->rsk_ops->family) {
 	case AF_INET:
 		cipso_v4_req_delattr(req);
@@ -1283,6 +1310,7 @@ int netlbl_skbuff_setattr(struct sk_buff *skb,
 			  u16 family,
 			  const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 1313 \n"); 
 	int ret_val;
 	struct iphdr *hdr4;
 #if IS_ENABLED(CONFIG_IPV6)
@@ -1364,6 +1392,7 @@ int netlbl_skbuff_getattr(const struct sk_buff *skb,
 			  u16 family,
 			  struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 1395 \n"); 
 	unsigned char *ptr;
 
 	switch (family) {
@@ -1399,6 +1428,7 @@ int netlbl_skbuff_getattr(const struct sk_buff *skb,
  */
 void netlbl_skbuff_err(struct sk_buff *skb, u16 family, int error, int gateway)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 1431 \n"); 
 	switch (family) {
 	case AF_INET:
 		if (cipso_v4_optptr(skb))
@@ -1418,6 +1448,7 @@ void netlbl_skbuff_err(struct sk_buff *skb, u16 family, int error, int gateway)
  */
 void netlbl_cache_invalidate(void)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 1451 \n"); 
 	cipso_v4_cache_invalidate();
 #if IS_ENABLED(CONFIG_IPV6)
 	calipso_cache_invalidate();
@@ -1439,6 +1470,7 @@ void netlbl_cache_invalidate(void)
 int netlbl_cache_add(const struct sk_buff *skb, u16 family,
 		     const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 1473 \n"); 
 	unsigned char *ptr;
 
 	if ((secattr->flags & NETLBL_SECATTR_CACHE) == 0)
@@ -1480,6 +1512,7 @@ int netlbl_cache_add(const struct sk_buff *skb, u16 family,
 struct audit_buffer *netlbl_audit_start(int type,
 					struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_kapi.c: line 1515 \n"); 
 	return netlbl_audit_start_common(type, audit_info);
 }
 EXPORT_SYMBOL(netlbl_audit_start);

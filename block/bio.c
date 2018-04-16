@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C) 2001 Jens Axboe <axboe@kernel.dk>
  *
@@ -126,6 +127,7 @@ out_unlock:
 
 static void bio_put_slab(struct bio_set *bs)
 {
+	panic("We reached unpopular paths in block/bio.c: line 130 \n"); 
 	struct bio_slab *bslab = NULL;
 	unsigned int i;
 
@@ -155,11 +157,13 @@ out:
 
 unsigned int bvec_nr_vecs(unsigned short idx)
 {
+	panic("We reached unpopular paths in block/bio.c: line 160 \n"); 
 	return bvec_slabs[idx].nr_vecs;
 }
 
 void bvec_free(mempool_t *pool, struct bio_vec *bv, unsigned int idx)
 {
+	panic("We reached unpopular paths in block/bio.c: line 166 \n"); 
 	if (!idx)
 		return;
 	idx--;
@@ -178,6 +182,7 @@ void bvec_free(mempool_t *pool, struct bio_vec *bv, unsigned int idx)
 struct bio_vec *bvec_alloc(gfp_t gfp_mask, int nr, unsigned long *idx,
 			   mempool_t *pool)
 {
+	panic("We reached unpopular paths in block/bio.c: line 185 \n"); 
 	struct bio_vec *bvl;
 
 	/*
@@ -290,6 +295,7 @@ EXPORT_SYMBOL(bio_init);
  */
 void bio_reset(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio.c: line 298 \n"); 
 	unsigned long flags = bio->bi_flags & (~0UL << BIO_RESET_BITS);
 
 	__bio_free(bio);
@@ -302,6 +308,7 @@ EXPORT_SYMBOL(bio_reset);
 
 static struct bio *__bio_chain_endio(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio.c: line 311 \n"); 
 	struct bio *parent = bio->bi_private;
 
 	if (!parent->bi_error)
@@ -312,6 +319,7 @@ static struct bio *__bio_chain_endio(struct bio *bio)
 
 static void bio_chain_endio(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio.c: line 322 \n"); 
 	bio_endio(__bio_chain_endio(bio));
 }
 
@@ -328,6 +336,7 @@ static void bio_chain_endio(struct bio *bio)
  */
 void bio_chain(struct bio *bio, struct bio *parent)
 {
+	panic("We reached unpopular paths in block/bio.c: line 339 \n"); 
 	BUG_ON(bio->bi_private || bio->bi_end_io);
 
 	bio->bi_private = parent;
@@ -338,6 +347,7 @@ EXPORT_SYMBOL(bio_chain);
 
 static void bio_alloc_rescue(struct work_struct *work)
 {
+	panic("We reached unpopular paths in block/bio.c: line 350 \n"); 
 	struct bio_set *bs = container_of(work, struct bio_set, rescue_work);
 	struct bio *bio;
 
@@ -355,6 +365,7 @@ static void bio_alloc_rescue(struct work_struct *work)
 
 static void punt_bios_to_rescuer(struct bio_set *bs)
 {
+	panic("We reached unpopular paths in block/bio.c: line 368 \n"); 
 	struct bio_list punt, nopunt;
 	struct bio *bio;
 
@@ -519,6 +530,7 @@ EXPORT_SYMBOL(bio_alloc_bioset);
 
 void zero_fill_bio(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio.c: line 533 \n"); 
 	unsigned long flags;
 	struct bio_vec bv;
 	struct bvec_iter iter;
@@ -578,6 +590,7 @@ EXPORT_SYMBOL(bio_phys_segments);
  */
 void __bio_clone_fast(struct bio *bio, struct bio *bio_src)
 {
+	panic("We reached unpopular paths in block/bio.c: line 593 \n"); 
 	BUG_ON(bio->bi_pool && BVEC_POOL_IDX(bio));
 
 	/*
@@ -604,6 +617,7 @@ EXPORT_SYMBOL(__bio_clone_fast);
  */
 struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
 {
+	panic("We reached unpopular paths in block/bio.c: line 620 \n"); 
 	struct bio *b;
 
 	b = bio_alloc_bioset(gfp_mask, 0, bs);
@@ -639,6 +653,7 @@ EXPORT_SYMBOL(bio_clone_fast);
 struct bio *bio_clone_bioset(struct bio *bio_src, gfp_t gfp_mask,
 			     struct bio_set *bs)
 {
+	panic("We reached unpopular paths in block/bio.c: line 656 \n"); 
 	struct bvec_iter iter;
 	struct bio_vec bv;
 	struct bio *bio;
@@ -815,6 +830,7 @@ EXPORT_SYMBOL(bio_add_pc_page);
 int bio_add_page(struct bio *bio, struct page *page,
 		 unsigned int len, unsigned int offset)
 {
+	panic("We reached unpopular paths in block/bio.c: line 833 \n"); 
 	struct bio_vec *bv;
 
 	/*
@@ -860,6 +876,7 @@ struct submit_bio_ret {
 
 static void submit_bio_wait_endio(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio.c: line 879 \n"); 
 	struct submit_bio_ret *ret = bio->bi_private;
 
 	ret->error = bio->bi_error;
@@ -875,6 +892,7 @@ static void submit_bio_wait_endio(struct bio *bio)
  */
 int submit_bio_wait(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio.c: line 895 \n"); 
 	struct submit_bio_ret ret;
 
 	init_completion(&ret.event);
@@ -920,6 +938,7 @@ EXPORT_SYMBOL(bio_advance);
  */
 int bio_alloc_pages(struct bio *bio, gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in block/bio.c: line 941 \n"); 
 	int i;
 	struct bio_vec *bv;
 
@@ -950,6 +969,7 @@ EXPORT_SYMBOL(bio_alloc_pages);
  */
 void bio_copy_data(struct bio *dst, struct bio *src)
 {
+	panic("We reached unpopular paths in block/bio.c: line 972 \n"); 
 	struct bvec_iter src_iter, dst_iter;
 	struct bio_vec src_bv, dst_bv;
 	void *src_p, *dst_p;
@@ -1005,6 +1025,7 @@ struct bio_map_data {
 static struct bio_map_data *bio_alloc_map_data(unsigned int iov_count,
 					       gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1028 \n"); 
 	if (iov_count > UIO_MAXIOV)
 		return NULL;
 
@@ -1022,6 +1043,7 @@ static struct bio_map_data *bio_alloc_map_data(unsigned int iov_count,
  */
 static int bio_copy_from_iter(struct bio *bio, struct iov_iter iter)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1046 \n"); 
 	int i;
 	struct bio_vec *bvec;
 
@@ -1053,6 +1075,7 @@ static int bio_copy_from_iter(struct bio *bio, struct iov_iter iter)
  */
 static int bio_copy_to_iter(struct bio *bio, struct iov_iter iter)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1078 \n"); 
 	int i;
 	struct bio_vec *bvec;
 
@@ -1093,6 +1116,7 @@ EXPORT_SYMBOL(bio_free_pages);
  */
 int bio_uncopy_user(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1119 \n"); 
 	struct bio_map_data *bmd = bio->bi_private;
 	int ret = 0;
 
@@ -1130,6 +1154,7 @@ struct bio *bio_copy_user_iov(struct request_queue *q,
 			      const struct iov_iter *iter,
 			      gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1157 \n"); 
 	struct bio_map_data *bmd;
 	struct page *page;
 	struct bio *bio;
@@ -1258,6 +1283,7 @@ struct bio *bio_map_user_iov(struct request_queue *q,
 			     const struct iov_iter *iter,
 			     gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1286 \n"); 
 	int j;
 	int nr_pages = 0;
 	struct page **pages;
@@ -1389,6 +1415,7 @@ struct bio *bio_map_user_iov(struct request_queue *q,
 
 static void __bio_unmap_user(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1418 \n"); 
 	struct bio_vec *bvec;
 	int i;
 
@@ -1416,6 +1443,7 @@ static void __bio_unmap_user(struct bio *bio)
  */
 void bio_unmap_user(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1446 \n"); 
 	__bio_unmap_user(bio);
 	bio_put(bio);
 }
@@ -1596,6 +1624,7 @@ cleanup:
  */
 void bio_set_pages_dirty(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1627 \n"); 
 	struct bio_vec *bvec;
 	int i;
 
@@ -1609,6 +1638,7 @@ void bio_set_pages_dirty(struct bio *bio)
 
 static void bio_release_pages(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1641 \n"); 
 	struct bio_vec *bvec;
 	int i;
 
@@ -1642,6 +1672,7 @@ static struct bio *bio_dirty_list;
  */
 static void bio_dirty_fn(struct work_struct *work)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1675 \n"); 
 	unsigned long flags;
 	struct bio *bio;
 
@@ -1662,6 +1693,7 @@ static void bio_dirty_fn(struct work_struct *work)
 
 void bio_check_pages_dirty(struct bio *bio)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1696 \n"); 
 	struct bio_vec *bvec;
 	int nr_clean_pages = 0;
 	int i;
@@ -1693,6 +1725,7 @@ void bio_check_pages_dirty(struct bio *bio)
 void generic_start_io_acct(int rw, unsigned long sectors,
 			   struct hd_struct *part)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1728 \n"); 
 	int cpu = part_stat_lock();
 
 	part_round_stats(cpu, part);
@@ -1707,6 +1740,7 @@ EXPORT_SYMBOL(generic_start_io_acct);
 void generic_end_io_acct(int rw, struct hd_struct *part,
 			 unsigned long start_time)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1743 \n"); 
 	unsigned long duration = jiffies - start_time;
 	int cpu = part_stat_lock();
 
@@ -1799,6 +1833,7 @@ EXPORT_SYMBOL(bio_endio);
 struct bio *bio_split(struct bio *bio, int sectors,
 		      gfp_t gfp, struct bio_set *bs)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1836 \n"); 
 	struct bio *split = NULL;
 
 	BUG_ON(sectors <= 0);
@@ -1835,6 +1870,7 @@ EXPORT_SYMBOL(bio_split);
  */
 void bio_trim(struct bio *bio, int offset, int size)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1873 \n"); 
 	/* 'bio' is a cloned bio which we need to trim to match
 	 * the given offset and size.
 	 */
@@ -1864,6 +1900,7 @@ mempool_t *biovec_create_pool(int pool_entries)
 
 void bioset_free(struct bio_set *bs)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1903 \n"); 
 	if (bs->rescue_workqueue)
 		destroy_workqueue(bs->rescue_workqueue);
 
@@ -1953,6 +1990,7 @@ EXPORT_SYMBOL(bioset_create);
  */
 struct bio_set *bioset_create_nobvec(unsigned int pool_size, unsigned int front_pad)
 {
+	panic("We reached unpopular paths in block/bio.c: line 1993 \n"); 
 	return __bioset_create(pool_size, front_pad, false);
 }
 EXPORT_SYMBOL(bioset_create_nobvec);

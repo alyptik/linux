@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Workqueue for crypto subsystem
  *

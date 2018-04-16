@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2010 Werner Fink, Jiri Slaby
  *
@@ -15,6 +16,7 @@
  */
 static int show_console_dev(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/consoles.c: line 19 \n"); 
 	static const struct {
 		short flag;
 		char name;
@@ -62,6 +64,7 @@ static int show_console_dev(struct seq_file *m, void *v)
 
 static void *c_start(struct seq_file *m, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/proc/consoles.c: line 67 \n"); 
 	struct console *con;
 	loff_t off = 0;
 
@@ -75,6 +78,7 @@ static void *c_start(struct seq_file *m, loff_t *pos)
 
 static void *c_next(struct seq_file *m, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/proc/consoles.c: line 81 \n"); 
 	struct console *con = v;
 	++*pos;
 	return con->next;
@@ -82,6 +86,7 @@ static void *c_next(struct seq_file *m, void *v, loff_t *pos)
 
 static void c_stop(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/consoles.c: line 89 \n"); 
 	console_unlock();
 }
 
@@ -94,6 +99,7 @@ static const struct seq_operations consoles_op = {
 
 static int consoles_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/consoles.c: line 102 \n"); 
 	return seq_open(file, &consoles_op);
 }
 

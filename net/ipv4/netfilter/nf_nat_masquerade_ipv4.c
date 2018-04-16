@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2006 Netfilter Core Team <coreteam@netfilter.org>
  *
@@ -148,6 +149,7 @@ EXPORT_SYMBOL_GPL(nf_nat_masquerade_ipv4_register_notifier);
 
 void nf_nat_masquerade_ipv4_unregister_notifier(void)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_masquerade_ipv4.c: line 152 \n"); 
 	/* check if the notifier still has clients */
 	if (atomic_dec_return(&masquerade_notifier_refcount) > 0)
 		return;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* FCrypt encryption algorithm
  *
  * Copyright (C) 2006 Red Hat, Inc. All Rights Reserved.
@@ -235,6 +236,7 @@ do {									\
  */
 static void fcrypt_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/fcrypt.c: line 239 \n"); 
 	const struct fcrypt_ctx *ctx = crypto_tfm_ctx(tfm);
 	struct {
 		__be32 l, r;
@@ -267,6 +269,7 @@ static void fcrypt_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
  */
 static void fcrypt_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/fcrypt.c: line 272 \n"); 
 	const struct fcrypt_ctx *ctx = crypto_tfm_ctx(tfm);
 	struct {
 		__be32 l, r;
@@ -302,6 +305,7 @@ static void fcrypt_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
  */
 static int fcrypt_setkey(struct crypto_tfm *tfm, const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/fcrypt.c: line 308 \n"); 
 	struct fcrypt_ctx *ctx = crypto_tfm_ctx(tfm);
 
 #if BITS_PER_LONG == 64  /* the 64-bit version can also be used for 32-bit

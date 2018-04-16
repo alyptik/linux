@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -630,6 +631,7 @@ static const u32 S8[64] = {
  */
 unsigned long des_ekey(u32 *pe, const u8 *k)
 {
+	panic("We reached unpopular paths in crypto/des_generic.c: line 634 \n"); 
 	/* K&R: long is at least 32 bits */
 	unsigned long a, b, c, d, w;
 	const u32 *pt = pc2;
@@ -713,6 +715,7 @@ EXPORT_SYMBOL_GPL(des_ekey);
  */
 static void dkey(u32 *pe, const u8 *k)
 {
+	panic("We reached unpopular paths in crypto/des_generic.c: line 718 \n"); 
 	/* K&R: long is at least 32 bits */
 	unsigned long a, b, c, d;
 	const u32 *pt = pc2;
@@ -781,6 +784,7 @@ static void dkey(u32 *pe, const u8 *k)
 static int des_setkey(struct crypto_tfm *tfm, const u8 *key,
 		      unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/des_generic.c: line 787 \n"); 
 	struct des_ctx *dctx = crypto_tfm_ctx(tfm);
 	u32 *flags = &tfm->crt_flags;
 	u32 tmp[DES_EXPKEY_WORDS];
@@ -802,6 +806,7 @@ static int des_setkey(struct crypto_tfm *tfm, const u8 *key,
 
 static void des_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/des_generic.c: line 809 \n"); 
 	struct des_ctx *ctx = crypto_tfm_ctx(tfm);
 	const u32 *K = ctx->expkey;
 	const __le32 *s = (const __le32 *)src;
@@ -825,6 +830,7 @@ static void des_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 
 static void des_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/des_generic.c: line 833 \n"); 
 	struct des_ctx *ctx = crypto_tfm_ctx(tfm);
 	const u32 *K = ctx->expkey + DES_EXPKEY_WORDS - 2;
 	const __le32 *s = (const __le32 *)src;
@@ -862,6 +868,7 @@ static void des_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 int __des3_ede_setkey(u32 *expkey, u32 *flags, const u8 *key,
 		      unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/des_generic.c: line 871 \n"); 
 	const u32 *K = (const u32 *)key;
 
 	if (unlikely(!((K[0] ^ K[2]) | (K[1] ^ K[3])) ||
@@ -882,6 +889,7 @@ EXPORT_SYMBOL_GPL(__des3_ede_setkey);
 static int des3_ede_setkey(struct crypto_tfm *tfm, const u8 *key,
 			   unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/des_generic.c: line 892 \n"); 
 	struct des3_ede_ctx *dctx = crypto_tfm_ctx(tfm);
 	u32 *flags = &tfm->crt_flags;
 	u32 *expkey = dctx->expkey;
@@ -891,6 +899,7 @@ static int des3_ede_setkey(struct crypto_tfm *tfm, const u8 *key,
 
 static void des3_ede_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/des_generic.c: line 902 \n"); 
 	struct des3_ede_ctx *dctx = crypto_tfm_ctx(tfm);
 	const u32 *K = dctx->expkey;
 	const __le32 *s = (const __le32 *)src;
@@ -922,6 +931,7 @@ static void des3_ede_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 
 static void des3_ede_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/des_generic.c: line 934 \n"); 
 	struct des3_ede_ctx *dctx = crypto_tfm_ctx(tfm);
 	const u32 *K = dctx->expkey + DES3_EDE_EXPKEY_WORDS - 2;
 	const __le32 *s = (const __le32 *)src;

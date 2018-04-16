@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * xt_HMARK - Netfilter module to set mark by means of hashing
  *
@@ -40,6 +41,7 @@ struct hmark_tuple {
 
 static inline __be32 hmark_addr6_mask(const __be32 *addr32, const __be32 *mask)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HMARK.c: line 44 \n"); 
 	return (addr32[0] & mask[0]) ^
 	       (addr32[1] & mask[1]) ^
 	       (addr32[2] & mask[2]) ^
@@ -49,6 +51,7 @@ static inline __be32 hmark_addr6_mask(const __be32 *addr32, const __be32 *mask)
 static inline __be32
 hmark_addr_mask(int l3num, const __be32 *addr32, const __be32 *mask)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HMARK.c: line 54 \n"); 
 	switch (l3num) {
 	case AF_INET:
 		return *addr32 & *mask;
@@ -61,6 +64,7 @@ hmark_addr_mask(int l3num, const __be32 *addr32, const __be32 *mask)
 static inline void hmark_swap_ports(union hmark_ports *uports,
 				    const struct xt_hmark_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HMARK.c: line 67 \n"); 
 	union hmark_ports hp;
 	u16 src, dst;
 
@@ -78,6 +82,7 @@ static int
 hmark_ct_set_htuple(const struct sk_buff *skb, struct hmark_tuple *t,
 		    const struct xt_hmark_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HMARK.c: line 85 \n"); 
 #if IS_ENABLED(CONFIG_NF_CONNTRACK)
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
@@ -116,6 +121,7 @@ hmark_ct_set_htuple(const struct sk_buff *skb, struct hmark_tuple *t,
 static inline u32
 hmark_hash(struct hmark_tuple *t, const struct xt_hmark_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HMARK.c: line 124 \n"); 
 	u32 hash;
 	u32 src = ntohl(t->src);
 	u32 dst = ntohl(t->dst);
@@ -133,6 +139,7 @@ static void
 hmark_set_tuple_ports(const struct sk_buff *skb, unsigned int nhoff,
 		      struct hmark_tuple *t, const struct xt_hmark_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HMARK.c: line 142 \n"); 
 	int protoff;
 
 	protoff = proto_ports_offset(t->proto);
@@ -231,6 +238,7 @@ hmark_tg_v6(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int get_inner_hdr(const struct sk_buff *skb, int iphsz, int *nhoff)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HMARK.c: line 241 \n"); 
 	const struct icmphdr *icmph;
 	struct icmphdr _ih;
 
@@ -255,6 +263,7 @@ static int
 hmark_pkt_set_htuple_ipv4(const struct sk_buff *skb, struct hmark_tuple *t,
 			  const struct xt_hmark_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HMARK.c: line 266 \n"); 
 	struct iphdr *ip, _ip;
 	int nhoff = skb_network_offset(skb);
 
@@ -292,6 +301,7 @@ hmark_pkt_set_htuple_ipv4(const struct sk_buff *skb, struct hmark_tuple *t,
 static unsigned int
 hmark_tg_v4(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HMARK.c: line 304 \n"); 
 	const struct xt_hmark_info *info = par->targinfo;
 	struct hmark_tuple t;
 
@@ -311,6 +321,7 @@ hmark_tg_v4(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int hmark_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_HMARK.c: line 324 \n"); 
 	const struct xt_hmark_info *info = par->targinfo;
 
 	if (!info->hmodulus) {

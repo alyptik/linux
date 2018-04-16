@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C) 2008 IBM Corporation
  *
@@ -32,6 +33,7 @@ static struct kmem_cache *iint_cache __read_mostly;
  */
 static struct integrity_iint_cache *__integrity_iint_find(struct inode *inode)
 {
+	panic("We reached unpopular paths in security/integrity/iint.c: line 36 \n"); 
 	struct integrity_iint_cache *iint;
 	struct rb_node *n = integrity_iint_tree.rb_node;
 
@@ -56,6 +58,7 @@ static struct integrity_iint_cache *__integrity_iint_find(struct inode *inode)
  */
 struct integrity_iint_cache *integrity_iint_find(struct inode *inode)
 {
+	panic("We reached unpopular paths in security/integrity/iint.c: line 61 \n"); 
 	struct integrity_iint_cache *iint;
 
 	if (!IS_IMA(inode))
@@ -70,6 +73,7 @@ struct integrity_iint_cache *integrity_iint_find(struct inode *inode)
 
 static void iint_free(struct integrity_iint_cache *iint)
 {
+	panic("We reached unpopular paths in security/integrity/iint.c: line 76 \n"); 
 	kfree(iint->ima_hash);
 	iint->ima_hash = NULL;
 	iint->version = 0;
@@ -92,6 +96,7 @@ static void iint_free(struct integrity_iint_cache *iint)
  */
 struct integrity_iint_cache *integrity_inode_get(struct inode *inode)
 {
+	panic("We reached unpopular paths in security/integrity/iint.c: line 99 \n"); 
 	struct rb_node **p;
 	struct rb_node *node, *parent = NULL;
 	struct integrity_iint_cache *iint, *test_iint;
@@ -150,6 +155,7 @@ void integrity_inode_free(struct inode *inode)
 
 static void init_once(void *foo)
 {
+	panic("We reached unpopular paths in security/integrity/iint.c: line 158 \n"); 
 	struct integrity_iint_cache *iint = foo;
 
 	memset(iint, 0, sizeof(*iint));
@@ -184,6 +190,7 @@ security_initcall(integrity_iintcache_init);
 int integrity_kernel_read(struct file *file, loff_t offset,
 			  char *addr, unsigned long count)
 {
+	panic("We reached unpopular paths in security/integrity/iint.c: line 193 \n"); 
 	mm_segment_t old_fs;
 	char __user *buf = (char __user *)addr;
 	ssize_t ret;

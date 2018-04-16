@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  * Copyright (c) 2012 Pablo Neira Ayuso <pablo@netfilter.org>
@@ -40,6 +41,7 @@ static void nft_nat_eval(const struct nft_expr *expr,
 			 struct nft_regs *regs,
 			 const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_nat.c: line 44 \n"); 
 	const struct nft_nat *priv = nft_expr_priv(expr);
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(pkt->skb, &ctinfo);
@@ -91,6 +93,7 @@ static int nft_nat_validate(const struct nft_ctx *ctx,
 			    const struct nft_expr *expr,
 			    const struct nft_data **data)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_nat.c: line 96 \n"); 
 	struct nft_nat *priv = nft_expr_priv(expr);
 	int err;
 
@@ -117,6 +120,7 @@ static int nft_nat_validate(const struct nft_ctx *ctx,
 static int nft_nat_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
 			const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_nat.c: line 123 \n"); 
 	struct nft_nat *priv = nft_expr_priv(expr);
 	unsigned int alen, plen;
 	u32 family;
@@ -214,6 +218,7 @@ static int nft_nat_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
 
 static int nft_nat_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_nat.c: line 221 \n"); 
 	const struct nft_nat *priv = nft_expr_priv(expr);
 
 	switch (priv->type) {

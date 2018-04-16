@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Salsa20: Salsa20 stream cipher algorithm
  *
@@ -57,6 +58,7 @@ struct salsa20_ctx
 
 static void salsa20_wordtobyte(u8 output[64], const u32 input[16])
 {
+	panic("We reached unpopular paths in crypto/salsa20_generic.c: line 61 \n"); 
 	u32 x[16];
 	int i;
 
@@ -106,6 +108,7 @@ static const char tau[16] = "expand 16-byte k";
 
 static void salsa20_keysetup(struct salsa20_ctx *ctx, const u8 *k, u32 kbytes)
 {
+	panic("We reached unpopular paths in crypto/salsa20_generic.c: line 111 \n"); 
 	const char *constants;
 
 	ctx->input[1] = U8TO32_LITTLE(k + 0);
@@ -130,6 +133,7 @@ static void salsa20_keysetup(struct salsa20_ctx *ctx, const u8 *k, u32 kbytes)
 
 static void salsa20_ivsetup(struct salsa20_ctx *ctx, const u8 *iv)
 {
+	panic("We reached unpopular paths in crypto/salsa20_generic.c: line 136 \n"); 
 	ctx->input[6] = U8TO32_LITTLE(iv + 0);
 	ctx->input[7] = U8TO32_LITTLE(iv + 4);
 	ctx->input[8] = 0;
@@ -139,6 +143,7 @@ static void salsa20_ivsetup(struct salsa20_ctx *ctx, const u8 *iv)
 static void salsa20_encrypt_bytes(struct salsa20_ctx *ctx, u8 *dst,
 				  const u8 *src, unsigned int bytes)
 {
+	panic("We reached unpopular paths in crypto/salsa20_generic.c: line 146 \n"); 
 	u8 buf[64];
 
 	if (dst != src)
@@ -169,6 +174,7 @@ static void salsa20_encrypt_bytes(struct salsa20_ctx *ctx, u8 *dst,
 static int setkey(struct crypto_tfm *tfm, const u8 *key,
 		  unsigned int keysize)
 {
+	panic("We reached unpopular paths in crypto/salsa20_generic.c: line 177 \n"); 
 	struct salsa20_ctx *ctx = crypto_tfm_ctx(tfm);
 	salsa20_keysetup(ctx, key, keysize);
 	return 0;
@@ -178,6 +184,7 @@ static int encrypt(struct blkcipher_desc *desc,
 		   struct scatterlist *dst, struct scatterlist *src,
 		   unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/salsa20_generic.c: line 187 \n"); 
 	struct blkcipher_walk walk;
 	struct crypto_blkcipher *tfm = desc->tfm;
 	struct salsa20_ctx *ctx = crypto_blkcipher_ctx(tfm);

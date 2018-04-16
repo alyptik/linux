@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -147,6 +148,7 @@ static void		ipv4_dst_destroy(struct dst_entry *dst);
 
 static u32 *ipv4_cow_metrics(struct dst_entry *dst, unsigned long old)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 151 \n"); 
 	WARN_ON(1);
 	return NULL;
 }
@@ -426,6 +428,7 @@ static int __init ip_rt_proc_init(void)
 #else
 static inline int ip_rt_proc_init(void)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 431 \n"); 
 	return 0;
 }
 #endif /* CONFIG_PROC_FS */
@@ -512,6 +515,7 @@ static void __build_flow_key(struct flowi4 *fl4, const struct sock *sk,
 			     int oif, u8 tos,
 			     u8 prot, u32 mark, int flow_flags)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 518 \n"); 
 	if (sk) {
 		const struct inet_sock *inet = inet_sk(sk);
 
@@ -529,6 +533,7 @@ static void __build_flow_key(struct flowi4 *fl4, const struct sock *sk,
 static void build_skb_flow_key(struct flowi4 *fl4, const struct sk_buff *skb,
 			       const struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 536 \n"); 
 	const struct iphdr *iph = ip_hdr(skb);
 	int oif = skb->dev->ifindex;
 	u8 tos = RT_TOS(iph->tos);
@@ -540,6 +545,7 @@ static void build_skb_flow_key(struct flowi4 *fl4, const struct sk_buff *skb,
 
 static void build_sk_flow_key(struct flowi4 *fl4, const struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 548 \n"); 
 	const struct inet_sock *inet = inet_sk(sk);
 	const struct ip_options_rcu *inet_opt;
 	__be32 daddr = inet->inet_daddr;
@@ -559,6 +565,7 @@ static void build_sk_flow_key(struct flowi4 *fl4, const struct sock *sk)
 static void ip_rt_build_flow_key(struct flowi4 *fl4, const struct sock *sk,
 				 const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 568 \n"); 
 	if (skb)
 		build_skb_flow_key(fl4, skb, sk);
 	else
@@ -574,6 +581,7 @@ static DEFINE_SPINLOCK(fnhe_lock);
 
 static void fnhe_flush_routes(struct fib_nh_exception *fnhe)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 584 \n"); 
 	struct rtable *rt;
 
 	rt = rcu_dereference(fnhe->fnhe_rth_input);
@@ -590,6 +598,7 @@ static void fnhe_flush_routes(struct fib_nh_exception *fnhe)
 
 static struct fib_nh_exception *fnhe_oldest(struct fnhe_hash_bucket *hash)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 601 \n"); 
 	struct fib_nh_exception *fnhe, *oldest;
 
 	oldest = rcu_dereference(hash->chain);
@@ -604,6 +613,7 @@ static struct fib_nh_exception *fnhe_oldest(struct fnhe_hash_bucket *hash)
 
 static inline u32 fnhe_hashfun(__be32 daddr)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 616 \n"); 
 	static u32 fnhe_hashrnd __read_mostly;
 	u32 hval;
 
@@ -614,6 +624,7 @@ static inline u32 fnhe_hashfun(__be32 daddr)
 
 static void fill_route_from_fnhe(struct rtable *rt, struct fib_nh_exception *fnhe)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 627 \n"); 
 	rt->rt_pmtu = fnhe->fnhe_pmtu;
 	rt->dst.expires = fnhe->fnhe_expires;
 
@@ -627,6 +638,7 @@ static void fill_route_from_fnhe(struct rtable *rt, struct fib_nh_exception *fnh
 static void update_or_create_fnhe(struct fib_nh *nh, __be32 daddr, __be32 gw,
 				  u32 pmtu, unsigned long expires)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 641 \n"); 
 	struct fnhe_hash_bucket *hash;
 	struct fib_nh_exception *fnhe;
 	struct rtable *rt;
@@ -715,6 +727,7 @@ out_unlock:
 static void __ip_do_redirect(struct rtable *rt, struct sk_buff *skb, struct flowi4 *fl4,
 			     bool kill_route)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 730 \n"); 
 	__be32 new_gw = icmp_hdr(skb)->un.gateway;
 	__be32 old_gw = ip_hdr(skb)->saddr;
 	struct net_device *dev = skb->dev;
@@ -796,6 +809,7 @@ reject_redirect:
 
 static void ip_do_redirect(struct dst_entry *dst, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 812 \n"); 
 	struct rtable *rt;
 	struct flowi4 fl4;
 	const struct iphdr *iph = (const struct iphdr *) skb->data;
@@ -812,6 +826,7 @@ static void ip_do_redirect(struct dst_entry *dst, struct sock *sk, struct sk_buf
 
 static struct dst_entry *ipv4_negative_advice(struct dst_entry *dst)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 829 \n"); 
 	struct rtable *rt = (struct rtable *)dst;
 	struct dst_entry *ret = dst;
 
@@ -846,6 +861,7 @@ static struct dst_entry *ipv4_negative_advice(struct dst_entry *dst)
 
 void ip_rt_send_redirect(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 864 \n"); 
 	struct rtable *rt = skb_rtable(skb);
 	struct in_device *in_dev;
 	struct inet_peer *peer;
@@ -911,6 +927,7 @@ out_put_peer:
 
 static int ip_error(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 930 \n"); 
 	struct in_device *in_dev = __in_dev_get_rcu(skb->dev);
 	struct rtable *rt = skb_rtable(skb);
 	struct inet_peer *peer;
@@ -978,6 +995,7 @@ out:	kfree_skb(skb);
 
 static void __ip_rt_update_pmtu(struct rtable *rt, struct flowi4 *fl4, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 998 \n"); 
 	struct dst_entry *dst = &rt->dst;
 	struct fib_result res;
 
@@ -1007,6 +1025,7 @@ static void __ip_rt_update_pmtu(struct rtable *rt, struct flowi4 *fl4, u32 mtu)
 static void ip_rt_update_pmtu(struct dst_entry *dst, struct sock *sk,
 			      struct sk_buff *skb, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 1028 \n"); 
 	struct rtable *rt = (struct rtable *) dst;
 	struct flowi4 fl4;
 
@@ -1017,6 +1036,7 @@ static void ip_rt_update_pmtu(struct dst_entry *dst, struct sock *sk,
 void ipv4_update_pmtu(struct sk_buff *skb, struct net *net, u32 mtu,
 		      int oif, u32 mark, u8 protocol, int flow_flags)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 1039 \n"); 
 	const struct iphdr *iph = (const struct iphdr *) skb->data;
 	struct flowi4 fl4;
 	struct rtable *rt;
@@ -1036,6 +1056,7 @@ EXPORT_SYMBOL_GPL(ipv4_update_pmtu);
 
 static void __ipv4_sk_update_pmtu(struct sk_buff *skb, struct sock *sk, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 1059 \n"); 
 	const struct iphdr *iph = (const struct iphdr *) skb->data;
 	struct flowi4 fl4;
 	struct rtable *rt;
@@ -1054,6 +1075,7 @@ static void __ipv4_sk_update_pmtu(struct sk_buff *skb, struct sock *sk, u32 mtu)
 
 void ipv4_sk_update_pmtu(struct sk_buff *skb, struct sock *sk, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 1078 \n"); 
 	const struct iphdr *iph = (const struct iphdr *) skb->data;
 	struct flowi4 fl4;
 	struct rtable *rt;
@@ -1108,6 +1130,7 @@ EXPORT_SYMBOL_GPL(ipv4_sk_update_pmtu);
 void ipv4_redirect(struct sk_buff *skb, struct net *net,
 		   int oif, u32 mark, u8 protocol, int flow_flags)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 1133 \n"); 
 	const struct iphdr *iph = (const struct iphdr *) skb->data;
 	struct flowi4 fl4;
 	struct rtable *rt;
@@ -1124,6 +1147,7 @@ EXPORT_SYMBOL_GPL(ipv4_redirect);
 
 void ipv4_sk_redirect(struct sk_buff *skb, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 1150 \n"); 
 	const struct iphdr *iph = (const struct iphdr *) skb->data;
 	struct flowi4 fl4;
 	struct rtable *rt;
@@ -1156,6 +1180,7 @@ static struct dst_entry *ipv4_dst_check(struct dst_entry *dst, u32 cookie)
 
 static void ipv4_link_failure(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 1183 \n"); 
 	struct rtable *rt;
 
 	icmp_send(skb, ICMP_DEST_UNREACH, ICMP_HOST_UNREACH, 0);
@@ -1167,6 +1192,7 @@ static void ipv4_link_failure(struct sk_buff *skb)
 
 static int ip_rt_bug(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 1195 \n"); 
 	pr_debug("%s: %pI4 -> %pI4, %s\n",
 		 __func__, &ip_hdr(skb)->saddr, &ip_hdr(skb)->daddr,
 		 skb->dev ? skb->dev->name : "?");
@@ -1186,6 +1212,7 @@ static int ip_rt_bug(struct net *net, struct sock *sk, struct sk_buff *skb)
 
 void ip_rt_get_source(u8 *addr, struct sk_buff *skb, struct rtable *rt)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 1215 \n"); 
 	__be32 src;
 
 	if (rt_is_output_route(rt))
@@ -1285,6 +1312,7 @@ static struct fib_nh_exception *find_exception(struct fib_nh *nh, __be32 daddr)
 static bool rt_bind_exception(struct rtable *rt, struct fib_nh_exception *fnhe,
 			      __be32 daddr)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 1315 \n"); 
 	bool ret = false;
 
 	spin_lock_bh(&fnhe_lock);
@@ -1496,6 +1524,7 @@ EXPORT_SYMBOL(rt_dst_alloc);
 static int ip_route_input_mc(struct sk_buff *skb, __be32 daddr, __be32 saddr,
 				u8 tos, struct net_device *dev, int our)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 1527 \n"); 
 	struct rtable *rth;
 	struct in_device *in_dev = __in_dev_get_rcu(dev);
 	unsigned int flags = RTCF_MULTICAST;
@@ -1582,6 +1611,7 @@ static void ip_handle_martian_source(struct net_device *dev,
 
 static void ip_del_fnhe(struct fib_nh *nh, __be32 daddr)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 1614 \n"); 
 	struct fnhe_hash_bucket *hash;
 	struct fib_nh_exception *fnhe, __rcu **fnhe_p;
 	u32 hval = fnhe_hashfun(daddr);
@@ -2343,11 +2373,13 @@ EXPORT_SYMBOL_GPL(__ip_route_output_key_hash);
 
 static struct dst_entry *ipv4_blackhole_dst_check(struct dst_entry *dst, u32 cookie)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 2376 \n"); 
 	return NULL;
 }
 
 static unsigned int ipv4_blackhole_mtu(const struct dst_entry *dst)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 2382 \n"); 
 	unsigned int mtu = dst_metric_raw(dst, RTAX_MTU);
 
 	return mtu ? : dst->dev->mtu;
@@ -2356,16 +2388,19 @@ static unsigned int ipv4_blackhole_mtu(const struct dst_entry *dst)
 static void ipv4_rt_blackhole_update_pmtu(struct dst_entry *dst, struct sock *sk,
 					  struct sk_buff *skb, u32 mtu)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 2391 \n"); 
 }
 
 static void ipv4_rt_blackhole_redirect(struct dst_entry *dst, struct sock *sk,
 				       struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 2397 \n"); 
 }
 
 static u32 *ipv4_rt_blackhole_cow_metrics(struct dst_entry *dst,
 					  unsigned long old)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 2403 \n"); 
 	return NULL;
 }
 
@@ -2382,6 +2417,7 @@ static struct dst_ops ipv4_dst_blackhole_ops = {
 
 struct dst_entry *ipv4_blackhole_route(struct net *net, struct dst_entry *dst_orig)
 {
+	panic("We reached unpopular paths in net/ipv4/route.c: line 2420 \n"); 
 	struct rtable *ort = (struct rtable *) dst_orig;
 	struct rtable *rt;
 

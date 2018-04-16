@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C) 2016 Oracle.  All Rights Reserved.
  *
@@ -195,6 +196,7 @@ xfs_defer_intake_work(
 	struct xfs_trans		*tp,
 	struct xfs_defer_ops		*dop)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_defer.c: line 199 \n"); 
 	struct list_head		*li;
 	struct xfs_defer_pending	*dfp;
 
@@ -218,6 +220,7 @@ xfs_defer_trans_abort(
 	struct xfs_defer_ops		*dop,
 	int				error)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_defer.c: line 223 \n"); 
 	struct xfs_defer_pending	*dfp;
 
 	trace_xfs_defer_trans_abort(tp->t_mountp, dop);
@@ -243,6 +246,7 @@ xfs_defer_trans_roll(
 	struct xfs_defer_ops		*dop,
 	struct xfs_inode		*ip)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_defer.c: line 249 \n"); 
 	int				i;
 	int				error;
 
@@ -279,6 +283,7 @@ bool
 xfs_defer_has_unfinished_work(
 	struct xfs_defer_ops		*dop)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_defer.c: line 286 \n"); 
 	return !list_empty(&dop->dop_pending) || !list_empty(&dop->dop_intake);
 }
 
@@ -292,6 +297,7 @@ xfs_defer_join(
 	struct xfs_defer_ops		*dop,
 	struct xfs_inode		*ip)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_defer.c: line 300 \n"); 
 	int				i;
 
 	for (i = 0; i < XFS_DEFER_OPS_NR_INODES; i++) {
@@ -320,6 +326,7 @@ xfs_defer_finish(
 	struct xfs_defer_ops		*dop,
 	struct xfs_inode		*ip)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_defer.c: line 329 \n"); 
 	struct xfs_defer_pending	*dfp;
 	struct list_head		*li;
 	struct list_head		*n;
@@ -416,6 +423,7 @@ void
 xfs_defer_cancel(
 	struct xfs_defer_ops		*dop)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_defer.c: line 426 \n"); 
 	struct xfs_defer_pending	*dfp;
 	struct xfs_defer_pending	*pli;
 	struct list_head		*pwi;
@@ -458,6 +466,7 @@ xfs_defer_add(
 	enum xfs_defer_ops_type		type,
 	struct list_head		*li)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_defer.c: line 469 \n"); 
 	struct xfs_defer_pending	*dfp = NULL;
 
 	/*
@@ -493,6 +502,7 @@ void
 xfs_defer_init_op_type(
 	const struct xfs_defer_op_type	*type)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_defer.c: line 505 \n"); 
 	defer_op_types[type->type] = type;
 }
 
@@ -502,6 +512,7 @@ xfs_defer_init(
 	struct xfs_defer_ops		*dop,
 	xfs_fsblock_t			*fbp)
 {
+	panic("We reached unpopular paths in fs/xfs/libxfs/xfs_defer.c: line 515 \n"); 
 	dop->dop_committed = false;
 	dop->dop_low = false;
 	memset(&dop->dop_inodes, 0, sizeof(dop->dop_inodes));

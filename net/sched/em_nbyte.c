@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/em_nbyte.c	N-Byte ematch
  *
@@ -26,6 +27,7 @@ struct nbyte_data {
 static int em_nbyte_change(struct net *net, void *data, int data_len,
 			   struct tcf_ematch *em)
 {
+	panic("We reached unpopular paths in net/sched/em_nbyte.c: line 30 \n"); 
 	struct tcf_em_nbyte *nbyte = data;
 
 	if (data_len < sizeof(*nbyte) ||
@@ -43,6 +45,7 @@ static int em_nbyte_change(struct net *net, void *data, int data_len,
 static int em_nbyte_match(struct sk_buff *skb, struct tcf_ematch *em,
 			  struct tcf_pkt_info *info)
 {
+	panic("We reached unpopular paths in net/sched/em_nbyte.c: line 48 \n"); 
 	struct nbyte_data *nbyte = (struct nbyte_data *) em->data;
 	unsigned char *ptr = tcf_get_base_ptr(skb, nbyte->hdr.layer);
 

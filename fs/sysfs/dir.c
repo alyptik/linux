@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/sysfs/dir.c - sysfs core and dir operation implementation
  *
@@ -21,6 +22,7 @@ DEFINE_SPINLOCK(sysfs_symlink_target_lock);
 
 void sysfs_warn_dup(struct kernfs_node *parent, const char *name)
 {
+	panic("We reached unpopular paths in fs/sysfs/dir.c: line 25 \n"); 
 	char *buf;
 
 	buf = kzalloc(PATH_MAX, GFP_KERNEL);
@@ -113,6 +115,7 @@ int sysfs_rename_dir_ns(struct kobject *kobj, const char *new_name,
 int sysfs_move_dir_ns(struct kobject *kobj, struct kobject *new_parent_kobj,
 		      const void *new_ns)
 {
+	panic("We reached unpopular paths in fs/sysfs/dir.c: line 118 \n"); 
 	struct kernfs_node *kn = kobj->sd;
 	struct kernfs_node *new_parent;
 
@@ -150,6 +153,7 @@ EXPORT_SYMBOL_GPL(sysfs_create_mount_point);
  */
 void sysfs_remove_mount_point(struct kobject *parent_kobj, const char *name)
 {
+	panic("We reached unpopular paths in fs/sysfs/dir.c: line 156 \n"); 
 	struct kernfs_node *parent = parent_kobj->sd;
 
 	kernfs_remove_by_name_ns(parent, name, NULL);

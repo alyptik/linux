@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 2001-2002 Magnus Boden <mb@ozaba.mine.nu>
  * (C) 2006-2012 Patrick McHardy <kaber@trash.net>
  * This program is free software; you can redistribute it and/or modify
@@ -42,6 +43,7 @@ static int tftp_help(struct sk_buff *skb,
 		     struct nf_conn *ct,
 		     enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_tftp.c: line 46 \n"); 
 	const struct tftphdr *tfh;
 	struct tftphdr _tftph;
 	struct nf_conntrack_expect *exp;
@@ -106,6 +108,7 @@ static const struct nf_conntrack_expect_policy tftp_exp_policy = {
 
 static void nf_conntrack_tftp_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_tftp.c: line 111 \n"); 
 	nf_conntrack_helpers_unregister(tftp, ports_c * 2);
 }
 

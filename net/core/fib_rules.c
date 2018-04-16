@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/core/fib_rules.c		Generic Routing Rules
  *
@@ -46,6 +47,7 @@ EXPORT_SYMBOL(fib_default_rule_add);
 
 static u32 fib_default_rule_pref(struct fib_rules_ops *ops)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 50 \n"); 
 	struct list_head *pos;
 	struct fib_rule *rule;
 
@@ -67,6 +69,7 @@ static void notify_rule_change(int event, struct fib_rule *rule,
 
 static struct fib_rules_ops *lookup_rules_ops(struct net *net, int family)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 72 \n"); 
 	struct fib_rules_ops *ops;
 
 	rcu_read_lock();
@@ -85,12 +88,14 @@ static struct fib_rules_ops *lookup_rules_ops(struct net *net, int family)
 
 static void rules_ops_put(struct fib_rules_ops *ops)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 91 \n"); 
 	if (ops)
 		module_put(ops->owner);
 }
 
 static void flush_route_cache(struct fib_rules_ops *ops)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 98 \n"); 
 	if (ops->flush_cache)
 		ops->flush_cache(ops);
 }
@@ -250,6 +255,7 @@ EXPORT_SYMBOL_GPL(fib_rules_lookup);
 static int validate_rulemsg(struct fib_rule_hdr *frh, struct nlattr **tb,
 			    struct fib_rules_ops *ops)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 258 \n"); 
 	int err = -EINVAL;
 
 	if (frh->src_len)
@@ -272,6 +278,7 @@ errout:
 static int rule_exists(struct fib_rules_ops *ops, struct fib_rule_hdr *frh,
 		       struct nlattr **tb, struct fib_rule *rule)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 281 \n"); 
 	struct fib_rule *r;
 
 	list_for_each_entry(r, &ops->rules_list, list) {
@@ -314,6 +321,7 @@ static int rule_exists(struct fib_rules_ops *ops, struct fib_rule_hdr *frh,
 
 int fib_nl_newrule(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 324 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct fib_rule_hdr *frh = nlmsg_data(nlh);
 	struct fib_rules_ops *ops = NULL;
@@ -492,6 +500,7 @@ EXPORT_SYMBOL_GPL(fib_nl_newrule);
 
 int fib_nl_delrule(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 503 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct fib_rule_hdr *frh = nlmsg_data(nlh);
 	struct fib_rules_ops *ops = NULL;
@@ -610,6 +619,7 @@ EXPORT_SYMBOL_GPL(fib_nl_delrule);
 static inline size_t fib_rule_nlmsg_size(struct fib_rules_ops *ops,
 					 struct fib_rule *rule)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 622 \n"); 
 	size_t payload = NLMSG_ALIGN(sizeof(struct fib_rule_hdr))
 			 + nla_total_size(IFNAMSIZ) /* FRA_IIFNAME */
 			 + nla_total_size(IFNAMSIZ) /* FRA_OIFNAME */
@@ -631,6 +641,7 @@ static int fib_nl_fill_rule(struct sk_buff *skb, struct fib_rule *rule,
 			    u32 pid, u32 seq, int type, int flags,
 			    struct fib_rules_ops *ops)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 644 \n"); 
 	struct nlmsghdr *nlh;
 	struct fib_rule_hdr *frh;
 
@@ -701,6 +712,7 @@ nla_put_failure:
 static int dump_rules(struct sk_buff *skb, struct netlink_callback *cb,
 		      struct fib_rules_ops *ops)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 715 \n"); 
 	int idx = 0;
 	struct fib_rule *rule;
 	int err = 0;
@@ -727,6 +739,7 @@ skip:
 
 static int fib_nl_dumprule(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 742 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct fib_rules_ops *ops;
 	int idx = 0, family;
@@ -765,6 +778,7 @@ static void notify_rule_change(int event, struct fib_rule *rule,
 			       struct fib_rules_ops *ops, struct nlmsghdr *nlh,
 			       u32 pid)
 {
+	panic("We reached unpopular paths in net/core/fib_rules.c: line 781 \n"); 
 	struct net *net;
 	struct sk_buff *skb;
 	int err = -ENOBUFS;

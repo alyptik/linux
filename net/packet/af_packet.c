@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -249,6 +250,7 @@ static void __fanout_link(struct sock *sk, struct packet_sock *po);
 
 static int packet_direct_xmit(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 253 \n"); 
 	struct net_device *dev = skb->dev;
 	struct sk_buff *orig_skb = skb;
 	struct netdev_queue *txq;
@@ -285,6 +287,7 @@ drop:
 
 static struct net_device *packet_cached_dev_get(struct packet_sock *po)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 290 \n"); 
 	struct net_device *dev;
 
 	rcu_read_lock();
@@ -299,21 +302,25 @@ static struct net_device *packet_cached_dev_get(struct packet_sock *po)
 static void packet_cached_dev_assign(struct packet_sock *po,
 				     struct net_device *dev)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/packet/af_packet.c: line 305 \n"); 
 	rcu_assign_pointer(po->cached_dev, dev);
 }
 
 static void packet_cached_dev_reset(struct packet_sock *po)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/packet/af_packet.c: line 311 \n"); 
 	RCU_INIT_POINTER(po->cached_dev, NULL);
 }
 
 static bool packet_use_direct_xmit(const struct packet_sock *po)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 317 \n"); 
 	return po->xmit == packet_direct_xmit;
 }
 
 static u16 __packet_pick_tx_queue(struct net_device *dev, struct sk_buff *skb)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/packet/af_packet.c: line 323 \n"); 
 	return (u16) raw_smp_processor_id() % dev->real_num_tx_queues;
 }
 
@@ -396,6 +403,7 @@ static inline struct page * __pure pgv_to_page(void *addr)
 
 static void __packet_set_status(struct packet_sock *po, void *frame, int status)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 406 \n"); 
 	union tpacket_uhdr h;
 
 	h.raw = frame;
@@ -419,6 +427,7 @@ static void __packet_set_status(struct packet_sock *po, void *frame, int status)
 
 static int __packet_get_status(struct packet_sock *po, void *frame)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 430 \n"); 
 	union tpacket_uhdr h;
 
 	smp_rmb();
@@ -442,6 +451,7 @@ static int __packet_get_status(struct packet_sock *po, void *frame)
 static __u32 tpacket_get_timestamp(struct sk_buff *skb, struct timespec *ts,
 				   unsigned int flags)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 454 \n"); 
 	struct skb_shared_hwtstamps *shhwtstamps = skb_hwtstamps(skb);
 
 	if (shhwtstamps &&
@@ -458,6 +468,7 @@ static __u32 tpacket_get_timestamp(struct sk_buff *skb, struct timespec *ts,
 static __u32 __packet_set_timestamp(struct packet_sock *po, void *frame,
 				    struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 471 \n"); 
 	union tpacket_uhdr h;
 	struct timespec ts;
 	__u32 ts_status;
@@ -493,6 +504,7 @@ static void *packet_lookup_frame(struct packet_sock *po,
 		unsigned int position,
 		int status)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 507 \n"); 
 	unsigned int pg_vec_pos, frame_offset;
 	union tpacket_uhdr h;
 
@@ -512,17 +524,20 @@ static void *packet_current_frame(struct packet_sock *po,
 		struct packet_ring_buffer *rb,
 		int status)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 527 \n"); 
 	return packet_lookup_frame(po, rb, rb->head, status);
 }
 
 static void prb_del_retire_blk_timer(struct tpacket_kbdq_core *pkc)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 533 \n"); 
 	del_timer_sync(&pkc->retire_blk_timer);
 }
 
 static void prb_shutdown_retire_blk_timer(struct packet_sock *po,
 		struct sk_buff_head *rb_queue)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 540 \n"); 
 	struct tpacket_kbdq_core *pkc;
 
 	pkc = GET_PBDQC_FROM_RB(&po->rx_ring);
@@ -538,6 +553,7 @@ static void prb_init_blk_timer(struct packet_sock *po,
 		struct tpacket_kbdq_core *pkc,
 		void (*func) (unsigned long))
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 556 \n"); 
 	init_timer(&pkc->retire_blk_timer);
 	pkc->retire_blk_timer.data = (long)po;
 	pkc->retire_blk_timer.function = func;
@@ -546,6 +562,7 @@ static void prb_init_blk_timer(struct packet_sock *po,
 
 static void prb_setup_retire_blk_timer(struct packet_sock *po)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 565 \n"); 
 	struct tpacket_kbdq_core *pkc;
 
 	pkc = GET_PBDQC_FROM_RB(&po->rx_ring);
@@ -555,6 +572,7 @@ static void prb_setup_retire_blk_timer(struct packet_sock *po)
 static int prb_calc_retire_blk_tmo(struct packet_sock *po,
 				int blk_size_in_bytes)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 575 \n"); 
 	struct net_device *dev;
 	unsigned int mbits = 0, msec = 0, div = 0, tmo = 0;
 	struct ethtool_link_ksettings ecmd;
@@ -597,6 +615,7 @@ static int prb_calc_retire_blk_tmo(struct packet_sock *po,
 static void prb_init_ft_ops(struct tpacket_kbdq_core *p1,
 			union tpacket_req_u *req_u)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 618 \n"); 
 	p1->feature_req_word = req_u->req3.tp_feature_req_word;
 }
 
@@ -605,6 +624,7 @@ static void init_prb_bdqc(struct packet_sock *po,
 			struct pgv *pg_vec,
 			union tpacket_req_u *req_u)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 627 \n"); 
 	struct tpacket_kbdq_core *p1 = GET_PBDQC_FROM_RB(rb);
 	struct tpacket_block_desc *pbd;
 
@@ -639,6 +659,7 @@ static void init_prb_bdqc(struct packet_sock *po,
  */
 static void _prb_refresh_rx_retire_blk_timer(struct tpacket_kbdq_core *pkc)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 662 \n"); 
 	mod_timer(&pkc->retire_blk_timer,
 			jiffies + pkc->tov_in_jiffies);
 	pkc->last_kactive_blk_num = pkc->kactive_blk_num;
@@ -669,6 +690,7 @@ static void _prb_refresh_rx_retire_blk_timer(struct tpacket_kbdq_core *pkc)
  */
 static void prb_retire_rx_blk_timer_expired(unsigned long data)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 693 \n"); 
 	struct packet_sock *po = (struct packet_sock *)data;
 	struct tpacket_kbdq_core *pkc = GET_PBDQC_FROM_RB(&po->rx_ring);
 	unsigned int frozen;
@@ -743,6 +765,7 @@ out:
 static void prb_flush_block(struct tpacket_kbdq_core *pkc1,
 		struct tpacket_block_desc *pbd1, __u32 status)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 768 \n"); 
 	/* Flush everything minus the block header */
 
 #if ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE == 1
@@ -787,6 +810,7 @@ static void prb_close_block(struct tpacket_kbdq_core *pkc1,
 		struct tpacket_block_desc *pbd1,
 		struct packet_sock *po, unsigned int stat)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 813 \n"); 
 	__u32 status = TP_STATUS_USER | stat;
 
 	struct tpacket3_hdr *last_pkt;
@@ -827,6 +851,7 @@ static void prb_close_block(struct tpacket_kbdq_core *pkc1,
 
 static void prb_thaw_queue(struct tpacket_kbdq_core *pkc)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 854 \n"); 
 	pkc->reset_pending_on_curr_blk = 0;
 }
 
@@ -840,6 +865,7 @@ static void prb_thaw_queue(struct tpacket_kbdq_core *pkc)
 static void prb_open_block(struct tpacket_kbdq_core *pkc1,
 	struct tpacket_block_desc *pbd1)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 868 \n"); 
 	struct timespec ts;
 	struct tpacket_hdr_v1 *h1 = &pbd1->hdr.bh1;
 
@@ -900,6 +926,7 @@ static void prb_open_block(struct tpacket_kbdq_core *pkc1,
 static void prb_freeze_queue(struct tpacket_kbdq_core *pkc,
 				  struct packet_sock *po)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 929 \n"); 
 	pkc->reset_pending_on_curr_blk = 1;
 	po->stats.stats3.tp_freeze_q_cnt++;
 }
@@ -915,6 +942,7 @@ static void prb_freeze_queue(struct tpacket_kbdq_core *pkc,
 static void *prb_dispatch_next_block(struct tpacket_kbdq_core *pkc,
 		struct packet_sock *po)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 945 \n"); 
 	struct tpacket_block_desc *pbd;
 
 	smp_rmb();
@@ -940,6 +968,7 @@ static void *prb_dispatch_next_block(struct tpacket_kbdq_core *pkc,
 static void prb_retire_current_block(struct tpacket_kbdq_core *pkc,
 		struct packet_sock *po, unsigned int status)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 971 \n"); 
 	struct tpacket_block_desc *pbd = GET_CURR_PBLOCK_DESC_FROM_CORE(pkc);
 
 	/* retire/close the current block */
@@ -967,16 +996,19 @@ static void prb_retire_current_block(struct tpacket_kbdq_core *pkc,
 static int prb_curr_blk_in_use(struct tpacket_kbdq_core *pkc,
 				      struct tpacket_block_desc *pbd)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 999 \n"); 
 	return TP_STATUS_USER & BLOCK_STATUS(pbd);
 }
 
 static int prb_queue_frozen(struct tpacket_kbdq_core *pkc)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1005 \n"); 
 	return pkc->reset_pending_on_curr_blk;
 }
 
 static void prb_clear_blk_fill_status(struct packet_ring_buffer *rb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1011 \n"); 
 	struct tpacket_kbdq_core *pkc  = GET_PBDQC_FROM_RB(rb);
 	atomic_dec(&pkc->blk_fill_in_prog);
 }
@@ -984,18 +1016,21 @@ static void prb_clear_blk_fill_status(struct packet_ring_buffer *rb)
 static void prb_fill_rxhash(struct tpacket_kbdq_core *pkc,
 			struct tpacket3_hdr *ppd)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1019 \n"); 
 	ppd->hv1.tp_rxhash = skb_get_hash(pkc->skb);
 }
 
 static void prb_clear_rxhash(struct tpacket_kbdq_core *pkc,
 			struct tpacket3_hdr *ppd)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1026 \n"); 
 	ppd->hv1.tp_rxhash = 0;
 }
 
 static void prb_fill_vlan_info(struct tpacket_kbdq_core *pkc,
 			struct tpacket3_hdr *ppd)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1033 \n"); 
 	if (skb_vlan_tag_present(pkc->skb)) {
 		ppd->hv1.tp_vlan_tci = skb_vlan_tag_get(pkc->skb);
 		ppd->hv1.tp_vlan_tpid = ntohs(pkc->skb->vlan_proto);
@@ -1010,6 +1045,7 @@ static void prb_fill_vlan_info(struct tpacket_kbdq_core *pkc,
 static void prb_run_all_ft_ops(struct tpacket_kbdq_core *pkc,
 			struct tpacket3_hdr *ppd)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1048 \n"); 
 	ppd->hv1.tp_padding = 0;
 	prb_fill_vlan_info(pkc, ppd);
 
@@ -1024,6 +1060,7 @@ static void prb_fill_curr_block(char *curr,
 				struct tpacket_block_desc *pbd,
 				unsigned int len)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1063 \n"); 
 	struct tpacket3_hdr *ppd;
 
 	ppd  = (struct tpacket3_hdr *)curr;
@@ -1043,6 +1080,7 @@ static void *__packet_lookup_frame_in_block(struct packet_sock *po,
 					    unsigned int len
 					    )
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1083 \n"); 
 	struct tpacket_kbdq_core *pkc;
 	struct tpacket_block_desc *pbd;
 	char *curr, *end;
@@ -1103,6 +1141,7 @@ static void *packet_current_rx_frame(struct packet_sock *po,
 					    struct sk_buff *skb,
 					    int status, unsigned int len)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1144 \n"); 
 	char *curr = NULL;
 	switch (po->tp_version) {
 	case TPACKET_V1:
@@ -1124,6 +1163,7 @@ static void *prb_lookup_block(struct packet_sock *po,
 				     unsigned int idx,
 				     int status)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1166 \n"); 
 	struct tpacket_kbdq_core *pkc  = GET_PBDQC_FROM_RB(rb);
 	struct tpacket_block_desc *pbd = GET_PBLOCK_DESC(pkc, idx);
 
@@ -1134,6 +1174,7 @@ static void *prb_lookup_block(struct packet_sock *po,
 
 static int prb_previous_blk_num(struct packet_ring_buffer *rb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1177 \n"); 
 	unsigned int prev;
 	if (rb->prb_bdqc.kactive_blk_num)
 		prev = rb->prb_bdqc.kactive_blk_num-1;
@@ -1147,6 +1188,7 @@ static void *__prb_previous_block(struct packet_sock *po,
 					 struct packet_ring_buffer *rb,
 					 int status)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1191 \n"); 
 	unsigned int previous = prb_previous_blk_num(rb);
 	return prb_lookup_block(po, rb, previous, status);
 }
@@ -1155,6 +1197,7 @@ static void *packet_previous_rx_frame(struct packet_sock *po,
 					     struct packet_ring_buffer *rb,
 					     int status)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1200 \n"); 
 	if (po->tp_version <= TPACKET_V2)
 		return packet_previous_frame(po, rb, status);
 
@@ -1164,6 +1207,7 @@ static void *packet_previous_rx_frame(struct packet_sock *po,
 static void packet_increment_rx_head(struct packet_sock *po,
 					    struct packet_ring_buffer *rb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1210 \n"); 
 	switch (po->tp_version) {
 	case TPACKET_V1:
 	case TPACKET_V2:
@@ -1180,27 +1224,32 @@ static void *packet_previous_frame(struct packet_sock *po,
 		struct packet_ring_buffer *rb,
 		int status)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1227 \n"); 
 	unsigned int previous = rb->head ? rb->head - 1 : rb->frame_max;
 	return packet_lookup_frame(po, rb, previous, status);
 }
 
 static void packet_increment_head(struct packet_ring_buffer *buff)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1234 \n"); 
 	buff->head = buff->head != buff->frame_max ? buff->head+1 : 0;
 }
 
 static void packet_inc_pending(struct packet_ring_buffer *rb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1240 \n"); 
 	this_cpu_inc(*rb->pending_refcnt);
 }
 
 static void packet_dec_pending(struct packet_ring_buffer *rb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1246 \n"); 
 	this_cpu_dec(*rb->pending_refcnt);
 }
 
 static unsigned int packet_read_pending(const struct packet_ring_buffer *rb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1252 \n"); 
 	unsigned int refcnt = 0;
 	int cpu;
 
@@ -1237,6 +1286,7 @@ static void packet_free_pending(struct packet_sock *po)
 
 static bool __tpacket_has_room(struct packet_sock *po, int pow_off)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1289 \n"); 
 	int idx, len;
 
 	len = po->rx_ring.frame_max + 1;
@@ -1250,6 +1300,7 @@ static bool __tpacket_has_room(struct packet_sock *po, int pow_off)
 
 static bool __tpacket_v3_has_room(struct packet_sock *po, int pow_off)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1303 \n"); 
 	int idx, len;
 
 	len = po->rx_ring.prb_bdqc.knum_blocks;
@@ -1263,6 +1314,7 @@ static bool __tpacket_v3_has_room(struct packet_sock *po, int pow_off)
 
 static int __packet_rcv_has_room(struct packet_sock *po, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1317 \n"); 
 	struct sock *sk = &po->sk;
 	int ret = ROOM_NONE;
 
@@ -1294,6 +1346,7 @@ static int __packet_rcv_has_room(struct packet_sock *po, struct sk_buff *skb)
 
 static int packet_rcv_has_room(struct packet_sock *po, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1349 \n"); 
 	int ret;
 	bool has_room;
 
@@ -1324,6 +1377,7 @@ static void packet_sock_destruct(struct sock *sk)
 
 static bool fanout_flow_is_huge(struct packet_sock *po, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1380 \n"); 
 	u32 rxhash;
 	int i, count = 0;
 
@@ -1340,6 +1394,7 @@ static unsigned int fanout_demux_hash(struct packet_fanout *f,
 				      struct sk_buff *skb,
 				      unsigned int num)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1397 \n"); 
 	return reciprocal_scale(__skb_get_hash_symmetric(skb), num);
 }
 
@@ -1347,6 +1402,7 @@ static unsigned int fanout_demux_lb(struct packet_fanout *f,
 				    struct sk_buff *skb,
 				    unsigned int num)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1405 \n"); 
 	unsigned int val = atomic_inc_return(&f->rr_cur);
 
 	return val % num;
@@ -1356,6 +1412,7 @@ static unsigned int fanout_demux_cpu(struct packet_fanout *f,
 				     struct sk_buff *skb,
 				     unsigned int num)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1415 \n"); 
 	return smp_processor_id() % num;
 }
 
@@ -1363,6 +1420,7 @@ static unsigned int fanout_demux_rnd(struct packet_fanout *f,
 				     struct sk_buff *skb,
 				     unsigned int num)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1423 \n"); 
 	return prandom_u32_max(num);
 }
 
@@ -1371,6 +1429,7 @@ static unsigned int fanout_demux_rollover(struct packet_fanout *f,
 					  unsigned int idx, bool try_self,
 					  unsigned int num)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1432 \n"); 
 	struct packet_sock *po, *po_next, *po_skip = NULL;
 	unsigned int i, j, room = ROOM_NONE;
 
@@ -1409,6 +1468,7 @@ static unsigned int fanout_demux_qm(struct packet_fanout *f,
 				    struct sk_buff *skb,
 				    unsigned int num)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1471 \n"); 
 	return skb_get_queue_mapping(skb) % num;
 }
 
@@ -1416,6 +1476,7 @@ static unsigned int fanout_demux_bpf(struct packet_fanout *f,
 				     struct sk_buff *skb,
 				     unsigned int num)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1479 \n"); 
 	struct bpf_prog *prog;
 	unsigned int ret = 0;
 
@@ -1430,12 +1491,14 @@ static unsigned int fanout_demux_bpf(struct packet_fanout *f,
 
 static bool fanout_has_flag(struct packet_fanout *f, u16 flag)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1494 \n"); 
 	return f->flags & (flag >> 8);
 }
 
 static int packet_rcv_fanout(struct sk_buff *skb, struct net_device *dev,
 			     struct packet_type *pt, struct net_device *orig_dev)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1501 \n"); 
 	struct packet_fanout *f = pt->af_packet_priv;
 	unsigned int num = READ_ONCE(f->num_members);
 	struct net *net = read_pnet(&f->net);
@@ -1491,6 +1554,7 @@ static LIST_HEAD(fanout_list);
 
 static void __fanout_link(struct sock *sk, struct packet_sock *po)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1557 \n"); 
 	struct packet_fanout *f = po->fanout;
 
 	spin_lock(&f->lock);
@@ -1504,6 +1568,7 @@ static void __fanout_link(struct sock *sk, struct packet_sock *po)
 
 static void __fanout_unlink(struct sock *sk, struct packet_sock *po)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1571 \n"); 
 	struct packet_fanout *f = po->fanout;
 	int i;
 
@@ -1522,6 +1587,7 @@ static void __fanout_unlink(struct sock *sk, struct packet_sock *po)
 
 static bool match_fanout_group(struct packet_type *ptype, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1590 \n"); 
 	if (sk->sk_family != PF_PACKET)
 		return false;
 
@@ -1530,6 +1596,7 @@ static bool match_fanout_group(struct packet_type *ptype, struct sock *sk)
 
 static void fanout_init_data(struct packet_fanout *f)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1599 \n"); 
 	switch (f->type) {
 	case PACKET_FANOUT_LB:
 		atomic_set(&f->rr_cur, 0);
@@ -1614,6 +1681,7 @@ static int fanout_set_data(struct packet_sock *po, char __user *data,
 
 static void fanout_release_data(struct packet_fanout *f)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1684 \n"); 
 	switch (f->type) {
 	case PACKET_FANOUT_CBPF:
 	case PACKET_FANOUT_EBPF:
@@ -1623,6 +1691,7 @@ static void fanout_release_data(struct packet_fanout *f)
 
 static int fanout_add(struct sock *sk, u16 id, u16 type_flags)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1694 \n"); 
 	struct packet_rollover *rollover = NULL;
 	struct packet_sock *po = pkt_sk(sk);
 	struct packet_fanout *f, *match;
@@ -1753,6 +1822,7 @@ static struct packet_fanout *fanout_release(struct sock *sk)
 static bool packet_extra_vlan_len_allowed(const struct net_device *dev,
 					  struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1825 \n"); 
 	/* Earlier code assumed this would be a VLAN pkt, double-check
 	 * this now that we have the actual packet in hand. We can only
 	 * do this check on Ethernet devices.
@@ -1771,6 +1841,7 @@ static const struct proto_ops packet_ops_spkt;
 static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
 			   struct packet_type *pt, struct net_device *orig_dev)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1844 \n"); 
 	struct sock *sk;
 	struct sockaddr_pkt *spkt;
 
@@ -1843,6 +1914,7 @@ oom:
 static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
 			       size_t len)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 1917 \n"); 
 	struct sock *sk = sock->sk;
 	DECLARE_SOCKADDR(struct sockaddr_pkt *, saddr, msg->msg_name);
 	struct sk_buff *skb = NULL;
@@ -1984,6 +2056,7 @@ static unsigned int run_filter(struct sk_buff *skb,
 static int __packet_rcv_vnet(const struct sk_buff *skb,
 			     struct virtio_net_hdr *vnet_hdr)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 2059 \n"); 
 	*vnet_hdr = (const struct virtio_net_hdr) { 0 };
 
 	if (virtio_net_hdr_from_skb(skb, vnet_hdr, vio_le(), true))
@@ -1995,6 +2068,7 @@ static int __packet_rcv_vnet(const struct sk_buff *skb,
 static int packet_rcv_vnet(struct msghdr *msg, const struct sk_buff *skb,
 			   size_t *len)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 2071 \n"); 
 	struct virtio_net_hdr vnet_hdr;
 
 	if (*len < sizeof(vnet_hdr))
@@ -2139,6 +2213,7 @@ drop:
 static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
 		       struct packet_type *pt, struct net_device *orig_dev)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 2216 \n"); 
 	struct sock *sk;
 	struct packet_sock *po;
 	struct sockaddr_ll *sll;
@@ -2383,6 +2458,7 @@ drop_n_account:
 
 static void tpacket_destruct_skb(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 2461 \n"); 
 	struct packet_sock *po = pkt_sk(skb->sk);
 
 	if (likely(po->tx_ring.pg_vec)) {
@@ -2402,6 +2478,7 @@ static void tpacket_destruct_skb(struct sk_buff *skb)
 static void tpacket_set_protocol(const struct net_device *dev,
 				 struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 2481 \n"); 
 	if (dev->type == ARPHRD_ETHER) {
 		skb_reset_mac_header(skb);
 		skb->protocol = eth_hdr(skb)->h_proto;
@@ -2410,6 +2487,7 @@ static void tpacket_set_protocol(const struct net_device *dev,
 
 static int __packet_snd_vnet_parse(struct virtio_net_hdr *vnet_hdr, size_t len)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 2490 \n"); 
 	unsigned short gso_type = 0;
 
 	if ((vnet_hdr->flags & VIRTIO_NET_HDR_F_NEEDS_CSUM) &&
@@ -2452,6 +2530,7 @@ static int __packet_snd_vnet_parse(struct virtio_net_hdr *vnet_hdr, size_t len)
 static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
 				 struct virtio_net_hdr *vnet_hdr)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 2533 \n"); 
 	int n;
 
 	if (*len < sizeof(*vnet_hdr))
@@ -2468,6 +2547,7 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
 static int packet_snd_vnet_gso(struct sk_buff *skb,
 			       struct virtio_net_hdr *vnet_hdr)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 2550 \n"); 
 	if (vnet_hdr->flags & VIRTIO_NET_HDR_F_NEEDS_CSUM) {
 		u16 s = __virtio16_to_cpu(vio_le(), vnet_hdr->csum_start);
 		u16 o = __virtio16_to_cpu(vio_le(), vnet_hdr->csum_offset);
@@ -2491,6 +2571,7 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
 		__be16 proto, unsigned char *addr, int hlen, int copylen,
 		const struct sockcm_cookie *sockc)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 2574 \n"); 
 	union tpacket_uhdr ph;
 	int to_write, offset, len, nr_frags, len_max;
 	struct socket *sock = po->sk.sk_socket;
@@ -2570,6 +2651,7 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
 static int tpacket_parse_header(struct packet_sock *po, void *frame,
 				int size_max, void **data)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 2654 \n"); 
 	union tpacket_uhdr ph;
 	int tp_len, off;
 
@@ -2624,6 +2706,7 @@ static int tpacket_parse_header(struct packet_sock *po, void *frame,
 
 static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 2709 \n"); 
 	struct sk_buff *skb;
 	struct net_device *dev;
 	struct virtio_net_hdr *vnet_hdr = NULL;
@@ -3156,6 +3239,7 @@ out_unlock:
 static int packet_bind_spkt(struct socket *sock, struct sockaddr *uaddr,
 			    int addr_len)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 3242 \n"); 
 	struct sock *sk = sock->sk;
 	char name[sizeof(uaddr->sa_data) + 1];
 
@@ -3420,6 +3504,7 @@ out:
 static int packet_getname_spkt(struct socket *sock, struct sockaddr *uaddr,
 			       int *uaddr_len, int peer)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 3507 \n"); 
 	struct net_device *dev;
 	struct sock *sk	= sock->sk;
 
@@ -3441,6 +3526,7 @@ static int packet_getname_spkt(struct socket *sock, struct sockaddr *uaddr,
 static int packet_getname(struct socket *sock, struct sockaddr *uaddr,
 			  int *uaddr_len, int peer)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 3529 \n"); 
 	struct net_device *dev;
 	struct sock *sk = sock->sk;
 	struct packet_sock *po = pkt_sk(sk);
@@ -3472,6 +3558,7 @@ static int packet_getname(struct socket *sock, struct sockaddr *uaddr,
 static int packet_dev_mc(struct net_device *dev, struct packet_mclist *i,
 			 int what)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 3561 \n"); 
 	switch (i->type) {
 	case PACKET_MR_MULTICAST:
 		if (i->alen != dev->addr_len)
@@ -3502,6 +3589,7 @@ static int packet_dev_mc(struct net_device *dev, struct packet_mclist *i,
 static void packet_dev_mclist_delete(struct net_device *dev,
 				     struct packet_mclist **mlp)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 3592 \n"); 
 	struct packet_mclist *ml;
 
 	while ((ml = *mlp) != NULL) {
@@ -3516,6 +3604,7 @@ static void packet_dev_mclist_delete(struct net_device *dev,
 
 static int packet_mc_add(struct sock *sk, struct packet_mreq_max *mreq)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 3607 \n"); 
 	struct packet_sock *po = pkt_sk(sk);
 	struct packet_mclist *ml, *i;
 	struct net_device *dev;
@@ -3571,6 +3660,7 @@ done:
 
 static int packet_mc_drop(struct sock *sk, struct packet_mreq_max *mreq)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 3663 \n"); 
 	struct packet_mclist *ml, **mlp;
 
 	rtnl_lock();
@@ -4033,6 +4123,7 @@ static int packet_notifier(struct notifier_block *this,
 static int packet_ioctl(struct socket *sock, unsigned int cmd,
 			unsigned long arg)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 4126 \n"); 
 	struct sock *sk = sock->sk;
 
 	switch (cmd) {
@@ -4115,6 +4206,7 @@ static unsigned int packet_poll(struct file *file, struct socket *sock,
 
 static void packet_mm_open(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 4209 \n"); 
 	struct file *file = vma->vm_file;
 	struct socket *sock = file->private_data;
 	struct sock *sk = sock->sk;
@@ -4125,6 +4217,7 @@ static void packet_mm_open(struct vm_area_struct *vma)
 
 static void packet_mm_close(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 4220 \n"); 
 	struct file *file = vma->vm_file;
 	struct socket *sock = file->private_data;
 	struct sock *sk = sock->sk;
@@ -4141,6 +4234,7 @@ static const struct vm_operations_struct packet_mmap_ops = {
 static void free_pg_vec(struct pgv *pg_vec, unsigned int order,
 			unsigned int len)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 4237 \n"); 
 	int i;
 
 	for (i = 0; i < len; i++) {
@@ -4158,6 +4252,7 @@ static void free_pg_vec(struct pgv *pg_vec, unsigned int order,
 
 static char *alloc_one_pg_vec_page(unsigned long order)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 4255 \n"); 
 	char *buffer;
 	gfp_t gfp_flags = GFP_KERNEL | __GFP_COMP |
 			  __GFP_ZERO | __GFP_NOWARN | __GFP_NORETRY;
@@ -4183,6 +4278,7 @@ static char *alloc_one_pg_vec_page(unsigned long order)
 
 static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 4281 \n"); 
 	unsigned int block_nr = req->tp_block_nr;
 	struct pgv *pg_vec;
 	int i;
@@ -4209,6 +4305,7 @@ out_free_pgvec:
 static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
 		int closing, int tx_ring)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 4308 \n"); 
 	struct pgv *pg_vec = NULL;
 	struct packet_sock *po = pkt_sk(sk);
 	int was_running, order = 0;
@@ -4362,6 +4459,7 @@ out:
 static int packet_mmap(struct file *file, struct socket *sock,
 		struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in net/packet/af_packet.c: line 4462 \n"); 
 	struct sock *sk = sock->sk;
 	struct packet_sock *po = pkt_sk(sk);
 	unsigned long size, expected_size;

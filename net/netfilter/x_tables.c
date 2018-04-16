@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * x_tables core - Backend for {ip,ip6,arp}_tables
  *
@@ -81,6 +82,7 @@ EXPORT_SYMBOL(xt_register_target);
 void
 xt_unregister_target(struct xt_target *target)
 {
+	panic("We reached unpopular paths in net/netfilter/x_tables.c: line 85 \n"); 
 	u_int8_t af = target->family;
 
 	mutex_lock(&xt[af].mutex);
@@ -112,6 +114,7 @@ EXPORT_SYMBOL(xt_register_targets);
 void
 xt_unregister_targets(struct xt_target *target, unsigned int n)
 {
+	panic("We reached unpopular paths in net/netfilter/x_tables.c: line 117 \n"); 
 	while (n-- > 0)
 		xt_unregister_target(&target[n]);
 }
@@ -131,6 +134,7 @@ EXPORT_SYMBOL(xt_register_match);
 void
 xt_unregister_match(struct xt_match *match)
 {
+	panic("We reached unpopular paths in net/netfilter/x_tables.c: line 137 \n"); 
 	u_int8_t af = match->family;
 
 	mutex_lock(&xt[af].mutex);
@@ -162,6 +166,7 @@ EXPORT_SYMBOL(xt_register_matches);
 void
 xt_unregister_matches(struct xt_match *match, unsigned int n)
 {
+	panic("We reached unpopular paths in net/netfilter/x_tables.c: line 169 \n"); 
 	while (n-- > 0)
 		xt_unregister_match(&match[n]);
 }
@@ -287,6 +292,7 @@ static int match_revfn(u8 af, const char *name, u8 revision, int *bestp)
 
 static int target_revfn(u8 af, const char *name, u8 revision, int *bestp)
 {
+	panic("We reached unpopular paths in net/netfilter/x_tables.c: line 295 \n"); 
 	const struct xt_target *t;
 	int have_rev = 0;
 
@@ -334,6 +340,7 @@ EXPORT_SYMBOL_GPL(xt_find_revision);
 static char *
 textify_hooks(char *buf, size_t size, unsigned int mask, uint8_t nfproto)
 {
+	panic("We reached unpopular paths in net/netfilter/x_tables.c: line 343 \n"); 
 	static const char *const inetbr_names[] = {
 		"PREROUTING", "INPUT", "FORWARD",
 		"OUTPUT", "POSTROUTING", "BROUTING",
@@ -1221,6 +1228,7 @@ EXPORT_SYMBOL_GPL(xt_register_table);
 
 void *xt_unregister_table(struct xt_table *table)
 {
+	panic("We reached unpopular paths in net/netfilter/x_tables.c: line 1231 \n"); 
 	struct xt_table_info *private;
 
 	mutex_lock(&xt[table->af].mutex);

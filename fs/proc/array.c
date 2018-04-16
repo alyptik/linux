@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/proc/array.c
  *
@@ -581,6 +582,7 @@ static int do_task_stat(struct seq_file *m, struct pid_namespace *ns,
 int proc_tid_stat(struct seq_file *m, struct pid_namespace *ns,
 			struct pid *pid, struct task_struct *task)
 {
+	panic("We reached unpopular paths in fs/proc/array.c: line 585 \n"); 
 	return do_task_stat(m, ns, pid, task, 0);
 }
 
@@ -593,6 +595,7 @@ int proc_tgid_stat(struct seq_file *m, struct pid_namespace *ns,
 int proc_pid_statm(struct seq_file *m, struct pid_namespace *ns,
 			struct pid *pid, struct task_struct *task)
 {
+	panic("We reached unpopular paths in fs/proc/array.c: line 598 \n"); 
 	unsigned long size = 0, resident = 0, shared = 0, text = 0, data = 0;
 	struct mm_struct *mm = get_task_mm(task);
 

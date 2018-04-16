@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 2008-2009 Pablo Neira Ayuso <pablo@netfilter.org>
  *
@@ -18,23 +19,27 @@
 
 static inline u32 nf_ct_orig_ipv4_src(const struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cluster.c: line 22 \n"); 
 	return (__force u32)ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple.src.u3.ip;
 }
 
 static inline const u32 *nf_ct_orig_ipv6_src(const struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cluster.c: line 28 \n"); 
 	return (__force u32 *)ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple.src.u3.ip6;
 }
 
 static inline u_int32_t
 xt_cluster_hash_ipv4(u_int32_t ip, const struct xt_cluster_match_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cluster.c: line 35 \n"); 
 	return jhash_1word(ip, info->hash_seed);
 }
 
 static inline u_int32_t
 xt_cluster_hash_ipv6(const void *ip, const struct xt_cluster_match_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cluster.c: line 42 \n"); 
 	return jhash2(ip, NF_CT_TUPLE_L3SIZE / sizeof(__u32), info->hash_seed);
 }
 
@@ -42,6 +47,7 @@ static inline u_int32_t
 xt_cluster_hash(const struct nf_conn *ct,
 		const struct xt_cluster_match_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cluster.c: line 50 \n"); 
 	u_int32_t hash = 0;
 
 	switch(nf_ct_l3num(ct)) {
@@ -62,6 +68,7 @@ xt_cluster_hash(const struct nf_conn *ct,
 static inline bool
 xt_cluster_ipv6_is_multicast(const struct in6_addr *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cluster.c: line 71 \n"); 
 	__be32 st = addr->s6_addr32[0];
 	return ((st & htonl(0xFF000000)) == htonl(0xFF000000));
 }
@@ -69,6 +76,7 @@ xt_cluster_ipv6_is_multicast(const struct in6_addr *addr)
 static inline bool
 xt_cluster_is_multicast_addr(const struct sk_buff *skb, u_int8_t family)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cluster.c: line 79 \n"); 
 	bool is_multicast = false;
 
 	switch(family) {
@@ -89,6 +97,7 @@ xt_cluster_is_multicast_addr(const struct sk_buff *skb, u_int8_t family)
 static bool
 xt_cluster_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cluster.c: line 100 \n"); 
 	struct sk_buff *pskb = (struct sk_buff *)skb;
 	const struct xt_cluster_match_info *info = par->matchinfo;
 	const struct nf_conn *ct;
@@ -135,6 +144,7 @@ xt_cluster_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int xt_cluster_mt_checkentry(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cluster.c: line 147 \n"); 
 	struct xt_cluster_match_info *info = par->matchinfo;
 
 	if (info->total_nodes > XT_CLUSTER_NODES_MAX) {

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * High-level sync()-related operations
  */
@@ -69,23 +70,27 @@ EXPORT_SYMBOL(sync_filesystem);
 
 static void sync_inodes_one_sb(struct super_block *sb, void *arg)
 {
+	// [blacklist] panic("We reached unpopular paths in fs/sync.c: line 73 \n"); 
 	if (!(sb->s_flags & MS_RDONLY))
 		sync_inodes_sb(sb);
 }
 
 static void sync_fs_one_sb(struct super_block *sb, void *arg)
 {
+	// [blacklist] panic("We reached unpopular paths in fs/sync.c: line 80 \n"); 
 	if (!(sb->s_flags & MS_RDONLY) && sb->s_op->sync_fs)
 		sb->s_op->sync_fs(sb, *(int *)arg);
 }
 
 static void fdatawrite_one_bdev(struct block_device *bdev, void *arg)
 {
+	panic("We reached unpopular paths in fs/sync.c: line 87 \n"); 
 	filemap_fdatawrite(bdev->bd_inode->i_mapping);
 }
 
 static void fdatawait_one_bdev(struct block_device *bdev, void *arg)
 {
+	panic("We reached unpopular paths in fs/sync.c: line 93 \n"); 
 	/*
 	 * We keep the error status of individual mapping so that
 	 * applications can catch the writeback error using fsync(2).
@@ -121,6 +126,7 @@ SYSCALL_DEFINE0(sync)
 
 static void do_sync_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in fs/sync.c: line 129 \n"); 
 	int nowait = 0;
 
 	/*
@@ -139,6 +145,7 @@ static void do_sync_work(struct work_struct *work)
 
 void emergency_sync(void)
 {
+	panic("We reached unpopular paths in fs/sync.c: line 148 \n"); 
 	struct work_struct *work;
 
 	work = kmalloc(sizeof(*work), GFP_ATOMIC);

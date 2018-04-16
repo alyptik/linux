@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008 Patrick McHardy <kaber@trash.net>
  * Copyright (c) 2012-2013 Pablo Neira Ayuso <pablo@netfilter.org>
@@ -22,6 +23,7 @@ static unsigned int nft_do_chain_ipv4(void *priv,
 				      struct sk_buff *skb,
 				      const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_tables_ipv4.c: line 26 \n"); 
 	struct nft_pktinfo pkt;
 
 	nft_set_pktinfo_ipv4(&pkt, skb, state);
@@ -33,6 +35,7 @@ static unsigned int nft_ipv4_output(void *priv,
 				    struct sk_buff *skb,
 				    const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_tables_ipv4.c: line 38 \n"); 
 	if (unlikely(skb->len < sizeof(struct iphdr) ||
 		     ip_hdr(skb)->ihl < sizeof(struct iphdr) / 4)) {
 		if (net_ratelimit())

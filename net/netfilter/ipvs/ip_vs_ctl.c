@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS         An implementation of the IP virtual server support for the
  *              LINUX operating system.  IPVS is now implemented as a module
@@ -266,6 +267,7 @@ static inline unsigned int
 ip_vs_svc_hashkey(struct netns_ipvs *ipvs, int af, unsigned int proto,
 		  const union nf_inet_addr *addr, __be16 port)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 270 \n"); 
 	register unsigned int porth = ntohs(port);
 	__be32 addr_fold = addr->ip;
 	__u32 ahash;
@@ -287,6 +289,7 @@ ip_vs_svc_hashkey(struct netns_ipvs *ipvs, int af, unsigned int proto,
  */
 static inline unsigned int ip_vs_svc_fwm_hashkey(struct netns_ipvs *ipvs, __u32 fwmark)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 292 \n"); 
 	return (((size_t)ipvs>>8) ^ fwmark) & IP_VS_SVC_TAB_MASK;
 }
 
@@ -297,6 +300,7 @@ static inline unsigned int ip_vs_svc_fwm_hashkey(struct netns_ipvs *ipvs, __u32 
  */
 static int ip_vs_svc_hash(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 303 \n"); 
 	unsigned int hash;
 
 	if (svc->flags & IP_VS_SVC_F_HASHED) {
@@ -333,6 +337,7 @@ static int ip_vs_svc_hash(struct ip_vs_service *svc)
  */
 static int ip_vs_svc_unhash(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 340 \n"); 
 	if (!(svc->flags & IP_VS_SVC_F_HASHED)) {
 		pr_err("%s(): request for unhash flagged, called from %pF\n",
 		       __func__, __builtin_return_address(0));
@@ -360,6 +365,7 @@ static inline struct ip_vs_service *
 __ip_vs_service_find(struct netns_ipvs *ipvs, int af, __u16 protocol,
 		     const union nf_inet_addr *vaddr, __be16 vport)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 368 \n"); 
 	unsigned int hash;
 	struct ip_vs_service *svc;
 
@@ -387,6 +393,7 @@ __ip_vs_service_find(struct netns_ipvs *ipvs, int af, __u16 protocol,
 static inline struct ip_vs_service *
 __ip_vs_svc_fwm_find(struct netns_ipvs *ipvs, int af, __u32 fwmark)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 396 \n"); 
 	unsigned int hash;
 	struct ip_vs_service *svc;
 
@@ -409,6 +416,7 @@ struct ip_vs_service *
 ip_vs_service_find(struct netns_ipvs *ipvs, int af, __u32 fwmark, __u16 protocol,
 		   const union nf_inet_addr *vaddr, __be16 vport)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 419 \n"); 
 	struct ip_vs_service *svc;
 
 	/*
@@ -458,18 +466,21 @@ ip_vs_service_find(struct netns_ipvs *ipvs, int af, __u32 fwmark, __u16 protocol
 static inline void
 __ip_vs_bind_svc(struct ip_vs_dest *dest, struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 469 \n"); 
 	atomic_inc(&svc->refcnt);
 	rcu_assign_pointer(dest->svc, svc);
 }
 
 static void ip_vs_service_free(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 476 \n"); 
 	free_percpu(svc->stats.cpustats);
 	kfree(svc);
 }
 
 static void ip_vs_service_rcu_free(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 483 \n"); 
 	struct ip_vs_service *svc;
 
 	svc = container_of(head, struct ip_vs_service, rcu_head);
@@ -478,6 +489,7 @@ static void ip_vs_service_rcu_free(struct rcu_head *head)
 
 static void __ip_vs_svc_put(struct ip_vs_service *svc, bool do_delay)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 492 \n"); 
 	if (atomic_dec_and_test(&svc->refcnt)) {
 		IP_VS_DBG_BUF(3, "Removing service %u/%s:%u\n",
 			      svc->fwmark,
@@ -498,6 +510,7 @@ static inline unsigned int ip_vs_rs_hashkey(int af,
 					    const union nf_inet_addr *addr,
 					    __be16 port)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 513 \n"); 
 	register unsigned int porth = ntohs(port);
 	__be32 addr_fold = addr->ip;
 
@@ -514,6 +527,7 @@ static inline unsigned int ip_vs_rs_hashkey(int af,
 /* Hash ip_vs_dest in rs_table by <proto,addr,port>. */
 static void ip_vs_rs_hash(struct netns_ipvs *ipvs, struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 530 \n"); 
 	unsigned int hash;
 
 	if (dest->in_rs_table)
@@ -532,6 +546,7 @@ static void ip_vs_rs_hash(struct netns_ipvs *ipvs, struct ip_vs_dest *dest)
 /* Unhash ip_vs_dest from rs_table. */
 static void ip_vs_rs_unhash(struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 549 \n"); 
 	/*
 	 * Remove it from the rs_table table.
 	 */
@@ -545,6 +560,7 @@ static void ip_vs_rs_unhash(struct ip_vs_dest *dest)
 bool ip_vs_has_real_service(struct netns_ipvs *ipvs, int af, __u16 protocol,
 			    const union nf_inet_addr *daddr, __be16 dport)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 563 \n"); 
 	unsigned int hash;
 	struct ip_vs_dest *dest;
 
@@ -578,6 +594,7 @@ struct ip_vs_dest *ip_vs_find_real_service(struct netns_ipvs *ipvs, int af,
 					   const union nf_inet_addr *daddr,
 					   __be16 dport)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 597 \n"); 
 	unsigned int hash;
 	struct ip_vs_dest *dest;
 
@@ -604,6 +621,7 @@ static struct ip_vs_dest *
 ip_vs_lookup_dest(struct ip_vs_service *svc, int dest_af,
 		  const union nf_inet_addr *daddr, __be16 dport)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 624 \n"); 
 	struct ip_vs_dest *dest;
 
 	/*
@@ -636,6 +654,7 @@ struct ip_vs_dest *ip_vs_find_dest(struct netns_ipvs *ipvs, int svc_af, int dest
 				   __be16 vport, __u16 protocol, __u32 fwmark,
 				   __u32 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 657 \n"); 
 	struct ip_vs_dest *dest;
 	struct ip_vs_service *svc;
 	__be16 port = dport;
@@ -653,6 +672,7 @@ struct ip_vs_dest *ip_vs_find_dest(struct netns_ipvs *ipvs, int svc_af, int dest
 
 void ip_vs_dest_dst_rcu_free(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 675 \n"); 
 	struct ip_vs_dest_dst *dest_dst = container_of(head,
 						       struct ip_vs_dest_dst,
 						       rcu_head);
@@ -664,6 +684,7 @@ void ip_vs_dest_dst_rcu_free(struct rcu_head *head)
 /* Release dest_dst and dst_cache for dest in user context */
 static void __ip_vs_dst_cache_reset(struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 687 \n"); 
 	struct ip_vs_dest_dst *old;
 
 	old = rcu_dereference_protected(dest->dest_dst, 1);
@@ -687,6 +708,7 @@ static struct ip_vs_dest *
 ip_vs_trash_get_dest(struct ip_vs_service *svc, int dest_af,
 		     const union nf_inet_addr *daddr, __be16 dport)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 711 \n"); 
 	struct ip_vs_dest *dest;
 	struct netns_ipvs *ipvs = svc->ipvs;
 
@@ -726,6 +748,7 @@ out:
 
 static void ip_vs_dest_free(struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 751 \n"); 
 	struct ip_vs_service *svc = rcu_dereference_protected(dest->svc, 1);
 
 	__ip_vs_dst_cache_reset(dest);
@@ -758,6 +781,7 @@ static void ip_vs_trash_cleanup(struct netns_ipvs *ipvs)
 static void
 ip_vs_copy_stats(struct ip_vs_kstats *dst, struct ip_vs_stats *src)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 784 \n"); 
 #define IP_VS_SHOW_STATS_COUNTER(c) dst->c = src->kstats.c - src->kstats0.c
 
 	spin_lock_bh(&src->lock);
@@ -776,6 +800,7 @@ ip_vs_copy_stats(struct ip_vs_kstats *dst, struct ip_vs_stats *src)
 static void
 ip_vs_export_stats_user(struct ip_vs_stats_user *dst, struct ip_vs_kstats *src)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 803 \n"); 
 	dst->conns = (u32)src->conns;
 	dst->inpkts = (u32)src->inpkts;
 	dst->outpkts = (u32)src->outpkts;
@@ -791,6 +816,7 @@ ip_vs_export_stats_user(struct ip_vs_stats_user *dst, struct ip_vs_kstats *src)
 static void
 ip_vs_zero_stats(struct ip_vs_stats *stats)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 819 \n"); 
 	spin_lock_bh(&stats->lock);
 
 	/* get current counters as zero point, rates are zeroed */
@@ -815,6 +841,7 @@ static void
 __ip_vs_update_dest(struct ip_vs_service *svc, struct ip_vs_dest *dest,
 		    struct ip_vs_dest_user_kern *udest, int add)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 844 \n"); 
 	struct netns_ipvs *ipvs = svc->ipvs;
 	struct ip_vs_service *old_svc;
 	struct ip_vs_scheduler *sched;
@@ -891,6 +918,7 @@ static int
 ip_vs_new_dest(struct ip_vs_service *svc, struct ip_vs_dest_user_kern *udest,
 	       struct ip_vs_dest **dest_p)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 921 \n"); 
 	struct ip_vs_dest *dest;
 	unsigned int atype, i;
 
@@ -960,6 +988,7 @@ err_alloc:
 static int
 ip_vs_add_dest(struct ip_vs_service *svc, struct ip_vs_dest_user_kern *udest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 991 \n"); 
 	struct ip_vs_dest *dest;
 	union nf_inet_addr daddr;
 	__be16 dport = udest->port;
@@ -1025,6 +1054,7 @@ ip_vs_add_dest(struct ip_vs_service *svc, struct ip_vs_dest_user_kern *udest)
 static int
 ip_vs_edit_dest(struct ip_vs_service *svc, struct ip_vs_dest_user_kern *udest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1057 \n"); 
 	struct ip_vs_dest *dest;
 	union nf_inet_addr daddr;
 	__be16 dport = udest->port;
@@ -1066,6 +1096,7 @@ ip_vs_edit_dest(struct ip_vs_service *svc, struct ip_vs_dest_user_kern *udest)
 static void __ip_vs_del_dest(struct netns_ipvs *ipvs, struct ip_vs_dest *dest,
 			     bool cleanup)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1099 \n"); 
 	ip_vs_stop_estimator(ipvs, &dest->stats);
 
 	/*
@@ -1095,6 +1126,7 @@ static void __ip_vs_unlink_dest(struct ip_vs_service *svc,
 				struct ip_vs_dest *dest,
 				int svcupd)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1129 \n"); 
 	dest->flags &= ~IP_VS_DEST_F_AVAILABLE;
 
 	/*
@@ -1122,6 +1154,7 @@ static void __ip_vs_unlink_dest(struct ip_vs_service *svc,
 static int
 ip_vs_del_dest(struct ip_vs_service *svc, struct ip_vs_dest_user_kern *udest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1157 \n"); 
 	struct ip_vs_dest *dest;
 	__be16 dport = udest->port;
 
@@ -1154,6 +1187,7 @@ ip_vs_del_dest(struct ip_vs_service *svc, struct ip_vs_dest_user_kern *udest)
 
 static void ip_vs_dest_trash_expire(unsigned long data)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1190 \n"); 
 	struct netns_ipvs *ipvs = (struct netns_ipvs *)data;
 	struct ip_vs_dest *dest, *next;
 	unsigned long now = jiffies;
@@ -1190,6 +1224,7 @@ static int
 ip_vs_add_service(struct netns_ipvs *ipvs, struct ip_vs_service_user_kern *u,
 		  struct ip_vs_service **svc_p)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1227 \n"); 
 	int ret = 0, i;
 	struct ip_vs_scheduler *sched = NULL;
 	struct ip_vs_pe *pe = NULL;
@@ -1322,6 +1357,7 @@ ip_vs_add_service(struct netns_ipvs *ipvs, struct ip_vs_service_user_kern *u,
 static int
 ip_vs_edit_service(struct ip_vs_service *svc, struct ip_vs_service_user_kern *u)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1360 \n"); 
 	struct ip_vs_scheduler *sched = NULL, *old_sched;
 	struct ip_vs_pe *pe = NULL, *old_pe = NULL;
 	int ret = 0;
@@ -1412,6 +1448,7 @@ out:
  */
 static void __ip_vs_del_service(struct ip_vs_service *svc, bool cleanup)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1451 \n"); 
 	struct ip_vs_dest *dest, *nxt;
 	struct ip_vs_scheduler *old_sched;
 	struct ip_vs_pe *old_pe;
@@ -1464,6 +1501,7 @@ static void __ip_vs_del_service(struct ip_vs_service *svc, bool cleanup)
  */
 static void ip_vs_unlink_service(struct ip_vs_service *svc, bool cleanup)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1504 \n"); 
 	/* Hold svc to avoid double release from dest_trash */
 	atomic_inc(&svc->refcnt);
 	/*
@@ -1479,6 +1517,7 @@ static void ip_vs_unlink_service(struct ip_vs_service *svc, bool cleanup)
  */
 static int ip_vs_del_service(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1520 \n"); 
 	if (svc == NULL)
 		return -EEXIST;
 	ip_vs_unlink_service(svc, false);
@@ -1539,6 +1578,7 @@ void ip_vs_service_net_cleanup(struct netns_ipvs *ipvs)
 static inline void
 ip_vs_forget_dev(struct ip_vs_dest *dest, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1581 \n"); 
 	struct ip_vs_dest_dst *dest_dst;
 
 	spin_lock_bh(&dest->dst_lock);
@@ -1608,6 +1648,7 @@ static int ip_vs_dst_event(struct notifier_block *this, unsigned long event,
  */
 static int ip_vs_zero_service(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1651 \n"); 
 	struct ip_vs_dest *dest;
 
 	list_for_each_entry(dest, &svc->destinations, n_list) {
@@ -1619,6 +1660,7 @@ static int ip_vs_zero_service(struct ip_vs_service *svc)
 
 static int ip_vs_zero_all(struct netns_ipvs *ipvs)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 1663 \n"); 
 	int idx;
 	struct ip_vs_service *svc;
 
@@ -2249,6 +2291,7 @@ static const struct file_operations ip_vs_stats_percpu_fops = {
  */
 static int ip_vs_set_timeout(struct netns_ipvs *ipvs, struct ip_vs_timeout_user *u)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 2294 \n"); 
 #if defined(CONFIG_IP_VS_PROTO_TCP) || defined(CONFIG_IP_VS_PROTO_UDP)
 	struct ip_vs_proto_data *pd;
 #endif
@@ -2320,6 +2363,7 @@ union ip_vs_set_arglen {
 static void ip_vs_copy_usvc_compat(struct ip_vs_service_user_kern *usvc,
 				  struct ip_vs_service_user *usvc_compat)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 2366 \n"); 
 	memset(usvc, 0, sizeof(*usvc));
 
 	usvc->af		= AF_INET;
@@ -2339,6 +2383,7 @@ static void ip_vs_copy_usvc_compat(struct ip_vs_service_user_kern *usvc,
 static void ip_vs_copy_udest_compat(struct ip_vs_dest_user_kern *udest,
 				   struct ip_vs_dest_user *udest_compat)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 2386 \n"); 
 	memset(udest, 0, sizeof(*udest));
 
 	udest->addr.ip		= udest_compat->addr;
@@ -2502,6 +2547,7 @@ do_ip_vs_set_ctl(struct sock *sk, int cmd, void __user *user, unsigned int len)
 static void
 ip_vs_copy_service(struct ip_vs_service_entry *dst, struct ip_vs_service *src)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 2550 \n"); 
 	struct ip_vs_scheduler *sched;
 	struct ip_vs_kstats kstats;
 	char *sched_name;
@@ -2631,6 +2677,7 @@ __ip_vs_get_dest_entries(struct netns_ipvs *ipvs, const struct ip_vs_get_dests *
 static inline void
 __ip_vs_get_timeouts(struct netns_ipvs *ipvs, struct ip_vs_timeout_user *u)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 2680 \n"); 
 #if defined(CONFIG_IP_VS_PROTO_TCP) || defined(CONFIG_IP_VS_PROTO_UDP)
 	struct ip_vs_proto_data *pd;
 #endif
@@ -2914,6 +2961,7 @@ static const struct nla_policy ip_vs_dest_policy[IPVS_DEST_ATTR_MAX + 1] = {
 static int ip_vs_genl_fill_stats(struct sk_buff *skb, int container_type,
 				 struct ip_vs_kstats *kstats)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 2964 \n"); 
 	struct nlattr *nl_stats = nla_nest_start(skb, container_type);
 
 	if (!nl_stats)
@@ -2944,6 +2992,7 @@ nla_put_failure:
 static int ip_vs_genl_fill_stats64(struct sk_buff *skb, int container_type,
 				   struct ip_vs_kstats *kstats)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 2995 \n"); 
 	struct nlattr *nl_stats = nla_nest_start(skb, container_type);
 
 	if (!nl_stats)
@@ -2982,6 +3031,7 @@ nla_put_failure:
 static int ip_vs_genl_fill_service(struct sk_buff *skb,
 				   struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3034 \n"); 
 	struct ip_vs_scheduler *sched;
 	struct ip_vs_pe *pe;
 	struct nlattr *nl_service;
@@ -3034,6 +3084,7 @@ static int ip_vs_genl_dump_service(struct sk_buff *skb,
 				   struct ip_vs_service *svc,
 				   struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3087 \n"); 
 	void *hdr;
 
 	hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid, cb->nlh->nlmsg_seq,
@@ -3056,6 +3107,7 @@ nla_put_failure:
 static int ip_vs_genl_dump_services(struct sk_buff *skb,
 				    struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3110 \n"); 
 	int idx = 0, i;
 	int start = cb->args[0];
 	struct ip_vs_service *svc;
@@ -3097,6 +3149,7 @@ static int ip_vs_genl_parse_service(struct netns_ipvs *ipvs,
 				    struct nlattr *nla, int full_entry,
 				    struct ip_vs_service **ret_svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3152 \n"); 
 	struct nlattr *attrs[IPVS_SVC_ATTR_MAX + 1];
 	struct nlattr *nla_af, *nla_port, *nla_fwmark, *nla_protocol, *nla_addr;
 	struct ip_vs_service *svc;
@@ -3180,6 +3233,7 @@ static int ip_vs_genl_parse_service(struct netns_ipvs *ipvs,
 static struct ip_vs_service *ip_vs_genl_find_service(struct netns_ipvs *ipvs,
 						     struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3236 \n"); 
 	struct ip_vs_service_user_kern usvc;
 	struct ip_vs_service *svc;
 	int ret;
@@ -3190,6 +3244,7 @@ static struct ip_vs_service *ip_vs_genl_find_service(struct netns_ipvs *ipvs,
 
 static int ip_vs_genl_fill_dest(struct sk_buff *skb, struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3247 \n"); 
 	struct nlattr *nl_dest;
 	struct ip_vs_kstats kstats;
 
@@ -3232,6 +3287,7 @@ nla_put_failure:
 static int ip_vs_genl_dump_dest(struct sk_buff *skb, struct ip_vs_dest *dest,
 				struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3290 \n"); 
 	void *hdr;
 
 	hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid, cb->nlh->nlmsg_seq,
@@ -3254,6 +3310,7 @@ nla_put_failure:
 static int ip_vs_genl_dump_dests(struct sk_buff *skb,
 				 struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3313 \n"); 
 	int idx = 0;
 	int start = cb->args[0];
 	struct ip_vs_service *svc;
@@ -3296,6 +3353,7 @@ out_err:
 static int ip_vs_genl_parse_dest(struct ip_vs_dest_user_kern *udest,
 				 struct nlattr *nla, int full_entry)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3356 \n"); 
 	struct nlattr *attrs[IPVS_DEST_ATTR_MAX + 1];
 	struct nlattr *nla_addr, *nla_port;
 	struct nlattr *nla_addr_family;
@@ -3348,6 +3406,7 @@ static int ip_vs_genl_parse_dest(struct ip_vs_dest_user_kern *udest,
 static int ip_vs_genl_fill_daemon(struct sk_buff *skb, __u32 state,
 				  struct ipvs_sync_daemon_cfg *c)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3409 \n"); 
 	struct nlattr *nl_daemon;
 
 	nl_daemon = nla_nest_start(skb, IPVS_CMD_ATTR_DAEMON);
@@ -3385,6 +3444,7 @@ static int ip_vs_genl_dump_daemon(struct sk_buff *skb, __u32 state,
 				  struct ipvs_sync_daemon_cfg *c,
 				  struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3447 \n"); 
 	void *hdr;
 	hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid, cb->nlh->nlmsg_seq,
 			  &ip_vs_genl_family, NLM_F_MULTI,
@@ -3406,6 +3466,7 @@ nla_put_failure:
 static int ip_vs_genl_dump_daemons(struct sk_buff *skb,
 				   struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3469 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct netns_ipvs *ipvs = net_ipvs(net);
 
@@ -3434,6 +3495,7 @@ nla_put_failure:
 
 static int ip_vs_genl_new_daemon(struct netns_ipvs *ipvs, struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3498 \n"); 
 	struct ipvs_sync_daemon_cfg c;
 	struct nlattr *a;
 	int ret;
@@ -3499,6 +3561,7 @@ static int ip_vs_genl_new_daemon(struct netns_ipvs *ipvs, struct nlattr **attrs)
 
 static int ip_vs_genl_del_daemon(struct netns_ipvs *ipvs, struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3564 \n"); 
 	int ret;
 
 	if (!attrs[IPVS_DAEMON_ATTR_STATE])
@@ -3513,6 +3576,7 @@ static int ip_vs_genl_del_daemon(struct netns_ipvs *ipvs, struct nlattr **attrs)
 
 static int ip_vs_genl_set_config(struct netns_ipvs *ipvs, struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3579 \n"); 
 	struct ip_vs_timeout_user t;
 
 	__ip_vs_get_timeouts(ipvs, &t);
@@ -3532,6 +3596,7 @@ static int ip_vs_genl_set_config(struct netns_ipvs *ipvs, struct nlattr **attrs)
 
 static int ip_vs_genl_set_daemon(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3599 \n"); 
 	int ret = -EINVAL, cmd;
 	struct net *net = sock_net(skb->sk);
 	struct netns_ipvs *ipvs = net_ipvs(net);
@@ -3559,6 +3624,7 @@ out:
 
 static int ip_vs_genl_set_cmd(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3627 \n"); 
 	struct ip_vs_service *svc = NULL;
 	struct ip_vs_service_user_kern usvc;
 	struct ip_vs_dest_user_kern udest;
@@ -3683,6 +3749,7 @@ out:
 
 static int ip_vs_genl_get_cmd(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3752 \n"); 
 	struct sk_buff *msg;
 	void *reply;
 	int ret, cmd, reply_cmd;
@@ -3884,6 +3951,7 @@ static int __init ip_vs_genl_register(void)
 
 static void ip_vs_genl_unregister(void)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 3954 \n"); 
 	genl_unregister_family(&ip_vs_genl_family);
 }
 
@@ -4081,6 +4149,7 @@ err_sock:
 
 void ip_vs_unregister_nl_ioctl(void)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 4152 \n"); 
 	ip_vs_genl_unregister();
 	nf_unregister_sockopt(&ip_vs_sockopts);
 }
@@ -4111,6 +4180,7 @@ int __init ip_vs_control_init(void)
 
 void ip_vs_control_cleanup(void)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_ctl.c: line 4183 \n"); 
 	EnterFunction(2);
 	unregister_netdevice_notifier(&ip_vs_dst_notifier);
 	LeaveFunction(2);

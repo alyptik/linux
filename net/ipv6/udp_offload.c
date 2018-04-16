@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IPV6 GSO/GRO offload support
  *	Linux INET6 implementation
@@ -20,6 +21,7 @@
 static struct sk_buff *udp6_ufo_fragment(struct sk_buff *skb,
 					 netdev_features_t features)
 {
+	panic("We reached unpopular paths in net/ipv6/udp_offload.c: line 24 \n"); 
 	struct sk_buff *segs = ERR_PTR(-EINVAL);
 	unsigned int mss;
 	unsigned int unfrag_ip6hlen, unfrag_len;
@@ -129,6 +131,7 @@ out:
 static struct sk_buff **udp6_gro_receive(struct sk_buff **head,
 					 struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/udp_offload.c: line 134 \n"); 
 	struct udphdr *uh = udp_gro_udphdr(skb);
 
 	if (unlikely(!uh))
@@ -156,6 +159,7 @@ flush:
 
 static int udp6_gro_complete(struct sk_buff *skb, int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv6/udp_offload.c: line 162 \n"); 
 	const struct ipv6hdr *ipv6h = ipv6_hdr(skb);
 	struct udphdr *uh = (struct udphdr *)(skb->data + nhoff);
 
@@ -185,5 +189,6 @@ int udpv6_offload_init(void)
 
 int udpv6_offload_exit(void)
 {
+	panic("We reached unpopular paths in net/ipv6/udp_offload.c: line 192 \n"); 
 	return inet6_del_offload(&udpv6_offload, IPPROTO_UDP);
 }

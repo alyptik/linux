@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/msdos/namei.c
  *
@@ -23,6 +24,7 @@ static int msdos_format_name(const unsigned char *name, int len,
 	 * beginning of name (for hidden files)
 	 */
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 27 \n"); 
 	unsigned char *walk;
 	unsigned char c;
 	int space;
@@ -117,6 +119,7 @@ static int msdos_format_name(const unsigned char *name, int len,
 static int msdos_find(struct inode *dir, const unsigned char *name, int len,
 		      struct fat_slot_info *sinfo)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 122 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(dir->i_sb);
 	unsigned char msdos_name[MSDOS_NAME];
 	int err;
@@ -148,6 +151,7 @@ static int msdos_find(struct inode *dir, const unsigned char *name, int len,
  */
 static int msdos_hash(const struct dentry *dentry, struct qstr *qstr)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 154 \n"); 
 	struct fat_mount_options *options = &MSDOS_SB(dentry->d_sb)->options;
 	unsigned char msdos_name[MSDOS_NAME];
 	int error;
@@ -165,6 +169,7 @@ static int msdos_hash(const struct dentry *dentry, struct qstr *qstr)
 static int msdos_cmp(const struct dentry *dentry,
 		unsigned int len, const char *str, const struct qstr *name)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 172 \n"); 
 	struct fat_mount_options *options = &MSDOS_SB(dentry->d_sb)->options;
 	unsigned char a_msdos_name[MSDOS_NAME], b_msdos_name[MSDOS_NAME];
 	int error;
@@ -199,6 +204,7 @@ static const struct dentry_operations msdos_dentry_operations = {
 static struct dentry *msdos_lookup(struct inode *dir, struct dentry *dentry,
 				   unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 207 \n"); 
 	struct super_block *sb = dir->i_sb;
 	struct fat_slot_info sinfo;
 	struct inode *inode;
@@ -226,6 +232,7 @@ static int msdos_add_entry(struct inode *dir, const unsigned char *name,
 			   int is_dir, int is_hid, int cluster,
 			   struct timespec *ts, struct fat_slot_info *sinfo)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 235 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(dir->i_sb);
 	struct msdos_dir_entry de;
 	__le16 time, date;
@@ -262,6 +269,7 @@ static int msdos_add_entry(struct inode *dir, const unsigned char *name,
 static int msdos_create(struct inode *dir, struct dentry *dentry, umode_t mode,
 			bool excl)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 272 \n"); 
 	struct super_block *sb = dir->i_sb;
 	struct inode *inode = NULL;
 	struct fat_slot_info sinfo;
@@ -307,6 +315,7 @@ out:
 /***** Remove a directory */
 static int msdos_rmdir(struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 318 \n"); 
 	struct super_block *sb = dir->i_sb;
 	struct inode *inode = d_inode(dentry);
 	struct fat_slot_info sinfo;
@@ -343,6 +352,7 @@ out:
 /***** Make a directory */
 static int msdos_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 355 \n"); 
 	struct super_block *sb = dir->i_sb;
 	struct fat_slot_info sinfo;
 	struct inode *inode;
@@ -402,6 +412,7 @@ out:
 /***** Unlink a file */
 static int msdos_unlink(struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 415 \n"); 
 	struct inode *inode = d_inode(dentry);
 	struct super_block *sb = inode->i_sb;
 	struct fat_slot_info sinfo;
@@ -431,6 +442,7 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
 			   struct inode *new_dir, unsigned char *new_name,
 			   struct dentry *new_dentry, int is_hid)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 445 \n"); 
 	struct buffer_head *dotdot_bh;
 	struct msdos_dir_entry *dotdot_de;
 	struct inode *old_inode, *new_inode;
@@ -599,6 +611,7 @@ static int msdos_rename(struct inode *old_dir, struct dentry *old_dentry,
 			struct inode *new_dir, struct dentry *new_dentry,
 			unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 614 \n"); 
 	struct super_block *sb = old_dir->i_sb;
 	unsigned char old_msdos_name[MSDOS_NAME], new_msdos_name[MSDOS_NAME];
 	int err, is_hid;
@@ -644,6 +657,7 @@ static const struct inode_operations msdos_dir_inode_operations = {
 
 static void setup(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 660 \n"); 
 	MSDOS_SB(sb)->dir_ops = &msdos_dir_inode_operations;
 	sb->s_d_op = &msdos_dentry_operations;
 	sb->s_flags |= MS_NOATIME;
@@ -651,6 +665,7 @@ static void setup(struct super_block *sb)
 
 static int msdos_fill_super(struct super_block *sb, void *data, int silent)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 668 \n"); 
 	return fat_fill_super(sb, data, silent, 0, setup);
 }
 
@@ -658,6 +673,7 @@ static struct dentry *msdos_mount(struct file_system_type *fs_type,
 			int flags, const char *dev_name,
 			void *data)
 {
+	panic("We reached unpopular paths in fs/fat/namei_msdos.c: line 676 \n"); 
 	return mount_bdev(fs_type, flags, dev_name, data, msdos_fill_super);
 }
 

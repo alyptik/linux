@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	GRE over IPv4 demultiplexer driver
  *
@@ -34,6 +35,7 @@ static const struct gre_protocol __rcu *gre_proto[GREPROTO_MAX] __read_mostly;
 
 int gre_add_protocol(const struct gre_protocol *proto, u8 version)
 {
+	panic("We reached unpopular paths in net/ipv4/gre_demux.c: line 38 \n"); 
 	if (version >= GREPROTO_MAX)
 		return -EINVAL;
 
@@ -44,6 +46,7 @@ EXPORT_SYMBOL_GPL(gre_add_protocol);
 
 int gre_del_protocol(const struct gre_protocol *proto, u8 version)
 {
+	panic("We reached unpopular paths in net/ipv4/gre_demux.c: line 49 \n"); 
 	int ret;
 
 	if (version >= GREPROTO_MAX)
@@ -64,6 +67,7 @@ EXPORT_SYMBOL_GPL(gre_del_protocol);
 int gre_parse_header(struct sk_buff *skb, struct tnl_ptk_info *tpi,
 		     bool *csum_err, __be16 proto, int nhs)
 {
+	panic("We reached unpopular paths in net/ipv4/gre_demux.c: line 70 \n"); 
 	const struct gre_base_hdr *greh;
 	__be32 *options;
 	int hdr_len;
@@ -124,6 +128,7 @@ EXPORT_SYMBOL(gre_parse_header);
 
 static int gre_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/gre_demux.c: line 131 \n"); 
 	const struct gre_protocol *proto;
 	u8 ver;
 	int ret;
@@ -152,6 +157,7 @@ drop:
 
 static void gre_err(struct sk_buff *skb, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/gre_demux.c: line 160 \n"); 
 	const struct gre_protocol *proto;
 	const struct iphdr *iph = (const struct iphdr *)skb->data;
 	u8 ver = skb->data[(iph->ihl<<2) + 1]&0x7f;

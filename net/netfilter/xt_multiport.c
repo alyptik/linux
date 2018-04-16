@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match one of a list of TCP/UDP(-Lite)/SCTP/DCCP ports:
    ports are in the same place so we can treat them as equal. */
 
@@ -31,6 +32,7 @@ static inline bool
 ports_match_v1(const struct xt_multiport_v1 *minfo,
 	       u_int16_t src, u_int16_t dst)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_multiport.c: line 35 \n"); 
 	unsigned int i;
 	u_int16_t s, e;
 
@@ -74,6 +76,7 @@ ports_match_v1(const struct xt_multiport_v1 *minfo,
 static bool
 multiport_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_multiport.c: line 79 \n"); 
 	const __be16 *pptr;
 	__be16 _ports[2];
 	const struct xt_multiport_v1 *multiinfo = par->matchinfo;
@@ -100,6 +103,7 @@ check(u_int16_t proto,
       u_int8_t match_flags,
       u_int8_t count)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_multiport.c: line 106 \n"); 
 	/* Must specify supported protocol, no unknown flags or bad count */
 	return (proto == IPPROTO_TCP || proto == IPPROTO_UDP
 		|| proto == IPPROTO_UDPLITE
@@ -113,6 +117,7 @@ check(u_int16_t proto,
 
 static int multiport_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_multiport.c: line 120 \n"); 
 	const struct ipt_ip *ip = par->entryinfo;
 	const struct xt_multiport_v1 *multiinfo = par->matchinfo;
 
@@ -122,6 +127,7 @@ static int multiport_mt_check(const struct xt_mtchk_param *par)
 
 static int multiport_mt6_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_multiport.c: line 130 \n"); 
 	const struct ip6t_ip6 *ip = par->entryinfo;
 	const struct xt_multiport_v1 *multiinfo = par->matchinfo;
 

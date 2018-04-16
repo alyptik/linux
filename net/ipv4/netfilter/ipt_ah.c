@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match AH parameters. */
 /* (C) 1999-2000 Yon Uriarte <yon@astaro.de>
  *
@@ -22,6 +23,7 @@ MODULE_DESCRIPTION("Xtables: IPv4 IPsec-AH SPI match");
 static inline bool
 spi_match(u_int32_t min, u_int32_t max, u_int32_t spi, bool invert)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_ah.c: line 26 \n"); 
 	bool r;
 	pr_debug("spi_match:%c 0x%x <= 0x%x <= 0x%x\n",
 		 invert ? '!' : ' ', min, spi, max);
@@ -32,6 +34,7 @@ spi_match(u_int32_t min, u_int32_t max, u_int32_t spi, bool invert)
 
 static bool ah_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_ah.c: line 37 \n"); 
 	struct ip_auth_hdr _ahdr;
 	const struct ip_auth_hdr *ah;
 	const struct ipt_ah *ahinfo = par->matchinfo;
@@ -57,6 +60,7 @@ static bool ah_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ah_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_ah.c: line 63 \n"); 
 	const struct ipt_ah *ahinfo = par->matchinfo;
 
 	/* Must specify no unknown invflags */

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * linux/net/netfilter/xt_IDLETIMER.c
  *
@@ -66,6 +67,7 @@ static struct kobject *idletimer_tg_kobj;
 static
 struct idletimer_tg *__idletimer_tg_find_by_label(const char *label)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_IDLETIMER.c: line 70 \n"); 
 	struct idletimer_tg *entry;
 
 	BUG_ON(!label);
@@ -81,6 +83,7 @@ struct idletimer_tg *__idletimer_tg_find_by_label(const char *label)
 static ssize_t idletimer_tg_show(struct kobject *kobj, struct attribute *attr,
 				 char *buf)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_IDLETIMER.c: line 86 \n"); 
 	struct idletimer_tg *timer;
 	unsigned long expires = 0;
 
@@ -101,6 +104,7 @@ static ssize_t idletimer_tg_show(struct kobject *kobj, struct attribute *attr,
 
 static void idletimer_tg_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_IDLETIMER.c: line 107 \n"); 
 	struct idletimer_tg *timer = container_of(work, struct idletimer_tg,
 						  work);
 
@@ -109,6 +113,7 @@ static void idletimer_tg_work(struct work_struct *work)
 
 static void idletimer_tg_expired(unsigned long data)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_IDLETIMER.c: line 116 \n"); 
 	struct idletimer_tg *timer = (struct idletimer_tg *) data;
 
 	pr_debug("timer %s expired\n", timer->attr.attr.name);
@@ -118,6 +123,7 @@ static void idletimer_tg_expired(unsigned long data)
 
 static int idletimer_tg_create(struct idletimer_tg_info *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_IDLETIMER.c: line 126 \n"); 
 	int ret;
 
 	info->timer = kmalloc(sizeof(*info->timer), GFP_KERNEL);
@@ -168,6 +174,7 @@ out:
 static unsigned int idletimer_tg_target(struct sk_buff *skb,
 					 const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_IDLETIMER.c: line 177 \n"); 
 	const struct idletimer_tg_info *info = par->targinfo;
 
 	pr_debug("resetting timer %s, timeout period %u\n",
@@ -183,6 +190,7 @@ static unsigned int idletimer_tg_target(struct sk_buff *skb,
 
 static int idletimer_tg_checkentry(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_IDLETIMER.c: line 193 \n"); 
 	struct idletimer_tg_info *info = par->targinfo;
 	int ret;
 
@@ -225,6 +233,7 @@ static int idletimer_tg_checkentry(const struct xt_tgchk_param *par)
 
 static void idletimer_tg_destroy(const struct xt_tgdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_IDLETIMER.c: line 236 \n"); 
 	const struct idletimer_tg_info *info = par->targinfo;
 
 	pr_debug("destroy targinfo %s\n", info->label);

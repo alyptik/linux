@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	fs/libfs.c
  *	Library for filesystems writers.
@@ -23,6 +24,7 @@
 int simple_getattr(struct vfsmount *mnt, struct dentry *dentry,
 		   struct kstat *stat)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 27 \n"); 
 	struct inode *inode = d_inode(dentry);
 	generic_fillattr(inode, stat);
 	stat->blocks = inode->i_mapping->nrpages << (PAGE_SHIFT - 9);
@@ -171,6 +173,7 @@ EXPORT_SYMBOL(dcache_dir_lseek);
 /* Relationship between i_mode and the DT_xxx types */
 static inline unsigned char dt_type(struct inode *inode)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/libfs.c: line 176 \n"); 
 	return (inode->i_mode >> 12) & 15;
 }
 
@@ -287,6 +290,7 @@ EXPORT_SYMBOL(mount_pseudo_xattr);
 
 int simple_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 293 \n"); 
 	if (inode->i_private)
 		file->private_data = inode->i_private;
 	return 0;
@@ -295,6 +299,7 @@ EXPORT_SYMBOL(simple_open);
 
 int simple_link(struct dentry *old_dentry, struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 302 \n"); 
 	struct inode *inode = d_inode(old_dentry);
 
 	inode->i_ctime = dir->i_ctime = dir->i_mtime = current_time(inode);
@@ -329,6 +334,7 @@ EXPORT_SYMBOL(simple_empty);
 
 int simple_unlink(struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 337 \n"); 
 	struct inode *inode = d_inode(dentry);
 
 	inode->i_ctime = dir->i_ctime = dir->i_mtime = current_time(inode);
@@ -340,6 +346,7 @@ EXPORT_SYMBOL(simple_unlink);
 
 int simple_rmdir(struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 349 \n"); 
 	if (!simple_empty(dentry))
 		return -ENOTEMPTY;
 
@@ -354,6 +361,7 @@ int simple_rename(struct inode *old_dir, struct dentry *old_dentry,
 		  struct inode *new_dir, struct dentry *new_dentry,
 		  unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 364 \n"); 
 	struct inode *inode = d_inode(old_dentry);
 	int they_are_dirs = d_is_dir(old_dentry);
 
@@ -414,6 +422,7 @@ EXPORT_SYMBOL(simple_setattr);
 
 int simple_readpage(struct file *file, struct page *page)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 425 \n"); 
 	clear_highpage(page);
 	flush_dcache_page(page);
 	SetPageUptodate(page);
@@ -426,6 +435,7 @@ int simple_write_begin(struct file *file, struct address_space *mapping,
 			loff_t pos, unsigned len, unsigned flags,
 			struct page **pagep, void **fsdata)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 438 \n"); 
 	struct page *page;
 	pgoff_t index;
 
@@ -471,6 +481,7 @@ int simple_write_end(struct file *file, struct address_space *mapping,
 			loff_t pos, unsigned len, unsigned copied,
 			struct page *page, void *fsdata)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 484 \n"); 
 	struct inode *inode = page->mapping->host;
 	loff_t last_pos = pos + copied;
 
@@ -592,6 +603,7 @@ EXPORT_SYMBOL(simple_pin_fs);
 
 void simple_release_fs(struct vfsmount **mount, int *count)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 606 \n"); 
 	struct vfsmount *mnt;
 	spin_lock(&pin_fs_lock);
 	mnt = *mount;
@@ -689,6 +701,7 @@ EXPORT_SYMBOL(simple_write_to_buffer);
 ssize_t memory_read_from_buffer(void *to, size_t count, loff_t *ppos,
 				const void *from, size_t available)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 704 \n"); 
 	loff_t pos = *ppos;
 
 	if (pos < 0)
@@ -713,6 +726,7 @@ EXPORT_SYMBOL(memory_read_from_buffer);
 
 void simple_transaction_set(struct file *file, size_t n)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 729 \n"); 
 	struct simple_transaction_argresp *ar = file->private_data;
 
 	BUG_ON(n > SIMPLE_TRANSACTION_LIMIT);
@@ -770,6 +784,7 @@ EXPORT_SYMBOL(simple_transaction_read);
 
 int simple_transaction_release(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 787 \n"); 
 	free_page((unsigned long)file->private_data);
 	return 0;
 }
@@ -793,6 +808,7 @@ int simple_attr_open(struct inode *inode, struct file *file,
 		     int (*get)(void *, u64 *), int (*set)(void *, u64),
 		     const char *fmt)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 811 \n"); 
 	struct simple_attr *attr;
 
 	attr = kmalloc(sizeof(*attr), GFP_KERNEL);
@@ -813,6 +829,7 @@ EXPORT_SYMBOL_GPL(simple_attr_open);
 
 int simple_attr_release(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 832 \n"); 
 	kfree(file->private_data);
 	return 0;
 }
@@ -903,6 +920,7 @@ struct dentry *generic_fh_to_dentry(struct super_block *sb, struct fid *fid,
 		int fh_len, int fh_type, struct inode *(*get_inode)
 			(struct super_block *sb, u64 ino, u32 gen))
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 923 \n"); 
 	struct inode *inode = NULL;
 
 	if (fh_len < 2)
@@ -936,6 +954,7 @@ struct dentry *generic_fh_to_parent(struct super_block *sb, struct fid *fid,
 		int fh_len, int fh_type, struct inode *(*get_inode)
 			(struct super_block *sb, u64 ino, u32 gen))
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 957 \n"); 
 	struct inode *inode = NULL;
 
 	if (fh_len <= 2)
@@ -967,6 +986,7 @@ EXPORT_SYMBOL_GPL(generic_fh_to_parent);
 int __generic_file_fsync(struct file *file, loff_t start, loff_t end,
 				 int datasync)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 989 \n"); 
 	struct inode *inode = file->f_mapping->host;
 	int err;
 	int ret;
@@ -1005,6 +1025,7 @@ EXPORT_SYMBOL(__generic_file_fsync);
 int generic_file_fsync(struct file *file, loff_t start, loff_t end,
 		       int datasync)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 1028 \n"); 
 	struct inode *inode = file->f_mapping->host;
 	int err;
 
@@ -1026,6 +1047,7 @@ EXPORT_SYMBOL(generic_file_fsync);
  */
 int generic_check_addressable(unsigned blocksize_bits, u64 num_blocks)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 1050 \n"); 
 	u64 last_fs_block = num_blocks - 1;
 	u64 last_fs_page =
 		last_fs_block >> (PAGE_SHIFT - blocksize_bits);
@@ -1066,6 +1088,7 @@ EXPORT_SYMBOL(kfree_link);
  */
 static int anon_set_page_dirty(struct page *page)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 1091 \n"); 
 	return 0;
 };
 
@@ -1117,6 +1140,7 @@ int
 simple_nosetlease(struct file *filp, long arg, struct file_lock **flp,
 		  void **priv)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 1143 \n"); 
 	return -EINVAL;
 }
 EXPORT_SYMBOL(simple_nosetlease);
@@ -1152,11 +1176,13 @@ static int empty_dir_getattr(struct vfsmount *mnt, struct dentry *dentry,
 
 static int empty_dir_setattr(struct dentry *dentry, struct iattr *attr)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 1179 \n"); 
 	return -EPERM;
 }
 
 static ssize_t empty_dir_listxattr(struct dentry *dentry, char *list, size_t size)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 1185 \n"); 
 	return -EOPNOTSUPP;
 }
 
@@ -1170,12 +1196,14 @@ static const struct inode_operations empty_dir_inode_operations = {
 
 static loff_t empty_dir_llseek(struct file *file, loff_t offset, int whence)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 1199 \n"); 
 	/* An empty directory has two entries . and .. at offsets 0 and 1 */
 	return generic_file_llseek_size(file, offset, whence, 2, 2);
 }
 
 static int empty_dir_readdir(struct file *file, struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 1206 \n"); 
 	dir_emit_dots(file, ctx);
 	return 0;
 }
@@ -1206,6 +1234,7 @@ void make_empty_dir_inode(struct inode *inode)
 
 bool is_empty_dir_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/libfs.c: line 1237 \n"); 
 	return (inode->i_fop == &empty_dir_operations) &&
 		(inode->i_op == &empty_dir_inode_operations);
 }

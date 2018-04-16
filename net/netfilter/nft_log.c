@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  * Copyright (c) 2012-2014 Pablo Neira Ayuso <pablo@netfilter.org>
@@ -30,6 +31,7 @@ static void nft_log_eval(const struct nft_expr *expr,
 			 struct nft_regs *regs,
 			 const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_log.c: line 34 \n"); 
 	const struct nft_log *priv = nft_expr_priv(expr);
 
 	nf_log_packet(pkt->net, pkt->pf, pkt->hook, pkt->skb, pkt->in,
@@ -50,6 +52,7 @@ static int nft_log_init(const struct nft_ctx *ctx,
 			const struct nft_expr *expr,
 			const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_log.c: line 55 \n"); 
 	struct nft_log *priv = nft_expr_priv(expr);
 	struct nf_loginfo *li = &priv->loginfo;
 	const struct nlattr *nla;
@@ -126,6 +129,7 @@ err1:
 static void nft_log_destroy(const struct nft_ctx *ctx,
 			    const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_log.c: line 132 \n"); 
 	struct nft_log *priv = nft_expr_priv(expr);
 	struct nf_loginfo *li = &priv->loginfo;
 
@@ -137,6 +141,7 @@ static void nft_log_destroy(const struct nft_ctx *ctx,
 
 static int nft_log_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_log.c: line 144 \n"); 
 	const struct nft_log *priv = nft_expr_priv(expr);
 	const struct nf_loginfo *li = &priv->loginfo;
 

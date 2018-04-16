@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* IRC extension for IP connection tracking, Version 1.21
  * (C) 2000-2002 by Harald Welte <laforge@gnumonks.org>
  * based on RR's ip_conntrack_ftp.c
@@ -74,6 +75,7 @@ static const char *const dccprotos[] = {
 static int parse_dcc(char *data, const char *data_end, __be32 *ip,
 		     u_int16_t *port, char **ad_beg_p, char **ad_end_p)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_irc.c: line 78 \n"); 
 	char *tmp;
 
 	/* at least 12: "AAAAAAAA P\1\n" */
@@ -108,6 +110,7 @@ static int parse_dcc(char *data, const char *data_end, __be32 *ip,
 static int help(struct sk_buff *skb, unsigned int protoff,
 		struct nf_conn *ct, enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_irc.c: line 113 \n"); 
 	unsigned int dataoff;
 	const struct iphdr *iph;
 	const struct tcphdr *th;
@@ -274,6 +277,7 @@ static int __init nf_conntrack_irc_init(void)
  * it is needed by the init function */
 static void nf_conntrack_irc_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_irc.c: line 280 \n"); 
 	nf_conntrack_helpers_unregister(irc, ports_c);
 	kfree(irc_buffer);
 }

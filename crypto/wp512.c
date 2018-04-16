@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -1003,6 +1004,7 @@ static int wp512_init(struct shash_desc *desc) {
 static int wp512_update(struct shash_desc *desc, const u8 *source,
 			 unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/wp512.c: line 1007 \n"); 
 	struct wp512_ctx *wctx = shash_desc_ctx(desc);
 	int sourcePos    = 0;
 	unsigned int bits_len = len * 8; // convert to number of bits
@@ -1064,6 +1066,7 @@ static int wp512_update(struct shash_desc *desc, const u8 *source,
 
 static int wp512_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/wp512.c: line 1069 \n"); 
 	struct wp512_ctx *wctx = shash_desc_ctx(desc);
 	int i;
    	u8 *buffer      = wctx->buffer;
@@ -1099,6 +1102,7 @@ static int wp512_final(struct shash_desc *desc, u8 *out)
 
 static int wp384_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/wp512.c: line 1105 \n"); 
 	u8 D[64];
 
 	wp512_final(desc, D);
@@ -1110,6 +1114,7 @@ static int wp384_final(struct shash_desc *desc, u8 *out)
 
 static int wp256_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/wp512.c: line 1117 \n"); 
 	u8 D[64];
 
 	wp512_final(desc, D);

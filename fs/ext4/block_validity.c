@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/ext4/block_validity.c
  *
@@ -37,12 +38,14 @@ int __init ext4_init_system_zone(void)
 
 void ext4_exit_system_zone(void)
 {
+	panic("We reached unpopular paths in fs/ext4/block_validity.c: line 41 \n"); 
 	kmem_cache_destroy(ext4_system_zone_cachep);
 }
 
 static inline int can_merge(struct ext4_system_zone *entry1,
 		     struct ext4_system_zone *entry2)
 {
+	panic("We reached unpopular paths in fs/ext4/block_validity.c: line 48 \n"); 
 	if ((entry1->start_blk + entry1->count) == entry2->start_blk)
 		return 1;
 	return 0;
@@ -57,6 +60,7 @@ static int add_system_zone(struct ext4_sb_info *sbi,
 			   ext4_fsblk_t start_blk,
 			   unsigned int count)
 {
+	panic("We reached unpopular paths in fs/ext4/block_validity.c: line 63 \n"); 
 	struct ext4_system_zone *new_entry = NULL, *entry;
 	struct rb_node **n = &sbi->system_blks.rb_node, *node;
 	struct rb_node *parent = NULL, *new_node = NULL;
@@ -120,6 +124,7 @@ static int add_system_zone(struct ext4_sb_info *sbi,
 
 static void debug_print_tree(struct ext4_sb_info *sbi)
 {
+	panic("We reached unpopular paths in fs/ext4/block_validity.c: line 127 \n"); 
 	struct rb_node *node;
 	struct ext4_system_zone *entry;
 	int first = 1;
@@ -138,6 +143,7 @@ static void debug_print_tree(struct ext4_sb_info *sbi)
 
 int ext4_setup_system_zone(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/block_validity.c: line 146 \n"); 
 	ext4_group_t ngroups = ext4_get_groups_count(sb);
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
 	struct ext4_group_desc *gdp;
@@ -179,6 +185,7 @@ int ext4_setup_system_zone(struct super_block *sb)
 /* Called when the filesystem is unmounted */
 void ext4_release_system_zone(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/ext4/block_validity.c: line 188 \n"); 
 	struct ext4_system_zone	*entry, *n;
 
 	rbtree_postorder_for_each_entry_safe(entry, n,
@@ -196,6 +203,7 @@ void ext4_release_system_zone(struct super_block *sb)
 int ext4_data_block_valid(struct ext4_sb_info *sbi, ext4_fsblk_t start_blk,
 			  unsigned int count)
 {
+	panic("We reached unpopular paths in fs/ext4/block_validity.c: line 206 \n"); 
 	struct ext4_system_zone *entry;
 	struct rb_node *n = sbi->system_blks.rb_node;
 
@@ -222,6 +230,7 @@ int ext4_data_block_valid(struct ext4_sb_info *sbi, ext4_fsblk_t start_blk,
 int ext4_check_blockref(const char *function, unsigned int line,
 			struct inode *inode, __le32 *p, unsigned int max)
 {
+	panic("We reached unpopular paths in fs/ext4/block_validity.c: line 233 \n"); 
 	struct ext4_super_block *es = EXT4_SB(inode->i_sb)->s_es;
 	__le32 *bref = p;
 	unsigned int blk;

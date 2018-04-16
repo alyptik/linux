@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Connection tracking protocol helper module for SCTP.
  *
@@ -158,6 +159,7 @@ static inline struct sctp_net *sctp_pernet(struct net *net)
 static bool sctp_pkt_to_tuple(const struct sk_buff *skb, unsigned int dataoff,
 			      struct net *net, struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_sctp.c: line 162 \n"); 
 	const struct sctphdr *hp;
 	struct sctphdr _hdr;
 
@@ -174,6 +176,7 @@ static bool sctp_pkt_to_tuple(const struct sk_buff *skb, unsigned int dataoff,
 static bool sctp_invert_tuple(struct nf_conntrack_tuple *tuple,
 			      const struct nf_conntrack_tuple *orig)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_sctp.c: line 179 \n"); 
 	tuple->src.u.sctp.port = orig->dst.u.sctp.port;
 	tuple->dst.u.sctp.port = orig->src.u.sctp.port;
 	return true;
@@ -183,6 +186,7 @@ static bool sctp_invert_tuple(struct nf_conntrack_tuple *tuple,
 static void sctp_print_tuple(struct seq_file *s,
 			     const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_sctp.c: line 189 \n"); 
 	seq_printf(s, "sport=%hu dport=%hu ",
 		   ntohs(tuple->src.u.sctp.port),
 		   ntohs(tuple->dst.u.sctp.port));
@@ -191,6 +195,7 @@ static void sctp_print_tuple(struct seq_file *s,
 /* Print out the private part of the conntrack. */
 static void sctp_print_conntrack(struct seq_file *s, struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_sctp.c: line 198 \n"); 
 	seq_printf(s, "%s ", sctp_conntrack_names[ct->proto.sctp.state]);
 }
 
@@ -206,6 +211,7 @@ static int do_basic_checks(struct nf_conn *ct,
 			   unsigned int dataoff,
 			   unsigned long *map)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_sctp.c: line 214 \n"); 
 	u_int32_t offset, count;
 	sctp_chunkhdr_t _sch, *sch;
 	int flag;
@@ -245,6 +251,7 @@ static int sctp_new_state(enum ip_conntrack_dir dir,
 			  enum sctp_conntrack cur_state,
 			  int chunk_type)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_sctp.c: line 254 \n"); 
 	int i;
 
 	pr_debug("Chunk type: %d\n", chunk_type);
@@ -310,6 +317,7 @@ static int sctp_new_state(enum ip_conntrack_dir dir,
 
 static unsigned int *sctp_get_timeouts(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_sctp.c: line 320 \n"); 
 	return sctp_pernet(net)->timeouts;
 }
 
@@ -322,6 +330,7 @@ static int sctp_packet(struct nf_conn *ct,
 		       unsigned int hooknum,
 		       unsigned int *timeouts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_sctp.c: line 333 \n"); 
 	enum sctp_conntrack new_state, old_state;
 	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);
 	const struct sctphdr *sh;
@@ -439,6 +448,7 @@ out:
 static bool sctp_new(struct nf_conn *ct, const struct sk_buff *skb,
 		     unsigned int dataoff, unsigned int *timeouts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_sctp.c: line 451 \n"); 
 	enum sctp_conntrack new_state;
 	const struct sctphdr *sh;
 	struct sctphdr _sctph;

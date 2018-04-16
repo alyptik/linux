@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -40,6 +41,7 @@
 
 static void bf_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/blowfish_generic.c: line 44 \n"); 
 	struct bf_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __be32 *in_blk = (const __be32 *)src;
 	__be32 *const out_blk = (__be32 *)dst;
@@ -74,6 +76,7 @@ static void bf_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 
 static void bf_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/blowfish_generic.c: line 79 \n"); 
 	struct bf_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __be32 *in_blk = (const __be32 *)src;
 	__be32 *const out_blk = (__be32 *)dst;

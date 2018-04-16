@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2011 Patrick McHardy <kaber@trash.net>
  *
@@ -38,6 +39,7 @@ static unsigned int ip6table_nat_do_chain(void *priv,
 					  const struct nf_hook_state *state,
 					  struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6table_nat.c: line 42 \n"); 
 	return ip6t_do_table(skb, state, state->net->ipv6.ip6table_nat);
 }
 
@@ -45,6 +47,7 @@ static unsigned int ip6table_nat_fn(void *priv,
 				    struct sk_buff *skb,
 				    const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6table_nat.c: line 50 \n"); 
 	return nf_nat_ipv6_fn(priv, skb, state, ip6table_nat_do_chain);
 }
 
@@ -52,6 +55,7 @@ static unsigned int ip6table_nat_in(void *priv,
 				    struct sk_buff *skb,
 				    const struct nf_hook_state *state)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6table_nat.c: line 58 \n"); 
 	return nf_nat_ipv6_in(priv, skb, state, ip6table_nat_do_chain);
 }
 

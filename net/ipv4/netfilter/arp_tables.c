@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Packet matching code for ARP packets.
  *
@@ -62,6 +63,7 @@ static inline int arp_devaddr_compare(const struct arpt_devaddr_info *ap,
  */
 static unsigned long ifname_compare(const char *_a, const char *_b, const char *_mask)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/arp_tables.c: line 66 \n"); 
 #ifdef CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS
 	unsigned long ret = ifname_compare_aligned(_a, _b, _mask);
 #else
@@ -154,6 +156,7 @@ static inline int arp_checkentry(const struct arpt_arp *arp)
 static unsigned int
 arpt_error(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/arp_tables.c: line 159 \n"); 
 	net_err_ratelimited("arp_tables: error: '%s'\n",
 			    (const char *)par->targinfo);
 
@@ -163,18 +166,21 @@ arpt_error(struct sk_buff *skb, const struct xt_action_param *par)
 static inline const struct xt_entry_target *
 arpt_get_target_c(const struct arpt_entry *e)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/netfilter/arp_tables.c: line 169 \n"); 
 	return arpt_get_target((struct arpt_entry *)e);
 }
 
 static inline struct arpt_entry *
 get_entry(const void *base, unsigned int offset)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/arp_tables.c: line 176 \n"); 
 	return (struct arpt_entry *)(base + offset);
 }
 
 static inline
 struct arpt_entry *arpt_next_entry(const struct arpt_entry *entry)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/arp_tables.c: line 183 \n"); 
 	return (void *)entry + entry->next_offset;
 }
 
@@ -513,6 +519,7 @@ static inline int check_entry_size_and_hooks(struct arpt_entry *e,
 
 static inline void cleanup_entry(struct arpt_entry *e)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/arp_tables.c: line 522 \n"); 
 	struct xt_tgdtor_param par;
 	struct xt_entry_target *t;
 
@@ -618,6 +625,7 @@ static int translate_table(struct xt_table_info *newinfo, void *entry0,
 static void get_counters(const struct xt_table_info *t,
 			 struct xt_counters counters[])
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/arp_tables.c: line 628 \n"); 
 	struct arpt_entry *iter;
 	unsigned int cpu;
 	unsigned int i;
@@ -646,6 +654,7 @@ static void get_counters(const struct xt_table_info *t,
 
 static struct xt_counters *alloc_counters(const struct xt_table *table)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/arp_tables.c: line 657 \n"); 
 	unsigned int countersize;
 	struct xt_counters *counters;
 	const struct xt_table_info *private = table->private;
@@ -1520,6 +1529,7 @@ static int do_arpt_get_ctl(struct sock *sk, int cmd, void __user *user, int *len
 
 static void __arpt_unregister_table(struct xt_table *table)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/arp_tables.c: line 1532 \n"); 
 	struct xt_table_info *private;
 	void *loc_cpu_entry;
 	struct module *table_owner = table->me;
@@ -1584,6 +1594,7 @@ out_free:
 void arpt_unregister_table(struct net *net, struct xt_table *table,
 			   const struct nf_hook_ops *ops)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/arp_tables.c: line 1597 \n"); 
 	nf_unregister_net_hooks(net, ops, hweight32(table->valid_hooks));
 	__arpt_unregister_table(table);
 }

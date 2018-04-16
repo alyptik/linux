@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -53,6 +54,7 @@
  */
 static int sockstat_seq_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/ipv4/proc.c: line 57 \n"); 
 	struct net *net = seq->private;
 	unsigned int frag_mem;
 	int orphans, sockets;
@@ -81,6 +83,7 @@ static int sockstat_seq_show(struct seq_file *seq, void *v)
 
 static int sockstat_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/ipv4/proc.c: line 86 \n"); 
 	return single_open_net(inode, file, sockstat_seq_show);
 }
 
@@ -311,6 +314,7 @@ static const struct snmp_mib snmp4_net_list[] = {
 static void icmpmsg_put_line(struct seq_file *seq, unsigned long *vals,
 			     unsigned short *type, int count)
 {
+	panic("We reached unpopular paths in net/ipv4/proc.c: line 317 \n"); 
 	int j;
 
 	if (count) {
@@ -327,6 +331,7 @@ static void icmpmsg_put_line(struct seq_file *seq, unsigned long *vals,
 
 static void icmpmsg_put(struct seq_file *seq)
 {
+	panic("We reached unpopular paths in net/ipv4/proc.c: line 334 \n"); 
 #define PERLINE	16
 
 	int i, count;
@@ -353,6 +358,7 @@ static void icmpmsg_put(struct seq_file *seq)
 
 static void icmp_put(struct seq_file *seq)
 {
+	panic("We reached unpopular paths in net/ipv4/proc.c: line 361 \n"); 
 	int i;
 	struct net *net = seq->private;
 	atomic_long_t *ptr = net->mib.icmpmsg_statistics->mibs;
@@ -383,6 +389,7 @@ static void icmp_put(struct seq_file *seq)
  */
 static int snmp_seq_show_ipstats(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/ipv4/proc.c: line 392 \n"); 
 	struct net *net = seq->private;
 	u64 buff64[IPSTATS_MIB_MAX];
 	int i;
@@ -409,6 +416,7 @@ static int snmp_seq_show_ipstats(struct seq_file *seq, void *v)
 
 static int snmp_seq_show_tcp_udp(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/ipv4/proc.c: line 419 \n"); 
 	unsigned long buff[TCPUDP_MIB_MAX];
 	struct net *net = seq->private;
 	int i;
@@ -459,6 +467,7 @@ static int snmp_seq_show_tcp_udp(struct seq_file *seq, void *v)
 
 static int snmp_seq_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/ipv4/proc.c: line 470 \n"); 
 	snmp_seq_show_ipstats(seq, v);
 
 	icmp_put(seq);	/* RFC 2011 compatibility */
@@ -471,6 +480,7 @@ static int snmp_seq_show(struct seq_file *seq, void *v)
 
 static int snmp_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/ipv4/proc.c: line 483 \n"); 
 	return single_open_net(inode, file, snmp_seq_show);
 }
 
@@ -489,6 +499,7 @@ static const struct file_operations snmp_seq_fops = {
  */
 static int netstat_seq_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/ipv4/proc.c: line 502 \n"); 
 	int i;
 	struct net *net = seq->private;
 
@@ -519,6 +530,7 @@ static int netstat_seq_show(struct seq_file *seq, void *v)
 
 static int netstat_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/ipv4/proc.c: line 533 \n"); 
 	return single_open_net(inode, file, netstat_seq_show);
 }
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * GCM: Galois/Counter Mode.
  *
@@ -93,6 +94,7 @@ static int crypto_rfc4543_copy_src_to_dst(struct aead_request *req, bool enc);
 static inline struct crypto_gcm_req_priv_ctx *crypto_gcm_reqctx(
 	struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 97 \n"); 
 	unsigned long align = crypto_aead_alignmask(crypto_aead_reqtfm(req));
 
 	return (void *)PTR_ALIGN((u8 *)aead_request_ctx(req), align + 1);
@@ -100,6 +102,7 @@ static inline struct crypto_gcm_req_priv_ctx *crypto_gcm_reqctx(
 
 static void crypto_gcm_setkey_done(struct crypto_async_request *req, int err)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 105 \n"); 
 	struct crypto_gcm_setkey_result *result = req->data;
 
 	if (err == -EINPROGRESS)
@@ -112,6 +115,7 @@ static void crypto_gcm_setkey_done(struct crypto_async_request *req, int err)
 static int crypto_gcm_setkey(struct crypto_aead *aead, const u8 *key,
 			     unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 118 \n"); 
 	struct crypto_gcm_ctx *ctx = crypto_aead_ctx(aead);
 	struct crypto_ahash *ghash = ctx->ghash;
 	struct crypto_skcipher *ctr = ctx->ctr;
@@ -192,6 +196,7 @@ static int crypto_gcm_setauthsize(struct crypto_aead *tfm,
 
 static void crypto_gcm_init_common(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 199 \n"); 
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
 	__be32 counter = cpu_to_be32(1);
 	struct scatterlist *sg;
@@ -218,6 +223,7 @@ static void crypto_gcm_init_common(struct aead_request *req)
 static void crypto_gcm_init_crypt(struct aead_request *req,
 				  unsigned int cryptlen)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 226 \n"); 
 	struct crypto_aead *aead = crypto_aead_reqtfm(req);
 	struct crypto_gcm_ctx *ctx = crypto_aead_ctx(aead);
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
@@ -234,6 +240,7 @@ static void crypto_gcm_init_crypt(struct aead_request *req,
 
 static inline unsigned int gcm_remain(unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 243 \n"); 
 	len &= 0xfU;
 	return len ? 16 - len : 0;
 }
@@ -263,6 +270,7 @@ static int gcm_hash_remain(struct aead_request *req,
 
 static int gcm_hash_len(struct aead_request *req, u32 flags)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 273 \n"); 
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
 	struct ahash_request *ahreq = &pctx->u.ahreq;
 	struct crypto_gcm_ghash_ctx *gctx = &pctx->ghash_ctx;
@@ -281,6 +289,7 @@ static int gcm_hash_len(struct aead_request *req, u32 flags)
 
 static int gcm_hash_len_continue(struct aead_request *req, u32 flags)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 292 \n"); 
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
 	struct crypto_gcm_ghash_ctx *gctx = &pctx->ghash_ctx;
 
@@ -289,6 +298,7 @@ static int gcm_hash_len_continue(struct aead_request *req, u32 flags)
 
 static void gcm_hash_len_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 301 \n"); 
 	struct aead_request *req = areq->data;
 
 	if (err)
@@ -304,6 +314,7 @@ out:
 
 static int gcm_hash_crypt_remain_continue(struct aead_request *req, u32 flags)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 317 \n"); 
 	return gcm_hash_len(req, flags) ?:
 	       gcm_hash_len_continue(req, flags);
 }
@@ -311,6 +322,7 @@ static int gcm_hash_crypt_remain_continue(struct aead_request *req, u32 flags)
 static void gcm_hash_crypt_remain_done(struct crypto_async_request *areq,
 				       int err)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 325 \n"); 
 	struct aead_request *req = areq->data;
 
 	if (err)
@@ -326,6 +338,7 @@ out:
 
 static int gcm_hash_crypt_continue(struct aead_request *req, u32 flags)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 341 \n"); 
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
 	struct crypto_gcm_ghash_ctx *gctx = &pctx->ghash_ctx;
 	unsigned int remain;
@@ -341,6 +354,7 @@ static int gcm_hash_crypt_continue(struct aead_request *req, u32 flags)
 
 static void gcm_hash_crypt_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 357 \n"); 
 	struct aead_request *req = areq->data;
 
 	if (err)
@@ -356,6 +370,7 @@ out:
 
 static int gcm_hash_assoc_remain_continue(struct aead_request *req, u32 flags)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 373 \n"); 
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
 	struct crypto_gcm_ghash_ctx *gctx = &pctx->ghash_ctx;
 
@@ -370,6 +385,7 @@ static int gcm_hash_assoc_remain_continue(struct aead_request *req, u32 flags)
 static void gcm_hash_assoc_remain_done(struct crypto_async_request *areq,
 				       int err)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 388 \n"); 
 	struct aead_request *req = areq->data;
 
 	if (err)
@@ -385,6 +401,7 @@ out:
 
 static int gcm_hash_assoc_continue(struct aead_request *req, u32 flags)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 404 \n"); 
 	unsigned int remain;
 
 	remain = gcm_remain(req->assoclen);
@@ -398,6 +415,7 @@ static int gcm_hash_assoc_continue(struct aead_request *req, u32 flags)
 
 static void gcm_hash_assoc_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 418 \n"); 
 	struct aead_request *req = areq->data;
 
 	if (err)
@@ -413,6 +431,7 @@ out:
 
 static int gcm_hash_init_continue(struct aead_request *req, u32 flags)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 434 \n"); 
 	if (req->assoclen)
 		return gcm_hash_update(req, gcm_hash_assoc_done,
 				       req->src, req->assoclen, flags) ?:
@@ -423,6 +442,7 @@ static int gcm_hash_init_continue(struct aead_request *req, u32 flags)
 
 static void gcm_hash_init_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 445 \n"); 
 	struct aead_request *req = areq->data;
 
 	if (err)
@@ -438,6 +458,7 @@ out:
 
 static int gcm_hash(struct aead_request *req, u32 flags)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 461 \n"); 
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
 	struct ahash_request *ahreq = &pctx->u.ahreq;
 	struct crypto_gcm_ctx *ctx = crypto_aead_ctx(crypto_aead_reqtfm(req));
@@ -451,6 +472,7 @@ static int gcm_hash(struct aead_request *req, u32 flags)
 
 static int gcm_enc_copy_hash(struct aead_request *req, u32 flags)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 475 \n"); 
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
 	struct crypto_aead *aead = crypto_aead_reqtfm(req);
 	u8 *auth_tag = pctx->auth_tag;
@@ -464,6 +486,7 @@ static int gcm_enc_copy_hash(struct aead_request *req, u32 flags)
 
 static int gcm_encrypt_continue(struct aead_request *req, u32 flags)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 489 \n"); 
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
 	struct crypto_gcm_ghash_ctx *gctx = &pctx->ghash_ctx;
 
@@ -476,6 +499,7 @@ static int gcm_encrypt_continue(struct aead_request *req, u32 flags)
 
 static void gcm_encrypt_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 502 \n"); 
 	struct aead_request *req = areq->data;
 
 	if (err)
@@ -491,6 +515,7 @@ out:
 
 static int crypto_gcm_encrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 518 \n"); 
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
 	struct skcipher_request *skreq = &pctx->u.skreq;
 	u32 flags = aead_request_flags(req);
@@ -505,6 +530,7 @@ static int crypto_gcm_encrypt(struct aead_request *req)
 
 static int crypto_gcm_verify(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 533 \n"); 
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
 	struct crypto_aead *aead = crypto_aead_reqtfm(req);
 	u8 *auth_tag = pctx->auth_tag;
@@ -520,6 +546,7 @@ static int crypto_gcm_verify(struct aead_request *req)
 
 static void gcm_decrypt_done(struct crypto_async_request *areq, int err)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 549 \n"); 
 	struct aead_request *req = areq->data;
 
 	if (!err)
@@ -530,6 +557,7 @@ static void gcm_decrypt_done(struct crypto_async_request *areq, int err)
 
 static int gcm_dec_hash_continue(struct aead_request *req, u32 flags)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 560 \n"); 
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
 	struct skcipher_request *skreq = &pctx->u.skreq;
 	struct crypto_gcm_ghash_ctx *gctx = &pctx->ghash_ctx;
@@ -541,6 +569,7 @@ static int gcm_dec_hash_continue(struct aead_request *req, u32 flags)
 
 static int crypto_gcm_decrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 572 \n"); 
 	struct crypto_aead *aead = crypto_aead_reqtfm(req);
 	struct crypto_gcm_req_priv_ctx *pctx = crypto_gcm_reqctx(req);
 	struct crypto_gcm_ghash_ctx *gctx = &pctx->ghash_ctx;
@@ -599,6 +628,7 @@ err_free_hash:
 
 static void crypto_gcm_exit_tfm(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 631 \n"); 
 	struct crypto_gcm_ctx *ctx = crypto_aead_ctx(tfm);
 
 	crypto_free_ahash(ctx->ghash);
@@ -607,6 +637,7 @@ static void crypto_gcm_exit_tfm(struct crypto_aead *tfm)
 
 static void crypto_gcm_free(struct aead_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 640 \n"); 
 	struct gcm_instance_ctx *ctx = aead_instance_ctx(inst);
 
 	crypto_drop_skcipher(&ctx->ctr);
@@ -755,6 +786,7 @@ static struct crypto_template crypto_gcm_tmpl = {
 static int crypto_gcm_base_create(struct crypto_template *tmpl,
 				  struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 789 \n"); 
 	const char *ctr_name;
 	const char *ghash_name;
 	char full_name[CRYPTO_MAX_ALG_NAME];
@@ -784,6 +816,7 @@ static struct crypto_template crypto_gcm_base_tmpl = {
 static int crypto_rfc4106_setkey(struct crypto_aead *parent, const u8 *key,
 				 unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 819 \n"); 
 	struct crypto_rfc4106_ctx *ctx = crypto_aead_ctx(parent);
 	struct crypto_aead *child = ctx->child;
 	int err;
@@ -807,6 +840,7 @@ static int crypto_rfc4106_setkey(struct crypto_aead *parent, const u8 *key,
 static int crypto_rfc4106_setauthsize(struct crypto_aead *parent,
 				      unsigned int authsize)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 843 \n"); 
 	struct crypto_rfc4106_ctx *ctx = crypto_aead_ctx(parent);
 
 	switch (authsize) {
@@ -823,6 +857,7 @@ static int crypto_rfc4106_setauthsize(struct crypto_aead *parent,
 
 static struct aead_request *crypto_rfc4106_crypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 860 \n"); 
 	struct crypto_rfc4106_req_ctx *rctx = aead_request_ctx(req);
 	struct crypto_aead *aead = crypto_aead_reqtfm(req);
 	struct crypto_rfc4106_ctx *ctx = crypto_aead_ctx(aead);
@@ -864,6 +899,7 @@ static struct aead_request *crypto_rfc4106_crypt(struct aead_request *req)
 
 static int crypto_rfc4106_encrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 902 \n"); 
 	if (req->assoclen != 16 && req->assoclen != 20)
 		return -EINVAL;
 
@@ -874,6 +910,7 @@ static int crypto_rfc4106_encrypt(struct aead_request *req)
 
 static int crypto_rfc4106_decrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 913 \n"); 
 	if (req->assoclen != 16 && req->assoclen != 20)
 		return -EINVAL;
 
@@ -884,6 +921,7 @@ static int crypto_rfc4106_decrypt(struct aead_request *req)
 
 static int crypto_rfc4106_init_tfm(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 924 \n"); 
 	struct aead_instance *inst = aead_alg_instance(tfm);
 	struct crypto_aead_spawn *spawn = aead_instance_ctx(inst);
 	struct crypto_rfc4106_ctx *ctx = crypto_aead_ctx(tfm);
@@ -909,6 +947,7 @@ static int crypto_rfc4106_init_tfm(struct crypto_aead *tfm)
 
 static void crypto_rfc4106_exit_tfm(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 950 \n"); 
 	struct crypto_rfc4106_ctx *ctx = crypto_aead_ctx(tfm);
 
 	crypto_free_aead(ctx->child);
@@ -916,6 +955,7 @@ static void crypto_rfc4106_exit_tfm(struct crypto_aead *tfm)
 
 static void crypto_rfc4106_free(struct aead_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 958 \n"); 
 	crypto_drop_aead(aead_instance_ctx(inst));
 	kfree(inst);
 }
@@ -923,6 +963,7 @@ static void crypto_rfc4106_free(struct aead_instance *inst)
 static int crypto_rfc4106_create(struct crypto_template *tmpl,
 				 struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 966 \n"); 
 	struct crypto_attr_type *algt;
 	struct aead_instance *inst;
 	struct crypto_aead_spawn *spawn;
@@ -1017,6 +1058,7 @@ static struct crypto_template crypto_rfc4106_tmpl = {
 static int crypto_rfc4543_setkey(struct crypto_aead *parent, const u8 *key,
 				 unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 1061 \n"); 
 	struct crypto_rfc4543_ctx *ctx = crypto_aead_ctx(parent);
 	struct crypto_aead *child = ctx->child;
 	int err;
@@ -1040,6 +1082,7 @@ static int crypto_rfc4543_setkey(struct crypto_aead *parent, const u8 *key,
 static int crypto_rfc4543_setauthsize(struct crypto_aead *parent,
 				      unsigned int authsize)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 1085 \n"); 
 	struct crypto_rfc4543_ctx *ctx = crypto_aead_ctx(parent);
 
 	if (authsize != 16)
@@ -1050,6 +1093,7 @@ static int crypto_rfc4543_setauthsize(struct crypto_aead *parent,
 
 static int crypto_rfc4543_crypt(struct aead_request *req, bool enc)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 1096 \n"); 
 	struct crypto_aead *aead = crypto_aead_reqtfm(req);
 	struct crypto_rfc4543_ctx *ctx = crypto_aead_ctx(aead);
 	struct crypto_rfc4543_req_ctx *rctx = aead_request_ctx(req);
@@ -1081,6 +1125,7 @@ static int crypto_rfc4543_crypt(struct aead_request *req, bool enc)
 
 static int crypto_rfc4543_copy_src_to_dst(struct aead_request *req, bool enc)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 1128 \n"); 
 	struct crypto_aead *aead = crypto_aead_reqtfm(req);
 	struct crypto_rfc4543_ctx *ctx = crypto_aead_ctx(aead);
 	unsigned int authsize = crypto_aead_authsize(aead);
@@ -1097,16 +1142,19 @@ static int crypto_rfc4543_copy_src_to_dst(struct aead_request *req, bool enc)
 
 static int crypto_rfc4543_encrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 1145 \n"); 
 	return crypto_rfc4543_crypt(req, true);
 }
 
 static int crypto_rfc4543_decrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 1151 \n"); 
 	return crypto_rfc4543_crypt(req, false);
 }
 
 static int crypto_rfc4543_init_tfm(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 1157 \n"); 
 	struct aead_instance *inst = aead_alg_instance(tfm);
 	struct crypto_rfc4543_instance_ctx *ictx = aead_instance_ctx(inst);
 	struct crypto_aead_spawn *spawn = &ictx->aead;
@@ -1145,6 +1193,7 @@ err_free_aead:
 
 static void crypto_rfc4543_exit_tfm(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 1196 \n"); 
 	struct crypto_rfc4543_ctx *ctx = crypto_aead_ctx(tfm);
 
 	crypto_free_aead(ctx->child);
@@ -1153,6 +1202,7 @@ static void crypto_rfc4543_exit_tfm(struct crypto_aead *tfm)
 
 static void crypto_rfc4543_free(struct aead_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 1205 \n"); 
 	struct crypto_rfc4543_instance_ctx *ctx = aead_instance_ctx(inst);
 
 	crypto_drop_aead(&ctx->aead);
@@ -1163,6 +1213,7 @@ static void crypto_rfc4543_free(struct aead_instance *inst)
 static int crypto_rfc4543_create(struct crypto_template *tmpl,
 				struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/gcm.c: line 1216 \n"); 
 	struct crypto_attr_type *algt;
 	struct aead_instance *inst;
 	struct crypto_aead_spawn *spawn;

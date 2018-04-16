@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/fs.h>
 #include <linux/init.h>
 #include <linux/interrupt.h>
@@ -10,11 +11,13 @@
  */
 static void *int_seq_start(struct seq_file *f, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/proc/interrupts.c: line 14 \n"); 
 	return (*pos <= nr_irqs) ? pos : NULL;
 }
 
 static void *int_seq_next(struct seq_file *f, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/proc/interrupts.c: line 20 \n"); 
 	(*pos)++;
 	if (*pos > nr_irqs)
 		return NULL;
@@ -23,6 +26,7 @@ static void *int_seq_next(struct seq_file *f, void *v, loff_t *pos)
 
 static void int_seq_stop(struct seq_file *f, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/interrupts.c: line 29 \n"); 
 	/* Nothing to do */
 }
 
@@ -35,6 +39,7 @@ static const struct seq_operations int_seq_ops = {
 
 static int interrupts_open(struct inode *inode, struct file *filp)
 {
+	panic("We reached unpopular paths in fs/proc/interrupts.c: line 42 \n"); 
 	return seq_open(filp, &int_seq_ops);
 }
 

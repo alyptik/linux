@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* IP tables module for matching the value of the IPv4/IPv6 DSCP field
  *
  * (C) 2002 by Harald Welte <laforge@netfilter.org>
@@ -27,6 +28,7 @@ MODULE_ALIAS("ip6t_tos");
 static bool
 dscp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_dscp.c: line 31 \n"); 
 	const struct xt_dscp_info *info = par->matchinfo;
 	u_int8_t dscp = ipv4_get_dsfield(ip_hdr(skb)) >> XT_DSCP_SHIFT;
 
@@ -36,6 +38,7 @@ dscp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 static bool
 dscp_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_dscp.c: line 41 \n"); 
 	const struct xt_dscp_info *info = par->matchinfo;
 	u_int8_t dscp = ipv6_get_dsfield(ipv6_hdr(skb)) >> XT_DSCP_SHIFT;
 
@@ -44,6 +47,7 @@ dscp_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int dscp_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_dscp.c: line 50 \n"); 
 	const struct xt_dscp_info *info = par->matchinfo;
 
 	if (info->dscp > XT_DSCP_MAX) {
@@ -56,6 +60,7 @@ static int dscp_mt_check(const struct xt_mtchk_param *par)
 
 static bool tos_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_dscp.c: line 63 \n"); 
 	const struct xt_tos_match_info *info = par->matchinfo;
 
 	if (par->family == NFPROTO_IPV4)

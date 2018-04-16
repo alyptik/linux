@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/module.h>
 #include <linux/errno.h>
 #include <linux/socket.h>
@@ -45,11 +46,13 @@ struct fou_net {
 
 static inline struct fou *fou_from_sock(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 49 \n"); 
 	return sk->sk_user_data;
 }
 
 static int fou_recv_pull(struct sk_buff *skb, struct fou *fou, size_t len)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 55 \n"); 
 	/* Remove 'len' bytes from the packet (UDP header and
 	 * FOU header if present).
 	 */
@@ -67,6 +70,7 @@ static int fou_recv_pull(struct sk_buff *skb, struct fou *fou, size_t len)
 
 static int fou_udp_recv(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 73 \n"); 
 	struct fou *fou = fou_from_sock(sk);
 
 	if (!fou)
@@ -86,6 +90,7 @@ static struct guehdr *gue_remcsum(struct sk_buff *skb, struct guehdr *guehdr,
 				  void *data, size_t hdrlen, u8 ipproto,
 				  bool nopartial)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 93 \n"); 
 	__be16 *pd = data;
 	size_t start = ntohs(pd[0]);
 	size_t offset = ntohs(pd[1]);
@@ -107,6 +112,7 @@ static struct guehdr *gue_remcsum(struct sk_buff *skb, struct guehdr *guehdr,
 
 static int gue_control_message(struct sk_buff *skb, struct guehdr *guehdr)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 115 \n"); 
 	/* No support yet */
 	kfree_skb(skb);
 	return 0;
@@ -114,6 +120,7 @@ static int gue_control_message(struct sk_buff *skb, struct guehdr *guehdr)
 
 static int gue_udp_recv(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 123 \n"); 
 	struct fou *fou = fou_from_sock(sk);
 	size_t len, optlen, hdrlen;
 	struct guehdr *guehdr;
@@ -227,6 +234,7 @@ static struct sk_buff **fou_gro_receive(struct sock *sk,
 					struct sk_buff **head,
 					struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 237 \n"); 
 	const struct net_offload *ops;
 	struct sk_buff **pp = NULL;
 	u8 proto = fou_from_sock(sk)->protocol;
@@ -260,6 +268,7 @@ out_unlock:
 static int fou_gro_complete(struct sock *sk, struct sk_buff *skb,
 			    int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 271 \n"); 
 	const struct net_offload *ops;
 	u8 proto = fou_from_sock(sk)->protocol;
 	int err = -ENOSYS;
@@ -286,6 +295,7 @@ static struct guehdr *gue_gro_remcsum(struct sk_buff *skb, unsigned int off,
 				      size_t hdrlen, struct gro_remcsum *grc,
 				      bool nopartial)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 298 \n"); 
 	__be16 *pd = data;
 	size_t start = ntohs(pd[0]);
 	size_t offset = ntohs(pd[1]);
@@ -308,6 +318,7 @@ static struct sk_buff **gue_gro_receive(struct sock *sk,
 					struct sk_buff **head,
 					struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 321 \n"); 
 	const struct net_offload **offloads;
 	const struct net_offload *ops;
 	struct sk_buff **pp = NULL;
@@ -455,6 +466,7 @@ out:
 
 static int gue_gro_complete(struct sock *sk, struct sk_buff *skb, int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 469 \n"); 
 	const struct net_offload **offloads;
 	struct guehdr *guehdr = (struct guehdr *)(skb->data + nhoff);
 	const struct net_offload *ops;
@@ -500,6 +512,7 @@ out_unlock:
 
 static int fou_add_to_port_list(struct net *net, struct fou *fou)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 515 \n"); 
 	struct fou_net *fn = net_generic(net, fou_net_id);
 	struct fou *fout;
 
@@ -520,6 +533,7 @@ static int fou_add_to_port_list(struct net *net, struct fou *fou)
 
 static void fou_release(struct fou *fou)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 536 \n"); 
 	struct socket *sock = fou->sock;
 
 	list_del(&fou->list);
@@ -531,6 +545,7 @@ static void fou_release(struct fou *fou)
 static int fou_create(struct net *net, struct fou_cfg *cfg,
 		      struct socket **sockp)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 548 \n"); 
 	struct socket *sock = NULL;
 	struct fou *fou = NULL;
 	struct sock *sk;
@@ -603,6 +618,7 @@ error:
 
 static int fou_destroy(struct net *net, struct fou_cfg *cfg)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 621 \n"); 
 	struct fou_net *fn = net_generic(net, fou_net_id);
 	__be16 port = cfg->udp_config.local_udp_port;
 	u8 family = cfg->udp_config.family;
@@ -642,6 +658,7 @@ static const struct nla_policy fou_nl_policy[FOU_ATTR_MAX + 1] = {
 static int parse_nl_config(struct genl_info *info,
 			   struct fou_cfg *cfg)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 661 \n"); 
 	memset(cfg, 0, sizeof(*cfg));
 
 	cfg->udp_config.family = AF_INET;
@@ -682,6 +699,7 @@ static int parse_nl_config(struct genl_info *info,
 
 static int fou_nl_cmd_add_port(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 702 \n"); 
 	struct net *net = genl_info_net(info);
 	struct fou_cfg cfg;
 	int err;
@@ -695,6 +713,7 @@ static int fou_nl_cmd_add_port(struct sk_buff *skb, struct genl_info *info)
 
 static int fou_nl_cmd_rm_port(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 716 \n"); 
 	struct net *net = genl_info_net(info);
 	struct fou_cfg cfg;
 	int err;
@@ -708,6 +727,7 @@ static int fou_nl_cmd_rm_port(struct sk_buff *skb, struct genl_info *info)
 
 static int fou_fill_info(struct fou *fou, struct sk_buff *msg)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 730 \n"); 
 	if (nla_put_u8(msg, FOU_ATTR_AF, fou->sock->sk->sk_family) ||
 	    nla_put_be16(msg, FOU_ATTR_PORT, fou->port) ||
 	    nla_put_u8(msg, FOU_ATTR_IPPROTO, fou->protocol) ||
@@ -723,6 +743,7 @@ static int fou_fill_info(struct fou *fou, struct sk_buff *msg)
 static int fou_dump_info(struct fou *fou, u32 portid, u32 seq,
 			 u32 flags, struct sk_buff *skb, u8 cmd)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 746 \n"); 
 	void *hdr;
 
 	hdr = genlmsg_put(skb, portid, seq, &fou_nl_family, flags, cmd);
@@ -742,6 +763,7 @@ nla_put_failure:
 
 static int fou_nl_cmd_get_port(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 766 \n"); 
 	struct net *net = genl_info_net(info);
 	struct fou_net *fn = net_generic(net, fou_net_id);
 	struct sk_buff *msg;
@@ -789,6 +811,7 @@ out_free:
 
 static int fou_nl_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 814 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct fou_net *fn = net_generic(net, fou_net_id);
 	struct fou *fout;
@@ -833,12 +856,14 @@ static const struct genl_ops fou_nl_ops[] = {
 
 size_t fou_encap_hlen(struct ip_tunnel_encap *e)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 859 \n"); 
 	return sizeof(struct udphdr);
 }
 EXPORT_SYMBOL(fou_encap_hlen);
 
 size_t gue_encap_hlen(struct ip_tunnel_encap *e)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 866 \n"); 
 	size_t len;
 	bool need_priv = false;
 
@@ -858,6 +883,7 @@ EXPORT_SYMBOL(gue_encap_hlen);
 static void fou_build_udp(struct sk_buff *skb, struct ip_tunnel_encap *e,
 			  struct flowi4 *fl4, u8 *protocol, __be16 sport)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 886 \n"); 
 	struct udphdr *uh;
 
 	skb_push(skb, sizeof(struct udphdr));
@@ -877,6 +903,7 @@ static void fou_build_udp(struct sk_buff *skb, struct ip_tunnel_encap *e,
 int __fou_build_header(struct sk_buff *skb, struct ip_tunnel_encap *e,
 		       u8 *protocol, __be16 *sport, int type)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 906 \n"); 
 	int err;
 
 	err = iptunnel_handle_offloads(skb, type);
@@ -893,6 +920,7 @@ EXPORT_SYMBOL(__fou_build_header);
 int fou_build_header(struct sk_buff *skb, struct ip_tunnel_encap *e,
 		     u8 *protocol, struct flowi4 *fl4)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 923 \n"); 
 	int type = e->flags & TUNNEL_ENCAP_FLAG_CSUM ? SKB_GSO_UDP_TUNNEL_CSUM :
 						       SKB_GSO_UDP_TUNNEL;
 	__be16 sport;
@@ -911,6 +939,7 @@ EXPORT_SYMBOL(fou_build_header);
 int __gue_build_header(struct sk_buff *skb, struct ip_tunnel_encap *e,
 		       u8 *protocol, __be16 *sport, int type)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 942 \n"); 
 	struct guehdr *guehdr;
 	size_t hdrlen, optlen = 0;
 	void *data;
@@ -984,6 +1013,7 @@ EXPORT_SYMBOL(__gue_build_header);
 int gue_build_header(struct sk_buff *skb, struct ip_tunnel_encap *e,
 		     u8 *protocol, struct flowi4 *fl4)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 1016 \n"); 
 	int type = e->flags & TUNNEL_ENCAP_FLAG_CSUM ? SKB_GSO_UDP_TUNNEL_CSUM :
 						       SKB_GSO_UDP_TUNNEL;
 	__be16 sport;
@@ -1041,11 +1071,13 @@ static void ip_tunnel_encap_del_fou_ops(void)
 
 static int ip_tunnel_encap_add_fou_ops(void)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 1074 \n"); 
 	return 0;
 }
 
 static void ip_tunnel_encap_del_fou_ops(void)
 {
+	panic("We reached unpopular paths in net/ipv4/fou.c: line 1080 \n"); 
 }
 
 #endif

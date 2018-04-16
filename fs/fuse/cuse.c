@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * CUSE: Character device in Userspace
  *
@@ -69,11 +70,13 @@ static struct class *cuse_class;
 
 static struct cuse_conn *fc_to_cc(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 73 \n"); 
 	return container_of(fc, struct cuse_conn, fc);
 }
 
 static struct list_head *cuse_conntbl_head(dev_t devt)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 79 \n"); 
 	return &cuse_conntbl[(MAJOR(devt) + MINOR(devt)) % CUSE_CONNTBL_LEN];
 }
 
@@ -90,6 +93,7 @@ static struct list_head *cuse_conntbl_head(dev_t devt)
 
 static ssize_t cuse_read_iter(struct kiocb *kiocb, struct iov_iter *to)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 96 \n"); 
 	struct fuse_io_priv io = FUSE_IO_PRIV_SYNC(kiocb->ki_filp);
 	loff_t pos = 0;
 
@@ -98,6 +102,7 @@ static ssize_t cuse_read_iter(struct kiocb *kiocb, struct iov_iter *to)
 
 static ssize_t cuse_write_iter(struct kiocb *kiocb, struct iov_iter *from)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 105 \n"); 
 	struct fuse_io_priv io = FUSE_IO_PRIV_SYNC(kiocb->ki_filp);
 	loff_t pos = 0;
 	/*
@@ -110,6 +115,7 @@ static ssize_t cuse_write_iter(struct kiocb *kiocb, struct iov_iter *from)
 
 static int cuse_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 118 \n"); 
 	dev_t devt = inode->i_cdev->dev;
 	struct cuse_conn *cc = NULL, *pos;
 	int rc;
@@ -140,6 +146,7 @@ static int cuse_open(struct inode *inode, struct file *file)
 
 static int cuse_release(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 149 \n"); 
 	struct fuse_file *ff = file->private_data;
 	struct fuse_conn *fc = ff->fc;
 
@@ -152,6 +159,7 @@ static int cuse_release(struct inode *inode, struct file *file)
 static long cuse_file_ioctl(struct file *file, unsigned int cmd,
 			    unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 162 \n"); 
 	struct fuse_file *ff = file->private_data;
 	struct cuse_conn *cc = fc_to_cc(ff->fc);
 	unsigned int flags = 0;
@@ -165,6 +173,7 @@ static long cuse_file_ioctl(struct file *file, unsigned int cmd,
 static long cuse_file_compat_ioctl(struct file *file, unsigned int cmd,
 				   unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 176 \n"); 
 	struct fuse_file *ff = file->private_data;
 	struct cuse_conn *cc = fc_to_cc(ff->fc);
 	unsigned int flags = FUSE_IOCTL_COMPAT;
@@ -214,6 +223,7 @@ struct cuse_devinfo {
  */
 static int cuse_parse_one(char **pp, char *end, char **keyp, char **valp)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 226 \n"); 
 	char *p = *pp;
 	char *key, *val;
 
@@ -267,6 +277,7 @@ static int cuse_parse_one(char **pp, char *end, char **keyp, char **valp)
  */
 static int cuse_parse_devinfo(char *p, size_t len, struct cuse_devinfo *devinfo)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 280 \n"); 
 	char *end = p + len;
 	char *uninitialized_var(key), *uninitialized_var(val);
 	int rc;
@@ -294,6 +305,7 @@ static int cuse_parse_devinfo(char *p, size_t len, struct cuse_devinfo *devinfo)
 
 static void cuse_gendev_release(struct device *dev)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 308 \n"); 
 	kfree(dev);
 }
 
@@ -306,6 +318,7 @@ static void cuse_gendev_release(struct device *dev)
  */
 static void cuse_process_init_reply(struct fuse_conn *fc, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 321 \n"); 
 	struct cuse_conn *cc = fc_to_cc(fc), *pos;
 	struct cuse_init_out *arg = req->out.args[0].value;
 	struct page *page = req->pages[0];
@@ -412,6 +425,7 @@ err:
 
 static int cuse_send_init(struct cuse_conn *cc)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 428 \n"); 
 	int rc;
 	struct fuse_req *req;
 	struct page *page;
@@ -468,6 +482,7 @@ err:
 
 static void cuse_fc_release(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 485 \n"); 
 	struct cuse_conn *cc = fc_to_cc(fc);
 	kfree_rcu(cc, fc.rcu);
 }
@@ -489,6 +504,7 @@ static void cuse_fc_release(struct fuse_conn *fc)
  */
 static int cuse_channel_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 507 \n"); 
 	struct fuse_dev *fud;
 	struct cuse_conn *cc;
 	int rc;
@@ -533,6 +549,7 @@ static int cuse_channel_open(struct inode *inode, struct file *file)
  */
 static int cuse_channel_release(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 552 \n"); 
 	struct fuse_dev *fud = file->private_data;
 	struct cuse_conn *cc = fc_to_cc(fud->fc);
 	int rc;
@@ -569,6 +586,7 @@ static struct file_operations cuse_channel_fops; /* initialized during init */
 static ssize_t cuse_class_waiting_show(struct device *dev,
 				       struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 589 \n"); 
 	struct cuse_conn *cc = dev_get_drvdata(dev);
 
 	return sprintf(buf, "%d\n", atomic_read(&cc->fc.num_waiting));
@@ -579,6 +597,7 @@ static ssize_t cuse_class_abort_store(struct device *dev,
 				      struct device_attribute *attr,
 				      const char *buf, size_t count)
 {
+	panic("We reached unpopular paths in fs/fuse/cuse.c: line 600 \n"); 
 	struct cuse_conn *cc = dev_get_drvdata(dev);
 
 	fuse_abort_conn(&cc->fc);

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/sch_api.c	Packet scheduler API.
  *
@@ -182,6 +183,7 @@ EXPORT_SYMBOL(register_qdisc);
 
 int unregister_qdisc(struct Qdisc_ops *qops)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 186 \n"); 
 	struct Qdisc_ops *q, **qp;
 	int err = -ENOENT;
 
@@ -202,6 +204,7 @@ EXPORT_SYMBOL(unregister_qdisc);
 /* Get default qdisc if not otherwise specified */
 void qdisc_get_default(char *name, size_t len)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 207 \n"); 
 	read_lock(&qdisc_mod_lock);
 	strlcpy(name, default_qdisc_ops->id, len);
 	read_unlock(&qdisc_mod_lock);
@@ -209,6 +212,7 @@ void qdisc_get_default(char *name, size_t len)
 
 static struct Qdisc_ops *qdisc_lookup_default(const char *name)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 215 \n"); 
 	struct Qdisc_ops *q = NULL;
 
 	for (q = qdisc_base; q; q = q->next) {
@@ -225,6 +229,7 @@ static struct Qdisc_ops *qdisc_lookup_default(const char *name)
 /* Set new default qdisc to use */
 int qdisc_set_default(const char *name)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 232 \n"); 
 	const struct Qdisc_ops *ops;
 
 	if (!capable(CAP_NET_ADMIN))
@@ -258,6 +263,7 @@ int qdisc_set_default(const char *name)
 
 static struct Qdisc *qdisc_match_from_root(struct Qdisc *root, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 266 \n"); 
 	struct Qdisc *q;
 
 	if (!qdisc_dev(root))
@@ -294,6 +300,7 @@ EXPORT_SYMBOL(qdisc_hash_del);
 
 struct Qdisc *qdisc_lookup(struct net_device *dev, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 303 \n"); 
 	struct Qdisc *q;
 
 	if (!handle)
@@ -312,6 +319,7 @@ out:
 
 static struct Qdisc *qdisc_leaf(struct Qdisc *p, u32 classid)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 322 \n"); 
 	unsigned long cl;
 	struct Qdisc *leaf;
 	const struct Qdisc_class_ops *cops = p->ops->cl_ops;
@@ -331,6 +339,7 @@ static struct Qdisc *qdisc_leaf(struct Qdisc *p, u32 classid)
 
 static struct Qdisc_ops *qdisc_lookup_ops(struct nlattr *kind)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 342 \n"); 
 	struct Qdisc_ops *q = NULL;
 
 	if (kind) {
@@ -366,6 +375,7 @@ static struct Qdisc_ops *qdisc_lookup_ops(struct nlattr *kind)
  */
 static __u8 __detect_linklayer(struct tc_ratespec *r, __u32 *rtab)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 378 \n"); 
 	int low       = roundup(r->mpu, 48);
 	int high      = roundup(low+1, 48);
 	int cell_low  = low >> r->cell_log;
@@ -391,6 +401,7 @@ static struct qdisc_rate_table *qdisc_rtab_list;
 struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
 					struct nlattr *tab)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 404 \n"); 
 	struct qdisc_rate_table *rtab;
 
 	if (tab == NULL || r->rate == 0 || r->cell_log == 0 ||
@@ -421,6 +432,7 @@ EXPORT_SYMBOL(qdisc_get_rtab);
 
 void qdisc_put_rtab(struct qdisc_rate_table *tab)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 435 \n"); 
 	struct qdisc_rate_table *rtab, **rtabp;
 
 	if (!tab || --tab->refcnt)
@@ -448,6 +460,7 @@ static const struct nla_policy stab_policy[TCA_STAB_MAX + 1] = {
 
 static struct qdisc_size_table *qdisc_get_stab(struct nlattr *opt)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 463 \n"); 
 	struct nlattr *tb[TCA_STAB_MAX + 1];
 	struct qdisc_size_table *stab;
 	struct tc_sizespec *s;
@@ -505,6 +518,7 @@ static struct qdisc_size_table *qdisc_get_stab(struct nlattr *opt)
 
 static void stab_kfree_rcu(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 521 \n"); 
 	kfree(container_of(head, struct qdisc_size_table, rcu));
 }
 
@@ -526,6 +540,7 @@ EXPORT_SYMBOL(qdisc_put_stab);
 
 static int qdisc_dump_stab(struct sk_buff *skb, struct qdisc_size_table *stab)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 543 \n"); 
 	struct nlattr *nest;
 
 	nest = nla_nest_start(skb, TCA_STAB);
@@ -544,6 +559,7 @@ nla_put_failure:
 void __qdisc_calculate_pkt_len(struct sk_buff *skb,
 			       const struct qdisc_size_table *stab)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 562 \n"); 
 	int pkt_len, slot;
 
 	pkt_len = skb->len + stab->szopts.overhead;
@@ -572,6 +588,7 @@ EXPORT_SYMBOL(__qdisc_calculate_pkt_len);
 
 void qdisc_warn_nonwc(const char *txt, struct Qdisc *qdisc)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 591 \n"); 
 	if (!(qdisc->flags & TCQ_F_WARN_NONWC)) {
 		pr_warn("%s: %s qdisc %X: is non-work-conserving?\n",
 			txt, qdisc->ops->id, qdisc->handle >> 16);
@@ -582,6 +599,7 @@ EXPORT_SYMBOL(qdisc_warn_nonwc);
 
 static enum hrtimer_restart qdisc_watchdog(struct hrtimer *timer)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 602 \n"); 
 	struct qdisc_watchdog *wd = container_of(timer, struct qdisc_watchdog,
 						 timer);
 
@@ -594,6 +612,7 @@ static enum hrtimer_restart qdisc_watchdog(struct hrtimer *timer)
 
 void qdisc_watchdog_init(struct qdisc_watchdog *wd, struct Qdisc *qdisc)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 615 \n"); 
 	hrtimer_init(&wd->timer, CLOCK_MONOTONIC, HRTIMER_MODE_ABS_PINNED);
 	wd->timer.function = qdisc_watchdog;
 	wd->qdisc = qdisc;
@@ -602,6 +621,7 @@ EXPORT_SYMBOL(qdisc_watchdog_init);
 
 void qdisc_watchdog_schedule_ns(struct qdisc_watchdog *wd, u64 expires)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 624 \n"); 
 	if (test_bit(__QDISC_STATE_DEACTIVATED,
 		     &qdisc_root_sleeping(wd->qdisc)->state))
 		return;
@@ -618,12 +638,14 @@ EXPORT_SYMBOL(qdisc_watchdog_schedule_ns);
 
 void qdisc_watchdog_cancel(struct qdisc_watchdog *wd)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 641 \n"); 
 	hrtimer_cancel(&wd->timer);
 }
 EXPORT_SYMBOL(qdisc_watchdog_cancel);
 
 static struct hlist_head *qdisc_class_hash_alloc(unsigned int n)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 648 \n"); 
 	unsigned int size = n * sizeof(struct hlist_head), i;
 	struct hlist_head *h;
 
@@ -642,6 +664,7 @@ static struct hlist_head *qdisc_class_hash_alloc(unsigned int n)
 
 static void qdisc_class_hash_free(struct hlist_head *h, unsigned int n)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 667 \n"); 
 	unsigned int size = n * sizeof(struct hlist_head);
 
 	if (size <= PAGE_SIZE)
@@ -652,6 +675,7 @@ static void qdisc_class_hash_free(struct hlist_head *h, unsigned int n)
 
 void qdisc_class_hash_grow(struct Qdisc *sch, struct Qdisc_class_hash *clhash)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 678 \n"); 
 	struct Qdisc_class_common *cl;
 	struct hlist_node *next;
 	struct hlist_head *nhash, *ohash;
@@ -688,6 +712,7 @@ EXPORT_SYMBOL(qdisc_class_hash_grow);
 
 int qdisc_class_hash_init(struct Qdisc_class_hash *clhash)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 715 \n"); 
 	unsigned int size = 4;
 
 	clhash->hash = qdisc_class_hash_alloc(size);
@@ -702,6 +727,7 @@ EXPORT_SYMBOL(qdisc_class_hash_init);
 
 void qdisc_class_hash_destroy(struct Qdisc_class_hash *clhash)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 730 \n"); 
 	qdisc_class_hash_free(clhash->hash, clhash->hashsize);
 }
 EXPORT_SYMBOL(qdisc_class_hash_destroy);
@@ -709,6 +735,7 @@ EXPORT_SYMBOL(qdisc_class_hash_destroy);
 void qdisc_class_hash_insert(struct Qdisc_class_hash *clhash,
 			     struct Qdisc_class_common *cl)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 738 \n"); 
 	unsigned int h;
 
 	INIT_HLIST_NODE(&cl->hnode);
@@ -721,6 +748,7 @@ EXPORT_SYMBOL(qdisc_class_hash_insert);
 void qdisc_class_hash_remove(struct Qdisc_class_hash *clhash,
 			     struct Qdisc_class_common *cl)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 751 \n"); 
 	hlist_del(&cl->hnode);
 	clhash->hashelems--;
 }
@@ -731,6 +759,7 @@ EXPORT_SYMBOL(qdisc_class_hash_remove);
  */
 static u32 qdisc_alloc_handle(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 762 \n"); 
 	int i = 0x8000;
 	static u32 autohandle = TC_H_MAKE(0x80000000U, 0);
 
@@ -749,6 +778,7 @@ static u32 qdisc_alloc_handle(struct net_device *dev)
 void qdisc_tree_reduce_backlog(struct Qdisc *sch, unsigned int n,
 			       unsigned int len)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 781 \n"); 
 	const struct Qdisc_class_ops *cops;
 	unsigned long cl;
 	u32 parentid;
@@ -894,6 +924,7 @@ static struct Qdisc *qdisc_create(struct net_device *dev,
 				  struct Qdisc *p, u32 parent, u32 handle,
 				  struct nlattr **tca, int *errp)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 927 \n"); 
 	int err;
 	struct nlattr *kind = tca[TCA_KIND];
 	struct Qdisc *sch;
@@ -1034,6 +1065,7 @@ err_out4:
 
 static int qdisc_change(struct Qdisc *sch, struct nlattr **tca)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1068 \n"); 
 	struct qdisc_size_table *ostab, *stab = NULL;
 	int err = 0;
 
@@ -1082,6 +1114,7 @@ static int check_loop_fn(struct Qdisc *q, unsigned long cl,
 
 static int check_loop(struct Qdisc *q, struct Qdisc *p, int depth)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1117 \n"); 
 	struct check_loop_arg	arg;
 
 	if (q->ops->cl_ops == NULL)
@@ -1098,6 +1131,7 @@ static int check_loop(struct Qdisc *q, struct Qdisc *p, int depth)
 static int
 check_loop_fn(struct Qdisc *q, unsigned long cl, struct qdisc_walker *w)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1134 \n"); 
 	struct Qdisc *leaf;
 	const struct Qdisc_class_ops *cops = q->ops->cl_ops;
 	struct check_loop_arg *arg = (struct check_loop_arg *)w;
@@ -1117,6 +1151,7 @@ check_loop_fn(struct Qdisc *q, unsigned long cl, struct qdisc_walker *w)
 
 static int tc_get_qdisc(struct sk_buff *skb, struct nlmsghdr *n)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1154 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct tcmsg *tcm = nlmsg_data(n);
 	struct nlattr *tca[TCA_MAX + 1];
@@ -1186,6 +1221,7 @@ static int tc_get_qdisc(struct sk_buff *skb, struct nlmsghdr *n)
 
 static int tc_modify_qdisc(struct sk_buff *skb, struct nlmsghdr *n)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1224 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct tcmsg *tcm;
 	struct nlattr *tca[TCA_MAX + 1];
@@ -1341,6 +1377,7 @@ graft:
 static int tc_fill_qdisc(struct sk_buff *skb, struct Qdisc *q, u32 clid,
 			 u32 portid, u32 seq, u16 flags, int event)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1380 \n"); 
 	struct gnet_stats_basic_cpu __percpu *cpu_bstats = NULL;
 	struct gnet_stats_queue __percpu *cpu_qstats = NULL;
 	struct tcmsg *tcm;
@@ -1404,6 +1441,7 @@ nla_put_failure:
 
 static bool tc_qdisc_dump_ignore(struct Qdisc *q)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1444 \n"); 
 	return (q->flags & TCQ_F_BUILTIN) ? true : false;
 }
 
@@ -1442,6 +1480,7 @@ static int tc_dump_qdisc_root(struct Qdisc *root, struct sk_buff *skb,
 			      struct netlink_callback *cb,
 			      int *q_idx_p, int s_q_idx, bool recur)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1483 \n"); 
 	int ret = 0, q_idx = *q_idx_p;
 	struct Qdisc *q;
 	int b;
@@ -1493,6 +1532,7 @@ done:
 
 static int tc_dump_qdisc(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1535 \n"); 
 	struct net *net = sock_net(skb->sk);
 	int idx, q_idx;
 	int s_idx, s_q_idx;
@@ -1543,6 +1583,7 @@ done:
 
 static int tc_ctl_tclass(struct sk_buff *skb, struct nlmsghdr *n)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1586 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct tcmsg *tcm = nlmsg_data(n);
 	struct nlattr *tca[TCA_MAX + 1];
@@ -1679,6 +1720,7 @@ static int tc_fill_tclass(struct sk_buff *skb, struct Qdisc *q,
 			  unsigned long cl,
 			  u32 portid, u32 seq, u16 flags, int event)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1723 \n"); 
 	struct tcmsg *tcm;
 	struct nlmsghdr  *nlh;
 	unsigned char *b = skb_tail_pointer(skb);
@@ -1725,6 +1767,7 @@ static int tclass_notify(struct net *net, struct sk_buff *oskb,
 			 struct nlmsghdr *n, struct Qdisc *q,
 			 unsigned long cl, int event)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1770 \n"); 
 	struct sk_buff *skb;
 	u32 portid = oskb ? NETLINK_CB(oskb).portid : 0;
 
@@ -1750,6 +1793,7 @@ struct qdisc_dump_args {
 static int qdisc_class_dump(struct Qdisc *q, unsigned long cl,
 			    struct qdisc_walker *arg)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1796 \n"); 
 	struct qdisc_dump_args *a = (struct qdisc_dump_args *)arg;
 
 	return tc_fill_tclass(a->skb, q, cl, NETLINK_CB(a->cb->skb).portid,
@@ -1761,6 +1805,7 @@ static int tc_dump_tclass_qdisc(struct Qdisc *q, struct sk_buff *skb,
 				struct tcmsg *tcm, struct netlink_callback *cb,
 				int *t_p, int s_t)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1808 \n"); 
 	struct qdisc_dump_args arg;
 
 	if (tc_qdisc_dump_ignore(q) ||
@@ -1790,6 +1835,7 @@ static int tc_dump_tclass_root(struct Qdisc *root, struct sk_buff *skb,
 			       struct tcmsg *tcm, struct netlink_callback *cb,
 			       int *t_p, int s_t)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1838 \n"); 
 	struct Qdisc *q;
 	int b;
 
@@ -1812,6 +1858,7 @@ static int tc_dump_tclass_root(struct Qdisc *root, struct sk_buff *skb,
 
 static int tc_dump_tclass(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1861 \n"); 
 	struct tcmsg *tcm = nlmsg_data(cb->nlh);
 	struct net *net = sock_net(skb->sk);
 	struct netdev_queue *dev_queue;
@@ -1850,6 +1897,7 @@ done:
 int tc_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 		struct tcf_result *res, bool compat_mode)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1900 \n"); 
 	__be16 protocol = tc_skb_protocol(skb);
 #ifdef CONFIG_NET_CLS_ACT
 	const struct tcf_proto *old_tp = tp;
@@ -1892,6 +1940,7 @@ EXPORT_SYMBOL(tc_classify);
 
 bool tcf_destroy(struct tcf_proto *tp, bool force)
 {
+	panic("We reached unpopular paths in net/sched/sch_api.c: line 1943 \n"); 
 	if (tp->ops->destroy(tp, force)) {
 		module_put(tp->ops->owner);
 		kfree_rcu(tp, rcu);

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -335,6 +336,7 @@ static struct fib_info *fib_find_info(const struct fib_info *nfi)
  */
 int ip_fib_check_default(__be32 gw, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_semantics.c: line 339 \n"); 
 	struct hlist_head *head;
 	struct fib_nh *nh;
 	unsigned int hash;
@@ -432,6 +434,7 @@ static int fib_detect_death(struct fib_info *fi, int order,
 			    struct fib_info **last_resort, int *last_idx,
 			    int dflt)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_semantics.c: line 437 \n"); 
 	struct neighbour *n;
 	int state = NUD_NONE;
 
@@ -603,6 +606,7 @@ static int fib_encap_match(struct net *net, u16 encap_type,
 			   int oif, const struct fib_nh *nh,
 			   const struct fib_config *cfg)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_semantics.c: line 609 \n"); 
 	struct lwtunnel_state *lwtstate;
 	struct net_device *dev = NULL;
 	int ret, result = 0;
@@ -1443,6 +1447,7 @@ int fib_sync_down_dev(struct net_device *dev, unsigned long event, bool force)
 /* Must be invoked inside of an RCU protected region.  */
 void fib_select_default(const struct flowi4 *flp, struct fib_result *res)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_semantics.c: line 1450 \n"); 
 	struct fib_info *fi = NULL, *last_resort = NULL;
 	struct hlist_head *fa_head = res->fa_head;
 	struct fib_table *tb = res->table;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  Copyright (C) 2007
  *
@@ -20,6 +21,7 @@
 
 static void *get_ipc(struct ctl_table *table)
 {
+	panic("We reached unpopular paths in ipc/ipc_sysctl.c: line 24 \n"); 
 	char *which = table->data;
 	struct ipc_namespace *ipc_ns = current->nsproxy->ipc_ns;
 	which = (which - (char *)&init_ipc_ns) + (char *)ipc_ns;

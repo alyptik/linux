@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Amanda extension for TCP NAT alteration.
  * (C) 2002 by Brian J. Murrell <netfilter@interlinx.bc.ca>
  * based on a copy of HW's ip_nat_irc.c as well as other modules
@@ -31,6 +32,7 @@ static unsigned int help(struct sk_buff *skb,
 			 unsigned int matchlen,
 			 struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_amanda.c: line 35 \n"); 
 	char buffer[sizeof("65535")];
 	u_int16_t port;
 	unsigned int ret;

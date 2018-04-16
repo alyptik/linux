@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* L3/L4 protocol support for nf_conntrack. */
 
 /* (C) 1999-2001 Paul `Rusty' Russell
@@ -128,6 +129,7 @@ EXPORT_SYMBOL_GPL(nf_ct_l3proto_module_put);
 struct nf_conntrack_l4proto *
 nf_ct_l4proto_find_get(u_int16_t l3num, u_int8_t l4num)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto.c: line 132 \n"); 
 	struct nf_conntrack_l4proto *p;
 
 	rcu_read_lock();
@@ -142,17 +144,20 @@ EXPORT_SYMBOL_GPL(nf_ct_l4proto_find_get);
 
 void nf_ct_l4proto_put(struct nf_conntrack_l4proto *p)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto.c: line 147 \n"); 
 	module_put(p->me);
 }
 EXPORT_SYMBOL_GPL(nf_ct_l4proto_put);
 
 static int kill_l3proto(struct nf_conn *i, void *data)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto.c: line 154 \n"); 
 	return nf_ct_l3num(i) == ((struct nf_conntrack_l3proto *)data)->l3proto;
 }
 
 static int kill_l4proto(struct nf_conn *i, void *data)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto.c: line 160 \n"); 
 	struct nf_conntrack_l4proto *l4proto;
 	l4proto = (struct nf_conntrack_l4proto *)data;
 	return nf_ct_protonum(i) == l4proto->l4proto &&
@@ -207,6 +212,7 @@ EXPORT_SYMBOL_GPL(nf_ct_l3proto_pernet_register);
 
 void nf_ct_l3proto_unregister(struct nf_conntrack_l3proto *proto)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto.c: line 215 \n"); 
 	BUG_ON(proto->l3proto >= AF_MAX);
 
 	mutex_lock(&nf_ct_proto_mutex);
@@ -365,6 +371,7 @@ EXPORT_SYMBOL_GPL(nf_ct_l4proto_pernet_register);
 
 void nf_ct_l4proto_unregister(struct nf_conntrack_l4proto *l4proto)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto.c: line 374 \n"); 
 	BUG_ON(l4proto->l3proto >= PF_MAX);
 
 	mutex_lock(&nf_ct_proto_mutex);
@@ -439,6 +446,7 @@ int nf_conntrack_proto_init(void)
 
 void nf_conntrack_proto_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto.c: line 449 \n"); 
 	unsigned int i;
 	/* free l3proto protocol tables */
 	for (i = 0; i < PF_MAX; i++)

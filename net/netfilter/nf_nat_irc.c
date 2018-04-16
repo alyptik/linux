@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* IRC extension for TCP NAT alteration.
  *
  * (C) 2000-2001 by Harald Welte <laforge@gnumonks.org>
@@ -33,6 +34,7 @@ static unsigned int help(struct sk_buff *skb,
 			 unsigned int matchlen,
 			 struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_irc.c: line 37 \n"); 
 	char buffer[sizeof("4294967296 65635")];
 	struct nf_conn *ct = exp->master;
 	union nf_inet_addr newaddr;
@@ -109,6 +111,7 @@ static int __init nf_nat_irc_init(void)
 /* Prior to 2.6.11, we had a ports param.  No longer, but don't break users. */
 static int warn_set(const char *val, struct kernel_param *kp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_irc.c: line 114 \n"); 
 	printk(KERN_INFO KBUILD_MODNAME
 	       ": kernel >= 2.6.10 only uses 'ports' for conntrack modules\n");
 	return 0;

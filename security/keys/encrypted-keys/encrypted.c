@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C) 2010 IBM Corporation
  * Copyright (C) 2010 Politecnico di Torino, Italy
@@ -108,6 +109,7 @@ static int aes_get_sizes(void)
  */
 static int valid_ecryptfs_desc(const char *ecryptfs_desc)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 112 \n"); 
 	int i;
 
 	if (strlen(ecryptfs_desc) != KEY_ECRYPTFS_DESC_LEN) {
@@ -141,6 +143,7 @@ static int valid_ecryptfs_desc(const char *ecryptfs_desc)
  */
 static int valid_master_desc(const char *new_desc, const char *orig_desc)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 146 \n"); 
 	int prefix_len;
 
 	if (!strncmp(new_desc, KEY_TRUSTED_PREFIX, KEY_TRUSTED_PREFIX_LEN))
@@ -177,6 +180,7 @@ static int datablob_parse(char *datablob, const char **format,
 			  char **master_desc, char **decrypted_datalen,
 			  char **hex_encoded_iv)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 183 \n"); 
 	substring_t args[MAX_OPT_ARGS];
 	int ret = -EINVAL;
 	int key_cmd;
@@ -274,6 +278,7 @@ out:
 static char *datablob_format(struct encrypted_key_payload *epayload,
 			     size_t asciiblob_len)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 281 \n"); 
 	char *ascii_buf, *bufp;
 	u8 *iv = epayload->iv;
 	int len;
@@ -305,6 +310,7 @@ out:
 static struct key *request_user_key(const char *master_desc, const u8 **master_key,
 				    size_t *master_keylen)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 313 \n"); 
 	const struct user_key_payload *upayload;
 	struct key *ukey;
 
@@ -329,6 +335,7 @@ error:
 
 static struct sdesc *alloc_sdesc(struct crypto_shash *alg)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 338 \n"); 
 	struct sdesc *sdesc;
 	int size;
 
@@ -344,6 +351,7 @@ static struct sdesc *alloc_sdesc(struct crypto_shash *alg)
 static int calc_hmac(u8 *digest, const u8 *key, unsigned int keylen,
 		     const u8 *buf, unsigned int buflen)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 354 \n"); 
 	struct sdesc *sdesc;
 	int ret;
 
@@ -362,6 +370,7 @@ static int calc_hmac(u8 *digest, const u8 *key, unsigned int keylen,
 
 static int calc_hash(u8 *digest, const u8 *buf, unsigned int buflen)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 373 \n"); 
 	struct sdesc *sdesc;
 	int ret;
 
@@ -382,6 +391,7 @@ enum derived_key_type { ENC_KEY, AUTH_KEY };
 static int get_derived_key(u8 *derived_key, enum derived_key_type key_type,
 			   const u8 *master_key, size_t master_keylen)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 394 \n"); 
 	u8 *derived_buf;
 	unsigned int derived_buf_len;
 	int ret;
@@ -410,6 +420,7 @@ static int get_derived_key(u8 *derived_key, enum derived_key_type key_type,
 static struct skcipher_request *init_skcipher_req(const u8 *key,
 						  unsigned int key_len)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 423 \n"); 
 	struct skcipher_request *req;
 	struct crypto_skcipher *tfm;
 	int ret;
@@ -443,6 +454,7 @@ static struct skcipher_request *init_skcipher_req(const u8 *key,
 static struct key *request_master_key(struct encrypted_key_payload *epayload,
 				      const u8 **master_key, size_t *master_keylen)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 457 \n"); 
 	struct key *mkey = ERR_PTR(-EINVAL);
 
 	if (!strncmp(epayload->master_desc, KEY_TRUSTED_PREFIX,
@@ -480,6 +492,7 @@ static int derived_key_encrypt(struct encrypted_key_payload *epayload,
 			       const u8 *derived_key,
 			       unsigned int derived_keylen)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 495 \n"); 
 	struct scatterlist sg_in[2];
 	struct scatterlist sg_out[1];
 	struct crypto_skcipher *tfm;
@@ -521,6 +534,7 @@ out:
 static int datablob_hmac_append(struct encrypted_key_payload *epayload,
 				const u8 *master_key, size_t master_keylen)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 537 \n"); 
 	u8 derived_key[HASH_SIZE];
 	u8 *digest;
 	int ret;
@@ -543,6 +557,7 @@ static int datablob_hmac_verify(struct encrypted_key_payload *epayload,
 				const u8 *format, const u8 *master_key,
 				size_t master_keylen)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 560 \n"); 
 	u8 derived_key[HASH_SIZE];
 	u8 digest[HASH_SIZE];
 	int ret;
@@ -580,6 +595,7 @@ static int derived_key_decrypt(struct encrypted_key_payload *epayload,
 			       const u8 *derived_key,
 			       unsigned int derived_keylen)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 598 \n"); 
 	struct scatterlist sg_in[1];
 	struct scatterlist sg_out[2];
 	struct crypto_skcipher *tfm;
@@ -628,6 +644,7 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
 							 const char *master_desc,
 							 const char *datalen)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 647 \n"); 
 	struct encrypted_key_payload *epayload = NULL;
 	unsigned short datablob_len;
 	unsigned short decrypted_datalen;
@@ -679,6 +696,7 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
 static int encrypted_key_decrypt(struct encrypted_key_payload *epayload,
 				 const char *format, const char *hex_encoded_iv)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 699 \n"); 
 	struct key *mkey;
 	u8 derived_key[HASH_SIZE];
 	const u8 *master_key;
@@ -736,6 +754,7 @@ static void __ekey_init(struct encrypted_key_payload *epayload,
 			const char *format, const char *master_desc,
 			const char *datalen)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 757 \n"); 
 	unsigned int format_len;
 
 	format_len = (!format) ? strlen(key_format_default) : strlen(format);
@@ -771,6 +790,7 @@ static int encrypted_init(struct encrypted_key_payload *epayload,
 			  const char *master_desc, const char *datalen,
 			  const char *hex_encoded_iv)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 793 \n"); 
 	int ret = 0;
 
 	if (format && !strcmp(format, key_format_ecryptfs)) {
@@ -804,6 +824,7 @@ static int encrypted_init(struct encrypted_key_payload *epayload,
 static int encrypted_instantiate(struct key *key,
 				 struct key_preparsed_payload *prep)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 827 \n"); 
 	struct encrypted_key_payload *epayload = NULL;
 	char *datablob = NULL;
 	const char *format = NULL;
@@ -847,6 +868,7 @@ out:
 
 static void encrypted_rcu_free(struct rcu_head *rcu)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 871 \n"); 
 	struct encrypted_key_payload *epayload;
 
 	epayload = container_of(rcu, struct encrypted_key_payload, rcu);
@@ -865,6 +887,7 @@ static void encrypted_rcu_free(struct rcu_head *rcu)
  */
 static int encrypted_update(struct key *key, struct key_preparsed_payload *prep)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 890 \n"); 
 	struct encrypted_key_payload *epayload = key->payload.data[0];
 	struct encrypted_key_payload *new_epayload;
 	char *buf;
@@ -987,6 +1010,7 @@ out:
  */
 static void encrypted_destroy(struct key *key)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 1013 \n"); 
 	struct encrypted_key_payload *epayload = key->payload.data[0];
 
 	if (!epayload)
@@ -1008,6 +1032,7 @@ EXPORT_SYMBOL_GPL(key_type_encrypted);
 
 static void encrypted_shash_release(void)
 {
+	panic("We reached unpopular paths in security/keys/encrypted-keys/encrypted.c: line 1035 \n"); 
 	if (hashalg)
 		crypto_free_shash(hashalg);
 	if (hmacalg)

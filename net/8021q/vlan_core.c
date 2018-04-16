@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/skbuff.h>
 #include <linux/netdevice.h>
 #include <linux/if_vlan.h>
@@ -7,6 +8,7 @@
 
 bool vlan_do_receive(struct sk_buff **skbp)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_core.c: line 11 \n"); 
 	struct sk_buff *skb = *skbp;
 	__be16 vlan_proto = skb->vlan_proto;
 	u16 vlan_id = skb_vlan_tag_get_id(skb);
@@ -68,6 +70,7 @@ bool vlan_do_receive(struct sk_buff **skbp)
 struct net_device *__vlan_find_dev_deep_rcu(struct net_device *dev,
 					__be16 vlan_proto, u16 vlan_id)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_core.c: line 73 \n"); 
 	struct vlan_info *vlan_info = rcu_dereference(dev->vlan_info);
 
 	if (vlan_info) {
@@ -93,6 +96,7 @@ EXPORT_SYMBOL(__vlan_find_dev_deep_rcu);
 
 struct net_device *vlan_dev_real_dev(const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_core.c: line 99 \n"); 
 	struct net_device *ret = vlan_dev_priv(dev)->real_dev;
 
 	while (is_vlan_dev(ret))
@@ -104,12 +108,14 @@ EXPORT_SYMBOL(vlan_dev_real_dev);
 
 u16 vlan_dev_vlan_id(const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_core.c: line 111 \n"); 
 	return vlan_dev_priv(dev)->vlan_id;
 }
 EXPORT_SYMBOL(vlan_dev_vlan_id);
 
 __be16 vlan_dev_vlan_proto(const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_core.c: line 118 \n"); 
 	return vlan_dev_priv(dev)->vlan_proto;
 }
 EXPORT_SYMBOL(vlan_dev_vlan_proto);
@@ -311,6 +317,7 @@ EXPORT_SYMBOL(vlan_vid_del);
 int vlan_vids_add_by_dev(struct net_device *dev,
 			 const struct net_device *by_dev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_core.c: line 320 \n"); 
 	struct vlan_vid_info *vid_info;
 	struct vlan_info *vlan_info;
 	int err;
@@ -342,6 +349,7 @@ EXPORT_SYMBOL(vlan_vids_add_by_dev);
 void vlan_vids_del_by_dev(struct net_device *dev,
 			  const struct net_device *by_dev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_core.c: line 352 \n"); 
 	struct vlan_vid_info *vid_info;
 	struct vlan_info *vlan_info;
 
@@ -358,6 +366,7 @@ EXPORT_SYMBOL(vlan_vids_del_by_dev);
 
 bool vlan_uses_dev(const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/8021q/vlan_core.c: line 369 \n"); 
 	struct vlan_info *vlan_info;
 
 	ASSERT_RTNL();

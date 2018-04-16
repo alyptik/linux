@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	xt_mark - Netfilter module to match NFMARK value
  *
@@ -28,6 +29,7 @@ MODULE_ALIAS("arpt_MARK");
 static unsigned int
 mark_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_mark.c: line 32 \n"); 
 	const struct xt_mark_tginfo2 *info = par->targinfo;
 
 	skb->mark = (skb->mark & ~info->mask) ^ info->mark;
@@ -37,6 +39,7 @@ mark_tg(struct sk_buff *skb, const struct xt_action_param *par)
 static bool
 mark_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_mark.c: line 42 \n"); 
 	const struct xt_mark_mtinfo1 *info = par->matchinfo;
 
 	return ((skb->mark & info->mask) == info->mark) ^ info->invert;

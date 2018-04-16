@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C)2003,2004 USAGI/WIDE Project
  *
@@ -68,6 +69,7 @@ EXPORT_SYMBOL(xfrm6_tunnel_register);
 
 int xfrm6_tunnel_deregister(struct xfrm6_tunnel *handler, unsigned short family)
 {
+	panic("We reached unpopular paths in net/ipv6/tunnel6.c: line 72 \n"); 
 	struct xfrm6_tunnel __rcu **pprev;
 	struct xfrm6_tunnel *t;
 	int ret = -ENOENT;
@@ -100,6 +102,7 @@ EXPORT_SYMBOL(xfrm6_tunnel_deregister);
 
 static int tunnel6_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tunnel6.c: line 105 \n"); 
 	struct xfrm6_tunnel *handler;
 
 	if (!pskb_may_pull(skb, sizeof(struct ipv6hdr)))
@@ -118,6 +121,7 @@ drop:
 
 static int tunnel46_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/tunnel6.c: line 124 \n"); 
 	struct xfrm6_tunnel *handler;
 
 	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
@@ -137,6 +141,7 @@ drop:
 static void tunnel6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 			u8 type, u8 code, int offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/tunnel6.c: line 144 \n"); 
 	struct xfrm6_tunnel *handler;
 
 	for_each_tunnel_rcu(tunnel6_handlers, handler)
@@ -147,6 +152,7 @@ static void tunnel6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 static void tunnel46_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 			 u8 type, u8 code, int offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/tunnel6.c: line 155 \n"); 
 	struct xfrm6_tunnel *handler;
 
 	for_each_tunnel_rcu(tunnel46_handlers, handler)

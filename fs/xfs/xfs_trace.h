@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2009, Christoph Hellwig
  * All Rights Reserved.

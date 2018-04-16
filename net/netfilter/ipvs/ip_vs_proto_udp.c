@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * ip_vs_proto_udp.c:	UDP load balancing support for IPVS
  *
@@ -34,6 +35,7 @@ udp_conn_schedule(struct netns_ipvs *ipvs, int af, struct sk_buff *skb,
 		  int *verdict, struct ip_vs_conn **cpp,
 		  struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_udp.c: line 38 \n"); 
 	struct ip_vs_service *svc;
 	struct udphdr _udph, *uh;
 	__be16 _ports[2], *ports = NULL;
@@ -100,6 +102,7 @@ udp_fast_csum_update(int af, struct udphdr *uhdr,
 		     const union nf_inet_addr *newip,
 		     __be16 oldport, __be16 newport)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_udp.c: line 105 \n"); 
 #ifdef CONFIG_IP_VS_IPV6
 	if (af == AF_INET6)
 		uhdr->check =
@@ -122,6 +125,7 @@ udp_partial_csum_update(int af, struct udphdr *uhdr,
 		     const union nf_inet_addr *newip,
 		     __be16 oldlen, __be16 newlen)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_udp.c: line 128 \n"); 
 #ifdef CONFIG_IP_VS_IPV6
 	if (af == AF_INET6)
 		uhdr->check =
@@ -141,6 +145,7 @@ static int
 udp_snat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
 		 struct ip_vs_conn *cp, struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_udp.c: line 148 \n"); 
 	struct udphdr *udph;
 	unsigned int udphoff = iph->len;
 	int oldlen;
@@ -224,6 +229,7 @@ static int
 udp_dnat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
 		 struct ip_vs_conn *cp, struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_udp.c: line 232 \n"); 
 	struct udphdr *udph;
 	unsigned int udphoff = iph->len;
 	int oldlen;
@@ -304,6 +310,7 @@ udp_dnat_handler(struct sk_buff *skb, struct ip_vs_protocol *pp,
 static int
 udp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_udp.c: line 313 \n"); 
 	struct udphdr _udph, *uh;
 	unsigned int udphoff;
 
@@ -357,6 +364,7 @@ udp_csum_check(int af, struct sk_buff *skb, struct ip_vs_protocol *pp)
 
 static inline __u16 udp_app_hashkey(__be16 port)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_udp.c: line 367 \n"); 
 	return (((__force u16)port >> UDP_APP_TAB_BITS) ^ (__force u16)port)
 		& UDP_APP_TAB_MASK;
 }
@@ -364,6 +372,7 @@ static inline __u16 udp_app_hashkey(__be16 port)
 
 static int udp_register_app(struct netns_ipvs *ipvs, struct ip_vs_app *inc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_udp.c: line 375 \n"); 
 	struct ip_vs_app *i;
 	__u16 hash;
 	__be16 port = inc->port;
@@ -389,6 +398,7 @@ static int udp_register_app(struct netns_ipvs *ipvs, struct ip_vs_app *inc)
 static void
 udp_unregister_app(struct netns_ipvs *ipvs, struct ip_vs_app *inc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_udp.c: line 401 \n"); 
 	struct ip_vs_proto_data *pd = ip_vs_proto_data_get(ipvs, IPPROTO_UDP);
 
 	atomic_dec(&pd->appcnt);
@@ -398,6 +408,7 @@ udp_unregister_app(struct netns_ipvs *ipvs, struct ip_vs_app *inc)
 
 static int udp_app_conn_bind(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_udp.c: line 411 \n"); 
 	struct netns_ipvs *ipvs = cp->ipvs;
 	int hash;
 	struct ip_vs_app *inc;
@@ -451,6 +462,7 @@ static const char *const udp_state_name_table[IP_VS_UDP_S_LAST+1] = {
 
 static const char * udp_state_name(int state)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_udp.c: line 465 \n"); 
 	if (state >= IP_VS_UDP_S_LAST)
 		return "ERR!";
 	return udp_state_name_table[state] ? udp_state_name_table[state] : "?";
@@ -461,6 +473,7 @@ udp_state_transition(struct ip_vs_conn *cp, int direction,
 		     const struct sk_buff *skb,
 		     struct ip_vs_proto_data *pd)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto_udp.c: line 476 \n"); 
 	if (unlikely(!pd)) {
 		pr_err("UDP no ns data\n");
 		return;

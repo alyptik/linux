@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -74,6 +75,7 @@ EXPORT_SYMBOL(rtnl_lock);
 static struct sk_buff *defer_kfree_skb_list;
 void rtnl_kfree_skbs(struct sk_buff *head, struct sk_buff *tail)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 78 \n"); 
 	if (head && tail) {
 		tail->next = defer_kfree_skb_list;
 		defer_kfree_skb_list = head;
@@ -265,6 +267,7 @@ EXPORT_SYMBOL_GPL(rtnl_register);
  */
 int rtnl_unregister(int protocol, int msgtype)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 270 \n"); 
 	int msgindex;
 
 	BUG_ON(protocol < 0 || protocol > RTNL_FAMILY_MAX);
@@ -290,6 +293,7 @@ EXPORT_SYMBOL_GPL(rtnl_unregister);
  */
 void rtnl_unregister_all(int protocol)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 296 \n"); 
 	BUG_ON(protocol < 0 || protocol > RTNL_FAMILY_MAX);
 
 	kfree(rtnl_msg_handlers[protocol]);
@@ -357,6 +361,7 @@ EXPORT_SYMBOL_GPL(rtnl_link_register);
 
 static void __rtnl_kill_links(struct net *net, struct rtnl_link_ops *ops)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 364 \n"); 
 	struct net_device *dev;
 	LIST_HEAD(list_kill);
 
@@ -375,6 +380,7 @@ static void __rtnl_kill_links(struct net *net, struct rtnl_link_ops *ops)
  */
 void __rtnl_link_unregister(struct rtnl_link_ops *ops)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 383 \n"); 
 	struct net *net;
 
 	for_each_net(net) {
@@ -389,6 +395,7 @@ EXPORT_SYMBOL_GPL(__rtnl_link_unregister);
  */
 static void rtnl_lock_unregistering_all(void)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 398 \n"); 
 	struct net *net;
 	bool unregistering;
 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
@@ -418,6 +425,7 @@ static void rtnl_lock_unregistering_all(void)
  */
 void rtnl_link_unregister(struct rtnl_link_ops *ops)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 428 \n"); 
 	/* Close the race with cleanup_net() */
 	mutex_lock(&net_mutex);
 	rtnl_lock_unregistering_all();
@@ -504,6 +512,7 @@ EXPORT_SYMBOL_GPL(rtnl_af_register);
  */
 void __rtnl_af_unregister(struct rtnl_af_ops *ops)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 515 \n"); 
 	list_del(&ops->list);
 }
 EXPORT_SYMBOL_GPL(__rtnl_af_unregister);
@@ -514,6 +523,7 @@ EXPORT_SYMBOL_GPL(__rtnl_af_unregister);
  */
 void rtnl_af_unregister(struct rtnl_af_ops *ops)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 526 \n"); 
 	rtnl_lock();
 	__rtnl_af_unregister(ops);
 	rtnl_unlock();
@@ -642,6 +652,7 @@ out:
 
 int rtnetlink_send(struct sk_buff *skb, struct net *net, u32 pid, unsigned int group, int echo)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 655 \n"); 
 	struct sock *rtnl = net->rtnl;
 	int err = 0;
 
@@ -677,6 +688,7 @@ EXPORT_SYMBOL(rtnl_notify);
 
 void rtnl_set_sk_err(struct net *net, u32 group, int error)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 691 \n"); 
 	struct sock *rtnl = net->rtnl;
 
 	netlink_set_err(rtnl, 0, group, error);
@@ -755,6 +767,7 @@ EXPORT_SYMBOL_GPL(rtnl_put_cacheinfo);
 
 static void set_operstate(struct net_device *dev, unsigned char transition)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 770 \n"); 
 	unsigned char operstate = dev->operstate;
 
 	switch (transition) {
@@ -782,6 +795,7 @@ static void set_operstate(struct net_device *dev, unsigned char transition)
 
 static unsigned int rtnl_dev_get_flags(const struct net_device *dev)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/rtnetlink.c: line 798 \n"); 
 	return (dev->flags & ~(IFF_PROMISC | IFF_ALLMULTI)) |
 	       (dev->gflags & (IFF_PROMISC | IFF_ALLMULTI));
 }
@@ -901,6 +915,7 @@ static size_t rtnl_port_size(const struct net_device *dev,
 
 static size_t rtnl_xdp_size(const struct net_device *dev)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/rtnetlink.c: line 918 \n"); 
 	size_t xdp_size = nla_total_size(0) +	/* nest IFLA_XDP */
 			  nla_total_size(1);	/* XDP_ATTACHED */
 
@@ -954,6 +969,7 @@ static noinline size_t if_nlmsg_size(const struct net_device *dev,
 
 static int rtnl_vf_ports_fill(struct sk_buff *skb, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 972 \n"); 
 	struct nlattr *vf_ports;
 	struct nlattr *vf_port;
 	int vf;
@@ -990,6 +1006,7 @@ nla_put_failure:
 
 static int rtnl_port_self_fill(struct sk_buff *skb, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 1009 \n"); 
 	struct nlattr *port_self;
 	int err;
 
@@ -1512,6 +1529,7 @@ static const struct nla_policy ifla_xdp_policy[IFLA_XDP_MAX + 1] = {
 
 static const struct rtnl_link_ops *linkinfo_to_kind_ops(const struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 1532 \n"); 
 	const struct rtnl_link_ops *ops = NULL;
 	struct nlattr *linfo[IFLA_INFO_MAX + 1];
 
@@ -1703,6 +1721,7 @@ static int validate_linkmsg(struct net_device *dev, struct nlattr *tb[])
 static int handle_infiniband_guid(struct net_device *dev, struct ifla_vf_guid *ivt,
 				  int guid_type)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 1724 \n"); 
 	const struct net_device_ops *ops = dev->netdev_ops;
 
 	return ops->ndo_set_vf_guid(dev, ivt->vf, ivt->guid, guid_type);
@@ -1710,6 +1729,7 @@ static int handle_infiniband_guid(struct net_device *dev, struct ifla_vf_guid *i
 
 static int handle_vf_guid(struct net_device *dev, struct ifla_vf_guid *ivt, int guid_type)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 1732 \n"); 
 	if (dev->type != ARPHRD_INFINIBAND)
 		return -EOPNOTSUPP;
 
@@ -1718,6 +1738,7 @@ static int handle_vf_guid(struct net_device *dev, struct ifla_vf_guid *ivt, int 
 
 static int do_setvfinfo(struct net_device *dev, struct nlattr **tb)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 1741 \n"); 
 	const struct net_device_ops *ops = dev->netdev_ops;
 	int err = -EINVAL;
 
@@ -2245,6 +2266,7 @@ errout:
 
 static int rtnl_group_dellink(const struct net *net, int group)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 2269 \n"); 
 	struct net_device *dev, *aux;
 	LIST_HEAD(list_kill);
 	bool found = false;
@@ -2406,6 +2428,7 @@ static int rtnl_group_changelink(const struct sk_buff *skb,
 		struct ifinfomsg *ifm,
 		struct nlattr **tb)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 2431 \n"); 
 	struct net_device *dev, *aux;
 	int err;
 
@@ -2826,6 +2849,7 @@ static int nlmsg_populate_fdb_fill(struct sk_buff *skb,
 				   int type, unsigned int flags,
 				   int nlflags, u16 ndm_state)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 2852 \n"); 
 	struct nlmsghdr *nlh;
 	struct ndmsg *ndm;
 
@@ -2858,6 +2882,7 @@ nla_put_failure:
 
 static inline size_t rtnl_fdb_nlmsg_size(void)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 2885 \n"); 
 	return NLMSG_ALIGN(sizeof(struct ndmsg)) +
 	       nla_total_size(ETH_ALEN) +	/* NDA_LLADDR */
 	       nla_total_size(sizeof(u16)) +	/* NDA_VLAN */
@@ -2867,6 +2892,7 @@ static inline size_t rtnl_fdb_nlmsg_size(void)
 static void rtnl_fdb_notify(struct net_device *dev, u8 *addr, u16 vid, int type,
 			    u16 ndm_state)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 2895 \n"); 
 	struct net *net = dev_net(dev);
 	struct sk_buff *skb;
 	int err = -ENOBUFS;
@@ -2897,6 +2923,7 @@ int ndo_dflt_fdb_add(struct ndmsg *ndm,
 		     const unsigned char *addr, u16 vid,
 		     u16 flags)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 2926 \n"); 
 	int err = -EINVAL;
 
 	/* If aging addresses are supported device will need to
@@ -2927,6 +2954,7 @@ EXPORT_SYMBOL(ndo_dflt_fdb_add);
 
 static int fdb_vid_parse(struct nlattr *vlan_attr, u16 *p_vid)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 2957 \n"); 
 	u16 vid = 0;
 
 	if (vlan_attr) {
@@ -2949,6 +2977,7 @@ static int fdb_vid_parse(struct nlattr *vlan_attr, u16 *p_vid)
 
 static int rtnl_fdb_add(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 2980 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct ndmsg *ndm;
 	struct nlattr *tb[NDA_MAX+1];
@@ -3028,6 +3057,7 @@ int ndo_dflt_fdb_del(struct ndmsg *ndm,
 		     struct net_device *dev,
 		     const unsigned char *addr, u16 vid)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3060 \n"); 
 	int err = -EINVAL;
 
 	/* If aging addresses are supported device will need to
@@ -3049,6 +3079,7 @@ EXPORT_SYMBOL(ndo_dflt_fdb_del);
 
 static int rtnl_fdb_del(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3082 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct ndmsg *ndm;
 	struct nlattr *tb[NDA_MAX+1];
@@ -3128,6 +3159,7 @@ static int nlmsg_populate_fdb(struct sk_buff *skb,
 			      int *idx,
 			      struct netdev_hw_addr_list *list)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3162 \n"); 
 	struct netdev_hw_addr *ha;
 	int err;
 	u32 portid, seq;
@@ -3165,6 +3197,7 @@ int ndo_dflt_fdb_dump(struct sk_buff *skb,
 		      struct net_device *filter_dev,
 		      int *idx)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3200 \n"); 
 	int err;
 
 	netif_addr_lock_bh(dev);
@@ -3180,6 +3213,7 @@ EXPORT_SYMBOL(ndo_dflt_fdb_dump);
 
 static int rtnl_fdb_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3216 \n"); 
 	struct net_device *dev;
 	struct nlattr *tb[IFLA_MAX+1];
 	struct net_device *br_dev = NULL;
@@ -3282,6 +3316,7 @@ out:
 static int brport_nla_put_flag(struct sk_buff *skb, u32 flags, u32 mask,
 			       unsigned int attrnum, unsigned int flag)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3319 \n"); 
 	if (mask & flag)
 		return nla_put_u8(skb, attrnum, !!(flags & flag));
 	return 0;
@@ -3295,6 +3330,7 @@ int ndo_dflt_bridge_getlink(struct sk_buff *skb, u32 pid, u32 seq,
 					     struct net_device *dev,
 					     u32 filter_mask))
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3333 \n"); 
 	struct nlmsghdr *nlh;
 	struct ifinfomsg *ifm;
 	struct nlattr *br_afspec;
@@ -3388,6 +3424,7 @@ EXPORT_SYMBOL_GPL(ndo_dflt_bridge_getlink);
 
 static int rtnl_bridge_getlink(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3427 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct net_device *dev;
 	int idx = 0;
@@ -3455,6 +3492,7 @@ out_err:
 
 static inline size_t bridge_nlmsg_size(void)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3495 \n"); 
 	return NLMSG_ALIGN(sizeof(struct ifinfomsg))
 		+ nla_total_size(IFNAMSIZ)	/* IFLA_IFNAME */
 		+ nla_total_size(MAX_ADDR_LEN)	/* IFLA_ADDRESS */
@@ -3470,6 +3508,7 @@ static inline size_t bridge_nlmsg_size(void)
 
 static int rtnl_bridge_notify(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3511 \n"); 
 	struct net *net = dev_net(dev);
 	struct sk_buff *skb;
 	int err = -EOPNOTSUPP;
@@ -3502,6 +3541,7 @@ errout:
 
 static int rtnl_bridge_setlink(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3544 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct ifinfomsg *ifm;
 	struct net_device *dev;
@@ -3576,6 +3616,7 @@ out:
 
 static int rtnl_bridge_dellink(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3619 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct ifinfomsg *ifm;
 	struct net_device *dev;
@@ -3651,6 +3692,7 @@ out:
 
 static bool stats_attr_valid(unsigned int mask, int attrid, int idxattr)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3695 \n"); 
 	return (mask & IFLA_STATS_FILTER_BIT(attrid)) &&
 	       (!idxattr || idxattr == attrid);
 }
@@ -3658,6 +3700,7 @@ static bool stats_attr_valid(unsigned int mask, int attrid, int idxattr)
 #define IFLA_OFFLOAD_XSTATS_FIRST (IFLA_OFFLOAD_XSTATS_UNSPEC + 1)
 static int rtnl_get_offload_stats_attr_size(int attr_id)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3703 \n"); 
 	switch (attr_id) {
 	case IFLA_OFFLOAD_XSTATS_CPU_HIT:
 		return sizeof(struct rtnl_link_stats64);
@@ -3669,6 +3712,7 @@ static int rtnl_get_offload_stats_attr_size(int attr_id)
 static int rtnl_get_offload_stats(struct sk_buff *skb, struct net_device *dev,
 				  int *prividx)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3715 \n"); 
 	struct nlattr *attr = NULL;
 	int attr_id, size;
 	void *attr_data;
@@ -3718,6 +3762,7 @@ get_offload_stats_failure:
 
 static int rtnl_get_offload_stats_size(const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3765 \n"); 
 	int nla_size = 0;
 	int attr_id;
 	int size;
@@ -3745,6 +3790,7 @@ static int rtnl_fill_statsinfo(struct sk_buff *skb, struct net_device *dev,
 			       unsigned int flags, unsigned int filter_mask,
 			       int *idxattr, int *prividx)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3793 \n"); 
 	struct if_stats_msg *ifsm;
 	struct nlmsghdr *nlh;
 	struct nlattr *attr;
@@ -3853,6 +3899,7 @@ nla_put_failure:
 static size_t if_nlmsg_stats_size(const struct net_device *dev,
 				  u32 filter_mask)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3902 \n"); 
 	size_t size = 0;
 
 	if (stats_attr_valid(filter_mask, IFLA_STATS_LINK_64, 0))
@@ -3897,6 +3944,7 @@ static size_t if_nlmsg_stats_size(const struct net_device *dev,
 
 static int rtnl_stats_get(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3947 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct net_device *dev = NULL;
 	int idxattr = 0, prividx = 0;
@@ -3941,6 +3989,7 @@ static int rtnl_stats_get(struct sk_buff *skb, struct nlmsghdr *nlh)
 
 static int rtnl_stats_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/core/rtnetlink.c: line 3992 \n"); 
 	int h, s_h, err, s_idx, s_idxattr, s_prividx;
 	struct net *net = sock_net(skb->sk);
 	unsigned int flags = NLM_F_MULTI;

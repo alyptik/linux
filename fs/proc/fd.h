@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #ifndef __PROCFS_FD_H__
 #define __PROCFS_FD_H__
 
@@ -13,6 +14,7 @@ extern int proc_fd_permission(struct inode *inode, int mask);
 
 static inline unsigned int proc_fd(struct inode *inode)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/proc/fd.h: line 17 \n"); 
 	return PROC_I(inode)->fd;
 }
 

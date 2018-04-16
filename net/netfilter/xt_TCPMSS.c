@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * This is a module which is used for setting the MSS option in TCP packets.
  *
@@ -36,6 +37,7 @@ MODULE_ALIAS("ip6t_TCPMSS");
 static inline unsigned int
 optlen(const u_int8_t *opt, unsigned int offset)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TCPMSS.c: line 40 \n"); 
 	/* Beware zero-length options: make finite progress */
 	if (opt[offset] <= TCPOPT_NOP || opt[offset+1] == 0)
 		return 1;
@@ -47,6 +49,7 @@ static u_int32_t tcpmss_reverse_mtu(struct net *net,
 				    const struct sk_buff *skb,
 				    unsigned int family)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TCPMSS.c: line 52 \n"); 
 	struct flowi fl;
 	const struct nf_afinfo *ai;
 	struct rtable *rt = NULL;
@@ -82,6 +85,7 @@ tcpmss_mangle_packet(struct sk_buff *skb,
 		     unsigned int tcphoff,
 		     unsigned int minlen)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TCPMSS.c: line 88 \n"); 
 	const struct xt_tcpmss_info *info = par->targinfo;
 	struct tcphdr *tcph;
 	int len, tcp_hdrlen;
@@ -203,6 +207,7 @@ tcpmss_mangle_packet(struct sk_buff *skb,
 static unsigned int
 tcpmss_tg4(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TCPMSS.c: line 210 \n"); 
 	struct iphdr *iph = ip_hdr(skb);
 	__be16 newlen;
 	int ret;
@@ -258,6 +263,7 @@ tcpmss_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 /* Must specify -p tcp --syn */
 static inline bool find_syn_match(const struct xt_entry_match *m)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TCPMSS.c: line 266 \n"); 
 	const struct xt_tcp *tcpinfo = (const struct xt_tcp *)m->data;
 
 	if (strcmp(m->u.kernel.match->name, "tcp") == 0 &&
@@ -270,6 +276,7 @@ static inline bool find_syn_match(const struct xt_entry_match *m)
 
 static int tcpmss_tg4_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TCPMSS.c: line 279 \n"); 
 	const struct xt_tcpmss_info *info = par->targinfo;
 	const struct ipt_entry *e = par->entryinfo;
 	const struct xt_entry_match *ematch;

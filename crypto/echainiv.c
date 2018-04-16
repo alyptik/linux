@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * echainiv: Encrypted Chain IV Generator
  *
@@ -30,6 +31,7 @@
 
 static int echainiv_encrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/echainiv.c: line 34 \n"); 
 	struct crypto_aead *geniv = crypto_aead_reqtfm(req);
 	struct aead_geniv_ctx *ctx = crypto_aead_ctx(geniv);
 	struct aead_request *subreq = aead_request_ctx(req);
@@ -89,6 +91,7 @@ static int echainiv_encrypt(struct aead_request *req)
 
 static int echainiv_decrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/echainiv.c: line 94 \n"); 
 	struct crypto_aead *geniv = crypto_aead_reqtfm(req);
 	struct aead_geniv_ctx *ctx = crypto_aead_ctx(geniv);
 	struct aead_request *subreq = aead_request_ctx(req);
@@ -117,6 +120,7 @@ static int echainiv_decrypt(struct aead_request *req)
 static int echainiv_aead_create(struct crypto_template *tmpl,
 				struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/echainiv.c: line 123 \n"); 
 	struct aead_instance *inst;
 	struct crypto_aead_spawn *spawn;
 	struct aead_alg *alg;
@@ -159,6 +163,7 @@ free_inst:
 
 static void echainiv_free(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/echainiv.c: line 166 \n"); 
 	aead_geniv_free(aead_instance(inst));
 }
 

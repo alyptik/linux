@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/isofs/inode.c
  *
@@ -43,6 +44,7 @@ static int isofs_dentry_cmp_ms(const struct dentry *dentry,
 
 static void isofs_put_super(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 47 \n"); 
 	struct isofs_sb_info *sbi = ISOFS_SB(sb);
 
 #ifdef CONFIG_JOLIET
@@ -61,6 +63,7 @@ static struct kmem_cache *isofs_inode_cachep;
 
 static struct inode *isofs_alloc_inode(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 66 \n"); 
 	struct iso_inode_info *ei;
 	ei = kmem_cache_alloc(isofs_inode_cachep, GFP_KERNEL);
 	if (!ei)
@@ -70,17 +73,20 @@ static struct inode *isofs_alloc_inode(struct super_block *sb)
 
 static void isofs_i_callback(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 76 \n"); 
 	struct inode *inode = container_of(head, struct inode, i_rcu);
 	kmem_cache_free(isofs_inode_cachep, ISOFS_I(inode));
 }
 
 static void isofs_destroy_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 83 \n"); 
 	call_rcu(&inode->i_rcu, isofs_i_callback);
 }
 
 static void init_once(void *foo)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 89 \n"); 
 	struct iso_inode_info *ei = foo;
 
 	inode_init_once(&ei->vfs_inode);
@@ -100,6 +106,7 @@ static int __init init_inodecache(void)
 
 static void destroy_inodecache(void)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 109 \n"); 
 	/*
 	 * Make sure all delayed rcu free inodes are flushed before we
 	 * destroy cache.
@@ -110,6 +117,7 @@ static void destroy_inodecache(void)
 
 static int isofs_remount(struct super_block *sb, int *flags, char *data)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 120 \n"); 
 	sync_filesystem(sb);
 	if (!(*flags & MS_RDONLY))
 		return -EROFS;
@@ -173,6 +181,7 @@ struct iso9660_options{
 static int
 isofs_hashi_common(const struct dentry *dentry, struct qstr *qstr, int ms)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 184 \n"); 
 	const char *name;
 	int len;
 	char c;
@@ -202,6 +211,7 @@ static int isofs_dentry_cmp_common(
 		unsigned int len, const char *str,
 		const struct qstr *name, int ms, int ci)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 214 \n"); 
 	int alen, blen;
 
 	/* A filename cannot end in '.' or we treat it like it has none */
@@ -228,6 +238,7 @@ static int isofs_dentry_cmp_common(
 static int
 isofs_hashi(const struct dentry *dentry, struct qstr *qstr)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 241 \n"); 
 	return isofs_hashi_common(dentry, qstr, 0);
 }
 
@@ -235,6 +246,7 @@ static int
 isofs_dentry_cmpi(const struct dentry *dentry,
 		unsigned int len, const char *str, const struct qstr *name)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 249 \n"); 
 	return isofs_dentry_cmp_common(len, str, name, 0, 1);
 }
 
@@ -335,6 +347,7 @@ static const match_table_t tokens = {
 
 static int parse_options(char *options, struct iso9660_options *popt)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 350 \n"); 
 	char *p;
 	int option;
 
@@ -491,6 +504,7 @@ static int parse_options(char *options, struct iso9660_options *popt)
 
 static unsigned int isofs_get_last_session(struct super_block *sb, s32 session)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 507 \n"); 
 	struct cdrom_multisession ms_info;
 	unsigned int vol_desc_start;
 	struct block_device *bdev = sb->s_bdev;
@@ -540,6 +554,7 @@ static unsigned int isofs_get_last_session(struct super_block *sb, s32 session)
  */
 static bool rootdir_empty(struct super_block *sb, unsigned long block)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 557 \n"); 
 	int offset = 0, files = 0, de_len;
 	struct iso_directory_record *de;
 	struct buffer_head *bh;
@@ -567,6 +582,7 @@ static bool rootdir_empty(struct super_block *sb, unsigned long block)
  */
 static int isofs_fill_super(struct super_block *s, void *data, int silent)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 585 \n"); 
 	struct buffer_head *bh = NULL, *pri_bh = NULL;
 	struct hs_primary_descriptor *h_pri = NULL;
 	struct iso_primary_descriptor *pri = NULL;
@@ -968,6 +984,7 @@ out_freesbi:
 
 static int isofs_statfs (struct dentry *dentry, struct kstatfs *buf)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 987 \n"); 
 	struct super_block *sb = dentry->d_sb;
 	u64 id = huge_encode_dev(sb->s_bdev->bd_dev);
 
@@ -993,6 +1010,7 @@ static int isofs_statfs (struct dentry *dentry, struct kstatfs *buf)
 int isofs_get_blocks(struct inode *inode, sector_t iblock,
 		     struct buffer_head **bh, unsigned long nblocks)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1013 \n"); 
 	unsigned long b_off = iblock;
 	unsigned offset, sect_size;
 	unsigned int firstext;
@@ -1084,6 +1102,7 @@ abort:
 static int isofs_get_block(struct inode *inode, sector_t iblock,
 		    struct buffer_head *bh_result, int create)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1105 \n"); 
 	int ret;
 
 	if (create) {
@@ -1097,6 +1116,7 @@ static int isofs_get_block(struct inode *inode, sector_t iblock,
 
 static int isofs_bmap(struct inode *inode, sector_t block)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1119 \n"); 
 	struct buffer_head dummy;
 	int error;
 
@@ -1110,6 +1130,7 @@ static int isofs_bmap(struct inode *inode, sector_t block)
 
 struct buffer_head *isofs_bread(struct inode *inode, sector_t block)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1133 \n"); 
 	sector_t blknr = isofs_bmap(inode, block);
 	if (!blknr)
 		return NULL;
@@ -1118,17 +1139,20 @@ struct buffer_head *isofs_bread(struct inode *inode, sector_t block)
 
 static int isofs_readpage(struct file *file, struct page *page)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1142 \n"); 
 	return mpage_readpage(page, isofs_get_block);
 }
 
 static int isofs_readpages(struct file *file, struct address_space *mapping,
 			struct list_head *pages, unsigned nr_pages)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1149 \n"); 
 	return mpage_readpages(mapping, pages, nr_pages, isofs_get_block);
 }
 
 static sector_t _isofs_bmap(struct address_space *mapping, sector_t block)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1155 \n"); 
 	return generic_block_bmap(mapping,block,isofs_get_block);
 }
 
@@ -1140,6 +1164,7 @@ static const struct address_space_operations isofs_aops = {
 
 static int isofs_read_level3_size(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1167 \n"); 
 	unsigned long bufsize = ISOFS_BUFFER_SIZE(inode);
 	int high_sierra = ISOFS_SB(inode->i_sb)->s_high_sierra;
 	struct buffer_head *bh = NULL;
@@ -1243,6 +1268,7 @@ out_toomany:
 
 static int isofs_read_inode(struct inode *inode, int relocated)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1271 \n"); 
 	struct super_block *sb = inode->i_sb;
 	struct isofs_sb_info *sbi = ISOFS_SB(sb);
 	unsigned long bufsize = ISOFS_BUFFER_SIZE(inode);
@@ -1445,6 +1471,7 @@ struct isofs_iget5_callback_data {
 
 static int isofs_iget5_test(struct inode *ino, void *data)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1474 \n"); 
 	struct iso_inode_info *i = ISOFS_I(ino);
 	struct isofs_iget5_callback_data *d =
 		(struct isofs_iget5_callback_data*)data;
@@ -1454,6 +1481,7 @@ static int isofs_iget5_test(struct inode *ino, void *data)
 
 static int isofs_iget5_set(struct inode *ino, void *data)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1484 \n"); 
 	struct iso_inode_info *i = ISOFS_I(ino);
 	struct isofs_iget5_callback_data *d =
 		(struct isofs_iget5_callback_data*)data;
@@ -1471,6 +1499,7 @@ struct inode *__isofs_iget(struct super_block *sb,
 			   unsigned long offset,
 			   int relocated)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1502 \n"); 
 	unsigned long hashval;
 	struct inode *inode;
 	struct isofs_iget5_callback_data data;
@@ -1506,6 +1535,7 @@ struct inode *__isofs_iget(struct super_block *sb,
 static struct dentry *isofs_mount(struct file_system_type *fs_type,
 	int flags, const char *dev_name, void *data)
 {
+	panic("We reached unpopular paths in fs/isofs/inode.c: line 1538 \n"); 
 	return mount_bdev(fs_type, flags, dev_name, data, isofs_fill_super);
 }
 

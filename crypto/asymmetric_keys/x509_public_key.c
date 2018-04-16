@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Instantiate a public key crypto key from an X.509 Certificate
  *
  * Copyright (C) 2012 Red Hat, Inc. All Rights Reserved.
@@ -26,6 +27,7 @@
  */
 int x509_get_sig_params(struct x509_certificate *cert)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/x509_public_key.c: line 30 \n"); 
 	struct public_key_signature *sig = cert->sig;
 	struct crypto_shash *tfm;
 	struct shash_desc *desc;
@@ -99,6 +101,7 @@ error:
  */
 int x509_check_for_self_signed(struct x509_certificate *cert)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/x509_public_key.c: line 104 \n"); 
 	int ret = 0;
 
 	pr_devel("==>%s()\n", __func__);
@@ -154,6 +157,7 @@ not_self_signed:
  */
 static int x509_key_preparse(struct key_preparsed_payload *prep)
 {
+	panic("We reached unpopular paths in crypto/asymmetric_keys/x509_public_key.c: line 160 \n"); 
 	struct asymmetric_key_ids *kids;
 	struct x509_certificate *cert;
 	const char *q;

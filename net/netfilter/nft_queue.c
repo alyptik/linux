@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2013 Eric Leblond <eric@regit.org>
  *
@@ -32,6 +33,7 @@ static void nft_queue_eval(const struct nft_expr *expr,
 			   struct nft_regs *regs,
 			   const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_queue.c: line 36 \n"); 
 	struct nft_queue *priv = nft_expr_priv(expr);
 	u32 queue = priv->queuenum;
 	u32 ret;
@@ -59,6 +61,7 @@ static void nft_queue_sreg_eval(const struct nft_expr *expr,
 				struct nft_regs *regs,
 				const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_queue.c: line 64 \n"); 
 	struct nft_queue *priv = nft_expr_priv(expr);
 	u32 queue, ret;
 
@@ -82,6 +85,7 @@ static int nft_queue_init(const struct nft_ctx *ctx,
 			  const struct nft_expr *expr,
 			  const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_queue.c: line 88 \n"); 
 	struct nft_queue *priv = nft_expr_priv(expr);
 	u32 maxid;
 
@@ -111,6 +115,7 @@ static int nft_queue_sreg_init(const struct nft_ctx *ctx,
 			       const struct nft_expr *expr,
 			       const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_queue.c: line 118 \n"); 
 	struct nft_queue *priv = nft_expr_priv(expr);
 	int err;
 
@@ -132,6 +137,7 @@ static int nft_queue_sreg_init(const struct nft_ctx *ctx,
 
 static int nft_queue_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_queue.c: line 140 \n"); 
 	const struct nft_queue *priv = nft_expr_priv(expr);
 
 	if (nla_put_be16(skb, NFTA_QUEUE_NUM, htons(priv->queuenum)) ||
@@ -148,6 +154,7 @@ nla_put_failure:
 static int
 nft_queue_sreg_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_queue.c: line 157 \n"); 
 	const struct nft_queue *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_QUEUE_SREG_QNUM, priv->sreg_qnum) ||
@@ -181,6 +188,7 @@ static const struct nft_expr_ops *
 nft_queue_select_ops(const struct nft_ctx *ctx,
 		     const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_queue.c: line 191 \n"); 
 	if (tb[NFTA_QUEUE_NUM] && tb[NFTA_QUEUE_SREG_QNUM])
 		return ERR_PTR(-EINVAL);
 

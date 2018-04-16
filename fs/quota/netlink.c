@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/cred.h>
 #include <linux/init.h>
 #include <linux/kernel.h>
@@ -42,6 +43,7 @@ static struct genl_family quota_genl_family = {
 void quota_send_warning(struct kqid qid, dev_t dev,
 			const char warntype)
 {
+	panic("We reached unpopular paths in fs/quota/netlink.c: line 46 \n"); 
 	static atomic_t seq;
 	struct sk_buff *skb;
 	void *msg_head;

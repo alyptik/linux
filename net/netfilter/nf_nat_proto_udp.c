@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2006 Netfilter Core Team <coreteam@netfilter.org>
  *
@@ -26,6 +27,7 @@ udp_unique_tuple(const struct nf_nat_l3proto *l3proto,
 		 enum nf_nat_manip_type maniptype,
 		 const struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_proto_udp.c: line 30 \n"); 
 	nf_nat_l4proto_unique_tuple(l3proto, tuple, range, maniptype, ct,
 				    &udp_port_rover);
 }

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* fs/ internal definitions
  *
  * Copyright (C) 2006 Red Hat, Inc. All Rights Reserved.
@@ -29,10 +30,12 @@ extern int __sync_blockdev(struct block_device *bdev, int wait);
 #else
 static inline void bdev_cache_init(void)
 {
+	panic("We reached unpopular paths in fs/internal.h: line 33 \n"); 
 }
 
 static inline int __sync_blockdev(struct block_device *bdev, int wait)
 {
+	panic("We reached unpopular paths in fs/internal.h: line 38 \n"); 
 	return 0;
 }
 #endif

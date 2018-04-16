@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Transparent proxy support for Linux/iptables
  *
@@ -42,6 +43,7 @@ enum nf_tproxy_lookup_t {
 
 static bool tproxy_sk_is_transparent(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TPROXY.c: line 46 \n"); 
 	switch (sk->sk_state) {
 	case TCP_TIME_WAIT:
 		if (inet_twsk(sk)->tw_transparent)
@@ -63,6 +65,7 @@ static bool tproxy_sk_is_transparent(struct sock *sk)
 static inline __be32
 tproxy_laddr4(struct sk_buff *skb, __be32 user_laddr, __be32 daddr)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TPROXY.c: line 68 \n"); 
 	struct in_device *indev;
 	__be32 laddr;
 
@@ -112,6 +115,7 @@ nf_tproxy_get_sock_v4(struct net *net, struct sk_buff *skb, void *hp,
 		      const struct net_device *in,
 		      const enum nf_tproxy_lookup_t lookup_type)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TPROXY.c: line 118 \n"); 
 	struct sock *sk;
 	struct tcphdr *tcph;
 
@@ -266,6 +270,7 @@ static struct sock *
 tproxy_handle_time_wait4(struct net *net, struct sk_buff *skb,
 			 __be32 laddr, __be16 lport, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TPROXY.c: line 273 \n"); 
 	const struct iphdr *iph = ip_hdr(skb);
 	struct tcphdr _hdr, *hp;
 
@@ -297,6 +302,7 @@ tproxy_handle_time_wait4(struct net *net, struct sk_buff *skb,
 static void
 nf_tproxy_assign_sock(struct sk_buff *skb, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TPROXY.c: line 305 \n"); 
 	skb_orphan(skb);
 	skb->sk = sk;
 	skb->destructor = sock_edemux;
@@ -306,6 +312,7 @@ static unsigned int
 tproxy_tg4(struct net *net, struct sk_buff *skb, __be32 laddr, __be16 lport,
 	   u_int32_t mark_mask, u_int32_t mark_value)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TPROXY.c: line 315 \n"); 
 	const struct iphdr *iph = ip_hdr(skb);
 	struct udphdr _hdr, *hp;
 	struct sock *sk;
@@ -362,6 +369,7 @@ tproxy_tg4(struct net *net, struct sk_buff *skb, __be32 laddr, __be16 lport,
 static unsigned int
 tproxy_tg4_v0(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TPROXY.c: line 372 \n"); 
 	const struct xt_tproxy_target_info *tgi = par->targinfo;
 
 	return tproxy_tg4(par->net, skb, tgi->laddr, tgi->lport, tgi->mark_mask, tgi->mark_value);
@@ -370,6 +378,7 @@ tproxy_tg4_v0(struct sk_buff *skb, const struct xt_action_param *par)
 static unsigned int
 tproxy_tg4_v1(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TPROXY.c: line 381 \n"); 
 	const struct xt_tproxy_target_info_v1 *tgi = par->targinfo;
 
 	return tproxy_tg4(par->net, skb, tgi->laddr.ip, tgi->lport, tgi->mark_mask, tgi->mark_value);
@@ -542,6 +551,7 @@ static int tproxy_tg6_check(const struct xt_tgchk_param *par)
 
 static int tproxy_tg4_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TPROXY.c: line 554 \n"); 
 	const struct ipt_ip *i = par->entryinfo;
 
 	if ((i->proto == IPPROTO_TCP || i->proto == IPPROTO_UDP)

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -123,6 +124,7 @@ EXPORT_SYMBOL_GPL(raw_unhash_sk);
 static struct sock *__raw_v4_lookup(struct net *net, struct sock *sk,
 		unsigned short num, __be32 raddr, __be32 laddr, int dif)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 127 \n"); 
 	sk_for_each_from(sk) {
 		struct inet_sock *inet = inet_sk(sk);
 
@@ -143,6 +145,7 @@ found:
  */
 static int icmp_filter(const struct sock *sk, const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 148 \n"); 
 	struct icmphdr _hdr;
 	const struct icmphdr *hdr;
 
@@ -169,6 +172,7 @@ static int icmp_filter(const struct sock *sk, const struct sk_buff *skb)
  */
 static int raw_v4_input(struct sk_buff *skb, const struct iphdr *iph, int hash)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 175 \n"); 
 	struct sock *sk;
 	struct hlist_head *head;
 	int delivered = 0;
@@ -224,6 +228,7 @@ int raw_local_deliver(struct sk_buff *skb, int protocol)
 
 static void raw_err(struct sock *sk, struct sk_buff *skb, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 231 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	const int type = icmp_hdr(skb)->type;
 	const int code = icmp_hdr(skb)->code;
@@ -285,6 +290,7 @@ static void raw_err(struct sock *sk, struct sk_buff *skb, u32 info)
 
 void raw_icmp_error(struct sk_buff *skb, int protocol, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 293 \n"); 
 	int hash;
 	struct sock *raw_sk;
 	const struct iphdr *iph;
@@ -311,6 +317,7 @@ void raw_icmp_error(struct sk_buff *skb, int protocol, u32 info)
 
 static int raw_rcv_skb(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 320 \n"); 
 	/* Charge it to the socket. */
 
 	ipv4_pktinfo_prepare(sk, skb);
@@ -324,6 +331,7 @@ static int raw_rcv_skb(struct sock *sk, struct sk_buff *skb)
 
 int raw_rcv(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 334 \n"); 
 	if (!xfrm4_policy_check(sk, XFRM_POLICY_IN, skb)) {
 		atomic_inc(&sk->sk_drops);
 		kfree_skb(skb);
@@ -342,6 +350,7 @@ static int raw_send_hdrinc(struct sock *sk, struct flowi4 *fl4,
 			   struct rtable **rtp, unsigned int flags,
 			   const struct sockcm_cookie *sockc)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 353 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct net *net = sock_net(sk);
 	struct iphdr *iph;
@@ -439,6 +448,7 @@ error:
 
 static int raw_probe_proto_opt(struct raw_frag_vec *rfv, struct flowi4 *fl4)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 451 \n"); 
 	int err;
 
 	if (fl4->flowi4_proto != IPPROTO_ICMP)
@@ -460,6 +470,7 @@ static int raw_probe_proto_opt(struct raw_frag_vec *rfv, struct flowi4 *fl4)
 static int raw_getfrag(void *from, char *to, int offset, int len, int odd,
 		       struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 473 \n"); 
 	struct raw_frag_vec *rfv = from;
 
 	if (offset < rfv->hlen) {
@@ -490,6 +501,7 @@ static int raw_getfrag(void *from, char *to, int offset, int len, int odd,
 
 static int raw_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 504 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct net *net = sock_net(sk);
 	struct ipcm_cookie ipc;
@@ -699,6 +711,7 @@ static void raw_destroy(struct sock *sk)
 /* This gets rid of all the nasties in af_inet. -DaveM */
 static int raw_bind(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 714 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct sockaddr_in *addr = (struct sockaddr_in *) uaddr;
 	int ret = -EINVAL;
@@ -727,6 +740,7 @@ out:	return ret;
 static int raw_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
 		       int noblock, int flags, int *addr_len)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 743 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	size_t copied = 0;
 	int err = -EOPNOTSUPP;
@@ -876,6 +890,7 @@ static int compat_raw_getsockopt(struct sock *sk, int level, int optname,
 
 static int raw_ioctl(struct sock *sk, int cmd, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/ipv4/raw.c: line 893 \n"); 
 	switch (cmd) {
 	case SIOCOUTQ: {
 		int amount = sk_wmem_alloc_get(sk);

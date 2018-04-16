@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C) 2012 Red Hat, Inc.
  * Copyright (C) 2012 Jeremy Kerr <jeremy.kerr@canonical.com>
@@ -22,6 +23,7 @@ LIST_HEAD(efivarfs_list);
 
 static void efivarfs_evict_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/efivarfs/super.c: line 26 \n"); 
 	clear_inode(inode);
 }
 
@@ -49,6 +51,7 @@ static int efivarfs_d_compare(const struct dentry *dentry,
 			      unsigned int len, const char *str,
 			      const struct qstr *name)
 {
+	panic("We reached unpopular paths in fs/efivarfs/super.c: line 54 \n"); 
 	int guid = len - EFI_VARIABLE_GUID_LEN;
 
 	if (name->len != len)
@@ -64,6 +67,7 @@ static int efivarfs_d_compare(const struct dentry *dentry,
 
 static int efivarfs_d_hash(const struct dentry *dentry, struct qstr *qstr)
 {
+	panic("We reached unpopular paths in fs/efivarfs/super.c: line 70 \n"); 
 	unsigned long hash = init_name_hash(dentry);
 	const unsigned char *s = qstr->name;
 	unsigned int len = qstr->len;
@@ -90,6 +94,7 @@ static const struct dentry_operations efivarfs_d_ops = {
 
 static struct dentry *efivarfs_alloc_dentry(struct dentry *parent, char *name)
 {
+	panic("We reached unpopular paths in fs/efivarfs/super.c: line 97 \n"); 
 	struct dentry *d;
 	struct qstr q;
 	int err;
@@ -111,6 +116,7 @@ static struct dentry *efivarfs_alloc_dentry(struct dentry *parent, char *name)
 static int efivarfs_callback(efi_char16_t *name16, efi_guid_t vendor,
 			     unsigned long name_size, void *data)
 {
+	panic("We reached unpopular paths in fs/efivarfs/super.c: line 119 \n"); 
 	struct super_block *sb = (struct super_block *)data;
 	struct efivar_entry *entry;
 	struct inode *inode = NULL;
@@ -184,6 +190,7 @@ fail:
 
 static int efivarfs_destroy(struct efivar_entry *entry, void *data)
 {
+	panic("We reached unpopular paths in fs/efivarfs/super.c: line 193 \n"); 
 	int err = efivar_entry_remove(entry);
 
 	if (err)
@@ -194,6 +201,7 @@ static int efivarfs_destroy(struct efivar_entry *entry, void *data)
 
 static int efivarfs_fill_super(struct super_block *sb, void *data, int silent)
 {
+	panic("We reached unpopular paths in fs/efivarfs/super.c: line 204 \n"); 
 	struct inode *inode = NULL;
 	struct dentry *root;
 	int err;
@@ -230,11 +238,13 @@ static int efivarfs_fill_super(struct super_block *sb, void *data, int silent)
 static struct dentry *efivarfs_mount(struct file_system_type *fs_type,
 				    int flags, const char *dev_name, void *data)
 {
+	panic("We reached unpopular paths in fs/efivarfs/super.c: line 241 \n"); 
 	return mount_single(fs_type, flags, data, efivarfs_fill_super);
 }
 
 static void efivarfs_kill_sb(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/efivarfs/super.c: line 247 \n"); 
 	kill_litter_super(sb);
 	efivarfs_sb = NULL;
 

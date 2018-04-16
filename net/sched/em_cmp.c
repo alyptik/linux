@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/em_cmp.c	Simple packet data comparison ematch
  *
@@ -19,12 +20,14 @@
 
 static inline int cmp_needs_transformation(struct tcf_em_cmp *cmp)
 {
+	panic("We reached unpopular paths in net/sched/em_cmp.c: line 23 \n"); 
 	return unlikely(cmp->flags & TCF_EM_CMP_TRANS);
 }
 
 static int em_cmp_match(struct sk_buff *skb, struct tcf_ematch *em,
 			struct tcf_pkt_info *info)
 {
+	panic("We reached unpopular paths in net/sched/em_cmp.c: line 30 \n"); 
 	struct tcf_em_cmp *cmp = (struct tcf_em_cmp *) em->data;
 	unsigned char *ptr = tcf_get_base_ptr(skb, cmp->layer) + cmp->off;
 	u32 val = 0;

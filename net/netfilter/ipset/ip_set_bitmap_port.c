@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Copyright (C) 2003-2013 Jozsef Kadlecsik <kadlec@blackhole.kfki.hu>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -52,6 +53,7 @@ struct bitmap_port_adt_elem {
 static inline u16
 port_to_id(const struct bitmap_port *m, u16 port)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_port.c: line 56 \n"); 
 	return port - m->first_port;
 }
 
@@ -61,12 +63,14 @@ static inline int
 bitmap_port_do_test(const struct bitmap_port_adt_elem *e,
 		    const struct bitmap_port *map, size_t dsize)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_port.c: line 66 \n"); 
 	return !!test_bit(e->id, map->members);
 }
 
 static inline int
 bitmap_port_gc_test(u16 id, const struct bitmap_port *map, size_t dsize)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_port.c: line 73 \n"); 
 	return !!test_bit(id, map->members);
 }
 
@@ -74,6 +78,7 @@ static inline int
 bitmap_port_do_add(const struct bitmap_port_adt_elem *e,
 		   struct bitmap_port *map, u32 flags, size_t dsize)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_port.c: line 81 \n"); 
 	return !!test_bit(e->id, map->members);
 }
 
@@ -81,6 +86,7 @@ static inline int
 bitmap_port_do_del(const struct bitmap_port_adt_elem *e,
 		   struct bitmap_port *map)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_port.c: line 89 \n"); 
 	return !test_and_clear_bit(e->id, map->members);
 }
 
@@ -88,6 +94,7 @@ static inline int
 bitmap_port_do_list(struct sk_buff *skb, const struct bitmap_port *map, u32 id,
 		    size_t dsize)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_port.c: line 97 \n"); 
 	return nla_put_net16(skb, IPSET_ATTR_PORT,
 			     htons(map->first_port + id));
 }
@@ -95,6 +102,7 @@ bitmap_port_do_list(struct sk_buff *skb, const struct bitmap_port *map, u32 id,
 static inline int
 bitmap_port_do_head(struct sk_buff *skb, const struct bitmap_port *map)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_port.c: line 105 \n"); 
 	return nla_put_net16(skb, IPSET_ATTR_PORT, htons(map->first_port)) ||
 	       nla_put_net16(skb, IPSET_ATTR_PORT_TO, htons(map->last_port));
 }
@@ -104,6 +112,7 @@ bitmap_port_kadt(struct ip_set *set, const struct sk_buff *skb,
 		 const struct xt_action_param *par,
 		 enum ipset_adt adt, struct ip_set_adt_opt *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_port.c: line 115 \n"); 
 	struct bitmap_port *map = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct bitmap_port_adt_elem e = { .id = 0 };
@@ -129,6 +138,7 @@ static int
 bitmap_port_uadt(struct ip_set *set, struct nlattr *tb[],
 		 enum ipset_adt adt, u32 *lineno, u32 flags, bool retried)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_port.c: line 141 \n"); 
 	struct bitmap_port *map = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct bitmap_port_adt_elem e = { .id = 0 };
@@ -185,6 +195,7 @@ bitmap_port_uadt(struct ip_set *set, struct nlattr *tb[],
 static bool
 bitmap_port_same_set(const struct ip_set *a, const struct ip_set *b)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_port.c: line 198 \n"); 
 	const struct bitmap_port *x = a->data;
 	const struct bitmap_port *y = b->data;
 
@@ -207,6 +218,7 @@ static bool
 init_map_port(struct ip_set *set, struct bitmap_port *map,
 	      u16 first_port, u16 last_port)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_port.c: line 221 \n"); 
 	map->members = ip_set_alloc(map->memsize);
 	if (!map->members)
 		return false;
@@ -224,6 +236,7 @@ static int
 bitmap_port_create(struct net *net, struct ip_set *set, struct nlattr *tb[],
 		   u32 flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_bitmap_port.c: line 239 \n"); 
 	struct bitmap_port *map;
 	u16 first_port, last_port;
 	u32 elements;

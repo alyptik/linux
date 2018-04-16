@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * This is a module which is used for rejecting packets.
  */
@@ -33,6 +34,7 @@ MODULE_DESCRIPTION("Xtables: packet \"rejection\" target for IPv4");
 static unsigned int
 reject_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_REJECT.c: line 37 \n"); 
 	const struct ipt_reject_info *reject = par->targinfo;
 	int hook = par->hooknum;
 
@@ -70,6 +72,7 @@ reject_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int reject_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_REJECT.c: line 75 \n"); 
 	const struct ipt_reject_info *rejinfo = par->targinfo;
 	const struct ipt_entry *e = par->entryinfo;
 

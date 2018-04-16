@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -34,11 +35,13 @@ static int crypto_default_rng_refcnt;
 
 static inline struct crypto_rng *__crypto_rng_cast(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/rng.c: line 38 \n"); 
 	return container_of(tfm, struct crypto_rng, base);
 }
 
 int crypto_rng_reset(struct crypto_rng *tfm, const u8 *seed, unsigned int slen)
 {
+	panic("We reached unpopular paths in crypto/rng.c: line 44 \n"); 
 	u8 *buf = NULL;
 	int err;
 
@@ -60,11 +63,13 @@ EXPORT_SYMBOL_GPL(crypto_rng_reset);
 
 static int crypto_rng_init_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/rng.c: line 66 \n"); 
 	return 0;
 }
 
 static unsigned int seedsize(struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/rng.c: line 72 \n"); 
 	struct rng_alg *ralg = container_of(alg, struct rng_alg, base);
 
 	return ralg->seedsize;
@@ -90,6 +95,7 @@ nla_put_failure:
 #else
 static int crypto_rng_report(struct sk_buff *skb, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/rng.c: line 98 \n"); 
 	return -ENOSYS;
 }
 #endif
@@ -98,6 +104,7 @@ static void crypto_rng_show(struct seq_file *m, struct crypto_alg *alg)
 	__attribute__ ((unused));
 static void crypto_rng_show(struct seq_file *m, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/rng.c: line 107 \n"); 
 	seq_printf(m, "type         : rng\n");
 	seq_printf(m, "seedsize     : %u\n", seedsize(alg));
 }
@@ -117,12 +124,14 @@ static const struct crypto_type crypto_rng_type = {
 
 struct crypto_rng *crypto_alloc_rng(const char *alg_name, u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/rng.c: line 127 \n"); 
 	return crypto_alloc_tfm(alg_name, &crypto_rng_type, type, mask);
 }
 EXPORT_SYMBOL_GPL(crypto_alloc_rng);
 
 int crypto_get_default_rng(void)
 {
+	panic("We reached unpopular paths in crypto/rng.c: line 134 \n"); 
 	struct crypto_rng *rng;
 	int err;
 
@@ -154,6 +163,7 @@ EXPORT_SYMBOL_GPL(crypto_get_default_rng);
 
 void crypto_put_default_rng(void)
 {
+	panic("We reached unpopular paths in crypto/rng.c: line 166 \n"); 
 	mutex_lock(&crypto_default_rng_lock);
 	crypto_default_rng_refcnt--;
 	mutex_unlock(&crypto_default_rng_lock);
@@ -199,6 +209,7 @@ EXPORT_SYMBOL_GPL(crypto_register_rng);
 
 void crypto_unregister_rng(struct rng_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/rng.c: line 212 \n"); 
 	crypto_unregister_alg(&alg->base);
 }
 EXPORT_SYMBOL_GPL(crypto_unregister_rng);
@@ -225,6 +236,7 @@ EXPORT_SYMBOL_GPL(crypto_register_rngs);
 
 void crypto_unregister_rngs(struct rng_alg *algs, int count)
 {
+	panic("We reached unpopular paths in crypto/rng.c: line 239 \n"); 
 	int i;
 
 	for (i = count - 1; i >= 0; --i)

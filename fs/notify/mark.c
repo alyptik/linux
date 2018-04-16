@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  Copyright (C) 2008 Red Hat, Inc., Eric Paris <eparis@redhat.com>
  *
@@ -102,11 +103,13 @@ static DECLARE_DELAYED_WORK(reaper_work, fsnotify_mark_destroy_workfn);
 
 void fsnotify_get_mark(struct fsnotify_mark *mark)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 106 \n"); 
 	atomic_inc(&mark->refcnt);
 }
 
 void fsnotify_put_mark(struct fsnotify_mark *mark)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 112 \n"); 
 	if (atomic_dec_and_test(&mark->refcnt)) {
 		if (mark->group)
 			fsnotify_put_group(mark->group);
@@ -117,6 +120,7 @@ void fsnotify_put_mark(struct fsnotify_mark *mark)
 /* Calculate mask of events for a list of marks */
 u32 fsnotify_recalc_mask(struct hlist_head *head)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 123 \n"); 
 	u32 new_mask = 0;
 	struct fsnotify_mark *mark;
 
@@ -133,6 +137,7 @@ u32 fsnotify_recalc_mask(struct hlist_head *head)
  */
 void fsnotify_detach_mark(struct fsnotify_mark *mark)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 140 \n"); 
 	struct inode *inode = NULL;
 	struct fsnotify_group *group = mark->group;
 
@@ -183,6 +188,7 @@ void fsnotify_detach_mark(struct fsnotify_mark *mark)
  */
 static bool __fsnotify_free_mark(struct fsnotify_mark *mark)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 191 \n"); 
 	struct fsnotify_group *group = mark->group;
 
 	spin_lock(&mark->lock);
@@ -216,6 +222,7 @@ static bool __fsnotify_free_mark(struct fsnotify_mark *mark)
  */
 void fsnotify_free_mark(struct fsnotify_mark *mark)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 225 \n"); 
 	if (__fsnotify_free_mark(mark)) {
 		queue_delayed_work(system_unbound_wq, &reaper_work,
 				   FSNOTIFY_REAPER_DELAY);
@@ -225,6 +232,7 @@ void fsnotify_free_mark(struct fsnotify_mark *mark)
 void fsnotify_destroy_mark(struct fsnotify_mark *mark,
 			   struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 235 \n"); 
 	mutex_lock_nested(&group->mark_mutex, SINGLE_DEPTH_NESTING);
 	fsnotify_detach_mark(mark);
 	mutex_unlock(&group->mark_mutex);
@@ -264,6 +272,7 @@ void fsnotify_destroy_marks(struct hlist_head *head, spinlock_t *lock)
 
 void fsnotify_set_mark_mask_locked(struct fsnotify_mark *mark, __u32 mask)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 275 \n"); 
 	assert_spin_locked(&mark->lock);
 
 	mark->mask = mask;
@@ -274,6 +283,7 @@ void fsnotify_set_mark_mask_locked(struct fsnotify_mark *mark, __u32 mask)
 
 void fsnotify_set_mark_ignored_mask_locked(struct fsnotify_mark *mark, __u32 mask)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 286 \n"); 
 	assert_spin_locked(&mark->lock);
 
 	mark->ignored_mask = mask;
@@ -300,6 +310,7 @@ void fsnotify_set_mark_ignored_mask_locked(struct fsnotify_mark *mark, __u32 mas
  */
 int fsnotify_compare_groups(struct fsnotify_group *a, struct fsnotify_group *b)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 313 \n"); 
 	if (a == b)
 		return 0;
 	if (!a)
@@ -319,6 +330,7 @@ int fsnotify_compare_groups(struct fsnotify_group *a, struct fsnotify_group *b)
 int fsnotify_add_mark_list(struct hlist_head *head, struct fsnotify_mark *mark,
 			   int allow_dups)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 333 \n"); 
 	struct fsnotify_mark *lmark, *last = NULL;
 	int cmp;
 
@@ -357,6 +369,7 @@ int fsnotify_add_mark_locked(struct fsnotify_mark *mark,
 			     struct fsnotify_group *group, struct inode *inode,
 			     struct vfsmount *mnt, int allow_dups)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 372 \n"); 
 	int ret = 0;
 
 	BUG_ON(inode && mnt);
@@ -419,6 +432,7 @@ err:
 int fsnotify_add_mark(struct fsnotify_mark *mark, struct fsnotify_group *group,
 		      struct inode *inode, struct vfsmount *mnt, int allow_dups)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 435 \n"); 
 	int ret;
 	mutex_lock(&group->mark_mutex);
 	ret = fsnotify_add_mark_locked(mark, group, inode, mnt, allow_dups);
@@ -450,6 +464,7 @@ struct fsnotify_mark *fsnotify_find_mark(struct hlist_head *head,
 void fsnotify_clear_marks_by_group_flags(struct fsnotify_group *group,
 					 unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 467 \n"); 
 	struct fsnotify_mark *lmark, *mark;
 	LIST_HEAD(to_free);
 
@@ -492,6 +507,7 @@ void fsnotify_clear_marks_by_group_flags(struct fsnotify_group *group,
  */
 void fsnotify_detach_group_marks(struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 510 \n"); 
 	struct fsnotify_mark *mark;
 
 	while (1) {
@@ -528,6 +544,7 @@ void fsnotify_duplicate_mark(struct fsnotify_mark *new, struct fsnotify_mark *ol
 void fsnotify_init_mark(struct fsnotify_mark *mark,
 			void (*free_mark)(struct fsnotify_mark *mark))
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 547 \n"); 
 	memset(mark, 0, sizeof(*mark));
 	spin_lock_init(&mark->lock);
 	atomic_set(&mark->refcnt, 1);
@@ -540,6 +557,7 @@ void fsnotify_init_mark(struct fsnotify_mark *mark,
  */
 void fsnotify_mark_destroy_list(void)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 560 \n"); 
 	struct fsnotify_mark *mark, *next;
 	struct list_head private_destroy_list;
 
@@ -558,5 +576,6 @@ void fsnotify_mark_destroy_list(void)
 
 static void fsnotify_mark_destroy_workfn(struct work_struct *work)
 {
+	panic("We reached unpopular paths in fs/notify/mark.c: line 579 \n"); 
 	fsnotify_mark_destroy_list();
 }

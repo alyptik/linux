@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * nf_nat_proto_gre.c
  *
@@ -45,6 +46,7 @@ gre_unique_tuple(const struct nf_nat_l3proto *l3proto,
 		 enum nf_nat_manip_type maniptype,
 		 const struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_proto_gre.c: line 49 \n"); 
 	static u_int16_t key;
 	__be16 *keyptr;
 	unsigned int min, i, range_size;
@@ -88,6 +90,7 @@ gre_manip_pkt(struct sk_buff *skb,
 	      const struct nf_conntrack_tuple *tuple,
 	      enum nf_nat_manip_type maniptype)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_proto_gre.c: line 93 \n"); 
 	const struct gre_base_hdr *greh;
 	struct pptp_gre_header *pgreh;
 

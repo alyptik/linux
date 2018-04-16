@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Functions related to sysfs handling
  */
@@ -23,12 +24,14 @@ struct queue_sysfs_entry {
 static ssize_t
 queue_var_show(unsigned long var, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 27 \n"); 
 	return sprintf(page, "%lu\n", var);
 }
 
 static ssize_t
 queue_var_store(unsigned long *var, const char *page, size_t count)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 34 \n"); 
 	int err;
 	unsigned long v;
 
@@ -43,12 +46,14 @@ queue_var_store(unsigned long *var, const char *page, size_t count)
 
 static ssize_t queue_requests_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 49 \n"); 
 	return queue_var_show(q->nr_requests, (page));
 }
 
 static ssize_t
 queue_requests_store(struct request_queue *q, const char *page, size_t count)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 56 \n"); 
 	unsigned long nr;
 	int ret, err;
 
@@ -75,6 +80,7 @@ queue_requests_store(struct request_queue *q, const char *page, size_t count)
 
 static ssize_t queue_ra_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 83 \n"); 
 	unsigned long ra_kb = q->backing_dev_info.ra_pages <<
 					(PAGE_SHIFT - 10);
 
@@ -84,6 +90,7 @@ static ssize_t queue_ra_show(struct request_queue *q, char *page)
 static ssize_t
 queue_ra_store(struct request_queue *q, const char *page, size_t count)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 93 \n"); 
 	unsigned long ra_kb;
 	ssize_t ret = queue_var_store(&ra_kb, page, count);
 
@@ -97,6 +104,7 @@ queue_ra_store(struct request_queue *q, const char *page, size_t count)
 
 static ssize_t queue_max_sectors_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 107 \n"); 
 	int max_sectors_kb = queue_max_sectors(q) >> 1;
 
 	return queue_var_show(max_sectors_kb, (page));
@@ -104,16 +112,19 @@ static ssize_t queue_max_sectors_show(struct request_queue *q, char *page)
 
 static ssize_t queue_max_segments_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 115 \n"); 
 	return queue_var_show(queue_max_segments(q), (page));
 }
 
 static ssize_t queue_max_integrity_segments_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 121 \n"); 
 	return queue_var_show(q->limits.max_integrity_segments, (page));
 }
 
 static ssize_t queue_max_segment_size_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 127 \n"); 
 	if (blk_queue_cluster(q))
 		return queue_var_show(queue_max_segment_size(q), (page));
 
@@ -122,31 +133,37 @@ static ssize_t queue_max_segment_size_show(struct request_queue *q, char *page)
 
 static ssize_t queue_logical_block_size_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 136 \n"); 
 	return queue_var_show(queue_logical_block_size(q), page);
 }
 
 static ssize_t queue_physical_block_size_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 142 \n"); 
 	return queue_var_show(queue_physical_block_size(q), page);
 }
 
 static ssize_t queue_io_min_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 148 \n"); 
 	return queue_var_show(queue_io_min(q), page);
 }
 
 static ssize_t queue_io_opt_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 154 \n"); 
 	return queue_var_show(queue_io_opt(q), page);
 }
 
 static ssize_t queue_discard_granularity_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 160 \n"); 
 	return queue_var_show(q->limits.discard_granularity, page);
 }
 
 static ssize_t queue_discard_max_hw_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 166 \n"); 
 
 	return sprintf(page, "%llu\n",
 		(unsigned long long)q->limits.max_hw_discard_sectors << 9);
@@ -154,6 +171,7 @@ static ssize_t queue_discard_max_hw_show(struct request_queue *q, char *page)
 
 static ssize_t queue_discard_max_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 174 \n"); 
 	return sprintf(page, "%llu\n",
 		       (unsigned long long)q->limits.max_discard_sectors << 9);
 }
@@ -161,6 +179,7 @@ static ssize_t queue_discard_max_show(struct request_queue *q, char *page)
 static ssize_t queue_discard_max_store(struct request_queue *q,
 				       const char *page, size_t count)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 182 \n"); 
 	unsigned long max_discard;
 	ssize_t ret = queue_var_store(&max_discard, page, count);
 
@@ -183,11 +202,13 @@ static ssize_t queue_discard_max_store(struct request_queue *q,
 
 static ssize_t queue_discard_zeroes_data_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 205 \n"); 
 	return queue_var_show(queue_discard_zeroes_data(q), page);
 }
 
 static ssize_t queue_write_same_max_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 211 \n"); 
 	return sprintf(page, "%llu\n",
 		(unsigned long long)q->limits.max_write_same_sectors << 9);
 }
@@ -196,6 +217,7 @@ static ssize_t queue_write_same_max_show(struct request_queue *q, char *page)
 static ssize_t
 queue_max_sectors_store(struct request_queue *q, const char *page, size_t count)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 220 \n"); 
 	unsigned long max_sectors_kb,
 		max_hw_sectors_kb = queue_max_hw_sectors(q) >> 1,
 			page_kb = 1 << (PAGE_SHIFT - 10);
@@ -219,6 +241,7 @@ queue_max_sectors_store(struct request_queue *q, const char *page, size_t count)
 
 static ssize_t queue_max_hw_sectors_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 244 \n"); 
 	int max_hw_sectors_kb = queue_max_hw_sectors(q) >> 1;
 
 	return queue_var_show(max_hw_sectors_kb, (page));
@@ -259,6 +282,7 @@ QUEUE_SYSFS_BIT_FNS(iostats, IO_STAT, 0);
 
 static ssize_t queue_nomerges_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 285 \n"); 
 	return queue_var_show((blk_queue_nomerges(q) << 1) |
 			       blk_queue_noxmerges(q), page);
 }
@@ -266,6 +290,7 @@ static ssize_t queue_nomerges_show(struct request_queue *q, char *page)
 static ssize_t queue_nomerges_store(struct request_queue *q, const char *page,
 				    size_t count)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 293 \n"); 
 	unsigned long nm;
 	ssize_t ret = queue_var_store(&nm, page, count);
 
@@ -286,6 +311,7 @@ static ssize_t queue_nomerges_store(struct request_queue *q, const char *page,
 
 static ssize_t queue_rq_affinity_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 314 \n"); 
 	bool set = test_bit(QUEUE_FLAG_SAME_COMP, &q->queue_flags);
 	bool force = test_bit(QUEUE_FLAG_SAME_FORCE, &q->queue_flags);
 
@@ -295,6 +321,7 @@ static ssize_t queue_rq_affinity_show(struct request_queue *q, char *page)
 static ssize_t
 queue_rq_affinity_store(struct request_queue *q, const char *page, size_t count)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 324 \n"); 
 	ssize_t ret = -EINVAL;
 #ifdef CONFIG_SMP
 	unsigned long val;
@@ -321,12 +348,14 @@ queue_rq_affinity_store(struct request_queue *q, const char *page, size_t count)
 
 static ssize_t queue_poll_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 351 \n"); 
 	return queue_var_show(test_bit(QUEUE_FLAG_POLL, &q->queue_flags), page);
 }
 
 static ssize_t queue_poll_store(struct request_queue *q, const char *page,
 				size_t count)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 358 \n"); 
 	unsigned long poll_on;
 	ssize_t ret;
 
@@ -349,6 +378,7 @@ static ssize_t queue_poll_store(struct request_queue *q, const char *page,
 
 static ssize_t queue_wc_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 381 \n"); 
 	if (test_bit(QUEUE_FLAG_WC, &q->queue_flags))
 		return sprintf(page, "write back\n");
 
@@ -358,6 +388,7 @@ static ssize_t queue_wc_show(struct request_queue *q, char *page)
 static ssize_t queue_wc_store(struct request_queue *q, const char *page,
 			      size_t count)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 391 \n"); 
 	int set = -1;
 
 	if (!strncmp(page, "write back", 10))
@@ -381,6 +412,7 @@ static ssize_t queue_wc_store(struct request_queue *q, const char *page,
 
 static ssize_t queue_dax_show(struct request_queue *q, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 415 \n"); 
 	return queue_var_show(blk_queue_dax(q), page);
 }
 
@@ -561,6 +593,7 @@ static struct attribute *default_attrs[] = {
 static ssize_t
 queue_attr_show(struct kobject *kobj, struct attribute *attr, char *page)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 596 \n"); 
 	struct queue_sysfs_entry *entry = to_queue(attr);
 	struct request_queue *q =
 		container_of(kobj, struct request_queue, kobj);
@@ -582,6 +615,7 @@ static ssize_t
 queue_attr_store(struct kobject *kobj, struct attribute *attr,
 		    const char *page, size_t length)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 618 \n"); 
 	struct queue_sysfs_entry *entry = to_queue(attr);
 	struct request_queue *q;
 	ssize_t res;
@@ -602,6 +636,7 @@ queue_attr_store(struct kobject *kobj, struct attribute *attr,
 
 static void blk_free_queue_rcu(struct rcu_head *rcu_head)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 639 \n"); 
 	struct request_queue *q = container_of(rcu_head, struct request_queue,
 					       rcu_head);
 	kmem_cache_free(blk_requestq_cachep, q);
@@ -624,6 +659,7 @@ static void blk_free_queue_rcu(struct rcu_head *rcu_head)
  **/
 static void blk_release_queue(struct kobject *kobj)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 662 \n"); 
 	struct request_queue *q =
 		container_of(kobj, struct request_queue, kobj);
 
@@ -723,6 +759,7 @@ int blk_register_queue(struct gendisk *disk)
 
 void blk_unregister_queue(struct gendisk *disk)
 {
+	panic("We reached unpopular paths in block/blk-sysfs.c: line 762 \n"); 
 	struct request_queue *q = disk->queue;
 
 	if (WARN_ON(!q))

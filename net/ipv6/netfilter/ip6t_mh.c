@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C)2006 USAGI/WIDE Project
  *
@@ -29,11 +30,13 @@ MODULE_LICENSE("GPL");
 static inline bool
 type_match(u_int8_t min, u_int8_t max, u_int8_t type, bool invert)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_mh.c: line 33 \n"); 
 	return (type >= min && type <= max) ^ invert;
 }
 
 static bool mh_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_mh.c: line 39 \n"); 
 	struct ip6_mh _mh;
 	const struct ip6_mh *mh;
 	const struct ip6t_mh *mhinfo = par->matchinfo;
@@ -64,6 +67,7 @@ static bool mh_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int mh_mt6_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_mh.c: line 70 \n"); 
 	const struct ip6t_mh *mhinfo = par->matchinfo;
 
 	/* Must specify no unknown invflags */

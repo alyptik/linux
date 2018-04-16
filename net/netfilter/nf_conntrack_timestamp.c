@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 2010 Pablo Neira Ayuso <pablo@netfilter.org>
  *
@@ -80,11 +81,13 @@ static void nf_conntrack_tstamp_fini_sysctl(struct net *net)
 #else
 static int nf_conntrack_tstamp_init_sysctl(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_timestamp.c: line 84 \n"); 
 	return 0;
 }
 
 static void nf_conntrack_tstamp_fini_sysctl(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_timestamp.c: line 90 \n"); 
 }
 #endif
 
@@ -110,5 +113,6 @@ int nf_conntrack_tstamp_init(void)
 
 void nf_conntrack_tstamp_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_timestamp.c: line 116 \n"); 
 	nf_ct_extend_unregister(&tstamp_extend);
 }

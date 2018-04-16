@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -125,6 +126,7 @@ EXPORT_SYMBOL(eth_header);
  */
 u32 eth_get_headlen(void *data, unsigned int len)
 {
+	panic("We reached unpopular paths in net/ethernet/eth.c: line 129 \n"); 
 	const unsigned int flags = FLOW_DISSECTOR_F_PARSE_1ST_FRAG;
 	const struct ethhdr *eth = (const struct ethhdr *)data;
 	struct flow_keys keys;
@@ -255,6 +257,7 @@ void eth_header_cache_update(struct hh_cache *hh,
 			     const struct net_device *dev,
 			     const unsigned char *haddr)
 {
+	panic("We reached unpopular paths in net/ethernet/eth.c: line 260 \n"); 
 	memcpy(((u8 *) hh->hh_data) + HH_DATA_OFF(sizeof(struct ethhdr)),
 	       haddr, ETH_ALEN);
 }
@@ -322,6 +325,7 @@ EXPORT_SYMBOL(eth_mac_addr);
  */
 int eth_change_mtu(struct net_device *dev, int new_mtu)
 {
+	panic("We reached unpopular paths in net/ethernet/eth.c: line 328 \n"); 
 	if (new_mtu < 68 || new_mtu > ETH_DATA_LEN)
 		return -EINVAL;
 	dev->mtu = new_mtu;
@@ -400,6 +404,7 @@ EXPORT_SYMBOL(sysfs_format_mac);
 struct sk_buff **eth_gro_receive(struct sk_buff **head,
 				 struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ethernet/eth.c: line 407 \n"); 
 	struct sk_buff *p, **pp = NULL;
 	struct ethhdr *eh, *eh2;
 	unsigned int hlen, off_eth;
@@ -453,6 +458,7 @@ EXPORT_SYMBOL(eth_gro_receive);
 
 int eth_gro_complete(struct sk_buff *skb, int nhoff)
 {
+	panic("We reached unpopular paths in net/ethernet/eth.c: line 461 \n"); 
 	struct ethhdr *eh = (struct ethhdr *)(skb->data + nhoff);
 	__be16 type = eh->h_proto;
 	struct packet_offload *ptype;
@@ -497,6 +503,7 @@ unsigned char * __weak arch_get_platform_mac_address(void)
 
 int eth_platform_get_mac_address(struct device *dev, u8 *mac_addr)
 {
+	panic("We reached unpopular paths in net/ethernet/eth.c: line 506 \n"); 
 	const unsigned char *addr;
 	struct device_node *dp;
 

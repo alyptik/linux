@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Linux NET3:	IP/IP protocol decoder.
  *
@@ -128,6 +129,7 @@ static struct rtnl_link_ops ipip_link_ops __read_mostly;
 
 static int ipip_err(struct sk_buff *skb, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/ipip.c: line 132 \n"); 
 	/* All the routers (except for Linux) return only
 	 * 8 bytes of packet payload. It means, that precise relaying of
 	 * ICMP in the real Internet is absolutely infeasible.
@@ -217,6 +219,7 @@ static const struct tnl_ptk_info mplsip_tpi = {
 
 static int ipip_tunnel_rcv(struct sk_buff *skb, u8 ipproto)
 {
+	panic("We reached unpopular paths in net/ipv4/ipip.c: line 222 \n"); 
 	struct net *net = dev_net(skb->dev);
 	struct ip_tunnel_net *itn = net_generic(net, ipip_net_id);
 	struct metadata_dst *tun_dst = NULL;
@@ -260,6 +263,7 @@ drop:
 
 static int ipip_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ipip.c: line 266 \n"); 
 	return ipip_tunnel_rcv(skb, IPPROTO_IPIP);
 }
 
@@ -277,6 +281,7 @@ static int mplsip_rcv(struct sk_buff *skb)
 static netdev_tx_t ipip_tunnel_xmit(struct sk_buff *skb,
 				    struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv4/ipip.c: line 284 \n"); 
 	struct ip_tunnel *tunnel = netdev_priv(dev);
 	const struct iphdr  *tiph = &tunnel->parms.iph;
 	u8 ipproto;
@@ -317,6 +322,7 @@ tx_error:
 
 static bool ipip_tunnel_ioctl_verify_protocol(u8 ipproto)
 {
+	panic("We reached unpopular paths in net/ipv4/ipip.c: line 325 \n"); 
 	switch (ipproto) {
 	case 0:
 	case IPPROTO_IPIP:
@@ -332,6 +338,7 @@ static bool ipip_tunnel_ioctl_verify_protocol(u8 ipproto)
 static int
 ipip_tunnel_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
 {
+	panic("We reached unpopular paths in net/ipv4/ipip.c: line 341 \n"); 
 	int err = 0;
 	struct ip_tunnel_parm p;
 
@@ -402,6 +409,7 @@ static int ipip_tunnel_init(struct net_device *dev)
 
 static int ipip_tunnel_validate(struct nlattr *tb[], struct nlattr *data[])
 {
+	panic("We reached unpopular paths in net/ipv4/ipip.c: line 412 \n"); 
 	u8 proto;
 
 	if (!data || !data[IFLA_IPTUN_PROTO])
@@ -417,6 +425,7 @@ static int ipip_tunnel_validate(struct nlattr *tb[], struct nlattr *data[])
 static void ipip_netlink_parms(struct nlattr *data[],
 			       struct ip_tunnel_parm *parms, bool *collect_md)
 {
+	panic("We reached unpopular paths in net/ipv4/ipip.c: line 428 \n"); 
 	memset(parms, 0, sizeof(*parms));
 
 	parms->iph.version = 4;
@@ -459,6 +468,7 @@ static void ipip_netlink_parms(struct nlattr *data[],
 static bool ipip_netlink_encap_parms(struct nlattr *data[],
 				     struct ip_tunnel_encap *ipencap)
 {
+	panic("We reached unpopular paths in net/ipv4/ipip.c: line 471 \n"); 
 	bool ret = false;
 
 	memset(ipencap, 0, sizeof(*ipencap));
@@ -492,6 +502,7 @@ static bool ipip_netlink_encap_parms(struct nlattr *data[],
 static int ipip_newlink(struct net *src_net, struct net_device *dev,
 			struct nlattr *tb[], struct nlattr *data[])
 {
+	panic("We reached unpopular paths in net/ipv4/ipip.c: line 505 \n"); 
 	struct ip_tunnel *t = netdev_priv(dev);
 	struct ip_tunnel_parm p;
 	struct ip_tunnel_encap ipencap;
@@ -510,6 +521,7 @@ static int ipip_newlink(struct net *src_net, struct net_device *dev,
 static int ipip_changelink(struct net_device *dev, struct nlattr *tb[],
 			   struct nlattr *data[])
 {
+	panic("We reached unpopular paths in net/ipv4/ipip.c: line 524 \n"); 
 	struct ip_tunnel_parm p;
 	struct ip_tunnel_encap ipencap;
 	bool collect_md;

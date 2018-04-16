@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999 Jérôme de Vivie <devivie@info.enserb.u-bordeaux.fr>
  * (C) 1999 Hervé Eychenne <eychenne@info.enserb.u-bordeaux.fr>
  * (C) 2006-2012 Patrick McHardy <kaber@trash.net>
@@ -68,6 +69,7 @@ static DEFINE_SPINLOCK(limit_lock);
 static bool
 limit_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_limit.c: line 72 \n"); 
 	const struct xt_rateinfo *r = par->matchinfo;
 	struct xt_limit_priv *priv = r->master;
 	unsigned long now = jiffies;
@@ -91,6 +93,7 @@ limit_mt(const struct sk_buff *skb, struct xt_action_param *par)
 /* Precision saver. */
 static u32 user2credits(u32 user)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_limit.c: line 96 \n"); 
 	/* If multiplying would overflow... */
 	if (user > 0xFFFFFFFF / (HZ*CREDITS_PER_JIFFY))
 		/* Divide first. */
@@ -101,6 +104,7 @@ static u32 user2credits(u32 user)
 
 static int limit_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_limit.c: line 107 \n"); 
 	struct xt_rateinfo *r = par->matchinfo;
 	struct xt_limit_priv *priv;
 
@@ -131,6 +135,7 @@ static int limit_mt_check(const struct xt_mtchk_param *par)
 
 static void limit_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_limit.c: line 138 \n"); 
 	const struct xt_rateinfo *info = par->matchinfo;
 
 	kfree(info->master);

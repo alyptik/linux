@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * inet_diag.c	Module for monitoring INET transport protocols sockets.
  *
@@ -52,6 +53,7 @@ static DEFINE_MUTEX(inet_diag_table_mutex);
 
 static const struct inet_diag_handler *inet_diag_lock_handler(int proto)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 56 \n"); 
 	if (!inet_diag_table[proto])
 		request_module("net-pf-%d-proto-%d-type-%d-%d", PF_NETLINK,
 			       NETLINK_SOCK_DIAG, AF_INET, proto);
@@ -65,11 +67,13 @@ static const struct inet_diag_handler *inet_diag_lock_handler(int proto)
 
 static void inet_diag_unlock_handler(const struct inet_diag_handler *handler)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 70 \n"); 
 	mutex_unlock(&inet_diag_table_mutex);
 }
 
 void inet_diag_msg_common_fill(struct inet_diag_msg *r, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 76 \n"); 
 	r->idiag_family = sk->sk_family;
 
 	r->id.idiag_sport = htons(sk->sk_num);
@@ -95,6 +99,7 @@ EXPORT_SYMBOL_GPL(inet_diag_msg_common_fill);
 
 static size_t inet_sk_attr_size(void)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 102 \n"); 
 	return	  nla_total_size(sizeof(struct tcp_info))
 		+ nla_total_size(1) /* INET_DIAG_SHUTDOWN */
 		+ nla_total_size(1) /* INET_DIAG_TOS */
@@ -113,6 +118,7 @@ int inet_diag_msg_attrs_fill(struct sock *sk, struct sk_buff *skb,
 			     struct user_namespace *user_ns,
 			     bool net_admin)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 121 \n"); 
 	const struct inet_sock *inet = inet_sk(sk);
 
 	if (nla_put_u8(skb, INET_DIAG_SHUTDOWN, sk->sk_shutdown))
@@ -157,6 +163,7 @@ int inet_sk_diag_fill(struct sock *sk, struct inet_connection_sock *icsk,
 		      const struct nlmsghdr *unlh,
 		      bool net_admin)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 166 \n"); 
 	const struct tcp_congestion_ops *ca_ops;
 	const struct inet_diag_handler *handler;
 	int ext = req->idiag_ext;
@@ -283,6 +290,7 @@ static int inet_csk_diag_fill(struct sock *sk,
 			      const struct nlmsghdr *unlh,
 			      bool net_admin)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 293 \n"); 
 	return inet_sk_diag_fill(sk, inet_csk(sk), skb, req, user_ns,
 				 portid, seq, nlmsg_flags, unlh, net_admin);
 }
@@ -292,6 +300,7 @@ static int inet_twsk_diag_fill(struct sock *sk,
 			       u32 portid, u32 seq, u16 nlmsg_flags,
 			       const struct nlmsghdr *unlh)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 303 \n"); 
 	struct inet_timewait_sock *tw = inet_twsk(sk);
 	struct inet_diag_msg *r;
 	struct nlmsghdr *nlh;
@@ -328,6 +337,7 @@ static int inet_req_diag_fill(struct sock *sk, struct sk_buff *skb,
 			      u32 portid, u32 seq, u16 nlmsg_flags,
 			      const struct nlmsghdr *unlh, bool net_admin)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 340 \n"); 
 	struct request_sock *reqsk = inet_reqsk(sk);
 	struct inet_diag_msg *r;
 	struct nlmsghdr *nlh;
@@ -368,6 +378,7 @@ static int sk_diag_fill(struct sock *sk, struct sk_buff *skb,
 			u32 portid, u32 seq, u16 nlmsg_flags,
 			const struct nlmsghdr *unlh, bool net_admin)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 381 \n"); 
 	if (sk->sk_state == TCP_TIME_WAIT)
 		return inet_twsk_diag_fill(sk, skb, portid, seq,
 					   nlmsg_flags, unlh);
@@ -384,6 +395,7 @@ struct sock *inet_diag_find_one_icsk(struct net *net,
 				     struct inet_hashinfo *hashinfo,
 				     const struct inet_diag_req_v2 *req)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 398 \n"); 
 	struct sock *sk;
 
 	rcu_read_lock();
@@ -429,6 +441,7 @@ int inet_diag_dump_one_icsk(struct inet_hashinfo *hashinfo,
 			    const struct nlmsghdr *nlh,
 			    const struct inet_diag_req_v2 *req)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 444 \n"); 
 	struct net *net = sock_net(in_skb->sk);
 	struct sk_buff *rep;
 	struct sock *sk;
@@ -471,6 +484,7 @@ static int inet_diag_cmd_exact(int cmd, struct sk_buff *in_skb,
 			       const struct nlmsghdr *nlh,
 			       const struct inet_diag_req_v2 *req)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 487 \n"); 
 	const struct inet_diag_handler *handler;
 	int err;
 
@@ -490,6 +504,7 @@ static int inet_diag_cmd_exact(int cmd, struct sk_buff *in_skb,
 
 static int bitstring_match(const __be32 *a1, const __be32 *a2, int bits)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 507 \n"); 
 	int words = bits >> 5;
 
 	bits &= 0x1f;
@@ -517,6 +532,7 @@ static int bitstring_match(const __be32 *a1, const __be32 *a2, int bits)
 static int inet_diag_bc_run(const struct nlattr *_bc,
 			    const struct inet_diag_entry *entry)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 535 \n"); 
 	const void *bc = nla_data(_bc);
 	int len = nla_len(_bc);
 
@@ -620,6 +636,7 @@ static int inet_diag_bc_run(const struct nlattr *_bc,
 static void entry_fill_addrs(struct inet_diag_entry *entry,
 			     const struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 639 \n"); 
 #if IS_ENABLED(CONFIG_IPV6)
 	if (sk->sk_family == AF_INET6) {
 		entry->saddr = sk->sk_v6_rcv_saddr.s6_addr32;
@@ -634,6 +651,7 @@ static void entry_fill_addrs(struct inet_diag_entry *entry,
 
 int inet_diag_bc_sk(const struct nlattr *bc, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 654 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct inet_diag_entry entry;
 
@@ -659,6 +677,7 @@ EXPORT_SYMBOL_GPL(inet_diag_bc_sk);
 
 static int valid_cc(const void *bc, int len, int cc)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 680 \n"); 
 	while (len >= 0) {
 		const struct inet_diag_bc_op *op = bc;
 
@@ -678,6 +697,7 @@ static int valid_cc(const void *bc, int len, int cc)
 static bool valid_devcond(const struct inet_diag_bc_op *op, int len,
 			  int *min_len)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 700 \n"); 
 	/* Check ifindex space. */
 	*min_len += sizeof(u32);
 	if (len < *min_len)
@@ -689,6 +709,7 @@ static bool valid_devcond(const struct inet_diag_bc_op *op, int len,
 static bool valid_hostcond(const struct inet_diag_bc_op *op, int len,
 			   int *min_len)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 712 \n"); 
 	struct inet_diag_hostcond *cond;
 	int addr_len;
 
@@ -727,6 +748,7 @@ static bool valid_hostcond(const struct inet_diag_bc_op *op, int len,
 static bool valid_port_comparison(const struct inet_diag_bc_op *op,
 				  int len, int *min_len)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 751 \n"); 
 	/* Port comparisons put the port in a follow-on inet_diag_bc_op. */
 	*min_len += sizeof(struct inet_diag_bc_op);
 	if (len < *min_len)
@@ -737,6 +759,7 @@ static bool valid_port_comparison(const struct inet_diag_bc_op *op,
 static bool valid_markcond(const struct inet_diag_bc_op *op, int len,
 			   int *min_len)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 762 \n"); 
 	*min_len += sizeof(struct inet_diag_markcond);
 	return len >= *min_len;
 }
@@ -744,6 +767,7 @@ static bool valid_markcond(const struct inet_diag_bc_op *op, int len,
 static int inet_diag_bc_audit(const struct nlattr *attr,
 			      const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 770 \n"); 
 	bool net_admin = netlink_net_capable(skb, CAP_NET_ADMIN);
 	const void *bytecode, *bc;
 	int bytecode_len, len;
@@ -812,6 +836,7 @@ static int inet_csk_diag_dump(struct sock *sk,
 			      const struct nlattr *bc,
 			      bool net_admin)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 839 \n"); 
 	if (!inet_diag_bc_sk(bc, sk))
 		return 0;
 
@@ -824,6 +849,7 @@ static int inet_csk_diag_dump(struct sock *sk,
 
 static void twsk_build_assert(void)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 852 \n"); 
 	BUILD_BUG_ON(offsetof(struct inet_timewait_sock, tw_family) !=
 		     offsetof(struct sock, sk_family));
 
@@ -852,6 +878,7 @@ void inet_diag_dump_icsk(struct inet_hashinfo *hashinfo, struct sk_buff *skb,
 			 struct netlink_callback *cb,
 			 const struct inet_diag_req_v2 *r, struct nlattr *bc)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 881 \n"); 
 	struct net *net = sock_net(skb->sk);
 	int i, num, s_i, s_num;
 	u32 idiag_states = r->idiag_states;
@@ -990,6 +1017,7 @@ static int __inet_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
 			    const struct inet_diag_req_v2 *r,
 			    struct nlattr *bc)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 1020 \n"); 
 	const struct inet_diag_handler *handler;
 	int err = 0;
 
@@ -1005,6 +1033,7 @@ static int __inet_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
 
 static int inet_diag_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 1036 \n"); 
 	int hdrlen = sizeof(struct inet_diag_req_v2);
 	struct nlattr *bc = NULL;
 
@@ -1016,6 +1045,7 @@ static int inet_diag_dump(struct sk_buff *skb, struct netlink_callback *cb)
 
 static int inet_diag_type2proto(int type)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 1048 \n"); 
 	switch (type) {
 	case TCPDIAG_GETSOCK:
 		return IPPROTO_TCP;
@@ -1029,6 +1059,7 @@ static int inet_diag_type2proto(int type)
 static int inet_diag_dump_compat(struct sk_buff *skb,
 				 struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 1062 \n"); 
 	struct inet_diag_req *rc = nlmsg_data(cb->nlh);
 	int hdrlen = sizeof(struct inet_diag_req);
 	struct inet_diag_req_v2 req;
@@ -1049,6 +1080,7 @@ static int inet_diag_dump_compat(struct sk_buff *skb,
 static int inet_diag_get_exact_compat(struct sk_buff *in_skb,
 				      const struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 1083 \n"); 
 	struct inet_diag_req *rc = nlmsg_data(nlh);
 	struct inet_diag_req_v2 req;
 
@@ -1063,6 +1095,7 @@ static int inet_diag_get_exact_compat(struct sk_buff *in_skb,
 
 static int inet_diag_rcv_msg_compat(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 1098 \n"); 
 	int hdrlen = sizeof(struct inet_diag_req);
 	struct net *net = sock_net(skb->sk);
 
@@ -1094,6 +1127,7 @@ static int inet_diag_rcv_msg_compat(struct sk_buff *skb, struct nlmsghdr *nlh)
 
 static int inet_diag_handler_cmd(struct sk_buff *skb, struct nlmsghdr *h)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 1130 \n"); 
 	int hdrlen = sizeof(struct inet_diag_req_v2);
 	struct net *net = sock_net(skb->sk);
 
@@ -1126,6 +1160,7 @@ static int inet_diag_handler_cmd(struct sk_buff *skb, struct nlmsghdr *h)
 static
 int inet_diag_handler_get_info(struct sk_buff *skb, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 1163 \n"); 
 	const struct inet_diag_handler *handler;
 	struct nlmsghdr *nlh;
 	struct nlattr *attr;
@@ -1207,6 +1242,7 @@ EXPORT_SYMBOL_GPL(inet_diag_register);
 
 void inet_diag_unregister(const struct inet_diag_handler *h)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_diag.c: line 1245 \n"); 
 	const __u16 type = h->idiag_type;
 
 	if (type >= IPPROTO_MAX)

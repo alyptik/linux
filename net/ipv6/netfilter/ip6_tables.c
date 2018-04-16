@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Packet matching code.
  *
@@ -136,6 +137,7 @@ ip6_checkentry(const struct ip6t_ip6 *ipv6)
 static unsigned int
 ip6t_error(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 140 \n"); 
 	net_info_ratelimited("error: `%s'\n", (const char *)par->targinfo);
 
 	return NF_DROP;
@@ -144,6 +146,7 @@ ip6t_error(struct sk_buff *skb, const struct xt_action_param *par)
 static inline struct ip6t_entry *
 get_entry(const void *base, unsigned int offset)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 149 \n"); 
 	return (struct ip6t_entry *)(base + offset);
 }
 
@@ -160,6 +163,7 @@ static inline bool unconditional(const struct ip6t_entry *e)
 static inline const struct xt_entry_target *
 ip6t_get_target_c(const struct ip6t_entry *e)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 166 \n"); 
 	return ip6t_get_target((struct ip6t_entry *)e);
 }
 
@@ -259,6 +263,7 @@ static void trace_packet(struct net *net,
 static inline struct ip6t_entry *
 ip6t_next_entry(const struct ip6t_entry *entry)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 266 \n"); 
 	return (void *)entry + entry->next_offset;
 }
 
@@ -500,6 +505,7 @@ next:		;
 
 static void cleanup_match(struct xt_entry_match *m, struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 508 \n"); 
 	struct xt_mtdtor_param par;
 
 	par.net       = net;
@@ -513,6 +519,7 @@ static void cleanup_match(struct xt_entry_match *m, struct net *net)
 
 static int check_match(struct xt_entry_match *m, struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 522 \n"); 
 	const struct ip6t_ip6 *ipv6 = par->entryinfo;
 
 	par->match     = m->u.kernel.match;
@@ -525,6 +532,7 @@ static int check_match(struct xt_entry_match *m, struct xt_mtchk_param *par)
 static int
 find_check_match(struct xt_entry_match *m, struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 535 \n"); 
 	struct xt_match *match;
 	int ret;
 
@@ -687,6 +695,7 @@ check_entry_size_and_hooks(struct ip6t_entry *e,
 
 static void cleanup_entry(struct ip6t_entry *e, struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 698 \n"); 
 	struct xt_tgdtor_param par;
 	struct xt_entry_target *t;
 	struct xt_entry_match *ematch;
@@ -797,6 +806,7 @@ static void
 get_counters(const struct xt_table_info *t,
 	     struct xt_counters counters[])
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 809 \n"); 
 	struct ip6t_entry *iter;
 	unsigned int cpu;
 	unsigned int i;
@@ -825,6 +835,7 @@ get_counters(const struct xt_table_info *t,
 
 static struct xt_counters *alloc_counters(const struct xt_table *table)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 838 \n"); 
 	unsigned int countersize;
 	struct xt_counters *counters;
 	const struct xt_table_info *private = table->private;
@@ -1772,6 +1783,7 @@ do_ip6t_get_ctl(struct sock *sk, int cmd, void __user *user, int *len)
 
 static void __ip6t_unregister_table(struct net *net, struct xt_table *table)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 1786 \n"); 
 	struct xt_table_info *private;
 	void *loc_cpu_entry;
 	struct module *table_owner = table->me;
@@ -1835,6 +1847,7 @@ out_free:
 void ip6t_unregister_table(struct net *net, struct xt_table *table,
 			   const struct nf_hook_ops *ops)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 1850 \n"); 
 	nf_unregister_net_hooks(net, ops, hweight32(table->valid_hooks));
 	__ip6t_unregister_table(net, table);
 }
@@ -1845,6 +1858,7 @@ icmp6_type_code_match(u_int8_t test_type, u_int8_t min_code, u_int8_t max_code,
 		     u_int8_t type, u_int8_t code,
 		     bool invert)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 1861 \n"); 
 	return (type == test_type && code >= min_code && code <= max_code)
 		^ invert;
 }
@@ -1852,6 +1866,7 @@ icmp6_type_code_match(u_int8_t test_type, u_int8_t min_code, u_int8_t max_code,
 static bool
 icmp6_match(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 1869 \n"); 
 	const struct icmp6hdr *ic;
 	struct icmp6hdr _icmph;
 	const struct ip6t_icmp *icmpinfo = par->matchinfo;
@@ -1879,6 +1894,7 @@ icmp6_match(const struct sk_buff *skb, struct xt_action_param *par)
 /* Called when user tries to insert an entry of this type. */
 static int icmp6_checkentry(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6_tables.c: line 1897 \n"); 
 	const struct ip6t_icmp *icmpinfo = par->matchinfo;
 
 	/* Must specify no unknown invflags */

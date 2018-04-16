@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2011 Florian Westphal <fw@strlen.de>
  *
@@ -26,6 +27,7 @@ MODULE_DESCRIPTION("iptables: ipv4 reverse path filter match");
 /* don't try to find route from mcast/bcast/zeronet */
 static __be32 rpfilter_get_saddr(__be32 addr)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_rpfilter.c: line 30 \n"); 
 	if (ipv4_is_multicast(addr) || ipv4_is_lbcast(addr) ||
 	    ipv4_is_zeronet(addr))
 		return 0;
@@ -35,6 +37,7 @@ static __be32 rpfilter_get_saddr(__be32 addr)
 static bool rpfilter_lookup_reverse(struct net *net, struct flowi4 *fl4,
 				const struct net_device *dev, u8 flags)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_rpfilter.c: line 40 \n"); 
 	struct fib_result res;
 	bool dev_match;
 	int ret __maybe_unused;
@@ -65,12 +68,14 @@ static bool rpfilter_lookup_reverse(struct net *net, struct flowi4 *fl4,
 
 static bool rpfilter_is_local(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_rpfilter.c: line 71 \n"); 
 	const struct rtable *rt = skb_rtable(skb);
 	return rt && (rt->rt_flags & RTCF_LOCAL);
 }
 
 static bool rpfilter_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_rpfilter.c: line 78 \n"); 
 	const struct xt_rpfilter_info *info;
 	const struct iphdr *iph;
 	struct flowi4 flow;
@@ -100,6 +105,7 @@ static bool rpfilter_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int rpfilter_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_rpfilter.c: line 108 \n"); 
 	const struct xt_rpfilter_info *info = par->matchinfo;
 	unsigned int options = ~XT_RPFILTER_OPTION_MASK;
 	if (info->flags & options) {

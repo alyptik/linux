@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/kernfs/symlink.c - kernfs symlink implementation
  *

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2000-2006 Silicon Graphics, Inc.
  * All Rights Reserved.
@@ -62,6 +63,7 @@ static inline int
 xfs_buf_is_vmapped(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 66 \n"); 
 	/*
 	 * Return true if the buffer is vmapped.
 	 *
@@ -76,6 +78,7 @@ static inline int
 xfs_buf_vmap_len(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 81 \n"); 
 	return (bp->b_page_count * PAGE_SIZE) - bp->b_offset;
 }
 
@@ -96,6 +99,7 @@ static inline void
 xfs_buf_ioacct_inc(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 102 \n"); 
 	if (bp->b_flags & XBF_NO_IOACCT)
 		return;
 
@@ -116,6 +120,7 @@ static inline void
 __xfs_buf_ioacct_dec(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 123 \n"); 
 	lockdep_assert_held(&bp->b_lock);
 
 	if (bp->b_state & XFS_BSTATE_IN_FLIGHT) {
@@ -128,6 +133,7 @@ static inline void
 xfs_buf_ioacct_dec(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 136 \n"); 
 	spin_lock(&bp->b_lock);
 	__xfs_buf_ioacct_dec(bp);
 	spin_unlock(&bp->b_lock);
@@ -145,6 +151,7 @@ void
 xfs_buf_stale(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 154 \n"); 
 	ASSERT(xfs_buf_islocked(bp));
 
 	bp->b_flags |= XBF_STALE;
@@ -179,6 +186,7 @@ xfs_buf_get_maps(
 	struct xfs_buf		*bp,
 	int			map_count)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 189 \n"); 
 	ASSERT(bp->b_maps == NULL);
 	bp->b_map_count = map_count;
 
@@ -201,6 +209,7 @@ static void
 xfs_buf_free_maps(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 212 \n"); 
 	if (bp->b_maps != &bp->__b_map) {
 		kmem_free(bp->b_maps);
 		bp->b_maps = NULL;
@@ -214,6 +223,7 @@ _xfs_buf_alloc(
 	int			nmaps,
 	xfs_buf_flags_t		flags)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 226 \n"); 
 	struct xfs_buf		*bp;
 	int			error;
 	int			i;
@@ -278,6 +288,7 @@ _xfs_buf_get_pages(
 	xfs_buf_t		*bp,
 	int			page_count)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 291 \n"); 
 	/* Make sure that we have a page list */
 	if (bp->b_pages == NULL) {
 		bp->b_page_count = page_count;
@@ -301,6 +312,7 @@ STATIC void
 _xfs_buf_free_pages(
 	xfs_buf_t	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 315 \n"); 
 	if (bp->b_pages != bp->b_page_array) {
 		kmem_free(bp->b_pages);
 		bp->b_pages = NULL;
@@ -318,6 +330,7 @@ void
 xfs_buf_free(
 	xfs_buf_t		*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 333 \n"); 
 	trace_xfs_buf_free(bp, _RET_IP_);
 
 	ASSERT(list_empty(&bp->b_lru));
@@ -349,6 +362,7 @@ xfs_buf_allocate_memory(
 	xfs_buf_t		*bp,
 	uint			flags)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 365 \n"); 
 	size_t			size;
 	size_t			nbytes, offset;
 	gfp_t			gfp_mask = xb_to_gfp(flags);
@@ -449,6 +463,7 @@ _xfs_buf_map_pages(
 	xfs_buf_t		*bp,
 	uint			flags)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 466 \n"); 
 	ASSERT(bp->b_flags & _XBF_PAGES);
 	if (bp->b_page_count == 1) {
 		/* A single page buffer is always mappable */
@@ -502,6 +517,7 @@ _xfs_buf_find(
 	xfs_buf_flags_t		flags,
 	xfs_buf_t		*new_bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 520 \n"); 
 	struct xfs_perag	*pag;
 	struct rb_node		**rbp;
 	struct rb_node		*parent;
@@ -629,6 +645,7 @@ xfs_buf_get_map(
 	int			nmaps,
 	xfs_buf_flags_t		flags)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 648 \n"); 
 	struct xfs_buf		*bp;
 	struct xfs_buf		*new_bp;
 	int			error = 0;
@@ -684,6 +701,7 @@ _xfs_buf_read(
 	xfs_buf_t		*bp,
 	xfs_buf_flags_t		flags)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 704 \n"); 
 	ASSERT(!(flags & XBF_WRITE));
 	ASSERT(bp->b_maps[0].bm_bn != XFS_BUF_DADDR_NULL);
 
@@ -705,6 +723,7 @@ xfs_buf_read_map(
 	xfs_buf_flags_t		flags,
 	const struct xfs_buf_ops *ops)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 726 \n"); 
 	struct xfs_buf		*bp;
 
 	flags |= XBF_READ;
@@ -744,6 +763,7 @@ xfs_buf_readahead_map(
 	int			nmaps,
 	const struct xfs_buf_ops *ops)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 766 \n"); 
 	if (bdi_read_congested(target->bt_bdi))
 		return;
 
@@ -764,6 +784,7 @@ xfs_buf_read_uncached(
 	struct xfs_buf		**bpp,
 	const struct xfs_buf_ops *ops)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 787 \n"); 
 	struct xfs_buf		*bp;
 
 	*bpp = NULL;
@@ -799,6 +820,7 @@ xfs_buf_set_empty(
 	struct xfs_buf		*bp,
 	size_t			numblks)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 823 \n"); 
 	if (bp->b_pages)
 		_xfs_buf_free_pages(bp);
 
@@ -818,6 +840,7 @@ static inline struct page *
 mem_to_page(
 	void			*addr)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 843 \n"); 
 	if ((!is_vmalloc_addr(addr))) {
 		return virt_to_page(addr);
 	} else {
@@ -831,6 +854,7 @@ xfs_buf_associate_memory(
 	void			*mem,
 	size_t			len)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 857 \n"); 
 	int			rval;
 	int			i = 0;
 	unsigned long		pageaddr;
@@ -873,6 +897,7 @@ xfs_buf_get_uncached(
 	size_t			numblks,
 	int			flags)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 900 \n"); 
 	unsigned long		page_count;
 	int			error, i;
 	struct xfs_buf		*bp;
@@ -925,6 +950,7 @@ void
 xfs_buf_hold(
 	xfs_buf_t		*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 953 \n"); 
 	trace_xfs_buf_hold(bp, _RET_IP_);
 	atomic_inc(&bp->b_hold);
 }
@@ -937,6 +963,7 @@ void
 xfs_buf_rele(
 	xfs_buf_t		*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 966 \n"); 
 	struct xfs_perag	*pag = bp->b_pag;
 	bool			release;
 	bool			freebuf = false;
@@ -1027,6 +1054,7 @@ int
 xfs_buf_trylock(
 	struct xfs_buf		*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1057 \n"); 
 	int			locked;
 
 	locked = down_trylock(&bp->b_sema) == 0;
@@ -1052,6 +1080,7 @@ void
 xfs_buf_lock(
 	struct xfs_buf		*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1083 \n"); 
 	trace_xfs_buf_lock(bp, _RET_IP_);
 
 	if (atomic_read(&bp->b_pin_count) && (bp->b_flags & XBF_STALE))
@@ -1066,6 +1095,7 @@ void
 xfs_buf_unlock(
 	struct xfs_buf		*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1098 \n"); 
 	ASSERT(xfs_buf_islocked(bp));
 
 	XB_CLEAR_OWNER(bp);
@@ -1078,6 +1108,7 @@ STATIC void
 xfs_buf_wait_unpin(
 	xfs_buf_t		*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1111 \n"); 
 	DECLARE_WAITQUEUE	(wait, current);
 
 	if (atomic_read(&bp->b_pin_count) == 0)
@@ -1102,6 +1133,7 @@ void
 xfs_buf_ioend(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1136 \n"); 
 	bool		read = bp->b_flags & XBF_READ;
 
 	trace_xfs_buf_iodone(bp, _RET_IP_);
@@ -1136,6 +1168,7 @@ static void
 xfs_buf_ioend_work(
 	struct work_struct	*work)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1171 \n"); 
 	struct xfs_buf		*bp =
 		container_of(work, xfs_buf_t, b_ioend_work);
 
@@ -1146,6 +1179,7 @@ static void
 xfs_buf_ioend_async(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1182 \n"); 
 	INIT_WORK(&bp->b_ioend_work, xfs_buf_ioend_work);
 	queue_work(bp->b_ioend_wq, &bp->b_ioend_work);
 }
@@ -1155,6 +1189,7 @@ xfs_buf_ioerror(
 	xfs_buf_t		*bp,
 	int			error)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1192 \n"); 
 	ASSERT(error <= 0 && error >= -1000);
 	bp->b_error = error;
 	trace_xfs_buf_ioerror(bp, error, _RET_IP_);
@@ -1165,6 +1200,7 @@ xfs_buf_ioerror_alert(
 	struct xfs_buf		*bp,
 	const char		*func)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1203 \n"); 
 	xfs_alert(bp->b_target->bt_mount,
 "metadata I/O error: block 0x%llx (\"%s\") error %d numblks %d",
 		(__uint64_t)XFS_BUF_ADDR(bp), func, -bp->b_error, bp->b_length);
@@ -1174,6 +1210,7 @@ int
 xfs_bwrite(
 	struct xfs_buf		*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1213 \n"); 
 	int			error;
 
 	ASSERT(xfs_buf_islocked(bp));
@@ -1194,6 +1231,7 @@ static void
 xfs_buf_bio_end_io(
 	struct bio		*bio)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1234 \n"); 
 	struct xfs_buf		*bp = (struct xfs_buf *)bio->bi_private;
 
 	/*
@@ -1220,6 +1258,7 @@ xfs_buf_ioapply_map(
 	int		op,
 	int		op_flags)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1261 \n"); 
 	int		page_index;
 	int		total_nr_pages = bp->b_page_count;
 	int		nr_pages;
@@ -1298,6 +1337,7 @@ STATIC void
 _xfs_buf_ioapply(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1340 \n"); 
 	struct blk_plug	plug;
 	int		op;
 	int		op_flags = 0;
@@ -1393,6 +1433,7 @@ void
 xfs_buf_submit(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1436 \n"); 
 	trace_xfs_buf_submit(bp, _RET_IP_);
 
 	ASSERT(!(bp->b_flags & _XBF_DELWRI_Q));
@@ -1455,6 +1496,7 @@ int
 xfs_buf_submit_wait(
 	struct xfs_buf	*bp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1499 \n"); 
 	int		error;
 
 	trace_xfs_buf_submit_wait(bp, _RET_IP_);
@@ -1516,6 +1558,7 @@ xfs_buf_offset(
 	struct xfs_buf		*bp,
 	size_t			offset)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1561 \n"); 
 	struct page		*page;
 
 	if (bp->b_addr)
@@ -1537,6 +1580,7 @@ xfs_buf_iomove(
 	void			*data,	/* data address			*/
 	xfs_buf_rw_t		mode)	/* read/write/zero flag		*/
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1583 \n"); 
 	size_t			bend;
 
 	bend = boff + bsize;
@@ -1585,6 +1629,7 @@ xfs_buftarg_wait_rele(
 	void			*arg)
 
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1632 \n"); 
 	struct xfs_buf		*bp = container_of(item, struct xfs_buf, b_lru);
 	struct list_head	*dispose = arg;
 
@@ -1611,6 +1656,7 @@ void
 xfs_wait_buftarg(
 	struct xfs_buftarg	*btp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1659 \n"); 
 	LIST_HEAD(dispose);
 	int loop = 0;
 
@@ -1660,6 +1706,7 @@ xfs_buftarg_isolate(
 	spinlock_t		*lru_lock,
 	void			*arg)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1709 \n"); 
 	struct xfs_buf		*bp = container_of(item, struct xfs_buf, b_lru);
 	struct list_head	*dispose = arg;
 
@@ -1690,6 +1737,7 @@ xfs_buftarg_shrink_scan(
 	struct shrinker		*shrink,
 	struct shrink_control	*sc)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1740 \n"); 
 	struct xfs_buftarg	*btp = container_of(shrink,
 					struct xfs_buftarg, bt_shrinker);
 	LIST_HEAD(dispose);
@@ -1713,6 +1761,7 @@ xfs_buftarg_shrink_count(
 	struct shrinker		*shrink,
 	struct shrink_control	*sc)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1764 \n"); 
 	struct xfs_buftarg	*btp = container_of(shrink,
 					struct xfs_buftarg, bt_shrinker);
 	return list_lru_shrink_count(&btp->bt_lru, sc);
@@ -1723,6 +1772,7 @@ xfs_free_buftarg(
 	struct xfs_mount	*mp,
 	struct xfs_buftarg	*btp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1775 \n"); 
 	unregister_shrinker(&btp->bt_shrinker);
 	ASSERT(percpu_counter_sum(&btp->bt_io_count) == 0);
 	percpu_counter_destroy(&btp->bt_io_count);
@@ -1739,6 +1789,7 @@ xfs_setsize_buftarg(
 	xfs_buftarg_t		*btp,
 	unsigned int		sectorsize)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1792 \n"); 
 	/* Set up metadata sector size info */
 	btp->bt_meta_sectorsize = sectorsize;
 	btp->bt_meta_sectormask = sectorsize - 1;
@@ -1767,6 +1818,7 @@ xfs_setsize_buftarg_early(
 	xfs_buftarg_t		*btp,
 	struct block_device	*bdev)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1821 \n"); 
 	return xfs_setsize_buftarg(btp, bdev_logical_block_size(bdev));
 }
 
@@ -1775,6 +1827,7 @@ xfs_alloc_buftarg(
 	struct xfs_mount	*mp,
 	struct block_device	*bdev)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1830 \n"); 
 	xfs_buftarg_t		*btp;
 
 	btp = kmem_zalloc(sizeof(*btp), KM_SLEEP | KM_NOFS);
@@ -1820,6 +1873,7 @@ void
 xfs_buf_delwri_cancel(
 	struct list_head	*list)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1876 \n"); 
 	struct xfs_buf		*bp;
 
 	while (!list_empty(list)) {
@@ -1848,6 +1902,7 @@ xfs_buf_delwri_queue(
 	struct xfs_buf		*bp,
 	struct list_head	*list)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1905 \n"); 
 	ASSERT(xfs_buf_islocked(bp));
 	ASSERT(!(bp->b_flags & XBF_READ));
 
@@ -1891,6 +1946,7 @@ xfs_buf_cmp(
 	struct list_head *a,
 	struct list_head *b)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1949 \n"); 
 	struct xfs_buf	*ap = container_of(a, struct xfs_buf, b_list);
 	struct xfs_buf	*bp = container_of(b, struct xfs_buf, b_list);
 	xfs_daddr_t		diff;
@@ -1920,6 +1976,7 @@ xfs_buf_delwri_submit_buffers(
 	struct list_head	*buffer_list,
 	struct list_head	*wait_list)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 1979 \n"); 
 	struct xfs_buf		*bp, *n;
 	LIST_HEAD		(submit_list);
 	int			pinned = 0;
@@ -1989,6 +2046,7 @@ int
 xfs_buf_delwri_submit_nowait(
 	struct list_head	*buffer_list)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 2049 \n"); 
 	return xfs_buf_delwri_submit_buffers(buffer_list, NULL);
 }
 
@@ -2004,6 +2062,7 @@ int
 xfs_buf_delwri_submit(
 	struct list_head	*buffer_list)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 2065 \n"); 
 	LIST_HEAD		(wait_list);
 	int			error = 0, error2;
 	struct xfs_buf		*bp;
@@ -2047,6 +2106,7 @@ xfs_buf_delwri_pushbuf(
 	struct xfs_buf		*bp,
 	struct list_head	*buffer_list)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 2109 \n"); 
 	LIST_HEAD		(submit_list);
 	int			error;
 
@@ -2104,5 +2164,6 @@ xfs_buf_init(void)
 void
 xfs_buf_terminate(void)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_buf.c: line 2167 \n"); 
 	kmem_zone_destroy(xfs_buf_zone);
 }

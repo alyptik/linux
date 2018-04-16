@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Helper handling for netfilter. */
 
 /* (C) 1999-2001 Paul `Rusty' Russell
@@ -96,11 +97,13 @@ static void nf_conntrack_helper_fini_sysctl(struct net *net)
 #else
 static int nf_conntrack_helper_init_sysctl(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 100 \n"); 
 	return 0;
 }
 
 static void nf_conntrack_helper_fini_sysctl(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 106 \n"); 
 }
 #endif /* CONFIG_SYSCTL */
 
@@ -108,6 +111,7 @@ static void nf_conntrack_helper_fini_sysctl(struct net *net)
  * helpers currently in the kernel. */
 static unsigned int helper_hash(const struct nf_conntrack_tuple *tuple)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 114 \n"); 
 	return (((tuple->src.l3num << 8) | tuple->dst.protonum) ^
 		(__force __u16)tuple->src.u.all) % nf_ct_helper_hsize;
 }
@@ -133,6 +137,7 @@ __nf_ct_helper_find(const struct nf_conntrack_tuple *tuple)
 struct nf_conntrack_helper *
 __nf_conntrack_helper_find(const char *name, u16 l3num, u8 protonum)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 140 \n"); 
 	struct nf_conntrack_helper *h;
 	unsigned int i;
 
@@ -156,6 +161,7 @@ EXPORT_SYMBOL_GPL(__nf_conntrack_helper_find);
 struct nf_conntrack_helper *
 nf_conntrack_helper_try_module_get(const char *name, u16 l3num, u8 protonum)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 164 \n"); 
 	struct nf_conntrack_helper *h;
 
 	h = __nf_conntrack_helper_find(name, l3num, protonum);
@@ -176,6 +182,7 @@ struct nf_conn_help *
 nf_ct_helper_ext_add(struct nf_conn *ct,
 		     struct nf_conntrack_helper *helper, gfp_t gfp)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 185 \n"); 
 	struct nf_conn_help *help;
 
 	help = nf_ct_ext_add_length(ct, NF_CT_EXT_HELPER,
@@ -269,6 +276,7 @@ EXPORT_SYMBOL_GPL(__nf_ct_try_assign_helper);
 static inline int unhelp(struct nf_conntrack_tuple_hash *i,
 			 const struct nf_conntrack_helper *me)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 279 \n"); 
 	struct nf_conn *ct = nf_ct_tuplehash_to_ctrack(i);
 	struct nf_conn_help *help = nfct_help(ct);
 
@@ -305,6 +313,7 @@ EXPORT_SYMBOL_GPL(nf_ct_helper_expectfn_register);
 
 void nf_ct_helper_expectfn_unregister(struct nf_ct_helper_expectfn *n)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 316 \n"); 
 	spin_lock_bh(&nf_conntrack_expect_lock);
 	list_del_rcu(&n->head);
 	spin_unlock_bh(&nf_conntrack_expect_lock);
@@ -314,6 +323,7 @@ EXPORT_SYMBOL_GPL(nf_ct_helper_expectfn_unregister);
 struct nf_ct_helper_expectfn *
 nf_ct_helper_expectfn_find_by_name(const char *name)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 326 \n"); 
 	struct nf_ct_helper_expectfn *cur;
 	bool found = false;
 
@@ -332,6 +342,7 @@ EXPORT_SYMBOL_GPL(nf_ct_helper_expectfn_find_by_name);
 struct nf_ct_helper_expectfn *
 nf_ct_helper_expectfn_find_by_symbol(const void *symbol)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 345 \n"); 
 	struct nf_ct_helper_expectfn *cur;
 	bool found = false;
 
@@ -403,6 +414,7 @@ EXPORT_SYMBOL_GPL(nf_conntrack_helper_register);
 static void __nf_conntrack_helper_unregister(struct nf_conntrack_helper *me,
 					     struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 417 \n"); 
 	struct nf_conntrack_tuple_hash *h;
 	const struct hlist_nulls_node *nn;
 	int cpu;
@@ -420,6 +432,7 @@ static void __nf_conntrack_helper_unregister(struct nf_conntrack_helper *me,
 
 void nf_conntrack_helper_unregister(struct nf_conntrack_helper *me)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 435 \n"); 
 	struct nf_conntrack_tuple_hash *h;
 	struct nf_conntrack_expect *exp;
 	const struct hlist_node *next;
@@ -532,6 +545,7 @@ EXPORT_SYMBOL_GPL(nf_conntrack_helpers_register);
 void nf_conntrack_helpers_unregister(struct nf_conntrack_helper *helper,
 				unsigned int n)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 548 \n"); 
 	while (n-- > 0)
 		nf_conntrack_helper_unregister(&helper[n]);
 }
@@ -578,6 +592,7 @@ out_extend:
 
 void nf_conntrack_helper_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_helper.c: line 595 \n"); 
 	nf_ct_extend_unregister(&helper_extend);
 	nf_ct_free_hashtable(nf_ct_helper_hash, nf_ct_helper_hsize);
 }

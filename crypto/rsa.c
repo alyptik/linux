@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* RSA asymmetric public-key algorithm [RFC3447]
  *
  * Copyright (c) 2015, Intel Corporation
@@ -28,6 +29,7 @@ struct rsa_mpi_key {
  */
 static int _rsa_enc(const struct rsa_mpi_key *key, MPI c, MPI m)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 32 \n"); 
 	/* (1) Validate 0 <= m < n */
 	if (mpi_cmp_ui(m, 0) < 0 || mpi_cmp(m, key->n) >= 0)
 		return -EINVAL;
@@ -42,6 +44,7 @@ static int _rsa_enc(const struct rsa_mpi_key *key, MPI c, MPI m)
  */
 static int _rsa_dec(const struct rsa_mpi_key *key, MPI m, MPI c)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 47 \n"); 
 	/* (1) Validate 0 <= c < n */
 	if (mpi_cmp_ui(c, 0) < 0 || mpi_cmp(c, key->n) >= 0)
 		return -EINVAL;
@@ -56,6 +59,7 @@ static int _rsa_dec(const struct rsa_mpi_key *key, MPI m, MPI c)
  */
 static int _rsa_sign(const struct rsa_mpi_key *key, MPI s, MPI m)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 62 \n"); 
 	/* (1) Validate 0 <= m < n */
 	if (mpi_cmp_ui(m, 0) < 0 || mpi_cmp(m, key->n) >= 0)
 		return -EINVAL;
@@ -70,6 +74,7 @@ static int _rsa_sign(const struct rsa_mpi_key *key, MPI s, MPI m)
  */
 static int _rsa_verify(const struct rsa_mpi_key *key, MPI m, MPI s)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 77 \n"); 
 	/* (1) Validate 0 <= s < n */
 	if (mpi_cmp_ui(s, 0) < 0 || mpi_cmp(s, key->n) >= 0)
 		return -EINVAL;
@@ -80,11 +85,13 @@ static int _rsa_verify(const struct rsa_mpi_key *key, MPI m, MPI s)
 
 static inline struct rsa_mpi_key *rsa_get_key(struct crypto_akcipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 88 \n"); 
 	return akcipher_tfm_ctx(tfm);
 }
 
 static int rsa_enc(struct akcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 94 \n"); 
 	struct crypto_akcipher *tfm = crypto_akcipher_reqtfm(req);
 	const struct rsa_mpi_key *pkey = rsa_get_key(tfm);
 	MPI m, c = mpi_alloc(0);
@@ -124,6 +131,7 @@ err_free_c:
 
 static int rsa_dec(struct akcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 134 \n"); 
 	struct crypto_akcipher *tfm = crypto_akcipher_reqtfm(req);
 	const struct rsa_mpi_key *pkey = rsa_get_key(tfm);
 	MPI c, m = mpi_alloc(0);
@@ -162,6 +170,7 @@ err_free_m:
 
 static int rsa_sign(struct akcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 173 \n"); 
 	struct crypto_akcipher *tfm = crypto_akcipher_reqtfm(req);
 	const struct rsa_mpi_key *pkey = rsa_get_key(tfm);
 	MPI m, s = mpi_alloc(0);
@@ -201,6 +210,7 @@ err_free_s:
 
 static int rsa_verify(struct akcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 213 \n"); 
 	struct crypto_akcipher *tfm = crypto_akcipher_reqtfm(req);
 	const struct rsa_mpi_key *pkey = rsa_get_key(tfm);
 	MPI s, m = mpi_alloc(0);
@@ -242,6 +252,7 @@ err_free_m:
 
 static void rsa_free_mpi_key(struct rsa_mpi_key *key)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 255 \n"); 
 	mpi_free(key->d);
 	mpi_free(key->e);
 	mpi_free(key->n);
@@ -252,6 +263,7 @@ static void rsa_free_mpi_key(struct rsa_mpi_key *key)
 
 static int rsa_check_key_length(unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 266 \n"); 
 	switch (len) {
 	case 512:
 	case 1024:
@@ -268,6 +280,7 @@ static int rsa_check_key_length(unsigned int len)
 static int rsa_set_pub_key(struct crypto_akcipher *tfm, const void *key,
 			   unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 283 \n"); 
 	struct rsa_mpi_key *mpi_key = akcipher_tfm_ctx(tfm);
 	struct rsa_key raw_key = {0};
 	int ret;
@@ -302,6 +315,7 @@ err:
 static int rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
 			    unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 318 \n"); 
 	struct rsa_mpi_key *mpi_key = akcipher_tfm_ctx(tfm);
 	struct rsa_key raw_key = {0};
 	int ret;
@@ -339,6 +353,7 @@ err:
 
 static int rsa_max_size(struct crypto_akcipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 356 \n"); 
 	struct rsa_mpi_key *pkey = akcipher_tfm_ctx(tfm);
 
 	return pkey->n ? mpi_get_size(pkey->n) : -EINVAL;
@@ -346,6 +361,7 @@ static int rsa_max_size(struct crypto_akcipher *tfm)
 
 static void rsa_exit_tfm(struct crypto_akcipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 364 \n"); 
 	struct rsa_mpi_key *pkey = akcipher_tfm_ctx(tfm);
 
 	rsa_free_mpi_key(pkey);
@@ -388,6 +404,7 @@ static int rsa_init(void)
 
 static void rsa_exit(void)
 {
+	panic("We reached unpopular paths in crypto/rsa.c: line 407 \n"); 
 	crypto_unregister_template(&rsa_pkcs1pad_tmpl);
 	crypto_unregister_akcipher(&rsa);
 }

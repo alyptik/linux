@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_dnat
  *
@@ -17,6 +18,7 @@
 static unsigned int
 ebt_dnat_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_dnat.c: line 21 \n"); 
 	const struct ebt_nat_info *info = par->targinfo;
 
 	if (!skb_make_writable(skb, 0))
@@ -28,6 +30,7 @@ ebt_dnat_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int ebt_dnat_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_dnat.c: line 33 \n"); 
 	const struct ebt_nat_info *info = par->targinfo;
 	unsigned int hook_mask;
 

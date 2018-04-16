@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NetLabel CALIPSO/IPv6 Support
  *
@@ -90,6 +91,7 @@ static const struct nla_policy calipso_genl_policy[NLBL_CALIPSO_A_MAX + 1] = {
 static int netlbl_calipso_add_pass(struct genl_info *info,
 				   struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 94 \n"); 
 	int ret_val;
 	struct calipso_doi *doi_def = NULL;
 
@@ -118,6 +120,7 @@ static int netlbl_calipso_add_pass(struct genl_info *info,
 static int netlbl_calipso_add(struct sk_buff *skb, struct genl_info *info)
 
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 123 \n"); 
 	int ret_val = -EINVAL;
 	struct netlbl_audit audit_info;
 
@@ -149,6 +152,7 @@ static int netlbl_calipso_add(struct sk_buff *skb, struct genl_info *info)
  */
 static int netlbl_calipso_list(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 155 \n"); 
 	int ret_val;
 	struct sk_buff *ans_skb = NULL;
 	void *data;
@@ -210,6 +214,7 @@ list_failure:
  */
 static int netlbl_calipso_listall_cb(struct calipso_doi *doi_def, void *arg)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 217 \n"); 
 	int ret_val = -ENOMEM;
 	struct netlbl_calipso_doiwalk_arg *cb_arg = arg;
 	void *data;
@@ -250,6 +255,7 @@ listall_cb_failure:
 static int netlbl_calipso_listall(struct sk_buff *skb,
 				  struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 258 \n"); 
 	struct netlbl_calipso_doiwalk_arg cb_arg;
 	u32 doi_skip = cb->args[0];
 
@@ -277,6 +283,7 @@ static int netlbl_calipso_listall(struct sk_buff *skb,
  */
 static int netlbl_calipso_remove_cb(struct netlbl_dom_map *entry, void *arg)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 286 \n"); 
 	struct netlbl_domhsh_walk_arg *cb_arg = arg;
 
 	if (entry->def.type == NETLBL_NLTYPE_CALIPSO &&
@@ -298,6 +305,7 @@ static int netlbl_calipso_remove_cb(struct netlbl_dom_map *entry, void *arg)
  */
 static int netlbl_calipso_remove(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 308 \n"); 
 	int ret_val = -EINVAL;
 	struct netlbl_domhsh_walk_arg cb_arg;
 	struct netlbl_audit audit_info;
@@ -390,6 +398,7 @@ EXPORT_SYMBOL(netlbl_calipso_ops_register);
 
 static const struct netlbl_calipso_ops *netlbl_calipso_ops_get(void)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 401 \n"); 
 	return ACCESS_ONCE(calipso_ops);
 }
 
@@ -409,6 +418,7 @@ static const struct netlbl_calipso_ops *netlbl_calipso_ops_get(void)
 int calipso_doi_add(struct calipso_doi *doi_def,
 		    struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 421 \n"); 
 	int ret_val = -ENOMSG;
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
@@ -427,6 +437,7 @@ int calipso_doi_add(struct calipso_doi *doi_def,
  */
 void calipso_doi_free(struct calipso_doi *doi_def)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 440 \n"); 
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
 	if (ops)
@@ -446,6 +457,7 @@ void calipso_doi_free(struct calipso_doi *doi_def)
  */
 int calipso_doi_remove(u32 doi, struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 460 \n"); 
 	int ret_val = -ENOMSG;
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
@@ -466,6 +478,7 @@ int calipso_doi_remove(u32 doi, struct netlbl_audit *audit_info)
  */
 struct calipso_doi *calipso_doi_getdef(u32 doi)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 481 \n"); 
 	struct calipso_doi *ret_val = NULL;
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
@@ -484,6 +497,7 @@ struct calipso_doi *calipso_doi_getdef(u32 doi)
  */
 void calipso_doi_putdef(struct calipso_doi *doi_def)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 500 \n"); 
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
 	if (ops)
@@ -507,6 +521,7 @@ int calipso_doi_walk(u32 *skip_cnt,
 		     int (*callback)(struct calipso_doi *doi_def, void *arg),
 		     void *cb_arg)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 524 \n"); 
 	int ret_val = -ENOMSG;
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
@@ -529,6 +544,7 @@ int calipso_doi_walk(u32 *skip_cnt,
  */
 int calipso_sock_getattr(struct sock *sk, struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 547 \n"); 
 	int ret_val = -ENOMSG;
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
@@ -555,6 +571,7 @@ int calipso_sock_setattr(struct sock *sk,
 			 const struct calipso_doi *doi_def,
 			 const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 574 \n"); 
 	int ret_val = -ENOMSG;
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
@@ -573,6 +590,7 @@ int calipso_sock_setattr(struct sock *sk,
  */
 void calipso_sock_delattr(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 593 \n"); 
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
 	if (ops)
@@ -595,6 +613,7 @@ int calipso_req_setattr(struct request_sock *req,
 			const struct calipso_doi *doi_def,
 			const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 616 \n"); 
 	int ret_val = -ENOMSG;
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
@@ -613,6 +632,7 @@ int calipso_req_setattr(struct request_sock *req,
  */
 void calipso_req_delattr(struct request_sock *req)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 635 \n"); 
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
 	if (ops)
@@ -630,6 +650,7 @@ void calipso_req_delattr(struct request_sock *req)
  */
 unsigned char *calipso_optptr(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 653 \n"); 
 	unsigned char *ret_val = NULL;
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
@@ -651,6 +672,7 @@ unsigned char *calipso_optptr(const struct sk_buff *skb)
 int calipso_getattr(const unsigned char *calipso,
 		    struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 675 \n"); 
 	int ret_val = -ENOMSG;
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
@@ -674,6 +696,7 @@ int calipso_skbuff_setattr(struct sk_buff *skb,
 			   const struct calipso_doi *doi_def,
 			   const struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 699 \n"); 
 	int ret_val = -ENOMSG;
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
@@ -693,6 +716,7 @@ int calipso_skbuff_setattr(struct sk_buff *skb,
  */
 int calipso_skbuff_delattr(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 719 \n"); 
 	int ret_val = -ENOMSG;
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
@@ -711,6 +735,7 @@ int calipso_skbuff_delattr(struct sk_buff *skb)
  */
 void calipso_cache_invalidate(void)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 738 \n"); 
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 
 	if (ops)
@@ -731,6 +756,7 @@ int calipso_cache_add(const unsigned char *calipso_ptr,
 		      const struct netlbl_lsm_secattr *secattr)
 
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_calipso.c: line 759 \n"); 
 	int ret_val = -ENOMSG;
 	const struct netlbl_calipso_ops *ops = netlbl_calipso_ops_get();
 

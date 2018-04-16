@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_ip6
  *
@@ -36,6 +37,7 @@ union pkthdr {
 static bool
 ebt_ip6_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_ip6.c: line 40 \n"); 
 	const struct ebt_ip6_info *info = par->matchinfo;
 	const struct ipv6hdr *ih6;
 	struct ipv6hdr _ip6h;
@@ -104,6 +106,7 @@ ebt_ip6_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ebt_ip6_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_ip6.c: line 109 \n"); 
 	const struct ebt_entry *e = par->entryinfo;
 	struct ebt_ip6_info *info = par->matchinfo;
 

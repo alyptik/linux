@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* iptables module for using new netfilter netlink queue
  *
  * (C) 2005 by Harald Welte <laforge@netfilter.org>
@@ -30,6 +31,7 @@ static u32 jhash_initval __read_mostly;
 static unsigned int
 nfqueue_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_NFQUEUE.c: line 34 \n"); 
 	const struct xt_NFQ_info *tinfo = par->targinfo;
 
 	return NF_QUEUE_NR(tinfo->queuenum);
@@ -38,6 +40,7 @@ nfqueue_tg(struct sk_buff *skb, const struct xt_action_param *par)
 static unsigned int
 nfqueue_tg_v1(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_NFQUEUE.c: line 43 \n"); 
 	const struct xt_NFQ_info_v1 *info = par->targinfo;
 	u32 queue = info->queuenum;
 
@@ -51,6 +54,7 @@ nfqueue_tg_v1(struct sk_buff *skb, const struct xt_action_param *par)
 static unsigned int
 nfqueue_tg_v2(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_NFQUEUE.c: line 57 \n"); 
 	const struct xt_NFQ_info_v2 *info = par->targinfo;
 	unsigned int ret = nfqueue_tg_v1(skb, par);
 
@@ -61,6 +65,7 @@ nfqueue_tg_v2(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int nfqueue_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_NFQUEUE.c: line 68 \n"); 
 	const struct xt_NFQ_info_v3 *info = par->targinfo;
 	u32 maxid;
 
@@ -87,6 +92,7 @@ static int nfqueue_tg_check(const struct xt_tgchk_param *par)
 static unsigned int
 nfqueue_tg_v3(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_NFQUEUE.c: line 95 \n"); 
 	const struct xt_NFQ_info_v3 *info = par->targinfo;
 	u32 queue = info->queuenum;
 	int ret;

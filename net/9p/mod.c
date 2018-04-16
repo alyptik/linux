@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  net/9p/9p.c
  *
@@ -96,6 +97,7 @@ EXPORT_SYMBOL(v9fs_register_trans);
  */
 void v9fs_unregister_trans(struct p9_trans_module *m)
 {
+	panic("We reached unpopular paths in net/9p/mod.c: line 100 \n"); 
 	spin_lock(&v9fs_trans_lock);
 	list_del_init(&m->list);
 	spin_unlock(&v9fs_trans_lock);
@@ -109,6 +111,7 @@ EXPORT_SYMBOL(v9fs_unregister_trans);
  */
 struct p9_trans_module *v9fs_get_trans_by_name(char *s)
 {
+	panic("We reached unpopular paths in net/9p/mod.c: line 114 \n"); 
 	struct p9_trans_module *t, *found = NULL;
 
 	spin_lock(&v9fs_trans_lock);
@@ -132,6 +135,7 @@ EXPORT_SYMBOL(v9fs_get_trans_by_name);
 
 struct p9_trans_module *v9fs_get_default_trans(void)
 {
+	panic("We reached unpopular paths in net/9p/mod.c: line 138 \n"); 
 	struct p9_trans_module *t, *found = NULL;
 
 	spin_lock(&v9fs_trans_lock);
@@ -161,6 +165,7 @@ EXPORT_SYMBOL(v9fs_get_default_trans);
  */
 void v9fs_put_trans(struct p9_trans_module *m)
 {
+	panic("We reached unpopular paths in net/9p/mod.c: line 168 \n"); 
 	if (m)
 		module_put(m->owner);
 }

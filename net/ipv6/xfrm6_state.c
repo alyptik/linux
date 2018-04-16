@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * xfrm6_state.c: based on xfrm4_state.c
  *
@@ -23,6 +24,7 @@
 static void
 __xfrm6_init_tempsel(struct xfrm_selector *sel, const struct flowi *fl)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_state.c: line 27 \n"); 
 	const struct flowi6 *fl6 = &fl->u.ip6;
 
 	/* Initialize temporary selector matching only
@@ -44,6 +46,7 @@ static void
 xfrm6_init_temprop(struct xfrm_state *x, const struct xfrm_tmpl *tmpl,
 		   const xfrm_address_t *daddr, const xfrm_address_t *saddr)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_state.c: line 49 \n"); 
 	x->id = tmpl->id;
 	if (ipv6_addr_any((struct in6_addr *)&x->id.daddr))
 		memcpy(&x->id.daddr, daddr, sizeof(x->sel.daddr));
@@ -59,6 +62,7 @@ xfrm6_init_temprop(struct xfrm_state *x, const struct xfrm_tmpl *tmpl,
 static int
 __xfrm6_sort(void **dst, void **src, int n, int (*cmp)(void *p), int maxclass)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_state.c: line 65 \n"); 
 	int i;
 	int class[XFRM_MAX_DEPTH];
 	int count[maxclass];
@@ -93,6 +97,7 @@ __xfrm6_sort(void **dst, void **src, int n, int (*cmp)(void *p), int maxclass)
  */
 static int __xfrm6_state_sort_cmp(void *p)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_state.c: line 100 \n"); 
 	struct xfrm_state *v = p;
 
 	switch (v->props.mode) {
@@ -116,6 +121,7 @@ static int __xfrm6_state_sort_cmp(void *p)
 static int
 __xfrm6_state_sort(struct xfrm_state **dst, struct xfrm_state **src, int n)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_state.c: line 124 \n"); 
 	return __xfrm6_sort((void **)dst, (void **)src, n,
 			    __xfrm6_state_sort_cmp, 6);
 }
@@ -130,6 +136,7 @@ __xfrm6_state_sort(struct xfrm_state **dst, struct xfrm_state **src, int n)
  */
 static int __xfrm6_tmpl_sort_cmp(void *p)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_state.c: line 139 \n"); 
 	struct xfrm_tmpl *v = p;
 	switch (v->mode) {
 	case XFRM_MODE_TRANSPORT:
@@ -149,12 +156,14 @@ static int __xfrm6_tmpl_sort_cmp(void *p)
 static int
 __xfrm6_tmpl_sort(struct xfrm_tmpl **dst, struct xfrm_tmpl **src, int n)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_state.c: line 159 \n"); 
 	return __xfrm6_sort((void **)dst, (void **)src, n,
 			    __xfrm6_tmpl_sort_cmp, 5);
 }
 
 int xfrm6_extract_header(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_state.c: line 166 \n"); 
 	struct ipv6hdr *iph = ipv6_hdr(skb);
 
 	XFRM_MODE_SKB_CB(skb)->ihl = sizeof(*iph);
@@ -193,6 +202,7 @@ int __init xfrm6_state_init(void)
 
 void xfrm6_state_fini(void)
 {
+	panic("We reached unpopular paths in net/ipv6/xfrm6_state.c: line 205 \n"); 
 	xfrm_state_unregister_afinfo(&xfrm6_state_afinfo);
 }
 

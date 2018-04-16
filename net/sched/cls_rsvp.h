@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/cls_rsvp.h	Template file for RSVPv[46] classifiers.
  *
@@ -102,6 +103,7 @@ struct rsvp_filter {
 
 static inline unsigned int hash_dst(__be32 *dst, u8 protocol, u8 tunnelid)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 106 \n"); 
 	unsigned int h = (__force __u32)dst[RSVP_DST_LEN - 1];
 
 	h ^= h>>16;
@@ -111,6 +113,7 @@ static inline unsigned int hash_dst(__be32 *dst, u8 protocol, u8 tunnelid)
 
 static inline unsigned int hash_src(__be32 *src)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 116 \n"); 
 	unsigned int h = (__force __u32)src[RSVP_DST_LEN-1];
 
 	h ^= h>>16;
@@ -131,6 +134,7 @@ static inline unsigned int hash_src(__be32 *src)
 static int rsvp_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 			 struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 137 \n"); 
 	struct rsvp_head *head = rcu_dereference_bh(tp->root);
 	struct rsvp_session *s;
 	struct rsvp_filter *f;
@@ -225,6 +229,7 @@ matched:
 
 static void rsvp_replace(struct tcf_proto *tp, struct rsvp_filter *n, u32 h)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 232 \n"); 
 	struct rsvp_head *head = rtnl_dereference(tp->root);
 	struct rsvp_session *s;
 	struct rsvp_filter __rcu **ins;
@@ -252,6 +257,7 @@ static void rsvp_replace(struct tcf_proto *tp, struct rsvp_filter *n, u32 h)
 
 static unsigned long rsvp_get(struct tcf_proto *tp, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 260 \n"); 
 	struct rsvp_head *head = rtnl_dereference(tp->root);
 	struct rsvp_session *s;
 	struct rsvp_filter *f;
@@ -274,6 +280,7 @@ static unsigned long rsvp_get(struct tcf_proto *tp, u32 handle)
 
 static int rsvp_init(struct tcf_proto *tp)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 283 \n"); 
 	struct rsvp_head *data;
 
 	data = kzalloc(sizeof(struct rsvp_head), GFP_KERNEL);
@@ -286,6 +293,7 @@ static int rsvp_init(struct tcf_proto *tp)
 
 static void rsvp_delete_filter_rcu(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 296 \n"); 
 	struct rsvp_filter *f = container_of(head, struct rsvp_filter, rcu);
 
 	tcf_exts_destroy(&f->exts);
@@ -294,6 +302,7 @@ static void rsvp_delete_filter_rcu(struct rcu_head *head)
 
 static void rsvp_delete_filter(struct tcf_proto *tp, struct rsvp_filter *f)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 305 \n"); 
 	tcf_unbind_filter(tp, &f->res);
 	/* all classifiers are required to call tcf_exts_destroy() after rcu
 	 * grace period, since converted-to-rcu actions are relying on that
@@ -304,6 +313,7 @@ static void rsvp_delete_filter(struct tcf_proto *tp, struct rsvp_filter *f)
 
 static bool rsvp_destroy(struct tcf_proto *tp, bool force)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 316 \n"); 
 	struct rsvp_head *data = rtnl_dereference(tp->root);
 	int h1, h2;
 
@@ -342,6 +352,7 @@ static bool rsvp_destroy(struct tcf_proto *tp, bool force)
 
 static int rsvp_delete(struct tcf_proto *tp, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 355 \n"); 
 	struct rsvp_head *head = rtnl_dereference(tp->root);
 	struct rsvp_filter *nfp, *f = (struct rsvp_filter *)arg;
 	struct rsvp_filter __rcu **fp;
@@ -382,6 +393,7 @@ static int rsvp_delete(struct tcf_proto *tp, unsigned long arg)
 
 static unsigned int gen_handle(struct tcf_proto *tp, unsigned salt)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 396 \n"); 
 	struct rsvp_head *data = rtnl_dereference(tp->root);
 	int i = 0xFFFF;
 
@@ -399,6 +411,7 @@ static unsigned int gen_handle(struct tcf_proto *tp, unsigned salt)
 
 static int tunnel_bts(struct rsvp_head *data)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 414 \n"); 
 	int n = data->tgenerator >> 5;
 	u32 b = 1 << (data->tgenerator & 0x1F);
 
@@ -410,6 +423,7 @@ static int tunnel_bts(struct rsvp_head *data)
 
 static void tunnel_recycle(struct rsvp_head *data)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 426 \n"); 
 	struct rsvp_session __rcu **sht = data->ht;
 	u32 tmap[256/32];
 	int h1, h2;
@@ -439,6 +453,7 @@ static void tunnel_recycle(struct rsvp_head *data)
 
 static u32 gen_tunnel(struct rsvp_head *data)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 456 \n"); 
 	int i, k;
 
 	for (k = 0; k < 2; k++) {
@@ -468,6 +483,7 @@ static int rsvp_change(struct net *net, struct sk_buff *in_skb,
 		       struct nlattr **tca,
 		       unsigned long *arg, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 486 \n"); 
 	struct rsvp_head *data = rtnl_dereference(tp->root);
 	struct rsvp_filter *f, *nfp;
 	struct rsvp_filter __rcu **fp;
@@ -645,6 +661,7 @@ errout2:
 
 static void rsvp_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 664 \n"); 
 	struct rsvp_head *head = rtnl_dereference(tp->root);
 	unsigned int h, h1;
 
@@ -679,6 +696,7 @@ static void rsvp_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 static int rsvp_dump(struct net *net, struct tcf_proto *tp, unsigned long fh,
 		     struct sk_buff *skb, struct tcmsg *t)
 {
+	panic("We reached unpopular paths in net/sched/cls_rsvp.h: line 699 \n"); 
 	struct rsvp_filter *f = (struct rsvp_filter *)fh;
 	struct rsvp_session *s;
 	struct nlattr *nest;

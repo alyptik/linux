@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/kernfs/dir.c - kernfs directory implementation
  *
@@ -26,12 +27,14 @@ static char kernfs_pr_cont_buf[PATH_MAX];	/* protected by rename_lock */
 
 static bool kernfs_active(struct kernfs_node *kn)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/kernfs/dir.c: line 30 \n"); 
 	lockdep_assert_held(&kernfs_mutex);
 	return atomic_read(&kn->active) >= 0;
 }
 
 static bool kernfs_lockdep(struct kernfs_node *kn)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/kernfs/dir.c: line 37 \n"); 
 #ifdef CONFIG_DEBUG_LOCK_ALLOC
 	return kn->flags & KERNFS_LOCKDEP;
 #else
@@ -216,6 +219,7 @@ EXPORT_SYMBOL_GPL(kernfs_path_from_node);
  */
 void pr_cont_kernfs_name(struct kernfs_node *kn)
 {
+	panic("We reached unpopular paths in fs/kernfs/dir.c: line 222 \n"); 
 	unsigned long flags;
 
 	spin_lock_irqsave(&kernfs_rename_lock, flags);
@@ -234,6 +238,7 @@ void pr_cont_kernfs_name(struct kernfs_node *kn)
  */
 void pr_cont_kernfs_path(struct kernfs_node *kn)
 {
+	panic("We reached unpopular paths in fs/kernfs/dir.c: line 241 \n"); 
 	unsigned long flags;
 	int sz;
 
@@ -771,6 +776,7 @@ static struct kernfs_node *kernfs_walk_ns(struct kernfs_node *parent,
 					  const unsigned char *path,
 					  const void *ns)
 {
+	panic("We reached unpopular paths in fs/kernfs/dir.c: line 779 \n"); 
 	size_t len;
 	char *p, *name;
 
@@ -836,6 +842,7 @@ EXPORT_SYMBOL_GPL(kernfs_find_and_get_ns);
 struct kernfs_node *kernfs_walk_and_get_ns(struct kernfs_node *parent,
 					   const char *path, const void *ns)
 {
+	panic("We reached unpopular paths in fs/kernfs/dir.c: line 845 \n"); 
 	struct kernfs_node *kn;
 
 	mutex_lock(&kernfs_mutex);
@@ -899,6 +906,7 @@ struct kernfs_root *kernfs_create_root(struct kernfs_syscall_ops *scops,
  */
 void kernfs_destroy_root(struct kernfs_root *root)
 {
+	panic("We reached unpopular paths in fs/kernfs/dir.c: line 909 \n"); 
 	kernfs_remove(root->kn);	/* will also free @root */
 }
 
@@ -1049,6 +1057,7 @@ static int kernfs_iop_rename(struct inode *old_dir, struct dentry *old_dentry,
 			     struct inode *new_dir, struct dentry *new_dentry,
 			     unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/kernfs/dir.c: line 1060 \n"); 
 	struct kernfs_node *kn  = old_dentry->d_fsdata;
 	struct kernfs_node *new_parent = new_dir->i_private;
 	struct kernfs_syscall_ops *scops = kernfs_root(kn)->syscall_ops;
@@ -1338,6 +1347,7 @@ void kernfs_unbreak_active_protection(struct kernfs_node *kn)
  */
 bool kernfs_remove_self(struct kernfs_node *kn)
 {
+	panic("We reached unpopular paths in fs/kernfs/dir.c: line 1350 \n"); 
 	bool ret;
 
 	mutex_lock(&kernfs_mutex);
@@ -1500,6 +1510,7 @@ int kernfs_rename_ns(struct kernfs_node *kn, struct kernfs_node *new_parent,
 /* Relationship between s_mode and the DT_xxx types */
 static inline unsigned char dt_type(struct kernfs_node *kn)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/kernfs/dir.c: line 1513 \n"); 
 	return (kn->mode >> 12) & 15;
 }
 

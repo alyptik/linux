@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
   FUSE: Filesystem in Userspace
   Copyright (C) 2001-2008  Miklos Szeredi <miklos@szeredi.hu>
@@ -21,6 +22,7 @@ static struct super_block *fuse_control_sb;
 
 static struct fuse_conn *fuse_ctl_file_conn_get(struct file *file)
 {
+	panic("We reached unpopular paths in fs/fuse/control.c: line 25 \n"); 
 	struct fuse_conn *fc;
 	mutex_lock(&fuse_mutex);
 	fc = file_inode(file)->i_private;
@@ -203,6 +205,7 @@ static struct dentry *fuse_ctl_add_dentry(struct dentry *parent,
 					  const struct inode_operations *iop,
 					  const struct file_operations *fop)
 {
+	panic("We reached unpopular paths in fs/fuse/control.c: line 208 \n"); 
 	struct dentry *dentry;
 	struct inode *inode;
 
@@ -237,6 +240,7 @@ static struct dentry *fuse_ctl_add_dentry(struct dentry *parent,
  */
 int fuse_ctl_add_conn(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/control.c: line 243 \n"); 
 	struct dentry *parent;
 	char name[32];
 
@@ -276,6 +280,7 @@ int fuse_ctl_add_conn(struct fuse_conn *fc)
  */
 void fuse_ctl_remove_conn(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/control.c: line 283 \n"); 
 	int i;
 
 	if (!fuse_control_sb)
@@ -324,6 +329,7 @@ static struct dentry *fuse_ctl_mount(struct file_system_type *fs_type,
 
 static void fuse_ctl_kill_sb(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fuse/control.c: line 332 \n"); 
 	struct fuse_conn *fc;
 
 	mutex_lock(&fuse_mutex);

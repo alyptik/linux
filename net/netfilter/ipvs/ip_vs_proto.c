@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * ip_vs_proto.c: transport protocol load balancing support for IPVS
  *
@@ -95,6 +96,7 @@ register_ip_vs_proto_netns(struct netns_ipvs *ipvs, struct ip_vs_protocol *pp)
  */
 static int unregister_ip_vs_protocol(struct ip_vs_protocol *pp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto.c: line 99 \n"); 
 	struct ip_vs_protocol **pp_p;
 	unsigned int hash = IP_VS_PROTO_HASH(pp->protocol);
 
@@ -174,6 +176,7 @@ EXPORT_SYMBOL(ip_vs_proto_data_get);
  */
 void ip_vs_protocol_timeout_change(struct netns_ipvs *ipvs, int flags)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto.c: line 179 \n"); 
 	struct ip_vs_proto_data *pd;
 	int i;
 
@@ -200,6 +203,7 @@ int
 ip_vs_set_state_timeout(int *table, int num, const char *const *names,
 			const char *name, int to)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto.c: line 206 \n"); 
 	int i;
 
 	if (!table || !name || !to)
@@ -217,6 +221,7 @@ ip_vs_set_state_timeout(int *table, int num, const char *const *names,
 
 const char * ip_vs_state_name(__u16 proto, int state)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto.c: line 224 \n"); 
 	struct ip_vs_protocol *pp = ip_vs_proto_get(proto);
 
 	if (pp == NULL || pp->state_name == NULL)
@@ -231,6 +236,7 @@ ip_vs_tcpudp_debug_packet_v4(struct ip_vs_protocol *pp,
 			     int offset,
 			     const char *msg)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto.c: line 239 \n"); 
 	char buf[128];
 	struct iphdr _iph, *ih;
 
@@ -296,6 +302,7 @@ ip_vs_tcpudp_debug_packet(int af, struct ip_vs_protocol *pp,
 			  int offset,
 			  const char *msg)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto.c: line 305 \n"); 
 #ifdef CONFIG_IP_VS_IPV6
 	if (af == AF_INET6)
 		ip_vs_tcpudp_debug_packet_v6(pp, skb, offset, msg);
@@ -387,6 +394,7 @@ int __init ip_vs_protocol_init(void)
 
 void ip_vs_protocol_cleanup(void)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_proto.c: line 397 \n"); 
 	struct ip_vs_protocol *pp;
 	int i;
 

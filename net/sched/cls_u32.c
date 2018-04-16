@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/cls_u32.c	Ugly (or Universal) 32bit key Packet Classifier.
  *
@@ -99,6 +100,7 @@ static inline unsigned int u32_hash_fold(__be32 key,
 					 const struct tc_u32_sel *sel,
 					 u8 fshift)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 103 \n"); 
 	unsigned int h = ntohl(key & sel->hmask) >> fshift;
 
 	return h;
@@ -107,6 +109,7 @@ static inline unsigned int u32_hash_fold(__be32 key,
 static int u32_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 			struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 112 \n"); 
 	struct {
 		struct tc_u_knode *knode;
 		unsigned int	  off;
@@ -259,6 +262,7 @@ deadloop:
 
 static struct tc_u_hnode *u32_lookup_ht(struct tc_u_common *tp_c, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 265 \n"); 
 	struct tc_u_hnode *ht;
 
 	for (ht = rtnl_dereference(tp_c->hlist);
@@ -272,6 +276,7 @@ static struct tc_u_hnode *u32_lookup_ht(struct tc_u_common *tp_c, u32 handle)
 
 static struct tc_u_knode *u32_lookup_key(struct tc_u_hnode *ht, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 279 \n"); 
 	unsigned int sel;
 	struct tc_u_knode *n = NULL;
 
@@ -291,6 +296,7 @@ out:
 
 static unsigned long u32_get(struct tcf_proto *tp, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 299 \n"); 
 	struct tc_u_hnode *ht;
 	struct tc_u_common *tp_c = tp->data;
 
@@ -310,6 +316,7 @@ static unsigned long u32_get(struct tcf_proto *tp, u32 handle)
 
 static u32 gen_new_htid(struct tc_u_common *tp_c)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 319 \n"); 
 	int i = 0x800;
 
 	/* hgenerator only used inside rtnl lock it is safe to increment
@@ -325,6 +332,7 @@ static u32 gen_new_htid(struct tc_u_common *tp_c)
 
 static int u32_init(struct tcf_proto *tp)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 335 \n"); 
 	struct tc_u_hnode *root_ht;
 	struct tc_u_common *tp_c;
 
@@ -362,6 +370,7 @@ static int u32_init(struct tcf_proto *tp)
 static int u32_destroy_key(struct tcf_proto *tp, struct tc_u_knode *n,
 			   bool free_pf)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 373 \n"); 
 	tcf_exts_destroy(&n->exts);
 	if (n->ht_down)
 		n->ht_down->refcnt--;
@@ -387,6 +396,7 @@ static int u32_destroy_key(struct tcf_proto *tp, struct tc_u_knode *n,
  */
 static void u32_delete_key_rcu(struct rcu_head *rcu)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 399 \n"); 
 	struct tc_u_knode *key = container_of(rcu, struct tc_u_knode, rcu);
 
 	u32_destroy_key(key->tp, key, false);
@@ -401,6 +411,7 @@ static void u32_delete_key_rcu(struct rcu_head *rcu)
  */
 static void u32_delete_key_freepf_rcu(struct rcu_head *rcu)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 414 \n"); 
 	struct tc_u_knode *key = container_of(rcu, struct tc_u_knode, rcu);
 
 	u32_destroy_key(key->tp, key, true);
@@ -408,6 +419,7 @@ static void u32_delete_key_freepf_rcu(struct rcu_head *rcu)
 
 static int u32_delete_key(struct tcf_proto *tp, struct tc_u_knode *key)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 422 \n"); 
 	struct tc_u_knode __rcu **kp;
 	struct tc_u_knode *pkp;
 	struct tc_u_hnode *ht = rtnl_dereference(key->ht_up);
@@ -431,6 +443,7 @@ static int u32_delete_key(struct tcf_proto *tp, struct tc_u_knode *key)
 
 static void u32_remove_hw_knode(struct tcf_proto *tp, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 446 \n"); 
 	struct net_device *dev = tp->q->dev_queue->dev;
 	struct tc_cls_u32_offload u32_offload = {0};
 	struct tc_to_netdev offload;
@@ -449,6 +462,7 @@ static void u32_remove_hw_knode(struct tcf_proto *tp, u32 handle)
 static int u32_replace_hw_hnode(struct tcf_proto *tp, struct tc_u_hnode *h,
 				u32 flags)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 465 \n"); 
 	struct net_device *dev = tp->q->dev_queue->dev;
 	struct tc_cls_u32_offload u32_offload = {0};
 	struct tc_to_netdev offload;
@@ -475,6 +489,7 @@ static int u32_replace_hw_hnode(struct tcf_proto *tp, struct tc_u_hnode *h,
 
 static void u32_clear_hw_hnode(struct tcf_proto *tp, struct tc_u_hnode *h)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 492 \n"); 
 	struct net_device *dev = tp->q->dev_queue->dev;
 	struct tc_cls_u32_offload u32_offload = {0};
 	struct tc_to_netdev offload;
@@ -496,6 +511,7 @@ static void u32_clear_hw_hnode(struct tcf_proto *tp, struct tc_u_hnode *h)
 static int u32_replace_hw_knode(struct tcf_proto *tp, struct tc_u_knode *n,
 				u32 flags)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 514 \n"); 
 	struct tc_u_hnode *ht = rtnl_dereference(n->ht_down);
 	struct net_device *dev = tp->q->dev_queue->dev;
 	struct tc_cls_u32_offload u32_offload = {0};
@@ -533,6 +549,7 @@ static int u32_replace_hw_knode(struct tcf_proto *tp, struct tc_u_knode *n,
 
 static void u32_clear_hnode(struct tcf_proto *tp, struct tc_u_hnode *ht)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 552 \n"); 
 	struct tc_u_knode *n;
 	unsigned int h;
 
@@ -549,6 +566,7 @@ static void u32_clear_hnode(struct tcf_proto *tp, struct tc_u_hnode *ht)
 
 static int u32_destroy_hnode(struct tcf_proto *tp, struct tc_u_hnode *ht)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 569 \n"); 
 	struct tc_u_common *tp_c = tp->data;
 	struct tc_u_hnode __rcu **hn;
 	struct tc_u_hnode *phn;
@@ -574,6 +592,7 @@ static int u32_destroy_hnode(struct tcf_proto *tp, struct tc_u_hnode *ht)
 
 static bool ht_empty(struct tc_u_hnode *ht)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 595 \n"); 
 	unsigned int h;
 
 	for (h = 0; h <= ht->divisor; h++)
@@ -585,6 +604,7 @@ static bool ht_empty(struct tc_u_hnode *ht)
 
 static bool u32_destroy(struct tcf_proto *tp, bool force)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 607 \n"); 
 	struct tc_u_common *tp_c = tp->data;
 	struct tc_u_hnode *root_ht = rtnl_dereference(tp->root);
 
@@ -643,6 +663,7 @@ static bool u32_destroy(struct tcf_proto *tp, bool force)
 
 static int u32_delete(struct tcf_proto *tp, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 666 \n"); 
 	struct tc_u_hnode *ht = (struct tc_u_hnode *)arg;
 	struct tc_u_hnode *root_ht = rtnl_dereference(tp->root);
 
@@ -670,6 +691,7 @@ static int u32_delete(struct tcf_proto *tp, unsigned long arg)
 #define NR_U32_NODE (1<<12)
 static u32 gen_new_kid(struct tc_u_hnode *ht, u32 handle)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 694 \n"); 
 	struct tc_u_knode *n;
 	unsigned long i;
 	unsigned long *bitmap = kzalloc(BITS_TO_LONGS(NR_U32_NODE) * sizeof(unsigned long),
@@ -706,6 +728,7 @@ static int u32_set_parms(struct net *net, struct tcf_proto *tp,
 			 struct tc_u_knode *n, struct nlattr **tb,
 			 struct nlattr *est, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 731 \n"); 
 	struct tcf_exts e;
 	int err;
 
@@ -763,6 +786,7 @@ errout:
 static void u32_replace_knode(struct tcf_proto *tp, struct tc_u_common *tp_c,
 			      struct tc_u_knode *n)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 789 \n"); 
 	struct tc_u_knode __rcu **ins;
 	struct tc_u_knode *pins;
 	struct tc_u_hnode *ht;
@@ -789,6 +813,7 @@ static void u32_replace_knode(struct tcf_proto *tp, struct tc_u_common *tp_c,
 static struct tc_u_knode *u32_init_knode(struct tcf_proto *tp,
 					 struct tc_u_knode *n)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 816 \n"); 
 	struct tc_u_hnode *ht = rtnl_dereference(n->ht_down);
 	struct tc_u32_sel *s = &n->sel;
 	struct tc_u_knode *new;
@@ -844,6 +869,7 @@ static int u32_change(struct net *net, struct sk_buff *in_skb,
 		      struct tcf_proto *tp, unsigned long base, u32 handle,
 		      struct nlattr **tca, unsigned long *arg, bool ovr)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 872 \n"); 
 	struct tc_u_common *tp_c = tp->data;
 	struct tc_u_hnode *ht;
 	struct tc_u_knode *n;
@@ -1045,6 +1071,7 @@ errout:
 
 static void u32_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 1074 \n"); 
 	struct tc_u_common *tp_c = tp->data;
 	struct tc_u_hnode *ht;
 	struct tc_u_knode *n;
@@ -1086,6 +1113,7 @@ static void u32_walk(struct tcf_proto *tp, struct tcf_walker *arg)
 static int u32_dump(struct net *net, struct tcf_proto *tp, unsigned long fh,
 		    struct sk_buff *skb, struct tcmsg *t)
 {
+	panic("We reached unpopular paths in net/sched/cls_u32.c: line 1116 \n"); 
 	struct tc_u_knode *n = (struct tc_u_knode *)fh;
 	struct tc_u_hnode *ht_up, *ht_down;
 	struct nlattr *nest;

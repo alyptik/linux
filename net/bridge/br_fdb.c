@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Forwarding database
  *	Linux ethernet bridge
@@ -53,6 +54,7 @@ int __init br_fdb_init(void)
 
 void br_fdb_fini(void)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 57 \n"); 
 	kmem_cache_destroy(br_fdb_cache);
 }
 
@@ -133,6 +135,7 @@ static void fdb_del_hw_addr(struct net_bridge *br, const unsigned char *addr)
 
 static void fdb_del_external_learn(struct net_bridge_fdb_entry *f)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 138 \n"); 
 	struct switchdev_obj_port_fdb fdb = {
 		.obj = {
 			.orig_dev = f->dst->dev,
@@ -198,6 +201,7 @@ void br_fdb_find_delete_local(struct net_bridge *br,
 			      const struct net_bridge_port *p,
 			      const unsigned char *addr, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 204 \n"); 
 	struct hlist_head *head = &br->hash[br_mac_hash(addr, vid)];
 	struct net_bridge_fdb_entry *f;
 
@@ -210,6 +214,7 @@ void br_fdb_find_delete_local(struct net_bridge *br,
 
 void br_fdb_changeaddr(struct net_bridge_port *p, const unsigned char *newaddr)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 217 \n"); 
 	struct net_bridge_vlan_group *vg;
 	struct net_bridge *br = p->br;
 	struct net_bridge_vlan *v;
@@ -323,6 +328,7 @@ void br_fdb_cleanup(unsigned long _data)
 /* Completely flush all dynamic entries in forwarding database.*/
 void br_fdb_flush(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 331 \n"); 
 	int i;
 
 	spin_lock_bh(&br->hash_lock);
@@ -422,6 +428,7 @@ int br_fdb_test_addr(struct net_device *dev, unsigned char *addr)
 int br_fdb_fillbuf(struct net_bridge *br, void *buf,
 		   unsigned long maxnum, unsigned long skip)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 431 \n"); 
 	struct __fdb_entry *fe = buf;
 	int i, num = 0;
 	struct net_bridge_fdb_entry *f;
@@ -674,6 +681,7 @@ nla_put_failure:
 
 static inline size_t fdb_nlmsg_size(void)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 684 \n"); 
 	return NLMSG_ALIGN(sizeof(struct ndmsg))
 		+ nla_total_size(ETH_ALEN) /* NDA_LLADDR */
 		+ nla_total_size(sizeof(u32)) /* NDA_MASTER */
@@ -712,6 +720,7 @@ int br_fdb_dump(struct sk_buff *skb,
 		struct net_device *filter_dev,
 		int *idx)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 723 \n"); 
 	struct net_bridge *br = netdev_priv(dev);
 	int err = 0;
 	int i;
@@ -768,6 +777,7 @@ out:
 static int fdb_add_entry(struct net_bridge *br, struct net_bridge_port *source,
 			 const __u8 *addr, __u16 state, __u16 flags, __u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 780 \n"); 
 	struct hlist_head *head = &br->hash[br_mac_hash(addr, vid)];
 	struct net_bridge_fdb_entry *fdb;
 	bool modified = false;
@@ -842,6 +852,7 @@ static int __br_fdb_add(struct ndmsg *ndm, struct net_bridge *br,
 			struct net_bridge_port *p, const unsigned char *addr,
 			u16 nlh_flags, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 855 \n"); 
 	int err = 0;
 
 	if (ndm->ndm_flags & NTF_USE) {
@@ -870,6 +881,7 @@ int br_fdb_add(struct ndmsg *ndm, struct nlattr *tb[],
 	       struct net_device *dev,
 	       const unsigned char *addr, u16 vid, u16 nlh_flags)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 884 \n"); 
 	struct net_bridge_vlan_group *vg;
 	struct net_bridge_port *p = NULL;
 	struct net_bridge_vlan *v;
@@ -934,6 +946,7 @@ out:
 static int fdb_delete_by_addr(struct net_bridge *br, const u8 *addr,
 			      u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 949 \n"); 
 	struct hlist_head *head = &br->hash[br_mac_hash(addr, vid)];
 	struct net_bridge_fdb_entry *fdb;
 
@@ -948,6 +961,7 @@ static int fdb_delete_by_addr(struct net_bridge *br, const u8 *addr,
 static int __br_fdb_delete_by_addr(struct net_bridge *br,
 				   const unsigned char *addr, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 964 \n"); 
 	int err;
 
 	spin_lock_bh(&br->hash_lock);
@@ -960,6 +974,7 @@ static int __br_fdb_delete_by_addr(struct net_bridge *br,
 static int fdb_delete_by_addr_and_port(struct net_bridge_port *p,
 				       const u8 *addr, u16 vlan)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 977 \n"); 
 	struct net_bridge *br = p->br;
 	struct hlist_head *head = &br->hash[br_mac_hash(addr, vlan)];
 	struct net_bridge_fdb_entry *fdb;
@@ -975,6 +990,7 @@ static int fdb_delete_by_addr_and_port(struct net_bridge_port *p,
 static int __br_fdb_delete(struct net_bridge_port *p,
 			   const unsigned char *addr, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 993 \n"); 
 	int err;
 
 	spin_lock_bh(&p->br->hash_lock);
@@ -989,6 +1005,7 @@ int br_fdb_delete(struct ndmsg *ndm, struct nlattr *tb[],
 		  struct net_device *dev,
 		  const unsigned char *addr, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 1008 \n"); 
 	struct net_bridge_vlan_group *vg;
 	struct net_bridge_port *p = NULL;
 	struct net_bridge_vlan *v;
@@ -1044,6 +1061,7 @@ out:
 
 int br_fdb_sync_static(struct net_bridge *br, struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 1064 \n"); 
 	struct net_bridge_fdb_entry *fdb, *tmp;
 	int i;
 	int err;
@@ -1101,6 +1119,7 @@ void br_fdb_unsync_static(struct net_bridge *br, struct net_bridge_port *p)
 int br_fdb_external_learn_add(struct net_bridge *br, struct net_bridge_port *p,
 			      const unsigned char *addr, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 1122 \n"); 
 	struct hlist_head *head;
 	struct net_bridge_fdb_entry *fdb;
 	int err = 0;
@@ -1137,6 +1156,7 @@ err_unlock:
 int br_fdb_external_learn_del(struct net_bridge *br, struct net_bridge_port *p,
 			      const unsigned char *addr, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_fdb.c: line 1159 \n"); 
 	struct hlist_head *head;
 	struct net_bridge_fdb_entry *fdb;
 	int err = 0;

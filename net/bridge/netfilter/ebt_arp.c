@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_arp
  *
@@ -18,6 +19,7 @@
 static bool
 ebt_arp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_arp.c: line 22 \n"); 
 	const struct ebt_arp_info *info = par->matchinfo;
 	const struct arphdr *ah;
 	struct arphdr _arph;
@@ -99,6 +101,7 @@ ebt_arp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ebt_arp_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_arp.c: line 104 \n"); 
 	const struct ebt_arp_info *info = par->matchinfo;
 	const struct ebt_entry *e = par->entryinfo;
 

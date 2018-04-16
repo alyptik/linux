@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -29,6 +30,7 @@ struct lz4hc_ctx {
 
 static int lz4hc_init(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/lz4hc.c: line 33 \n"); 
 	struct lz4hc_ctx *ctx = crypto_tfm_ctx(tfm);
 
 	ctx->lz4hc_comp_mem = vmalloc(LZ4HC_MEM_COMPRESS);
@@ -40,6 +42,7 @@ static int lz4hc_init(struct crypto_tfm *tfm)
 
 static void lz4hc_exit(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/lz4hc.c: line 45 \n"); 
 	struct lz4hc_ctx *ctx = crypto_tfm_ctx(tfm);
 
 	vfree(ctx->lz4hc_comp_mem);
@@ -48,6 +51,7 @@ static void lz4hc_exit(struct crypto_tfm *tfm)
 static int lz4hc_compress_crypto(struct crypto_tfm *tfm, const u8 *src,
 			    unsigned int slen, u8 *dst, unsigned int *dlen)
 {
+	panic("We reached unpopular paths in crypto/lz4hc.c: line 54 \n"); 
 	struct lz4hc_ctx *ctx = crypto_tfm_ctx(tfm);
 	size_t tmp_len = *dlen;
 	int err;
@@ -64,6 +68,7 @@ static int lz4hc_compress_crypto(struct crypto_tfm *tfm, const u8 *src,
 static int lz4hc_decompress_crypto(struct crypto_tfm *tfm, const u8 *src,
 			      unsigned int slen, u8 *dst, unsigned int *dlen)
 {
+	panic("We reached unpopular paths in crypto/lz4hc.c: line 71 \n"); 
 	int err;
 	size_t tmp_len = *dlen;
 	size_t __slen = slen;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * CTR: Counter mode
  *
@@ -38,6 +39,7 @@ struct crypto_rfc3686_req_ctx {
 static int crypto_ctr_setkey(struct crypto_tfm *parent, const u8 *key,
 			     unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 42 \n"); 
 	struct crypto_ctr_ctx *ctx = crypto_tfm_ctx(parent);
 	struct crypto_cipher *child = ctx->child;
 	int err;
@@ -55,6 +57,7 @@ static int crypto_ctr_setkey(struct crypto_tfm *parent, const u8 *key,
 static void crypto_ctr_crypt_final(struct blkcipher_walk *walk,
 				   struct crypto_cipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 60 \n"); 
 	unsigned int bsize = crypto_cipher_blocksize(tfm);
 	unsigned long alignmask = crypto_cipher_alignmask(tfm);
 	u8 *ctrblk = walk->iv;
@@ -74,6 +77,7 @@ static void crypto_ctr_crypt_final(struct blkcipher_walk *walk,
 static int crypto_ctr_crypt_segment(struct blkcipher_walk *walk,
 				    struct crypto_cipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 80 \n"); 
 	void (*fn)(struct crypto_tfm *, u8 *, const u8 *) =
 		   crypto_cipher_alg(tfm)->cia_encrypt;
 	unsigned int bsize = crypto_cipher_blocksize(tfm);
@@ -100,6 +104,7 @@ static int crypto_ctr_crypt_segment(struct blkcipher_walk *walk,
 static int crypto_ctr_crypt_inplace(struct blkcipher_walk *walk,
 				    struct crypto_cipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 107 \n"); 
 	void (*fn)(struct crypto_tfm *, u8 *, const u8 *) =
 		   crypto_cipher_alg(tfm)->cia_encrypt;
 	unsigned int bsize = crypto_cipher_blocksize(tfm);
@@ -128,6 +133,7 @@ static int crypto_ctr_crypt(struct blkcipher_desc *desc,
 			      struct scatterlist *dst, struct scatterlist *src,
 			      unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 136 \n"); 
 	struct blkcipher_walk walk;
 	struct crypto_blkcipher *tfm = desc->tfm;
 	struct crypto_ctr_ctx *ctx = crypto_blkcipher_ctx(tfm);
@@ -173,6 +179,7 @@ static int crypto_ctr_init_tfm(struct crypto_tfm *tfm)
 
 static void crypto_ctr_exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 182 \n"); 
 	struct crypto_ctr_ctx *ctx = crypto_tfm_ctx(tfm);
 
 	crypto_free_cipher(ctx->child);
@@ -238,6 +245,7 @@ out_put_alg:
 
 static void crypto_ctr_free(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 248 \n"); 
 	crypto_drop_spawn(crypto_instance_ctx(inst));
 	kfree(inst);
 }
@@ -252,6 +260,7 @@ static struct crypto_template crypto_ctr_tmpl = {
 static int crypto_rfc3686_setkey(struct crypto_skcipher *parent,
 				 const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 263 \n"); 
 	struct crypto_rfc3686_ctx *ctx = crypto_skcipher_ctx(parent);
 	struct crypto_skcipher *child = ctx->child;
 	int err;
@@ -277,6 +286,7 @@ static int crypto_rfc3686_setkey(struct crypto_skcipher *parent,
 
 static int crypto_rfc3686_crypt(struct skcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 289 \n"); 
 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
 	struct crypto_rfc3686_ctx *ctx = crypto_skcipher_ctx(tfm);
 	struct crypto_skcipher *child = ctx->child;
@@ -305,6 +315,7 @@ static int crypto_rfc3686_crypt(struct skcipher_request *req)
 
 static int crypto_rfc3686_init_tfm(struct crypto_skcipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 318 \n"); 
 	struct skcipher_instance *inst = skcipher_alg_instance(tfm);
 	struct crypto_skcipher_spawn *spawn = skcipher_instance_ctx(inst);
 	struct crypto_rfc3686_ctx *ctx = crypto_skcipher_ctx(tfm);
@@ -329,6 +340,7 @@ static int crypto_rfc3686_init_tfm(struct crypto_skcipher *tfm)
 
 static void crypto_rfc3686_exit_tfm(struct crypto_skcipher *tfm)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 343 \n"); 
 	struct crypto_rfc3686_ctx *ctx = crypto_skcipher_ctx(tfm);
 
 	crypto_free_skcipher(ctx->child);
@@ -336,6 +348,7 @@ static void crypto_rfc3686_exit_tfm(struct crypto_skcipher *tfm)
 
 static void crypto_rfc3686_free(struct skcipher_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 351 \n"); 
 	struct crypto_skcipher_spawn *spawn = skcipher_instance_ctx(inst);
 
 	crypto_drop_skcipher(spawn);
@@ -345,6 +358,7 @@ static void crypto_rfc3686_free(struct skcipher_instance *inst)
 static int crypto_rfc3686_create(struct crypto_template *tmpl,
 				 struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/ctr.c: line 361 \n"); 
 	struct crypto_attr_type *algt;
 	struct skcipher_instance *inst;
 	struct skcipher_alg *alg;

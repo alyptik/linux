@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2014 Pablo Neira Ayuso <pablo@netfilter.org>
  *
@@ -26,6 +27,7 @@
 static void nft_reject_br_push_etherhdr(struct sk_buff *oldskb,
 					struct sk_buff *nskb)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_reject_bridge.c: line 30 \n"); 
 	struct ethhdr *eth;
 
 	eth = (struct ethhdr *)skb_push(nskb, ETH_HLEN);
@@ -38,6 +40,7 @@ static void nft_reject_br_push_etherhdr(struct sk_buff *oldskb,
 
 static int nft_bridge_iphdr_validate(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_reject_bridge.c: line 43 \n"); 
 	struct iphdr *iph;
 	u32 len;
 
@@ -68,6 +71,7 @@ static void nft_reject_br_send_v4_tcp_reset(struct net *net,
 					    const struct net_device *dev,
 					    int hook)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_reject_bridge.c: line 74 \n"); 
 	struct sk_buff *nskb;
 	struct iphdr *niph;
 	const struct tcphdr *oth;
@@ -103,6 +107,7 @@ static void nft_reject_br_send_v4_unreach(struct net *net,
 					  const struct net_device *dev,
 					  int hook, u8 code)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_reject_bridge.c: line 110 \n"); 
 	struct sk_buff *nskb;
 	struct iphdr *niph;
 	struct icmphdr *icmph;
@@ -168,6 +173,7 @@ static void nft_reject_br_send_v4_unreach(struct net *net,
 
 static int nft_bridge_ip6hdr_validate(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_reject_bridge.c: line 176 \n"); 
 	struct ipv6hdr *hdr;
 	u32 pkt_len;
 
@@ -190,6 +196,7 @@ static void nft_reject_br_send_v6_tcp_reset(struct net *net,
 					    const struct net_device *dev,
 					    int hook)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_reject_bridge.c: line 199 \n"); 
 	struct sk_buff *nskb;
 	const struct tcphdr *oth;
 	struct tcphdr _oth;
@@ -221,6 +228,7 @@ static void nft_reject_br_send_v6_tcp_reset(struct net *net,
 
 static bool reject6_br_csum_ok(struct sk_buff *skb, int hook)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_reject_bridge.c: line 231 \n"); 
 	const struct ipv6hdr *ip6h = ipv6_hdr(skb);
 	int thoff;
 	__be16 fo;
@@ -248,6 +256,7 @@ static void nft_reject_br_send_v6_unreach(struct net *net,
 					  const struct net_device *dev,
 					  int hook, u8 code)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_reject_bridge.c: line 259 \n"); 
 	struct sk_buff *nskb;
 	struct ipv6hdr *nip6h;
 	struct icmp6hdr *icmp6h;
@@ -304,6 +313,7 @@ static void nft_reject_bridge_eval(const struct nft_expr *expr,
 				   struct nft_regs *regs,
 				   const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_reject_bridge.c: line 316 \n"); 
 	struct nft_reject *priv = nft_expr_priv(expr);
 	const unsigned char *dest = eth_hdr(pkt->skb)->h_dest;
 
@@ -360,6 +370,7 @@ static int nft_reject_bridge_validate(const struct nft_ctx *ctx,
 				      const struct nft_expr *expr,
 				      const struct nft_data **data)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_reject_bridge.c: line 373 \n"); 
 	return nft_chain_validate_hooks(ctx->chain, (1 << NF_BR_PRE_ROUTING) |
 						    (1 << NF_BR_LOCAL_IN));
 }
@@ -368,6 +379,7 @@ static int nft_reject_bridge_init(const struct nft_ctx *ctx,
 				  const struct nft_expr *expr,
 				  const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_reject_bridge.c: line 382 \n"); 
 	struct nft_reject *priv = nft_expr_priv(expr);
 	int icmp_code, err;
 
@@ -403,6 +415,7 @@ static int nft_reject_bridge_init(const struct nft_ctx *ctx,
 static int nft_reject_bridge_dump(struct sk_buff *skb,
 				  const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/nft_reject_bridge.c: line 418 \n"); 
 	const struct nft_reject *priv = nft_expr_priv(expr);
 
 	if (nla_put_be32(skb, NFTA_REJECT_TYPE, htonl(priv->type)))

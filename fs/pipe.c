@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/pipe.c
  *
@@ -84,17 +85,20 @@ EXPORT_SYMBOL(pipe_unlock);
 
 static inline void __pipe_lock(struct pipe_inode_info *pipe)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/pipe.c: line 88 \n"); 
 	mutex_lock_nested(&pipe->mutex, I_MUTEX_PARENT);
 }
 
 static inline void __pipe_unlock(struct pipe_inode_info *pipe)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/pipe.c: line 94 \n"); 
 	mutex_unlock(&pipe->mutex);
 }
 
 void pipe_double_lock(struct pipe_inode_info *pipe1,
 		      struct pipe_inode_info *pipe2)
 {
+	panic("We reached unpopular paths in fs/pipe.c: line 101 \n"); 
 	BUG_ON(pipe1 == pipe2);
 
 	if (pipe1 < pipe2) {
@@ -141,6 +145,7 @@ static void anon_pipe_buf_release(struct pipe_inode_info *pipe,
 static int anon_pipe_buf_steal(struct pipe_inode_info *pipe,
 			       struct pipe_buffer *buf)
 {
+	panic("We reached unpopular paths in fs/pipe.c: line 148 \n"); 
 	struct page *page = buf->page;
 
 	if (page_count(page) == 1) {
@@ -167,6 +172,7 @@ static int anon_pipe_buf_steal(struct pipe_inode_info *pipe,
 int generic_pipe_buf_steal(struct pipe_inode_info *pipe,
 			   struct pipe_buffer *buf)
 {
+	panic("We reached unpopular paths in fs/pipe.c: line 175 \n"); 
 	struct page *page = buf->page;
 
 	/*
@@ -195,6 +201,7 @@ EXPORT_SYMBOL(generic_pipe_buf_steal);
  */
 void generic_pipe_buf_get(struct pipe_inode_info *pipe, struct pipe_buffer *buf)
 {
+	panic("We reached unpopular paths in fs/pipe.c: line 204 \n"); 
 	get_page(buf->page);
 }
 EXPORT_SYMBOL(generic_pipe_buf_get);
@@ -350,6 +357,7 @@ pipe_read(struct kiocb *iocb, struct iov_iter *to)
 
 static inline int is_packetized(struct file *file)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/pipe.c: line 360 \n"); 
 	return (file->f_flags & O_DIRECT) != 0;
 }
 
@@ -585,6 +593,7 @@ pipe_release(struct inode *inode, struct file *file)
 static int
 pipe_fasync(int fd, struct file *filp, int on)
 {
+	panic("We reached unpopular paths in fs/pipe.c: line 596 \n"); 
 	struct pipe_inode_info *pipe = filp->private_data;
 	int retval = 0;
 
@@ -619,6 +628,7 @@ static bool too_many_pipe_buffers_hard(unsigned long user_bufs)
 
 static bool is_unprivileged_user(void)
 {
+	panic("We reached unpopular paths in fs/pipe.c: line 631 \n"); 
 	return !capable(CAP_SYS_RESOURCE) && !capable(CAP_SYS_ADMIN);
 }
 
@@ -828,6 +838,7 @@ static int __do_pipe_flags(int *fd, struct file **files, int flags)
 
 int do_pipe_flags(int *fd, int flags)
 {
+	panic("We reached unpopular paths in fs/pipe.c: line 841 \n"); 
 	struct file *files[2];
 	int error = __do_pipe_flags(fd, files, flags);
 	if (!error) {
@@ -1027,6 +1038,7 @@ const struct file_operations pipefifo_fops = {
  */
 static inline unsigned int round_pipe_size(unsigned int size)
 {
+	panic("We reached unpopular paths in fs/pipe.c: line 1041 \n"); 
 	unsigned long nr_pages;
 
 	if (size < pipe_min_size)
@@ -1045,6 +1057,7 @@ static inline unsigned int round_pipe_size(unsigned int size)
  */
 static long pipe_set_size(struct pipe_inode_info *pipe, unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/pipe.c: line 1060 \n"); 
 	struct pipe_buffer *bufs;
 	unsigned int size, nr_pages;
 	unsigned long user_bufs;
@@ -1158,11 +1171,13 @@ int pipe_proc_fn(struct ctl_table *table, int write, void __user *buf,
  */
 struct pipe_inode_info *get_pipe_info(struct file *file)
 {
+	panic("We reached unpopular paths in fs/pipe.c: line 1174 \n"); 
 	return file->f_op == &pipefifo_fops ? file->private_data : NULL;
 }
 
 long pipe_fcntl(struct file *file, unsigned int cmd, unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/pipe.c: line 1180 \n"); 
 	struct pipe_inode_info *pipe;
 	long ret;
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS:        Locality-Based Least-Connection with Replication scheduler
  *
@@ -103,6 +104,7 @@ struct ip_vs_dest_set {
 static void ip_vs_dest_set_insert(struct ip_vs_dest_set *set,
 				  struct ip_vs_dest *dest, bool check)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 107 \n"); 
 	struct ip_vs_dest_set_elem *e;
 
 	if (check) {
@@ -127,6 +129,7 @@ static void ip_vs_dest_set_insert(struct ip_vs_dest_set *set,
 
 static void ip_vs_lblcr_elem_rcu_free(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 132 \n"); 
 	struct ip_vs_dest_set_elem *e;
 
 	e = container_of(head, struct ip_vs_dest_set_elem, rcu_head);
@@ -137,6 +140,7 @@ static void ip_vs_lblcr_elem_rcu_free(struct rcu_head *head)
 static void
 ip_vs_dest_set_erase(struct ip_vs_dest_set *set, struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 143 \n"); 
 	struct ip_vs_dest_set_elem *e;
 
 	list_for_each_entry(e, &set->list, list) {
@@ -153,6 +157,7 @@ ip_vs_dest_set_erase(struct ip_vs_dest_set *set, struct ip_vs_dest *dest)
 
 static void ip_vs_dest_set_eraseall(struct ip_vs_dest_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 160 \n"); 
 	struct ip_vs_dest_set_elem *e, *ep;
 
 	list_for_each_entry_safe(e, ep, &set->list, list) {
@@ -164,6 +169,7 @@ static void ip_vs_dest_set_eraseall(struct ip_vs_dest_set *set)
 /* get weighted least-connection node in the destination set */
 static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 172 \n"); 
 	register struct ip_vs_dest_set_elem *e;
 	struct ip_vs_dest *dest, *least;
 	int loh, doh;
@@ -213,6 +219,7 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
 /* get weighted most-connection node in the destination set */
 static inline struct ip_vs_dest *ip_vs_dest_set_max(struct ip_vs_dest_set *set)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 222 \n"); 
 	register struct ip_vs_dest_set_elem *e;
 	struct ip_vs_dest *dest, *most;
 	int moh, doh;
@@ -303,6 +310,7 @@ static struct ctl_table vs_vars_table[] = {
 
 static inline void ip_vs_lblcr_free(struct ip_vs_lblcr_entry *en)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 313 \n"); 
 	hlist_del_rcu(&en->list);
 	ip_vs_dest_set_eraseall(&en->set);
 	kfree_rcu(en, rcu_head);
@@ -315,6 +323,7 @@ static inline void ip_vs_lblcr_free(struct ip_vs_lblcr_entry *en)
 static inline unsigned int
 ip_vs_lblcr_hashkey(int af, const union nf_inet_addr *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 326 \n"); 
 	__be32 addr_fold = addr->ip;
 
 #ifdef CONFIG_IP_VS_IPV6
@@ -333,6 +342,7 @@ ip_vs_lblcr_hashkey(int af, const union nf_inet_addr *addr)
 static void
 ip_vs_lblcr_hash(struct ip_vs_lblcr_table *tbl, struct ip_vs_lblcr_entry *en)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 345 \n"); 
 	unsigned int hash = ip_vs_lblcr_hashkey(en->af, &en->addr);
 
 	hlist_add_head_rcu(&en->list, &tbl->bucket[hash]);
@@ -345,6 +355,7 @@ static inline struct ip_vs_lblcr_entry *
 ip_vs_lblcr_get(int af, struct ip_vs_lblcr_table *tbl,
 		const union nf_inet_addr *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 358 \n"); 
 	unsigned int hash = ip_vs_lblcr_hashkey(af, addr);
 	struct ip_vs_lblcr_entry *en;
 
@@ -364,6 +375,7 @@ static inline struct ip_vs_lblcr_entry *
 ip_vs_lblcr_new(struct ip_vs_lblcr_table *tbl, const union nf_inet_addr *daddr,
 		u16 af, struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 378 \n"); 
 	struct ip_vs_lblcr_entry *en;
 
 	en = ip_vs_lblcr_get(af, tbl, daddr);
@@ -397,6 +409,7 @@ ip_vs_lblcr_new(struct ip_vs_lblcr_table *tbl, const union nf_inet_addr *daddr,
  */
 static void ip_vs_lblcr_flush(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 412 \n"); 
 	struct ip_vs_lblcr_table *tbl = svc->sched_data;
 	int i;
 	struct ip_vs_lblcr_entry *en;
@@ -414,6 +427,7 @@ static void ip_vs_lblcr_flush(struct ip_vs_service *svc)
 
 static int sysctl_lblcr_expiration(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 430 \n"); 
 #ifdef CONFIG_SYSCTL
 	return svc->ipvs->sysctl_lblcr_expiration;
 #else
@@ -423,6 +437,7 @@ static int sysctl_lblcr_expiration(struct ip_vs_service *svc)
 
 static inline void ip_vs_lblcr_full_check(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 440 \n"); 
 	struct ip_vs_lblcr_table *tbl = svc->sched_data;
 	unsigned long now = jiffies;
 	int i, j;
@@ -460,6 +475,7 @@ static inline void ip_vs_lblcr_full_check(struct ip_vs_service *svc)
  */
 static void ip_vs_lblcr_check_expire(unsigned long data)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 478 \n"); 
 	struct ip_vs_service *svc = (struct ip_vs_service *) data;
 	struct ip_vs_lblcr_table *tbl = svc->sched_data;
 	unsigned long now = jiffies;
@@ -508,6 +524,7 @@ static void ip_vs_lblcr_check_expire(unsigned long data)
 
 static int ip_vs_lblcr_init_svc(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 527 \n"); 
 	int i;
 	struct ip_vs_lblcr_table *tbl;
 
@@ -546,6 +563,7 @@ static int ip_vs_lblcr_init_svc(struct ip_vs_service *svc)
 
 static void ip_vs_lblcr_done_svc(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 566 \n"); 
 	struct ip_vs_lblcr_table *tbl = svc->sched_data;
 
 	/* remove periodic timer */
@@ -564,6 +582,7 @@ static void ip_vs_lblcr_done_svc(struct ip_vs_service *svc)
 static inline struct ip_vs_dest *
 __ip_vs_lblcr_schedule(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 585 \n"); 
 	struct ip_vs_dest *dest, *least;
 	int loh, doh;
 
@@ -626,6 +645,7 @@ __ip_vs_lblcr_schedule(struct ip_vs_service *svc)
 static inline int
 is_overloaded(struct ip_vs_dest *dest, struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 648 \n"); 
 	if (atomic_read(&dest->activeconns) > atomic_read(&dest->weight)) {
 		struct ip_vs_dest *d;
 
@@ -647,6 +667,7 @@ static struct ip_vs_dest *
 ip_vs_lblcr_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
 		     struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_lblcr.c: line 670 \n"); 
 	struct ip_vs_lblcr_table *tbl = svc->sched_data;
 	struct ip_vs_dest *dest;
 	struct ip_vs_lblcr_entry *en;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/stat.c
  *
@@ -446,6 +447,7 @@ SYSCALL_DEFINE4(fstatat64, int, dfd, const char __user *, filename,
 /* Caller is here responsible for sufficient locking (ie. inode->i_lock) */
 void __inode_add_bytes(struct inode *inode, loff_t bytes)
 {
+	panic("We reached unpopular paths in fs/stat.c: line 450 \n"); 
 	inode->i_blocks += bytes >> 9;
 	bytes &= 511;
 	inode->i_bytes += bytes;
@@ -458,6 +460,7 @@ EXPORT_SYMBOL(__inode_add_bytes);
 
 void inode_add_bytes(struct inode *inode, loff_t bytes)
 {
+	panic("We reached unpopular paths in fs/stat.c: line 463 \n"); 
 	spin_lock(&inode->i_lock);
 	__inode_add_bytes(inode, bytes);
 	spin_unlock(&inode->i_lock);
@@ -467,6 +470,7 @@ EXPORT_SYMBOL(inode_add_bytes);
 
 void __inode_sub_bytes(struct inode *inode, loff_t bytes)
 {
+	panic("We reached unpopular paths in fs/stat.c: line 473 \n"); 
 	inode->i_blocks -= bytes >> 9;
 	bytes &= 511;
 	if (inode->i_bytes < bytes) {
@@ -480,6 +484,7 @@ EXPORT_SYMBOL(__inode_sub_bytes);
 
 void inode_sub_bytes(struct inode *inode, loff_t bytes)
 {
+	panic("We reached unpopular paths in fs/stat.c: line 487 \n"); 
 	spin_lock(&inode->i_lock);
 	__inode_sub_bytes(inode, bytes);
 	spin_unlock(&inode->i_lock);
@@ -489,6 +494,7 @@ EXPORT_SYMBOL(inode_sub_bytes);
 
 loff_t inode_get_bytes(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/stat.c: line 497 \n"); 
 	loff_t ret;
 
 	spin_lock(&inode->i_lock);
@@ -501,6 +507,7 @@ EXPORT_SYMBOL(inode_get_bytes);
 
 void inode_set_bytes(struct inode *inode, loff_t bytes)
 {
+	panic("We reached unpopular paths in fs/stat.c: line 510 \n"); 
 	/* Caller is here responsible for sufficient locking
 	 * (ie. inode->i_lock) */
 	inode->i_blocks = bytes >> 9;

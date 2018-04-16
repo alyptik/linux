@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -462,6 +463,7 @@ static const u32 rc[] = {
 static int anubis_setkey(struct crypto_tfm *tfm, const u8 *in_key,
 			 unsigned int key_len)
 {
+	panic("We reached unpopular paths in crypto/anubis.c: line 466 \n"); 
 	struct anubis_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __be32 *key = (const __be32 *)in_key;
 	u32 *flags = &tfm->crt_flags;
@@ -574,6 +576,7 @@ static int anubis_setkey(struct crypto_tfm *tfm, const u8 *in_key,
 static void anubis_crypt(u32 roundKey[ANUBIS_MAX_ROUNDS + 1][4],
 		u8 *ciphertext, const u8 *plaintext, const int R)
 {
+	panic("We reached unpopular paths in crypto/anubis.c: line 579 \n"); 
 	const __be32 *src = (const __be32 *)plaintext;
 	__be32 *dst = (__be32 *)ciphertext;
 	int i, r;
@@ -661,12 +664,14 @@ static void anubis_crypt(u32 roundKey[ANUBIS_MAX_ROUNDS + 1][4],
 
 static void anubis_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/anubis.c: line 667 \n"); 
 	struct anubis_ctx *ctx = crypto_tfm_ctx(tfm);
 	anubis_crypt(ctx->E, dst, src, ctx->R);
 }
 
 static void anubis_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/anubis.c: line 674 \n"); 
 	struct anubis_ctx *ctx = crypto_tfm_ctx(tfm);
 	anubis_crypt(ctx->D, dst, src, ctx->R);
 }

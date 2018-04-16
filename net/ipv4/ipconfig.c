@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  Automatic Configuration of IP -- use DHCP, BOOTP, RARP, or
  *  user-supplied information to configure own IP address and routes.
@@ -322,6 +323,7 @@ static void __init ic_close_devs(void)
 static inline void
 set_sockaddr(struct sockaddr_in *sin, __be32 addr, __be16 port)
 {
+	panic("We reached unpopular paths in net/ipv4/ipconfig.c: line 326 \n"); 
 	sin->sin_family = AF_INET;
 	sin->sin_addr.s_addr = addr;
 	sin->sin_port = port;
@@ -1336,6 +1338,7 @@ static const struct file_operations pnp_seq_fops = {
  */
 __be32 __init root_nfs_parse_addr(char *name)
 {
+	panic("We reached unpopular paths in net/ipv4/ipconfig.c: line 1341 \n"); 
 	__be32 addr;
 	int octets = 0;
 	char *cp, *cq;

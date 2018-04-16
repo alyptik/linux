@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -44,6 +45,7 @@ struct deflate_ctx {
 
 static int deflate_comp_init(struct deflate_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/deflate.c: line 48 \n"); 
 	int ret = 0;
 	struct z_stream_s *stream = &ctx->comp_stream;
 
@@ -69,6 +71,7 @@ out_free:
 
 static int deflate_decomp_init(struct deflate_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/deflate.c: line 74 \n"); 
 	int ret = 0;
 	struct z_stream_s *stream = &ctx->decomp_stream;
 
@@ -91,18 +94,21 @@ out_free:
 
 static void deflate_comp_exit(struct deflate_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/deflate.c: line 97 \n"); 
 	zlib_deflateEnd(&ctx->comp_stream);
 	vfree(ctx->comp_stream.workspace);
 }
 
 static void deflate_decomp_exit(struct deflate_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/deflate.c: line 104 \n"); 
 	zlib_inflateEnd(&ctx->decomp_stream);
 	vfree(ctx->decomp_stream.workspace);
 }
 
 static int deflate_init(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/deflate.c: line 111 \n"); 
 	struct deflate_ctx *ctx = crypto_tfm_ctx(tfm);
 	int ret;
 
@@ -118,6 +124,7 @@ out:
 
 static void deflate_exit(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/deflate.c: line 127 \n"); 
 	struct deflate_ctx *ctx = crypto_tfm_ctx(tfm);
 
 	deflate_comp_exit(ctx);
@@ -127,6 +134,7 @@ static void deflate_exit(struct crypto_tfm *tfm)
 static int deflate_compress(struct crypto_tfm *tfm, const u8 *src,
 			    unsigned int slen, u8 *dst, unsigned int *dlen)
 {
+	panic("We reached unpopular paths in crypto/deflate.c: line 137 \n"); 
 	int ret = 0;
 	struct deflate_ctx *dctx = crypto_tfm_ctx(tfm);
 	struct z_stream_s *stream = &dctx->comp_stream;
@@ -156,6 +164,7 @@ out:
 static int deflate_decompress(struct crypto_tfm *tfm, const u8 *src,
 			      unsigned int slen, u8 *dst, unsigned int *dlen)
 {
+	panic("We reached unpopular paths in crypto/deflate.c: line 167 \n"); 
 
 	int ret = 0;
 	struct deflate_ctx *dctx = crypto_tfm_ctx(tfm);

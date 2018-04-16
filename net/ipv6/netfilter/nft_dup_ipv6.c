@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2015 Pablo Neira Ayuso <pablo@netfilter.org>
  *
@@ -24,6 +25,7 @@ static void nft_dup_ipv6_eval(const struct nft_expr *expr,
 			      struct nft_regs *regs,
 			      const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nft_dup_ipv6.c: line 28 \n"); 
 	struct nft_dup_ipv6 *priv = nft_expr_priv(expr);
 	struct in6_addr *gw = (struct in6_addr *)&regs->data[priv->sreg_addr];
 	int oif = priv->sreg_dev ? regs->data[priv->sreg_dev] : -1;
@@ -35,6 +37,7 @@ static int nft_dup_ipv6_init(const struct nft_ctx *ctx,
 			     const struct nft_expr *expr,
 			     const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nft_dup_ipv6.c: line 40 \n"); 
 	struct nft_dup_ipv6 *priv = nft_expr_priv(expr);
 	int err;
 
@@ -55,6 +58,7 @@ static int nft_dup_ipv6_init(const struct nft_ctx *ctx,
 
 static int nft_dup_ipv6_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nft_dup_ipv6.c: line 61 \n"); 
 	struct nft_dup_ipv6 *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_DUP_SREG_ADDR, priv->sreg_addr))

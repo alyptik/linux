@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NET		Generic infrastructure for Network protocols.
  *
@@ -97,6 +98,7 @@ void reqsk_queue_alloc(struct request_sock_queue *queue)
 void reqsk_fastopen_remove(struct sock *sk, struct request_sock *req,
 			   bool reset)
 {
+	panic("We reached unpopular paths in net/core/request_sock.c: line 101 \n"); 
 	struct sock *lsk = req->rsk_listener;
 	struct fastopen_queue *fastopenq;
 

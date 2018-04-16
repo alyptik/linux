@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IPV4 GSO/GRO offload support
  *	Linux INET implementation
@@ -20,6 +21,7 @@ static struct sk_buff *__skb_udp_tunnel_segment(struct sk_buff *skb,
 					     netdev_features_t features),
 	__be16 new_protocol, bool is_ipv6)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_offload.c: line 24 \n"); 
 	int tnl_hlen = skb_inner_mac_header(skb) - skb_transport_header(skb);
 	bool remcsum, need_csum, offload_csum, ufo, gso_partial;
 	struct sk_buff *segs = ERR_PTR(-EINVAL);
@@ -154,6 +156,7 @@ struct sk_buff *skb_udp_tunnel_segment(struct sk_buff *skb,
 				       netdev_features_t features,
 				       bool is_ipv6)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_offload.c: line 159 \n"); 
 	__be16 protocol = skb->protocol;
 	const struct net_offload **offloads;
 	const struct net_offload *ops;
@@ -192,6 +195,7 @@ EXPORT_SYMBOL(skb_udp_tunnel_segment);
 static struct sk_buff *udp4_ufo_fragment(struct sk_buff *skb,
 					 netdev_features_t features)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_offload.c: line 198 \n"); 
 	struct sk_buff *segs = ERR_PTR(-EINVAL);
 	unsigned int mss;
 	__wsum csum;
@@ -341,6 +345,7 @@ flush:
 int udp_gro_complete(struct sk_buff *skb, int nhoff,
 		     udp_lookup_t lookup)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_offload.c: line 348 \n"); 
 	__be16 newlen = htons(skb->len - nhoff);
 	struct udphdr *uh = (struct udphdr *)(skb->data + nhoff);
 	int err = -ENOSYS;
@@ -369,6 +374,7 @@ EXPORT_SYMBOL(udp_gro_complete);
 
 static int udp4_gro_complete(struct sk_buff *skb, int nhoff)
 {
+	panic("We reached unpopular paths in net/ipv4/udp_offload.c: line 377 \n"); 
 	const struct iphdr *iph = ip_hdr(skb);
 	struct udphdr *uh = (struct udphdr *)(skb->data + nhoff);
 

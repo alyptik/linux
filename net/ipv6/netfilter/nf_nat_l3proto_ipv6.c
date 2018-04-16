@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2011 Patrick McHardy <kaber@trash.net>
  *
@@ -64,6 +65,7 @@ static void nf_nat_ipv6_decode_session(struct sk_buff *skb,
 static bool nf_nat_ipv6_in_range(const struct nf_conntrack_tuple *t,
 				 const struct nf_nat_range *range)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_nat_l3proto_ipv6.c: line 68 \n"); 
 	return ipv6_addr_cmp(&t->src.u3.in6, &range->min_addr.in6) >= 0 &&
 	       ipv6_addr_cmp(&t->src.u3.in6, &range->max_addr.in6) <= 0;
 }
@@ -71,6 +73,7 @@ static bool nf_nat_ipv6_in_range(const struct nf_conntrack_tuple *t,
 static u32 nf_nat_ipv6_secure_port(const struct nf_conntrack_tuple *t,
 				   __be16 dport)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_nat_l3proto_ipv6.c: line 76 \n"); 
 	return secure_ipv6_port_ephemeral(t->src.u3.ip6, t->dst.u3.ip6, dport);
 }
 
@@ -80,6 +83,7 @@ static bool nf_nat_ipv6_manip_pkt(struct sk_buff *skb,
 				  const struct nf_conntrack_tuple *target,
 				  enum nf_nat_manip_type maniptype)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_nat_l3proto_ipv6.c: line 86 \n"); 
 	struct ipv6hdr *ipv6h;
 	__be16 frag_off;
 	int hdroff;
@@ -113,6 +117,7 @@ static void nf_nat_ipv6_csum_update(struct sk_buff *skb,
 				    const struct nf_conntrack_tuple *t,
 				    enum nf_nat_manip_type maniptype)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_nat_l3proto_ipv6.c: line 120 \n"); 
 	const struct ipv6hdr *ipv6h = (struct ipv6hdr *)(skb->data + iphdroff);
 	const struct in6_addr *oldip, *newip;
 
@@ -131,6 +136,7 @@ static void nf_nat_ipv6_csum_recalc(struct sk_buff *skb,
 				    u8 proto, void *data, __sum16 *check,
 				    int datalen, int oldlen)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_nat_l3proto_ipv6.c: line 139 \n"); 
 	if (skb->ip_summed != CHECKSUM_PARTIAL) {
 		const struct ipv6hdr *ipv6h = ipv6_hdr(skb);
 
@@ -186,6 +192,7 @@ int nf_nat_icmpv6_reply_translation(struct sk_buff *skb,
 				    unsigned int hooknum,
 				    unsigned int hdrlen)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_nat_l3proto_ipv6.c: line 195 \n"); 
 	struct {
 		struct icmp6hdr	icmp6;
 		struct ipv6hdr	ip6;
@@ -347,6 +354,7 @@ nf_nat_ipv6_in(void *priv, struct sk_buff *skb,
 					const struct nf_hook_state *state,
 					struct nf_conn *ct))
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_nat_l3proto_ipv6.c: line 357 \n"); 
 	unsigned int ret;
 	struct in6_addr daddr = ipv6_hdr(skb)->daddr;
 

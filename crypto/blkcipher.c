@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Block chaining cipher operations.
  * 
@@ -43,21 +44,25 @@ static int blkcipher_walk_first(struct blkcipher_desc *desc,
 
 static inline void blkcipher_map_src(struct blkcipher_walk *walk)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 47 \n"); 
 	walk->src.virt.addr = scatterwalk_map(&walk->in);
 }
 
 static inline void blkcipher_map_dst(struct blkcipher_walk *walk)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 53 \n"); 
 	walk->dst.virt.addr = scatterwalk_map(&walk->out);
 }
 
 static inline void blkcipher_unmap_src(struct blkcipher_walk *walk)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 59 \n"); 
 	scatterwalk_unmap(walk->src.virt.addr);
 }
 
 static inline void blkcipher_unmap_dst(struct blkcipher_walk *walk)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 65 \n"); 
 	scatterwalk_unmap(walk->dst.virt.addr);
 }
 
@@ -66,6 +71,7 @@ static inline void blkcipher_unmap_dst(struct blkcipher_walk *walk)
  */
 static inline u8 *blkcipher_get_spot(u8 *start, unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 74 \n"); 
 	u8 *end_page = (u8 *)(((unsigned long)(start + len - 1)) & PAGE_MASK);
 	return max(start, end_page);
 }
@@ -73,6 +79,7 @@ static inline u8 *blkcipher_get_spot(u8 *start, unsigned int len)
 static inline unsigned int blkcipher_done_slow(struct blkcipher_walk *walk,
 					       unsigned int bsize)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 82 \n"); 
 	u8 *addr;
 
 	addr = (u8 *)ALIGN((unsigned long)walk->buffer, walk->alignmask + 1);
@@ -84,6 +91,7 @@ static inline unsigned int blkcipher_done_slow(struct blkcipher_walk *walk,
 static inline unsigned int blkcipher_done_fast(struct blkcipher_walk *walk,
 					       unsigned int n)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 94 \n"); 
 	if (walk->flags & BLKCIPHER_WALK_COPY) {
 		blkcipher_map_dst(walk);
 		memcpy(walk->dst.virt.addr, walk->page, n);
@@ -103,6 +111,7 @@ static inline unsigned int blkcipher_done_fast(struct blkcipher_walk *walk,
 int blkcipher_walk_done(struct blkcipher_desc *desc,
 			struct blkcipher_walk *walk, int err)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 114 \n"); 
 	unsigned int nbytes = 0;
 
 	if (likely(err >= 0)) {
@@ -148,6 +157,7 @@ static inline int blkcipher_next_slow(struct blkcipher_desc *desc,
 				      unsigned int bsize,
 				      unsigned int alignmask)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 160 \n"); 
 	unsigned int n;
 	unsigned aligned_bsize = ALIGN(bsize, alignmask + 1);
 
@@ -181,6 +191,7 @@ ok:
 
 static inline int blkcipher_next_copy(struct blkcipher_walk *walk)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 194 \n"); 
 	u8 *tmp = walk->page;
 
 	blkcipher_map_src(walk);
@@ -196,6 +207,7 @@ static inline int blkcipher_next_copy(struct blkcipher_walk *walk)
 static inline int blkcipher_next_fast(struct blkcipher_desc *desc,
 				      struct blkcipher_walk *walk)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 210 \n"); 
 	unsigned long diff;
 
 	walk->src.phys.page = scatterwalk_page(&walk->in);
@@ -223,6 +235,7 @@ static inline int blkcipher_next_fast(struct blkcipher_desc *desc,
 static int blkcipher_walk_next(struct blkcipher_desc *desc,
 			       struct blkcipher_walk *walk)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 238 \n"); 
 	unsigned int bsize;
 	unsigned int n;
 	int err;
@@ -275,6 +288,7 @@ set_phys_lowmem:
 
 static inline int blkcipher_copy_iv(struct blkcipher_walk *walk)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 291 \n"); 
 	unsigned bs = walk->walk_blocksize;
 	unsigned aligned_bs = ALIGN(bs, walk->alignmask + 1);
 	unsigned int size = aligned_bs * 2 +
@@ -299,6 +313,7 @@ static inline int blkcipher_copy_iv(struct blkcipher_walk *walk)
 int blkcipher_walk_virt(struct blkcipher_desc *desc,
 			struct blkcipher_walk *walk)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 316 \n"); 
 	walk->flags &= ~BLKCIPHER_WALK_PHYS;
 	walk->walk_blocksize = crypto_blkcipher_blocksize(desc->tfm);
 	walk->cipher_blocksize = walk->walk_blocksize;
@@ -311,6 +326,7 @@ EXPORT_SYMBOL_GPL(blkcipher_walk_virt);
 int blkcipher_walk_phys(struct blkcipher_desc *desc,
 			struct blkcipher_walk *walk)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 329 \n"); 
 	walk->flags |= BLKCIPHER_WALK_PHYS;
 	walk->walk_blocksize = crypto_blkcipher_blocksize(desc->tfm);
 	walk->cipher_blocksize = walk->walk_blocksize;
@@ -323,6 +339,7 @@ EXPORT_SYMBOL_GPL(blkcipher_walk_phys);
 static int blkcipher_walk_first(struct blkcipher_desc *desc,
 				struct blkcipher_walk *walk)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 342 \n"); 
 	if (WARN_ON_ONCE(in_irq()))
 		return -EDEADLK;
 
@@ -349,6 +366,7 @@ int blkcipher_walk_virt_block(struct blkcipher_desc *desc,
 			      struct blkcipher_walk *walk,
 			      unsigned int blocksize)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 369 \n"); 
 	walk->flags &= ~BLKCIPHER_WALK_PHYS;
 	walk->walk_blocksize = blocksize;
 	walk->cipher_blocksize = crypto_blkcipher_blocksize(desc->tfm);
@@ -363,6 +381,7 @@ int blkcipher_aead_walk_virt_block(struct blkcipher_desc *desc,
 				   struct crypto_aead *tfm,
 				   unsigned int blocksize)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 384 \n"); 
 	walk->flags &= ~BLKCIPHER_WALK_PHYS;
 	walk->walk_blocksize = blocksize;
 	walk->cipher_blocksize = crypto_aead_blocksize(tfm);
@@ -375,6 +394,7 @@ EXPORT_SYMBOL_GPL(blkcipher_aead_walk_virt_block);
 static int setkey_unaligned(struct crypto_tfm *tfm, const u8 *key,
 			    unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 397 \n"); 
 	struct blkcipher_alg *cipher = &tfm->__crt_alg->cra_blkcipher;
 	unsigned long alignmask = crypto_tfm_alg_alignmask(tfm);
 	int ret;
@@ -396,6 +416,7 @@ static int setkey_unaligned(struct crypto_tfm *tfm, const u8 *key,
 
 static int setkey(struct crypto_tfm *tfm, const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 419 \n"); 
 	struct blkcipher_alg *cipher = &tfm->__crt_alg->cra_blkcipher;
 	unsigned long alignmask = crypto_tfm_alg_alignmask(tfm);
 
@@ -413,11 +434,13 @@ static int setkey(struct crypto_tfm *tfm, const u8 *key, unsigned int keylen)
 static int async_setkey(struct crypto_ablkcipher *tfm, const u8 *key,
 			unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 437 \n"); 
 	return setkey(crypto_ablkcipher_tfm(tfm), key, keylen);
 }
 
 static int async_encrypt(struct ablkcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 443 \n"); 
 	struct crypto_tfm *tfm = req->base.tfm;
 	struct blkcipher_alg *alg = &tfm->__crt_alg->cra_blkcipher;
 	struct blkcipher_desc desc = {
@@ -432,6 +455,7 @@ static int async_encrypt(struct ablkcipher_request *req)
 
 static int async_decrypt(struct ablkcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 458 \n"); 
 	struct crypto_tfm *tfm = req->base.tfm;
 	struct blkcipher_alg *alg = &tfm->__crt_alg->cra_blkcipher;
 	struct blkcipher_desc desc = {
@@ -460,6 +484,7 @@ static unsigned int crypto_blkcipher_ctxsize(struct crypto_alg *alg, u32 type,
 
 static int crypto_init_blkcipher_ops_async(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 487 \n"); 
 	struct ablkcipher_tfm *crt = &tfm->crt_ablkcipher;
 	struct blkcipher_alg *alg = &tfm->__crt_alg->cra_blkcipher;
 
@@ -529,6 +554,7 @@ nla_put_failure:
 #else
 static int crypto_blkcipher_report(struct sk_buff *skb, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 557 \n"); 
 	return -ENOSYS;
 }
 #endif
@@ -537,6 +563,7 @@ static void crypto_blkcipher_show(struct seq_file *m, struct crypto_alg *alg)
 	__attribute__ ((unused));
 static void crypto_blkcipher_show(struct seq_file *m, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/blkcipher.c: line 566 \n"); 
 	seq_printf(m, "type         : blkcipher\n");
 	seq_printf(m, "blocksize    : %u\n", alg->cra_blocksize);
 	seq_printf(m, "min keysize  : %u\n", alg->cra_blkcipher.min_keysize);

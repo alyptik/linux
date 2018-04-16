@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -153,6 +154,7 @@
  */
 bool ip_call_ra_chain(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_input.c: line 157 \n"); 
 	struct ip_ra_chain *ra;
 	u8 protocol = ip_hdr(skb)->protocol;
 	struct sock *last = NULL;
@@ -261,6 +263,7 @@ int ip_local_deliver(struct sk_buff *skb)
 
 static inline bool ip_rcv_options(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_input.c: line 266 \n"); 
 	struct ip_options *opt;
 	const struct iphdr *iph;
 	struct net_device *dev = skb->dev;

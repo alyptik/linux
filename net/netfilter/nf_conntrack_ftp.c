@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* FTP extension for connection tracking. */
 
 /* (C) 1999-2001 Paul `Rusty' Russell
@@ -113,6 +114,7 @@ static struct ftp_search {
 static int
 get_ipv6_addr(const char *src, size_t dlen, struct in6_addr *dst, u_int8_t term)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 117 \n"); 
 	const char *end;
 	int ret = in6_pton(src, min_t(size_t, dlen, 0xffff), (u8 *)dst, term, &end);
 	if (ret > 0)
@@ -123,6 +125,7 @@ get_ipv6_addr(const char *src, size_t dlen, struct in6_addr *dst, u_int8_t term)
 static int try_number(const char *data, size_t dlen, u_int32_t array[],
 		      int array_size, char sep, char term)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 128 \n"); 
 	u_int32_t i, len;
 
 	memset(array, 0, sizeof(array[0])*array_size);
@@ -156,6 +159,7 @@ static int try_rfc959(const char *data, size_t dlen,
 		      struct nf_conntrack_man *cmd, char term,
 		      unsigned int *offset)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 162 \n"); 
 	int length;
 	u_int32_t array[6];
 
@@ -183,6 +187,7 @@ static int try_rfc1123(const char *data, size_t dlen,
 		       struct nf_conntrack_man *cmd, char term,
 		       unsigned int *offset)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 190 \n"); 
 	int i;
 	for (i = 0; i < dlen; i++)
 		if (isdigit(data[i]))
@@ -200,6 +205,7 @@ static int try_rfc1123(const char *data, size_t dlen,
 static int get_port(const char *data, int start, size_t dlen, char delim,
 		    __be16 *port)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 208 \n"); 
 	u_int16_t tmp_port = 0;
 	int i;
 
@@ -226,6 +232,7 @@ static int get_port(const char *data, int start, size_t dlen, char delim,
 static int try_eprt(const char *data, size_t dlen, struct nf_conntrack_man *cmd,
 		    char term, unsigned int *offset)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 235 \n"); 
 	char delim;
 	int length;
 
@@ -275,6 +282,7 @@ static int try_epsv_response(const char *data, size_t dlen,
 			     struct nf_conntrack_man *cmd, char term,
 			     unsigned int *offset)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 285 \n"); 
 	char delim;
 
 	/* Three delimiters. */
@@ -298,6 +306,7 @@ static int find_pattern(const char *data, size_t dlen,
 				      struct nf_conntrack_man *, char,
 				      unsigned int *))
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 309 \n"); 
 	size_t i = plen;
 
 	pr_debug("find_pattern `%s': dlen = %Zu\n", pattern, dlen);
@@ -337,6 +346,7 @@ static int find_pattern(const char *data, size_t dlen,
 /* Look up to see if we're just after a \n. */
 static int find_nl_seq(u32 seq, const struct nf_ct_ftp_master *info, int dir)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 349 \n"); 
 	unsigned int i;
 
 	for (i = 0; i < info->seq_aft_nl_num[dir]; i++)
@@ -350,6 +360,7 @@ static void update_nl_seq(struct nf_conn *ct, u32 nl_seq,
 			  struct nf_ct_ftp_master *info, int dir,
 			  struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 363 \n"); 
 	unsigned int i, oldest;
 
 	/* Look for oldest: if we find exact match, we're done. */
@@ -376,6 +387,7 @@ static int help(struct sk_buff *skb,
 		struct nf_conn *ct,
 		enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 390 \n"); 
 	unsigned int dataoff, datalen;
 	const struct tcphdr *th;
 	struct tcphdr _tcph;
@@ -548,6 +560,7 @@ out_update_nl:
 
 static int nf_ct_ftp_from_nlattr(struct nlattr *attr, struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 563 \n"); 
 	struct nf_ct_ftp_master *ftp = nfct_help_data(ct);
 
 	/* This conntrack has been injected from user-space, always pick up
@@ -569,6 +582,7 @@ static const struct nf_conntrack_expect_policy ftp_exp_policy = {
 /* don't make this __exit, since it's called from __init ! */
 static void nf_conntrack_ftp_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_ftp.c: line 585 \n"); 
 	nf_conntrack_helpers_unregister(ftp, ports_c * 2);
 	kfree(ftp_buffer);
 }

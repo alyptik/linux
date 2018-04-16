@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/fat/cache.c
  *
@@ -30,6 +31,7 @@ struct fat_cache_id {
 
 static inline int fat_max_cache(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 34 \n"); 
 	return FAT_MAX_CACHE;
 }
 
@@ -37,6 +39,7 @@ static struct kmem_cache *fat_cache_cachep;
 
 static void init_once(void *foo)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 42 \n"); 
 	struct fat_cache *cache = (struct fat_cache *)foo;
 
 	INIT_LIST_HEAD(&cache->cache_list);
@@ -55,16 +58,19 @@ int __init fat_cache_init(void)
 
 void fat_cache_destroy(void)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 61 \n"); 
 	kmem_cache_destroy(fat_cache_cachep);
 }
 
 static inline struct fat_cache *fat_cache_alloc(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 67 \n"); 
 	return kmem_cache_alloc(fat_cache_cachep, GFP_NOFS);
 }
 
 static inline void fat_cache_free(struct fat_cache *cache)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 73 \n"); 
 	BUG_ON(!list_empty(&cache->cache_list));
 	kmem_cache_free(fat_cache_cachep, cache);
 }
@@ -72,6 +78,7 @@ static inline void fat_cache_free(struct fat_cache *cache)
 static inline void fat_cache_update_lru(struct inode *inode,
 					struct fat_cache *cache)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 81 \n"); 
 	if (MSDOS_I(inode)->cache_lru.next != &cache->cache_list)
 		list_move(&cache->cache_list, &MSDOS_I(inode)->cache_lru);
 }
@@ -80,6 +87,7 @@ static int fat_cache_lookup(struct inode *inode, int fclus,
 			    struct fat_cache_id *cid,
 			    int *cached_fclus, int *cached_dclus)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 90 \n"); 
 	static struct fat_cache nohit = { .fcluster = 0, };
 
 	struct fat_cache *hit = &nohit, *p;
@@ -184,6 +192,7 @@ out:
  */
 static void __fat_cache_inval_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 195 \n"); 
 	struct msdos_inode_info *i = MSDOS_I(inode);
 	struct fat_cache *cache;
 
@@ -202,6 +211,7 @@ static void __fat_cache_inval_inode(struct inode *inode)
 
 void fat_cache_inval_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 214 \n"); 
 	spin_lock(&MSDOS_I(inode)->cache_lru_lock);
 	__fat_cache_inval_inode(inode);
 	spin_unlock(&MSDOS_I(inode)->cache_lru_lock);
@@ -209,12 +219,14 @@ void fat_cache_inval_inode(struct inode *inode)
 
 static inline int cache_contiguous(struct fat_cache_id *cid, int dclus)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 222 \n"); 
 	cid->nr_contig++;
 	return ((cid->dcluster + cid->nr_contig) == dclus);
 }
 
 static inline void cache_init(struct fat_cache_id *cid, int fclus, int dclus)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 229 \n"); 
 	cid->id = FAT_CACHE_VALID;
 	cid->fcluster = fclus;
 	cid->dcluster = dclus;
@@ -223,6 +235,7 @@ static inline void cache_init(struct fat_cache_id *cid, int fclus, int dclus)
 
 int fat_get_cluster(struct inode *inode, int cluster, int *fclus, int *dclus)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 238 \n"); 
 	struct super_block *sb = inode->i_sb;
 	const int limit = sb->s_maxbytes >> MSDOS_SB(sb)->cluster_bits;
 	struct fat_entry fatent;
@@ -284,6 +297,7 @@ out:
 
 static int fat_bmap_cluster(struct inode *inode, int cluster)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 300 \n"); 
 	struct super_block *sb = inode->i_sb;
 	int ret, fclus, dclus;
 
@@ -305,6 +319,7 @@ int fat_get_mapped_cluster(struct inode *inode, sector_t sector,
 			   sector_t last_block,
 			   unsigned long *mapped_blocks, sector_t *bmap)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 322 \n"); 
 	struct super_block *sb = inode->i_sb;
 	struct msdos_sb_info *sbi = MSDOS_SB(sb);
 	int cluster, offset;
@@ -327,6 +342,7 @@ int fat_get_mapped_cluster(struct inode *inode, sector_t sector,
 static int is_exceed_eof(struct inode *inode, sector_t sector,
 			 sector_t *last_block, int create)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 345 \n"); 
 	struct super_block *sb = inode->i_sb;
 	const unsigned long blocksize = sb->s_blocksize;
 	const unsigned char blocksize_bits = sb->s_blocksize_bits;
@@ -352,6 +368,7 @@ static int is_exceed_eof(struct inode *inode, sector_t sector,
 int fat_bmap(struct inode *inode, sector_t sector, sector_t *phys,
 	     unsigned long *mapped_blocks, int create, bool from_bmap)
 {
+	panic("We reached unpopular paths in fs/fat/cache.c: line 371 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(inode->i_sb);
 	sector_t last_block;
 

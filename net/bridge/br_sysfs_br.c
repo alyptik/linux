@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Sysfs attributes of bridge
  *	Linux ethernet bridge
@@ -31,6 +32,7 @@ static ssize_t store_bridge_parm(struct device *d,
 				 const char *buf, size_t len,
 				 int (*set)(struct net_bridge *, unsigned long))
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 35 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	char *endp;
 	unsigned long val;
@@ -58,6 +60,7 @@ static ssize_t store_bridge_parm(struct device *d,
 static ssize_t forward_delay_show(struct device *d,
 				  struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 63 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	return sprintf(buf, "%lu\n", jiffies_to_clock_t(br->forward_delay));
 }
@@ -66,6 +69,7 @@ static ssize_t forward_delay_store(struct device *d,
 				   struct device_attribute *attr,
 				   const char *buf, size_t len)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 72 \n"); 
 	return store_bridge_parm(d, buf, len, br_set_forward_delay);
 }
 static DEVICE_ATTR_RW(forward_delay);
@@ -73,6 +77,7 @@ static DEVICE_ATTR_RW(forward_delay);
 static ssize_t hello_time_show(struct device *d, struct device_attribute *attr,
 			       char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 80 \n"); 
 	return sprintf(buf, "%lu\n",
 		       jiffies_to_clock_t(to_bridge(d)->hello_time));
 }
@@ -81,6 +86,7 @@ static ssize_t hello_time_store(struct device *d,
 				struct device_attribute *attr, const char *buf,
 				size_t len)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 89 \n"); 
 	return store_bridge_parm(d, buf, len, br_set_hello_time);
 }
 static DEVICE_ATTR_RW(hello_time);
@@ -88,6 +94,7 @@ static DEVICE_ATTR_RW(hello_time);
 static ssize_t max_age_show(struct device *d, struct device_attribute *attr,
 			    char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 97 \n"); 
 	return sprintf(buf, "%lu\n",
 		       jiffies_to_clock_t(to_bridge(d)->max_age));
 }
@@ -95,6 +102,7 @@ static ssize_t max_age_show(struct device *d, struct device_attribute *attr,
 static ssize_t max_age_store(struct device *d, struct device_attribute *attr,
 			     const char *buf, size_t len)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 105 \n"); 
 	return store_bridge_parm(d, buf, len, br_set_max_age);
 }
 static DEVICE_ATTR_RW(max_age);
@@ -102,12 +110,14 @@ static DEVICE_ATTR_RW(max_age);
 static ssize_t ageing_time_show(struct device *d,
 				struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 113 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	return sprintf(buf, "%lu\n", jiffies_to_clock_t(br->ageing_time));
 }
 
 static int set_ageing_time(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 120 \n"); 
 	return br_set_ageing_time(br, val);
 }
 
@@ -115,6 +125,7 @@ static ssize_t ageing_time_store(struct device *d,
 				 struct device_attribute *attr,
 				 const char *buf, size_t len)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 128 \n"); 
 	return store_bridge_parm(d, buf, len, set_ageing_time);
 }
 static DEVICE_ATTR_RW(ageing_time);
@@ -122,6 +133,7 @@ static DEVICE_ATTR_RW(ageing_time);
 static ssize_t stp_state_show(struct device *d,
 			      struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 136 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	return sprintf(buf, "%d\n", br->stp_enabled);
 }
@@ -129,6 +141,7 @@ static ssize_t stp_state_show(struct device *d,
 
 static int set_stp_state(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 144 \n"); 
 	br_stp_set_enabled(br, val);
 
 	return 0;
@@ -138,6 +151,7 @@ static ssize_t stp_state_store(struct device *d,
 			       struct device_attribute *attr, const char *buf,
 			       size_t len)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 154 \n"); 
 	return store_bridge_parm(d, buf, len, set_stp_state);
 }
 static DEVICE_ATTR_RW(stp_state);
@@ -146,12 +160,14 @@ static ssize_t group_fwd_mask_show(struct device *d,
 				   struct device_attribute *attr,
 				   char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 163 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	return sprintf(buf, "%#x\n", br->group_fwd_mask);
 }
 
 static int set_group_fwd_mask(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 170 \n"); 
 	if (val & BR_GROUPFWD_RESTRICTED)
 		return -EINVAL;
 
@@ -165,6 +181,7 @@ static ssize_t group_fwd_mask_store(struct device *d,
 				    const char *buf,
 				    size_t len)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 184 \n"); 
 	return store_bridge_parm(d, buf, len, set_group_fwd_mask);
 }
 static DEVICE_ATTR_RW(group_fwd_mask);
@@ -172,6 +189,7 @@ static DEVICE_ATTR_RW(group_fwd_mask);
 static ssize_t priority_show(struct device *d, struct device_attribute *attr,
 			     char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 192 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	return sprintf(buf, "%d\n",
 		       (br->bridge_id.prio[0] << 8) | br->bridge_id.prio[1]);
@@ -179,6 +197,7 @@ static ssize_t priority_show(struct device *d, struct device_attribute *attr,
 
 static int set_priority(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 200 \n"); 
 	br_stp_set_bridge_priority(br, (u16) val);
 	return 0;
 }
@@ -186,6 +205,7 @@ static int set_priority(struct net_bridge *br, unsigned long val)
 static ssize_t priority_store(struct device *d, struct device_attribute *attr,
 			      const char *buf, size_t len)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 208 \n"); 
 	return store_bridge_parm(d, buf, len, set_priority);
 }
 static DEVICE_ATTR_RW(priority);
@@ -193,6 +213,7 @@ static DEVICE_ATTR_RW(priority);
 static ssize_t root_id_show(struct device *d, struct device_attribute *attr,
 			    char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 216 \n"); 
 	return br_show_bridge_id(buf, &to_bridge(d)->designated_root);
 }
 static DEVICE_ATTR_RO(root_id);
@@ -200,6 +221,7 @@ static DEVICE_ATTR_RO(root_id);
 static ssize_t bridge_id_show(struct device *d, struct device_attribute *attr,
 			      char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 224 \n"); 
 	return br_show_bridge_id(buf, &to_bridge(d)->bridge_id);
 }
 static DEVICE_ATTR_RO(bridge_id);
@@ -207,6 +229,7 @@ static DEVICE_ATTR_RO(bridge_id);
 static ssize_t root_port_show(struct device *d, struct device_attribute *attr,
 			      char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 232 \n"); 
 	return sprintf(buf, "%d\n", to_bridge(d)->root_port);
 }
 static DEVICE_ATTR_RO(root_port);
@@ -214,6 +237,7 @@ static DEVICE_ATTR_RO(root_port);
 static ssize_t root_path_cost_show(struct device *d,
 				   struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 240 \n"); 
 	return sprintf(buf, "%d\n", to_bridge(d)->root_path_cost);
 }
 static DEVICE_ATTR_RO(root_path_cost);
@@ -221,6 +245,7 @@ static DEVICE_ATTR_RO(root_path_cost);
 static ssize_t topology_change_show(struct device *d,
 				    struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 248 \n"); 
 	return sprintf(buf, "%d\n", to_bridge(d)->topology_change);
 }
 static DEVICE_ATTR_RO(topology_change);
@@ -229,6 +254,7 @@ static ssize_t topology_change_detected_show(struct device *d,
 					     struct device_attribute *attr,
 					     char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 257 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	return sprintf(buf, "%d\n", br->topology_change_detected);
 }
@@ -237,6 +263,7 @@ static DEVICE_ATTR_RO(topology_change_detected);
 static ssize_t hello_timer_show(struct device *d,
 				struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 266 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	return sprintf(buf, "%ld\n", br_timer_value(&br->hello_timer));
 }
@@ -245,6 +272,7 @@ static DEVICE_ATTR_RO(hello_timer);
 static ssize_t tcn_timer_show(struct device *d, struct device_attribute *attr,
 			      char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 275 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	return sprintf(buf, "%ld\n", br_timer_value(&br->tcn_timer));
 }
@@ -254,6 +282,7 @@ static ssize_t topology_change_timer_show(struct device *d,
 					  struct device_attribute *attr,
 					  char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 285 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	return sprintf(buf, "%ld\n", br_timer_value(&br->topology_change_timer));
 }
@@ -262,6 +291,7 @@ static DEVICE_ATTR_RO(topology_change_timer);
 static ssize_t gc_timer_show(struct device *d, struct device_attribute *attr,
 			     char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 294 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	return sprintf(buf, "%ld\n", br_timer_value(&br->gc_timer));
 }
@@ -270,6 +300,7 @@ static DEVICE_ATTR_RO(gc_timer);
 static ssize_t group_addr_show(struct device *d,
 			       struct device_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 303 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	return sprintf(buf, "%x:%x:%x:%x:%x:%x\n",
 		       br->group_addr[0], br->group_addr[1],
@@ -281,6 +312,7 @@ static ssize_t group_addr_store(struct device *d,
 				struct device_attribute *attr,
 				const char *buf, size_t len)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 315 \n"); 
 	struct net_bridge *br = to_bridge(d);
 	u8 new_addr[6];
 	int i;
@@ -322,6 +354,7 @@ static DEVICE_ATTR_RW(group_addr);
 
 static int set_flush(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 357 \n"); 
 	br_fdb_flush(br);
 	return 0;
 }
@@ -330,6 +363,7 @@ static ssize_t flush_store(struct device *d,
 			   struct device_attribute *attr,
 			   const char *buf, size_t len)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 366 \n"); 
 	return store_bridge_parm(d, buf, len, set_flush);
 }
 static DEVICE_ATTR_WO(flush);
@@ -839,6 +873,7 @@ static ssize_t brforward_read(struct file *filp, struct kobject *kobj,
 			      struct bin_attribute *bin_attr,
 			      char *buf, loff_t off, size_t count)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 876 \n"); 
 	struct device *dev = kobj_to_dev(kobj);
 	struct net_bridge *br = to_bridge(dev);
 	int n;
@@ -913,6 +948,7 @@ int br_sysfs_addbr(struct net_device *dev)
 
 void br_sysfs_delbr(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/bridge/br_sysfs_br.c: line 951 \n"); 
 	struct kobject *kobj = &dev->dev.kobj;
 	struct net_bridge *br = netdev_priv(dev);
 

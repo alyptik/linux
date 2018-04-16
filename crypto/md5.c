@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* 
  * Cryptographic API.
  *
@@ -33,6 +34,7 @@ EXPORT_SYMBOL_GPL(md5_zero_message_hash);
 /* XXX: this stuff can be optimized */
 static inline void le32_to_cpu_array(u32 *buf, unsigned int words)
 {
+	panic("We reached unpopular paths in crypto/md5.c: line 37 \n"); 
 	while (words--) {
 		__le32_to_cpus(buf);
 		buf++;
@@ -41,6 +43,7 @@ static inline void le32_to_cpu_array(u32 *buf, unsigned int words)
 
 static inline void cpu_to_le32_array(u32 *buf, unsigned int words)
 {
+	panic("We reached unpopular paths in crypto/md5.c: line 46 \n"); 
 	while (words--) {
 		__cpu_to_le32s(buf);
 		buf++;
@@ -49,12 +52,14 @@ static inline void cpu_to_le32_array(u32 *buf, unsigned int words)
 
 static inline void md5_transform_helper(struct md5_state *ctx)
 {
+	panic("We reached unpopular paths in crypto/md5.c: line 55 \n"); 
 	le32_to_cpu_array(ctx->block, sizeof(ctx->block) / sizeof(u32));
 	md5_transform(ctx->hash, ctx->block);
 }
 
 static int md5_init(struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/md5.c: line 62 \n"); 
 	struct md5_state *mctx = shash_desc_ctx(desc);
 
 	mctx->hash[0] = MD5_H0;
@@ -68,6 +73,7 @@ static int md5_init(struct shash_desc *desc)
 
 static int md5_update(struct shash_desc *desc, const u8 *data, unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/md5.c: line 76 \n"); 
 	struct md5_state *mctx = shash_desc_ctx(desc);
 	const u32 avail = sizeof(mctx->block) - (mctx->byte_count & 0x3f);
 
@@ -100,6 +106,7 @@ static int md5_update(struct shash_desc *desc, const u8 *data, unsigned int len)
 
 static int md5_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/md5.c: line 109 \n"); 
 	struct md5_state *mctx = shash_desc_ctx(desc);
 	const unsigned int offset = mctx->byte_count & 0x3f;
 	char *p = (char *)mctx->block + offset;
@@ -128,6 +135,7 @@ static int md5_final(struct shash_desc *desc, u8 *out)
 
 static int md5_export(struct shash_desc *desc, void *out)
 {
+	panic("We reached unpopular paths in crypto/md5.c: line 138 \n"); 
 	struct md5_state *ctx = shash_desc_ctx(desc);
 
 	memcpy(out, ctx, sizeof(*ctx));
@@ -136,6 +144,7 @@ static int md5_export(struct shash_desc *desc, void *out)
 
 static int md5_import(struct shash_desc *desc, const void *in)
 {
+	panic("We reached unpopular paths in crypto/md5.c: line 147 \n"); 
 	struct md5_state *ctx = shash_desc_ctx(desc);
 
 	memcpy(ctx, in, sizeof(*ctx));

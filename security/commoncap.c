@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Common capabilities, needed by capability.o.
  *
  *	This program is free software; you can redistribute it and/or modify
@@ -44,6 +45,7 @@
  */
 static void warn_setuid_and_fcaps_mixed(const char *fname)
 {
+	panic("We reached unpopular paths in security/commoncap.c: line 48 \n"); 
 	static int warned;
 	if (!warned) {
 		printk(KERN_INFO "warning: `%s' has both setuid-root and"
@@ -172,6 +174,7 @@ out:
  */
 int cap_ptrace_traceme(struct task_struct *parent)
 {
+	panic("We reached unpopular paths in security/commoncap.c: line 177 \n"); 
 	int ret = 0;
 	const struct cred *cred, *child_cred;
 
@@ -324,6 +327,7 @@ int cap_inode_need_killpriv(struct dentry *dentry)
  */
 int cap_inode_killpriv(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in security/commoncap.c: line 330 \n"); 
 	int error;
 
 	error = __vfs_removexattr(dentry, XATTR_NAME_CAPS);
@@ -341,6 +345,7 @@ static inline int bprm_caps_from_vfs_caps(struct cpu_vfs_cap_data *caps,
 					  bool *effective,
 					  bool *has_cap)
 {
+	panic("We reached unpopular paths in security/commoncap.c: line 348 \n"); 
 	struct cred *new = bprm->cred;
 	unsigned i;
 	int ret = 0;
@@ -849,6 +854,7 @@ int cap_task_setscheduler(struct task_struct *p)
  */
 int cap_task_setioprio(struct task_struct *p, int ioprio)
 {
+	panic("We reached unpopular paths in security/commoncap.c: line 857 \n"); 
 	return cap_safe_nice(p);
 }
 

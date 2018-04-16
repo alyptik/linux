@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Implementation of the diskquota system for the LINUX operating system. QUOTA
  * is implemented using the BSD system call interface as the means of
@@ -132,6 +133,7 @@ DEFINE_STATIC_SRCU(dquot_srcu);
 void __quota_error(struct super_block *sb, const char *func,
 		   const char *fmt, ...)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 136 \n"); 
 	if (printk_ratelimit()) {
 		va_list args;
 		struct va_format vaf;
@@ -160,6 +162,7 @@ static struct kmem_cache *dquot_cachep;
 
 int register_quota_format(struct quota_format_type *fmt)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 165 \n"); 
 	spin_lock(&dq_list_lock);
 	fmt->qf_next = quota_formats;
 	quota_formats = fmt;
@@ -170,6 +173,7 @@ EXPORT_SYMBOL(register_quota_format);
 
 void unregister_quota_format(struct quota_format_type *fmt)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 176 \n"); 
 	struct quota_format_type **actqf;
 
 	spin_lock(&dq_list_lock);
@@ -184,6 +188,7 @@ EXPORT_SYMBOL(unregister_quota_format);
 
 static struct quota_format_type *find_quota_format(int id)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 191 \n"); 
 	struct quota_format_type *actqf;
 
 	spin_lock(&dq_list_lock);
@@ -215,6 +220,7 @@ static struct quota_format_type *find_quota_format(int id)
 
 static void put_quota_format(struct quota_format_type *fmt)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 223 \n"); 
 	module_put(fmt->qf_owner);
 }
 
@@ -252,6 +258,7 @@ static int __dquot_initialize(struct inode *inode, int type);
 static inline unsigned int
 hashfn(const struct super_block *sb, struct kqid qid)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 261 \n"); 
 	unsigned int id = from_kqid(&init_user_ns, qid);
 	int type = qid.type;
 	unsigned long tmp;
@@ -265,6 +272,7 @@ hashfn(const struct super_block *sb, struct kqid qid)
  */
 static inline void insert_dquot_hash(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 275 \n"); 
 	struct hlist_head *head;
 	head = dquot_hash + hashfn(dquot->dq_sb, dquot->dq_id);
 	hlist_add_head(&dquot->dq_hash, head);
@@ -272,12 +280,14 @@ static inline void insert_dquot_hash(struct dquot *dquot)
 
 static inline void remove_dquot_hash(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 283 \n"); 
 	hlist_del_init(&dquot->dq_hash);
 }
 
 static struct dquot *find_dquot(unsigned int hashent, struct super_block *sb,
 				struct kqid qid)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 290 \n"); 
 	struct hlist_node *node;
 	struct dquot *dquot;
 
@@ -292,12 +302,14 @@ static struct dquot *find_dquot(unsigned int hashent, struct super_block *sb,
 /* Add a dquot to the tail of the free list */
 static inline void put_dquot_last(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 305 \n"); 
 	list_add_tail(&dquot->dq_free, &free_dquots);
 	dqstats_inc(DQST_FREE_DQUOTS);
 }
 
 static inline void remove_free_dquot(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 312 \n"); 
 	if (list_empty(&dquot->dq_free))
 		return;
 	list_del_init(&dquot->dq_free);
@@ -306,6 +318,7 @@ static inline void remove_free_dquot(struct dquot *dquot)
 
 static inline void put_inuse(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 321 \n"); 
 	/* We add to the back of inuse list so we don't have to restart
 	 * when traversing this list and we block */
 	list_add_tail(&dquot->dq_inuse, &inuse_list);
@@ -314,6 +327,7 @@ static inline void put_inuse(struct dquot *dquot)
 
 static inline void remove_inuse(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 330 \n"); 
 	dqstats_dec(DQST_ALLOC_DQUOTS);
 	list_del(&dquot->dq_inuse);
 }
@@ -323,23 +337,27 @@ static inline void remove_inuse(struct dquot *dquot)
 
 static void wait_on_dquot(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 340 \n"); 
 	mutex_lock(&dquot->dq_lock);
 	mutex_unlock(&dquot->dq_lock);
 }
 
 static inline int dquot_dirty(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 347 \n"); 
 	return test_bit(DQ_MOD_B, &dquot->dq_flags);
 }
 
 static inline int mark_dquot_dirty(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 353 \n"); 
 	return dquot->dq_sb->dq_op->mark_dirty(dquot);
 }
 
 /* Mark dquot dirty in atomic manner, and return it's old dirty flag state */
 int dquot_mark_dquot_dirty(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 360 \n"); 
 	int ret = 1;
 
 	/* If quota is dirty already, we don't have to acquire dq_list_lock */
@@ -360,6 +378,7 @@ EXPORT_SYMBOL(dquot_mark_dquot_dirty);
 /* Dirtify all the dquots - this can block when journalling */
 static inline int mark_all_dquot_dirty(struct dquot * const *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 381 \n"); 
 	int ret, err, cnt;
 
 	ret = err = 0;
@@ -375,6 +394,7 @@ static inline int mark_all_dquot_dirty(struct dquot * const *dquot)
 
 static inline void dqput_all(struct dquot **dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 397 \n"); 
 	unsigned int cnt;
 
 	for (cnt = 0; cnt < MAXQUOTAS; cnt++)
@@ -384,6 +404,7 @@ static inline void dqput_all(struct dquot **dquot)
 /* This function needs dq_list_lock */
 static inline int clear_dquot_dirty(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 407 \n"); 
 	if (!test_and_clear_bit(DQ_MOD_B, &dquot->dq_flags))
 		return 0;
 	list_del_init(&dquot->dq_dirty);
@@ -392,6 +413,7 @@ static inline int clear_dquot_dirty(struct dquot *dquot)
 
 void mark_info_dirty(struct super_block *sb, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 416 \n"); 
 	set_bit(DQF_INFO_DIRTY_B, &sb_dqopt(sb)->info[type].dqi_flags);
 }
 EXPORT_SYMBOL(mark_info_dirty);
@@ -402,6 +424,7 @@ EXPORT_SYMBOL(mark_info_dirty);
 
 int dquot_acquire(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 427 \n"); 
 	int ret = 0, ret2 = 0;
 	struct quota_info *dqopt = sb_dqopt(dquot->dq_sb);
 
@@ -447,6 +470,7 @@ EXPORT_SYMBOL(dquot_acquire);
  */
 int dquot_commit(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 473 \n"); 
 	int ret = 0;
 	struct quota_info *dqopt = sb_dqopt(dquot->dq_sb);
 
@@ -474,6 +498,7 @@ EXPORT_SYMBOL(dquot_commit);
  */
 int dquot_release(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 501 \n"); 
 	int ret = 0, ret2 = 0;
 	struct quota_info *dqopt = sb_dqopt(dquot->dq_sb);
 
@@ -502,12 +527,14 @@ EXPORT_SYMBOL(dquot_release);
 
 void dquot_destroy(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 530 \n"); 
 	kmem_cache_free(dquot_cachep, dquot);
 }
 EXPORT_SYMBOL(dquot_destroy);
 
 static inline void do_destroy_dquot(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 537 \n"); 
 	dquot->dq_sb->dq_op->destroy_dquot(dquot);
 }
 
@@ -519,6 +546,7 @@ static inline void do_destroy_dquot(struct dquot *dquot)
  */
 static void invalidate_dquots(struct super_block *sb, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 549 \n"); 
 	struct dquot *dquot, *tmp;
 
 restart:
@@ -569,6 +597,7 @@ int dquot_scan_active(struct super_block *sb,
 		      int (*fn)(struct dquot *dquot, unsigned long priv),
 		      unsigned long priv)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 600 \n"); 
 	struct dquot *dquot, *old_dquot = NULL;
 	int ret = 0;
 
@@ -611,6 +640,7 @@ EXPORT_SYMBOL(dquot_scan_active);
 /* Write all dquot structures to quota files */
 int dquot_writeback_dquots(struct super_block *sb, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 643 \n"); 
 	struct list_head *dirty;
 	struct dquot *dquot;
 	struct quota_info *dqopt = sb_dqopt(sb);
@@ -662,6 +692,7 @@ EXPORT_SYMBOL(dquot_writeback_dquots);
 /* Write all dquot structures to disk and make them visible from userspace */
 int dquot_quota_sync(struct super_block *sb, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 695 \n"); 
 	struct quota_info *dqopt = sb_dqopt(sb);
 	int cnt;
 	int ret;
@@ -702,6 +733,7 @@ EXPORT_SYMBOL(dquot_quota_sync);
 static unsigned long
 dqcache_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 736 \n"); 
 	struct list_head *head;
 	struct dquot *dquot;
 	unsigned long freed = 0;
@@ -725,6 +757,7 @@ dqcache_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
 static unsigned long
 dqcache_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 760 \n"); 
 	return vfs_pressure_ratio(
 	percpu_counter_read_positive(&dqstats.counter[DQST_FREE_DQUOTS]));
 }
@@ -740,6 +773,7 @@ static struct shrinker dqcache_shrinker = {
  */
 void dqput(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 776 \n"); 
 	int ret;
 
 	if (!dquot)
@@ -803,12 +837,14 @@ EXPORT_SYMBOL(dqput);
 
 struct dquot *dquot_alloc(struct super_block *sb, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 840 \n"); 
 	return kmem_cache_zalloc(dquot_cachep, GFP_NOFS);
 }
 EXPORT_SYMBOL(dquot_alloc);
 
 static struct dquot *get_empty_dquot(struct super_block *sb, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 847 \n"); 
 	struct dquot *dquot;
 
 	dquot = sb->dq_op->alloc_dquot(sb, type);
@@ -838,6 +874,7 @@ static struct dquot *get_empty_dquot(struct super_block *sb, int type)
  */
 struct dquot *dqget(struct super_block *sb, struct kqid qid)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 877 \n"); 
 	unsigned int hashent = hashfn(sb, qid);
 	struct dquot *dquot, *empty = NULL;
 
@@ -915,11 +952,13 @@ EXPORT_SYMBOL(dqget);
 
 static inline struct dquot **i_dquot(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 955 \n"); 
 	return inode->i_sb->s_op->get_dquots(inode);
 }
 
 static int dqinit_needed(struct inode *inode, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 961 \n"); 
 	struct dquot * const *dquots;
 	int cnt;
 
@@ -938,6 +977,7 @@ static int dqinit_needed(struct inode *inode, int type)
 /* This routine is guarded by dqonoff_mutex mutex */
 static void add_dquot_ref(struct super_block *sb, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 980 \n"); 
 	struct inode *inode, *old_inode = NULL;
 #ifdef CONFIG_QUOTA_DEBUG
 	int reserved = 0;
@@ -993,6 +1033,7 @@ static void add_dquot_ref(struct super_block *sb, int type)
 static void remove_inode_dquot_ref(struct inode *inode, int type,
 				   struct list_head *tofree_head)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1036 \n"); 
 	struct dquot **dquots = i_dquot(inode);
 	struct dquot *dquot = dquots[type];
 
@@ -1024,6 +1065,7 @@ static void remove_inode_dquot_ref(struct inode *inode, int type,
  */
 static void put_dquot_list(struct list_head *tofree_head)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1068 \n"); 
 	struct list_head *act_head;
 	struct dquot *dquot;
 
@@ -1040,6 +1082,7 @@ static void put_dquot_list(struct list_head *tofree_head)
 static void remove_dquot_ref(struct super_block *sb, int type,
 		struct list_head *tofree_head)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1085 \n"); 
 	struct inode *inode;
 	int reserved = 0;
 
@@ -1072,6 +1115,7 @@ static void remove_dquot_ref(struct super_block *sb, int type,
 /* Gather all references from inodes and drop them */
 static void drop_dquot_ref(struct super_block *sb, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1118 \n"); 
 	LIST_HEAD(tofree_head);
 
 	if (sb->dq_op) {
@@ -1083,16 +1127,19 @@ static void drop_dquot_ref(struct super_block *sb, int type)
 
 static inline void dquot_incr_inodes(struct dquot *dquot, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1130 \n"); 
 	dquot->dq_dqb.dqb_curinodes += number;
 }
 
 static inline void dquot_incr_space(struct dquot *dquot, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1136 \n"); 
 	dquot->dq_dqb.dqb_curspace += number;
 }
 
 static inline void dquot_resv_space(struct dquot *dquot, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1142 \n"); 
 	dquot->dq_dqb.dqb_rsvspace += number;
 }
 
@@ -1101,6 +1148,7 @@ static inline void dquot_resv_space(struct dquot *dquot, qsize_t number)
  */
 static void dquot_claim_reserved_space(struct dquot *dquot, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1151 \n"); 
 	if (dquot->dq_dqb.dqb_rsvspace < number) {
 		WARN_ON_ONCE(1);
 		number = dquot->dq_dqb.dqb_rsvspace;
@@ -1111,6 +1159,7 @@ static void dquot_claim_reserved_space(struct dquot *dquot, qsize_t number)
 
 static void dquot_reclaim_reserved_space(struct dquot *dquot, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1162 \n"); 
 	if (WARN_ON_ONCE(dquot->dq_dqb.dqb_curspace < number))
 		number = dquot->dq_dqb.dqb_curspace;
 	dquot->dq_dqb.dqb_rsvspace += number;
@@ -1120,6 +1169,7 @@ static void dquot_reclaim_reserved_space(struct dquot *dquot, qsize_t number)
 static inline
 void dquot_free_reserved_space(struct dquot *dquot, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1172 \n"); 
 	if (dquot->dq_dqb.dqb_rsvspace >= number)
 		dquot->dq_dqb.dqb_rsvspace -= number;
 	else {
@@ -1130,6 +1180,7 @@ void dquot_free_reserved_space(struct dquot *dquot, qsize_t number)
 
 static void dquot_decr_inodes(struct dquot *dquot, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1183 \n"); 
 	if (sb_dqopt(dquot->dq_sb)->flags & DQUOT_NEGATIVE_USAGE ||
 	    dquot->dq_dqb.dqb_curinodes >= number)
 		dquot->dq_dqb.dqb_curinodes -= number;
@@ -1142,6 +1193,7 @@ static void dquot_decr_inodes(struct dquot *dquot, qsize_t number)
 
 static void dquot_decr_space(struct dquot *dquot, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1196 \n"); 
 	if (sb_dqopt(dquot->dq_sb)->flags & DQUOT_NEGATIVE_USAGE ||
 	    dquot->dq_dqb.dqb_curspace >= number)
 		dquot->dq_dqb.dqb_curspace -= number;
@@ -1160,6 +1212,7 @@ struct dquot_warn {
 
 static int warning_issued(struct dquot *dquot, const int warntype)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1215 \n"); 
 	int flag = (warntype == QUOTA_NL_BHARDWARN ||
 		warntype == QUOTA_NL_BSOFTLONGWARN) ? DQ_BLKS_B :
 		((warntype == QUOTA_NL_IHARDWARN ||
@@ -1239,6 +1292,7 @@ static void print_warning(struct dquot_warn *warn)
 static void prepare_warning(struct dquot_warn *warn, struct dquot *dquot,
 			    int warntype)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1295 \n"); 
 	if (warning_issued(dquot, warntype))
 		return;
 	warn->w_type = warntype;
@@ -1253,6 +1307,7 @@ static void prepare_warning(struct dquot_warn *warn, struct dquot *dquot,
  */
 static void flush_warnings(struct dquot_warn *warn)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1310 \n"); 
 	int i;
 
 	for (i = 0; i < MAXQUOTAS; i++) {
@@ -1268,6 +1323,7 @@ static void flush_warnings(struct dquot_warn *warn)
 
 static int ignore_hardlimit(struct dquot *dquot)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1326 \n"); 
 	struct mem_dqinfo *info = &sb_dqopt(dquot->dq_sb)->info[dquot->dq_id.type];
 
 	return capable(CAP_SYS_RESOURCE) &&
@@ -1279,6 +1335,7 @@ static int ignore_hardlimit(struct dquot *dquot)
 static int check_idq(struct dquot *dquot, qsize_t inodes,
 		     struct dquot_warn *warn)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1338 \n"); 
 	qsize_t newinodes = dquot->dq_dqb.dqb_curinodes + inodes;
 
 	if (!sb_has_quota_limits_enabled(dquot->dq_sb, dquot->dq_id.type) ||
@@ -1316,6 +1373,7 @@ static int check_idq(struct dquot *dquot, qsize_t inodes,
 static int check_bdq(struct dquot *dquot, qsize_t space, int prealloc,
 		     struct dquot_warn *warn)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1376 \n"); 
 	qsize_t tspace;
 	struct super_block *sb = dquot->dq_sb;
 
@@ -1365,6 +1423,7 @@ static int check_bdq(struct dquot *dquot, qsize_t space, int prealloc,
 
 static int info_idq_free(struct dquot *dquot, qsize_t inodes)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1426 \n"); 
 	qsize_t newinodes;
 
 	if (test_bit(DQ_FAKE_B, &dquot->dq_flags) ||
@@ -1383,6 +1442,7 @@ static int info_idq_free(struct dquot *dquot, qsize_t inodes)
 
 static int info_bdq_free(struct dquot *dquot, qsize_t space)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1445 \n"); 
 	if (test_bit(DQ_FAKE_B, &dquot->dq_flags) ||
 	    dquot->dq_dqb.dqb_curspace <= dquot->dq_dqb.dqb_bsoftlimit)
 		return QUOTA_NL_NOWARN;
@@ -1397,6 +1457,7 @@ static int info_bdq_free(struct dquot *dquot, qsize_t space)
 
 static int dquot_active(const struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1460 \n"); 
 	struct super_block *sb = inode->i_sb;
 
 	if (IS_NOQUOTA(inode))
@@ -1412,6 +1473,7 @@ static int dquot_active(const struct inode *inode)
  */
 static int __dquot_initialize(struct inode *inode, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1476 \n"); 
 	int cnt, init_needed = 0;
 	struct dquot **dquots, *got[MAXQUOTAS] = {};
 	struct super_block *sb = inode->i_sb;
@@ -1510,6 +1572,7 @@ out_put:
 
 int dquot_initialize(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1575 \n"); 
 	return __dquot_initialize(inode, -1);
 }
 EXPORT_SYMBOL(dquot_initialize);
@@ -1524,6 +1587,7 @@ EXPORT_SYMBOL(dquot_initialize);
  */
 static void __dquot_drop(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1590 \n"); 
 	int cnt;
 	struct dquot **dquots = i_dquot(inode);
 	struct dquot *put[MAXQUOTAS];
@@ -1539,6 +1603,7 @@ static void __dquot_drop(struct inode *inode)
 
 void dquot_drop(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1606 \n"); 
 	struct dquot * const *dquots;
 	int cnt;
 
@@ -1569,6 +1634,7 @@ EXPORT_SYMBOL(dquot_drop);
  */
 static qsize_t *inode_reserved_space(struct inode * inode)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1637 \n"); 
 	/* Filesystem must explicitly define it's own method in order to use
 	 * quota reservation interface */
 	BUG_ON(!inode->i_sb->dq_op->get_reserved_space);
@@ -1577,6 +1643,7 @@ static qsize_t *inode_reserved_space(struct inode * inode)
 
 void inode_add_rsv_space(struct inode *inode, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1646 \n"); 
 	spin_lock(&inode->i_lock);
 	*inode_reserved_space(inode) += number;
 	spin_unlock(&inode->i_lock);
@@ -1585,6 +1652,7 @@ EXPORT_SYMBOL(inode_add_rsv_space);
 
 void inode_claim_rsv_space(struct inode *inode, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1655 \n"); 
 	spin_lock(&inode->i_lock);
 	*inode_reserved_space(inode) -= number;
 	__inode_add_bytes(inode, number);
@@ -1594,6 +1662,7 @@ EXPORT_SYMBOL(inode_claim_rsv_space);
 
 void inode_reclaim_rsv_space(struct inode *inode, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1665 \n"); 
 	spin_lock(&inode->i_lock);
 	*inode_reserved_space(inode) += number;
 	__inode_sub_bytes(inode, number);
@@ -1603,6 +1672,7 @@ EXPORT_SYMBOL(inode_reclaim_rsv_space);
 
 void inode_sub_rsv_space(struct inode *inode, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1675 \n"); 
 	spin_lock(&inode->i_lock);
 	*inode_reserved_space(inode) -= number;
 	spin_unlock(&inode->i_lock);
@@ -1611,6 +1681,7 @@ EXPORT_SYMBOL(inode_sub_rsv_space);
 
 static qsize_t inode_get_rsv_space(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1684 \n"); 
 	qsize_t ret;
 
 	if (!inode->i_sb->dq_op->get_reserved_space)
@@ -1624,6 +1695,7 @@ static qsize_t inode_get_rsv_space(struct inode *inode)
 static void inode_incr_space(struct inode *inode, qsize_t number,
 				int reserve)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1698 \n"); 
 	if (reserve)
 		inode_add_rsv_space(inode, number);
 	else
@@ -1632,6 +1704,7 @@ static void inode_incr_space(struct inode *inode, qsize_t number,
 
 static void inode_decr_space(struct inode *inode, qsize_t number, int reserve)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1707 \n"); 
 	if (reserve)
 		inode_sub_rsv_space(inode, number);
 	else
@@ -1653,6 +1726,7 @@ static void inode_decr_space(struct inode *inode, qsize_t number, int reserve)
  */
 int __dquot_alloc_space(struct inode *inode, qsize_t number, int flags)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1729 \n"); 
 	int cnt, ret = 0, index;
 	struct dquot_warn warn[MAXQUOTAS];
 	int reserve = flags & DQUOT_SPACE_RESERVE;
@@ -1706,6 +1780,7 @@ EXPORT_SYMBOL(__dquot_alloc_space);
  */
 int dquot_alloc_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1783 \n"); 
 	int cnt, ret = 0, index;
 	struct dquot_warn warn[MAXQUOTAS];
 	struct dquot * const *dquots;
@@ -1747,6 +1822,7 @@ EXPORT_SYMBOL(dquot_alloc_inode);
  */
 int dquot_claim_space_nodirty(struct inode *inode, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1825 \n"); 
 	struct dquot **dquots;
 	int cnt, index;
 
@@ -1777,6 +1853,7 @@ EXPORT_SYMBOL(dquot_claim_space_nodirty);
  */
 void dquot_reclaim_space_nodirty(struct inode *inode, qsize_t number)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1856 \n"); 
 	struct dquot **dquots;
 	int cnt, index;
 
@@ -1807,6 +1884,7 @@ EXPORT_SYMBOL(dquot_reclaim_space_nodirty);
  */
 void __dquot_free_space(struct inode *inode, qsize_t number, int flags)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1887 \n"); 
 	unsigned int cnt;
 	struct dquot_warn warn[MAXQUOTAS];
 	struct dquot **dquots;
@@ -1851,6 +1929,7 @@ EXPORT_SYMBOL(__dquot_free_space);
  */
 void dquot_free_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1932 \n"); 
 	unsigned int cnt;
 	struct dquot_warn warn[MAXQUOTAS];
 	struct dquot * const *dquots;
@@ -1894,6 +1973,7 @@ EXPORT_SYMBOL(dquot_free_inode);
  */
 int __dquot_transfer(struct inode *inode, struct dquot **transfer_to)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 1976 \n"); 
 	qsize_t space, cur_space;
 	qsize_t rsv_space = 0;
 	struct dquot *transfer_from[MAXQUOTAS] = {};
@@ -1993,6 +2073,7 @@ EXPORT_SYMBOL(__dquot_transfer);
  */
 int dquot_transfer(struct inode *inode, struct iattr *iattr)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2076 \n"); 
 	struct dquot *transfer_to[MAXQUOTAS] = {};
 	struct dquot *dquot;
 	struct super_block *sb = inode->i_sb;
@@ -2035,6 +2116,7 @@ EXPORT_SYMBOL(dquot_transfer);
  */
 int dquot_commit_info(struct super_block *sb, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2119 \n"); 
 	int ret;
 	struct quota_info *dqopt = sb_dqopt(sb);
 
@@ -2047,6 +2129,7 @@ EXPORT_SYMBOL(dquot_commit_info);
 
 int dquot_get_next_id(struct super_block *sb, struct kqid *qid)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2132 \n"); 
 	struct quota_info *dqopt = sb_dqopt(sb);
 	int err;
 
@@ -2089,6 +2172,7 @@ EXPORT_SYMBOL(dquot_operations);
  */
 int dquot_file_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2175 \n"); 
 	int error;
 
 	error = generic_file_open(inode, file);
@@ -2103,6 +2187,7 @@ EXPORT_SYMBOL(dquot_file_open);
  */
 int dquot_disable(struct super_block *sb, int type, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2190 \n"); 
 	int cnt, ret = 0;
 	struct quota_info *dqopt = sb_dqopt(sb);
 	struct inode *toputinode[MAXQUOTAS];
@@ -2234,6 +2319,7 @@ EXPORT_SYMBOL(dquot_disable);
 
 int dquot_quota_off(struct super_block *sb, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2322 \n"); 
 	return dquot_disable(sb, type,
 			     DQUOT_USAGE_ENABLED | DQUOT_LIMITS_ENABLED);
 }
@@ -2250,6 +2336,7 @@ EXPORT_SYMBOL(dquot_quota_off);
 static int vfs_load_quota_inode(struct inode *inode, int type, int format_id,
 	unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2339 \n"); 
 	struct quota_format_type *fmt = find_quota_format(format_id);
 	struct super_block *sb = inode->i_sb;
 	struct quota_info *dqopt = sb_dqopt(sb);
@@ -2366,6 +2453,7 @@ out_fmt:
 /* Reenable quotas on remount RW */
 int dquot_resume(struct super_block *sb, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2456 \n"); 
 	struct quota_info *dqopt = sb_dqopt(sb);
 	struct inode *inode;
 	int ret = 0, cnt;
@@ -2403,6 +2491,7 @@ EXPORT_SYMBOL(dquot_resume);
 int dquot_quota_on(struct super_block *sb, int type, int format_id,
 		   struct path *path)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2494 \n"); 
 	int error = security_quota_on(path->dentry);
 	if (error)
 		return error;
@@ -2424,6 +2513,7 @@ EXPORT_SYMBOL(dquot_quota_on);
 int dquot_enable(struct inode *inode, int type, int format_id,
 		 unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2516 \n"); 
 	int ret = 0;
 	struct super_block *sb = inode->i_sb;
 	struct quota_info *dqopt = sb_dqopt(sb);
@@ -2471,6 +2561,7 @@ EXPORT_SYMBOL(dquot_enable);
 int dquot_quota_on_mount(struct super_block *sb, char *qf_name,
 		int format_id, int type)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2564 \n"); 
 	struct dentry *dentry;
 	int error;
 
@@ -2496,6 +2587,7 @@ EXPORT_SYMBOL(dquot_quota_on_mount);
 
 static int dquot_quota_enable(struct super_block *sb, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2590 \n"); 
 	int ret;
 	int type;
 	struct quota_info *dqopt = sb_dqopt(sb);
@@ -2533,6 +2625,7 @@ out_err:
 
 static int dquot_quota_disable(struct super_block *sb, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2628 \n"); 
 	int ret;
 	int type;
 	struct quota_info *dqopt = sb_dqopt(sb);
@@ -2577,6 +2670,7 @@ out_err:
 /* Generic routine for getting common part of quota structure */
 static void do_get_dqblk(struct dquot *dquot, struct qc_dqblk *di)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2673 \n"); 
 	struct mem_dqblk *dm = &dquot->dq_dqb;
 
 	memset(di, 0, sizeof(*di));
@@ -2595,6 +2689,7 @@ static void do_get_dqblk(struct dquot *dquot, struct qc_dqblk *di)
 int dquot_get_dqblk(struct super_block *sb, struct kqid qid,
 		    struct qc_dqblk *di)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2692 \n"); 
 	struct dquot *dquot;
 
 	dquot = dqget(sb, qid);
@@ -2610,6 +2705,7 @@ EXPORT_SYMBOL(dquot_get_dqblk);
 int dquot_get_next_dqblk(struct super_block *sb, struct kqid *qid,
 			 struct qc_dqblk *di)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2708 \n"); 
 	struct dquot *dquot;
 	int err;
 
@@ -2636,6 +2732,7 @@ EXPORT_SYMBOL(dquot_get_next_dqblk);
 /* Generic routine for setting common part of quota structure */
 static int do_set_dqblk(struct dquot *dquot, struct qc_dqblk *di)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2735 \n"); 
 	struct mem_dqblk *dm = &dquot->dq_dqb;
 	int check_blim = 0, check_ilim = 0;
 	struct mem_dqinfo *dqi = &sb_dqopt(dquot->dq_sb)->info[dquot->dq_id.type];
@@ -2728,6 +2825,7 @@ static int do_set_dqblk(struct dquot *dquot, struct qc_dqblk *di)
 int dquot_set_dqblk(struct super_block *sb, struct kqid qid,
 		  struct qc_dqblk *di)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2828 \n"); 
 	struct dquot *dquot;
 	int rc;
 
@@ -2746,6 +2844,7 @@ EXPORT_SYMBOL(dquot_set_dqblk);
 /* Generic routine for getting common part of quota file information */
 int dquot_get_state(struct super_block *sb, struct qc_state *state)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2847 \n"); 
 	struct mem_dqinfo *mi;
 	struct qc_type_state *tstate;
 	struct quota_info *dqopt = sb_dqopt(sb);
@@ -2781,6 +2880,7 @@ EXPORT_SYMBOL(dquot_get_state);
 /* Generic routine for setting common part of quota file information */
 int dquot_set_dqinfo(struct super_block *sb, int type, struct qc_info *ii)
 {
+	panic("We reached unpopular paths in fs/quota/dquot.c: line 2883 \n"); 
 	struct mem_dqinfo *mi;
 	int err = 0;
 

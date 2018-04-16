@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2004 Netfilter Core Team <coreteam@netfilter.org>
  *
@@ -41,6 +42,7 @@ static void dump_ipv6_packet(struct nf_log_buf *m,
 			     const struct sk_buff *skb, unsigned int ip6hoff,
 			     int recurse)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_log_ipv6.c: line 45 \n"); 
 	u_int8_t currenthdr;
 	int fragment;
 	struct ipv6hdr _ip6h;
@@ -289,6 +291,7 @@ static void dump_ipv6_mac_header(struct nf_log_buf *m,
 				 const struct nf_loginfo *info,
 				 const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_log_ipv6.c: line 294 \n"); 
 	struct net_device *dev = skb->dev;
 	unsigned int logflags = 0;
 
@@ -348,6 +351,7 @@ static void nf_log_ip6_packet(struct net *net, u_int8_t pf,
 			      const struct nf_loginfo *loginfo,
 			      const char *prefix)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/nf_log_ipv6.c: line 354 \n"); 
 	struct nf_log_buf *m;
 
 	/* FIXME: Disabled from containers until syslog ns is supported */

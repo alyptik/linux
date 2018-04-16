@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Symmetric key cipher operations.
  *
@@ -39,6 +40,7 @@ static unsigned int crypto_skcipher_extsize(struct crypto_alg *alg)
 static int skcipher_setkey_blkcipher(struct crypto_skcipher *tfm,
 				     const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 43 \n"); 
 	struct crypto_blkcipher **ctx = crypto_skcipher_ctx(tfm);
 	struct crypto_blkcipher *blkcipher = *ctx;
 	int err;
@@ -59,6 +61,7 @@ static int skcipher_crypt_blkcipher(struct skcipher_request *req,
 						 struct scatterlist *,
 						 unsigned int))
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 64 \n"); 
 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
 	struct crypto_blkcipher **ctx = crypto_skcipher_ctx(tfm);
 	struct blkcipher_desc desc = {
@@ -73,6 +76,7 @@ static int skcipher_crypt_blkcipher(struct skcipher_request *req,
 
 static int skcipher_encrypt_blkcipher(struct skcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 79 \n"); 
 	struct crypto_skcipher *skcipher = crypto_skcipher_reqtfm(req);
 	struct crypto_tfm *tfm = crypto_skcipher_tfm(skcipher);
 	struct blkcipher_alg *alg = &tfm->__crt_alg->cra_blkcipher;
@@ -82,6 +86,7 @@ static int skcipher_encrypt_blkcipher(struct skcipher_request *req)
 
 static int skcipher_decrypt_blkcipher(struct skcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 89 \n"); 
 	struct crypto_skcipher *skcipher = crypto_skcipher_reqtfm(req);
 	struct crypto_tfm *tfm = crypto_skcipher_tfm(skcipher);
 	struct blkcipher_alg *alg = &tfm->__crt_alg->cra_blkcipher;
@@ -131,6 +136,7 @@ static int crypto_init_skcipher_ops_blkcipher(struct crypto_tfm *tfm)
 static int skcipher_setkey_ablkcipher(struct crypto_skcipher *tfm,
 				      const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 139 \n"); 
 	struct crypto_ablkcipher **ctx = crypto_skcipher_ctx(tfm);
 	struct crypto_ablkcipher *ablkcipher = *ctx;
 	int err;
@@ -150,6 +156,7 @@ static int skcipher_setkey_ablkcipher(struct crypto_skcipher *tfm,
 static int skcipher_crypt_ablkcipher(struct skcipher_request *req,
 				     int (*crypt)(struct ablkcipher_request *))
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 159 \n"); 
 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
 	struct crypto_ablkcipher **ctx = crypto_skcipher_ctx(tfm);
 	struct ablkcipher_request *subreq = skcipher_request_ctx(req);
@@ -165,6 +172,7 @@ static int skcipher_crypt_ablkcipher(struct skcipher_request *req,
 
 static int skcipher_encrypt_ablkcipher(struct skcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 175 \n"); 
 	struct crypto_skcipher *skcipher = crypto_skcipher_reqtfm(req);
 	struct crypto_tfm *tfm = crypto_skcipher_tfm(skcipher);
 	struct ablkcipher_alg *alg = &tfm->__crt_alg->cra_ablkcipher;
@@ -174,6 +182,7 @@ static int skcipher_encrypt_ablkcipher(struct skcipher_request *req)
 
 static int skcipher_decrypt_ablkcipher(struct skcipher_request *req)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 185 \n"); 
 	struct crypto_skcipher *skcipher = crypto_skcipher_reqtfm(req);
 	struct crypto_tfm *tfm = crypto_skcipher_tfm(skcipher);
 	struct ablkcipher_alg *alg = &tfm->__crt_alg->cra_ablkcipher;
@@ -183,6 +192,7 @@ static int skcipher_decrypt_ablkcipher(struct skcipher_request *req)
 
 static void crypto_exit_skcipher_ops_ablkcipher(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 195 \n"); 
 	struct crypto_ablkcipher **ctx = crypto_tfm_ctx(tfm);
 
 	crypto_free_ablkcipher(*ctx);
@@ -190,6 +200,7 @@ static void crypto_exit_skcipher_ops_ablkcipher(struct crypto_tfm *tfm)
 
 static int crypto_init_skcipher_ops_ablkcipher(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 203 \n"); 
 	struct crypto_alg *calg = tfm->__crt_alg;
 	struct crypto_skcipher *skcipher = __crypto_skcipher_cast(tfm);
 	struct crypto_ablkcipher **ctx = crypto_tfm_ctx(tfm);
@@ -224,6 +235,7 @@ static int crypto_init_skcipher_ops_ablkcipher(struct crypto_tfm *tfm)
 static int skcipher_setkey_unaligned(struct crypto_skcipher *tfm,
 				     const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 238 \n"); 
 	unsigned long alignmask = crypto_skcipher_alignmask(tfm);
 	struct skcipher_alg *cipher = crypto_skcipher_alg(tfm);
 	u8 *buffer, *alignbuffer;
@@ -245,6 +257,7 @@ static int skcipher_setkey_unaligned(struct crypto_skcipher *tfm,
 static int skcipher_setkey(struct crypto_skcipher *tfm, const u8 *key,
 			   unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 260 \n"); 
 	struct skcipher_alg *cipher = crypto_skcipher_alg(tfm);
 	unsigned long alignmask = crypto_skcipher_alignmask(tfm);
 
@@ -261,6 +274,7 @@ static int skcipher_setkey(struct crypto_skcipher *tfm, const u8 *key,
 
 static void crypto_skcipher_exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 277 \n"); 
 	struct crypto_skcipher *skcipher = __crypto_skcipher_cast(tfm);
 	struct skcipher_alg *alg = crypto_skcipher_alg(skcipher);
 
@@ -296,6 +310,7 @@ static int crypto_skcipher_init_tfm(struct crypto_tfm *tfm)
 
 static void crypto_skcipher_free_instance(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 313 \n"); 
 	struct skcipher_instance *skcipher =
 		container_of(inst, struct skcipher_instance, s.base);
 
@@ -306,6 +321,7 @@ static void crypto_skcipher_show(struct seq_file *m, struct crypto_alg *alg)
 	__attribute__ ((unused));
 static void crypto_skcipher_show(struct seq_file *m, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 324 \n"); 
 	struct skcipher_alg *skcipher = container_of(alg, struct skcipher_alg,
 						     base);
 
@@ -345,6 +361,7 @@ nla_put_failure:
 #else
 static int crypto_skcipher_report(struct sk_buff *skb, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 364 \n"); 
 	return -ENOSYS;
 }
 #endif
@@ -380,6 +397,7 @@ EXPORT_SYMBOL_GPL(crypto_alloc_skcipher);
 
 int crypto_has_skcipher2(const char *alg_name, u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 400 \n"); 
 	return crypto_type_has_alg(alg_name, &crypto_skcipher_type2,
 				   type, mask);
 }
@@ -387,6 +405,7 @@ EXPORT_SYMBOL_GPL(crypto_has_skcipher2);
 
 static int skcipher_prepare_alg(struct skcipher_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 408 \n"); 
 	struct crypto_alg *base = &alg->base;
 
 	if (alg->ivsize > PAGE_SIZE / 8 || alg->chunksize > PAGE_SIZE / 8)
@@ -404,6 +423,7 @@ static int skcipher_prepare_alg(struct skcipher_alg *alg)
 
 int crypto_register_skcipher(struct skcipher_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 426 \n"); 
 	struct crypto_alg *base = &alg->base;
 	int err;
 
@@ -417,12 +437,14 @@ EXPORT_SYMBOL_GPL(crypto_register_skcipher);
 
 void crypto_unregister_skcipher(struct skcipher_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 440 \n"); 
 	crypto_unregister_alg(&alg->base);
 }
 EXPORT_SYMBOL_GPL(crypto_unregister_skcipher);
 
 int crypto_register_skciphers(struct skcipher_alg *algs, int count)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 447 \n"); 
 	int i, ret;
 
 	for (i = 0; i < count; i++) {
@@ -443,6 +465,7 @@ EXPORT_SYMBOL_GPL(crypto_register_skciphers);
 
 void crypto_unregister_skciphers(struct skcipher_alg *algs, int count)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 468 \n"); 
 	int i;
 
 	for (i = count - 1; i >= 0; --i)
@@ -453,6 +476,7 @@ EXPORT_SYMBOL_GPL(crypto_unregister_skciphers);
 int skcipher_register_instance(struct crypto_template *tmpl,
 			   struct skcipher_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/skcipher.c: line 479 \n"); 
 	int err;
 
 	err = skcipher_prepare_alg(&inst->alg);

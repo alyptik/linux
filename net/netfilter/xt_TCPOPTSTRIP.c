@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * A module for stripping a specific TCP option from TCP packets.
  *
@@ -21,6 +22,7 @@
 
 static inline unsigned int optlen(const u_int8_t *opt, unsigned int offset)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TCPOPTSTRIP.c: line 25 \n"); 
 	/* Beware zero-length options: make finite progress */
 	if (opt[offset] <= TCPOPT_NOP || opt[offset+1] == 0)
 		return 1;
@@ -33,6 +35,7 @@ tcpoptstrip_mangle_packet(struct sk_buff *skb,
 			  const struct xt_action_param *par,
 			  unsigned int tcphoff, unsigned int minlen)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TCPOPTSTRIP.c: line 38 \n"); 
 	const struct xt_tcpoptstrip_target_info *info = par->targinfo;
 	unsigned int optl, i, j;
 	struct tcphdr *tcph;
@@ -91,6 +94,7 @@ tcpoptstrip_mangle_packet(struct sk_buff *skb,
 static unsigned int
 tcpoptstrip_tg4(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_TCPOPTSTRIP.c: line 97 \n"); 
 	return tcpoptstrip_mangle_packet(skb, par, ip_hdrlen(skb),
 	       sizeof(struct iphdr) + sizeof(struct tcphdr));
 }

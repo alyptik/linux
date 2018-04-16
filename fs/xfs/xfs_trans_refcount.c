@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C) 2016 Oracle.  All Rights Reserved.
  *
@@ -40,6 +41,7 @@ xfs_trans_get_cud(
 	struct xfs_trans		*tp,
 	struct xfs_cui_log_item		*cuip)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_refcount.c: line 44 \n"); 
 	struct xfs_cud_log_item		*cudp;
 
 	cudp = xfs_cud_init(tp->t_mountp, cuip);
@@ -64,6 +66,7 @@ xfs_trans_log_finish_refcount_update(
 	xfs_extlen_t			*new_len,
 	struct xfs_btree_cur		**pcur)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_refcount.c: line 69 \n"); 
 	int				error;
 
 	error = xfs_refcount_finish_one(tp, dop, type, startblock,
@@ -89,6 +92,7 @@ xfs_refcount_update_diff_items(
 	struct list_head		*a,
 	struct list_head		*b)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_refcount.c: line 95 \n"); 
 	struct xfs_mount		*mp = priv;
 	struct xfs_refcount_intent	*ra;
 	struct xfs_refcount_intent	*rb;
@@ -105,6 +109,7 @@ xfs_refcount_update_create_intent(
 	struct xfs_trans		*tp,
 	unsigned int			count)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_refcount.c: line 112 \n"); 
 	struct xfs_cui_log_item		*cuip;
 
 	ASSERT(tp != NULL);
@@ -126,6 +131,7 @@ xfs_trans_set_refcount_flags(
 	struct xfs_phys_extent		*refc,
 	enum xfs_refcount_intent_type	type)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_refcount.c: line 134 \n"); 
 	refc->pe_flags = 0;
 	switch (type) {
 	case XFS_REFCOUNT_INCREASE:
@@ -146,6 +152,7 @@ xfs_refcount_update_log_item(
 	void				*intent,
 	struct list_head		*item)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_refcount.c: line 155 \n"); 
 	struct xfs_cui_log_item		*cuip = intent;
 	struct xfs_refcount_intent	*refc;
 	uint				next_extent;
@@ -176,6 +183,7 @@ xfs_refcount_update_create_done(
 	void				*intent,
 	unsigned int			count)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_refcount.c: line 186 \n"); 
 	return xfs_trans_get_cud(tp, intent);
 }
 
@@ -188,6 +196,7 @@ xfs_refcount_update_finish_item(
 	void				*done_item,
 	void				**state)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_refcount.c: line 199 \n"); 
 	struct xfs_refcount_intent	*refc;
 	xfs_fsblock_t			new_fsb;
 	xfs_extlen_t			new_aglen;
@@ -219,6 +228,7 @@ xfs_refcount_update_finish_cleanup(
 	void			*state,
 	int			error)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_refcount.c: line 231 \n"); 
 	struct xfs_btree_cur	*rcur = state;
 
 	xfs_refcount_finish_one_cleanup(tp, rcur, error);
@@ -229,6 +239,7 @@ STATIC void
 xfs_refcount_update_abort_intent(
 	void				*intent)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_refcount.c: line 242 \n"); 
 	xfs_cui_release(intent);
 }
 
@@ -237,6 +248,7 @@ STATIC void
 xfs_refcount_update_cancel_item(
 	struct list_head		*item)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_trans_refcount.c: line 251 \n"); 
 	struct xfs_refcount_intent	*refc;
 
 	refc = container_of(item, struct xfs_refcount_intent, ri_list);

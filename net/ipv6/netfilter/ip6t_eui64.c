@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match EUI64 address parameters. */
 
 /* (C) 2001-2002 Andras Kis-Szabo <kisza@sch.bme.hu>
@@ -22,6 +23,7 @@ MODULE_AUTHOR("Andras Kis-Szabo <kisza@sch.bme.hu>");
 static bool
 eui64_mt6(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_eui64.c: line 26 \n"); 
 	unsigned char eui64[8];
 
 	if (!(skb_mac_header(skb) >= skb->head &&

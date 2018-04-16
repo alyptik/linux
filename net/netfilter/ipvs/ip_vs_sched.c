@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS         An implementation of the IP virtual server support for the
  *              LINUX operating system.  IPVS is now implemented as a module
@@ -45,6 +46,7 @@ static DEFINE_MUTEX(ip_vs_sched_mutex);
 int ip_vs_bind_scheduler(struct ip_vs_service *svc,
 			 struct ip_vs_scheduler *scheduler)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sched.c: line 49 \n"); 
 	int ret;
 
 	if (scheduler->init_service) {
@@ -65,6 +67,7 @@ int ip_vs_bind_scheduler(struct ip_vs_service *svc,
 void ip_vs_unbind_scheduler(struct ip_vs_service *svc,
 			    struct ip_vs_scheduler *sched)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sched.c: line 70 \n"); 
 	struct ip_vs_scheduler *cur_sched;
 
 	cur_sched = rcu_dereference_protected(svc->scheduler, 1);
@@ -83,6 +86,7 @@ void ip_vs_unbind_scheduler(struct ip_vs_service *svc,
  */
 static struct ip_vs_scheduler *ip_vs_sched_getbyname(const char *sched_name)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sched.c: line 89 \n"); 
 	struct ip_vs_scheduler *sched;
 
 	IP_VS_DBG(2, "%s(): sched_name \"%s\"\n", __func__, sched_name);
@@ -117,6 +121,7 @@ static struct ip_vs_scheduler *ip_vs_sched_getbyname(const char *sched_name)
  */
 struct ip_vs_scheduler *ip_vs_scheduler_get(const char *sched_name)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sched.c: line 124 \n"); 
 	struct ip_vs_scheduler *sched;
 
 	/*
@@ -137,6 +142,7 @@ struct ip_vs_scheduler *ip_vs_scheduler_get(const char *sched_name)
 
 void ip_vs_scheduler_put(struct ip_vs_scheduler *scheduler)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sched.c: line 145 \n"); 
 	if (scheduler)
 		module_put(scheduler->module);
 }
@@ -147,6 +153,7 @@ void ip_vs_scheduler_put(struct ip_vs_scheduler *scheduler)
 
 void ip_vs_scheduler_err(struct ip_vs_service *svc, const char *msg)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sched.c: line 156 \n"); 
 	struct ip_vs_scheduler *sched = rcu_dereference(svc->scheduler);
 	char *sched_name = sched ? sched->name : "none";
 
@@ -226,6 +233,7 @@ int register_ip_vs_scheduler(struct ip_vs_scheduler *scheduler)
  */
 int unregister_ip_vs_scheduler(struct ip_vs_scheduler *scheduler)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sched.c: line 236 \n"); 
 	if (!scheduler) {
 		pr_err("%s(): NULL arg\n", __func__);
 		return -EINVAL;

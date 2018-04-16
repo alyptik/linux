@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (C) 2006
  * NTT (Nippon Telegraph and Telephone Corporation).
@@ -377,6 +378,7 @@ static const u32 camellia_sp4404[256] = {
 
 static void camellia_setup_tail(u32 *subkey, u32 *subL, u32 *subR, int max)
 {
+	panic("We reached unpopular paths in crypto/camellia_generic.c: line 381 \n"); 
 	u32 dw, tl, tr;
 	u32 kw4l, kw4r;
 
@@ -557,6 +559,7 @@ static void camellia_setup_tail(u32 *subkey, u32 *subL, u32 *subR, int max)
 
 static void camellia_setup128(const unsigned char *key, u32 *subkey)
 {
+	panic("We reached unpopular paths in crypto/camellia_generic.c: line 562 \n"); 
 	u32 kll, klr, krl, krr;
 	u32 il, ir, t0, t1, w0, w1;
 	u32 subL[26];
@@ -663,6 +666,7 @@ static void camellia_setup128(const unsigned char *key, u32 *subkey)
 
 static void camellia_setup256(const unsigned char *key, u32 *subkey)
 {
+	panic("We reached unpopular paths in crypto/camellia_generic.c: line 669 \n"); 
 	u32 kll, klr, krl, krr;        /* left half of key */
 	u32 krll, krlr, krrl, krrr;    /* right half of key */
 	u32 il, ir, t0, t1, w0, w1;    /* temporary variables */
@@ -812,6 +816,7 @@ static void camellia_setup256(const unsigned char *key, u32 *subkey)
 
 static void camellia_setup192(const unsigned char *key, u32 *subkey)
 {
+	panic("We reached unpopular paths in crypto/camellia_generic.c: line 819 \n"); 
 	unsigned char kk[32];
 	u32 krll, krlr, krrl, krrr;
 
@@ -863,6 +868,7 @@ static void camellia_setup192(const unsigned char *key, u32 *subkey)
 /* max = 24: 128bit encrypt, max = 32: 256bit encrypt */
 static void camellia_do_encrypt(const u32 *subkey, u32 *io, unsigned max)
 {
+	panic("We reached unpopular paths in crypto/camellia_generic.c: line 871 \n"); 
 	u32 il, ir, t0, t1;            /* temporary variables */
 
 	/* pre whitening but absorb kw2 */
@@ -918,6 +924,7 @@ static void camellia_do_encrypt(const u32 *subkey, u32 *io, unsigned max)
 
 static void camellia_do_decrypt(const u32 *subkey, u32 *io, unsigned i)
 {
+	panic("We reached unpopular paths in crypto/camellia_generic.c: line 927 \n"); 
 	u32 il, ir, t0, t1;            /* temporary variables */
 
 	/* pre whitening but absorb kw2 */
@@ -981,6 +988,7 @@ static int
 camellia_set_key(struct crypto_tfm *tfm, const u8 *in_key,
 		 unsigned int key_len)
 {
+	panic("We reached unpopular paths in crypto/camellia_generic.c: line 991 \n"); 
 	struct camellia_ctx *cctx = crypto_tfm_ctx(tfm);
 	const unsigned char *key = (const unsigned char *)in_key;
 	u32 *flags = &tfm->crt_flags;
@@ -1009,6 +1017,7 @@ camellia_set_key(struct crypto_tfm *tfm, const u8 *in_key,
 
 static void camellia_encrypt(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 {
+	panic("We reached unpopular paths in crypto/camellia_generic.c: line 1020 \n"); 
 	const struct camellia_ctx *cctx = crypto_tfm_ctx(tfm);
 	const __be32 *src = (const __be32 *)in;
 	__be32 *dst = (__be32 *)out;
@@ -1037,6 +1046,7 @@ static void camellia_encrypt(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 
 static void camellia_decrypt(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 {
+	panic("We reached unpopular paths in crypto/camellia_generic.c: line 1049 \n"); 
 	const struct camellia_ctx *cctx = crypto_tfm_ctx(tfm);
 	const __be32 *src = (const __be32 *)in;
 	__be32 *dst = (__be32 *)out;

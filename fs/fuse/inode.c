@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
   FUSE: Filesystem in Userspace
   Copyright (C) 2001-2008  Miklos Szeredi <miklos@szeredi.hu>
@@ -75,11 +76,13 @@ struct fuse_mount_data {
 
 struct fuse_forget_link *fuse_alloc_forget(void)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 79 \n"); 
 	return kzalloc(sizeof(struct fuse_forget_link), GFP_KERNEL);
 }
 
 static struct inode *fuse_alloc_inode(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 85 \n"); 
 	struct inode *inode;
 	struct fuse_inode *fi;
 
@@ -111,12 +114,14 @@ static struct inode *fuse_alloc_inode(struct super_block *sb)
 
 static void fuse_i_callback(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 117 \n"); 
 	struct inode *inode = container_of(head, struct inode, i_rcu);
 	kmem_cache_free(fuse_inode_cachep, inode);
 }
 
 static void fuse_destroy_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 124 \n"); 
 	struct fuse_inode *fi = get_fuse_inode(inode);
 	BUG_ON(!list_empty(&fi->write_files));
 	BUG_ON(!list_empty(&fi->queued_writes));
@@ -127,6 +132,7 @@ static void fuse_destroy_inode(struct inode *inode)
 
 static void fuse_evict_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 135 \n"); 
 	truncate_inode_pages_final(&inode->i_data);
 	clear_inode(inode);
 	if (inode->i_sb->s_flags & MS_ACTIVE) {
@@ -139,6 +145,7 @@ static void fuse_evict_inode(struct inode *inode)
 
 static int fuse_remount_fs(struct super_block *sb, int *flags, char *data)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 148 \n"); 
 	sync_filesystem(sb);
 	if (*flags & MS_MANDLOCK)
 		return -EINVAL;
@@ -152,6 +159,7 @@ static int fuse_remount_fs(struct super_block *sb, int *flags, char *data)
  */
 static ino_t fuse_squash_ino(u64 ino64)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 162 \n"); 
 	ino_t ino = (ino_t) ino64;
 	if (sizeof(ino_t) < sizeof(u64))
 		ino ^= ino64 >> (sizeof(u64) - sizeof(ino_t)) * 8;
@@ -161,6 +169,7 @@ static ino_t fuse_squash_ino(u64 ino64)
 void fuse_change_attributes_common(struct inode *inode, struct fuse_attr *attr,
 				   u64 attr_valid)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 172 \n"); 
 	struct fuse_conn *fc = get_fuse_conn(inode);
 	struct fuse_inode *fi = get_fuse_inode(inode);
 
@@ -203,6 +212,7 @@ void fuse_change_attributes_common(struct inode *inode, struct fuse_attr *attr,
 void fuse_change_attributes(struct inode *inode, struct fuse_attr *attr,
 			    u64 attr_valid, u64 attr_version)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 215 \n"); 
 	struct fuse_conn *fc = get_fuse_conn(inode);
 	struct fuse_inode *fi = get_fuse_inode(inode);
 	bool is_wb = fc->writeback_cache;
@@ -256,6 +266,7 @@ void fuse_change_attributes(struct inode *inode, struct fuse_attr *attr,
 
 static void fuse_init_inode(struct inode *inode, struct fuse_attr *attr)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 269 \n"); 
 	inode->i_mode = attr->mode & S_IFMT;
 	inode->i_size = attr->size;
 	inode->i_mtime.tv_sec  = attr->mtime;
@@ -280,6 +291,7 @@ static void fuse_init_inode(struct inode *inode, struct fuse_attr *attr)
 
 int fuse_inode_eq(struct inode *inode, void *_nodeidp)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 294 \n"); 
 	u64 nodeid = *(u64 *) _nodeidp;
 	if (get_node_id(inode) == nodeid)
 		return 1;
@@ -289,6 +301,7 @@ int fuse_inode_eq(struct inode *inode, void *_nodeidp)
 
 static int fuse_inode_set(struct inode *inode, void *_nodeidp)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 304 \n"); 
 	u64 nodeid = *(u64 *) _nodeidp;
 	get_fuse_inode(inode)->nodeid = nodeid;
 	return 0;
@@ -298,6 +311,7 @@ struct inode *fuse_iget(struct super_block *sb, u64 nodeid,
 			int generation, struct fuse_attr *attr,
 			u64 attr_valid, u64 attr_version)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 314 \n"); 
 	struct inode *inode;
 	struct fuse_inode *fi;
 	struct fuse_conn *fc = get_fuse_conn_super(sb);
@@ -333,6 +347,7 @@ struct inode *fuse_iget(struct super_block *sb, u64 nodeid,
 int fuse_reverse_inval_inode(struct super_block *sb, u64 nodeid,
 			     loff_t offset, loff_t len)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 350 \n"); 
 	struct inode *inode;
 	pgoff_t pg_start;
 	pgoff_t pg_end;
@@ -358,23 +373,27 @@ int fuse_reverse_inval_inode(struct super_block *sb, u64 nodeid,
 
 void fuse_lock_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 376 \n"); 
 	if (!get_fuse_conn(inode)->parallel_dirops)
 		mutex_lock(&get_fuse_inode(inode)->mutex);
 }
 
 void fuse_unlock_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 383 \n"); 
 	if (!get_fuse_conn(inode)->parallel_dirops)
 		mutex_unlock(&get_fuse_inode(inode)->mutex);
 }
 
 static void fuse_umount_begin(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 390 \n"); 
 	fuse_abort_conn(get_fuse_conn_super(sb));
 }
 
 static void fuse_send_destroy(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 396 \n"); 
 	struct fuse_req *req = fc->destroy_req;
 	if (req && fc->conn_init) {
 		fc->destroy_req = NULL;
@@ -388,12 +407,14 @@ static void fuse_send_destroy(struct fuse_conn *fc)
 
 static void fuse_bdi_destroy(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 410 \n"); 
 	if (fc->bdi_initialized)
 		bdi_destroy(&fc->bdi);
 }
 
 static void fuse_put_super(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 417 \n"); 
 	struct fuse_conn *fc = get_fuse_conn_super(sb);
 
 	fuse_send_destroy(fc);
@@ -410,6 +431,7 @@ static void fuse_put_super(struct super_block *sb)
 
 static void convert_fuse_statfs(struct kstatfs *stbuf, struct fuse_kstatfs *attr)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 434 \n"); 
 	stbuf->f_type    = FUSE_SUPER_MAGIC;
 	stbuf->f_bsize   = attr->bsize;
 	stbuf->f_frsize  = attr->frsize;
@@ -424,6 +446,7 @@ static void convert_fuse_statfs(struct kstatfs *stbuf, struct fuse_kstatfs *attr
 
 static int fuse_statfs(struct dentry *dentry, struct kstatfs *buf)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 449 \n"); 
 	struct super_block *sb = dentry->d_sb;
 	struct fuse_conn *fc = get_fuse_conn_super(sb);
 	FUSE_ARGS(args);
@@ -474,6 +497,7 @@ static const match_table_t tokens = {
 
 static int fuse_match_uint(substring_t *s, unsigned int *res)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 500 \n"); 
 	int err = -ENOMEM;
 	char *buf = match_strdup(s);
 	if (buf) {
@@ -485,6 +509,7 @@ static int fuse_match_uint(substring_t *s, unsigned int *res)
 
 static int parse_fuse_opt(char *opt, struct fuse_mount_data *d, int is_bdev)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 512 \n"); 
 	char *p;
 	memset(d, 0, sizeof(struct fuse_mount_data));
 	d->max_read = ~0;
@@ -568,6 +593,7 @@ static int parse_fuse_opt(char *opt, struct fuse_mount_data *d, int is_bdev)
 
 static int fuse_show_options(struct seq_file *m, struct dentry *root)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 596 \n"); 
 	struct super_block *sb = root->d_sb;
 	struct fuse_conn *fc = get_fuse_conn_super(sb);
 
@@ -586,6 +612,7 @@ static int fuse_show_options(struct seq_file *m, struct dentry *root)
 
 static void fuse_iqueue_init(struct fuse_iqueue *fiq)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 615 \n"); 
 	memset(fiq, 0, sizeof(struct fuse_iqueue));
 	init_waitqueue_head(&fiq->waitq);
 	INIT_LIST_HEAD(&fiq->pending);
@@ -596,6 +623,7 @@ static void fuse_iqueue_init(struct fuse_iqueue *fiq)
 
 static void fuse_pqueue_init(struct fuse_pqueue *fpq)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 626 \n"); 
 	memset(fpq, 0, sizeof(struct fuse_pqueue));
 	spin_lock_init(&fpq->lock);
 	INIT_LIST_HEAD(&fpq->processing);
@@ -605,6 +633,7 @@ static void fuse_pqueue_init(struct fuse_pqueue *fpq)
 
 void fuse_conn_init(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 636 \n"); 
 	memset(fc, 0, sizeof(*fc));
 	spin_lock_init(&fc->lock);
 	init_rwsem(&fc->killsb);
@@ -631,6 +660,7 @@ EXPORT_SYMBOL_GPL(fuse_conn_init);
 
 void fuse_conn_put(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 663 \n"); 
 	if (atomic_dec_and_test(&fc->count)) {
 		if (fc->destroy_req)
 			fuse_request_free(fc->destroy_req);
@@ -641,6 +671,7 @@ EXPORT_SYMBOL_GPL(fuse_conn_put);
 
 struct fuse_conn *fuse_conn_get(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 674 \n"); 
 	atomic_inc(&fc->count);
 	return fc;
 }
@@ -648,6 +679,7 @@ EXPORT_SYMBOL_GPL(fuse_conn_get);
 
 static struct inode *fuse_get_root_inode(struct super_block *sb, unsigned mode)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 682 \n"); 
 	struct fuse_attr attr;
 	memset(&attr, 0, sizeof(attr));
 
@@ -665,6 +697,7 @@ struct fuse_inode_handle {
 static struct dentry *fuse_get_dentry(struct super_block *sb,
 				      struct fuse_inode_handle *handle)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 700 \n"); 
 	struct fuse_conn *fc = get_fuse_conn_super(sb);
 	struct inode *inode;
 	struct dentry *entry;
@@ -712,6 +745,7 @@ static struct dentry *fuse_get_dentry(struct super_block *sb,
 static int fuse_encode_fh(struct inode *inode, u32 *fh, int *max_len,
 			   struct inode *parent)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 748 \n"); 
 	int len = parent ? 6 : 3;
 	u64 nodeid;
 	u32 generation;
@@ -744,6 +778,7 @@ static int fuse_encode_fh(struct inode *inode, u32 *fh, int *max_len,
 static struct dentry *fuse_fh_to_dentry(struct super_block *sb,
 		struct fid *fid, int fh_len, int fh_type)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 781 \n"); 
 	struct fuse_inode_handle handle;
 
 	if ((fh_type != 0x81 && fh_type != 0x82) || fh_len < 3)
@@ -758,6 +793,7 @@ static struct dentry *fuse_fh_to_dentry(struct super_block *sb,
 static struct dentry *fuse_fh_to_parent(struct super_block *sb,
 		struct fid *fid, int fh_len, int fh_type)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 796 \n"); 
 	struct fuse_inode_handle parent;
 
 	if (fh_type != 0x82 || fh_len < 6)
@@ -771,6 +807,7 @@ static struct dentry *fuse_fh_to_parent(struct super_block *sb,
 
 static struct dentry *fuse_get_parent(struct dentry *child)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 810 \n"); 
 	struct inode *child_inode = d_inode(child);
 	struct fuse_conn *fc = get_fuse_conn(child_inode);
 	struct inode *inode;
@@ -829,6 +866,7 @@ static void sanitize_global_limit(unsigned *limit)
 
 static int set_global_limit(const char *val, struct kernel_param *kp)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 869 \n"); 
 	int rv;
 
 	rv = param_set_uint(val, kp);
@@ -842,6 +880,7 @@ static int set_global_limit(const char *val, struct kernel_param *kp)
 
 static void process_init_limits(struct fuse_conn *fc, struct fuse_init_out *arg)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 883 \n"); 
 	int cap_sys_admin = capable(CAP_SYS_ADMIN);
 
 	if (arg->minor < 13)
@@ -867,6 +906,7 @@ static void process_init_limits(struct fuse_conn *fc, struct fuse_init_out *arg)
 
 static void process_init_reply(struct fuse_conn *fc, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 909 \n"); 
 	struct fuse_init_out *arg = &req->misc.init_out;
 
 	if (req->out.h.error || arg->major != FUSE_KERNEL_VERSION)
@@ -940,6 +980,7 @@ static void process_init_reply(struct fuse_conn *fc, struct fuse_req *req)
 
 static void fuse_send_init(struct fuse_conn *fc, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 983 \n"); 
 	struct fuse_init_in *arg = &req->misc.init_in;
 
 	arg->major = FUSE_KERNEL_VERSION;
@@ -969,12 +1010,14 @@ static void fuse_send_init(struct fuse_conn *fc, struct fuse_req *req)
 
 static void fuse_free_conn(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 1013 \n"); 
 	WARN_ON(!list_empty(&fc->devices));
 	kfree_rcu(fc, rcu);
 }
 
 static int fuse_bdi_init(struct fuse_conn *fc, struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 1020 \n"); 
 	int err;
 
 	fc->bdi.name = "fuse";
@@ -1017,6 +1060,7 @@ static int fuse_bdi_init(struct fuse_conn *fc, struct super_block *sb)
 
 struct fuse_dev *fuse_dev_alloc(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 1063 \n"); 
 	struct fuse_dev *fud;
 
 	fud = kzalloc(sizeof(struct fuse_dev), GFP_KERNEL);
@@ -1035,6 +1079,7 @@ EXPORT_SYMBOL_GPL(fuse_dev_alloc);
 
 void fuse_dev_free(struct fuse_dev *fud)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 1082 \n"); 
 	struct fuse_conn *fc = fud->fc;
 
 	if (fc) {
@@ -1050,6 +1095,7 @@ EXPORT_SYMBOL_GPL(fuse_dev_free);
 
 static int fuse_fill_super(struct super_block *sb, void *data, int silent)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 1098 \n"); 
 	struct fuse_dev *fud;
 	struct fuse_conn *fc;
 	struct inode *root;
@@ -1194,11 +1240,13 @@ static struct dentry *fuse_mount(struct file_system_type *fs_type,
 		       int flags, const char *dev_name,
 		       void *raw_data)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 1243 \n"); 
 	return mount_nodev(fs_type, flags, raw_data, fuse_fill_super);
 }
 
 static void fuse_kill_sb_anon(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 1249 \n"); 
 	struct fuse_conn *fc = get_fuse_conn_super(sb);
 
 	if (fc) {
@@ -1261,16 +1309,19 @@ static inline void unregister_fuseblk(void)
 #else
 static inline int register_fuseblk(void)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 1312 \n"); 
 	return 0;
 }
 
 static inline void unregister_fuseblk(void)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 1318 \n"); 
 }
 #endif
 
 static void fuse_inode_init_once(void *foo)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 1324 \n"); 
 	struct inode *inode = foo;
 
 	inode_init_once(inode);
@@ -1308,6 +1359,7 @@ static int __init fuse_fs_init(void)
 
 static void fuse_fs_cleanup(void)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 1362 \n"); 
 	unregister_filesystem(&fuse_fs_type);
 	unregister_fuseblk();
 
@@ -1345,6 +1397,7 @@ static int fuse_sysfs_init(void)
 
 static void fuse_sysfs_cleanup(void)
 {
+	panic("We reached unpopular paths in fs/fuse/inode.c: line 1400 \n"); 
 	sysfs_remove_mount_point(fuse_kobj, "connections");
 	kobject_put(fuse_kobj);
 }

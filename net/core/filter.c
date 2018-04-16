@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Linux Socket Filter - Kernel level socket filtering
  *
@@ -157,6 +158,7 @@ static const struct bpf_func_proto bpf_get_raw_smp_processor_id_proto = {
 static u32 convert_skb_access(int skb_field, int dst_reg, int src_reg,
 			      struct bpf_insn *insn_buf)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 161 \n"); 
 	struct bpf_insn *insn = insn_buf;
 
 	switch (skb_field) {
@@ -691,6 +693,7 @@ error:
 
 static bool chk_code_allowed(u16 code_to_probe)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/filter.c: line 696 \n"); 
 	static const bool codes[] = {
 		/* 32 bit ALU operations */
 		[BPF_ALU | BPF_ADD | BPF_K] = true,
@@ -1194,6 +1197,7 @@ static int __sk_attach_prog(struct bpf_prog *prog, struct sock *sk)
 
 static int __reuseport_attach_prog(struct bpf_prog *prog, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1200 \n"); 
 	struct bpf_prog *old_prog;
 	int err;
 
@@ -1283,6 +1287,7 @@ EXPORT_SYMBOL_GPL(sk_attach_filter);
 
 int sk_reuseport_attach_filter(struct sock_fprog *fprog, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1290 \n"); 
 	struct bpf_prog *prog = __get_filter(fprog, sk);
 	int err;
 
@@ -1300,6 +1305,7 @@ int sk_reuseport_attach_filter(struct sock_fprog *fprog, struct sock *sk)
 
 static struct bpf_prog *__get_bpf(u32 ufd, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1308 \n"); 
 	if (sock_flag(sk, SOCK_FILTER_LOCKED))
 		return ERR_PTR(-EPERM);
 
@@ -1308,6 +1314,7 @@ static struct bpf_prog *__get_bpf(u32 ufd, struct sock *sk)
 
 int sk_attach_bpf(u32 ufd, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1317 \n"); 
 	struct bpf_prog *prog = __get_bpf(ufd, sk);
 	int err;
 
@@ -1325,6 +1332,7 @@ int sk_attach_bpf(u32 ufd, struct sock *sk)
 
 int sk_reuseport_attach_bpf(u32 ufd, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1335 \n"); 
 	struct bpf_prog *prog = __get_bpf(ufd, sk);
 	int err;
 
@@ -1352,12 +1360,14 @@ static DEFINE_PER_CPU(struct bpf_scratchpad, bpf_sp);
 static inline int __bpf_try_make_writable(struct sk_buff *skb,
 					  unsigned int write_len)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1363 \n"); 
 	return skb_ensure_writable(skb, write_len);
 }
 
 static inline int bpf_try_make_writable(struct sk_buff *skb,
 					unsigned int write_len)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1370 \n"); 
 	int err = __bpf_try_make_writable(skb, write_len);
 
 	bpf_compute_data_end(skb);
@@ -1366,17 +1376,20 @@ static inline int bpf_try_make_writable(struct sk_buff *skb,
 
 static int bpf_try_make_head_writable(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1379 \n"); 
 	return bpf_try_make_writable(skb, skb_headlen(skb));
 }
 
 static inline void bpf_push_mac_rcsum(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1385 \n"); 
 	if (skb_at_tc_ingress(skb))
 		skb_postpush_rcsum(skb, skb_mac_header(skb), skb->mac_len);
 }
 
 static inline void bpf_pull_mac_rcsum(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1392 \n"); 
 	if (skb_at_tc_ingress(skb))
 		skb_postpull_rcsum(skb, skb_mac_header(skb), skb->mac_len);
 }
@@ -1627,12 +1640,14 @@ static const struct bpf_func_proto bpf_csum_update_proto = {
 
 static inline int __bpf_rx_skb(struct net_device *dev, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1643 \n"); 
 	return dev_forward_skb(dev, skb);
 }
 
 static inline int __bpf_rx_skb_no_mac(struct net_device *dev,
 				      struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1650 \n"); 
 	int ret = ____dev_forward_skb(dev, skb);
 
 	if (likely(!ret)) {
@@ -1645,6 +1660,7 @@ static inline int __bpf_rx_skb_no_mac(struct net_device *dev,
 
 static inline int __bpf_tx_skb(struct net_device *dev, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1663 \n"); 
 	int ret;
 
 	if (unlikely(__this_cpu_read(xmit_recursion) > XMIT_RECURSION_LIMIT)) {
@@ -1665,6 +1681,7 @@ static inline int __bpf_tx_skb(struct net_device *dev, struct sk_buff *skb)
 static int __bpf_redirect_no_mac(struct sk_buff *skb, struct net_device *dev,
 				 u32 flags)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1684 \n"); 
 	/* skb->mac_len is not set on normal egress */
 	unsigned int mlen = skb->network_header - skb->mac_header;
 
@@ -1686,6 +1703,7 @@ static int __bpf_redirect_no_mac(struct sk_buff *skb, struct net_device *dev,
 static int __bpf_redirect_common(struct sk_buff *skb, struct net_device *dev,
 				 u32 flags)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1706 \n"); 
 	bpf_push_mac_rcsum(skb);
 	return flags & BPF_F_INGRESS ?
 	       __bpf_rx_skb(dev, skb) : __bpf_tx_skb(dev, skb);
@@ -1694,6 +1712,7 @@ static int __bpf_redirect_common(struct sk_buff *skb, struct net_device *dev,
 static int __bpf_redirect(struct sk_buff *skb, struct net_device *dev,
 			  u32 flags)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1715 \n"); 
 	switch (dev->type) {
 	case ARPHRD_TUNNEL:
 	case ARPHRD_TUNNEL6:
@@ -1769,6 +1788,7 @@ BPF_CALL_2(bpf_redirect, u32, ifindex, u64, flags)
 
 int skb_do_redirect(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1791 \n"); 
 	struct redirect_info *ri = this_cpu_ptr(&redirect_info);
 	struct net_device *dev;
 
@@ -1896,6 +1916,7 @@ EXPORT_SYMBOL_GPL(bpf_skb_vlan_pop_proto);
 
 static int bpf_skb_generic_push(struct sk_buff *skb, u32 off, u32 len)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1919 \n"); 
 	/* Caller already did skb_cow() with len as headroom,
 	 * so no need to do it here.
 	 */
@@ -1913,6 +1934,7 @@ static int bpf_skb_generic_push(struct sk_buff *skb, u32 off, u32 len)
 
 static int bpf_skb_generic_pop(struct sk_buff *skb, u32 off, u32 len)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1937 \n"); 
 	/* skb_ensure_writable() is not needed here, as we're
 	 * already working on an uncloned skb.
 	 */
@@ -1928,6 +1950,7 @@ static int bpf_skb_generic_pop(struct sk_buff *skb, u32 off, u32 len)
 
 static int bpf_skb_net_hdr_push(struct sk_buff *skb, u32 off, u32 len)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1953 \n"); 
 	bool trans_same = skb->transport_header == skb->network_header;
 	int ret;
 
@@ -1948,6 +1971,7 @@ static int bpf_skb_net_hdr_push(struct sk_buff *skb, u32 off, u32 len)
 
 static int bpf_skb_net_hdr_pop(struct sk_buff *skb, u32 off, u32 len)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1974 \n"); 
 	bool trans_same = skb->transport_header == skb->network_header;
 	int ret;
 
@@ -1965,6 +1989,7 @@ static int bpf_skb_net_hdr_pop(struct sk_buff *skb, u32 off, u32 len)
 
 static int bpf_skb_proto_4_to_6(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 1992 \n"); 
 	const u32 len_diff = sizeof(struct ipv6hdr) - sizeof(struct iphdr);
 	u32 off = skb->network_header - skb->mac_header;
 	int ret;
@@ -2001,6 +2026,7 @@ static int bpf_skb_proto_4_to_6(struct sk_buff *skb)
 
 static int bpf_skb_proto_6_to_4(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2029 \n"); 
 	const u32 len_diff = sizeof(struct ipv6hdr) - sizeof(struct iphdr);
 	u32 off = skb->network_header - skb->mac_header;
 	int ret;
@@ -2037,6 +2063,7 @@ static int bpf_skb_proto_6_to_4(struct sk_buff *skb)
 
 static int bpf_skb_proto_xlat(struct sk_buff *skb, __be16 to_proto)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2066 \n"); 
 	__be16 from_proto = skb->protocol;
 
 	if (from_proto == htons(ETH_P_IP) &&
@@ -2110,6 +2137,7 @@ static const struct bpf_func_proto bpf_skb_change_type_proto = {
 
 static u32 __bpf_skb_min_len(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2140 \n"); 
 	u32 min_len = skb_network_offset(skb);
 
 	if (skb_transport_header_was_set(skb))
@@ -2122,11 +2150,13 @@ static u32 __bpf_skb_min_len(const struct sk_buff *skb)
 
 static u32 __bpf_skb_max_len(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2153 \n"); 
 	return skb->dev->mtu + skb->dev->hard_header_len;
 }
 
 static int bpf_skb_grow_rcsum(struct sk_buff *skb, unsigned int new_len)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2159 \n"); 
 	unsigned int old_len = skb->len;
 	int ret;
 
@@ -2138,6 +2168,7 @@ static int bpf_skb_grow_rcsum(struct sk_buff *skb, unsigned int new_len)
 
 static int bpf_skb_trim_rcsum(struct sk_buff *skb, unsigned int new_len)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2171 \n"); 
 	return __skb_trim_rcsum(skb, new_len);
 }
 
@@ -2194,6 +2225,7 @@ static const struct bpf_func_proto bpf_skb_change_tail_proto = {
 
 bool bpf_helper_changes_skb_data(void *func)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2228 \n"); 
 	if (func == bpf_skb_vlan_push ||
 	    func == bpf_skb_vlan_pop ||
 	    func == bpf_skb_store_bytes ||
@@ -2211,6 +2243,7 @@ bool bpf_helper_changes_skb_data(void *func)
 static unsigned long bpf_skb_copy(void *dst_buff, const void *skb,
 				  unsigned long off, unsigned long len)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2246 \n"); 
 	void *ptr = skb_header_pointer(skb, off, len, dst_buff);
 
 	if (unlikely(!ptr))
@@ -2248,6 +2281,7 @@ static const struct bpf_func_proto bpf_skb_event_output_proto = {
 
 static unsigned short bpf_tunnel_key_af(u64 flags)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2284 \n"); 
 	return flags & BPF_F_TUNINFO_IPV6 ? AF_INET6 : AF_INET;
 }
 
@@ -2452,6 +2486,7 @@ static const struct bpf_func_proto bpf_skb_set_tunnel_opt_proto = {
 static const struct bpf_func_proto *
 bpf_get_skb_set_tunnel_proto(enum bpf_func_id which)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2489 \n"); 
 	if (!md_dst) {
 		/* Race is not possible, since it's called from verifier
 		 * that is holding verifier mutex.
@@ -2504,6 +2539,7 @@ static const struct bpf_func_proto bpf_skb_under_cgroup_proto = {
 static unsigned long bpf_xdp_copy(void *dst_buff, const void *src_buff,
 				  unsigned long off, unsigned long len)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2542 \n"); 
 	memcpy(dst_buff, src_buff + off, len);
 	return 0;
 }
@@ -2536,6 +2572,7 @@ static const struct bpf_func_proto bpf_xdp_event_output_proto = {
 static const struct bpf_func_proto *
 sk_filter_func_proto(enum bpf_func_id func_id)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2575 \n"); 
 	switch (func_id) {
 	case BPF_FUNC_map_lookup_elem:
 		return &bpf_map_lookup_elem_proto;
@@ -2562,6 +2599,7 @@ sk_filter_func_proto(enum bpf_func_id func_id)
 static const struct bpf_func_proto *
 tc_cls_act_func_proto(enum bpf_func_id func_id)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2602 \n"); 
 	switch (func_id) {
 	case BPF_FUNC_skb_store_bytes:
 		return &bpf_skb_store_bytes_proto;
@@ -2621,6 +2659,7 @@ tc_cls_act_func_proto(enum bpf_func_id func_id)
 static const struct bpf_func_proto *
 xdp_func_proto(enum bpf_func_id func_id)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2662 \n"); 
 	switch (func_id) {
 	case BPF_FUNC_perf_event_output:
 		return &bpf_xdp_event_output_proto;
@@ -2633,6 +2672,7 @@ xdp_func_proto(enum bpf_func_id func_id)
 
 static bool __is_valid_access(int off, int size, enum bpf_access_type type)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2675 \n"); 
 	if (off < 0 || off >= sizeof(struct __sk_buff))
 		return false;
 	/* The verifier guarantees that size > 0. */
@@ -2648,6 +2688,7 @@ static bool sk_filter_is_valid_access(int off, int size,
 				      enum bpf_access_type type,
 				      enum bpf_reg_type *reg_type)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2691 \n"); 
 	switch (off) {
 	case offsetof(struct __sk_buff, tc_classid):
 	case offsetof(struct __sk_buff, data):
@@ -2671,6 +2712,7 @@ static bool sk_filter_is_valid_access(int off, int size,
 static int tc_cls_act_prologue(struct bpf_insn *insn_buf, bool direct_write,
 			       const struct bpf_prog *prog)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2715 \n"); 
 	struct bpf_insn *insn = insn_buf;
 
 	if (!direct_write)
@@ -2711,6 +2753,7 @@ static bool tc_cls_act_is_valid_access(int off, int size,
 				       enum bpf_access_type type,
 				       enum bpf_reg_type *reg_type)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2756 \n"); 
 	if (type == BPF_WRITE) {
 		switch (off) {
 		case offsetof(struct __sk_buff, mark):
@@ -2740,6 +2783,7 @@ static bool tc_cls_act_is_valid_access(int off, int size,
 static bool __is_valid_xdp_access(int off, int size,
 				  enum bpf_access_type type)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2786 \n"); 
 	if (off < 0 || off >= sizeof(struct xdp_md))
 		return false;
 	if (off % size != 0)
@@ -2754,6 +2798,7 @@ static bool xdp_is_valid_access(int off, int size,
 				enum bpf_access_type type,
 				enum bpf_reg_type *reg_type)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2801 \n"); 
 	if (type == BPF_WRITE)
 		return false;
 
@@ -2771,6 +2816,7 @@ static bool xdp_is_valid_access(int off, int size,
 
 void bpf_warn_invalid_xdp_action(u32 act)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2819 \n"); 
 	WARN_ONCE(1, "Illegal XDP return value %u, expect packet loss\n", act);
 }
 EXPORT_SYMBOL_GPL(bpf_warn_invalid_xdp_action);
@@ -2780,6 +2826,7 @@ static u32 sk_filter_convert_ctx_access(enum bpf_access_type type, int dst_reg,
 					struct bpf_insn *insn_buf,
 					struct bpf_prog *prog)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2829 \n"); 
 	struct bpf_insn *insn = insn_buf;
 
 	switch (ctx_off) {
@@ -2931,6 +2978,7 @@ static u32 tc_cls_act_convert_ctx_access(enum bpf_access_type type, int dst_reg,
 					 struct bpf_insn *insn_buf,
 					 struct bpf_prog *prog)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 2981 \n"); 
 	struct bpf_insn *insn = insn_buf;
 
 	switch (ctx_off) {
@@ -2956,6 +3004,7 @@ static u32 xdp_convert_ctx_access(enum bpf_access_type type, int dst_reg,
 				  struct bpf_insn *insn_buf,
 				  struct bpf_prog *prog)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 3007 \n"); 
 	struct bpf_insn *insn = insn_buf;
 
 	switch (ctx_off) {
@@ -3026,6 +3075,7 @@ late_initcall(register_sk_filter_ops);
 
 int sk_detach_filter(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/filter.c: line 3078 \n"); 
 	int ret = -ENOENT;
 	struct sk_filter *filter;
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/fs.h>
 #include <linux/init.h>
 #include <linux/kernel.h>
@@ -7,6 +8,7 @@
 
 static int version_proc_show(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/version.c: line 11 \n"); 
 	seq_printf(m, linux_proc_banner,
 		utsname()->sysname,
 		utsname()->release,
@@ -16,6 +18,7 @@ static int version_proc_show(struct seq_file *m, void *v)
 
 static int version_proc_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/version.c: line 21 \n"); 
 	return single_open(file, version_proc_show, NULL);
 }
 

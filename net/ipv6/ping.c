@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -30,14 +31,17 @@
 static int dummy_ipv6_recv_error(struct sock *sk, struct msghdr *msg, int len,
 				 int *addr_len)
 {
+	panic("We reached unpopular paths in net/ipv6/ping.c: line 34 \n"); 
 	return -EAFNOSUPPORT;
 }
 static void dummy_ip6_datagram_recv_ctl(struct sock *sk, struct msghdr *msg,
 				       struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/ping.c: line 40 \n"); 
 }
 static int dummy_icmpv6_err_convert(u8 type, u8 code, int *err)
 {
+	panic("We reached unpopular paths in net/ipv6/ping.c: line 44 \n"); 
 	return -EAFNOSUPPORT;
 }
 static void dummy_ipv6_icmp_error(struct sock *sk, struct sk_buff *skb, int err,
@@ -45,11 +49,13 @@ static void dummy_ipv6_icmp_error(struct sock *sk, struct sk_buff *skb, int err,
 static int dummy_ipv6_chk_addr(struct net *net, const struct in6_addr *addr,
 			       const struct net_device *dev, int strict)
 {
+	panic("We reached unpopular paths in net/ipv6/ping.c: line 52 \n"); 
 	return 0;
 }
 
 static int ping_v6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
 {
+	panic("We reached unpopular paths in net/ipv6/ping.c: line 58 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct icmp6hdr user_icmph;
@@ -272,6 +278,7 @@ int __init pingv6_init(void)
  */
 void pingv6_exit(void)
 {
+	panic("We reached unpopular paths in net/ipv6/ping.c: line 281 \n"); 
 	pingv6_ops.ipv6_recv_error = dummy_ipv6_recv_error;
 	pingv6_ops.ip6_datagram_recv_common_ctl = dummy_ip6_datagram_recv_ctl;
 	pingv6_ops.ip6_datagram_recv_specific_ctl = dummy_ip6_datagram_recv_ctl;

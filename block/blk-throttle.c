@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Interface for controlling IO bandwidth on a request queue
  *
@@ -153,16 +154,19 @@ static void throtl_pending_timer_fn(unsigned long arg);
 
 static inline struct throtl_grp *pd_to_tg(struct blkg_policy_data *pd)
 {
+	// [blacklist] panic("We reached unpopular paths in block/blk-throttle.c: line 157 \n"); 
 	return pd ? container_of(pd, struct throtl_grp, pd) : NULL;
 }
 
 static inline struct throtl_grp *blkg_to_tg(struct blkcg_gq *blkg)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 163 \n"); 
 	return pd_to_tg(blkg_to_pd(blkg, &blkcg_policy_throtl));
 }
 
 static inline struct blkcg_gq *tg_to_blkg(struct throtl_grp *tg)
 {
+	// [blacklist] panic("We reached unpopular paths in block/blk-throttle.c: line 169 \n"); 
 	return pd_to_blkg(&tg->pd);
 }
 
@@ -175,6 +179,7 @@ static inline struct blkcg_gq *tg_to_blkg(struct throtl_grp *tg)
  */
 static struct throtl_grp *sq_to_tg(struct throtl_service_queue *sq)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 182 \n"); 
 	if (sq && sq->parent_sq)
 		return container_of(sq, struct throtl_grp, service_queue);
 	else
@@ -190,6 +195,7 @@ static struct throtl_grp *sq_to_tg(struct throtl_service_queue *sq)
  */
 static struct throtl_data *sq_to_td(struct throtl_service_queue *sq)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 198 \n"); 
 	struct throtl_grp *tg = sq_to_tg(sq);
 
 	if (tg)
@@ -226,6 +232,7 @@ static struct throtl_data *sq_to_td(struct throtl_service_queue *sq)
 
 static void throtl_qnode_init(struct throtl_qnode *qn, struct throtl_grp *tg)
 {
+	// [blacklist] panic("We reached unpopular paths in block/blk-throttle.c: line 235 \n"); 
 	INIT_LIST_HEAD(&qn->node);
 	bio_list_init(&qn->bios);
 	qn->tg = tg;
@@ -244,6 +251,7 @@ static void throtl_qnode_init(struct throtl_qnode *qn, struct throtl_grp *tg)
 static void throtl_qnode_add_bio(struct bio *bio, struct throtl_qnode *qn,
 				 struct list_head *queued)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 254 \n"); 
 	bio_list_add(&qn->bios, bio);
 	if (list_empty(&qn->node)) {
 		list_add_tail(&qn->node, queued);
@@ -257,6 +265,7 @@ static void throtl_qnode_add_bio(struct bio *bio, struct throtl_qnode *qn,
  */
 static struct bio *throtl_peek_queued(struct list_head *queued)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 268 \n"); 
 	struct throtl_qnode *qn = list_first_entry(queued, struct throtl_qnode, node);
 	struct bio *bio;
 
@@ -285,6 +294,7 @@ static struct bio *throtl_peek_queued(struct list_head *queued)
 static struct bio *throtl_pop_queued(struct list_head *queued,
 				     struct throtl_grp **tg_to_put)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 297 \n"); 
 	struct throtl_qnode *qn = list_first_entry(queued, struct throtl_qnode, node);
 	struct bio *bio;
 
@@ -375,6 +385,7 @@ static void throtl_pd_init(struct blkg_policy_data *pd)
  */
 static void tg_update_has_rules(struct throtl_grp *tg)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 388 \n"); 
 	struct throtl_grp *parent_tg = sq_to_tg(tg->service_queue.parent_sq);
 	int rw;
 
@@ -385,6 +396,7 @@ static void tg_update_has_rules(struct throtl_grp *tg)
 
 static void throtl_pd_online(struct blkg_policy_data *pd)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 399 \n"); 
 	/*
 	 * We don't want new groups to escape the limits of its ancestors.
 	 * Update has_rules[] after a new group is brought online.
@@ -403,6 +415,7 @@ static void throtl_pd_free(struct blkg_policy_data *pd)
 static struct throtl_grp *
 throtl_rb_first(struct throtl_service_queue *parent_sq)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 418 \n"); 
 	/* Service tree is empty */
 	if (!parent_sq->nr_pending)
 		return NULL;
@@ -418,6 +431,7 @@ throtl_rb_first(struct throtl_service_queue *parent_sq)
 
 static void rb_erase_init(struct rb_node *n, struct rb_root *root)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 434 \n"); 
 	rb_erase(n, root);
 	RB_CLEAR_NODE(n);
 }
@@ -425,6 +439,7 @@ static void rb_erase_init(struct rb_node *n, struct rb_root *root)
 static void throtl_rb_erase(struct rb_node *n,
 			    struct throtl_service_queue *parent_sq)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 442 \n"); 
 	if (parent_sq->first_pending == n)
 		parent_sq->first_pending = NULL;
 	rb_erase_init(n, &parent_sq->pending_tree);
@@ -433,6 +448,7 @@ static void throtl_rb_erase(struct rb_node *n,
 
 static void update_min_dispatch_time(struct throtl_service_queue *parent_sq)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 451 \n"); 
 	struct throtl_grp *tg;
 
 	tg = throtl_rb_first(parent_sq);
@@ -444,6 +460,7 @@ static void update_min_dispatch_time(struct throtl_service_queue *parent_sq)
 
 static void tg_service_queue_add(struct throtl_grp *tg)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 463 \n"); 
 	struct throtl_service_queue *parent_sq = tg->service_queue.parent_sq;
 	struct rb_node **node = &parent_sq->pending_tree.rb_node;
 	struct rb_node *parent = NULL;
@@ -472,6 +489,7 @@ static void tg_service_queue_add(struct throtl_grp *tg)
 
 static void __throtl_enqueue_tg(struct throtl_grp *tg)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 492 \n"); 
 	tg_service_queue_add(tg);
 	tg->flags |= THROTL_TG_PENDING;
 	tg->service_queue.parent_sq->nr_pending++;
@@ -479,18 +497,21 @@ static void __throtl_enqueue_tg(struct throtl_grp *tg)
 
 static void throtl_enqueue_tg(struct throtl_grp *tg)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 500 \n"); 
 	if (!(tg->flags & THROTL_TG_PENDING))
 		__throtl_enqueue_tg(tg);
 }
 
 static void __throtl_dequeue_tg(struct throtl_grp *tg)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 507 \n"); 
 	throtl_rb_erase(&tg->rb_node, tg->service_queue.parent_sq);
 	tg->flags &= ~THROTL_TG_PENDING;
 }
 
 static void throtl_dequeue_tg(struct throtl_grp *tg)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 514 \n"); 
 	if (tg->flags & THROTL_TG_PENDING)
 		__throtl_dequeue_tg(tg);
 }
@@ -499,6 +520,7 @@ static void throtl_dequeue_tg(struct throtl_grp *tg)
 static void throtl_schedule_pending_timer(struct throtl_service_queue *sq,
 					  unsigned long expires)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 523 \n"); 
 	mod_timer(&sq->pending_timer, expires);
 	throtl_log(sq, "schedule timer. delay=%lu jiffies=%lu",
 		   expires - jiffies, jiffies);
@@ -525,6 +547,7 @@ static void throtl_schedule_pending_timer(struct throtl_service_queue *sq,
 static bool throtl_schedule_next_dispatch(struct throtl_service_queue *sq,
 					  bool force)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 550 \n"); 
 	/* any pending children left? */
 	if (!sq->nr_pending)
 		return true;
@@ -544,6 +567,7 @@ static bool throtl_schedule_next_dispatch(struct throtl_service_queue *sq,
 static inline void throtl_start_new_slice_with_credit(struct throtl_grp *tg,
 		bool rw, unsigned long start)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 570 \n"); 
 	tg->bytes_disp[rw] = 0;
 	tg->io_disp[rw] = 0;
 
@@ -565,6 +589,7 @@ static inline void throtl_start_new_slice_with_credit(struct throtl_grp *tg,
 
 static inline void throtl_start_new_slice(struct throtl_grp *tg, bool rw)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 592 \n"); 
 	tg->bytes_disp[rw] = 0;
 	tg->io_disp[rw] = 0;
 	tg->slice_start[rw] = jiffies;
@@ -578,12 +603,14 @@ static inline void throtl_start_new_slice(struct throtl_grp *tg, bool rw)
 static inline void throtl_set_slice_end(struct throtl_grp *tg, bool rw,
 					unsigned long jiffy_end)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 606 \n"); 
 	tg->slice_end[rw] = roundup(jiffy_end, throtl_slice);
 }
 
 static inline void throtl_extend_slice(struct throtl_grp *tg, bool rw,
 				       unsigned long jiffy_end)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 613 \n"); 
 	tg->slice_end[rw] = roundup(jiffy_end, throtl_slice);
 	throtl_log(&tg->service_queue,
 		   "[%c] extend slice start=%lu end=%lu jiffies=%lu",
@@ -594,6 +621,7 @@ static inline void throtl_extend_slice(struct throtl_grp *tg, bool rw,
 /* Determine if previously allocated or extended slice is complete or not */
 static bool throtl_slice_used(struct throtl_grp *tg, bool rw)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 624 \n"); 
 	if (time_in_range(jiffies, tg->slice_start[rw], tg->slice_end[rw]))
 		return false;
 
@@ -603,6 +631,7 @@ static bool throtl_slice_used(struct throtl_grp *tg, bool rw)
 /* Trim the used slices and adjust slice start accordingly */
 static inline void throtl_trim_slice(struct throtl_grp *tg, bool rw)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 634 \n"); 
 	unsigned long nr_slices, time_elapsed, io_trim;
 	u64 bytes_trim, tmp;
 
@@ -662,6 +691,7 @@ static inline void throtl_trim_slice(struct throtl_grp *tg, bool rw)
 static bool tg_with_in_iops_limit(struct throtl_grp *tg, struct bio *bio,
 				  unsigned long *wait)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 694 \n"); 
 	bool rw = bio_data_dir(bio);
 	unsigned int io_allowed;
 	unsigned long jiffy_elapsed, jiffy_wait, jiffy_elapsed_rnd;
@@ -712,6 +742,7 @@ static bool tg_with_in_iops_limit(struct throtl_grp *tg, struct bio *bio,
 static bool tg_with_in_bps_limit(struct throtl_grp *tg, struct bio *bio,
 				 unsigned long *wait)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 745 \n"); 
 	bool rw = bio_data_dir(bio);
 	u64 bytes_allowed, extra_bytes, tmp;
 	unsigned long jiffy_elapsed, jiffy_wait, jiffy_elapsed_rnd;
@@ -758,6 +789,7 @@ static bool tg_with_in_bps_limit(struct throtl_grp *tg, struct bio *bio,
 static bool tg_may_dispatch(struct throtl_grp *tg, struct bio *bio,
 			    unsigned long *wait)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 792 \n"); 
 	bool rw = bio_data_dir(bio);
 	unsigned long bps_wait = 0, iops_wait = 0, max_wait = 0;
 
@@ -811,6 +843,7 @@ static bool tg_may_dispatch(struct throtl_grp *tg, struct bio *bio,
 
 static void throtl_charge_bio(struct throtl_grp *tg, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 846 \n"); 
 	bool rw = bio_data_dir(bio);
 
 	/* Charge the bio to the group */
@@ -839,6 +872,7 @@ static void throtl_charge_bio(struct throtl_grp *tg, struct bio *bio)
 static void throtl_add_bio_tg(struct bio *bio, struct throtl_qnode *qn,
 			      struct throtl_grp *tg)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 875 \n"); 
 	struct throtl_service_queue *sq = &tg->service_queue;
 	bool rw = bio_data_dir(bio);
 
@@ -862,6 +896,7 @@ static void throtl_add_bio_tg(struct bio *bio, struct throtl_qnode *qn,
 
 static void tg_update_disptime(struct throtl_grp *tg)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 899 \n"); 
 	struct throtl_service_queue *sq = &tg->service_queue;
 	unsigned long read_wait = -1, write_wait = -1, min_wait = -1, disptime;
 	struct bio *bio;
@@ -887,6 +922,7 @@ static void tg_update_disptime(struct throtl_grp *tg)
 static void start_parent_slice_with_credit(struct throtl_grp *child_tg,
 					struct throtl_grp *parent_tg, bool rw)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 925 \n"); 
 	if (throtl_slice_used(parent_tg, rw)) {
 		throtl_start_new_slice_with_credit(parent_tg, rw,
 				child_tg->slice_start[rw]);
@@ -896,6 +932,7 @@ static void start_parent_slice_with_credit(struct throtl_grp *child_tg,
 
 static void tg_dispatch_one_bio(struct throtl_grp *tg, bool rw)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 935 \n"); 
 	struct throtl_service_queue *sq = &tg->service_queue;
 	struct throtl_service_queue *parent_sq = sq->parent_sq;
 	struct throtl_grp *parent_tg = sq_to_tg(parent_sq);
@@ -938,6 +975,7 @@ static void tg_dispatch_one_bio(struct throtl_grp *tg, bool rw)
 
 static int throtl_dispatch_tg(struct throtl_grp *tg)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 978 \n"); 
 	struct throtl_service_queue *sq = &tg->service_queue;
 	unsigned int nr_reads = 0, nr_writes = 0;
 	unsigned int max_nr_reads = throtl_grp_quantum*3/4;
@@ -971,6 +1009,7 @@ static int throtl_dispatch_tg(struct throtl_grp *tg)
 
 static int throtl_select_dispatch(struct throtl_service_queue *parent_sq)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1012 \n"); 
 	unsigned int nr_disp = 0;
 
 	while (1) {
@@ -1014,6 +1053,7 @@ static int throtl_select_dispatch(struct throtl_service_queue *parent_sq)
  */
 static void throtl_pending_timer_fn(unsigned long arg)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1056 \n"); 
 	struct throtl_service_queue *sq = (void *)arg;
 	struct throtl_grp *tg = sq_to_tg(sq);
 	struct throtl_data *td = sq_to_td(sq);
@@ -1079,6 +1119,7 @@ out_unlock:
  */
 static void blk_throtl_dispatch_work_fn(struct work_struct *work)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1122 \n"); 
 	struct throtl_data *td = container_of(work, struct throtl_data,
 					      dispatch_work);
 	struct throtl_service_queue *td_sq = &td->service_queue;
@@ -1107,6 +1148,7 @@ static void blk_throtl_dispatch_work_fn(struct work_struct *work)
 static u64 tg_prfill_conf_u64(struct seq_file *sf, struct blkg_policy_data *pd,
 			      int off)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1151 \n"); 
 	struct throtl_grp *tg = pd_to_tg(pd);
 	u64 v = *(u64 *)((void *)tg + off);
 
@@ -1118,6 +1160,7 @@ static u64 tg_prfill_conf_u64(struct seq_file *sf, struct blkg_policy_data *pd,
 static u64 tg_prfill_conf_uint(struct seq_file *sf, struct blkg_policy_data *pd,
 			       int off)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1163 \n"); 
 	struct throtl_grp *tg = pd_to_tg(pd);
 	unsigned int v = *(unsigned int *)((void *)tg + off);
 
@@ -1128,6 +1171,7 @@ static u64 tg_prfill_conf_uint(struct seq_file *sf, struct blkg_policy_data *pd,
 
 static int tg_print_conf_u64(struct seq_file *sf, void *v)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1174 \n"); 
 	blkcg_print_blkgs(sf, css_to_blkcg(seq_css(sf)), tg_prfill_conf_u64,
 			  &blkcg_policy_throtl, seq_cft(sf)->private, false);
 	return 0;
@@ -1135,6 +1179,7 @@ static int tg_print_conf_u64(struct seq_file *sf, void *v)
 
 static int tg_print_conf_uint(struct seq_file *sf, void *v)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1182 \n"); 
 	blkcg_print_blkgs(sf, css_to_blkcg(seq_css(sf)), tg_prfill_conf_uint,
 			  &blkcg_policy_throtl, seq_cft(sf)->private, false);
 	return 0;
@@ -1142,6 +1187,7 @@ static int tg_print_conf_uint(struct seq_file *sf, void *v)
 
 static void tg_conf_updated(struct throtl_grp *tg)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1190 \n"); 
 	struct throtl_service_queue *sq = &tg->service_queue;
 	struct cgroup_subsys_state *pos_css;
 	struct blkcg_gq *blkg;
@@ -1181,6 +1227,7 @@ static void tg_conf_updated(struct throtl_grp *tg)
 static ssize_t tg_set_conf(struct kernfs_open_file *of,
 			   char *buf, size_t nbytes, loff_t off, bool is_u64)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1230 \n"); 
 	struct blkcg *blkcg = css_to_blkcg(of_css(of));
 	struct blkg_conf_ctx ctx;
 	struct throtl_grp *tg;
@@ -1214,12 +1261,14 @@ out_finish:
 static ssize_t tg_set_conf_u64(struct kernfs_open_file *of,
 			       char *buf, size_t nbytes, loff_t off)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1264 \n"); 
 	return tg_set_conf(of, buf, nbytes, off, true);
 }
 
 static ssize_t tg_set_conf_uint(struct kernfs_open_file *of,
 				char *buf, size_t nbytes, loff_t off)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1271 \n"); 
 	return tg_set_conf(of, buf, nbytes, off, false);
 }
 
@@ -1264,6 +1313,7 @@ static struct cftype throtl_legacy_files[] = {
 static u64 tg_prfill_max(struct seq_file *sf, struct blkg_policy_data *pd,
 			 int off)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1316 \n"); 
 	struct throtl_grp *tg = pd_to_tg(pd);
 	const char *dname = blkg_dev_name(pd->blkg);
 	char bufs[4][21] = { "max", "max", "max", "max" };
@@ -1290,6 +1340,7 @@ static u64 tg_prfill_max(struct seq_file *sf, struct blkg_policy_data *pd,
 
 static int tg_print_max(struct seq_file *sf, void *v)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1343 \n"); 
 	blkcg_print_blkgs(sf, css_to_blkcg(seq_css(sf)), tg_prfill_max,
 			  &blkcg_policy_throtl, seq_cft(sf)->private, false);
 	return 0;
@@ -1298,6 +1349,7 @@ static int tg_print_max(struct seq_file *sf, void *v)
 static ssize_t tg_set_max(struct kernfs_open_file *of,
 			  char *buf, size_t nbytes, loff_t off)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1352 \n"); 
 	struct blkcg *blkcg = css_to_blkcg(of_css(of));
 	struct blkg_conf_ctx ctx;
 	struct throtl_grp *tg;
@@ -1374,6 +1426,7 @@ static struct cftype throtl_files[] = {
 
 static void throtl_shutdown_wq(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1429 \n"); 
 	struct throtl_data *td = q->td;
 
 	cancel_work_sync(&td->dispatch_work);
@@ -1392,6 +1445,7 @@ static struct blkcg_policy blkcg_policy_throtl = {
 bool blk_throtl_bio(struct request_queue *q, struct blkcg_gq *blkg,
 		    struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1448 \n"); 
 	struct throtl_qnode *qn = NULL;
 	struct throtl_grp *tg = blkg_to_tg(blkg ?: q->root_blkg);
 	struct throtl_service_queue *sq;
@@ -1491,6 +1545,7 @@ out:
  */
 static void tg_drain_bios(struct throtl_service_queue *parent_sq)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1548 \n"); 
 	struct throtl_grp *tg;
 
 	while ((tg = throtl_rb_first(parent_sq))) {
@@ -1572,6 +1627,7 @@ int blk_throtl_init(struct request_queue *q)
 
 void blk_throtl_exit(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-throttle.c: line 1630 \n"); 
 	BUG_ON(!q->td);
 	throtl_shutdown_wq(q);
 	blkcg_deactivate_policy(q, &blkcg_policy_throtl);

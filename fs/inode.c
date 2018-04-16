@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 1997 Linus Torvalds
  * (C) 1999 Andrea Arcangeli <andrea@suse.de> (dynamic inode allocation)
@@ -115,6 +116,7 @@ int proc_nr_inodes(struct ctl_table *table, int write,
 
 static int no_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 119 \n"); 
 	return -ENXIO;
 }
 
@@ -389,6 +391,7 @@ static void init_once(void *foo)
  */
 void __iget(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 394 \n"); 
 	atomic_inc(&inode->i_count);
 }
 
@@ -403,6 +406,7 @@ EXPORT_SYMBOL(ihold);
 
 static void inode_lru_list_add(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 409 \n"); 
 	if (list_lru_add(&inode->i_sb->s_inode_lru, &inode->i_lru))
 		this_cpu_inc(nr_unused);
 }
@@ -414,6 +418,7 @@ static void inode_lru_list_add(struct inode *inode)
  */
 void inode_add_lru(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 421 \n"); 
 	if (!(inode->i_state & (I_DIRTY_ALL | I_SYNC |
 				I_FREEING | I_WILL_FREE)) &&
 	    !atomic_read(&inode->i_count) && inode->i_sb->s_flags & MS_ACTIVE)
@@ -423,6 +428,7 @@ void inode_add_lru(struct inode *inode)
 
 static void inode_lru_list_del(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 431 \n"); 
 
 	if (list_lru_del(&inode->i_sb->s_inode_lru, &inode->i_lru))
 		this_cpu_dec(nr_unused);
@@ -651,6 +657,7 @@ EXPORT_SYMBOL_GPL(evict_inodes);
  */
 int invalidate_inodes(struct super_block *sb, bool kill_dirty)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 660 \n"); 
 	int busy = 0;
 	struct inode *inode, *next;
 	LIST_HEAD(dispose);
@@ -703,6 +710,7 @@ int invalidate_inodes(struct super_block *sb, bool kill_dirty)
 static enum lru_status inode_lru_isolate(struct list_head *item,
 		struct list_lru_one *lru, spinlock_t *lru_lock, void *arg)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 713 \n"); 
 	struct list_head *freeable = arg;
 	struct inode	*inode = container_of(item, struct inode, i_lru);
 
@@ -768,6 +776,7 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
  */
 long prune_icache_sb(struct super_block *sb, struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 779 \n"); 
 	LIST_HEAD(freeable);
 	long freed;
 
@@ -1164,6 +1173,7 @@ EXPORT_SYMBOL(iget_locked);
  */
 static int test_inode_iunique(struct super_block *sb, unsigned long ino)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1176 \n"); 
 	struct hlist_head *b = inode_hashtable + hash(sb, ino);
 	struct inode *inode;
 
@@ -1195,6 +1205,7 @@ static int test_inode_iunique(struct super_block *sb, unsigned long ino)
  */
 ino_t iunique(struct super_block *sb, ino_t max_reserved)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1208 \n"); 
 	/*
 	 * On a 32bit, non LFS stat() call, glibc will generate an EOVERFLOW
 	 * error if st_ino won't fit in target struct field. Use 32bit counter
@@ -1218,6 +1229,7 @@ EXPORT_SYMBOL(iunique);
 
 struct inode *igrab(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1232 \n"); 
 	spin_lock(&inode->i_lock);
 	if (!(inode->i_state & (I_FREEING|I_WILL_FREE))) {
 		__iget(inode);
@@ -1254,6 +1266,7 @@ EXPORT_SYMBOL(igrab);
 struct inode *ilookup5_nowait(struct super_block *sb, unsigned long hashval,
 		int (*test)(struct inode *, void *), void *data)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1269 \n"); 
 	struct hlist_head *head = inode_hashtable + hash(sb, hashval);
 	struct inode *inode;
 
@@ -1285,6 +1298,7 @@ EXPORT_SYMBOL(ilookup5_nowait);
 struct inode *ilookup5(struct super_block *sb, unsigned long hashval,
 		int (*test)(struct inode *, void *), void *data)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1301 \n"); 
 	struct inode *inode;
 again:
 	inode = ilookup5_nowait(sb, hashval, test, data);
@@ -1309,6 +1323,7 @@ EXPORT_SYMBOL(ilookup5);
  */
 struct inode *ilookup(struct super_block *sb, unsigned long ino)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1326 \n"); 
 	struct hlist_head *head = inode_hashtable + hash(sb, ino);
 	struct inode *inode;
 again:
@@ -1356,6 +1371,7 @@ struct inode *find_inode_nowait(struct super_block *sb,
 					     void *),
 				void *data)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1374 \n"); 
 	struct hlist_head *head = inode_hashtable + hash(sb, hashval);
 	struct inode *inode, *ret_inode = NULL;
 	int mval;
@@ -1379,6 +1395,7 @@ EXPORT_SYMBOL(find_inode_nowait);
 
 int insert_inode_locked(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1398 \n"); 
 	struct super_block *sb = inode->i_sb;
 	ino_t ino = inode->i_ino;
 	struct hlist_head *head = inode_hashtable + hash(sb, ino);
@@ -1422,6 +1439,7 @@ EXPORT_SYMBOL(insert_inode_locked);
 int insert_inode_locked4(struct inode *inode, unsigned long hashval,
 		int (*test)(struct inode *, void *), void *data)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1442 \n"); 
 	struct super_block *sb = inode->i_sb;
 	struct hlist_head *head = inode_hashtable + hash(sb, hashval);
 
@@ -1558,6 +1576,7 @@ EXPORT_SYMBOL(iput);
  */
 sector_t bmap(struct inode *inode, sector_t block)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1579 \n"); 
 	sector_t res = 0;
 	if (inode->i_mapping->a_ops->bmap)
 		res = inode->i_mapping->a_ops->bmap(inode->i_mapping, block);
@@ -1783,6 +1802,7 @@ int dentry_needs_remove_privs(struct dentry *dentry)
 
 static int __remove_privs(struct dentry *dentry, int kill)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1805 \n"); 
 	struct iattr newattrs;
 
 	newattrs.ia_valid = ATTR_FORCE | kill;
@@ -1870,6 +1890,7 @@ EXPORT_SYMBOL(file_update_time);
 
 int inode_needs_sync(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1893 \n"); 
 	if (IS_SYNC(inode))
 		return 1;
 	if (S_ISDIR(inode->i_mode) && IS_DIRSYNC(inode))
@@ -1891,6 +1912,7 @@ EXPORT_SYMBOL(inode_needs_sync);
  */
 static void __wait_on_freeing_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 1915 \n"); 
 	wait_queue_head_t *wq;
 	DEFINE_WAIT_BIT(wait, &inode->i_state, __I_NEW);
 	wq = bit_waitqueue(&inode->i_state, __I_NEW);
@@ -2037,6 +2059,7 @@ EXPORT_SYMBOL(inode_owner_or_capable);
  */
 static void __inode_dio_wait(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 2062 \n"); 
 	wait_queue_head_t *wq = bit_waitqueue(&inode->i_state, __I_DIO_WAKEUP);
 	DEFINE_WAIT_BIT(q, &inode->i_state, __I_DIO_WAKEUP);
 
@@ -2060,6 +2083,7 @@ static void __inode_dio_wait(struct inode *inode)
  */
 void inode_dio_wait(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 2086 \n"); 
 	if (atomic_read(&inode->i_dio_count))
 		__inode_dio_wait(inode);
 }
@@ -2084,6 +2108,7 @@ EXPORT_SYMBOL(inode_dio_wait);
 void inode_set_flags(struct inode *inode, unsigned int flags,
 		     unsigned int mask)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 2111 \n"); 
 	unsigned int old_flags, new_flags;
 
 	WARN_ON_ONCE(flags & ~mask);
@@ -2097,6 +2122,7 @@ EXPORT_SYMBOL(inode_set_flags);
 
 void inode_nohighmem(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/inode.c: line 2125 \n"); 
 	mapping_set_gfp_mask(inode->i_mapping, GFP_USER);
 }
 EXPORT_SYMBOL(inode_nohighmem);

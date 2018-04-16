@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* module that allows mangling of the arp payload */
 #include <linux/module.h>
 #include <linux/netfilter.h>
@@ -11,6 +12,7 @@ MODULE_DESCRIPTION("arptables arp payload mangle target");
 static unsigned int
 target(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/arpt_mangle.c: line 15 \n"); 
 	const struct arpt_mangle *mangle = par->targinfo;
 	const struct arphdr *arp;
 	unsigned char *arpptr;
@@ -56,6 +58,7 @@ target(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int checkentry(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/arpt_mangle.c: line 61 \n"); 
 	const struct arpt_mangle *mangle = par->targinfo;
 
 	if (mangle->flags & ~ARPT_MANGLE_MASK ||

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Non-physical true random number generator based on timing jitter --
  * Linux Kernel Crypto API specific code
@@ -59,31 +60,37 @@ void jent_entropy_collector_free(struct rand_data *entropy_collector);
 
 __u64 jent_rol64(__u64 word, unsigned int shift)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy-kcapi.c: line 63 \n"); 
 	return rol64(word, shift);
 }
 
 void *jent_zalloc(unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy-kcapi.c: line 69 \n"); 
 	return kzalloc(len, GFP_KERNEL);
 }
 
 void jent_zfree(void *ptr)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy-kcapi.c: line 75 \n"); 
 	kzfree(ptr);
 }
 
 int jent_fips_enabled(void)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy-kcapi.c: line 81 \n"); 
 	return fips_enabled;
 }
 
 void jent_panic(char *s)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy-kcapi.c: line 87 \n"); 
 	panic("%s", s);
 }
 
 void jent_memcpy(void *dest, const void *src, unsigned int n)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy-kcapi.c: line 93 \n"); 
 	memcpy(dest, src, n);
 }
 
@@ -124,6 +131,7 @@ struct jitterentropy {
 
 static int jent_kcapi_init(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy-kcapi.c: line 134 \n"); 
 	struct jitterentropy *rng = crypto_tfm_ctx(tfm);
 	int ret = 0;
 
@@ -137,6 +145,7 @@ static int jent_kcapi_init(struct crypto_tfm *tfm)
 
 static void jent_kcapi_cleanup(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy-kcapi.c: line 148 \n"); 
 	struct jitterentropy *rng = crypto_tfm_ctx(tfm);
 
 	spin_lock(&rng->jent_lock);
@@ -150,6 +159,7 @@ static int jent_kcapi_random(struct crypto_rng *tfm,
 			     const u8 *src, unsigned int slen,
 			     u8 *rdata, unsigned int dlen)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy-kcapi.c: line 162 \n"); 
 	struct jitterentropy *rng = crypto_rng_ctx(tfm);
 	int ret = 0;
 
@@ -163,6 +173,7 @@ static int jent_kcapi_random(struct crypto_rng *tfm,
 static int jent_kcapi_reset(struct crypto_rng *tfm,
 			    const u8 *seed, unsigned int slen)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy-kcapi.c: line 176 \n"); 
 	return 0;
 }
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -756,6 +757,7 @@ static const u64 c[KHAZAD_ROUNDS + 1] = {
 static int khazad_setkey(struct crypto_tfm *tfm, const u8 *in_key,
 			 unsigned int key_len)
 {
+	panic("We reached unpopular paths in crypto/khazad.c: line 760 \n"); 
 	struct khazad_ctx *ctx = crypto_tfm_ctx(tfm);
 	const __be32 *key = (const __be32 *)in_key;
 	int r;
@@ -802,6 +804,7 @@ static int khazad_setkey(struct crypto_tfm *tfm, const u8 *in_key,
 static void khazad_crypt(const u64 roundKey[KHAZAD_ROUNDS + 1],
 		u8 *ciphertext, const u8 *plaintext)
 {
+	panic("We reached unpopular paths in crypto/khazad.c: line 807 \n"); 
 	const __be64 *src = (const __be64 *)plaintext;
 	__be64 *dst = (__be64 *)ciphertext;
 	int r;
@@ -836,12 +839,14 @@ static void khazad_crypt(const u64 roundKey[KHAZAD_ROUNDS + 1],
 
 static void khazad_encrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/khazad.c: line 842 \n"); 
 	struct khazad_ctx *ctx = crypto_tfm_ctx(tfm);
 	khazad_crypt(ctx->E, dst, src);
 }
 
 static void khazad_decrypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/khazad.c: line 849 \n"); 
 	struct khazad_ctx *ctx = crypto_tfm_ctx(tfm);
 	khazad_crypt(ctx->D, dst, src);
 }

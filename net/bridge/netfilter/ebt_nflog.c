@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * ebt_nflog
  *
@@ -22,6 +23,7 @@
 static unsigned int
 ebt_nflog_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_nflog.c: line 26 \n"); 
 	const struct ebt_nflog_info *info = par->targinfo;
 	struct nf_loginfo li;
 	struct net *net = par->net;
@@ -38,6 +40,7 @@ ebt_nflog_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int ebt_nflog_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_nflog.c: line 43 \n"); 
 	struct ebt_nflog_info *info = par->targinfo;
 
 	if (info->flags & ~EBT_NFLOG_MASK)

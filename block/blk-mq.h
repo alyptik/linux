@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #ifndef INT_BLK_MQ_H
 #define INT_BLK_MQ_H
 
@@ -62,6 +63,7 @@ void blk_mq_release(struct request_queue *q);
 static inline struct blk_mq_ctx *__blk_mq_get_ctx(struct request_queue *q,
 					   unsigned int cpu)
 {
+	panic("We reached unpopular paths in block/blk-mq.h: line 66 \n"); 
 	return per_cpu_ptr(q->queue_ctx, cpu);
 }
 
@@ -73,11 +75,13 @@ static inline struct blk_mq_ctx *__blk_mq_get_ctx(struct request_queue *q,
  */
 static inline struct blk_mq_ctx *blk_mq_get_ctx(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.h: line 78 \n"); 
 	return __blk_mq_get_ctx(q, get_cpu());
 }
 
 static inline void blk_mq_put_ctx(struct blk_mq_ctx *ctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.h: line 84 \n"); 
 	put_cpu();
 }
 
@@ -95,6 +99,7 @@ static inline void blk_mq_set_alloc_data(struct blk_mq_alloc_data *data,
 		struct request_queue *q, unsigned int flags,
 		struct blk_mq_ctx *ctx, struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.h: line 102 \n"); 
 	data->q = q;
 	data->flags = flags;
 	data->ctx = ctx;
@@ -103,6 +108,7 @@ static inline void blk_mq_set_alloc_data(struct blk_mq_alloc_data *data,
 
 static inline bool blk_mq_hw_queue_mapped(struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.h: line 111 \n"); 
 	return hctx->nr_ctx && hctx->tags;
 }
 

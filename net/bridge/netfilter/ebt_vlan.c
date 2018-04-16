@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Description: EBTables 802.1Q match extension kernelspace module.
  * Authors: Nick Fedchik <nick@fedchik.org.ua>
@@ -37,6 +38,7 @@ MODULE_LICENSE("GPL");
 static bool
 ebt_vlan_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_vlan.c: line 41 \n"); 
 	const struct ebt_vlan_info *info = par->matchinfo;
 
 	unsigned short TCI;	/* Whole TCI, given from parsed frame */
@@ -88,6 +90,7 @@ ebt_vlan_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ebt_vlan_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_vlan.c: line 93 \n"); 
 	struct ebt_vlan_info *info = par->matchinfo;
 	const struct ebt_entry *e = par->entryinfo;
 

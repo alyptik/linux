@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/direct-io.c
  *
@@ -151,6 +152,7 @@ static struct kmem_cache *dio_cache __read_mostly;
  */
 static inline unsigned dio_pages_present(struct dio_submit *sdio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 155 \n"); 
 	return sdio->tail - sdio->head;
 }
 
@@ -159,6 +161,7 @@ static inline unsigned dio_pages_present(struct dio_submit *sdio)
  */
 static inline int dio_refill_pages(struct dio *dio, struct dio_submit *sdio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 164 \n"); 
 	ssize_t ret;
 
 	ret = iov_iter_get_pages(sdio->iter, dio->pages, LONG_MAX, DIO_PAGES,
@@ -202,6 +205,7 @@ static inline int dio_refill_pages(struct dio *dio, struct dio_submit *sdio)
 static inline struct page *dio_get_page(struct dio *dio,
 					struct dio_submit *sdio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 208 \n"); 
 	if (dio_pages_present(sdio) == 0) {
 		int ret;
 
@@ -227,6 +231,7 @@ static inline struct page *dio_get_page(struct dio *dio,
  */
 static ssize_t dio_complete(struct dio *dio, ssize_t ret, bool is_async)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 234 \n"); 
 	loff_t offset = dio->iocb->ki_pos;
 	ssize_t transferred = 0;
 
@@ -289,6 +294,7 @@ static ssize_t dio_complete(struct dio *dio, ssize_t ret, bool is_async)
 
 static void dio_aio_complete_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 297 \n"); 
 	struct dio *dio = container_of(work, struct dio, complete_work);
 
 	dio_complete(dio, 0, true);
@@ -301,6 +307,7 @@ static int dio_bio_complete(struct dio *dio, struct bio *bio);
  */
 static void dio_bio_end_aio(struct bio *bio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 310 \n"); 
 	struct dio *dio = bio->bi_private;
 	unsigned long remaining;
 	unsigned long flags;
@@ -334,6 +341,7 @@ static void dio_bio_end_aio(struct bio *bio)
  */
 static void dio_bio_end_io(struct bio *bio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 344 \n"); 
 	struct dio *dio = bio->bi_private;
 	unsigned long flags;
 
@@ -356,6 +364,7 @@ static void dio_bio_end_io(struct bio *bio)
  */
 void dio_end_io(struct bio *bio, int error)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 367 \n"); 
 	struct dio *dio = bio->bi_private;
 
 	if (dio->is_async)
@@ -370,6 +379,7 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
 	      struct block_device *bdev,
 	      sector_t first_sector, int nr_vecs)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 382 \n"); 
 	struct bio *bio;
 
 	/*
@@ -399,6 +409,7 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
  */
 static inline void dio_bio_submit(struct dio *dio, struct dio_submit *sdio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 412 \n"); 
 	struct bio *bio = sdio->bio;
 	unsigned long flags;
 
@@ -429,6 +440,7 @@ static inline void dio_bio_submit(struct dio *dio, struct dio_submit *sdio)
  */
 static inline void dio_cleanup(struct dio *dio, struct dio_submit *sdio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 443 \n"); 
 	while (sdio->head < sdio->tail)
 		put_page(dio->pages[sdio->head++]);
 }
@@ -441,6 +453,7 @@ static inline void dio_cleanup(struct dio *dio, struct dio_submit *sdio)
  */
 static struct bio *dio_await_one(struct dio *dio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 456 \n"); 
 	unsigned long flags;
 	struct bio *bio = NULL;
 
@@ -476,6 +489,7 @@ static struct bio *dio_await_one(struct dio *dio)
  */
 static int dio_bio_complete(struct dio *dio, struct bio *bio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 492 \n"); 
 	struct bio_vec *bvec;
 	unsigned i;
 	int err;
@@ -510,6 +524,7 @@ static int dio_bio_complete(struct dio *dio, struct bio *bio)
  */
 static void dio_await_completion(struct dio *dio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 527 \n"); 
 	struct bio *bio;
 	do {
 		bio = dio_await_one(dio);
@@ -527,6 +542,7 @@ static void dio_await_completion(struct dio *dio)
  */
 static inline int dio_bio_reap(struct dio *dio, struct dio_submit *sdio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 545 \n"); 
 	int ret = 0;
 
 	if (sdio->reap_counter++ >= 64) {
@@ -556,6 +572,7 @@ static inline int dio_bio_reap(struct dio *dio, struct dio_submit *sdio)
  */
 static int sb_init_dio_done_wq(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 575 \n"); 
 	struct workqueue_struct *old;
 	struct workqueue_struct *wq = alloc_workqueue("dio/%s",
 						      WQ_MEM_RECLAIM, 0,
@@ -574,6 +591,7 @@ static int sb_init_dio_done_wq(struct super_block *sb)
 
 static int dio_set_defer_completion(struct dio *dio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 594 \n"); 
 	struct super_block *sb = dio->inode->i_sb;
 
 	if (dio->defer_completion)
@@ -610,6 +628,7 @@ static int dio_set_defer_completion(struct dio *dio)
 static int get_more_blocks(struct dio *dio, struct dio_submit *sdio,
 			   struct buffer_head *map_bh)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 631 \n"); 
 	int ret;
 	sector_t fs_startblk;	/* Into file, in filesystem-sized blocks */
 	sector_t fs_endblk;	/* Into file, in filesystem-sized blocks */
@@ -668,6 +687,7 @@ static int get_more_blocks(struct dio *dio, struct dio_submit *sdio,
 static inline int dio_new_bio(struct dio *dio, struct dio_submit *sdio,
 		sector_t start_sector, struct buffer_head *map_bh)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 690 \n"); 
 	sector_t sector;
 	int ret, nr_pages;
 
@@ -692,6 +712,7 @@ out:
  */
 static inline int dio_bio_add_page(struct dio_submit *sdio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 715 \n"); 
 	int ret;
 
 	ret = bio_add_page(sdio->bio, sdio->cur_page,
@@ -725,6 +746,7 @@ static inline int dio_bio_add_page(struct dio_submit *sdio)
 static inline int dio_send_cur_page(struct dio *dio, struct dio_submit *sdio,
 		struct buffer_head *map_bh)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 749 \n"); 
 	int ret = 0;
 
 	if (sdio->bio) {
@@ -791,6 +813,7 @@ submit_page_section(struct dio *dio, struct dio_submit *sdio, struct page *page,
 		    unsigned offset, unsigned len, sector_t blocknr,
 		    struct buffer_head *map_bh)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 816 \n"); 
 	int ret = 0;
 
 	if (dio->op == REQ_OP_WRITE) {
@@ -850,6 +873,7 @@ out:
  */
 static void clean_blockdev_aliases(struct dio *dio, struct buffer_head *map_bh)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 876 \n"); 
 	unsigned i;
 	unsigned nblocks;
 
@@ -873,6 +897,7 @@ static void clean_blockdev_aliases(struct dio *dio, struct buffer_head *map_bh)
 static inline void dio_zero_block(struct dio *dio, struct dio_submit *sdio,
 		int end, struct buffer_head *map_bh)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 900 \n"); 
 	unsigned dio_blocks_per_fs_block;
 	unsigned this_chunk_blocks;	/* In dio_blocks */
 	unsigned this_chunk_bytes;
@@ -924,6 +949,7 @@ static inline void dio_zero_block(struct dio *dio, struct dio_submit *sdio,
 static int do_direct_IO(struct dio *dio, struct dio_submit *sdio,
 			struct buffer_head *map_bh)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 952 \n"); 
 	const unsigned blkbits = sdio->blkbits;
 	int ret = 0;
 
@@ -1072,6 +1098,7 @@ out:
 
 static inline int drop_refcount(struct dio *dio)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 1101 \n"); 
 	int ret2;
 	unsigned long flags;
 
@@ -1123,6 +1150,7 @@ do_blockdev_direct_IO(struct kiocb *iocb, struct inode *inode,
 		      get_block_t get_block, dio_iodone_t end_io,
 		      dio_submit_t submit_io, int flags)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 1153 \n"); 
 	unsigned i_blkbits = ACCESS_ONCE(inode->i_blkbits);
 	unsigned blkbits = i_blkbits;
 	unsigned blocksize_mask = (1 << blkbits) - 1;
@@ -1345,6 +1373,7 @@ ssize_t __blockdev_direct_IO(struct kiocb *iocb, struct inode *inode,
 			     dio_iodone_t end_io, dio_submit_t submit_io,
 			     int flags)
 {
+	panic("We reached unpopular paths in fs/direct-io.c: line 1376 \n"); 
 	/*
 	 * The block device state is needed in the end to finally
 	 * submit everything.  Since it's likely to be cache cold

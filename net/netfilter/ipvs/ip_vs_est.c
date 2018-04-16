@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * ip_vs_est.c: simple rate estimator for IPVS
  *
@@ -160,6 +161,7 @@ void ip_vs_stop_estimator(struct netns_ipvs *ipvs, struct ip_vs_stats *stats)
 
 void ip_vs_zero_estimator(struct ip_vs_stats *stats)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_est.c: line 164 \n"); 
 	struct ip_vs_estimator *est = &stats->est;
 	struct ip_vs_kstats *k = &stats->kstats;
 
@@ -179,6 +181,7 @@ void ip_vs_zero_estimator(struct ip_vs_stats *stats)
 /* Get decoded rates */
 void ip_vs_read_estimator(struct ip_vs_kstats *dst, struct ip_vs_stats *stats)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_est.c: line 184 \n"); 
 	struct ip_vs_estimator *e = &stats->est;
 
 	dst->cps = (e->cps + 0x1FF) >> 10;

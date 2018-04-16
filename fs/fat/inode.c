@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/fat/inode.c
  *
@@ -95,6 +96,7 @@ static struct fat_floppy_defaults {
 
 int fat_add_cluster(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 99 \n"); 
 	int err, cluster;
 
 	err = fat_alloc_clusters(inode, &cluster, 1);
@@ -112,6 +114,7 @@ static inline int __fat_get_block(struct inode *inode, sector_t iblock,
 				  unsigned long *max_blocks,
 				  struct buffer_head *bh_result, int create)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 117 \n"); 
 	struct super_block *sb = inode->i_sb;
 	struct msdos_sb_info *sbi = MSDOS_SB(sb);
 	unsigned long mapped_blocks;
@@ -169,6 +172,7 @@ static inline int __fat_get_block(struct inode *inode, sector_t iblock,
 static int fat_get_block(struct inode *inode, sector_t iblock,
 			 struct buffer_head *bh_result, int create)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 175 \n"); 
 	struct super_block *sb = inode->i_sb;
 	unsigned long max_blocks = bh_result->b_size >> inode->i_blkbits;
 	int err;
@@ -182,28 +186,33 @@ static int fat_get_block(struct inode *inode, sector_t iblock,
 
 static int fat_writepage(struct page *page, struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 189 \n"); 
 	return block_write_full_page(page, fat_get_block, wbc);
 }
 
 static int fat_writepages(struct address_space *mapping,
 			  struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 196 \n"); 
 	return mpage_writepages(mapping, wbc, fat_get_block);
 }
 
 static int fat_readpage(struct file *file, struct page *page)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 202 \n"); 
 	return mpage_readpage(page, fat_get_block);
 }
 
 static int fat_readpages(struct file *file, struct address_space *mapping,
 			 struct list_head *pages, unsigned nr_pages)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 209 \n"); 
 	return mpage_readpages(mapping, pages, nr_pages, fat_get_block);
 }
 
 static void fat_write_failed(struct address_space *mapping, loff_t to)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 215 \n"); 
 	struct inode *inode = mapping->host;
 
 	if (to > inode->i_size) {
@@ -216,6 +225,7 @@ static int fat_write_begin(struct file *file, struct address_space *mapping,
 			loff_t pos, unsigned len, unsigned flags,
 			struct page **pagep, void **fsdata)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 228 \n"); 
 	int err;
 
 	*pagep = NULL;
@@ -231,6 +241,7 @@ static int fat_write_end(struct file *file, struct address_space *mapping,
 			loff_t pos, unsigned len, unsigned copied,
 			struct page *pagep, void *fsdata)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 244 \n"); 
 	struct inode *inode = mapping->host;
 	int err;
 	err = generic_write_end(file, mapping, pos, len, copied, pagep, fsdata);
@@ -246,6 +257,7 @@ static int fat_write_end(struct file *file, struct address_space *mapping,
 
 static ssize_t fat_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 260 \n"); 
 	struct file *file = iocb->ki_filp;
 	struct address_space *mapping = file->f_mapping;
 	struct inode *inode = mapping->host;
@@ -282,6 +294,7 @@ static ssize_t fat_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
 static int fat_get_block_bmap(struct inode *inode, sector_t iblock,
 		struct buffer_head *bh_result, int create)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 297 \n"); 
 	struct super_block *sb = inode->i_sb;
 	unsigned long max_blocks = bh_result->b_size >> inode->i_blkbits;
 	int err;
@@ -306,6 +319,7 @@ static int fat_get_block_bmap(struct inode *inode, sector_t iblock,
 
 static sector_t _fat_bmap(struct address_space *mapping, sector_t block)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 322 \n"); 
 	sector_t blocknr;
 
 	/* fat_get_cluster() assumes the requested blocknr isn't truncated. */
@@ -325,6 +339,7 @@ static sector_t _fat_bmap(struct address_space *mapping, sector_t block)
  */
 int fat_block_truncate_page(struct inode *inode, loff_t from)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 342 \n"); 
 	return block_truncate_page(inode->i_mapping, from, fat_get_block);
 }
 
@@ -365,6 +380,7 @@ static const struct address_space_operations fat_aops = {
 
 static void fat_hash_init(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 383 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(sb);
 	int i;
 
@@ -375,11 +391,13 @@ static void fat_hash_init(struct super_block *sb)
 
 static inline unsigned long fat_hash(loff_t i_pos)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 394 \n"); 
 	return hash_32(i_pos, FAT_HASH_BITS);
 }
 
 static void dir_hash_init(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 400 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(sb);
 	int i;
 
@@ -390,6 +408,7 @@ static void dir_hash_init(struct super_block *sb)
 
 void fat_attach(struct inode *inode, loff_t i_pos)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 411 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(inode->i_sb);
 
 	if (inode->i_ino != MSDOS_ROOT_INO) {
@@ -419,6 +438,7 @@ EXPORT_SYMBOL_GPL(fat_attach);
 
 void fat_detach(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 441 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(inode->i_sb);
 	spin_lock(&sbi->inode_hash_lock);
 	MSDOS_I(inode)->i_pos = 0;
@@ -435,6 +455,7 @@ EXPORT_SYMBOL_GPL(fat_detach);
 
 struct inode *fat_iget(struct super_block *sb, loff_t i_pos)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 458 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(sb);
 	struct hlist_head *head = sbi->inode_hashtable + fat_hash(i_pos);
 	struct msdos_inode_info *i;
@@ -455,6 +476,7 @@ struct inode *fat_iget(struct super_block *sb, loff_t i_pos)
 
 static int is_exec(unsigned char *extension)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 479 \n"); 
 	unsigned char exe_extensions[] = "EXECOMBAT", *walk;
 
 	for (walk = exe_extensions; *walk; walk += 3)
@@ -465,6 +487,7 @@ static int is_exec(unsigned char *extension)
 
 static int fat_calc_dir_size(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 490 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(inode->i_sb);
 	int ret, fclus, dclus;
 
@@ -482,6 +505,7 @@ static int fat_calc_dir_size(struct inode *inode)
 
 static int fat_validate_dir(struct inode *dir)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 508 \n"); 
 	struct super_block *sb = dir->i_sb;
 
 	if (dir->i_nlink < 2) {
@@ -501,6 +525,7 @@ static int fat_validate_dir(struct inode *dir)
 /* doesn't deal with root inode */
 int fat_fill_inode(struct inode *inode, struct msdos_dir_entry *de)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 528 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(inode->i_sb);
 	int error;
 
@@ -564,12 +589,14 @@ int fat_fill_inode(struct inode *inode, struct msdos_dir_entry *de)
 
 static inline void fat_lock_build_inode(struct msdos_sb_info *sbi)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 592 \n"); 
 	if (sbi->options.nfs == FAT_NFS_NOSTALE_RO)
 		mutex_lock(&sbi->nfs_build_inode_lock);
 }
 
 static inline void fat_unlock_build_inode(struct msdos_sb_info *sbi)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 599 \n"); 
 	if (sbi->options.nfs == FAT_NFS_NOSTALE_RO)
 		mutex_unlock(&sbi->nfs_build_inode_lock);
 }
@@ -577,6 +604,7 @@ static inline void fat_unlock_build_inode(struct msdos_sb_info *sbi)
 struct inode *fat_build_inode(struct super_block *sb,
 			struct msdos_dir_entry *de, loff_t i_pos)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 607 \n"); 
 	struct inode *inode;
 	int err;
 
@@ -610,6 +638,7 @@ static int __fat_write_inode(struct inode *inode, int wait);
 
 static void fat_free_eofblocks(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 641 \n"); 
 	/* Release unwritten fallocated blocks on inode eviction. */
 	if ((inode->i_blocks << 9) >
 			round_up(MSDOS_I(inode)->mmu_private,
@@ -636,6 +665,7 @@ static void fat_free_eofblocks(struct inode *inode)
 
 static void fat_evict_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 668 \n"); 
 	truncate_inode_pages_final(&inode->i_data);
 	if (!inode->i_nlink) {
 		inode->i_size = 0;
@@ -652,6 +682,7 @@ static void fat_evict_inode(struct inode *inode)
 static void fat_set_state(struct super_block *sb,
 			unsigned int set, unsigned int force)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 685 \n"); 
 	struct buffer_head *bh;
 	struct fat_boot_sector *b;
 	struct msdos_sb_info *sbi = MSDOS_SB(sb);
@@ -698,6 +729,7 @@ static void fat_set_state(struct super_block *sb,
 
 static void delayed_free(struct rcu_head *p)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 732 \n"); 
 	struct msdos_sb_info *sbi = container_of(p, struct msdos_sb_info, rcu);
 	unload_nls(sbi->nls_disk);
 	unload_nls(sbi->nls_io);
@@ -708,6 +740,7 @@ static void delayed_free(struct rcu_head *p)
 
 static void fat_put_super(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 743 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(sb);
 
 	fat_set_state(sb, 0, 0);
@@ -722,6 +755,7 @@ static struct kmem_cache *fat_inode_cachep;
 
 static struct inode *fat_alloc_inode(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 758 \n"); 
 	struct msdos_inode_info *ei;
 	ei = kmem_cache_alloc(fat_inode_cachep, GFP_NOFS);
 	if (!ei)
@@ -733,17 +767,20 @@ static struct inode *fat_alloc_inode(struct super_block *sb)
 
 static void fat_i_callback(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 770 \n"); 
 	struct inode *inode = container_of(head, struct inode, i_rcu);
 	kmem_cache_free(fat_inode_cachep, MSDOS_I(inode));
 }
 
 static void fat_destroy_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 777 \n"); 
 	call_rcu(&inode->i_rcu, fat_i_callback);
 }
 
 static void init_once(void *foo)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 783 \n"); 
 	struct msdos_inode_info *ei = (struct msdos_inode_info *)foo;
 
 	spin_lock_init(&ei->cache_lru_lock);
@@ -779,6 +816,7 @@ static void __exit fat_destroy_inodecache(void)
 
 static int fat_remount(struct super_block *sb, int *flags, char *data)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 819 \n"); 
 	int new_rdonly;
 	struct msdos_sb_info *sbi = MSDOS_SB(sb);
 	*flags |= MS_NODIRATIME | (sbi->options.isvfat ? 0 : MS_NOATIME);
@@ -798,6 +836,7 @@ static int fat_remount(struct super_block *sb, int *flags, char *data)
 
 static int fat_statfs(struct dentry *dentry, struct kstatfs *buf)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 839 \n"); 
 	struct super_block *sb = dentry->d_sb;
 	struct msdos_sb_info *sbi = MSDOS_SB(sb);
 	u64 id = huge_encode_dev(sb->s_bdev->bd_dev);
@@ -824,6 +863,7 @@ static int fat_statfs(struct dentry *dentry, struct kstatfs *buf)
 
 static int __fat_write_inode(struct inode *inode, int wait)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 866 \n"); 
 	struct super_block *sb = inode->i_sb;
 	struct msdos_sb_info *sbi = MSDOS_SB(sb);
 	struct buffer_head *bh;
@@ -881,6 +921,7 @@ retry:
 
 static int fat_write_inode(struct inode *inode, struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 924 \n"); 
 	int err;
 
 	if (inode->i_ino == MSDOS_FSINFO_INO) {
@@ -897,6 +938,7 @@ static int fat_write_inode(struct inode *inode, struct writeback_control *wbc)
 
 int fat_sync_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 941 \n"); 
 	return __fat_write_inode(inode, 1);
 }
 
@@ -917,6 +959,7 @@ static const struct super_operations fat_sops = {
 
 static int fat_show_options(struct seq_file *m, struct dentry *root)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 962 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(root->d_sb);
 	struct fat_mount_options *opts = &sbi->options;
 	int isvfat = opts->isvfat;
@@ -1105,6 +1148,7 @@ static const match_table_t vfat_tokens = {
 static int parse_options(struct super_block *sb, char *options, int is_vfat,
 			 int silent, int *debug, struct fat_mount_options *opts)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 1151 \n"); 
 	char *p;
 	substring_t args[MAX_OPT_ARGS];
 	int option;
@@ -1361,6 +1405,7 @@ out:
 
 static void fat_dummy_inode_init(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 1408 \n"); 
 	/* Initialize this dummy inode to work as no-op. */
 	MSDOS_I(inode)->mmu_private = 0;
 	MSDOS_I(inode)->i_start = 0;
@@ -1371,6 +1416,7 @@ static void fat_dummy_inode_init(struct inode *inode)
 
 static int fat_read_root(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 1419 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(inode->i_sb);
 	int error;
 
@@ -1406,6 +1452,7 @@ static int fat_read_root(struct inode *inode)
 
 static unsigned long calc_fat_clusters(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 1455 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(sb);
 
 	/* Divide first to avoid overflow */
@@ -1419,6 +1466,7 @@ static unsigned long calc_fat_clusters(struct super_block *sb)
 
 static bool fat_bpb_is_zero(struct fat_boot_sector *b)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 1469 \n"); 
 	if (get_unaligned_le16(&b->sector_size))
 		return false;
 	if (b->sec_per_clus)
@@ -1445,6 +1493,7 @@ static bool fat_bpb_is_zero(struct fat_boot_sector *b)
 static int fat_read_bpb(struct super_block *sb, struct fat_boot_sector *b,
 	int silent, struct fat_bios_param_block *bpb)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 1496 \n"); 
 	int error = -EINVAL;
 
 	/* Read in BPB ... */
@@ -1518,6 +1567,7 @@ static int fat_read_static_bpb(struct super_block *sb,
 	struct fat_boot_sector *b, int silent,
 	struct fat_bios_param_block *bpb)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 1570 \n"); 
 	static const char *notdos1x = "This doesn't look like a DOS 1.x volume";
 
 	struct fat_floppy_defaults *fdefaults = NULL;
@@ -1586,6 +1636,7 @@ out:
 int fat_fill_super(struct super_block *sb, void *data, int silent, int isvfat,
 		   void (*setup)(struct super_block *))
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 1639 \n"); 
 	struct inode *root_inode = NULL, *fat_inode = NULL;
 	struct inode *fsinfo_inode = NULL;
 	struct buffer_head *bh;
@@ -1883,6 +1934,7 @@ EXPORT_SYMBOL_GPL(fat_fill_super);
  */
 static int writeback_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 1937 \n"); 
 
 	int ret;
 
@@ -1906,6 +1958,7 @@ static int writeback_inode(struct inode *inode)
  */
 int fat_flush_inodes(struct super_block *sb, struct inode *i1, struct inode *i2)
 {
+	panic("We reached unpopular paths in fs/fat/inode.c: line 1961 \n"); 
 	int ret = 0;
 	if (!MSDOS_SB(sb)->options.flush)
 		return 0;

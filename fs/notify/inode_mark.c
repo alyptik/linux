@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  Copyright (C) 2008 Red Hat, Inc., Eric Paris <eparis@redhat.com>
  *
@@ -36,6 +37,7 @@
  */
 void fsnotify_recalc_inode_mask(struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/notify/inode_mark.c: line 40 \n"); 
 	spin_lock(&inode->i_lock);
 	inode->i_fsnotify_mask = fsnotify_recalc_mask(&inode->i_fsnotify_marks);
 	spin_unlock(&inode->i_lock);
@@ -45,6 +47,7 @@ void fsnotify_recalc_inode_mask(struct inode *inode)
 
 void fsnotify_destroy_inode_mark(struct fsnotify_mark *mark)
 {
+	panic("We reached unpopular paths in fs/notify/inode_mark.c: line 50 \n"); 
 	struct inode *inode = mark->inode;
 
 	BUG_ON(!mutex_is_locked(&mark->group->mark_mutex));
@@ -69,6 +72,7 @@ void fsnotify_destroy_inode_mark(struct fsnotify_mark *mark)
  */
 void fsnotify_clear_inode_marks_by_group(struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/inode_mark.c: line 75 \n"); 
 	fsnotify_clear_marks_by_group_flags(group, FSNOTIFY_MARK_FLAG_INODE);
 }
 
@@ -95,6 +99,7 @@ struct fsnotify_mark *fsnotify_find_inode_mark(struct fsnotify_group *group,
 void fsnotify_set_inode_mark_mask_locked(struct fsnotify_mark *mark,
 					 __u32 mask)
 {
+	panic("We reached unpopular paths in fs/notify/inode_mark.c: line 102 \n"); 
 	struct inode *inode;
 
 	assert_spin_locked(&mark->lock);
@@ -124,6 +129,7 @@ int fsnotify_add_inode_mark(struct fsnotify_mark *mark,
 			    struct fsnotify_group *group, struct inode *inode,
 			    int allow_dups)
 {
+	panic("We reached unpopular paths in fs/notify/inode_mark.c: line 132 \n"); 
 	int ret;
 
 	mark->flags |= FSNOTIFY_MARK_FLAG_INODE;

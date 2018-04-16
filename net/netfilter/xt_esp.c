@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match ESP parameters. */
 
 /* (C) 1999-2000 Yon Uriarte <yon@astaro.de>
@@ -28,6 +29,7 @@ MODULE_ALIAS("ip6t_esp");
 static inline bool
 spi_match(u_int32_t min, u_int32_t max, u_int32_t spi, bool invert)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_esp.c: line 32 \n"); 
 	bool r;
 	pr_debug("spi_match:%c 0x%x <= 0x%x <= 0x%x\n",
 		 invert ? '!' : ' ', min, spi, max);
@@ -38,6 +40,7 @@ spi_match(u_int32_t min, u_int32_t max, u_int32_t spi, bool invert)
 
 static bool esp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_esp.c: line 43 \n"); 
 	const struct ip_esp_hdr *eh;
 	struct ip_esp_hdr _esp;
 	const struct xt_esp *espinfo = par->matchinfo;
@@ -62,6 +65,7 @@ static bool esp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int esp_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_esp.c: line 68 \n"); 
 	const struct xt_esp *espinfo = par->matchinfo;
 
 	if (espinfo->invflags & ~XT_ESP_INV_MASK) {

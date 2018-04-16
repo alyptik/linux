@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Copyright (C) 2003-2013 Jozsef Kadlecsik <kadlec@blackhole.kfki.hu>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -53,12 +54,14 @@ hash_ip4_data_equal(const struct hash_ip4_elem *e1,
 		    const struct hash_ip4_elem *e2,
 		    u32 *multi)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_ip.c: line 57 \n"); 
 	return e1->ip == e2->ip;
 }
 
 static bool
 hash_ip4_data_list(struct sk_buff *skb, const struct hash_ip4_elem *e)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_ip.c: line 64 \n"); 
 	if (nla_put_ipaddr4(skb, IPSET_ATTR_IP, e->ip))
 		goto nla_put_failure;
 	return false;
@@ -70,6 +73,7 @@ nla_put_failure:
 static inline void
 hash_ip4_data_next(struct hash_ip4_elem *next, const struct hash_ip4_elem *e)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_ip.c: line 76 \n"); 
 	next->ip = e->ip;
 }
 
@@ -82,6 +86,7 @@ hash_ip4_kadt(struct ip_set *set, const struct sk_buff *skb,
 	      const struct xt_action_param *par,
 	      enum ipset_adt adt, struct ip_set_adt_opt *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_ip.c: line 89 \n"); 
 	const struct hash_ip *h = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct hash_ip4_elem e = { 0 };
@@ -101,6 +106,7 @@ static int
 hash_ip4_uadt(struct ip_set *set, struct nlattr *tb[],
 	      enum ipset_adt adt, u32 *lineno, u32 flags, bool retried)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_ip.c: line 109 \n"); 
 	const struct hash_ip *h = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct hash_ip4_elem e = { 0 };
@@ -178,18 +184,21 @@ hash_ip6_data_equal(const struct hash_ip6_elem *ip1,
 		    const struct hash_ip6_elem *ip2,
 		    u32 *multi)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_ip.c: line 187 \n"); 
 	return ipv6_addr_equal(&ip1->ip.in6, &ip2->ip.in6);
 }
 
 static inline void
 hash_ip6_netmask(union nf_inet_addr *ip, u8 prefix)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_ip.c: line 194 \n"); 
 	ip6_netmask(ip, prefix);
 }
 
 static bool
 hash_ip6_data_list(struct sk_buff *skb, const struct hash_ip6_elem *e)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_ip.c: line 201 \n"); 
 	if (nla_put_ipaddr6(skb, IPSET_ATTR_IP, &e->ip.in6))
 		goto nla_put_failure;
 	return false;
@@ -201,6 +210,7 @@ nla_put_failure:
 static inline void
 hash_ip6_data_next(struct hash_ip4_elem *next, const struct hash_ip6_elem *e)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_ip.c: line 213 \n"); 
 }
 
 #undef MTYPE
@@ -217,6 +227,7 @@ hash_ip6_kadt(struct ip_set *set, const struct sk_buff *skb,
 	      const struct xt_action_param *par,
 	      enum ipset_adt adt, struct ip_set_adt_opt *opt)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_ip.c: line 230 \n"); 
 	const struct hash_ip *h = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct hash_ip6_elem e = { { .all = { 0 } } };
@@ -234,6 +245,7 @@ static int
 hash_ip6_uadt(struct ip_set *set, struct nlattr *tb[],
 	      enum ipset_adt adt, u32 *lineno, u32 flags, bool retried)
 {
+	panic("We reached unpopular paths in net/netfilter/ipset/ip_set_hash_ip.c: line 248 \n"); 
 	const struct hash_ip *h = set->data;
 	ipset_adtfn adtfn = set->variant->adt[adt];
 	struct hash_ip6_elem e = { { .all = { 0 } } };

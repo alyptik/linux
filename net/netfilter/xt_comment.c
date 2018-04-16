@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Implements a dummy match to allow attaching comments to rules
  *
@@ -18,6 +19,7 @@ MODULE_ALIAS("ip6t_comment");
 static bool
 comment_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_comment.c: line 22 \n"); 
 	/* We always match */
 	return true;
 }

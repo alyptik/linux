@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS:        Weighted Round-Robin Scheduling module
  *
@@ -73,6 +74,7 @@ struct ip_vs_wrr_mark {
 
 static int ip_vs_wrr_gcd_weight(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_wrr.c: line 77 \n"); 
 	struct ip_vs_dest *dest;
 	int weight;
 	int g = 0;
@@ -95,6 +97,7 @@ static int ip_vs_wrr_gcd_weight(struct ip_vs_service *svc)
  */
 static int ip_vs_wrr_max_weight(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_wrr.c: line 100 \n"); 
 	struct ip_vs_dest *dest;
 	int new_weight, weight = 0;
 
@@ -110,6 +113,7 @@ static int ip_vs_wrr_max_weight(struct ip_vs_service *svc)
 
 static int ip_vs_wrr_init_svc(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_wrr.c: line 116 \n"); 
 	struct ip_vs_wrr_mark *mark;
 
 	/*
@@ -131,6 +135,7 @@ static int ip_vs_wrr_init_svc(struct ip_vs_service *svc)
 
 static void ip_vs_wrr_done_svc(struct ip_vs_service *svc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_wrr.c: line 138 \n"); 
 	struct ip_vs_wrr_mark *mark = svc->sched_data;
 
 	/*
@@ -143,6 +148,7 @@ static void ip_vs_wrr_done_svc(struct ip_vs_service *svc)
 static int ip_vs_wrr_dest_changed(struct ip_vs_service *svc,
 				  struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_wrr.c: line 151 \n"); 
 	struct ip_vs_wrr_mark *mark = svc->sched_data;
 
 	spin_lock_bh(&svc->sched_lock);
@@ -165,6 +171,7 @@ static struct ip_vs_dest *
 ip_vs_wrr_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
 		   struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_wrr.c: line 174 \n"); 
 	struct ip_vs_dest *dest, *last, *stop = NULL;
 	struct ip_vs_wrr_mark *mark = svc->sched_data;
 	bool last_pass = false, restarted = false;

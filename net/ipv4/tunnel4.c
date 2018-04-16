@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* tunnel4.c: Generic IP tunnel transformer.
  *
  * Copyright (C) 2003 David S. Miller (davem@redhat.com)
@@ -61,6 +62,7 @@ EXPORT_SYMBOL(xfrm4_tunnel_register);
 
 int xfrm4_tunnel_deregister(struct xfrm_tunnel *handler, unsigned short family)
 {
+	panic("We reached unpopular paths in net/ipv4/tunnel4.c: line 65 \n"); 
 	struct xfrm_tunnel __rcu **pprev;
 	struct xfrm_tunnel *t;
 	int ret = -ENOENT;
@@ -93,6 +95,7 @@ EXPORT_SYMBOL(xfrm4_tunnel_deregister);
 	
 static int tunnel4_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/tunnel4.c: line 98 \n"); 
 	struct xfrm_tunnel *handler;
 
 	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
@@ -151,6 +154,7 @@ drop:
 
 static void tunnel4_err(struct sk_buff *skb, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/tunnel4.c: line 157 \n"); 
 	struct xfrm_tunnel *handler;
 
 	for_each_tunnel_rcu(tunnel4_handlers, handler)

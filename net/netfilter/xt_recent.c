@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2006 Patrick McHardy <kaber@trash.net>
  * Copyright © CC Computer Consultants GmbH, 2007 - 2008
@@ -113,12 +114,14 @@ static u_int32_t hash_rnd __read_mostly;
 
 static inline unsigned int recent_entry_hash4(const union nf_inet_addr *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 117 \n"); 
 	return jhash_1word((__force u32)addr->ip, hash_rnd) &
 	       (ip_list_hash_size - 1);
 }
 
 static inline unsigned int recent_entry_hash6(const union nf_inet_addr *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 124 \n"); 
 	return jhash2((u32 *)addr->ip6, ARRAY_SIZE(addr->ip6), hash_rnd) &
 	       (ip_list_hash_size - 1);
 }
@@ -128,6 +131,7 @@ recent_entry_lookup(const struct recent_table *table,
 		    const union nf_inet_addr *addrp, u_int16_t family,
 		    u_int8_t ttl)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 134 \n"); 
 	struct recent_entry *e;
 	unsigned int h;
 
@@ -146,6 +150,7 @@ recent_entry_lookup(const struct recent_table *table,
 
 static void recent_entry_remove(struct recent_table *t, struct recent_entry *e)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 153 \n"); 
 	list_del(&e->list);
 	list_del(&e->lru_list);
 	kfree(e);
@@ -157,6 +162,7 @@ static void recent_entry_remove(struct recent_table *t, struct recent_entry *e)
  */
 static void recent_entry_reap(struct recent_table *t, unsigned long time)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 165 \n"); 
 	struct recent_entry *e;
 
 	/*
@@ -175,6 +181,7 @@ static struct recent_entry *
 recent_entry_init(struct recent_table *t, const union nf_inet_addr *addr,
 		  u_int16_t family, u_int8_t ttl)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 184 \n"); 
 	struct recent_entry *e;
 	unsigned int nstamps_max = t->nstamps_max_mask;
 
@@ -205,6 +212,7 @@ recent_entry_init(struct recent_table *t, const union nf_inet_addr *addr,
 
 static void recent_entry_update(struct recent_table *t, struct recent_entry *e)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 215 \n"); 
 	e->index &= t->nstamps_max_mask;
 	e->stamps[e->index++] = jiffies;
 	if (e->index > e->nstamps)
@@ -215,6 +223,7 @@ static void recent_entry_update(struct recent_table *t, struct recent_entry *e)
 static struct recent_table *recent_table_lookup(struct recent_net *recent_net,
 						const char *name)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 226 \n"); 
 	struct recent_table *t;
 
 	list_for_each_entry(t, &recent_net->tables, list)
@@ -225,6 +234,7 @@ static struct recent_table *recent_table_lookup(struct recent_net *recent_net,
 
 static void recent_table_flush(struct recent_table *t)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 237 \n"); 
 	struct recent_entry *e, *next;
 	unsigned int i;
 
@@ -236,6 +246,7 @@ static void recent_table_flush(struct recent_table *t)
 static bool
 recent_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 249 \n"); 
 	struct net *net = par->net;
 	struct recent_net *recent_net = recent_pernet(net);
 	const struct xt_recent_mtinfo_v1 *info = par->matchinfo;
@@ -321,12 +332,14 @@ out:
 
 static void recent_table_free(void *addr)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 335 \n"); 
 	kvfree(addr);
 }
 
 static int recent_mt_check(const struct xt_mtchk_param *par,
 			   const struct xt_recent_mtinfo_v1 *info)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 342 \n"); 
 	struct recent_net *recent_net = recent_pernet(par->net);
 	struct recent_table *t;
 #ifdef CONFIG_PROC_FS
@@ -432,6 +445,7 @@ out:
 
 static int recent_mt_check_v0(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 448 \n"); 
 	const struct xt_recent_mtinfo_v0 *info_v0 = par->matchinfo;
 	struct xt_recent_mtinfo_v1 info_v1;
 
@@ -445,11 +459,13 @@ static int recent_mt_check_v0(const struct xt_mtchk_param *par)
 
 static int recent_mt_check_v1(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 462 \n"); 
 	return recent_mt_check(par, par->matchinfo);
 }
 
 static void recent_mt_destroy(const struct xt_mtdtor_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 468 \n"); 
 	struct recent_net *recent_net = recent_pernet(par->net);
 	const struct xt_recent_mtinfo_v1 *info = par->matchinfo;
 	struct recent_table *t;
@@ -666,11 +682,13 @@ static void __net_exit recent_proc_net_exit(struct net *net)
 #else
 static inline int recent_proc_net_init(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 685 \n"); 
 	return 0;
 }
 
 static inline void recent_proc_net_exit(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_recent.c: line 691 \n"); 
 }
 #endif /* CONFIG_PROC_FS */
 

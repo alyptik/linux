@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/inotify_user.c - inotify support for userspace
  *
@@ -88,6 +89,7 @@ struct ctl_table inotify_table[] = {
 
 static inline __u32 inotify_arg_to_mask(u32 arg)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 92 \n"); 
 	__u32 mask;
 
 	/*
@@ -104,6 +106,7 @@ static inline __u32 inotify_arg_to_mask(u32 arg)
 
 static inline u32 inotify_mask_to_arg(__u32 mask)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 109 \n"); 
 	return mask & (IN_ALL_EVENTS | IN_ISDIR | IN_UNMOUNT | IN_IGNORED |
 		       IN_Q_OVERFLOW);
 }
@@ -111,6 +114,7 @@ static inline u32 inotify_mask_to_arg(__u32 mask)
 /* intofiy userspace file descriptor functions */
 static unsigned int inotify_poll(struct file *file, poll_table *wait)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 117 \n"); 
 	struct fsnotify_group *group = file->private_data;
 	int ret = 0;
 
@@ -125,6 +129,7 @@ static unsigned int inotify_poll(struct file *file, poll_table *wait)
 
 static int round_event_name_len(struct fsnotify_event *fsn_event)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 132 \n"); 
 	struct inotify_event_info *event;
 
 	event = INOTIFY_E(fsn_event);
@@ -143,6 +148,7 @@ static int round_event_name_len(struct fsnotify_event *fsn_event)
 static struct fsnotify_event *get_one_event(struct fsnotify_group *group,
 					    size_t count)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 151 \n"); 
 	size_t event_size = sizeof(struct inotify_event);
 	struct fsnotify_event *event;
 
@@ -274,6 +280,7 @@ static ssize_t inotify_read(struct file *file, char __user *buf,
 
 static int inotify_release(struct inode *ignored, struct file *file)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 283 \n"); 
 	struct fsnotify_group *group = file->private_data;
 
 	pr_debug("%s: group=%p\n", __func__, group);
@@ -287,6 +294,7 @@ static int inotify_release(struct inode *ignored, struct file *file)
 static long inotify_ioctl(struct file *file, unsigned int cmd,
 			  unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 297 \n"); 
 	struct fsnotify_group *group;
 	struct fsnotify_event *fsn_event;
 	void __user *p;
@@ -346,6 +354,7 @@ static int inotify_find_inode(const char __user *dirname, struct path *path, uns
 static int inotify_add_to_idr(struct idr *idr, spinlock_t *idr_lock,
 			      struct inotify_inode_mark *i_mark)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 357 \n"); 
 	int ret;
 
 	idr_preload(GFP_KERNEL);
@@ -366,6 +375,7 @@ static int inotify_add_to_idr(struct idr *idr, spinlock_t *idr_lock,
 static struct inotify_inode_mark *inotify_idr_find_locked(struct fsnotify_group *group,
 								int wd)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 378 \n"); 
 	struct idr *idr = &group->inotify_data.idr;
 	spinlock_t *idr_lock = &group->inotify_data.idr_lock;
 	struct inotify_inode_mark *i_mark;
@@ -387,6 +397,7 @@ static struct inotify_inode_mark *inotify_idr_find_locked(struct fsnotify_group 
 static struct inotify_inode_mark *inotify_idr_find(struct fsnotify_group *group,
 							 int wd)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 400 \n"); 
 	struct inotify_inode_mark *i_mark;
 	spinlock_t *idr_lock = &group->inotify_data.idr_lock;
 
@@ -400,6 +411,7 @@ static struct inotify_inode_mark *inotify_idr_find(struct fsnotify_group *group,
 static void do_inotify_remove_from_idr(struct fsnotify_group *group,
 				       struct inotify_inode_mark *i_mark)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 414 \n"); 
 	struct idr *idr = &group->inotify_data.idr;
 	spinlock_t *idr_lock = &group->inotify_data.idr_lock;
 	int wd = i_mark->wd;
@@ -419,6 +431,7 @@ static void do_inotify_remove_from_idr(struct fsnotify_group *group,
 static void inotify_remove_from_idr(struct fsnotify_group *group,
 				    struct inotify_inode_mark *i_mark)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 434 \n"); 
 	spinlock_t *idr_lock = &group->inotify_data.idr_lock;
 	struct inotify_inode_mark *found_i_mark = NULL;
 	int wd;
@@ -490,6 +503,7 @@ out:
 void inotify_ignored_and_remove_idr(struct fsnotify_mark *fsn_mark,
 				    struct fsnotify_group *group)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 506 \n"); 
 	struct inotify_inode_mark *i_mark;
 
 	/* Queue ignore event for the watch */
@@ -506,6 +520,7 @@ void inotify_ignored_and_remove_idr(struct fsnotify_mark *fsn_mark,
 /* ding dong the mark is dead */
 static void inotify_free_mark(struct fsnotify_mark *fsn_mark)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 523 \n"); 
 	struct inotify_inode_mark *i_mark;
 
 	i_mark = container_of(fsn_mark, struct inotify_inode_mark, fsn_mark);
@@ -517,6 +532,7 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
 					 struct inode *inode,
 					 u32 arg)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 535 \n"); 
 	struct fsnotify_mark *fsn_mark;
 	struct inotify_inode_mark *i_mark;
 	__u32 old_mask, new_mask;
@@ -568,6 +584,7 @@ static int inotify_new_watch(struct fsnotify_group *group,
 			     struct inode *inode,
 			     u32 arg)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 587 \n"); 
 	struct inotify_inode_mark *tmp_i_mark;
 	__u32 mask;
 	int ret;
@@ -616,6 +633,7 @@ out_err:
 
 static int inotify_update_watch(struct fsnotify_group *group, struct inode *inode, u32 arg)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 636 \n"); 
 	int ret = 0;
 
 	mutex_lock(&group->mark_mutex);
@@ -631,6 +649,7 @@ static int inotify_update_watch(struct fsnotify_group *group, struct inode *inod
 
 static struct fsnotify_group *inotify_new_group(unsigned int max_events)
 {
+	panic("We reached unpopular paths in fs/notify/inotify/inotify_user.c: line 652 \n"); 
 	struct fsnotify_group *group;
 	struct inotify_event_info *oevent;
 

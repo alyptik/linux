@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 2012 by Pablo Neira Ayuso <pablo@netfilter.org>
  * (C) 2012 by Vyatta Inc. <http://www.vyatta.com>
@@ -47,5 +48,6 @@ int nf_conntrack_timeout_init(void)
 
 void nf_conntrack_timeout_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_timeout.c: line 51 \n"); 
 	nf_ct_extend_unregister(&timeout_extend);
 }

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * ip_vs_app.c: Application module support for IPVS
  *
@@ -49,12 +50,14 @@ static DEFINE_MUTEX(__ip_vs_app_mutex);
  */
 static inline int ip_vs_app_get(struct ip_vs_app *app)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 53 \n"); 
 	return try_module_get(app->module);
 }
 
 
 static inline void ip_vs_app_put(struct ip_vs_app *app)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 60 \n"); 
 	module_put(app->module);
 }
 
@@ -152,6 +155,7 @@ ip_vs_app_inc_release(struct netns_ipvs *ipvs, struct ip_vs_app *inc)
  */
 int ip_vs_app_inc_get(struct ip_vs_app *inc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 158 \n"); 
 	int result;
 
 	result = ip_vs_app_get(inc->app);
@@ -166,6 +170,7 @@ int ip_vs_app_inc_get(struct ip_vs_app *inc)
  */
 void ip_vs_app_inc_put(struct ip_vs_app *inc)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 173 \n"); 
 	atomic_dec(&inc->usecnt);
 	ip_vs_app_put(inc->app);
 }
@@ -256,6 +261,7 @@ void unregister_ip_vs_app(struct netns_ipvs *ipvs, struct ip_vs_app *app)
 int ip_vs_bind_app(struct ip_vs_conn *cp,
 		   struct ip_vs_protocol *pp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 264 \n"); 
 	return pp->app_conn_bind(cp);
 }
 
@@ -265,6 +271,7 @@ int ip_vs_bind_app(struct ip_vs_conn *cp,
  */
 void ip_vs_unbind_app(struct ip_vs_conn *cp)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 274 \n"); 
 	struct ip_vs_app *inc = cp->app;
 
 	if (!inc)
@@ -284,6 +291,7 @@ void ip_vs_unbind_app(struct ip_vs_conn *cp)
  */
 static inline void vs_fix_seq(const struct ip_vs_seq *vseq, struct tcphdr *th)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 294 \n"); 
 	__u32 seq = ntohl(th->seq);
 
 	/*
@@ -311,6 +319,7 @@ static inline void vs_fix_seq(const struct ip_vs_seq *vseq, struct tcphdr *th)
 static inline void
 vs_fix_ack_seq(const struct ip_vs_seq *vseq, struct tcphdr *th)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 322 \n"); 
 	__u32 ack_seq = ntohl(th->ack_seq);
 
 	/*
@@ -343,6 +352,7 @@ vs_fix_ack_seq(const struct ip_vs_seq *vseq, struct tcphdr *th)
 static inline void vs_seq_update(struct ip_vs_conn *cp, struct ip_vs_seq *vseq,
 				 unsigned int flag, __u32 seq, int diff)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 355 \n"); 
 	/* spinlock is to keep updating cp->flags atomic */
 	spin_lock_bh(&cp->lock);
 	if (!(cp->flags & flag) || after(seq, vseq->init_seq)) {
@@ -357,6 +367,7 @@ static inline void vs_seq_update(struct ip_vs_conn *cp, struct ip_vs_seq *vseq,
 static inline int app_tcp_pkt_out(struct ip_vs_conn *cp, struct sk_buff *skb,
 				  struct ip_vs_app *app)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 370 \n"); 
 	int diff;
 	const unsigned int tcp_offset = ip_hdrlen(skb);
 	struct tcphdr *th;
@@ -406,6 +417,7 @@ static inline int app_tcp_pkt_out(struct ip_vs_conn *cp, struct sk_buff *skb,
  */
 int ip_vs_app_pkt_out(struct ip_vs_conn *cp, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 420 \n"); 
 	struct ip_vs_app *app;
 
 	/*
@@ -432,6 +444,7 @@ int ip_vs_app_pkt_out(struct ip_vs_conn *cp, struct sk_buff *skb)
 static inline int app_tcp_pkt_in(struct ip_vs_conn *cp, struct sk_buff *skb,
 				 struct ip_vs_app *app)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 447 \n"); 
 	int diff;
 	const unsigned int tcp_offset = ip_hdrlen(skb);
 	struct tcphdr *th;
@@ -481,6 +494,7 @@ static inline int app_tcp_pkt_in(struct ip_vs_conn *cp, struct sk_buff *skb,
  */
 int ip_vs_app_pkt_in(struct ip_vs_conn *cp, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_app.c: line 497 \n"); 
 	struct ip_vs_app *app;
 
 	/*

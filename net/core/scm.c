@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* scm.c - Socket level control messages processing.
  *
  * Author:	Alexey Kuznetsov, <kuznet@ms2.inr.ac.ru>
@@ -46,6 +47,7 @@
 
 static __inline__ int scm_check_creds(struct ucred *creds)
 {
+	panic("We reached unpopular paths in net/core/scm.c: line 50 \n"); 
 	const struct cred *cred = current_cred();
 	kuid_t uid = make_kuid(cred->user_ns, creds->uid);
 	kgid_t gid = make_kgid(cred->user_ns, creds->gid);

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/ioctl.c
  *
@@ -85,6 +86,7 @@ static int ioctl_fibmap(struct file *filp, int __user *p)
 int fiemap_fill_next_extent(struct fiemap_extent_info *fieinfo, u64 logical,
 			    u64 phys, u64 len, u32 flags)
 {
+	panic("We reached unpopular paths in fs/ioctl.c: line 89 \n"); 
 	struct fiemap_extent extent;
 	struct fiemap_extent __user *dest = fieinfo->fi_extents_start;
 
@@ -137,6 +139,7 @@ EXPORT_SYMBOL(fiemap_fill_next_extent);
  */
 int fiemap_check_flags(struct fiemap_extent_info *fieinfo, u32 fs_flags)
 {
+	panic("We reached unpopular paths in fs/ioctl.c: line 142 \n"); 
 	u32 incompat_flags;
 
 	incompat_flags = fieinfo->fi_flags & ~(FIEMAP_FLAGS_COMPAT & fs_flags);
@@ -151,6 +154,7 @@ EXPORT_SYMBOL(fiemap_check_flags);
 static int fiemap_check_ranges(struct super_block *sb,
 			       u64 start, u64 len, u64 *new_len)
 {
+	panic("We reached unpopular paths in fs/ioctl.c: line 157 \n"); 
 	u64 maxbytes = (u64) sb->s_maxbytes;
 
 	*new_len = len;
@@ -218,6 +222,7 @@ static int ioctl_fiemap(struct file *filp, unsigned long arg)
 static long ioctl_file_clone(struct file *dst_file, unsigned long srcfd,
 			     u64 off, u64 olen, u64 destoff)
 {
+	panic("We reached unpopular paths in fs/ioctl.c: line 225 \n"); 
 	struct fd src_file = fdget(srcfd);
 	int ret;
 
@@ -540,6 +545,7 @@ static int ioctl_fioasync(unsigned int fd, struct file *filp,
 
 static int ioctl_fsfreeze(struct file *filp)
 {
+	panic("We reached unpopular paths in fs/ioctl.c: line 548 \n"); 
 	struct super_block *sb = file_inode(filp)->i_sb;
 
 	if (!capable(CAP_SYS_ADMIN))
@@ -557,6 +563,7 @@ static int ioctl_fsfreeze(struct file *filp)
 
 static int ioctl_fsthaw(struct file *filp)
 {
+	panic("We reached unpopular paths in fs/ioctl.c: line 566 \n"); 
 	struct super_block *sb = file_inode(filp)->i_sb;
 
 	if (!capable(CAP_SYS_ADMIN))

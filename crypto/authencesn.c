@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * authencesn.c - AEAD wrapper for IPsec with extended sequence numbers,
  *                 derived from authenc.c
@@ -47,6 +48,7 @@ struct authenc_esn_request_ctx {
 
 static void authenc_esn_request_complete(struct aead_request *req, int err)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 51 \n"); 
 	if (err != -EINPROGRESS)
 		aead_request_complete(req, err);
 }
@@ -54,6 +56,7 @@ static void authenc_esn_request_complete(struct aead_request *req, int err)
 static int crypto_authenc_esn_setauthsize(struct crypto_aead *authenc_esn,
 					  unsigned int authsize)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 59 \n"); 
 	if (authsize > 0 && authsize < 4)
 		return -EINVAL;
 
@@ -63,6 +66,7 @@ static int crypto_authenc_esn_setauthsize(struct crypto_aead *authenc_esn,
 static int crypto_authenc_esn_setkey(struct crypto_aead *authenc_esn, const u8 *key,
 				     unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 69 \n"); 
 	struct crypto_authenc_esn_ctx *ctx = crypto_aead_ctx(authenc_esn);
 	struct crypto_ahash *auth = ctx->auth;
 	struct crypto_skcipher *enc = ctx->enc;
@@ -100,6 +104,7 @@ badkey:
 static int crypto_authenc_esn_genicv_tail(struct aead_request *req,
 					  unsigned int flags)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 107 \n"); 
 	struct crypto_aead *authenc_esn = crypto_aead_reqtfm(req);
 	struct crypto_authenc_esn_ctx *ctx = crypto_aead_ctx(authenc_esn);
 	struct authenc_esn_request_ctx *areq_ctx = aead_request_ctx(req);
@@ -124,6 +129,7 @@ static int crypto_authenc_esn_genicv_tail(struct aead_request *req,
 static void authenc_esn_geniv_ahash_done(struct crypto_async_request *areq,
 					 int err)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 132 \n"); 
 	struct aead_request *req = areq->data;
 
 	err = err ?: crypto_authenc_esn_genicv_tail(req, 0);
@@ -133,6 +139,7 @@ static void authenc_esn_geniv_ahash_done(struct crypto_async_request *areq,
 static int crypto_authenc_esn_genicv(struct aead_request *req,
 				     unsigned int flags)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 142 \n"); 
 	struct crypto_aead *authenc_esn = crypto_aead_reqtfm(req);
 	struct authenc_esn_request_ctx *areq_ctx = aead_request_ctx(req);
 	struct crypto_authenc_esn_ctx *ctx = crypto_aead_ctx(authenc_esn);
@@ -170,6 +177,7 @@ static int crypto_authenc_esn_genicv(struct aead_request *req,
 static void crypto_authenc_esn_encrypt_done(struct crypto_async_request *req,
 					    int err)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 180 \n"); 
 	struct aead_request *areq = req->data;
 
 	if (!err)
@@ -180,6 +188,7 @@ static void crypto_authenc_esn_encrypt_done(struct crypto_async_request *req,
 
 static int crypto_authenc_esn_copy(struct aead_request *req, unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 191 \n"); 
 	struct crypto_aead *authenc_esn = crypto_aead_reqtfm(req);
 	struct crypto_authenc_esn_ctx *ctx = crypto_aead_ctx(authenc_esn);
 	SKCIPHER_REQUEST_ON_STACK(skreq, ctx->null);
@@ -194,6 +203,7 @@ static int crypto_authenc_esn_copy(struct aead_request *req, unsigned int len)
 
 static int crypto_authenc_esn_encrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 206 \n"); 
 	struct crypto_aead *authenc_esn = crypto_aead_reqtfm(req);
 	struct authenc_esn_request_ctx *areq_ctx = aead_request_ctx(req);
 	struct crypto_authenc_esn_ctx *ctx = crypto_aead_ctx(authenc_esn);
@@ -233,6 +243,7 @@ static int crypto_authenc_esn_encrypt(struct aead_request *req)
 static int crypto_authenc_esn_decrypt_tail(struct aead_request *req,
 					   unsigned int flags)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 246 \n"); 
 	struct crypto_aead *authenc_esn = crypto_aead_reqtfm(req);
 	unsigned int authsize = crypto_aead_authsize(authenc_esn);
 	struct authenc_esn_request_ctx *areq_ctx = aead_request_ctx(req);
@@ -275,6 +286,7 @@ decrypt:
 static void authenc_esn_verify_ahash_done(struct crypto_async_request *areq,
 					  int err)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 289 \n"); 
 	struct aead_request *req = areq->data;
 
 	err = err ?: crypto_authenc_esn_decrypt_tail(req, 0);
@@ -283,6 +295,7 @@ static void authenc_esn_verify_ahash_done(struct crypto_async_request *areq,
 
 static int crypto_authenc_esn_decrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 298 \n"); 
 	struct crypto_aead *authenc_esn = crypto_aead_reqtfm(req);
 	struct authenc_esn_request_ctx *areq_ctx = aead_request_ctx(req);
 	struct crypto_authenc_esn_ctx *ctx = crypto_aead_ctx(authenc_esn);
@@ -335,6 +348,7 @@ tail:
 
 static int crypto_authenc_esn_init_tfm(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 351 \n"); 
 	struct aead_instance *inst = aead_alg_instance(tfm);
 	struct authenc_esn_instance_ctx *ictx = aead_instance_ctx(inst);
 	struct crypto_authenc_esn_ctx *ctx = crypto_aead_ctx(tfm);
@@ -385,6 +399,7 @@ err_free_ahash:
 
 static void crypto_authenc_esn_exit_tfm(struct crypto_aead *tfm)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 402 \n"); 
 	struct crypto_authenc_esn_ctx *ctx = crypto_aead_ctx(tfm);
 
 	crypto_free_ahash(ctx->auth);
@@ -394,6 +409,7 @@ static void crypto_authenc_esn_exit_tfm(struct crypto_aead *tfm)
 
 static void crypto_authenc_esn_free(struct aead_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 412 \n"); 
 	struct authenc_esn_instance_ctx *ctx = aead_instance_ctx(inst);
 
 	crypto_drop_skcipher(&ctx->enc);
@@ -404,6 +420,7 @@ static void crypto_authenc_esn_free(struct aead_instance *inst)
 static int crypto_authenc_esn_create(struct crypto_template *tmpl,
 				     struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/authencesn.c: line 423 \n"); 
 	struct crypto_attr_type *algt;
 	struct aead_instance *inst;
 	struct hash_alg_common *auth;

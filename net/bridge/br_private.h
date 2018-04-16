@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Linux ethernet bridge
  *
@@ -263,6 +264,7 @@ struct net_bridge_port
 
 static inline struct net_bridge_port *br_port_get_rcu(const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 267 \n"); 
 	return rcu_dereference(dev->rx_handler_data);
 }
 
@@ -427,12 +429,14 @@ static inline int br_is_root_bridge(const struct net_bridge *br)
 /* check if a VLAN entry is global */
 static inline bool br_vlan_is_master(const struct net_bridge_vlan *v)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 432 \n"); 
 	return v->flags & BRIDGE_VLAN_INFO_MASTER;
 }
 
 /* check if a VLAN entry is used by the bridge */
 static inline bool br_vlan_is_brentry(const struct net_bridge_vlan *v)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 439 \n"); 
 	return v->flags & BRIDGE_VLAN_INFO_BRENTRY;
 }
 
@@ -469,15 +473,18 @@ void br_netpoll_disable(struct net_bridge_port *p);
 static inline void br_netpoll_send_skb(const struct net_bridge_port *p,
 				       struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 476 \n"); 
 }
 
 static inline int br_netpoll_enable(struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 481 \n"); 
 	return 0;
 }
 
 static inline void br_netpoll_disable(struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 487 \n"); 
 }
 #endif
 
@@ -547,11 +554,13 @@ rx_handler_result_t br_handle_frame(struct sk_buff **pskb);
 
 static inline bool br_rx_handler_check_rcu(const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 557 \n"); 
 	return rcu_dereference(dev->rx_handler) == br_handle_frame;
 }
 
 static inline struct net_bridge_port *br_port_get_check_rcu(const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 563 \n"); 
 	return br_rx_handler_check_rcu(dev) ? br_port_get_rcu(dev) : NULL;
 }
 
@@ -662,71 +671,86 @@ static inline int br_multicast_rcv(struct net_bridge *br,
 				   struct sk_buff *skb,
 				   u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 674 \n"); 
 	return 0;
 }
 
 static inline struct net_bridge_mdb_entry *br_mdb_get(struct net_bridge *br,
 						      struct sk_buff *skb, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 681 \n"); 
 	return NULL;
 }
 
 static inline int br_multicast_add_port(struct net_bridge_port *port)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 687 \n"); 
 	return 0;
 }
 
 static inline void br_multicast_del_port(struct net_bridge_port *port)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 693 \n"); 
 }
 
 static inline void br_multicast_enable_port(struct net_bridge_port *port)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 698 \n"); 
 }
 
 static inline void br_multicast_disable_port(struct net_bridge_port *port)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 703 \n"); 
 }
 
 static inline void br_multicast_init(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 708 \n"); 
 }
 
 static inline void br_multicast_open(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 713 \n"); 
 }
 
 static inline void br_multicast_stop(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 718 \n"); 
 }
 
 static inline void br_multicast_dev_del(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 723 \n"); 
 }
 
 static inline void br_multicast_flood(struct net_bridge_mdb_entry *mdst,
 				      struct sk_buff *skb,
 				      bool local_rcv, bool local_orig)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 730 \n"); 
 }
 
 static inline bool br_multicast_is_router(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 735 \n"); 
 	return 0;
 }
 
 static inline bool br_multicast_querier_exists(struct net_bridge *br,
 					       struct ethhdr *eth)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 742 \n"); 
 	return false;
 }
 
 static inline void br_mdb_init(void)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 748 \n"); 
 }
 
 static inline void br_mdb_uninit(void)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 753 \n"); 
 }
 
 static inline void br_multicast_count(struct net_bridge *br,
@@ -734,15 +758,18 @@ static inline void br_multicast_count(struct net_bridge *br,
 				      const struct sk_buff *skb,
 				      u8 type, u8 dir)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 761 \n"); 
 }
 
 static inline int br_multicast_init_stats(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 766 \n"); 
 	return 0;
 }
 
 static inline int br_multicast_igmp_type(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 772 \n"); 
 	return 0;
 }
 #endif
@@ -839,18 +866,21 @@ static inline bool br_allowed_ingress(const struct net_bridge *br,
 				      struct sk_buff *skb,
 				      u16 *vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 869 \n"); 
 	return true;
 }
 
 static inline bool br_allowed_egress(struct net_bridge_vlan_group *vg,
 				     const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 876 \n"); 
 	return true;
 }
 
 static inline bool br_should_learn(struct net_bridge_port *p,
 				   struct sk_buff *skb, u16 *vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 883 \n"); 
 	return true;
 }
 
@@ -858,111 +888,132 @@ static inline struct sk_buff *br_handle_vlan(struct net_bridge *br,
 					     struct net_bridge_vlan_group *vg,
 					     struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 891 \n"); 
 	return skb;
 }
 
 static inline int br_vlan_add(struct net_bridge *br, u16 vid, u16 flags)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 897 \n"); 
 	return -EOPNOTSUPP;
 }
 
 static inline int br_vlan_delete(struct net_bridge *br, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 903 \n"); 
 	return -EOPNOTSUPP;
 }
 
 static inline void br_vlan_flush(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 909 \n"); 
 }
 
 static inline void br_recalculate_fwd_mask(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 914 \n"); 
 }
 
 static inline int br_vlan_init(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 919 \n"); 
 	return 0;
 }
 
 static inline int nbp_vlan_add(struct net_bridge_port *port, u16 vid, u16 flags)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 925 \n"); 
 	return -EOPNOTSUPP;
 }
 
 static inline int nbp_vlan_delete(struct net_bridge_port *port, u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 931 \n"); 
 	return -EOPNOTSUPP;
 }
 
 static inline void nbp_vlan_flush(struct net_bridge_port *port)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 937 \n"); 
 }
 
 static inline struct net_bridge_vlan *br_vlan_find(struct net_bridge_vlan_group *vg,
 						   u16 vid)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 943 \n"); 
 	return NULL;
 }
 
 static inline int nbp_vlan_init(struct net_bridge_port *port)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 949 \n"); 
 	return 0;
 }
 
 static inline u16 br_vlan_get_tag(const struct sk_buff *skb, u16 *tag)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 955 \n"); 
 	return 0;
 }
 
 static inline u16 br_get_pvid(const struct net_bridge_vlan_group *vg)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 961 \n"); 
 	return 0;
 }
 
 static inline int br_vlan_enabled(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 967 \n"); 
 	return 0;
 }
 
 static inline int __br_vlan_filter_toggle(struct net_bridge *br,
 					  unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 974 \n"); 
 	return -EOPNOTSUPP;
 }
 
 static inline int nbp_get_num_vlan_infos(struct net_bridge_port *p,
 					 u32 filter_mask)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 981 \n"); 
 	return 0;
 }
 
 static inline struct net_bridge_vlan_group *br_vlan_group(
 					const struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 988 \n"); 
 	return NULL;
 }
 
 static inline struct net_bridge_vlan_group *nbp_vlan_group(
 					const struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 995 \n"); 
 	return NULL;
 }
 
 static inline struct net_bridge_vlan_group *br_vlan_group_rcu(
 					const struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 1002 \n"); 
 	return NULL;
 }
 
 static inline struct net_bridge_vlan_group *nbp_vlan_group_rcu(
 					const struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 1009 \n"); 
 	return NULL;
 }
 
 static inline void br_vlan_get_stats(const struct net_bridge_vlan *v,
 				     struct br_vlan_stats *stats)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 1016 \n"); 
 }
 #endif
 
@@ -1061,17 +1112,20 @@ bool nbp_switchdev_allowed_egress(const struct net_bridge_port *p,
 #else
 static inline int nbp_switchdev_mark_set(struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 1115 \n"); 
 	return 0;
 }
 
 static inline void nbp_switchdev_frame_mark(const struct net_bridge_port *p,
 					    struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 1122 \n"); 
 }
 
 static inline bool nbp_switchdev_allowed_egress(const struct net_bridge_port *p,
 						const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_private.h: line 1128 \n"); 
 	return true;
 }
 #endif /* CONFIG_NET_SWITCHDEV */

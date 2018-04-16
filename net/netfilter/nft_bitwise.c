@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  *
@@ -29,6 +30,7 @@ static void nft_bitwise_eval(const struct nft_expr *expr,
 			     struct nft_regs *regs,
 			     const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_bitwise.c: line 33 \n"); 
 	const struct nft_bitwise *priv = nft_expr_priv(expr);
 	const u32 *src = &regs->data[priv->sreg];
 	u32 *dst = &regs->data[priv->dreg];
@@ -50,6 +52,7 @@ static int nft_bitwise_init(const struct nft_ctx *ctx,
 			    const struct nft_expr *expr,
 			    const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_bitwise.c: line 55 \n"); 
 	struct nft_bitwise *priv = nft_expr_priv(expr);
 	struct nft_data_desc d1, d2;
 	u32 len;
@@ -98,6 +101,7 @@ static int nft_bitwise_init(const struct nft_ctx *ctx,
 
 static int nft_bitwise_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_bitwise.c: line 104 \n"); 
 	const struct nft_bitwise *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_BITWISE_SREG, priv->sreg))
@@ -145,5 +149,6 @@ int __init nft_bitwise_module_init(void)
 
 void nft_bitwise_module_exit(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_bitwise.c: line 152 \n"); 
 	nft_unregister_expr(&nft_bitwise_type);
 }

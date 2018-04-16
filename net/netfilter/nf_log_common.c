@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2004 Netfilter Core Team <coreteam@netfilter.org>
  *
@@ -24,6 +25,7 @@
 int nf_log_dump_udp_header(struct nf_log_buf *m, const struct sk_buff *skb,
 			   u8 proto, int fragment, unsigned int offset)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log_common.c: line 28 \n"); 
 	struct udphdr _udph;
 	const struct udphdr *uh;
 
@@ -57,6 +59,7 @@ int nf_log_dump_tcp_header(struct nf_log_buf *m, const struct sk_buff *skb,
 			   u8 proto, int fragment, unsigned int offset,
 			   unsigned int logflags)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log_common.c: line 62 \n"); 
 	struct tcphdr _tcph;
 	const struct tcphdr *th;
 
@@ -134,6 +137,7 @@ EXPORT_SYMBOL_GPL(nf_log_dump_tcp_header);
 
 void nf_log_dump_sk_uid_gid(struct nf_log_buf *m, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log_common.c: line 140 \n"); 
 	if (!sk || !sk_fullsock(sk))
 		return;
 
@@ -155,6 +159,7 @@ nf_log_dump_packet_common(struct nf_log_buf *m, u_int8_t pf,
 			  const struct net_device *out,
 			  const struct nf_loginfo *loginfo, const char *prefix)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_log_common.c: line 162 \n"); 
 	nf_log_buf_add(m, KERN_SOH "%c%sIN=%s OUT=%s ",
 	       '0' + loginfo->u.log.level, prefix,
 	       in ? in->name : "",

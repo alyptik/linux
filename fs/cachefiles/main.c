@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Network filesystem caching backend to use cache files on a premounted
  * filesystem
  *
@@ -42,6 +43,7 @@ static struct miscdevice cachefiles_dev = {
 
 static void cachefiles_object_init_once(void *_object)
 {
+	panic("We reached unpopular paths in fs/cachefiles/main.c: line 46 \n"); 
 	struct cachefiles_object *object = _object;
 
 	memset(object, 0, sizeof(*object));

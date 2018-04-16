@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/sysfs/symlink.c - operations for initializing and mounting sysfs
  *

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  *
@@ -34,6 +35,7 @@ void nft_meta_get_eval(const struct nft_expr *expr,
 		       struct nft_regs *regs,
 		       const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_meta.c: line 38 \n"); 
 	const struct nft_meta *priv = nft_expr_priv(expr);
 	const struct sk_buff *skb = pkt->skb;
 	const struct net_device *in = pkt->in, *out = pkt->out;
@@ -231,6 +233,7 @@ void nft_meta_set_eval(const struct nft_expr *expr,
 		       struct nft_regs *regs,
 		       const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_meta.c: line 236 \n"); 
 	const struct nft_meta *meta = nft_expr_priv(expr);
 	struct sk_buff *skb = pkt->skb;
 	u32 value = regs->data[meta->sreg];
@@ -267,6 +270,7 @@ int nft_meta_get_init(const struct nft_ctx *ctx,
 		      const struct nft_expr *expr,
 		      const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_meta.c: line 273 \n"); 
 	struct nft_meta *priv = nft_expr_priv(expr);
 	unsigned int len;
 
@@ -323,6 +327,7 @@ int nft_meta_set_validate(const struct nft_ctx *ctx,
 			  const struct nft_expr *expr,
 			  const struct nft_data **data)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_meta.c: line 330 \n"); 
 	struct nft_meta *priv = nft_expr_priv(expr);
 	unsigned int hooks;
 
@@ -348,6 +353,7 @@ int nft_meta_set_init(const struct nft_ctx *ctx,
 		      const struct nft_expr *expr,
 		      const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_meta.c: line 356 \n"); 
 	struct nft_meta *priv = nft_expr_priv(expr);
 	unsigned int len;
 	int err;
@@ -387,6 +393,7 @@ EXPORT_SYMBOL_GPL(nft_meta_set_init);
 int nft_meta_get_dump(struct sk_buff *skb,
 		      const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_meta.c: line 396 \n"); 
 	const struct nft_meta *priv = nft_expr_priv(expr);
 
 	if (nla_put_be32(skb, NFTA_META_KEY, htonl(priv->key)))
@@ -403,6 +410,7 @@ EXPORT_SYMBOL_GPL(nft_meta_get_dump);
 int nft_meta_set_dump(struct sk_buff *skb,
 		      const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_meta.c: line 413 \n"); 
 	const struct nft_meta *priv = nft_expr_priv(expr);
 
 	if (nla_put_be32(skb, NFTA_META_KEY, htonl(priv->key)))
@@ -420,6 +428,7 @@ EXPORT_SYMBOL_GPL(nft_meta_set_dump);
 void nft_meta_set_destroy(const struct nft_ctx *ctx,
 			  const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_meta.c: line 431 \n"); 
 	const struct nft_meta *priv = nft_expr_priv(expr);
 
 	if (priv->key == NFT_META_NFTRACE)
@@ -450,6 +459,7 @@ static const struct nft_expr_ops *
 nft_meta_select_ops(const struct nft_ctx *ctx,
 		    const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_meta.c: line 462 \n"); 
 	if (tb[NFTA_META_KEY] == NULL)
 		return ERR_PTR(-EINVAL);
 

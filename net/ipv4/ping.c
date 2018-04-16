@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -66,6 +67,7 @@ static u16 ping_port_rover;
 
 static inline u32 ping_hashfn(const struct net *net, u32 num, u32 mask)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 70 \n"); 
 	u32 res = (num + net_hash_mix(net)) & mask;
 
 	pr_debug("hash(%u) = %u\n", num, res);
@@ -76,11 +78,13 @@ EXPORT_SYMBOL_GPL(ping_hash);
 static inline struct hlist_nulls_head *ping_hashslot(struct ping_table *table,
 					     struct net *net, unsigned int num)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 81 \n"); 
 	return &table->hash[ping_hashfn(net, num, PING_HTABLE_MASK)];
 }
 
 int ping_get_port(struct sock *sk, unsigned short ident)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 87 \n"); 
 	struct hlist_nulls_node *node;
 	struct hlist_nulls_head *hlist;
 	struct inet_sock *isk, *isk2;
@@ -147,6 +151,7 @@ EXPORT_SYMBOL_GPL(ping_get_port);
 
 int ping_hash(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 154 \n"); 
 	pr_debug("ping_hash(sk->port=%u)\n", inet_sk(sk)->inet_num);
 	BUG(); /* "Please do not press this button again." */
 
@@ -155,6 +160,7 @@ int ping_hash(struct sock *sk)
 
 void ping_unhash(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 163 \n"); 
 	struct inet_sock *isk = inet_sk(sk);
 
 	pr_debug("ping_unhash(isk=%p,isk->num=%u)\n", isk, isk->inet_num);
@@ -173,6 +179,7 @@ EXPORT_SYMBOL_GPL(ping_unhash);
 
 static struct sock *ping_lookup(struct net *net, struct sk_buff *skb, u16 ident)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 182 \n"); 
 	struct hlist_nulls_head *hslot = ping_hashslot(&ping_table, net, ident);
 	struct sock *sk = NULL;
 	struct inet_sock *isk;
@@ -242,6 +249,7 @@ exit:
 static void inet_get_ping_group_range_net(struct net *net, kgid_t *low,
 					  kgid_t *high)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 252 \n"); 
 	kgid_t *data = net->ipv4.ping_group_range.range;
 	unsigned int seq;
 
@@ -256,6 +264,7 @@ static void inet_get_ping_group_range_net(struct net *net, kgid_t *low,
 
 int ping_init_sock(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 267 \n"); 
 	struct net *net = sock_net(sk);
 	kgid_t group = current_egid();
 	struct group_info *group_info;
@@ -288,6 +297,7 @@ EXPORT_SYMBOL_GPL(ping_init_sock);
 
 void ping_close(struct sock *sk, long timeout)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 300 \n"); 
 	pr_debug("ping_close(sk=%p,sk->num=%u)\n",
 		 inet_sk(sk), inet_sk(sk)->inet_num);
 	pr_debug("isk->refcnt = %d\n", sk->sk_refcnt.counter);
@@ -377,6 +387,7 @@ static int ping_check_bind_addr(struct sock *sk, struct inet_sock *isk,
 
 static void ping_set_saddr(struct sock *sk, struct sockaddr *saddr)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 390 \n"); 
 	if (saddr->sa_family == AF_INET) {
 		struct inet_sock *isk = inet_sk(sk);
 		struct sockaddr_in *addr = (struct sockaddr_in *) saddr;
@@ -392,6 +403,7 @@ static void ping_set_saddr(struct sock *sk, struct sockaddr *saddr)
 
 static void ping_clear_saddr(struct sock *sk, int dif)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 406 \n"); 
 	sk->sk_bound_dev_if = dif;
 	if (sk->sk_family == AF_INET) {
 		struct inet_sock *isk = inet_sk(sk);
@@ -411,6 +423,7 @@ static void ping_clear_saddr(struct sock *sk, int dif)
 
 int ping_bind(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 426 \n"); 
 	struct inet_sock *isk = inet_sk(sk);
 	unsigned short snum;
 	int err;
@@ -471,6 +484,7 @@ EXPORT_SYMBOL_GPL(ping_bind);
 
 static inline int ping_supported(int family, int type, int code)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 487 \n"); 
 	return (family == AF_INET && type == ICMP_ECHO && code == 0) ||
 	       (family == AF_INET6 && type == ICMPV6_ECHO_REQUEST && code == 0);
 }
@@ -482,6 +496,7 @@ static inline int ping_supported(int family, int type, int code)
 
 void ping_err(struct sk_buff *skb, int offset, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 499 \n"); 
 	int family;
 	struct icmphdr *icmph;
 	struct inet_sock *inet_sock;
@@ -604,6 +619,7 @@ EXPORT_SYMBOL_GPL(ping_err);
 int ping_getfrag(void *from, char *to,
 		 int offset, int fraglen, int odd, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 622 \n"); 
 	struct pingfakehdr *pfh = (struct pingfakehdr *)from;
 
 	if (offset == 0) {
@@ -641,6 +657,7 @@ EXPORT_SYMBOL_GPL(ping_getfrag);
 static int ping_v4_push_pending_frames(struct sock *sk, struct pingfakehdr *pfh,
 				       struct flowi4 *fl4)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 660 \n"); 
 	struct sk_buff *skb = skb_peek(&sk->sk_write_queue);
 
 	if (!skb)
@@ -700,6 +717,7 @@ EXPORT_SYMBOL_GPL(ping_common_sendmsg);
 
 static int ping_v4_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 720 \n"); 
 	struct net *net = sock_net(sk);
 	struct flowi4 fl4;
 	struct inet_sock *inet = inet_sk(sk);
@@ -860,6 +878,7 @@ do_confirm:
 int ping_recvmsg(struct sock *sk, struct msghdr *msg, size_t len, int noblock,
 		 int flags, int *addr_len)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 881 \n"); 
 	struct inet_sock *isk = inet_sk(sk);
 	int family = sk->sk_family;
 	struct sk_buff *skb;
@@ -949,6 +968,7 @@ EXPORT_SYMBOL_GPL(ping_recvmsg);
 
 int ping_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 971 \n"); 
 	pr_debug("ping_queue_rcv_skb(sk=%p,sk->num=%d,skb=%p)\n",
 		 inet_sk(sk), inet_sk(sk)->inet_num, skb);
 	if (sock_queue_rcv_skb(sk, skb) < 0) {
@@ -967,6 +987,7 @@ EXPORT_SYMBOL_GPL(ping_queue_rcv_skb);
 
 bool ping_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/ping.c: line 990 \n"); 
 	struct sock *sk;
 	struct net *net = dev_net(skb->dev);
 	struct icmphdr *icmph = icmp_hdr(skb);

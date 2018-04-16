@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match MAC address parameters. */
 
 /* (C) 1999-2001 Paul `Rusty' Russell
@@ -27,6 +28,7 @@ MODULE_ALIAS("ip6t_mac");
 
 static bool mac_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_mac.c: line 31 \n"); 
 	const struct xt_mac_info *info = par->matchinfo;
 	bool ret;
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * algif_aead: User-space interface for AEAD algorithms
  *
@@ -71,6 +72,7 @@ struct aead_ctx {
 
 static inline int aead_sndbuf(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 75 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct aead_ctx *ctx = ask->private;
 
@@ -80,11 +82,13 @@ static inline int aead_sndbuf(struct sock *sk)
 
 static inline bool aead_writable(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 85 \n"); 
 	return PAGE_SIZE <= aead_sndbuf(sk);
 }
 
 static inline bool aead_sufficient_data(struct aead_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 91 \n"); 
 	unsigned as = crypto_aead_authsize(crypto_aead_reqtfm(&ctx->aead_req));
 
 	/*
@@ -96,6 +100,7 @@ static inline bool aead_sufficient_data(struct aead_ctx *ctx)
 
 static void aead_reset_ctx(struct aead_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 103 \n"); 
 	struct aead_sg_list *sgl = &ctx->tsgl;
 
 	sg_init_table(sgl->sg, ALG_MAX_PAGES);
@@ -107,6 +112,7 @@ static void aead_reset_ctx(struct aead_ctx *ctx)
 
 static void aead_put_sgl(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 115 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct aead_ctx *ctx = ask->private;
 	struct aead_sg_list *sgl = &ctx->tsgl;
@@ -125,6 +131,7 @@ static void aead_put_sgl(struct sock *sk)
 
 static void aead_wmem_wakeup(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 134 \n"); 
 	struct socket_wq *wq;
 
 	if (!aead_writable(sk))
@@ -142,6 +149,7 @@ static void aead_wmem_wakeup(struct sock *sk)
 
 static int aead_wait_for_data(struct sock *sk, unsigned flags)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 152 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct aead_ctx *ctx = ask->private;
 	long timeout;
@@ -172,6 +180,7 @@ static int aead_wait_for_data(struct sock *sk, unsigned flags)
 
 static void aead_data_wakeup(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 183 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct aead_ctx *ctx = ask->private;
 	struct socket_wq *wq;
@@ -193,6 +202,7 @@ static void aead_data_wakeup(struct sock *sk)
 
 static int aead_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 205 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct aead_ctx *ctx = ask->private;
@@ -326,6 +336,7 @@ unlock:
 static ssize_t aead_sendpage(struct socket *sock, struct page *page,
 			     int offset, size_t size, int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 339 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct aead_ctx *ctx = ask->private;
@@ -385,6 +396,7 @@ unlock:
 
 static void aead_async_cb(struct crypto_async_request *_req, int err)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 399 \n"); 
 	struct aead_request *req = _req->data;
 	struct crypto_aead *tfm = crypto_aead_reqtfm(req);
 	struct aead_async_req *areq = GET_ASYM_REQ(req, tfm);
@@ -412,6 +424,7 @@ static void aead_async_cb(struct crypto_async_request *_req, int err)
 static int aead_recvmsg_async(struct socket *sock, struct msghdr *msg,
 			      int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 427 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct aead_ctx *ctx = ask->private;
@@ -546,6 +559,7 @@ unlock:
 
 static int aead_recvmsg_sync(struct socket *sock, struct msghdr *msg, int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 562 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct aead_ctx *ctx = ask->private;
@@ -690,6 +704,7 @@ unlock:
 static int aead_recvmsg(struct socket *sock, struct msghdr *msg, size_t ignored,
 			int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 707 \n"); 
 	return (msg->msg_iocb && !is_sync_kiocb(msg->msg_iocb)) ?
 		aead_recvmsg_async(sock, msg, flags) :
 		aead_recvmsg_sync(sock, msg, flags);
@@ -698,6 +713,7 @@ static int aead_recvmsg(struct socket *sock, struct msghdr *msg, size_t ignored,
 static unsigned int aead_poll(struct file *file, struct socket *sock,
 			      poll_table *wait)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 716 \n"); 
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	struct aead_ctx *ctx = ask->private;
@@ -739,6 +755,7 @@ static struct proto_ops algif_aead_ops = {
 
 static int aead_check_key(struct socket *sock)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 758 \n"); 
 	int err = 0;
 	struct sock *psk;
 	struct alg_sock *pask;
@@ -778,6 +795,7 @@ unlock_child:
 static int aead_sendmsg_nokey(struct socket *sock, struct msghdr *msg,
 				  size_t size)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 798 \n"); 
 	int err;
 
 	err = aead_check_key(sock);
@@ -790,6 +808,7 @@ static int aead_sendmsg_nokey(struct socket *sock, struct msghdr *msg,
 static ssize_t aead_sendpage_nokey(struct socket *sock, struct page *page,
 				       int offset, size_t size, int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 811 \n"); 
 	int err;
 
 	err = aead_check_key(sock);
@@ -802,6 +821,7 @@ static ssize_t aead_sendpage_nokey(struct socket *sock, struct page *page,
 static int aead_recvmsg_nokey(struct socket *sock, struct msghdr *msg,
 				  size_t ignored, int flags)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 824 \n"); 
 	int err;
 
 	err = aead_check_key(sock);
@@ -835,6 +855,7 @@ static struct proto_ops algif_aead_ops_nokey = {
 
 static void *aead_bind(const char *name, u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 858 \n"); 
 	struct aead_tfm *tfm;
 	struct crypto_aead *aead;
 
@@ -881,6 +902,7 @@ static int aead_setkey(void *private, const u8 *key, unsigned int keylen)
 
 static void aead_sock_destruct(struct sock *sk)
 {
+	panic("We reached unpopular paths in crypto/algif_aead.c: line 905 \n"); 
 	struct alg_sock *ask = alg_sk(sk);
 	struct aead_ctx *ctx = ask->private;
 	unsigned int ivlen = crypto_aead_ivsize(

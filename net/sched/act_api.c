@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/act_api.c	Packet action API.
  *
@@ -29,6 +30,7 @@
 
 static void free_tcf(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 33 \n"); 
 	struct tc_action *p = container_of(head, struct tc_action, tcfa_rcu);
 
 	free_percpu(p->cpu_bstats);
@@ -38,6 +40,7 @@ static void free_tcf(struct rcu_head *head)
 
 static void tcf_hash_destroy(struct tcf_hashinfo *hinfo, struct tc_action *p)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 43 \n"); 
 	spin_lock_bh(&hinfo->lock);
 	hlist_del(&p->tcfa_head);
 	spin_unlock_bh(&hinfo->lock);
@@ -52,6 +55,7 @@ static void tcf_hash_destroy(struct tcf_hashinfo *hinfo, struct tc_action *p)
 
 int __tcf_hash_release(struct tc_action *p, bool bind, bool strict)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 58 \n"); 
 	int ret = 0;
 
 	if (p) {
@@ -76,6 +80,7 @@ EXPORT_SYMBOL(__tcf_hash_release);
 static int tcf_dump_walker(struct tcf_hashinfo *hinfo, struct sk_buff *skb,
 			   struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 83 \n"); 
 	int err = 0, index = -1, i = 0, s_i = 0, n_i = 0;
 	struct nlattr *nest;
 
@@ -123,6 +128,7 @@ nla_put_failure:
 static int tcf_del_walker(struct tcf_hashinfo *hinfo, struct sk_buff *skb,
 			  const struct tc_action_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 131 \n"); 
 	struct nlattr *nest;
 	int i = 0, n_i = 0;
 	int ret = -EINVAL;
@@ -161,6 +167,7 @@ int tcf_generic_walker(struct tc_action_net *tn, struct sk_buff *skb,
 		       struct netlink_callback *cb, int type,
 		       const struct tc_action_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 170 \n"); 
 	struct tcf_hashinfo *hinfo = tn->hinfo;
 
 	if (type == RTM_DELACTION) {
@@ -176,6 +183,7 @@ EXPORT_SYMBOL(tcf_generic_walker);
 
 static struct tc_action *tcf_hash_lookup(u32 index, struct tcf_hashinfo *hinfo)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 186 \n"); 
 	struct tc_action *p = NULL;
 	struct hlist_head *head;
 
@@ -191,6 +199,7 @@ static struct tc_action *tcf_hash_lookup(u32 index, struct tcf_hashinfo *hinfo)
 
 u32 tcf_hash_new_index(struct tc_action_net *tn)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 202 \n"); 
 	struct tcf_hashinfo *hinfo = tn->hinfo;
 	u32 val = hinfo->index;
 
@@ -206,6 +215,7 @@ EXPORT_SYMBOL(tcf_hash_new_index);
 
 int tcf_hash_search(struct tc_action_net *tn, struct tc_action **a, u32 index)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 218 \n"); 
 	struct tcf_hashinfo *hinfo = tn->hinfo;
 	struct tc_action *p = tcf_hash_lookup(index, hinfo);
 
@@ -220,6 +230,7 @@ EXPORT_SYMBOL(tcf_hash_search);
 bool tcf_hash_check(struct tc_action_net *tn, u32 index, struct tc_action **a,
 		    int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 233 \n"); 
 	struct tcf_hashinfo *hinfo = tn->hinfo;
 	struct tc_action *p = NULL;
 
@@ -236,6 +247,7 @@ EXPORT_SYMBOL(tcf_hash_check);
 
 void tcf_hash_cleanup(struct tc_action *a, struct nlattr *est)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 250 \n"); 
 	if (est)
 		gen_kill_estimator(&a->tcfa_bstats,
 				   &a->tcfa_rate_est);
@@ -247,6 +259,7 @@ int tcf_hash_create(struct tc_action_net *tn, u32 index, struct nlattr *est,
 		    struct tc_action **a, const struct tc_action_ops *ops,
 		    int bind, bool cpustats)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 262 \n"); 
 	struct tc_action *p = kzalloc(ops->size, GFP_KERNEL);
 	struct tcf_hashinfo *hinfo = tn->hinfo;
 	int err = -ENOMEM;
@@ -297,6 +310,7 @@ EXPORT_SYMBOL(tcf_hash_create);
 
 void tcf_hash_insert(struct tc_action_net *tn, struct tc_action *a)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 313 \n"); 
 	struct tcf_hashinfo *hinfo = tn->hinfo;
 	unsigned int h = tcf_hash(a->tcfa_index, hinfo->hmask);
 
@@ -367,6 +381,7 @@ EXPORT_SYMBOL(tcf_register_action);
 int tcf_unregister_action(struct tc_action_ops *act,
 			  struct pernet_operations *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 384 \n"); 
 	struct tc_action_ops *a;
 	int err = -ENOENT;
 
@@ -388,6 +403,7 @@ EXPORT_SYMBOL(tcf_unregister_action);
 /* lookup by name */
 static struct tc_action_ops *tc_lookup_action_n(char *kind)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 406 \n"); 
 	struct tc_action_ops *a, *res = NULL;
 
 	if (kind) {
@@ -407,6 +423,7 @@ static struct tc_action_ops *tc_lookup_action_n(char *kind)
 /* lookup by nlattr */
 static struct tc_action_ops *tc_lookup_action(struct nlattr *kind)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 426 \n"); 
 	struct tc_action_ops *a, *res = NULL;
 
 	if (kind) {
@@ -426,6 +443,7 @@ static struct tc_action_ops *tc_lookup_action(struct nlattr *kind)
 int tcf_action_exec(struct sk_buff *skb, struct tc_action **actions,
 		    int nr_actions, struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 446 \n"); 
 	int ret = -1, i;
 
 	if (skb->tc_verd & TC_NCLS) {
@@ -450,6 +468,7 @@ EXPORT_SYMBOL(tcf_action_exec);
 
 int tcf_action_destroy(struct list_head *actions, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 471 \n"); 
 	const struct tc_action_ops *ops;
 	struct tc_action *a, *tmp;
 	int ret = 0;
@@ -468,12 +487,14 @@ int tcf_action_destroy(struct list_head *actions, int bind)
 int
 tcf_action_dump_old(struct sk_buff *skb, struct tc_action *a, int bind, int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 490 \n"); 
 	return a->ops->dump(skb, a, bind, ref);
 }
 
 int
 tcf_action_dump_1(struct sk_buff *skb, struct tc_action *a, int bind, int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 497 \n"); 
 	int err = -EINVAL;
 	unsigned char *b = skb_tail_pointer(skb);
 	struct nlattr *nest;
@@ -500,6 +521,7 @@ EXPORT_SYMBOL(tcf_action_dump_1);
 int tcf_action_dump(struct sk_buff *skb, struct list_head *actions,
 		    int bind, int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 524 \n"); 
 	struct tc_action *a;
 	int err = -EINVAL;
 	struct nlattr *nest;
@@ -527,6 +549,7 @@ struct tc_action *tcf_action_init_1(struct net *net, struct nlattr *nla,
 				    struct nlattr *est, char *name, int ovr,
 				    int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 552 \n"); 
 	struct tc_action *a;
 	struct tc_action_ops *a_o;
 	char act_name[IFNAMSIZ];
@@ -599,6 +622,7 @@ err_out:
 
 static void cleanup_a(struct list_head *actions, int ovr)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 625 \n"); 
 	struct tc_action *a;
 
 	if (!ovr)
@@ -611,6 +635,7 @@ static void cleanup_a(struct list_head *actions, int ovr)
 int tcf_action_init(struct net *net, struct nlattr *nla, struct nlattr *est,
 		    char *name, int ovr, int bind, struct list_head *actions)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 638 \n"); 
 	struct nlattr *tb[TCA_ACT_MAX_PRIO + 1];
 	struct tc_action *act;
 	int err;
@@ -646,6 +671,7 @@ err:
 int tcf_action_copy_stats(struct sk_buff *skb, struct tc_action *p,
 			  int compat_mode)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 674 \n"); 
 	int err = 0;
 	struct gnet_dump d;
 
@@ -692,6 +718,7 @@ static int tca_get_fill(struct sk_buff *skb, struct list_head *actions,
 			u32 portid, u32 seq, u16 flags, int event, int bind,
 			int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 721 \n"); 
 	struct tcamsg *t;
 	struct nlmsghdr *nlh;
 	unsigned char *b = skb_tail_pointer(skb);
@@ -726,6 +753,7 @@ static int
 act_get_notify(struct net *net, u32 portid, struct nlmsghdr *n,
 	       struct list_head *actions, int event)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 756 \n"); 
 	struct sk_buff *skb;
 
 	skb = alloc_skb(NLMSG_GOODSIZE, GFP_KERNEL);
@@ -743,6 +771,7 @@ act_get_notify(struct net *net, u32 portid, struct nlmsghdr *n,
 static struct tc_action *tcf_action_get_1(struct net *net, struct nlattr *nla,
 					  struct nlmsghdr *n, u32 portid)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 774 \n"); 
 	struct nlattr *tb[TCA_ACT_MAX + 1];
 	const struct tc_action_ops *ops;
 	struct tc_action *a;
@@ -779,6 +808,7 @@ err_out:
 static int tca_action_flush(struct net *net, struct nlattr *nla,
 			    struct nlmsghdr *n, u32 portid)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 811 \n"); 
 	struct sk_buff *skb;
 	unsigned char *b;
 	struct nlmsghdr *nlh;
@@ -848,6 +878,7 @@ static int
 tcf_del_notify(struct net *net, struct nlmsghdr *n, struct list_head *actions,
 	       u32 portid)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 881 \n"); 
 	int ret;
 	struct sk_buff *skb;
 
@@ -879,6 +910,7 @@ static int
 tca_action_gd(struct net *net, struct nlattr *nla, struct nlmsghdr *n,
 	      u32 portid, int event)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 913 \n"); 
 	int i, ret;
 	struct nlattr *tb[TCA_ACT_MAX_PRIO + 1];
 	struct tc_action *act;
@@ -923,6 +955,7 @@ static int
 tcf_add_notify(struct net *net, struct nlmsghdr *n, struct list_head *actions,
 	       u32 portid)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 958 \n"); 
 	struct sk_buff *skb;
 	int err = 0;
 
@@ -946,6 +979,7 @@ tcf_add_notify(struct net *net, struct nlmsghdr *n, struct list_head *actions,
 static int tcf_action_add(struct net *net, struct nlattr *nla,
 			  struct nlmsghdr *n, u32 portid, int ovr)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 982 \n"); 
 	int ret = 0;
 	LIST_HEAD(actions);
 
@@ -958,6 +992,7 @@ static int tcf_action_add(struct net *net, struct nlattr *nla,
 
 static int tc_ctl_action(struct sk_buff *skb, struct nlmsghdr *n)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 995 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct nlattr *tca[TCA_ACT_MAX + 1];
 	u32 portid = skb ? NETLINK_CB(skb).portid : 0;
@@ -1009,6 +1044,7 @@ replay:
 
 static struct nlattr *find_dump_kind(const struct nlmsghdr *n)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 1047 \n"); 
 	struct nlattr *tb1, *tb2[TCA_ACT_MAX + 1];
 	struct nlattr *tb[TCA_ACT_MAX_PRIO + 1];
 	struct nlattr *nla[TCAA_MAX + 1];
@@ -1035,6 +1071,7 @@ static struct nlattr *find_dump_kind(const struct nlmsghdr *n)
 
 static int tc_dump_action(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/sched/act_api.c: line 1074 \n"); 
 	struct net *net = sock_net(skb->sk);
 	struct nlmsghdr *nlh;
 	unsigned char *b = skb_tail_pointer(skb);

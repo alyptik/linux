@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Block multiqueue core code
  *
@@ -39,6 +40,7 @@ static LIST_HEAD(all_q_list);
  */
 static bool blk_mq_hctx_has_pending(struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 43 \n"); 
 	return sbitmap_any_bit_set(&hctx->ctx_map);
 }
 
@@ -48,6 +50,7 @@ static bool blk_mq_hctx_has_pending(struct blk_mq_hw_ctx *hctx)
 static void blk_mq_hctx_mark_pending(struct blk_mq_hw_ctx *hctx,
 				     struct blk_mq_ctx *ctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 53 \n"); 
 	if (!sbitmap_test_bit(&hctx->ctx_map, ctx->index_hw))
 		sbitmap_set_bit(&hctx->ctx_map, ctx->index_hw);
 }
@@ -55,11 +58,13 @@ static void blk_mq_hctx_mark_pending(struct blk_mq_hw_ctx *hctx,
 static void blk_mq_hctx_clear_pending(struct blk_mq_hw_ctx *hctx,
 				      struct blk_mq_ctx *ctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 61 \n"); 
 	sbitmap_clear_bit(&hctx->ctx_map, ctx->index_hw);
 }
 
 void blk_mq_freeze_queue_start(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 67 \n"); 
 	int freeze_depth;
 
 	freeze_depth = atomic_inc_return(&q->mq_freeze_depth);
@@ -72,6 +77,7 @@ EXPORT_SYMBOL_GPL(blk_mq_freeze_queue_start);
 
 static void blk_mq_freeze_queue_wait(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 80 \n"); 
 	wait_event(q->mq_freeze_wq, percpu_ref_is_zero(&q->q_usage_counter));
 }
 
@@ -81,6 +87,7 @@ static void blk_mq_freeze_queue_wait(struct request_queue *q)
  */
 void blk_freeze_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 90 \n"); 
 	/*
 	 * In the !blk_mq case we are only calling this to kill the
 	 * q_usage_counter, otherwise this increases the freeze depth
@@ -94,6 +101,7 @@ void blk_freeze_queue(struct request_queue *q)
 
 void blk_mq_freeze_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 104 \n"); 
 	/*
 	 * ...just an alias to keep freeze and unfreeze actions balanced
 	 * in the blk_mq_* namespace
@@ -104,6 +112,7 @@ EXPORT_SYMBOL_GPL(blk_mq_freeze_queue);
 
 void blk_mq_unfreeze_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 115 \n"); 
 	int freeze_depth;
 
 	freeze_depth = atomic_dec_return(&q->mq_freeze_depth);
@@ -117,6 +126,7 @@ EXPORT_SYMBOL_GPL(blk_mq_unfreeze_queue);
 
 void blk_mq_wake_waiters(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 129 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	unsigned int i;
 
@@ -134,6 +144,7 @@ void blk_mq_wake_waiters(struct request_queue *q)
 
 bool blk_mq_can_queue(struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 147 \n"); 
 	return blk_mq_has_free_tags(hctx->tags);
 }
 EXPORT_SYMBOL(blk_mq_can_queue);
@@ -142,6 +153,7 @@ static void blk_mq_rq_ctx_init(struct request_queue *q, struct blk_mq_ctx *ctx,
 			       struct request *rq, int op,
 			       unsigned int op_flags)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 156 \n"); 
 	if (blk_queue_io_stat(q))
 		op_flags |= REQ_IO_STAT;
 
@@ -190,6 +202,7 @@ static void blk_mq_rq_ctx_init(struct request_queue *q, struct blk_mq_ctx *ctx,
 static struct request *
 __blk_mq_alloc_request(struct blk_mq_alloc_data *data, int op, int op_flags)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 205 \n"); 
 	struct request *rq;
 	unsigned int tag;
 
@@ -213,6 +226,7 @@ __blk_mq_alloc_request(struct blk_mq_alloc_data *data, int op, int op_flags)
 struct request *blk_mq_alloc_request(struct request_queue *q, int rw,
 		unsigned int flags)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 229 \n"); 
 	struct blk_mq_ctx *ctx;
 	struct blk_mq_hw_ctx *hctx;
 	struct request *rq;
@@ -244,6 +258,7 @@ EXPORT_SYMBOL(blk_mq_alloc_request);
 struct request *blk_mq_alloc_request_hctx(struct request_queue *q, int rw,
 		unsigned int flags, unsigned int hctx_idx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 261 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	struct blk_mq_ctx *ctx;
 	struct request *rq;
@@ -295,6 +310,7 @@ EXPORT_SYMBOL_GPL(blk_mq_alloc_request_hctx);
 static void __blk_mq_free_request(struct blk_mq_hw_ctx *hctx,
 				  struct blk_mq_ctx *ctx, struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 313 \n"); 
 	const int tag = rq->tag;
 	struct request_queue *q = rq->q;
 
@@ -309,6 +325,7 @@ static void __blk_mq_free_request(struct blk_mq_hw_ctx *hctx,
 
 void blk_mq_free_hctx_request(struct blk_mq_hw_ctx *hctx, struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 328 \n"); 
 	struct blk_mq_ctx *ctx = rq->mq_ctx;
 
 	ctx->rq_completed[rq_is_sync(rq)]++;
@@ -319,12 +336,14 @@ EXPORT_SYMBOL_GPL(blk_mq_free_hctx_request);
 
 void blk_mq_free_request(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 339 \n"); 
 	blk_mq_free_hctx_request(blk_mq_map_queue(rq->q, rq->mq_ctx->cpu), rq);
 }
 EXPORT_SYMBOL_GPL(blk_mq_free_request);
 
 inline void __blk_mq_end_request(struct request *rq, int error)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 346 \n"); 
 	blk_account_io_done(rq);
 
 	if (rq->end_io) {
@@ -339,6 +358,7 @@ EXPORT_SYMBOL(__blk_mq_end_request);
 
 void blk_mq_end_request(struct request *rq, int error)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 361 \n"); 
 	if (blk_update_request(rq, error, blk_rq_bytes(rq)))
 		BUG();
 	__blk_mq_end_request(rq, error);
@@ -347,6 +367,7 @@ EXPORT_SYMBOL(blk_mq_end_request);
 
 static void __blk_mq_complete_request_remote(void *data)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 370 \n"); 
 	struct request *rq = data;
 
 	rq->q->softirq_done_fn(rq);
@@ -354,6 +375,7 @@ static void __blk_mq_complete_request_remote(void *data)
 
 static void blk_mq_ipi_complete_request(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 378 \n"); 
 	struct blk_mq_ctx *ctx = rq->mq_ctx;
 	bool shared = false;
 	int cpu;
@@ -380,6 +402,7 @@ static void blk_mq_ipi_complete_request(struct request *rq)
 
 static void __blk_mq_complete_request(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 405 \n"); 
 	struct request_queue *q = rq->q;
 
 	if (!q->softirq_done_fn)
@@ -398,6 +421,7 @@ static void __blk_mq_complete_request(struct request *rq)
  **/
 void blk_mq_complete_request(struct request *rq, int error)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 424 \n"); 
 	struct request_queue *q = rq->q;
 
 	if (unlikely(blk_should_fake_timeout(q)))
@@ -411,12 +435,14 @@ EXPORT_SYMBOL(blk_mq_complete_request);
 
 int blk_mq_request_started(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 438 \n"); 
 	return test_bit(REQ_ATOM_STARTED, &rq->atomic_flags);
 }
 EXPORT_SYMBOL_GPL(blk_mq_request_started);
 
 void blk_mq_start_request(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 445 \n"); 
 	struct request_queue *q = rq->q;
 
 	trace_block_rq_issue(q, rq);
@@ -457,6 +483,7 @@ EXPORT_SYMBOL(blk_mq_start_request);
 
 static void __blk_mq_requeue_request(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 486 \n"); 
 	struct request_queue *q = rq->q;
 
 	trace_block_rq_requeue(q, rq);
@@ -469,6 +496,7 @@ static void __blk_mq_requeue_request(struct request *rq)
 
 void blk_mq_requeue_request(struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 499 \n"); 
 	__blk_mq_requeue_request(rq);
 
 	BUG_ON(blk_queued_rq(rq));
@@ -478,6 +506,7 @@ EXPORT_SYMBOL(blk_mq_requeue_request);
 
 static void blk_mq_requeue_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 509 \n"); 
 	struct request_queue *q =
 		container_of(work, struct request_queue, requeue_work.work);
 	LIST_HEAD(rq_list);
@@ -512,6 +541,7 @@ static void blk_mq_requeue_work(struct work_struct *work)
 
 void blk_mq_add_to_requeue_list(struct request *rq, bool at_head)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 544 \n"); 
 	struct request_queue *q = rq->q;
 	unsigned long flags;
 
@@ -534,12 +564,14 @@ EXPORT_SYMBOL(blk_mq_add_to_requeue_list);
 
 void blk_mq_cancel_requeue_work(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 567 \n"); 
 	cancel_delayed_work_sync(&q->requeue_work);
 }
 EXPORT_SYMBOL_GPL(blk_mq_cancel_requeue_work);
 
 void blk_mq_kick_requeue_list(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 574 \n"); 
 	kblockd_schedule_delayed_work(&q->requeue_work, 0);
 }
 EXPORT_SYMBOL(blk_mq_kick_requeue_list);
@@ -547,6 +579,7 @@ EXPORT_SYMBOL(blk_mq_kick_requeue_list);
 void blk_mq_delay_kick_requeue_list(struct request_queue *q,
 				    unsigned long msecs)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 582 \n"); 
 	kblockd_schedule_delayed_work(&q->requeue_work,
 				      msecs_to_jiffies(msecs));
 }
@@ -554,6 +587,7 @@ EXPORT_SYMBOL(blk_mq_delay_kick_requeue_list);
 
 void blk_mq_abort_requeue_list(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 590 \n"); 
 	unsigned long flags;
 	LIST_HEAD(rq_list);
 
@@ -574,6 +608,7 @@ EXPORT_SYMBOL(blk_mq_abort_requeue_list);
 
 struct request *blk_mq_tag_to_rq(struct blk_mq_tags *tags, unsigned int tag)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 611 \n"); 
 	if (tag < tags->nr_tags) {
 		prefetch(tags->rqs[tag]);
 		return tags->rqs[tag];
@@ -590,6 +625,7 @@ struct blk_mq_timeout_data {
 
 void blk_mq_rq_timed_out(struct request *req, bool reserved)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 628 \n"); 
 	struct blk_mq_ops *ops = req->q->mq_ops;
 	enum blk_eh_timer_return ret = BLK_EH_RESET_TIMER;
 
@@ -627,6 +663,7 @@ void blk_mq_rq_timed_out(struct request *req, bool reserved)
 static void blk_mq_check_expired(struct blk_mq_hw_ctx *hctx,
 		struct request *rq, void *priv, bool reserved)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 666 \n"); 
 	struct blk_mq_timeout_data *data = priv;
 
 	if (!test_bit(REQ_ATOM_STARTED, &rq->atomic_flags))
@@ -643,6 +680,7 @@ static void blk_mq_check_expired(struct blk_mq_hw_ctx *hctx,
 
 static void blk_mq_timeout_work(struct work_struct *work)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 683 \n"); 
 	struct request_queue *q =
 		container_of(work, struct request_queue, timeout_work);
 	struct blk_mq_timeout_data data = {
@@ -692,6 +730,7 @@ static void blk_mq_timeout_work(struct work_struct *work)
 static bool blk_mq_attempt_merge(struct request_queue *q,
 				 struct blk_mq_ctx *ctx, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 733 \n"); 
 	struct request *rq;
 	int checked = 8;
 
@@ -730,6 +769,7 @@ struct flush_busy_ctx_data {
 
 static bool flush_busy_ctx(struct sbitmap *sb, unsigned int bitnr, void *data)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 772 \n"); 
 	struct flush_busy_ctx_data *flush_data = data;
 	struct blk_mq_hw_ctx *hctx = flush_data->hctx;
 	struct blk_mq_ctx *ctx = hctx->ctxs[bitnr];
@@ -747,6 +787,7 @@ static bool flush_busy_ctx(struct sbitmap *sb, unsigned int bitnr, void *data)
  */
 static void flush_busy_ctxs(struct blk_mq_hw_ctx *hctx, struct list_head *list)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 790 \n"); 
 	struct flush_busy_ctx_data data = {
 		.hctx = hctx,
 		.list = list,
@@ -757,6 +798,7 @@ static void flush_busy_ctxs(struct blk_mq_hw_ctx *hctx, struct list_head *list)
 
 static inline unsigned int queued_to_index(unsigned int queued)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 801 \n"); 
 	if (!queued)
 		return 0;
 
@@ -771,6 +813,7 @@ static inline unsigned int queued_to_index(unsigned int queued)
  */
 static void __blk_mq_run_hw_queue(struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 816 \n"); 
 	struct request_queue *q = hctx->queue;
 	struct request *rq;
 	LIST_HEAD(rq_list);
@@ -882,6 +925,7 @@ static void __blk_mq_run_hw_queue(struct blk_mq_hw_ctx *hctx)
  */
 static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 928 \n"); 
 	if (hctx->queue->nr_hw_queues == 1)
 		return WORK_CPU_UNBOUND;
 
@@ -901,6 +945,7 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
 
 void blk_mq_run_hw_queue(struct blk_mq_hw_ctx *hctx, bool async)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 948 \n"); 
 	if (unlikely(test_bit(BLK_MQ_S_STOPPED, &hctx->state) ||
 	    !blk_mq_hw_queue_mapped(hctx)))
 		return;
@@ -921,6 +966,7 @@ void blk_mq_run_hw_queue(struct blk_mq_hw_ctx *hctx, bool async)
 
 void blk_mq_run_hw_queues(struct request_queue *q, bool async)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 969 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	int i;
 
@@ -937,6 +983,7 @@ EXPORT_SYMBOL(blk_mq_run_hw_queues);
 
 void blk_mq_stop_hw_queue(struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 986 \n"); 
 	cancel_work(&hctx->run_work);
 	cancel_delayed_work(&hctx->delay_work);
 	set_bit(BLK_MQ_S_STOPPED, &hctx->state);
@@ -945,6 +992,7 @@ EXPORT_SYMBOL(blk_mq_stop_hw_queue);
 
 void blk_mq_stop_hw_queues(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 995 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	int i;
 
@@ -955,6 +1003,7 @@ EXPORT_SYMBOL(blk_mq_stop_hw_queues);
 
 void blk_mq_start_hw_queue(struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1006 \n"); 
 	clear_bit(BLK_MQ_S_STOPPED, &hctx->state);
 
 	blk_mq_run_hw_queue(hctx, false);
@@ -963,6 +1012,7 @@ EXPORT_SYMBOL(blk_mq_start_hw_queue);
 
 void blk_mq_start_hw_queues(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1015 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	int i;
 
@@ -973,6 +1023,7 @@ EXPORT_SYMBOL(blk_mq_start_hw_queues);
 
 void blk_mq_start_stopped_hw_queues(struct request_queue *q, bool async)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1026 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	int i;
 
@@ -988,6 +1039,7 @@ EXPORT_SYMBOL(blk_mq_start_stopped_hw_queues);
 
 static void blk_mq_run_work_fn(struct work_struct *work)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1042 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 
 	hctx = container_of(work, struct blk_mq_hw_ctx, run_work);
@@ -997,6 +1049,7 @@ static void blk_mq_run_work_fn(struct work_struct *work)
 
 static void blk_mq_delay_work_fn(struct work_struct *work)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1052 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 
 	hctx = container_of(work, struct blk_mq_hw_ctx, delay_work.work);
@@ -1007,6 +1060,7 @@ static void blk_mq_delay_work_fn(struct work_struct *work)
 
 void blk_mq_delay_queue(struct blk_mq_hw_ctx *hctx, unsigned long msecs)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1063 \n"); 
 	if (unlikely(!blk_mq_hw_queue_mapped(hctx)))
 		return;
 
@@ -1019,6 +1073,7 @@ static inline void __blk_mq_insert_req_list(struct blk_mq_hw_ctx *hctx,
 					    struct request *rq,
 					    bool at_head)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1076 \n"); 
 	struct blk_mq_ctx *ctx = rq->mq_ctx;
 
 	trace_block_rq_insert(hctx->queue, rq);
@@ -1032,6 +1087,7 @@ static inline void __blk_mq_insert_req_list(struct blk_mq_hw_ctx *hctx,
 static void __blk_mq_insert_request(struct blk_mq_hw_ctx *hctx,
 				    struct request *rq, bool at_head)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1090 \n"); 
 	struct blk_mq_ctx *ctx = rq->mq_ctx;
 
 	__blk_mq_insert_req_list(hctx, rq, at_head);
@@ -1041,6 +1097,7 @@ static void __blk_mq_insert_request(struct blk_mq_hw_ctx *hctx,
 void blk_mq_insert_request(struct request *rq, bool at_head, bool run_queue,
 			   bool async)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1100 \n"); 
 	struct blk_mq_ctx *ctx = rq->mq_ctx;
 	struct request_queue *q = rq->q;
 	struct blk_mq_hw_ctx *hctx = blk_mq_map_queue(q, ctx->cpu);
@@ -1060,6 +1117,7 @@ static void blk_mq_insert_requests(struct request_queue *q,
 				     bool from_schedule)
 
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1120 \n"); 
 	struct blk_mq_hw_ctx *hctx = blk_mq_map_queue(q, ctx->cpu);
 
 	trace_block_unplug(q, depth, !from_schedule);
@@ -1085,6 +1143,7 @@ static void blk_mq_insert_requests(struct request_queue *q,
 
 static int plug_ctx_cmp(void *priv, struct list_head *a, struct list_head *b)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1146 \n"); 
 	struct request *rqa = container_of(a, struct request, queuelist);
 	struct request *rqb = container_of(b, struct request, queuelist);
 
@@ -1095,6 +1154,7 @@ static int plug_ctx_cmp(void *priv, struct list_head *a, struct list_head *b)
 
 void blk_mq_flush_plug_list(struct blk_plug *plug, bool from_schedule)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1157 \n"); 
 	struct blk_mq_ctx *this_ctx;
 	struct request_queue *this_q;
 	struct request *rq;
@@ -1142,6 +1202,7 @@ void blk_mq_flush_plug_list(struct blk_plug *plug, bool from_schedule)
 
 static void blk_mq_bio_to_request(struct request *rq, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1205 \n"); 
 	init_request_from_bio(rq, bio);
 
 	blk_account_io_start(rq, 1);
@@ -1149,6 +1210,7 @@ static void blk_mq_bio_to_request(struct request *rq, struct bio *bio)
 
 static inline bool hctx_allow_merges(struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1213 \n"); 
 	return (hctx->flags & BLK_MQ_F_SHOULD_MERGE) &&
 		!blk_queue_nomerges(hctx->queue);
 }
@@ -1157,6 +1219,7 @@ static inline bool blk_mq_merge_queue_io(struct blk_mq_hw_ctx *hctx,
 					 struct blk_mq_ctx *ctx,
 					 struct request *rq, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1222 \n"); 
 	if (!hctx_allow_merges(hctx) || !bio_mergeable(bio)) {
 		blk_mq_bio_to_request(rq, bio);
 		spin_lock(&ctx->lock);
@@ -1188,6 +1251,7 @@ static struct request *blk_mq_map_request(struct request_queue *q,
 					  struct bio *bio,
 					  struct blk_map_ctx *data)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1254 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	struct blk_mq_ctx *ctx;
 	struct request *rq;
@@ -1214,6 +1278,7 @@ static struct request *blk_mq_map_request(struct request_queue *q,
 
 static int blk_mq_direct_issue_request(struct request *rq, blk_qc_t *cookie)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1281 \n"); 
 	int ret;
 	struct request_queue *q = rq->q;
 	struct blk_mq_hw_ctx *hctx = blk_mq_map_queue(q, rq->mq_ctx->cpu);
@@ -1254,6 +1319,7 @@ static int blk_mq_direct_issue_request(struct request *rq, blk_qc_t *cookie)
  */
 static blk_qc_t blk_mq_make_request(struct request_queue *q, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1322 \n"); 
 	const int is_sync = rw_is_sync(bio_op(bio), bio->bi_opf);
 	const int is_flush_fua = bio->bi_opf & (REQ_PREFLUSH | REQ_FUA);
 	struct blk_map_ctx data;
@@ -1348,6 +1414,7 @@ done:
  */
 static blk_qc_t blk_sq_make_request(struct request_queue *q, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1417 \n"); 
 	const int is_sync = rw_is_sync(bio_op(bio), bio->bi_opf);
 	const int is_flush_fua = bio->bi_opf & (REQ_PREFLUSH | REQ_FUA);
 	struct blk_plug *plug;
@@ -1423,6 +1490,7 @@ run_queue:
 static void blk_mq_free_rq_map(struct blk_mq_tag_set *set,
 		struct blk_mq_tags *tags, unsigned int hctx_idx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1493 \n"); 
 	struct page *page;
 
 	if (tags->rqs && set->ops->exit_request) {
@@ -1455,6 +1523,7 @@ static void blk_mq_free_rq_map(struct blk_mq_tag_set *set,
 
 static size_t order_to_size(unsigned int order)
 {
+	// [blacklist] panic("We reached unpopular paths in block/blk-mq.c: line 1526 \n"); 
 	return (size_t)PAGE_SIZE << order;
 }
 
@@ -1554,6 +1623,7 @@ fail:
  */
 static int blk_mq_hctx_notify_dead(unsigned int cpu, struct hlist_node *node)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1626 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	struct blk_mq_ctx *ctx;
 	LIST_HEAD(tmp);
@@ -1581,6 +1651,7 @@ static int blk_mq_hctx_notify_dead(unsigned int cpu, struct hlist_node *node)
 
 static void blk_mq_remove_cpuhp(struct blk_mq_hw_ctx *hctx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1654 \n"); 
 	cpuhp_state_remove_instance_nocalls(CPUHP_BLK_MQ_DEAD,
 					    &hctx->cpuhp_dead);
 }
@@ -1590,6 +1661,7 @@ static void blk_mq_exit_hctx(struct request_queue *q,
 		struct blk_mq_tag_set *set,
 		struct blk_mq_hw_ctx *hctx, unsigned int hctx_idx)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1664 \n"); 
 	unsigned flush_start_tag = set->queue_depth;
 
 	blk_mq_tag_idle(hctx);
@@ -1610,6 +1682,7 @@ static void blk_mq_exit_hctx(struct request_queue *q,
 static void blk_mq_exit_hw_queues(struct request_queue *q,
 		struct blk_mq_tag_set *set, int nr_queue)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1685 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	unsigned int i;
 
@@ -1623,6 +1696,7 @@ static void blk_mq_exit_hw_queues(struct request_queue *q,
 static void blk_mq_free_hw_queues(struct request_queue *q,
 		struct blk_mq_tag_set *set)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1699 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	unsigned int i;
 
@@ -1800,6 +1874,7 @@ static void blk_mq_map_swqueue(struct request_queue *q,
 
 static void queue_set_hctx_shared(struct request_queue *q, bool shared)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1877 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	int i;
 
@@ -1813,6 +1888,7 @@ static void queue_set_hctx_shared(struct request_queue *q, bool shared)
 
 static void blk_mq_update_tag_set_depth(struct blk_mq_tag_set *set, bool shared)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1891 \n"); 
 	struct request_queue *q;
 
 	list_for_each_entry(q, &set->tag_list, tag_set_list) {
@@ -1824,6 +1900,7 @@ static void blk_mq_update_tag_set_depth(struct blk_mq_tag_set *set, bool shared)
 
 static void blk_mq_del_queue_tag_set(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1903 \n"); 
 	struct blk_mq_tag_set *set = q->tag_set;
 
 	mutex_lock(&set->tag_list_lock);
@@ -1865,6 +1942,7 @@ static void blk_mq_add_queue_tag_set(struct blk_mq_tag_set *set,
  */
 void blk_mq_release(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 1945 \n"); 
 	struct blk_mq_hw_ctx *hctx;
 	unsigned int i;
 
@@ -2038,6 +2116,7 @@ EXPORT_SYMBOL(blk_mq_init_allocated_queue);
 
 void blk_mq_free_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 2119 \n"); 
 	struct blk_mq_tag_set	*set = q->tag_set;
 
 	mutex_lock(&all_q_mutex);
@@ -2054,6 +2133,7 @@ void blk_mq_free_queue(struct request_queue *q)
 static void blk_mq_queue_reinit(struct request_queue *q,
 				const struct cpumask *online_mask)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 2136 \n"); 
 	WARN_ON_ONCE(!atomic_read(&q->mq_freeze_depth));
 
 	blk_mq_sysfs_unregister(q);
@@ -2078,6 +2158,7 @@ static struct cpumask cpuhp_online_new;
 
 static void blk_mq_queue_reinit_work(void)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 2161 \n"); 
 	struct request_queue *q;
 
 	mutex_lock(&all_q_mutex);
@@ -2111,6 +2192,7 @@ static void blk_mq_queue_reinit_work(void)
 
 static int blk_mq_queue_reinit_dead(unsigned int cpu)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 2195 \n"); 
 	cpumask_copy(&cpuhp_online_new, cpu_online_mask);
 	blk_mq_queue_reinit_work();
 	return 0;
@@ -2134,6 +2216,7 @@ static int blk_mq_queue_reinit_dead(unsigned int cpu)
  */
 static int blk_mq_queue_reinit_prepare(unsigned int cpu)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 2219 \n"); 
 	cpumask_copy(&cpuhp_online_new, cpu_online_mask);
 	cpumask_set_cpu(cpu, &cpuhp_online_new);
 	blk_mq_queue_reinit_work();
@@ -2276,6 +2359,7 @@ EXPORT_SYMBOL(blk_mq_alloc_tag_set);
 
 void blk_mq_free_tag_set(struct blk_mq_tag_set *set)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 2362 \n"); 
 	int i;
 
 	for (i = 0; i < nr_cpu_ids; i++) {
@@ -2293,6 +2377,7 @@ EXPORT_SYMBOL(blk_mq_free_tag_set);
 
 int blk_mq_update_nr_requests(struct request_queue *q, unsigned int nr)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 2380 \n"); 
 	struct blk_mq_tag_set *set = q->tag_set;
 	struct blk_mq_hw_ctx *hctx;
 	int i, ret;
@@ -2317,6 +2402,7 @@ int blk_mq_update_nr_requests(struct request_queue *q, unsigned int nr)
 
 void blk_mq_update_nr_hw_queues(struct blk_mq_tag_set *set, int nr_hw_queues)
 {
+	panic("We reached unpopular paths in block/blk-mq.c: line 2405 \n"); 
 	struct request_queue *q;
 
 	if (nr_hw_queues > nr_cpu_ids)

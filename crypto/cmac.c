@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * CMAC: Cipher Block Mode for Authentication
  *
@@ -54,6 +55,7 @@ struct cmac_desc_ctx {
 static int crypto_cmac_digest_setkey(struct crypto_shash *parent,
 				     const u8 *inkey, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/cmac.c: line 58 \n"); 
 	unsigned long alignmask = crypto_shash_alignmask(parent);
 	struct cmac_tfm_ctx *ctx = crypto_shash_ctx(parent);
 	unsigned int bs = crypto_shash_blocksize(parent);
@@ -107,6 +109,7 @@ static int crypto_cmac_digest_setkey(struct crypto_shash *parent,
 
 static int crypto_cmac_digest_init(struct shash_desc *pdesc)
 {
+	panic("We reached unpopular paths in crypto/cmac.c: line 112 \n"); 
 	unsigned long alignmask = crypto_shash_alignmask(pdesc->tfm);
 	struct cmac_desc_ctx *ctx = shash_desc_ctx(pdesc);
 	int bs = crypto_shash_blocksize(pdesc->tfm);
@@ -121,6 +124,7 @@ static int crypto_cmac_digest_init(struct shash_desc *pdesc)
 static int crypto_cmac_digest_update(struct shash_desc *pdesc, const u8 *p,
 				     unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/cmac.c: line 127 \n"); 
 	struct crypto_shash *parent = pdesc->tfm;
 	unsigned long alignmask = crypto_shash_alignmask(parent);
 	struct cmac_tfm_ctx *tctx = crypto_shash_ctx(parent);
@@ -167,6 +171,7 @@ static int crypto_cmac_digest_update(struct shash_desc *pdesc, const u8 *p,
 
 static int crypto_cmac_digest_final(struct shash_desc *pdesc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/cmac.c: line 174 \n"); 
 	struct crypto_shash *parent = pdesc->tfm;
 	unsigned long alignmask = crypto_shash_alignmask(parent);
 	struct cmac_tfm_ctx *tctx = crypto_shash_ctx(parent);
@@ -202,6 +207,7 @@ static int crypto_cmac_digest_final(struct shash_desc *pdesc, u8 *out)
 
 static int cmac_init_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/cmac.c: line 210 \n"); 
 	struct crypto_cipher *cipher;
 	struct crypto_instance *inst = (void *)tfm->__crt_alg;
 	struct crypto_spawn *spawn = crypto_instance_ctx(inst);
@@ -218,12 +224,14 @@ static int cmac_init_tfm(struct crypto_tfm *tfm)
 
 static void cmac_exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/cmac.c: line 227 \n"); 
 	struct cmac_tfm_ctx *ctx = crypto_tfm_ctx(tfm);
 	crypto_free_cipher(ctx->child);
 }
 
 static int cmac_create(struct crypto_template *tmpl, struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/cmac.c: line 234 \n"); 
 	struct shash_instance *inst;
 	struct crypto_alg *alg;
 	unsigned long alignmask;

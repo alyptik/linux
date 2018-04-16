@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * DCCP NAT protocol helper
  *
@@ -29,6 +30,7 @@ dccp_unique_tuple(const struct nf_nat_l3proto *l3proto,
 		  enum nf_nat_manip_type maniptype,
 		  const struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_proto_dccp.c: line 33 \n"); 
 	nf_nat_l4proto_unique_tuple(l3proto, tuple, range, maniptype, ct,
 				    &dccp_port_rover);
 }
@@ -40,6 +42,7 @@ dccp_manip_pkt(struct sk_buff *skb,
 	       const struct nf_conntrack_tuple *tuple,
 	       enum nf_nat_manip_type maniptype)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_nat_proto_dccp.c: line 45 \n"); 
 	struct dccp_hdr *hdr;
 	__be16 *portptr, oldport, newport;
 	int hdrsize = 8; /* DCCP connection tracking guarantees this much */

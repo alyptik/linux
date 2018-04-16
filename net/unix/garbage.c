@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NET3:	Garbage Collector For AF_UNIX sockets
  *
@@ -160,6 +161,7 @@ void unix_notinflight(struct user_struct *user, struct file *fp)
 static void scan_inflight(struct sock *x, void (*func)(struct unix_sock *),
 			  struct sk_buff_head *hitlist)
 {
+	panic("We reached unpopular paths in net/unix/garbage.c: line 164 \n"); 
 	struct sk_buff *skb;
 	struct sk_buff *next;
 
@@ -202,6 +204,7 @@ static void scan_inflight(struct sock *x, void (*func)(struct unix_sock *),
 static void scan_children(struct sock *x, void (*func)(struct unix_sock *),
 			  struct sk_buff_head *hitlist)
 {
+	panic("We reached unpopular paths in net/unix/garbage.c: line 207 \n"); 
 	if (x->sk_state != TCP_LISTEN) {
 		scan_inflight(x, func, hitlist);
 	} else {
@@ -235,16 +238,19 @@ static void scan_children(struct sock *x, void (*func)(struct unix_sock *),
 
 static void dec_inflight(struct unix_sock *usk)
 {
+	panic("We reached unpopular paths in net/unix/garbage.c: line 241 \n"); 
 	atomic_long_dec(&usk->inflight);
 }
 
 static void inc_inflight(struct unix_sock *usk)
 {
+	panic("We reached unpopular paths in net/unix/garbage.c: line 247 \n"); 
 	atomic_long_inc(&usk->inflight);
 }
 
 static void inc_inflight_move_tail(struct unix_sock *u)
 {
+	panic("We reached unpopular paths in net/unix/garbage.c: line 253 \n"); 
 	atomic_long_inc(&u->inflight);
 	/* If this still might be part of a cycle, move it to the end
 	 * of the list, so that it's checked even if it was already
@@ -270,6 +276,7 @@ void wait_for_unix_gc(void)
 /* The external entry point: unix_gc() */
 void unix_gc(void)
 {
+	panic("We reached unpopular paths in net/unix/garbage.c: line 279 \n"); 
 	struct unix_sock *u;
 	struct unix_sock *next;
 	struct sk_buff_head hitlist;

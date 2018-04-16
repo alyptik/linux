@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2004 Netfilter Core Team <coreteam@netfilter.org>
  * (C) 2006-2012 Patrick McHardy <kaber@trash.net>
@@ -33,6 +34,7 @@ static unsigned int udp_timeouts[UDP_CT_MAX] = {
 
 static inline struct nf_udp_net *udp_pernet(struct net *net)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_udp.c: line 37 \n"); 
 	return &net->ct.nf_ct_proto.udp;
 }
 
@@ -67,6 +69,7 @@ static bool udp_invert_tuple(struct nf_conntrack_tuple *tuple,
 static void udp_print_tuple(struct seq_file *s,
 			    const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_udp.c: line 72 \n"); 
 	seq_printf(s, "sport=%hu dport=%hu ",
 		   ntohs(tuple->src.u.udp.port),
 		   ntohs(tuple->dst.u.udp.port));

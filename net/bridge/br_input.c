@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Handle incoming frames
  *	Linux ethernet bridge
@@ -220,6 +221,7 @@ EXPORT_SYMBOL_GPL(br_handle_frame_finish);
 
 static void __br_handle_local_finish(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_input.c: line 224 \n"); 
 	struct net_bridge_port *p = br_port_get_rcu(skb->dev);
 	u16 vid = 0;
 
@@ -231,6 +233,7 @@ static void __br_handle_local_finish(struct sk_buff *skb)
 /* note: already called with rcu_read_lock */
 static int br_handle_local_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/bridge/br_input.c: line 236 \n"); 
 	struct net_bridge_port *p = br_port_get_rcu(skb->dev);
 
 	__br_handle_local_finish(skb);

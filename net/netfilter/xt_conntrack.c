@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	xt_conntrack - Netfilter module to match connection tracking
  *	information. (Superset of Rusty's minimalistic state match.)
@@ -30,6 +31,7 @@ conntrack_addrcmp(const union nf_inet_addr *kaddr,
                   const union nf_inet_addr *uaddr,
                   const union nf_inet_addr *umask, unsigned int l3proto)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_conntrack.c: line 34 \n"); 
 	if (l3proto == NFPROTO_IPV4)
 		return ((kaddr->ip ^ uaddr->ip) & umask->ip) == 0;
 	else if (l3proto == NFPROTO_IPV6)
@@ -44,6 +46,7 @@ conntrack_mt_origsrc(const struct nf_conn *ct,
                      const struct xt_conntrack_mtinfo2 *info,
 		     u_int8_t family)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_conntrack.c: line 49 \n"); 
 	return conntrack_addrcmp(&ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple.src.u3,
 	       &info->origsrc_addr, &info->origsrc_mask, family);
 }
@@ -53,6 +56,7 @@ conntrack_mt_origdst(const struct nf_conn *ct,
                      const struct xt_conntrack_mtinfo2 *info,
 		     u_int8_t family)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_conntrack.c: line 59 \n"); 
 	return conntrack_addrcmp(&ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple.dst.u3,
 	       &info->origdst_addr, &info->origdst_mask, family);
 }
@@ -62,6 +66,7 @@ conntrack_mt_replsrc(const struct nf_conn *ct,
                      const struct xt_conntrack_mtinfo2 *info,
 		     u_int8_t family)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_conntrack.c: line 69 \n"); 
 	return conntrack_addrcmp(&ct->tuplehash[IP_CT_DIR_REPLY].tuple.src.u3,
 	       &info->replsrc_addr, &info->replsrc_mask, family);
 }
@@ -71,6 +76,7 @@ conntrack_mt_repldst(const struct nf_conn *ct,
                      const struct xt_conntrack_mtinfo2 *info,
 		     u_int8_t family)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_conntrack.c: line 79 \n"); 
 	return conntrack_addrcmp(&ct->tuplehash[IP_CT_DIR_REPLY].tuple.dst.u3,
 	       &info->repldst_addr, &info->repldst_mask, family);
 }
@@ -79,6 +85,7 @@ static inline bool
 ct_proto_port_check(const struct xt_conntrack_mtinfo2 *info,
                     const struct nf_conn *ct)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_conntrack.c: line 88 \n"); 
 	const struct nf_conntrack_tuple *tuple;
 
 	tuple = &ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple;
@@ -116,6 +123,7 @@ ct_proto_port_check(const struct xt_conntrack_mtinfo2 *info,
 static inline bool
 port_match(u16 min, u16 max, u16 port, bool invert)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_conntrack.c: line 126 \n"); 
 	return (port >= min && port <= max) ^ invert;
 }
 
@@ -246,6 +254,7 @@ conntrack_mt(const struct sk_buff *skb, struct xt_action_param *par,
 static bool
 conntrack_mt_v1(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_conntrack.c: line 257 \n"); 
 	const struct xt_conntrack_mtinfo1 *info = par->matchinfo;
 
 	return conntrack_mt(skb, par, info->state_mask, info->status_mask);
@@ -254,6 +263,7 @@ conntrack_mt_v1(const struct sk_buff *skb, struct xt_action_param *par)
 static bool
 conntrack_mt_v2(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_conntrack.c: line 266 \n"); 
 	const struct xt_conntrack_mtinfo2 *info = par->matchinfo;
 
 	return conntrack_mt(skb, par, info->state_mask, info->status_mask);

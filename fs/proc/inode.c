@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/proc/inode.c
  *
@@ -126,6 +127,7 @@ enum {BIAS = -1U<<31};
 
 static inline int use_pde(struct proc_dir_entry *pde)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/proc/inode.c: line 130 \n"); 
 	return atomic_inc_unless_negative(&pde->in_use);
 }
 
@@ -235,6 +237,7 @@ static unsigned int proc_reg_poll(struct file *file, struct poll_table_struct *p
 
 static long proc_reg_unlocked_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/proc/inode.c: line 240 \n"); 
 	struct proc_dir_entry *pde = PDE(file_inode(file));
 	long rv = -ENOTTY;
 	long (*ioctl)(struct file *, unsigned int, unsigned long);
@@ -265,6 +268,7 @@ static long proc_reg_compat_ioctl(struct file *file, unsigned int cmd, unsigned 
 
 static int proc_reg_mmap(struct file *file, struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in fs/proc/inode.c: line 271 \n"); 
 	struct proc_dir_entry *pde = PDE(file_inode(file));
 	int rv = -EIO;
 	int (*mmap)(struct file *, struct vm_area_struct *);
@@ -282,6 +286,7 @@ proc_reg_get_unmapped_area(struct file *file, unsigned long orig_addr,
 			   unsigned long len, unsigned long pgoff,
 			   unsigned long flags)
 {
+	panic("We reached unpopular paths in fs/proc/inode.c: line 289 \n"); 
 	struct proc_dir_entry *pde = PDE(file_inode(file));
 	unsigned long rv = -EIO;
 

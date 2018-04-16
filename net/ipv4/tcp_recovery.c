@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/tcp.h>
 #include <net/tcp.h>
 
@@ -21,6 +22,7 @@ int sysctl_tcp_recovery __read_mostly = TCP_RACK_LOST_RETRANS;
  */
 int tcp_rack_mark_lost(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/tcp_recovery.c: line 25 \n"); 
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct sk_buff *skb;
 	u32 reo_wnd, prior_retrans = tp->retrans_out;

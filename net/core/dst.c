@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/core/dst.c	Protocol independent destination cache.
  *
@@ -146,6 +147,7 @@ loop:
 
 int dst_discard_out(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dst.c: line 150 \n"); 
 	kfree_skb(skb);
 	return 0;
 }
@@ -360,6 +362,7 @@ static struct dst_ops md_dst_ops = {
 
 static int dst_md_discard_out(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dst.c: line 365 \n"); 
 	WARN_ONCE(1, "Attempting to call output on metadata dst\n");
 	kfree_skb(skb);
 	return 0;
@@ -367,6 +370,7 @@ static int dst_md_discard_out(struct net *net, struct sock *sk, struct sk_buff *
 
 static int dst_md_discard(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dst.c: line 373 \n"); 
 	WARN_ONCE(1, "Attempting to call input on metadata dst\n");
 	kfree_skb(skb);
 	return 0;
@@ -374,6 +378,7 @@ static int dst_md_discard(struct sk_buff *skb)
 
 static void __metadata_dst_init(struct metadata_dst *md_dst, u8 optslen)
 {
+	panic("We reached unpopular paths in net/core/dst.c: line 381 \n"); 
 	struct dst_entry *dst;
 
 	dst = &md_dst->dst;
@@ -388,6 +393,7 @@ static void __metadata_dst_init(struct metadata_dst *md_dst, u8 optslen)
 
 struct metadata_dst *metadata_dst_alloc(u8 optslen, gfp_t flags)
 {
+	panic("We reached unpopular paths in net/core/dst.c: line 396 \n"); 
 	struct metadata_dst *md_dst;
 
 	md_dst = kmalloc(sizeof(*md_dst) + optslen, flags);
@@ -402,6 +408,7 @@ EXPORT_SYMBOL_GPL(metadata_dst_alloc);
 
 void metadata_dst_free(struct metadata_dst *md_dst)
 {
+	panic("We reached unpopular paths in net/core/dst.c: line 411 \n"); 
 #ifdef CONFIG_DST_CACHE
 	dst_cache_destroy(&md_dst->u.tun_info.dst_cache);
 #endif
@@ -436,6 +443,7 @@ EXPORT_SYMBOL_GPL(metadata_dst_alloc_percpu);
 static void dst_ifdown(struct dst_entry *dst, struct net_device *dev,
 		       int unregister)
 {
+	panic("We reached unpopular paths in net/core/dst.c: line 446 \n"); 
 	if (dst->ops->ifdown)
 		dst->ops->ifdown(dst, dev, unregister);
 

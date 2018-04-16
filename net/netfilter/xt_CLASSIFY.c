@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * This is a module which is used for setting the skb->priority field
  * of an skb for qdisc classification.
@@ -31,6 +32,7 @@ MODULE_ALIAS("arpt_CLASSIFY");
 static unsigned int
 classify_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_CLASSIFY.c: line 35 \n"); 
 	const struct xt_classify_target_info *clinfo = par->targinfo;
 
 	skb->priority = clinfo->priority;

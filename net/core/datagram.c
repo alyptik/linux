@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	SUCS NET3:
  *
@@ -71,6 +72,7 @@ static inline int connection_based(struct sock *sk)
 static int receiver_wake_function(wait_queue_t *wait, unsigned int mode, int sync,
 				  void *key)
 {
+	panic("We reached unpopular paths in net/core/datagram.c: line 75 \n"); 
 	unsigned long bits = (unsigned long)key;
 
 	/*
@@ -86,6 +88,7 @@ static int receiver_wake_function(wait_queue_t *wait, unsigned int mode, int syn
 int __skb_wait_for_more_packets(struct sock *sk, int *err, long *timeo_p,
 				const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/datagram.c: line 91 \n"); 
 	int error;
 	DEFINE_WAIT_FUNC(wait, receiver_wake_function);
 
@@ -346,6 +349,7 @@ EXPORT_SYMBOL(__skb_free_datagram_locked);
 
 int skb_kill_datagram(struct sock *sk, struct sk_buff *skb, unsigned int flags)
 {
+	panic("We reached unpopular paths in net/core/datagram.c: line 352 \n"); 
 	int err = 0;
 
 	if (flags & MSG_PEEK) {
@@ -549,6 +553,7 @@ EXPORT_SYMBOL(skb_copy_datagram_from_iter);
  */
 int zerocopy_sg_from_iter(struct sk_buff *skb, struct iov_iter *from)
 {
+	panic("We reached unpopular paths in net/core/datagram.c: line 556 \n"); 
 	int len = iov_iter_count(from);
 	int copy = min_t(int, skb_headlen(skb), len);
 	int frag = 0;
@@ -595,6 +600,7 @@ static int skb_copy_and_csum_datagram(const struct sk_buff *skb, int offset,
 				      struct iov_iter *to, int len,
 				      __wsum *csump)
 {
+	panic("We reached unpopular paths in net/core/datagram.c: line 603 \n"); 
 	int start = skb_headlen(skb);
 	int i, copy = start - offset, start_off = offset;
 	struct sk_buff *frag_iter;
@@ -676,6 +682,7 @@ fault:
 
 __sum16 __skb_checksum_complete_head(struct sk_buff *skb, int len)
 {
+	panic("We reached unpopular paths in net/core/datagram.c: line 685 \n"); 
 	__sum16 sum;
 
 	sum = csum_fold(skb_checksum(skb, 0, len, skb->csum));
@@ -732,6 +739,7 @@ EXPORT_SYMBOL(__skb_checksum_complete);
 int skb_copy_and_csum_datagram_msg(struct sk_buff *skb,
 				   int hlen, struct msghdr *msg)
 {
+	panic("We reached unpopular paths in net/core/datagram.c: line 742 \n"); 
 	__wsum csum;
 	int chunk = skb->len - hlen;
 

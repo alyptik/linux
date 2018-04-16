@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPVS:        Shortest Expected Delay scheduling module
  *
@@ -47,6 +48,7 @@
 static inline int
 ip_vs_sed_dest_overhead(struct ip_vs_dest *dest)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sed.c: line 51 \n"); 
 	/*
 	 * We only use the active connection number in the cost
 	 * calculation here.
@@ -62,6 +64,7 @@ static struct ip_vs_dest *
 ip_vs_sed_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
 		   struct ip_vs_iphdr *iph)
 {
+	panic("We reached unpopular paths in net/netfilter/ipvs/ip_vs_sed.c: line 67 \n"); 
 	struct ip_vs_dest *dest, *least;
 	int loh, doh;
 

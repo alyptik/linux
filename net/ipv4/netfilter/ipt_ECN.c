@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* iptables module for the IPv4 and TCP ECN bits, Version 1.5
  *
  * (C) 2002 by Harald Welte <laforge@netfilter.org>
@@ -28,6 +29,7 @@ MODULE_DESCRIPTION("Xtables: Explicit Congestion Notification (ECN) flag modific
 static inline bool
 set_ect_ip(struct sk_buff *skb, const struct ipt_ECN_info *einfo)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_ECN.c: line 32 \n"); 
 	struct iphdr *iph = ip_hdr(skb);
 
 	if ((iph->tos & IPT_ECN_IP_MASK) != (einfo->ip_ect & IPT_ECN_IP_MASK)) {
@@ -47,6 +49,7 @@ set_ect_ip(struct sk_buff *skb, const struct ipt_ECN_info *einfo)
 static inline bool
 set_ect_tcp(struct sk_buff *skb, const struct ipt_ECN_info *einfo)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_ECN.c: line 52 \n"); 
 	struct tcphdr _tcph, *tcph;
 	__be16 oldval;
 
@@ -79,6 +82,7 @@ set_ect_tcp(struct sk_buff *skb, const struct ipt_ECN_info *einfo)
 static unsigned int
 ecn_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_ECN.c: line 85 \n"); 
 	const struct ipt_ECN_info *einfo = par->targinfo;
 
 	if (einfo->operation & IPT_ECN_OP_SET_IP)
@@ -95,6 +99,7 @@ ecn_tg(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int ecn_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ipt_ECN.c: line 102 \n"); 
 	const struct ipt_ECN_info *einfo = par->targinfo;
 	const struct ipt_entry *e = par->entryinfo;
 

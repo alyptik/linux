@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * CPU <-> hardware queue mapping helpers
  *
@@ -17,6 +18,7 @@
 static int cpu_to_queue_index(unsigned int nr_cpus, unsigned int nr_queues,
 			      const int cpu)
 {
+	// [blacklist] panic("We reached unpopular paths in block/blk-mq-cpumap.c: line 21 \n"); 
 	return cpu * nr_queues / nr_cpus;
 }
 

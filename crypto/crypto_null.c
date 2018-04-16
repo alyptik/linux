@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API.
  *
@@ -32,6 +33,7 @@ static int crypto_default_null_skcipher_refcnt;
 static int null_compress(struct crypto_tfm *tfm, const u8 *src,
 			 unsigned int slen, u8 *dst, unsigned int *dlen)
 {
+	panic("We reached unpopular paths in crypto/crypto_null.c: line 36 \n"); 
 	if (slen > *dlen)
 		return -EINVAL;
 	memcpy(dst, src, slen);
@@ -41,23 +43,27 @@ static int null_compress(struct crypto_tfm *tfm, const u8 *src,
 
 static int null_init(struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/crypto_null.c: line 46 \n"); 
 	return 0;
 }
 
 static int null_update(struct shash_desc *desc, const u8 *data,
 		       unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/crypto_null.c: line 53 \n"); 
 	return 0;
 }
 
 static int null_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crypto_null.c: line 59 \n"); 
 	return 0;
 }
 
 static int null_digest(struct shash_desc *desc, const u8 *data,
 		       unsigned int len, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/crypto_null.c: line 66 \n"); 
 	return 0;
 }
 
@@ -71,6 +77,7 @@ static int null_setkey(struct crypto_tfm *tfm, const u8 *key,
 
 static void null_crypt(struct crypto_tfm *tfm, u8 *dst, const u8 *src)
 {
+	panic("We reached unpopular paths in crypto/crypto_null.c: line 80 \n"); 
 	memcpy(dst, src, NULL_BLOCK_SIZE);
 }
 
@@ -78,6 +85,7 @@ static int skcipher_null_crypt(struct blkcipher_desc *desc,
 			       struct scatterlist *dst,
 			       struct scatterlist *src, unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/crypto_null.c: line 88 \n"); 
 	struct blkcipher_walk walk;
 	int err;
 
@@ -155,6 +163,7 @@ MODULE_ALIAS_CRYPTO("cipher_null");
 
 struct crypto_skcipher *crypto_get_default_null_skcipher(void)
 {
+	panic("We reached unpopular paths in crypto/crypto_null.c: line 166 \n"); 
 	struct crypto_skcipher *tfm;
 
 	mutex_lock(&crypto_default_null_skcipher_lock);
@@ -180,6 +189,7 @@ EXPORT_SYMBOL_GPL(crypto_get_default_null_skcipher);
 
 void crypto_put_default_null_skcipher(void)
 {
+	panic("We reached unpopular paths in crypto/crypto_null.c: line 192 \n"); 
 	mutex_lock(&crypto_default_null_skcipher_lock);
 	if (!--crypto_default_null_skcipher_refcnt) {
 		crypto_free_skcipher(crypto_default_null_skcipher);

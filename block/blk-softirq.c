@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Functions related to softirq rq completions
  */
@@ -74,12 +75,14 @@ static int raise_blk_irq(int cpu, struct request *rq)
 #else /* CONFIG_SMP */
 static int raise_blk_irq(int cpu, struct request *rq)
 {
+	panic("We reached unpopular paths in block/blk-softirq.c: line 78 \n"); 
 	return 1;
 }
 #endif
 
 static int blk_softirq_cpu_dead(unsigned int cpu)
 {
+	panic("We reached unpopular paths in block/blk-softirq.c: line 85 \n"); 
 	/*
 	 * If a CPU goes away, splice its entries to the current CPU
 	 * and trigger a run of the softirq

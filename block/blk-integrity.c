@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * blk-integrity.c - Block layer data integrity extensions
  *
@@ -40,6 +41,7 @@
  */
 int blk_rq_count_integrity_sg(struct request_queue *q, struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 44 \n"); 
 	struct bio_vec iv, ivprv = { NULL };
 	unsigned int segments = 0;
 	unsigned int seg_size = 0;
@@ -86,6 +88,7 @@ EXPORT_SYMBOL(blk_rq_count_integrity_sg);
 int blk_rq_map_integrity_sg(struct request_queue *q, struct bio *bio,
 			    struct scatterlist *sglist)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 91 \n"); 
 	struct bio_vec iv, ivprv = { NULL };
 	struct scatterlist *sg = NULL;
 	unsigned int segments = 0;
@@ -142,6 +145,7 @@ EXPORT_SYMBOL(blk_rq_map_integrity_sg);
  */
 int blk_integrity_compare(struct gendisk *gd1, struct gendisk *gd2)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 148 \n"); 
 	struct blk_integrity *b1 = &gd1->queue->integrity;
 	struct blk_integrity *b2 = &gd2->queue->integrity;
 
@@ -186,6 +190,7 @@ EXPORT_SYMBOL(blk_integrity_compare);
 bool blk_integrity_merge_rq(struct request_queue *q, struct request *req,
 			    struct request *next)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 193 \n"); 
 	if (blk_integrity_rq(req) == 0 && blk_integrity_rq(next) == 0)
 		return true;
 
@@ -210,6 +215,7 @@ EXPORT_SYMBOL(blk_integrity_merge_rq);
 bool blk_integrity_merge_bio(struct request_queue *q, struct request *req,
 			     struct bio *bio)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 218 \n"); 
 	int nr_integrity_segs;
 	struct bio *next = bio->bi_next;
 
@@ -245,6 +251,7 @@ struct integrity_sysfs_entry {
 static ssize_t integrity_attr_show(struct kobject *kobj, struct attribute *attr,
 				   char *page)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 254 \n"); 
 	struct gendisk *disk = container_of(kobj, struct gendisk, integrity_kobj);
 	struct blk_integrity *bi = &disk->queue->integrity;
 	struct integrity_sysfs_entry *entry =
@@ -257,6 +264,7 @@ static ssize_t integrity_attr_store(struct kobject *kobj,
 				    struct attribute *attr, const char *page,
 				    size_t count)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 267 \n"); 
 	struct gendisk *disk = container_of(kobj, struct gendisk, integrity_kobj);
 	struct blk_integrity *bi = &disk->queue->integrity;
 	struct integrity_sysfs_entry *entry =
@@ -271,6 +279,7 @@ static ssize_t integrity_attr_store(struct kobject *kobj,
 
 static ssize_t integrity_format_show(struct blk_integrity *bi, char *page)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 282 \n"); 
 	if (bi->profile && bi->profile->name)
 		return sprintf(page, "%s\n", bi->profile->name);
 	else
@@ -279,11 +288,13 @@ static ssize_t integrity_format_show(struct blk_integrity *bi, char *page)
 
 static ssize_t integrity_tag_size_show(struct blk_integrity *bi, char *page)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 291 \n"); 
 	return sprintf(page, "%u\n", bi->tag_size);
 }
 
 static ssize_t integrity_interval_show(struct blk_integrity *bi, char *page)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 297 \n"); 
 	return sprintf(page, "%u\n",
 		       bi->interval_exp ? 1 << bi->interval_exp : 0);
 }
@@ -291,6 +302,7 @@ static ssize_t integrity_interval_show(struct blk_integrity *bi, char *page)
 static ssize_t integrity_verify_store(struct blk_integrity *bi,
 				      const char *page, size_t count)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 305 \n"); 
 	char *p = (char *) page;
 	unsigned long val = simple_strtoul(p, &p, 10);
 
@@ -304,12 +316,14 @@ static ssize_t integrity_verify_store(struct blk_integrity *bi,
 
 static ssize_t integrity_verify_show(struct blk_integrity *bi, char *page)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 319 \n"); 
 	return sprintf(page, "%d\n", (bi->flags & BLK_INTEGRITY_VERIFY) != 0);
 }
 
 static ssize_t integrity_generate_store(struct blk_integrity *bi,
 					const char *page, size_t count)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 326 \n"); 
 	char *p = (char *) page;
 	unsigned long val = simple_strtoul(p, &p, 10);
 
@@ -323,11 +337,13 @@ static ssize_t integrity_generate_store(struct blk_integrity *bi,
 
 static ssize_t integrity_generate_show(struct blk_integrity *bi, char *page)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 340 \n"); 
 	return sprintf(page, "%d\n", (bi->flags & BLK_INTEGRITY_GENERATE) != 0);
 }
 
 static ssize_t integrity_device_show(struct blk_integrity *bi, char *page)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 346 \n"); 
 	return sprintf(page, "%u\n",
 		       (bi->flags & BLK_INTEGRITY_DEVICE_CAPABLE) != 0);
 }
@@ -386,6 +402,7 @@ static struct kobj_type integrity_ktype = {
 
 static int blk_integrity_nop_fn(struct blk_integrity_iter *iter)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 405 \n"); 
 	return 0;
 }
 
@@ -431,6 +448,7 @@ EXPORT_SYMBOL(blk_integrity_register);
  */
 void blk_integrity_unregister(struct gendisk *disk)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 451 \n"); 
 	disk->queue->backing_dev_info.capabilities &= ~BDI_CAP_STABLE_WRITES;
 	memset(&disk->queue->integrity, 0, sizeof(struct blk_integrity));
 }
@@ -447,6 +465,7 @@ void blk_integrity_add(struct gendisk *disk)
 
 void blk_integrity_del(struct gendisk *disk)
 {
+	panic("We reached unpopular paths in block/blk-integrity.c: line 468 \n"); 
 	kobject_uevent(&disk->integrity_kobj, KOBJ_REMOVE);
 	kobject_del(&disk->integrity_kobj);
 	kobject_put(&disk->integrity_kobj);

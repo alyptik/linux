@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/init.h>
 #include <linux/kernel_stat.h>
 #include <linux/proc_fs.h>
@@ -8,6 +9,7 @@
  */
 static int show_softirqs(struct seq_file *p, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/softirqs.c: line 12 \n"); 
 	int i, j;
 
 	seq_puts(p, "                    ");
@@ -26,6 +28,7 @@ static int show_softirqs(struct seq_file *p, void *v)
 
 static int softirqs_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/softirqs.c: line 31 \n"); 
 	return single_open(file, show_softirqs, NULL);
 }
 

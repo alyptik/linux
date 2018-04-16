@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* linux/net/ipv4/arp.c
  *
  * Copyright (C) 1994 by Florian  La Roche
@@ -294,6 +295,7 @@ static int arp_constructor(struct neighbour *neigh)
 
 static void arp_error_report(struct neighbour *neigh, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 298 \n"); 
 	dst_link_failure(skb);
 	kfree_skb(skb);
 }
@@ -326,6 +328,7 @@ void arp_send(int type, int ptype, __be32 dest_ip,
 	      const unsigned char *dest_hw, const unsigned char *src_hw,
 	      const unsigned char *target_hw)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 331 \n"); 
 	arp_send_dst(type, ptype, dest_ip, dev, src_ip, dest_hw, src_hw,
 		     target_hw, NULL);
 }
@@ -432,6 +435,7 @@ static int arp_ignore(struct in_device *in_dev, __be32 sip, __be32 tip)
 
 static int arp_filter(__be32 sip, __be32 tip, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 438 \n"); 
 	struct rtable *rt;
 	int flag = 0;
 	/*unsigned long now; */
@@ -454,6 +458,7 @@ static int arp_filter(__be32 sip, __be32 tip, struct net_device *dev)
 static inline int arp_fwd_proxy(struct in_device *in_dev,
 				struct net_device *dev,	struct rtable *rt)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 461 \n"); 
 	struct in_device *out_dev;
 	int imi, omi = -1;
 
@@ -500,6 +505,7 @@ static inline int arp_fwd_pvlan(struct in_device *in_dev,
 				struct net_device *dev,	struct rtable *rt,
 				__be32 sip, __be32 tip)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 508 \n"); 
 	/* Private VLAN is only concerned about the same ethernet segment */
 	if (rt->dst.dev != dev)
 		return 0;
@@ -895,6 +901,7 @@ out_free_skb:
 
 static void parp_redo(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 904 \n"); 
 	arp_process(dev_net(skb->dev), NULL, skb);
 }
 
@@ -951,6 +958,7 @@ out_of_mem:
 
 static int arp_req_set_proxy(struct net *net, struct net_device *dev, int on)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 961 \n"); 
 	if (!dev) {
 		IPV4_DEVCONF_ALL(net, PROXY_ARP) = on;
 		return 0;
@@ -965,6 +973,7 @@ static int arp_req_set_proxy(struct net *net, struct net_device *dev, int on)
 static int arp_req_set_public(struct net *net, struct arpreq *r,
 		struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 976 \n"); 
 	__be32 ip = ((struct sockaddr_in *)&r->arp_pa)->sin_addr.s_addr;
 	__be32 mask = ((struct sockaddr_in *)&r->arp_netmask)->sin_addr.s_addr;
 
@@ -988,6 +997,7 @@ static int arp_req_set_public(struct net *net, struct arpreq *r,
 static int arp_req_set(struct net *net, struct arpreq *r,
 		       struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 1000 \n"); 
 	__be32 ip;
 	struct neighbour *neigh;
 	int err;
@@ -1046,6 +1056,7 @@ static int arp_req_set(struct net *net, struct arpreq *r,
 
 static unsigned int arp_state_to_flags(struct neighbour *neigh)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 1059 \n"); 
 	if (neigh->nud_state&NUD_PERMANENT)
 		return ATF_PERM | ATF_COM;
 	else if (neigh->nud_state&NUD_VALID)
@@ -1060,6 +1071,7 @@ static unsigned int arp_state_to_flags(struct neighbour *neigh)
 
 static int arp_req_get(struct arpreq *r, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 1074 \n"); 
 	__be32 ip = ((struct sockaddr_in *) &r->arp_pa)->sin_addr.s_addr;
 	struct neighbour *neigh;
 	int err = -ENXIO;
@@ -1082,6 +1094,7 @@ static int arp_req_get(struct arpreq *r, struct net_device *dev)
 
 static int arp_invalidate(struct net_device *dev, __be32 ip)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 1097 \n"); 
 	struct neighbour *neigh = neigh_lookup(&arp_tbl, &ip, dev);
 	int err = -ENXIO;
 
@@ -1099,6 +1112,7 @@ static int arp_invalidate(struct net_device *dev, __be32 ip)
 static int arp_req_delete_public(struct net *net, struct arpreq *r,
 		struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 1115 \n"); 
 	__be32 ip = ((struct sockaddr_in *) &r->arp_pa)->sin_addr.s_addr;
 	__be32 mask = ((struct sockaddr_in *)&r->arp_netmask)->sin_addr.s_addr;
 
@@ -1114,6 +1128,7 @@ static int arp_req_delete_public(struct net *net, struct arpreq *r,
 static int arp_req_delete(struct net *net, struct arpreq *r,
 			  struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/ipv4/arp.c: line 1131 \n"); 
 	__be32 ip;
 
 	if (r->arp_flags & ATF_PUBL)

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_log
  *
@@ -26,6 +27,7 @@ static DEFINE_SPINLOCK(ebt_log_lock);
 
 static int ebt_log_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_log.c: line 30 \n"); 
 	struct ebt_log_info *info = par->targinfo;
 
 	if (info->bitmask & ~EBT_LOG_MASK)
@@ -51,6 +53,7 @@ struct arppayload {
 static void
 print_ports(const struct sk_buff *skb, uint8_t protocol, int offset)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_log.c: line 56 \n"); 
 	if (protocol == IPPROTO_TCP ||
 	    protocol == IPPROTO_UDP ||
 	    protocol == IPPROTO_UDPLITE ||
@@ -75,6 +78,7 @@ ebt_log_packet(struct net *net, u_int8_t pf, unsigned int hooknum,
 	       const struct net_device *out, const struct nf_loginfo *loginfo,
 	       const char *prefix)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_log.c: line 81 \n"); 
 	unsigned int bitmask;
 
 	/* FIXME: Disabled from containers until syslog ns is supported */
@@ -177,6 +181,7 @@ out:
 static unsigned int
 ebt_log_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_log.c: line 184 \n"); 
 	const struct ebt_log_info *info = par->targinfo;
 	struct nf_loginfo li;
 	struct net *net = par->net;

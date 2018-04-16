@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *
  * Copyright (C) 2011 Novell Inc.
@@ -58,6 +59,7 @@ struct ovl_dir_file {
 
 static struct ovl_cache_entry *ovl_cache_entry_from_node(struct rb_node *n)
 {
+	// [blacklist] panic("We reached unpopular paths in fs/overlayfs/readdir.c: line 62 \n"); 
 	return container_of(n, struct ovl_cache_entry, node);
 }
 
@@ -524,6 +526,7 @@ const struct file_operations ovl_dir_operations = {
 
 int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
 {
+	panic("We reached unpopular paths in fs/overlayfs/readdir.c: line 529 \n"); 
 	int err;
 	struct ovl_cache_entry *p;
 
@@ -552,6 +555,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
 
 void ovl_cleanup_whiteouts(struct dentry *upper, struct list_head *list)
 {
+	panic("We reached unpopular paths in fs/overlayfs/readdir.c: line 558 \n"); 
 	struct ovl_cache_entry *p;
 
 	inode_lock_nested(upper->d_inode, I_MUTEX_CHILD);
@@ -613,6 +617,7 @@ int ovl_check_d_type_supported(struct path *realpath)
 
 static void ovl_workdir_cleanup_recurse(struct path *path, int level)
 {
+	panic("We reached unpopular paths in fs/overlayfs/readdir.c: line 620 \n"); 
 	int err;
 	struct inode *dir = path->dentry->d_inode;
 	LIST_HEAD(list);

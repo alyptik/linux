@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	xt_u32 - kernel module to match u32 packet content
  *
@@ -16,6 +17,7 @@
 static bool u32_match_it(const struct xt_u32 *data,
 			 const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_u32.c: line 20 \n"); 
 	const struct xt_u32_test *ct;
 	unsigned int testind;
 	unsigned int nnums;
@@ -88,6 +90,7 @@ static bool u32_match_it(const struct xt_u32 *data,
 
 static bool u32_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_u32.c: line 93 \n"); 
 	const struct xt_u32 *data = par->matchinfo;
 	bool ret;
 

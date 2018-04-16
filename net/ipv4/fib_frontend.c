@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -269,6 +270,7 @@ EXPORT_SYMBOL(inet_addr_type_dev_table);
 
 __be32 fib_compute_spec_dst(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_frontend.c: line 273 \n"); 
 	struct net_device *dev = skb->dev;
 	struct in_device *in_dev;
 	struct fib_result res;
@@ -414,11 +416,13 @@ int fib_validate_source(struct sk_buff *skb, __be32 src, __be32 dst,
 
 static inline __be32 sk_extract_addr(struct sockaddr *addr)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_frontend.c: line 419 \n"); 
 	return ((struct sockaddr_in *) addr)->sin_addr.s_addr;
 }
 
 static int put_rtax(struct nlattr *mx, int len, int type, u32 value)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_frontend.c: line 425 \n"); 
 	struct nlattr *nla;
 
 	nla = (struct nlattr *) ((char *) mx + len);
@@ -432,6 +436,7 @@ static int put_rtax(struct nlattr *mx, int len, int type, u32 value)
 static int rtentry_to_fib_config(struct net *net, int cmd, struct rtentry *rt,
 				 struct fib_config *cfg)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_frontend.c: line 439 \n"); 
 	__be32 addr;
 	int plen;
 
@@ -1046,6 +1051,7 @@ no_promotions:
 
 static void nl_fib_lookup(struct net *net, struct fib_result_nl *frn)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_frontend.c: line 1054 \n"); 
 
 	struct fib_result       res;
 	struct flowi4           fl4 = {
@@ -1081,6 +1087,7 @@ static void nl_fib_lookup(struct net *net, struct fib_result_nl *frn)
 
 static void nl_fib_input(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/fib_frontend.c: line 1090 \n"); 
 	struct net *net;
 	struct fib_result_nl *frn;
 	struct nlmsghdr *nlh;

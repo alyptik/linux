@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Kernel module to match running CPU */
 
 /*
@@ -27,6 +28,7 @@ MODULE_ALIAS("ip6t_cpu");
 
 static int cpu_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cpu.c: line 31 \n"); 
 	const struct xt_cpu_info *info = par->matchinfo;
 
 	if (info->invert & ~1)
@@ -36,6 +38,7 @@ static int cpu_mt_check(const struct xt_mtchk_param *par)
 
 static bool cpu_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_cpu.c: line 41 \n"); 
 	const struct xt_cpu_info *info = par->matchinfo;
 
 	return (info->cpu == smp_processor_id()) ^ info->invert;

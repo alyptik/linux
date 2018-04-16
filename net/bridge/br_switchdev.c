@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/kernel.h>
 #include <linux/list.h>
 #include <linux/netdevice.h>
@@ -9,6 +10,7 @@
 
 static int br_switchdev_mark_get(struct net_bridge *br, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/bridge/br_switchdev.c: line 13 \n"); 
 	struct net_bridge_port *p;
 
 	/* dev is yet to be added to the port list. */

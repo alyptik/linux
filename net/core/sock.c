@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -157,6 +158,7 @@ static LIST_HEAD(proto_list);
 bool sk_ns_capable(const struct sock *sk,
 		   struct user_namespace *user_ns, int cap)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 161 \n"); 
 	return file_ns_capable(sk->sk_socket->file, user_ns, cap) &&
 		ns_capable(user_ns, cap);
 }
@@ -173,6 +175,7 @@ EXPORT_SYMBOL(sk_ns_capable);
  */
 bool sk_capable(const struct sock *sk, int cap)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 178 \n"); 
 	return sk_ns_capable(sk, &init_user_ns, cap);
 }
 EXPORT_SYMBOL(sk_capable);
@@ -188,6 +191,7 @@ EXPORT_SYMBOL(sk_capable);
  */
 bool sk_net_capable(const struct sock *sk, int cap)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 194 \n"); 
 	return sk_ns_capable(sk, sock_net(sk)->user_ns, cap);
 }
 EXPORT_SYMBOL(sk_net_capable);
@@ -299,6 +303,7 @@ EXPORT_SYMBOL_GPL(memalloc_socks);
  */
 void sk_set_memalloc(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 306 \n"); 
 	sock_set_flag(sk, SOCK_MEMALLOC);
 	sk->sk_allocation |= __GFP_MEMALLOC;
 	static_key_slow_inc(&memalloc_socks);
@@ -307,6 +312,7 @@ EXPORT_SYMBOL_GPL(sk_set_memalloc);
 
 void sk_clear_memalloc(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 315 \n"); 
 	sock_reset_flag(sk, SOCK_MEMALLOC);
 	sk->sk_allocation &= ~__GFP_MEMALLOC;
 	static_key_slow_dec(&memalloc_socks);
@@ -324,6 +330,7 @@ EXPORT_SYMBOL_GPL(sk_clear_memalloc);
 
 int __sk_backlog_rcv(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 333 \n"); 
 	int ret;
 	unsigned long pflags = current->flags;
 
@@ -370,6 +377,7 @@ static int sock_set_timeout(long *timeo_p, char __user *optval, int optlen)
 
 static void sock_warn_obsolete_bsdism(const char *name)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 380 \n"); 
 	static int warned;
 	static char warncomm[TASK_COMM_LEN];
 	if (strcmp(warncomm, current->comm) && warned < 5) {
@@ -439,6 +447,7 @@ EXPORT_SYMBOL(__sock_queue_rcv_skb);
 
 int sock_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 450 \n"); 
 	int err;
 
 	err = sk_filter(sk, skb);
@@ -452,6 +461,7 @@ EXPORT_SYMBOL(sock_queue_rcv_skb);
 int __sk_receive_skb(struct sock *sk, struct sk_buff *skb,
 		     const int nested, unsigned int trim_cap, bool refcounted)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 464 \n"); 
 	int rc = NET_RX_SUCCESS;
 
 	if (sk_filter_trim_cap(sk, skb, trim_cap))
@@ -622,6 +632,7 @@ out:
 
 static inline void sock_valbool_flag(struct sock *sk, int bit, int valbool)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/sock.c: line 635 \n"); 
 	if (valbool)
 		sock_set_flag(sk, bit);
 	else
@@ -1689,6 +1700,7 @@ EXPORT_SYMBOL(skb_set_owner_w);
  */
 void skb_orphan_partial(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 1703 \n"); 
 	if (skb_is_tcp_pure_ack(skb))
 		return;
 
@@ -1745,6 +1757,7 @@ EXPORT_SYMBOL(sock_i_uid);
 
 unsigned long sock_i_ino(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 1760 \n"); 
 	unsigned long ino;
 
 	read_lock_bh(&sk->sk_callback_lock);
@@ -1816,6 +1829,7 @@ EXPORT_SYMBOL(sock_kfree_s);
 
 void sock_kzfree_s(struct sock *sk, void *mem, int size)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 1832 \n"); 
 	__sock_kfree_s(sk, mem, size, true);
 }
 EXPORT_SYMBOL(sock_kzfree_s);
@@ -1825,6 +1839,7 @@ EXPORT_SYMBOL(sock_kzfree_s);
  */
 static long sock_wait_for_wmem(struct sock *sk, long timeo)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 1842 \n"); 
 	DEFINE_WAIT(wait);
 
 	sk_clear_bit(SOCKWQ_ASYNC_NOSPACE, sk);
@@ -1906,6 +1921,7 @@ EXPORT_SYMBOL(sock_alloc_send_skb);
 int __sock_cmsg_send(struct sock *sk, struct msghdr *msg, struct cmsghdr *cmsg,
 		     struct sockcm_cookie *sockc)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 1924 \n"); 
 	u32 tsflags;
 
 	switch (cmsg->cmsg_type) {
@@ -1941,6 +1957,7 @@ EXPORT_SYMBOL(__sock_cmsg_send);
 int sock_cmsg_send(struct sock *sk, struct msghdr *msg,
 		   struct sockcm_cookie *sockc)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 1960 \n"); 
 	struct cmsghdr *cmsg;
 	int ret;
 
@@ -2005,6 +2022,7 @@ EXPORT_SYMBOL(skb_page_frag_refill);
 
 bool sk_page_frag_refill(struct sock *sk, struct page_frag *pfrag)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2025 \n"); 
 	if (likely(skb_page_frag_refill(32U, pfrag, sk->sk_allocation)))
 		return true;
 
@@ -2210,6 +2228,7 @@ EXPORT_SYMBOL(__sk_mem_reclaim);
 
 int sk_set_peek_off(struct sock *sk, int val)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2231 \n"); 
 	if (val < 0)
 		return -EINVAL;
 
@@ -2227,6 +2246,7 @@ EXPORT_SYMBOL_GPL(sk_set_peek_off);
 
 int sock_no_bind(struct socket *sock, struct sockaddr *saddr, int len)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2249 \n"); 
 	return -EOPNOTSUPP;
 }
 EXPORT_SYMBOL(sock_no_bind);
@@ -2234,18 +2254,21 @@ EXPORT_SYMBOL(sock_no_bind);
 int sock_no_connect(struct socket *sock, struct sockaddr *saddr,
 		    int len, int flags)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2257 \n"); 
 	return -EOPNOTSUPP;
 }
 EXPORT_SYMBOL(sock_no_connect);
 
 int sock_no_socketpair(struct socket *sock1, struct socket *sock2)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2264 \n"); 
 	return -EOPNOTSUPP;
 }
 EXPORT_SYMBOL(sock_no_socketpair);
 
 int sock_no_accept(struct socket *sock, struct socket *newsock, int flags)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2271 \n"); 
 	return -EOPNOTSUPP;
 }
 EXPORT_SYMBOL(sock_no_accept);
@@ -2253,30 +2276,35 @@ EXPORT_SYMBOL(sock_no_accept);
 int sock_no_getname(struct socket *sock, struct sockaddr *saddr,
 		    int *len, int peer)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2279 \n"); 
 	return -EOPNOTSUPP;
 }
 EXPORT_SYMBOL(sock_no_getname);
 
 unsigned int sock_no_poll(struct file *file, struct socket *sock, poll_table *pt)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2286 \n"); 
 	return 0;
 }
 EXPORT_SYMBOL(sock_no_poll);
 
 int sock_no_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2293 \n"); 
 	return -EOPNOTSUPP;
 }
 EXPORT_SYMBOL(sock_no_ioctl);
 
 int sock_no_listen(struct socket *sock, int backlog)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2300 \n"); 
 	return -EOPNOTSUPP;
 }
 EXPORT_SYMBOL(sock_no_listen);
 
 int sock_no_shutdown(struct socket *sock, int how)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2307 \n"); 
 	return -EOPNOTSUPP;
 }
 EXPORT_SYMBOL(sock_no_shutdown);
@@ -2297,6 +2325,7 @@ EXPORT_SYMBOL(sock_no_getsockopt);
 
 int sock_no_sendmsg(struct socket *sock, struct msghdr *m, size_t len)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2328 \n"); 
 	return -EOPNOTSUPP;
 }
 EXPORT_SYMBOL(sock_no_sendmsg);
@@ -2304,12 +2333,14 @@ EXPORT_SYMBOL(sock_no_sendmsg);
 int sock_no_recvmsg(struct socket *sock, struct msghdr *m, size_t len,
 		    int flags)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2336 \n"); 
 	return -EOPNOTSUPP;
 }
 EXPORT_SYMBOL(sock_no_recvmsg);
 
 int sock_no_mmap(struct file *file, struct socket *sock, struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2343 \n"); 
 	/* Mirror missing mmap method error code */
 	return -ENODEV;
 }
@@ -2317,6 +2348,7 @@ EXPORT_SYMBOL(sock_no_mmap);
 
 ssize_t sock_no_sendpage(struct socket *sock, struct page *page, int offset, size_t size, int flags)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2351 \n"); 
 	ssize_t res;
 	struct msghdr msg = {.msg_flags = flags};
 	struct kvec iov;
@@ -2346,6 +2378,7 @@ static void sock_def_wakeup(struct sock *sk)
 
 static void sock_def_error_report(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2381 \n"); 
 	struct socket_wq *wq;
 
 	rcu_read_lock();
@@ -2394,10 +2427,12 @@ static void sock_def_write_space(struct sock *sk)
 
 static void sock_def_destruct(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2430 \n"); 
 }
 
 void sk_send_sigurg(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2435 \n"); 
 	if (sk->sk_socket && sk->sk_socket->file)
 		if (send_sigurg(&sk->sk_socket->file->f_owner))
 			sk_wake_async(sk, SOCK_WAKE_URG, POLL_PRI);
@@ -2606,6 +2641,7 @@ void sock_enable_timestamp(struct sock *sk, int flag)
 int sock_recv_errqueue(struct sock *sk, struct msghdr *msg, int len,
 		       int level, int type)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2644 \n"); 
 	struct sock_exterr_skb *serr;
 	struct sk_buff *skb;
 	int copied, err;
@@ -2672,6 +2708,7 @@ EXPORT_SYMBOL(compat_sock_common_getsockopt);
 int sock_common_recvmsg(struct socket *sock, struct msghdr *msg, size_t size,
 			int flags)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2711 \n"); 
 	struct sock *sk = sock->sk;
 	int addr_len = 0;
 	int err;
@@ -2841,15 +2878,18 @@ static void release_proto_idx(struct proto *prot)
 #else
 static inline void assign_proto_idx(struct proto *prot)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2881 \n"); 
 }
 
 static inline void release_proto_idx(struct proto *prot)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2886 \n"); 
 }
 #endif
 
 static void req_prot_cleanup(struct request_sock_ops *rsk_prot)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2892 \n"); 
 	if (!rsk_prot)
 		return;
 	kfree(rsk_prot->slab_name);
@@ -2935,6 +2975,7 @@ EXPORT_SYMBOL(proto_register);
 
 void proto_unregister(struct proto *prot)
 {
+	panic("We reached unpopular paths in net/core/sock.c: line 2978 \n"); 
 	mutex_lock(&proto_list_mutex);
 	release_proto_idx(prot);
 	list_del(&prot->node);

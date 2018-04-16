@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/em_meta.c	Metadata ematch
  *
@@ -91,11 +92,13 @@ struct meta_match {
 
 static inline int meta_id(struct meta_value *v)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 95 \n"); 
 	return TCF_META_ID(v->hdr.kind);
 }
 
 static inline int meta_type(struct meta_value *v)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 101 \n"); 
 	return TCF_META_TYPE(v->hdr.kind);
 }
 
@@ -109,11 +112,13 @@ static inline int meta_type(struct meta_value *v)
 
 META_COLLECTOR(int_random)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 115 \n"); 
 	get_random_bytes(&dst->value, sizeof(dst->value));
 }
 
 static inline unsigned long fixed_loadavg(int load)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 121 \n"); 
 	int rnd_load = load + (FIXED_1/200);
 	int rnd_frac = ((rnd_load & (FIXED_1-1)) * 100) >> FSHIFT;
 
@@ -122,16 +127,19 @@ static inline unsigned long fixed_loadavg(int load)
 
 META_COLLECTOR(int_loadavg_0)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 130 \n"); 
 	dst->value = fixed_loadavg(avenrun[0]);
 }
 
 META_COLLECTOR(int_loadavg_1)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 136 \n"); 
 	dst->value = fixed_loadavg(avenrun[1]);
 }
 
 META_COLLECTOR(int_loadavg_2)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 142 \n"); 
 	dst->value = fixed_loadavg(avenrun[2]);
 }
 
@@ -141,6 +149,7 @@ META_COLLECTOR(int_loadavg_2)
 
 static inline int int_dev(struct net_device *dev, struct meta_obj *dst)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 152 \n"); 
 	if (unlikely(dev == NULL))
 		return -1;
 
@@ -150,6 +159,7 @@ static inline int int_dev(struct net_device *dev, struct meta_obj *dst)
 
 static inline int var_dev(struct net_device *dev, struct meta_obj *dst)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 162 \n"); 
 	if (unlikely(dev == NULL))
 		return -1;
 
@@ -160,11 +170,13 @@ static inline int var_dev(struct net_device *dev, struct meta_obj *dst)
 
 META_COLLECTOR(int_dev)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 173 \n"); 
 	*err = int_dev(skb->dev, dst);
 }
 
 META_COLLECTOR(var_dev)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 179 \n"); 
 	*err = var_dev(skb->dev, dst);
 }
 
@@ -174,6 +186,7 @@ META_COLLECTOR(var_dev)
 
 META_COLLECTOR(int_vlan_tag)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 189 \n"); 
 	unsigned short tag;
 
 	tag = skb_vlan_tag_get(skb);
@@ -191,37 +204,44 @@ META_COLLECTOR(int_vlan_tag)
 
 META_COLLECTOR(int_priority)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 207 \n"); 
 	dst->value = skb->priority;
 }
 
 META_COLLECTOR(int_protocol)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 213 \n"); 
 	/* Let userspace take care of the byte ordering */
 	dst->value = tc_skb_protocol(skb);
 }
 
 META_COLLECTOR(int_pkttype)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 220 \n"); 
 	dst->value = skb->pkt_type;
 }
 
 META_COLLECTOR(int_pktlen)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 226 \n"); 
 	dst->value = skb->len;
 }
 
 META_COLLECTOR(int_datalen)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 232 \n"); 
 	dst->value = skb->data_len;
 }
 
 META_COLLECTOR(int_maclen)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 238 \n"); 
 	dst->value = skb->mac_len;
 }
 
 META_COLLECTOR(int_rxhash)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 244 \n"); 
 	dst->value = skb_get_hash(skb);
 }
 
@@ -231,6 +251,7 @@ META_COLLECTOR(int_rxhash)
 
 META_COLLECTOR(int_mark)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 254 \n"); 
 	dst->value = skb->mark;
 }
 
@@ -240,6 +261,7 @@ META_COLLECTOR(int_mark)
 
 META_COLLECTOR(int_tcindex)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 264 \n"); 
 	dst->value = skb->tc_index;
 }
 
@@ -249,6 +271,7 @@ META_COLLECTOR(int_tcindex)
 
 META_COLLECTOR(int_rtclassid)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 274 \n"); 
 	if (unlikely(skb_dst(skb) == NULL))
 		*err = -1;
 	else
@@ -261,6 +284,7 @@ META_COLLECTOR(int_rtclassid)
 
 META_COLLECTOR(int_rtiif)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 287 \n"); 
 	if (unlikely(skb_rtable(skb) == NULL))
 		*err = -1;
 	else
@@ -276,6 +300,7 @@ META_COLLECTOR(int_rtiif)
 
 META_COLLECTOR(int_sk_family)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 303 \n"); 
 	if (skip_nonlocal(skb)) {
 		*err = -1;
 		return;
@@ -285,6 +310,7 @@ META_COLLECTOR(int_sk_family)
 
 META_COLLECTOR(int_sk_state)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 313 \n"); 
 	if (skip_nonlocal(skb)) {
 		*err = -1;
 		return;
@@ -294,6 +320,7 @@ META_COLLECTOR(int_sk_state)
 
 META_COLLECTOR(int_sk_reuse)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 323 \n"); 
 	if (skip_nonlocal(skb)) {
 		*err = -1;
 		return;
@@ -303,6 +330,7 @@ META_COLLECTOR(int_sk_reuse)
 
 META_COLLECTOR(int_sk_bound_if)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 333 \n"); 
 	if (skip_nonlocal(skb)) {
 		*err = -1;
 		return;
@@ -313,6 +341,7 @@ META_COLLECTOR(int_sk_bound_if)
 
 META_COLLECTOR(var_sk_bound_if)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 344 \n"); 
 	if (skip_nonlocal(skb)) {
 		*err = -1;
 		return;
@@ -334,6 +363,7 @@ META_COLLECTOR(var_sk_bound_if)
 
 META_COLLECTOR(int_sk_refcnt)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 366 \n"); 
 	if (skip_nonlocal(skb)) {
 		*err = -1;
 		return;
@@ -343,6 +373,7 @@ META_COLLECTOR(int_sk_refcnt)
 
 META_COLLECTOR(int_sk_rcvbuf)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 376 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -354,6 +385,7 @@ META_COLLECTOR(int_sk_rcvbuf)
 
 META_COLLECTOR(int_sk_shutdown)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 388 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -365,6 +397,7 @@ META_COLLECTOR(int_sk_shutdown)
 
 META_COLLECTOR(int_sk_proto)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 400 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -376,6 +409,7 @@ META_COLLECTOR(int_sk_proto)
 
 META_COLLECTOR(int_sk_type)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 412 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -387,6 +421,7 @@ META_COLLECTOR(int_sk_type)
 
 META_COLLECTOR(int_sk_rmem_alloc)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 424 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -398,6 +433,7 @@ META_COLLECTOR(int_sk_rmem_alloc)
 
 META_COLLECTOR(int_sk_wmem_alloc)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 436 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -409,6 +445,7 @@ META_COLLECTOR(int_sk_wmem_alloc)
 
 META_COLLECTOR(int_sk_omem_alloc)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 448 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -420,6 +457,7 @@ META_COLLECTOR(int_sk_omem_alloc)
 
 META_COLLECTOR(int_sk_rcv_qlen)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 460 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -431,6 +469,7 @@ META_COLLECTOR(int_sk_rcv_qlen)
 
 META_COLLECTOR(int_sk_snd_qlen)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 472 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -442,6 +481,7 @@ META_COLLECTOR(int_sk_snd_qlen)
 
 META_COLLECTOR(int_sk_wmem_queued)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 484 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -453,6 +493,7 @@ META_COLLECTOR(int_sk_wmem_queued)
 
 META_COLLECTOR(int_sk_fwd_alloc)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 496 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -464,6 +505,7 @@ META_COLLECTOR(int_sk_fwd_alloc)
 
 META_COLLECTOR(int_sk_sndbuf)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 508 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -475,6 +517,7 @@ META_COLLECTOR(int_sk_sndbuf)
 
 META_COLLECTOR(int_sk_alloc)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 520 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -486,6 +529,7 @@ META_COLLECTOR(int_sk_alloc)
 
 META_COLLECTOR(int_sk_hash)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 532 \n"); 
 	if (skip_nonlocal(skb)) {
 		*err = -1;
 		return;
@@ -495,6 +539,7 @@ META_COLLECTOR(int_sk_hash)
 
 META_COLLECTOR(int_sk_lingertime)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 542 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -506,6 +551,7 @@ META_COLLECTOR(int_sk_lingertime)
 
 META_COLLECTOR(int_sk_err_qlen)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 554 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -517,6 +563,7 @@ META_COLLECTOR(int_sk_err_qlen)
 
 META_COLLECTOR(int_sk_ack_bl)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 566 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -528,6 +575,7 @@ META_COLLECTOR(int_sk_ack_bl)
 
 META_COLLECTOR(int_sk_max_ack_bl)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 578 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -539,6 +587,7 @@ META_COLLECTOR(int_sk_max_ack_bl)
 
 META_COLLECTOR(int_sk_prio)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 590 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -550,6 +599,7 @@ META_COLLECTOR(int_sk_prio)
 
 META_COLLECTOR(int_sk_rcvlowat)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 602 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -561,6 +611,7 @@ META_COLLECTOR(int_sk_rcvlowat)
 
 META_COLLECTOR(int_sk_rcvtimeo)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 614 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -572,6 +623,7 @@ META_COLLECTOR(int_sk_rcvtimeo)
 
 META_COLLECTOR(int_sk_sndtimeo)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 626 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -583,6 +635,7 @@ META_COLLECTOR(int_sk_sndtimeo)
 
 META_COLLECTOR(int_sk_sendmsg_off)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 638 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -594,6 +647,7 @@ META_COLLECTOR(int_sk_sendmsg_off)
 
 META_COLLECTOR(int_sk_write_pend)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 650 \n"); 
 	const struct sock *sk = skb_to_full_sk(skb);
 
 	if (!sk) {
@@ -674,6 +728,7 @@ static struct meta_ops __meta_ops[TCF_META_TYPE_MAX + 1][TCF_META_ID_MAX + 1] = 
 
 static inline struct meta_ops *meta_ops(struct meta_value *val)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 731 \n"); 
 	return &__meta_ops[meta_type(val)][meta_id(val)];
 }
 
@@ -683,6 +738,7 @@ static inline struct meta_ops *meta_ops(struct meta_value *val)
 
 static int meta_var_compare(struct meta_obj *a, struct meta_obj *b)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 741 \n"); 
 	int r = a->len - b->len;
 
 	if (r == 0)
@@ -693,6 +749,7 @@ static int meta_var_compare(struct meta_obj *a, struct meta_obj *b)
 
 static int meta_var_change(struct meta_value *dst, struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 752 \n"); 
 	int len = nla_len(nla);
 
 	dst->val = (unsigned long)kmemdup(nla_data(nla), len, GFP_KERNEL);
@@ -704,12 +761,14 @@ static int meta_var_change(struct meta_value *dst, struct nlattr *nla)
 
 static void meta_var_destroy(struct meta_value *v)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 764 \n"); 
 	kfree((void *) v->val);
 }
 
 static void meta_var_apply_extras(struct meta_value *v,
 				  struct meta_obj *dst)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 771 \n"); 
 	int shift = v->hdr.shift;
 
 	if (shift && shift < dst->len)
@@ -718,6 +777,7 @@ static void meta_var_apply_extras(struct meta_value *v,
 
 static int meta_var_dump(struct sk_buff *skb, struct meta_value *v, int tlv)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 780 \n"); 
 	if (v->val && v->len &&
 	    nla_put(skb, tlv, v->len, (void *) v->val))
 		goto nla_put_failure;
@@ -733,6 +793,7 @@ nla_put_failure:
 
 static int meta_int_compare(struct meta_obj *a, struct meta_obj *b)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 796 \n"); 
 	/* Let gcc optimize it, the unlikely is not really based on
 	 * some numbers but jump free code for mismatches seems
 	 * more logical. */
@@ -746,6 +807,7 @@ static int meta_int_compare(struct meta_obj *a, struct meta_obj *b)
 
 static int meta_int_change(struct meta_value *dst, struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 810 \n"); 
 	if (nla_len(nla) >= sizeof(unsigned long)) {
 		dst->val = *(unsigned long *) nla_data(nla);
 		dst->len = sizeof(unsigned long);
@@ -761,6 +823,7 @@ static int meta_int_change(struct meta_value *dst, struct nlattr *nla)
 static void meta_int_apply_extras(struct meta_value *v,
 				  struct meta_obj *dst)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 826 \n"); 
 	if (v->hdr.shift)
 		dst->value >>= v->hdr.shift;
 
@@ -770,6 +833,7 @@ static void meta_int_apply_extras(struct meta_value *v,
 
 static int meta_int_dump(struct sk_buff *skb, struct meta_value *v, int tlv)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 836 \n"); 
 	if (v->len == sizeof(unsigned long)) {
 		if (nla_put(skb, tlv, sizeof(unsigned long), &v->val))
 			goto nla_put_failure;
@@ -814,6 +878,7 @@ static const struct meta_type_ops __meta_type_ops[TCF_META_TYPE_MAX + 1] = {
 
 static inline const struct meta_type_ops *meta_type_ops(struct meta_value *v)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 881 \n"); 
 	return &__meta_type_ops[meta_type(v)];
 }
 
@@ -824,6 +889,7 @@ static inline const struct meta_type_ops *meta_type_ops(struct meta_value *v)
 static int meta_get(struct sk_buff *skb, struct tcf_pkt_info *info,
 		    struct meta_value *v, struct meta_obj *dst)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 892 \n"); 
 	int err = 0;
 
 	if (meta_id(v) == TCF_META_ID_VALUE) {
@@ -845,6 +911,7 @@ static int meta_get(struct sk_buff *skb, struct tcf_pkt_info *info,
 static int em_meta_match(struct sk_buff *skb, struct tcf_ematch *m,
 			 struct tcf_pkt_info *info)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 914 \n"); 
 	int r;
 	struct meta_match *meta = (struct meta_match *) m->data;
 	struct meta_obj l_value, r_value;
@@ -869,6 +936,7 @@ static int em_meta_match(struct sk_buff *skb, struct tcf_ematch *m,
 
 static void meta_delete(struct meta_match *meta)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 939 \n"); 
 	if (meta) {
 		const struct meta_type_ops *ops = meta_type_ops(&meta->lvalue);
 
@@ -883,6 +951,7 @@ static void meta_delete(struct meta_match *meta)
 
 static inline int meta_change_data(struct meta_value *dst, struct nlattr *nla)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 954 \n"); 
 	if (nla) {
 		if (nla_len(nla) == 0)
 			return -EINVAL;
@@ -895,6 +964,7 @@ static inline int meta_change_data(struct meta_value *dst, struct nlattr *nla)
 
 static inline int meta_is_supported(struct meta_value *val)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 967 \n"); 
 	return !meta_id(val) || meta_ops(val)->get;
 }
 
@@ -905,6 +975,7 @@ static const struct nla_policy meta_policy[TCA_EM_META_MAX + 1] = {
 static int em_meta_change(struct net *net, void *data, int len,
 			  struct tcf_ematch *m)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 978 \n"); 
 	int err;
 	struct nlattr *tb[TCA_EM_META_MAX + 1];
 	struct tcf_meta_hdr *hdr;
@@ -956,12 +1027,14 @@ errout:
 
 static void em_meta_destroy(struct tcf_ematch *m)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 1030 \n"); 
 	if (m)
 		meta_delete((struct meta_match *) m->data);
 }
 
 static int em_meta_dump(struct sk_buff *skb, struct tcf_ematch *em)
 {
+	panic("We reached unpopular paths in net/sched/em_meta.c: line 1037 \n"); 
 	struct meta_match *meta = (struct meta_match *) em->data;
 	struct tcf_meta_hdr hdr;
 	const struct meta_type_ops *ops;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	RAW sockets for IPv6
  *	Linux INET6 implementation
@@ -73,6 +74,7 @@ static struct sock *__raw_v6_lookup(struct net *net, struct sock *sk,
 		unsigned short num, const struct in6_addr *loc_addr,
 		const struct in6_addr *rmt_addr, int dif)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 77 \n"); 
 	bool is_multicast = ipv6_addr_is_multicast(loc_addr);
 
 	sk_for_each_from(sk)
@@ -109,6 +111,7 @@ found:
  */
 static int icmpv6_filter(const struct sock *sk, const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 114 \n"); 
 	struct icmp6hdr _hdr;
 	const struct icmp6hdr *hdr;
 
@@ -157,6 +160,7 @@ EXPORT_SYMBOL(rawv6_mh_filter_unregister);
  */
 static bool ipv6_raw_deliver(struct sk_buff *skb, int nexthdr)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 163 \n"); 
 	const struct in6_addr *saddr;
 	const struct in6_addr *daddr;
 	struct sock *sk;
@@ -229,6 +233,7 @@ out:
 
 bool raw6_local_deliver(struct sk_buff *skb, int nexthdr)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 236 \n"); 
 	struct sock *raw_sk;
 
 	raw_sk = sk_head(&raw_v6_hashinfo.ht[nexthdr & (RAW_HTABLE_SIZE - 1)]);
@@ -241,6 +246,7 @@ bool raw6_local_deliver(struct sk_buff *skb, int nexthdr)
 /* This cleans up af_inet6 a bit. -DaveM */
 static int rawv6_bind(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 249 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct sockaddr_in6 *addr = (struct sockaddr_in6 *) uaddr;
@@ -321,6 +327,7 @@ static void rawv6_err(struct sock *sk, struct sk_buff *skb,
 	       struct inet6_skb_parm *opt,
 	       u8 type, u8 code, int offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 330 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	int err;
@@ -359,6 +366,7 @@ static void rawv6_err(struct sock *sk, struct sk_buff *skb,
 void raw6_icmp_error(struct sk_buff *skb, int nexthdr,
 		u8 type, u8 code, int inner_offset, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 369 \n"); 
 	struct sock *sk;
 	int hash;
 	const struct in6_addr *saddr, *daddr;
@@ -387,6 +395,7 @@ void raw6_icmp_error(struct sk_buff *skb, int nexthdr,
 
 static inline int rawv6_rcv_skb(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 398 \n"); 
 	if ((raw6_sk(sk)->checksum || rcu_access_pointer(sk->sk_filter)) &&
 	    skb_checksum_complete(skb)) {
 		atomic_inc(&sk->sk_drops);
@@ -413,6 +422,7 @@ static inline int rawv6_rcv_skb(struct sock *sk, struct sk_buff *skb)
  */
 int rawv6_rcv(struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 425 \n"); 
 	struct inet_sock *inet = inet_sk(sk);
 	struct raw6_sock *rp = raw6_sk(sk);
 
@@ -460,6 +470,7 @@ int rawv6_rcv(struct sock *sk, struct sk_buff *skb)
 static int rawv6_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
 			 int noblock, int flags, int *addr_len)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 473 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	DECLARE_SOCKADDR(struct sockaddr_in6 *, sin6, msg->msg_name);
 	struct sk_buff *skb;
@@ -617,6 +628,7 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
 			struct flowi6 *fl6, struct dst_entry **dstp,
 			unsigned int flags)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 631 \n"); 
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct net *net = sock_net(sk);
 	struct ipv6hdr *iph;
@@ -1160,6 +1172,7 @@ static int compat_rawv6_getsockopt(struct sock *sk, int level, int optname,
 
 static int rawv6_ioctl(struct sock *sk, int cmd, unsigned long arg)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 1175 \n"); 
 	switch (cmd) {
 	case SIOCOUTQ: {
 		int amount = sk_wmem_alloc_get(sk);
@@ -1370,5 +1383,6 @@ int __init rawv6_init(void)
 
 void rawv6_exit(void)
 {
+	panic("We reached unpopular paths in net/ipv6/raw.c: line 1386 \n"); 
 	inet6_unregister_protosw(&rawv6_protosw);
 }

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * This is a module which is used for queueing packets and communicating with
  * userspace via nfnetlink.
@@ -92,12 +93,14 @@ static struct nfnl_queue_net *nfnl_queue_pernet(struct net *net)
 
 static inline u_int8_t instance_hashfn(u_int16_t queue_num)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 96 \n"); 
 	return ((queue_num >> 8) ^ queue_num) % INSTANCE_BUCKETS;
 }
 
 static struct nfqnl_instance *
 instance_lookup(struct nfnl_queue_net *q, u_int16_t queue_num)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 103 \n"); 
 	struct hlist_head *head;
 	struct nfqnl_instance *inst;
 
@@ -112,6 +115,7 @@ instance_lookup(struct nfnl_queue_net *q, u_int16_t queue_num)
 static struct nfqnl_instance *
 instance_create(struct nfnl_queue_net *q, u_int16_t queue_num, u32 portid)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 118 \n"); 
 	struct nfqnl_instance *inst;
 	unsigned int h;
 	int err;
@@ -161,6 +165,7 @@ static void nfqnl_flush(struct nfqnl_instance *queue, nfqnl_cmpfn cmpfn,
 static void
 instance_destroy_rcu(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 168 \n"); 
 	struct nfqnl_instance *inst = container_of(head, struct nfqnl_instance,
 						   rcu);
 
@@ -172,6 +177,7 @@ instance_destroy_rcu(struct rcu_head *head)
 static void
 __instance_destroy(struct nfqnl_instance *inst)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 180 \n"); 
 	hlist_del_rcu(&inst->hlist);
 	call_rcu(&inst->rcu, instance_destroy_rcu);
 }
@@ -179,6 +185,7 @@ __instance_destroy(struct nfqnl_instance *inst)
 static void
 instance_destroy(struct nfnl_queue_net *q, struct nfqnl_instance *inst)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 188 \n"); 
 	spin_lock(&q->instances_lock);
 	__instance_destroy(inst);
 	spin_unlock(&q->instances_lock);
@@ -187,6 +194,7 @@ instance_destroy(struct nfnl_queue_net *q, struct nfqnl_instance *inst)
 static inline void
 __enqueue_entry(struct nfqnl_instance *queue, struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 197 \n"); 
        list_add_tail(&entry->list, &queue->queue_list);
        queue->queue_total++;
 }
@@ -194,6 +202,7 @@ __enqueue_entry(struct nfqnl_instance *queue, struct nf_queue_entry *entry)
 static void
 __dequeue_entry(struct nfqnl_instance *queue, struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 205 \n"); 
 	list_del(&entry->list);
 	queue->queue_total--;
 }
@@ -201,6 +210,7 @@ __dequeue_entry(struct nfqnl_instance *queue, struct nf_queue_entry *entry)
 static struct nf_queue_entry *
 find_dequeue_entry(struct nfqnl_instance *queue, unsigned int id)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 213 \n"); 
 	struct nf_queue_entry *entry = NULL, *i;
 
 	spin_lock_bh(&queue->lock);
@@ -223,6 +233,7 @@ find_dequeue_entry(struct nfqnl_instance *queue, unsigned int id)
 static void
 nfqnl_flush(struct nfqnl_instance *queue, nfqnl_cmpfn cmpfn, unsigned long data)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 236 \n"); 
 	struct nf_queue_entry *entry, *next;
 
 	spin_lock_bh(&queue->lock);
@@ -240,6 +251,7 @@ static int
 nfqnl_put_packet_info(struct sk_buff *nlskb, struct sk_buff *packet,
 		      bool csum_verify)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 254 \n"); 
 	__u32 flags = 0;
 
 	if (packet->ip_summed == CHECKSUM_PARTIAL)
@@ -255,6 +267,7 @@ nfqnl_put_packet_info(struct sk_buff *nlskb, struct sk_buff *packet,
 
 static int nfqnl_put_sk_uidgid(struct sk_buff *skb, struct sock *sk)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 270 \n"); 
 	const struct cred *cred;
 
 	if (!sk_fullsock(sk))
@@ -280,6 +293,7 @@ nla_put_failure:
 
 static u32 nfqnl_get_sk_secctx(struct sk_buff *skb, char **secdata)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 296 \n"); 
 	u32 seclen = 0;
 #if IS_ENABLED(CONFIG_NETWORK_SECMARK)
 	if (!skb || !sk_fullsock(skb->sk))
@@ -297,6 +311,7 @@ static u32 nfqnl_get_sk_secctx(struct sk_buff *skb, char **secdata)
 
 static u32 nfqnl_get_bridge_size(struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 314 \n"); 
 	struct sk_buff *entskb = entry->skb;
 	u32 nlalen = 0;
 
@@ -316,6 +331,7 @@ static u32 nfqnl_get_bridge_size(struct nf_queue_entry *entry)
 
 static int nfqnl_put_bridge(struct nf_queue_entry *entry, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 334 \n"); 
 	struct sk_buff *entskb = entry->skb;
 
 	if (entry->state.pf != PF_BRIDGE || !skb_mac_header_was_set(entskb))
@@ -353,6 +369,7 @@ nfqnl_build_packet_message(struct net *net, struct nfqnl_instance *queue,
 			   struct nf_queue_entry *entry,
 			   __be32 **packet_id_ptr)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 372 \n"); 
 	size_t size;
 	size_t data_len = 0, cap_len = 0;
 	unsigned int hlen = 0;
@@ -616,6 +633,7 @@ static int
 __nfqnl_enqueue_packet(struct net *net, struct nfqnl_instance *queue,
 			struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 636 \n"); 
 	struct sk_buff *nskb;
 	int err = -ENOBUFS;
 	__be32 *packet_id_ptr;
@@ -672,6 +690,7 @@ err_out:
 static struct nf_queue_entry *
 nf_queue_entry_dup(struct nf_queue_entry *e)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 693 \n"); 
 	struct nf_queue_entry *entry = kmemdup(e, e->size, GFP_ATOMIC);
 	if (entry)
 		nf_queue_entry_get_refs(entry);
@@ -701,6 +720,7 @@ static void nf_bridge_adjust_segmented_data(struct sk_buff *skb)
 
 static void free_entry(struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 723 \n"); 
 	nf_queue_entry_release_refs(entry);
 	kfree(entry);
 }
@@ -709,6 +729,7 @@ static int
 __nfqnl_enqueue_packet_gso(struct net *net, struct nfqnl_instance *queue,
 			   struct sk_buff *skb, struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 732 \n"); 
 	int ret = -ENOMEM;
 	struct nf_queue_entry *entry_seg;
 
@@ -738,6 +759,7 @@ __nfqnl_enqueue_packet_gso(struct net *net, struct nfqnl_instance *queue,
 static int
 nfqnl_enqueue_packet(struct nf_queue_entry *entry, unsigned int queuenum)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 762 \n"); 
 	unsigned int queued;
 	struct nfqnl_instance *queue;
 	struct sk_buff *skb, *segs;
@@ -803,6 +825,7 @@ nfqnl_enqueue_packet(struct nf_queue_entry *entry, unsigned int queuenum)
 static int
 nfqnl_mangle(void *data, int data_len, struct nf_queue_entry *e, int diff)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 828 \n"); 
 	struct sk_buff *nskb;
 
 	if (diff < 0) {
@@ -835,6 +858,7 @@ static int
 nfqnl_set_mode(struct nfqnl_instance *queue,
 	       unsigned char mode, unsigned int range)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 861 \n"); 
 	int status = 0;
 
 	spin_lock_bh(&queue->lock);
@@ -865,6 +889,7 @@ nfqnl_set_mode(struct nfqnl_instance *queue,
 static int
 dev_cmp(struct nf_queue_entry *entry, unsigned long ifindex)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 892 \n"); 
 	if (entry->state.in)
 		if (entry->state.in->ifindex == ifindex)
 			return 1;
@@ -924,6 +949,7 @@ static struct notifier_block nfqnl_dev_notifier = {
 
 static int nf_hook_cmp(struct nf_queue_entry *entry, unsigned long entry_ptr)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 952 \n"); 
 	return rcu_access_pointer(entry->state.hook_entries) ==
 		(struct nf_hook_entry *)entry_ptr;
 }
@@ -931,6 +957,7 @@ static int nf_hook_cmp(struct nf_queue_entry *entry, unsigned long entry_ptr)
 static void nfqnl_nf_hook_drop(struct net *net,
 			       const struct nf_hook_entry *hook)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 960 \n"); 
 	struct nfnl_queue_net *q = nfnl_queue_pernet(net);
 	int i;
 
@@ -998,6 +1025,7 @@ static const struct nla_policy nfqa_verdict_batch_policy[NFQA_MAX+1] = {
 static struct nfqnl_instance *
 verdict_instance_lookup(struct nfnl_queue_net *q, u16 queue_num, u32 nlportid)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 1028 \n"); 
 	struct nfqnl_instance *queue;
 
 	queue = instance_lookup(q, queue_num);
@@ -1013,6 +1041,7 @@ verdict_instance_lookup(struct nfnl_queue_net *q, u16 queue_num, u32 nlportid)
 static struct nfqnl_msg_verdict_hdr*
 verdicthdr_get(const struct nlattr * const nfqa[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 1044 \n"); 
 	struct nfqnl_msg_verdict_hdr *vhdr;
 	unsigned int verdict;
 
@@ -1028,6 +1057,7 @@ verdicthdr_get(const struct nlattr * const nfqa[])
 
 static int nfq_id_after(unsigned int id, unsigned int max)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 1060 \n"); 
 	return (int)(id - max) > 0;
 }
 
@@ -1036,6 +1066,7 @@ static int nfqnl_recv_verdict_batch(struct net *net, struct sock *ctnl,
 				    const struct nlmsghdr *nlh,
 			            const struct nlattr * const nfqa[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 1069 \n"); 
 	struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	struct nf_queue_entry *entry, *tmp;
 	unsigned int verdict, maxid;
@@ -1085,6 +1116,7 @@ static struct nf_conn *nfqnl_ct_parse(struct nfnl_ct_hook *nfnl_ct,
 				      struct nf_queue_entry *entry,
 				      enum ip_conntrack_info *ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 1119 \n"); 
 	struct nf_conn *ct;
 
 	ct = nfnl_ct->get_ct(entry->skb, ctinfo);
@@ -1104,6 +1136,7 @@ static struct nf_conn *nfqnl_ct_parse(struct nfnl_ct_hook *nfnl_ct,
 static int nfqa_parse_bridge(struct nf_queue_entry *entry,
 			     const struct nlattr * const nfqa[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 1139 \n"); 
 	if (nfqa[NFQA_VLAN]) {
 		struct nlattr *tb[NFQA_VLAN_MAX + 1];
 		int err;
@@ -1140,6 +1173,7 @@ static int nfqnl_recv_verdict(struct net *net, struct sock *ctnl,
 			      const struct nlmsghdr *nlh,
 			      const struct nlattr * const nfqa[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 1176 \n"); 
 	struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u_int16_t queue_num = ntohs(nfmsg->res_id);
 	struct nfqnl_msg_verdict_hdr *vhdr;
@@ -1204,6 +1238,7 @@ static int nfqnl_recv_unsupp(struct net *net, struct sock *ctnl,
 			     struct sk_buff *skb, const struct nlmsghdr *nlh,
 			     const struct nlattr * const nfqa[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 1241 \n"); 
 	return -ENOTSUPP;
 }
 
@@ -1221,6 +1256,7 @@ static int nfqnl_recv_config(struct net *net, struct sock *ctnl,
 			     struct sk_buff *skb, const struct nlmsghdr *nlh,
 			     const struct nlattr * const nfqa[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_queue.c: line 1259 \n"); 
 	struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u_int16_t queue_num = ntohs(nfmsg->res_id);
 	struct nfqnl_instance *queue;

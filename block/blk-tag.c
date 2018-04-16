@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Functions related to tagged command queuing
  */
@@ -22,6 +23,7 @@
  **/
 struct request *blk_queue_find_tag(struct request_queue *q, int tag)
 {
+	panic("We reached unpopular paths in block/blk-tag.c: line 26 \n"); 
 	return blk_map_queue_find_tag(q->queue_tags, tag);
 }
 EXPORT_SYMBOL(blk_queue_find_tag);
@@ -35,6 +37,7 @@ EXPORT_SYMBOL(blk_queue_find_tag);
  */
 void blk_free_tags(struct blk_queue_tag *bqt)
 {
+	panic("We reached unpopular paths in block/blk-tag.c: line 40 \n"); 
 	if (atomic_dec_and_test(&bqt->refcnt)) {
 		BUG_ON(find_first_bit(bqt->tag_map, bqt->max_depth) <
 							bqt->max_depth);
@@ -60,6 +63,7 @@ EXPORT_SYMBOL(blk_free_tags);
  **/
 void __blk_queue_free_tags(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-tag.c: line 66 \n"); 
 	struct blk_queue_tag *bqt = q->queue_tags;
 
 	if (!bqt)
@@ -81,6 +85,7 @@ void __blk_queue_free_tags(struct request_queue *q)
  **/
 void blk_queue_free_tags(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-tag.c: line 88 \n"); 
 	queue_flag_clear_unlocked(QUEUE_FLAG_QUEUED, q);
 }
 EXPORT_SYMBOL(blk_queue_free_tags);
@@ -202,6 +207,7 @@ EXPORT_SYMBOL(blk_queue_init_tags);
  **/
 int blk_queue_resize_tags(struct request_queue *q, int new_depth)
 {
+	panic("We reached unpopular paths in block/blk-tag.c: line 210 \n"); 
 	struct blk_queue_tag *bqt = q->queue_tags;
 	struct request **tag_index;
 	unsigned long *tag_map;
@@ -394,6 +400,7 @@ EXPORT_SYMBOL(blk_queue_start_tag);
  **/
 void blk_queue_invalidate_tags(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-tag.c: line 403 \n"); 
 	struct list_head *tmp, *n;
 
 	list_for_each_safe(tmp, n, &q->tag_busy_list)

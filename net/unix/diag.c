@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/types.h>
 #include <linux/spinlock.h>
 #include <linux/sock_diag.h>
@@ -10,6 +11,7 @@
 
 static int sk_diag_dump_name(struct sock *sk, struct sk_buff *nlskb)
 {
+	panic("We reached unpopular paths in net/unix/diag.c: line 14 \n"); 
 	struct unix_address *addr = unix_sk(sk)->addr;
 
 	if (!addr)
@@ -21,6 +23,7 @@ static int sk_diag_dump_name(struct sock *sk, struct sk_buff *nlskb)
 
 static int sk_diag_dump_vfs(struct sock *sk, struct sk_buff *nlskb)
 {
+	panic("We reached unpopular paths in net/unix/diag.c: line 26 \n"); 
 	struct dentry *dentry = unix_sk(sk)->path.dentry;
 
 	if (dentry) {
@@ -37,6 +40,7 @@ static int sk_diag_dump_vfs(struct sock *sk, struct sk_buff *nlskb)
 
 static int sk_diag_dump_peer(struct sock *sk, struct sk_buff *nlskb)
 {
+	panic("We reached unpopular paths in net/unix/diag.c: line 43 \n"); 
 	struct sock *peer;
 	int ino;
 
@@ -55,6 +59,7 @@ static int sk_diag_dump_peer(struct sock *sk, struct sk_buff *nlskb)
 
 static int sk_diag_dump_icons(struct sock *sk, struct sk_buff *nlskb)
 {
+	panic("We reached unpopular paths in net/unix/diag.c: line 62 \n"); 
 	struct sk_buff *skb;
 	struct nlattr *attr;
 	u32 *buf;
@@ -96,6 +101,7 @@ errout:
 
 static int sk_diag_show_rqlen(struct sock *sk, struct sk_buff *nlskb)
 {
+	panic("We reached unpopular paths in net/unix/diag.c: line 104 \n"); 
 	struct unix_diag_rqlen rql;
 
 	if (sk->sk_state == TCP_LISTEN) {
@@ -112,6 +118,7 @@ static int sk_diag_show_rqlen(struct sock *sk, struct sk_buff *nlskb)
 static int sk_diag_fill(struct sock *sk, struct sk_buff *skb, struct unix_diag_req *req,
 		u32 portid, u32 seq, u32 flags, int sk_ino)
 {
+	panic("We reached unpopular paths in net/unix/diag.c: line 121 \n"); 
 	struct nlmsghdr *nlh;
 	struct unix_diag_msg *rep;
 
@@ -166,6 +173,7 @@ out_nlmsg_trim:
 static int sk_diag_dump(struct sock *sk, struct sk_buff *skb, struct unix_diag_req *req,
 		u32 portid, u32 seq, u32 flags)
 {
+	panic("We reached unpopular paths in net/unix/diag.c: line 176 \n"); 
 	int sk_ino;
 
 	unix_state_lock(sk);
@@ -180,6 +188,7 @@ static int sk_diag_dump(struct sock *sk, struct sk_buff *skb, struct unix_diag_r
 
 static int unix_diag_dump(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/unix/diag.c: line 191 \n"); 
 	struct unix_diag_req *req;
 	int num, s_num, slot, s_slot;
 	struct net *net = sock_net(skb->sk);
@@ -222,6 +231,7 @@ done:
 
 static struct sock *unix_lookup_by_ino(unsigned int ino)
 {
+	panic("We reached unpopular paths in net/unix/diag.c: line 234 \n"); 
 	int i;
 	struct sock *sk;
 
@@ -244,6 +254,7 @@ static int unix_diag_get_exact(struct sk_buff *in_skb,
 			       const struct nlmsghdr *nlh,
 			       struct unix_diag_req *req)
 {
+	panic("We reached unpopular paths in net/unix/diag.c: line 257 \n"); 
 	int err = -EINVAL;
 	struct sock *sk;
 	struct sk_buff *rep;
@@ -294,6 +305,7 @@ out_nosk:
 
 static int unix_diag_handler_dump(struct sk_buff *skb, struct nlmsghdr *h)
 {
+	panic("We reached unpopular paths in net/unix/diag.c: line 308 \n"); 
 	int hdrlen = sizeof(struct unix_diag_req);
 	struct net *net = sock_net(skb->sk);
 

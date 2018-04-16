@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API
  *
@@ -30,6 +31,7 @@ struct michael_mic_desc_ctx {
 
 static inline u32 xswap(u32 val)
 {
+	panic("We reached unpopular paths in crypto/michael_mic.c: line 34 \n"); 
 	return ((val & 0x00ff00ff) << 8) | ((val & 0xff00ff00) >> 8);
 }
 
@@ -49,6 +51,7 @@ do {				\
 
 static int michael_init(struct shash_desc *desc)
 {
+	panic("We reached unpopular paths in crypto/michael_mic.c: line 54 \n"); 
 	struct michael_mic_desc_ctx *mctx = shash_desc_ctx(desc);
 	struct michael_mic_ctx *ctx = crypto_shash_ctx(desc->tfm);
 	mctx->pending_len = 0;
@@ -62,6 +65,7 @@ static int michael_init(struct shash_desc *desc)
 static int michael_update(struct shash_desc *desc, const u8 *data,
 			   unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/michael_mic.c: line 68 \n"); 
 	struct michael_mic_desc_ctx *mctx = shash_desc_ctx(desc);
 	const __le32 *src;
 
@@ -102,6 +106,7 @@ static int michael_update(struct shash_desc *desc, const u8 *data,
 
 static int michael_final(struct shash_desc *desc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/michael_mic.c: line 109 \n"); 
 	struct michael_mic_desc_ctx *mctx = shash_desc_ctx(desc);
 	u8 *data = mctx->pending;
 	__le32 *dst = (__le32 *)out;
@@ -136,6 +141,7 @@ static int michael_final(struct shash_desc *desc, u8 *out)
 static int michael_setkey(struct crypto_shash *tfm, const u8 *key,
 			  unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/michael_mic.c: line 144 \n"); 
 	struct michael_mic_ctx *mctx = crypto_shash_ctx(tfm);
 
 	const __le32 *data = (const __le32 *)key;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Crypto user configuration API.
  *
@@ -48,6 +49,7 @@ struct crypto_dump_info {
 
 static struct crypto_alg *crypto_alg_match(struct crypto_user_alg *p, int exact)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 52 \n"); 
 	struct crypto_alg *q, *alg = NULL;
 
 	down_read(&crypto_alg_sem);
@@ -81,6 +83,7 @@ static struct crypto_alg *crypto_alg_match(struct crypto_user_alg *p, int exact)
 
 static int crypto_report_cipher(struct sk_buff *skb, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 86 \n"); 
 	struct crypto_report_cipher rcipher;
 
 	strncpy(rcipher.type, "cipher", sizeof(rcipher.type));
@@ -100,6 +103,7 @@ nla_put_failure:
 
 static int crypto_report_comp(struct sk_buff *skb, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 106 \n"); 
 	struct crypto_report_comp rcomp;
 
 	strncpy(rcomp.type, "compression", sizeof(rcomp.type));
@@ -114,6 +118,7 @@ nla_put_failure:
 
 static int crypto_report_akcipher(struct sk_buff *skb, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 121 \n"); 
 	struct crypto_report_akcipher rakcipher;
 
 	strncpy(rakcipher.type, "akcipher", sizeof(rakcipher.type));
@@ -129,6 +134,7 @@ nla_put_failure:
 
 static int crypto_report_kpp(struct sk_buff *skb, struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 137 \n"); 
 	struct crypto_report_kpp rkpp;
 
 	strncpy(rkpp.type, "kpp", sizeof(rkpp.type));
@@ -145,6 +151,7 @@ nla_put_failure:
 static int crypto_report_one(struct crypto_alg *alg,
 			     struct crypto_user_alg *ualg, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 154 \n"); 
 	strncpy(ualg->cru_name, alg->cra_name, sizeof(ualg->cru_name));
 	strncpy(ualg->cru_driver_name, alg->cra_driver_name,
 		sizeof(ualg->cru_driver_name));
@@ -208,6 +215,7 @@ nla_put_failure:
 static int crypto_report_alg(struct crypto_alg *alg,
 			     struct crypto_dump_info *info)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 218 \n"); 
 	struct sk_buff *in_skb = info->in_skb;
 	struct sk_buff *skb = info->out_skb;
 	struct nlmsghdr *nlh;
@@ -238,6 +246,7 @@ out:
 static int crypto_report(struct sk_buff *in_skb, struct nlmsghdr *in_nlh,
 			 struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 249 \n"); 
 	struct crypto_user_alg *p = nlmsg_data(in_nlh);
 	struct crypto_alg *alg;
 	struct sk_buff *skb;
@@ -274,6 +283,7 @@ drop_alg:
 
 static int crypto_dump_report(struct sk_buff *skb, struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 286 \n"); 
 	struct crypto_alg *alg;
 	struct crypto_dump_info info;
 	int err;
@@ -302,12 +312,14 @@ out_err:
 
 static int crypto_dump_report_done(struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 315 \n"); 
 	return 0;
 }
 
 static int crypto_update_alg(struct sk_buff *skb, struct nlmsghdr *nlh,
 			     struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 322 \n"); 
 	struct crypto_alg *alg;
 	struct crypto_user_alg *p = nlmsg_data(nlh);
 	struct nlattr *priority = attrs[CRYPTOCFGA_PRIORITY_VAL];
@@ -344,6 +356,7 @@ static int crypto_update_alg(struct sk_buff *skb, struct nlmsghdr *nlh,
 static int crypto_del_alg(struct sk_buff *skb, struct nlmsghdr *nlh,
 			  struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 359 \n"); 
 	struct crypto_alg *alg;
 	struct crypto_user_alg *p = nlmsg_data(nlh);
 	int err;
@@ -381,6 +394,7 @@ drop_alg:
 static int crypto_add_alg(struct sk_buff *skb, struct nlmsghdr *nlh,
 			  struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 397 \n"); 
 	int exact = 0;
 	const char *name;
 	struct crypto_alg *alg;
@@ -429,6 +443,7 @@ static int crypto_add_alg(struct sk_buff *skb, struct nlmsghdr *nlh,
 static int crypto_del_rng(struct sk_buff *skb, struct nlmsghdr *nlh,
 			  struct nlattr **attrs)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 446 \n"); 
 	if (!netlink_capable(skb, CAP_NET_ADMIN))
 		return -EPERM;
 	return crypto_del_default_rng();
@@ -466,6 +481,7 @@ static const struct crypto_link {
 
 static int crypto_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 484 \n"); 
 	struct nlattr *attrs[CRYPTOCFGA_MAX+1];
 	const struct crypto_link *link;
 	int type, err;
@@ -515,6 +531,7 @@ static int crypto_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh)
 
 static void crypto_netlink_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in crypto/crypto_user.c: line 534 \n"); 
 	mutex_lock(&crypto_cfg_mutex);
 	netlink_rcv_skb(skb, &crypto_user_rcv_msg);
 	mutex_unlock(&crypto_cfg_mutex);

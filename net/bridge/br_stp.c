@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Spanning tree protocol; generic parts
  *	Linux ethernet bridge
@@ -54,6 +55,7 @@ void br_set_state(struct net_bridge_port *p, unsigned int state)
 /* called under bridge lock */
 struct net_bridge_port *br_get_port(struct net_bridge *br, u16 port_no)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 58 \n"); 
 	struct net_bridge_port *p;
 
 	list_for_each_entry_rcu(p, &br->port_list, list) {
@@ -118,6 +120,7 @@ static int br_should_become_root_port(const struct net_bridge_port *p,
 static void br_root_port_block(const struct net_bridge *br,
 			       struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 123 \n"); 
 
 	br_notice(br, "port %u(%s) tried to become root port (blocked)",
 		  (unsigned int) p->port_no, p->dev->name);
@@ -160,6 +163,7 @@ static void br_root_selection(struct net_bridge *br)
 /* called under bridge lock */
 void br_become_root_bridge(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 166 \n"); 
 	br->max_age = br->bridge_max_age;
 	br->hello_time = br->bridge_hello_time;
 	br->forward_delay = br->bridge_forward_delay;
@@ -175,6 +179,7 @@ void br_become_root_bridge(struct net_bridge *br)
 /* called under bridge lock */
 void br_transmit_config(struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 182 \n"); 
 	struct br_config_bpdu bpdu;
 	struct net_bridge *br;
 
@@ -217,6 +222,7 @@ void br_transmit_config(struct net_bridge_port *p)
 static void br_record_config_information(struct net_bridge_port *p,
 					 const struct br_config_bpdu *bpdu)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 225 \n"); 
 	p->designated_root = bpdu->root;
 	p->designated_cost = bpdu->root_path_cost;
 	p->designated_bridge = bpdu->bridge_id;
@@ -231,6 +237,7 @@ static void br_record_config_information(struct net_bridge_port *p,
 static void br_record_config_timeout_values(struct net_bridge *br,
 					    const struct br_config_bpdu *bpdu)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 240 \n"); 
 	br->max_age = bpdu->max_age;
 	br->hello_time = bpdu->hello_time;
 	br->forward_delay = bpdu->forward_delay;
@@ -240,6 +247,7 @@ static void br_record_config_timeout_values(struct net_bridge *br,
 /* called under bridge lock */
 void br_transmit_tcn(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 250 \n"); 
 	struct net_bridge_port *p;
 
 	p = br_get_port(br, br->root_port);
@@ -253,6 +261,7 @@ void br_transmit_tcn(struct net_bridge *br)
 /* called under bridge lock */
 static int br_should_become_designated_port(const struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 264 \n"); 
 	struct net_bridge *br;
 	int t;
 
@@ -297,6 +306,7 @@ static void br_designated_port_selection(struct net_bridge *br)
 static int br_supersedes_port_info(const struct net_bridge_port *p,
 				   const struct br_config_bpdu *bpdu)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 309 \n"); 
 	int t;
 
 	t = memcmp(&bpdu->root, &p->designated_root, 8);
@@ -328,6 +338,7 @@ static int br_supersedes_port_info(const struct net_bridge_port *p,
 /* called under bridge lock */
 static void br_topology_change_acknowledged(struct net_bridge *br)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 341 \n"); 
 	br->topology_change_detected = 0;
 	del_timer(&br->tcn_timer);
 }
@@ -370,6 +381,7 @@ void br_config_bpdu_generation(struct net_bridge *br)
 /* called under bridge lock */
 static void br_reply(struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 384 \n"); 
 	br_transmit_config(p);
 }
 
@@ -396,6 +408,7 @@ void br_become_designated_port(struct net_bridge_port *p)
 /* called under bridge lock */
 static void br_make_blocking(struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 411 \n"); 
 	if (p->state != BR_STATE_DISABLED &&
 	    p->state != BR_STATE_BLOCKING) {
 		if (p->state == BR_STATE_FORWARDING ||
@@ -477,6 +490,7 @@ void br_port_state_selection(struct net_bridge *br)
 /* called under bridge lock */
 static void br_topology_change_acknowledge(struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 493 \n"); 
 	p->topology_change_ack = 1;
 	br_transmit_config(p);
 }
@@ -485,6 +499,7 @@ static void br_topology_change_acknowledge(struct net_bridge_port *p)
 void br_received_config_bpdu(struct net_bridge_port *p,
 			     const struct br_config_bpdu *bpdu)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 502 \n"); 
 	struct net_bridge *br;
 	int was_root;
 
@@ -521,6 +536,7 @@ void br_received_config_bpdu(struct net_bridge_port *p,
 /* called under bridge lock */
 void br_received_tcn_bpdu(struct net_bridge_port *p)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 539 \n"); 
 	if (br_is_designated_port(p)) {
 		br_info(p->br, "port %u(%s) received tcn bpdu\n",
 			(unsigned int) p->port_no, p->dev->name);
@@ -533,6 +549,7 @@ void br_received_tcn_bpdu(struct net_bridge_port *p)
 /* Change bridge STP parameter */
 int br_set_hello_time(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 552 \n"); 
 	unsigned long t = clock_t_to_jiffies(val);
 
 	if (t < BR_MIN_HELLO_TIME || t > BR_MAX_HELLO_TIME)
@@ -548,6 +565,7 @@ int br_set_hello_time(struct net_bridge *br, unsigned long val)
 
 int br_set_max_age(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 568 \n"); 
 	unsigned long t = clock_t_to_jiffies(val);
 
 	if (t < BR_MIN_MAX_AGE || t > BR_MAX_MAX_AGE)
@@ -572,6 +590,7 @@ int br_set_max_age(struct net_bridge *br, unsigned long val)
  */
 int br_set_ageing_time(struct net_bridge *br, clock_t ageing_time)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 593 \n"); 
 	struct switchdev_attr attr = {
 		.orig_dev = br->dev,
 		.id = SWITCHDEV_ATTR_ID_BRIDGE_AGEING_TIME,
@@ -593,6 +612,7 @@ int br_set_ageing_time(struct net_bridge *br, clock_t ageing_time)
 
 void __br_set_forward_delay(struct net_bridge *br, unsigned long t)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 615 \n"); 
 	br->bridge_forward_delay = t;
 	if (br_is_root_bridge(br))
 		br->forward_delay = br->bridge_forward_delay;
@@ -600,6 +620,7 @@ void __br_set_forward_delay(struct net_bridge *br, unsigned long t)
 
 int br_set_forward_delay(struct net_bridge *br, unsigned long val)
 {
+	panic("We reached unpopular paths in net/bridge/br_stp.c: line 623 \n"); 
 	unsigned long t = clock_t_to_jiffies(val);
 	int err = -ERANGE;
 

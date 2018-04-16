@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/act_pedit.c	Generic packet editor
  *
@@ -36,6 +37,7 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
 			  struct nlattr *est, struct tc_action **a,
 			  int ovr, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_pedit.c: line 40 \n"); 
 	struct tc_action_net *tn = net_generic(net, pedit_net_id);
 	struct nlattr *tb[TCA_PEDIT_MAX + 1];
 	struct tc_pedit *parm;
@@ -103,6 +105,7 @@ static int tcf_pedit_init(struct net *net, struct nlattr *nla,
 
 static void tcf_pedit_cleanup(struct tc_action *a, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_pedit.c: line 108 \n"); 
 	struct tcf_pedit *p = to_pedit(a);
 	struct tc_pedit_key *keys = p->tcfp_keys;
 	kfree(keys);
@@ -110,6 +113,7 @@ static void tcf_pedit_cleanup(struct tc_action *a, int bind)
 
 static bool offset_valid(struct sk_buff *skb, int offset)
 {
+	panic("We reached unpopular paths in net/sched/act_pedit.c: line 116 \n"); 
 	if (offset > 0 && offset > skb->len)
 		return false;
 
@@ -122,6 +126,7 @@ static bool offset_valid(struct sk_buff *skb, int offset)
 static int tcf_pedit(struct sk_buff *skb, const struct tc_action *a,
 		     struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/act_pedit.c: line 129 \n"); 
 	struct tcf_pedit *p = to_pedit(a);
 	int i;
 	unsigned int off;
@@ -193,6 +198,7 @@ done:
 static int tcf_pedit_dump(struct sk_buff *skb, struct tc_action *a,
 			  int bind, int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_pedit.c: line 201 \n"); 
 	unsigned char *b = skb_tail_pointer(skb);
 	struct tcf_pedit *p = to_pedit(a);
 	struct tc_pedit *opt;
@@ -235,6 +241,7 @@ static int tcf_pedit_walker(struct net *net, struct sk_buff *skb,
 			    struct netlink_callback *cb, int type,
 			    const struct tc_action_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_pedit.c: line 244 \n"); 
 	struct tc_action_net *tn = net_generic(net, pedit_net_id);
 
 	return tcf_generic_walker(tn, skb, cb, type, ops);
@@ -242,6 +249,7 @@ static int tcf_pedit_walker(struct net *net, struct sk_buff *skb,
 
 static int tcf_pedit_search(struct net *net, struct tc_action **a, u32 index)
 {
+	panic("We reached unpopular paths in net/sched/act_pedit.c: line 252 \n"); 
 	struct tc_action_net *tn = net_generic(net, pedit_net_id);
 
 	return tcf_hash_search(tn, a, index);

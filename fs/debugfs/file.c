@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  file.c - part of debugfs, a tiny little debug file system
  *
@@ -99,6 +100,7 @@ EXPORT_SYMBOL_GPL(debugfs_use_file_finish);
 
 static int open_proxy_open(struct inode *inode, struct file *filp)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 103 \n"); 
 	const struct dentry *dentry = F_DENTRY(filp);
 	const struct file_operations *real_fops = NULL;
 	int srcu_idx, r;
@@ -172,6 +174,7 @@ FULL_PROXY_FUNC(unlocked_ioctl, long, filp,
 static unsigned int full_proxy_poll(struct file *filp,
 				struct poll_table_struct *wait)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 177 \n"); 
 	const struct dentry *dentry = F_DENTRY(filp);
 	const struct file_operations *real_fops = debugfs_real_fops(filp);
 	int srcu_idx;
@@ -330,11 +333,13 @@ static struct dentry *debugfs_create_mode_unsafe(const char *name, umode_t mode,
 
 static int debugfs_u8_set(void *data, u64 val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 336 \n"); 
 	*(u8 *)data = val;
 	return 0;
 }
 static int debugfs_u8_get(void *data, u64 *val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 342 \n"); 
 	*val = *(u8 *)data;
 	return 0;
 }
@@ -369,6 +374,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_u8_wo, NULL, debugfs_u8_set, "%llu\n");
 struct dentry *debugfs_create_u8(const char *name, umode_t mode,
 				 struct dentry *parent, u8 *value)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 377 \n"); 
 	return debugfs_create_mode_unsafe(name, mode, parent, value, &fops_u8,
 				   &fops_u8_ro, &fops_u8_wo);
 }
@@ -376,11 +382,13 @@ EXPORT_SYMBOL_GPL(debugfs_create_u8);
 
 static int debugfs_u16_set(void *data, u64 val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 385 \n"); 
 	*(u16 *)data = val;
 	return 0;
 }
 static int debugfs_u16_get(void *data, u64 *val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 391 \n"); 
 	*val = *(u16 *)data;
 	return 0;
 }
@@ -415,6 +423,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_u16_wo, NULL, debugfs_u16_set, "%llu\n");
 struct dentry *debugfs_create_u16(const char *name, umode_t mode,
 				  struct dentry *parent, u16 *value)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 426 \n"); 
 	return debugfs_create_mode_unsafe(name, mode, parent, value, &fops_u16,
 				   &fops_u16_ro, &fops_u16_wo);
 }
@@ -422,11 +431,13 @@ EXPORT_SYMBOL_GPL(debugfs_create_u16);
 
 static int debugfs_u32_set(void *data, u64 val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 434 \n"); 
 	*(u32 *)data = val;
 	return 0;
 }
 static int debugfs_u32_get(void *data, u64 *val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 440 \n"); 
 	*val = *(u32 *)data;
 	return 0;
 }
@@ -461,6 +472,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_u32_wo, NULL, debugfs_u32_set, "%llu\n");
 struct dentry *debugfs_create_u32(const char *name, umode_t mode,
 				 struct dentry *parent, u32 *value)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 475 \n"); 
 	return debugfs_create_mode_unsafe(name, mode, parent, value, &fops_u32,
 				   &fops_u32_ro, &fops_u32_wo);
 }
@@ -468,12 +480,14 @@ EXPORT_SYMBOL_GPL(debugfs_create_u32);
 
 static int debugfs_u64_set(void *data, u64 val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 483 \n"); 
 	*(u64 *)data = val;
 	return 0;
 }
 
 static int debugfs_u64_get(void *data, u64 *val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 490 \n"); 
 	*val = *(u64 *)data;
 	return 0;
 }
@@ -515,12 +529,14 @@ EXPORT_SYMBOL_GPL(debugfs_create_u64);
 
 static int debugfs_ulong_set(void *data, u64 val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 532 \n"); 
 	*(unsigned long *)data = val;
 	return 0;
 }
 
 static int debugfs_ulong_get(void *data, u64 *val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 539 \n"); 
 	*val = *(unsigned long *)data;
 	return 0;
 }
@@ -557,6 +573,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_ulong_wo, NULL, debugfs_ulong_set, "%llu\n");
 struct dentry *debugfs_create_ulong(const char *name, umode_t mode,
 				    struct dentry *parent, unsigned long *value)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 576 \n"); 
 	return debugfs_create_mode_unsafe(name, mode, parent, value,
 					&fops_ulong, &fops_ulong_ro,
 					&fops_ulong_wo);
@@ -603,6 +620,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_x64_wo, NULL, debugfs_u64_set, "0x%016llx\n");
 struct dentry *debugfs_create_x8(const char *name, umode_t mode,
 				 struct dentry *parent, u8 *value)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 623 \n"); 
 	return debugfs_create_mode_unsafe(name, mode, parent, value, &fops_x8,
 				   &fops_x8_ro, &fops_x8_wo);
 }
@@ -621,6 +639,7 @@ EXPORT_SYMBOL_GPL(debugfs_create_x8);
 struct dentry *debugfs_create_x16(const char *name, umode_t mode,
 				 struct dentry *parent, u16 *value)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 642 \n"); 
 	return debugfs_create_mode_unsafe(name, mode, parent, value, &fops_x16,
 				   &fops_x16_ro, &fops_x16_wo);
 }
@@ -639,6 +658,7 @@ EXPORT_SYMBOL_GPL(debugfs_create_x16);
 struct dentry *debugfs_create_x32(const char *name, umode_t mode,
 				 struct dentry *parent, u32 *value)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 661 \n"); 
 	return debugfs_create_mode_unsafe(name, mode, parent, value, &fops_x32,
 				   &fops_x32_ro, &fops_x32_wo);
 }
@@ -657,6 +677,7 @@ EXPORT_SYMBOL_GPL(debugfs_create_x32);
 struct dentry *debugfs_create_x64(const char *name, umode_t mode,
 				 struct dentry *parent, u64 *value)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 680 \n"); 
 	return debugfs_create_mode_unsafe(name, mode, parent, value, &fops_x64,
 				   &fops_x64_ro, &fops_x64_wo);
 }
@@ -665,11 +686,13 @@ EXPORT_SYMBOL_GPL(debugfs_create_x64);
 
 static int debugfs_size_t_set(void *data, u64 val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 689 \n"); 
 	*(size_t *)data = val;
 	return 0;
 }
 static int debugfs_size_t_get(void *data, u64 *val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 695 \n"); 
 	*val = *(size_t *)data;
 	return 0;
 }
@@ -691,6 +714,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_size_t_wo, NULL, debugfs_size_t_set, "%llu\n");
 struct dentry *debugfs_create_size_t(const char *name, umode_t mode,
 				     struct dentry *parent, size_t *value)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 717 \n"); 
 	return debugfs_create_mode_unsafe(name, mode, parent, value,
 					&fops_size_t, &fops_size_t_ro,
 					&fops_size_t_wo);
@@ -699,11 +723,13 @@ EXPORT_SYMBOL_GPL(debugfs_create_size_t);
 
 static int debugfs_atomic_t_set(void *data, u64 val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 726 \n"); 
 	atomic_set((atomic_t *)data, val);
 	return 0;
 }
 static int debugfs_atomic_t_get(void *data, u64 *val)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 732 \n"); 
 	*val = atomic_read((atomic_t *)data);
 	return 0;
 }
@@ -728,6 +754,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_atomic_t_wo, NULL, debugfs_atomic_t_set,
 struct dentry *debugfs_create_atomic_t(const char *name, umode_t mode,
 				 struct dentry *parent, atomic_t *value)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 757 \n"); 
 	return debugfs_create_mode_unsafe(name, mode, parent, value,
 					&fops_atomic_t, &fops_atomic_t_ro,
 					&fops_atomic_t_wo);
@@ -831,6 +858,7 @@ static const struct file_operations fops_bool_wo = {
 struct dentry *debugfs_create_bool(const char *name, umode_t mode,
 				   struct dentry *parent, bool *value)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 861 \n"); 
 	return debugfs_create_mode_unsafe(name, mode, parent, value, &fops_bool,
 				   &fops_bool_ro, &fops_bool_wo);
 }
@@ -885,6 +913,7 @@ struct dentry *debugfs_create_blob(const char *name, umode_t mode,
 				   struct dentry *parent,
 				   struct debugfs_blob_wrapper *blob)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 916 \n"); 
 	return debugfs_create_file_unsafe(name, mode, parent, blob, &fops_blob);
 }
 EXPORT_SYMBOL_GPL(debugfs_create_blob);
@@ -897,6 +926,7 @@ struct array_data {
 static size_t u32_format_array(char *buf, size_t bufsize,
 			       u32 *array, int array_size)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 929 \n"); 
 	size_t ret = 0;
 
 	while (--array_size >= 0) {
@@ -914,6 +944,7 @@ static size_t u32_format_array(char *buf, size_t bufsize,
 
 static int u32_array_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 947 \n"); 
 	struct array_data *data = inode->i_private;
 	int size, elements = data->elements;
 	char *buf;
@@ -946,6 +977,7 @@ static ssize_t u32_array_read(struct file *file, char __user *buf, size_t len,
 
 static int u32_array_release(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 980 \n"); 
 	kfree(file->private_data);
 
 	return 0;
@@ -982,6 +1014,7 @@ struct dentry *debugfs_create_u32_array(const char *name, umode_t mode,
 					    struct dentry *parent,
 					    u32 *array, u32 elements)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 1017 \n"); 
 	struct array_data *data = kmalloc(sizeof(*data), GFP_KERNEL);
 
 	if (data == NULL)
@@ -1096,6 +1129,7 @@ struct debugfs_devm_entry {
 
 static int debugfs_devm_entry_open(struct inode *inode, struct file *f)
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 1132 \n"); 
 	struct debugfs_devm_entry *entry = inode->i_private;
 
 	return single_open(f, entry->read, entry->dev);
@@ -1124,6 +1158,7 @@ struct dentry *debugfs_create_devm_seqfile(struct device *dev, const char *name,
 					   int (*read_fn)(struct seq_file *s,
 							  void *data))
 {
+	panic("We reached unpopular paths in fs/debugfs/file.c: line 1161 \n"); 
 	struct debugfs_devm_entry *entry;
 
 	if (IS_ERR(parent))

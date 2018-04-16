@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2000-2006 Silicon Graphics, Inc.
  * All Rights Reserved.
@@ -141,6 +142,7 @@ static const match_table_t tokens = {
 STATIC int
 suffix_kstrtoint(const substring_t *s, unsigned int base, int *res)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 145 \n"); 
 	int	last, shift_left_factor = 0, _res;
 	char	*value;
 	int	ret = 0;
@@ -186,6 +188,7 @@ xfs_parseargs(
 	struct xfs_mount	*mp,
 	char			*options)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 191 \n"); 
 	const struct super_block *sb = mp->m_super;
 	char			*p;
 	substring_t		args[MAX_OPT_ARGS];
@@ -472,6 +475,7 @@ xfs_showargs(
 	struct xfs_mount	*mp,
 	struct seq_file		*m)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 478 \n"); 
 	static struct proc_xfs_info xfs_info_set[] = {
 		/* the few simple ones we can get from the mount struct */
 		{ XFS_MOUNT_IKEEP,		",ikeep" },
@@ -554,6 +558,7 @@ static __uint64_t
 xfs_max_file_offset(
 	unsigned int		blockshift)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 561 \n"); 
 	unsigned int		pagefactor = 1;
 	unsigned int		bitshift = BITS_PER_LONG - 1;
 
@@ -604,6 +609,7 @@ xfs_set_inode_alloc(
 	struct xfs_mount *mp,
 	xfs_agnumber_t	agcount)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 612 \n"); 
 	xfs_agnumber_t	index;
 	xfs_agnumber_t	maxagi = 0;
 	xfs_sb_t	*sbp = &mp->m_sb;
@@ -677,6 +683,7 @@ xfs_blkdev_get(
 	const char		*name,
 	struct block_device	**bdevp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 686 \n"); 
 	int			error = 0;
 
 	*bdevp = blkdev_get_by_path(name, FMODE_READ|FMODE_WRITE|FMODE_EXCL,
@@ -693,6 +700,7 @@ STATIC void
 xfs_blkdev_put(
 	struct block_device	*bdev)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 703 \n"); 
 	if (bdev)
 		blkdev_put(bdev, FMODE_READ|FMODE_WRITE|FMODE_EXCL);
 }
@@ -701,6 +709,7 @@ void
 xfs_blkdev_issue_flush(
 	xfs_buftarg_t		*buftarg)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 712 \n"); 
 	blkdev_issue_flush(buftarg->bt_bdev, GFP_NOFS, NULL);
 }
 
@@ -708,6 +717,7 @@ STATIC void
 xfs_close_devices(
 	struct xfs_mount	*mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 720 \n"); 
 	if (mp->m_logdev_targp && mp->m_logdev_targp != mp->m_ddev_targp) {
 		struct block_device *logdev = mp->m_logdev_targp->bt_bdev;
 		xfs_free_buftarg(mp, mp->m_logdev_targp);
@@ -735,6 +745,7 @@ STATIC int
 xfs_open_devices(
 	struct xfs_mount	*mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 748 \n"); 
 	struct block_device	*ddev = mp->m_super->s_bdev;
 	struct block_device	*logdev = NULL, *rtdev = NULL;
 	int			error;
@@ -806,6 +817,7 @@ STATIC int
 xfs_setup_devices(
 	struct xfs_mount	*mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 820 \n"); 
 	int			error;
 
 	error = xfs_setsize_buftarg(mp->m_ddev_targp, mp->m_sb.sb_sectsize);
@@ -836,6 +848,7 @@ STATIC int
 xfs_init_mount_workqueues(
 	struct xfs_mount	*mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 851 \n"); 
 	mp->m_buf_workqueue = alloc_workqueue("xfs-buf/%s",
 			WQ_MEM_RECLAIM|WQ_FREEZABLE, 1, mp->m_fsname);
 	if (!mp->m_buf_workqueue)
@@ -901,6 +914,7 @@ STATIC void
 xfs_destroy_mount_workqueues(
 	struct xfs_mount	*mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 917 \n"); 
 	destroy_workqueue(mp->m_sync_workqueue);
 	destroy_workqueue(mp->m_eofblocks_workqueue);
 	destroy_workqueue(mp->m_log_workqueue);
@@ -921,6 +935,7 @@ void
 xfs_flush_inodes(
 	struct xfs_mount	*mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 938 \n"); 
 	struct super_block	*sb = mp->m_super;
 
 	if (down_read_trylock(&sb->s_umount)) {
@@ -934,6 +949,7 @@ STATIC struct inode *
 xfs_fs_alloc_inode(
 	struct super_block	*sb)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 952 \n"); 
 	BUG();
 	return NULL;
 }
@@ -946,6 +962,7 @@ STATIC void
 xfs_fs_destroy_inode(
 	struct inode		*inode)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 965 \n"); 
 	struct xfs_inode	*ip = XFS_I(inode);
 	int			error;
 
@@ -996,6 +1013,7 @@ STATIC void
 xfs_fs_inode_init_once(
 	void			*inode)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1016 \n"); 
 	struct xfs_inode	*ip = inode;
 
 	memset(ip, 0, sizeof(struct xfs_inode));
@@ -1024,6 +1042,7 @@ STATIC int
 xfs_fs_drop_inode(
 	struct inode		*inode)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1045 \n"); 
 	struct xfs_inode	*ip = XFS_I(inode);
 
 	/*
@@ -1043,6 +1062,7 @@ STATIC void
 xfs_free_fsname(
 	struct xfs_mount	*mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1065 \n"); 
 	kfree(mp->m_fsname);
 	kfree(mp->m_rtname);
 	kfree(mp->m_logname);
@@ -1053,6 +1073,7 @@ xfs_fs_sync_fs(
 	struct super_block	*sb,
 	int			wait)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1076 \n"); 
 	struct xfs_mount	*mp = XFS_M(sb);
 
 	/*
@@ -1079,6 +1100,7 @@ xfs_fs_statfs(
 	struct dentry		*dentry,
 	struct kstatfs		*statp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1103 \n"); 
 	struct xfs_mount	*mp = XFS_M(dentry->d_sb);
 	xfs_sb_t		*sbp = &mp->m_sb;
 	struct xfs_inode	*ip = XFS_I(d_inode(dentry));
@@ -1136,6 +1158,7 @@ xfs_fs_statfs(
 STATIC void
 xfs_save_resvblks(struct xfs_mount *mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1161 \n"); 
 	__uint64_t resblks = 0;
 
 	mp->m_resblks_save = mp->m_resblks;
@@ -1145,6 +1168,7 @@ xfs_save_resvblks(struct xfs_mount *mp)
 STATIC void
 xfs_restore_resvblks(struct xfs_mount *mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1171 \n"); 
 	__uint64_t resblks;
 
 	if (mp->m_resblks_save) {
@@ -1171,6 +1195,7 @@ void
 xfs_quiesce_attr(
 	struct xfs_mount	*mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1198 \n"); 
 	int	error = 0;
 
 	/* wait for all modifications to complete */
@@ -1204,6 +1229,7 @@ xfs_test_remount_options(
 	struct xfs_mount	*mp,
 	char			*options)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1232 \n"); 
 	int			error = 0;
 	struct xfs_mount	*tmp_mp;
 
@@ -1225,6 +1251,7 @@ xfs_fs_remount(
 	int			*flags,
 	char			*options)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1254 \n"); 
 	struct xfs_mount	*mp = XFS_M(sb);
 	xfs_sb_t		*sbp = &mp->m_sb;
 	substring_t		args[MAX_OPT_ARGS];
@@ -1383,6 +1410,7 @@ STATIC int
 xfs_fs_freeze(
 	struct super_block	*sb)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1413 \n"); 
 	struct xfs_mount	*mp = XFS_M(sb);
 
 	xfs_save_resvblks(mp);
@@ -1394,6 +1422,7 @@ STATIC int
 xfs_fs_unfreeze(
 	struct super_block	*sb)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1425 \n"); 
 	struct xfs_mount	*mp = XFS_M(sb);
 
 	xfs_restore_resvblks(mp);
@@ -1406,6 +1435,7 @@ xfs_fs_show_options(
 	struct seq_file		*m,
 	struct dentry		*root)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1438 \n"); 
 	return xfs_showargs(XFS_M(root->d_sb), m);
 }
 
@@ -1417,6 +1447,7 @@ STATIC int
 xfs_finish_flags(
 	struct xfs_mount	*mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1450 \n"); 
 	int			ronly = (mp->m_flags & XFS_MOUNT_RDONLY);
 
 	/* Fail a mount where the logbuf is smaller than the log stripe */
@@ -1481,6 +1512,7 @@ static int
 xfs_init_percpu_counters(
 	struct xfs_mount	*mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1515 \n"); 
 	int		error;
 
 	error = percpu_counter_init(&mp->m_icount, 0, GFP_KERNEL);
@@ -1508,6 +1540,7 @@ void
 xfs_reinit_percpu_counters(
 	struct xfs_mount	*mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1543 \n"); 
 	percpu_counter_set(&mp->m_icount, mp->m_sb.sb_icount);
 	percpu_counter_set(&mp->m_ifree, mp->m_sb.sb_ifree);
 	percpu_counter_set(&mp->m_fdblocks, mp->m_sb.sb_fdblocks);
@@ -1517,6 +1550,7 @@ static void
 xfs_destroy_percpu_counters(
 	struct xfs_mount	*mp)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1553 \n"); 
 	percpu_counter_destroy(&mp->m_icount);
 	percpu_counter_destroy(&mp->m_ifree);
 	percpu_counter_destroy(&mp->m_fdblocks);
@@ -1528,6 +1562,7 @@ xfs_fs_fill_super(
 	void			*data,
 	int			silent)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1565 \n"); 
 	struct inode		*root;
 	struct xfs_mount	*mp = NULL;
 	int			flags = 0, error = -ENOMEM;
@@ -1689,6 +1724,7 @@ STATIC void
 xfs_fs_put_super(
 	struct super_block	*sb)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1727 \n"); 
 	struct xfs_mount	*mp = XFS_M(sb);
 
 	xfs_notice(mp, "Unmounting Filesystem");
@@ -1711,6 +1747,7 @@ xfs_fs_mount(
 	const char		*dev_name,
 	void			*data)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1750 \n"); 
 	return mount_bdev(fs_type, flags, dev_name, data, xfs_fs_fill_super);
 }
 
@@ -1719,6 +1756,7 @@ xfs_fs_nr_cached_objects(
 	struct super_block	*sb,
 	struct shrink_control	*sc)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1759 \n"); 
 	return xfs_reclaim_inodes_count(XFS_M(sb));
 }
 
@@ -1727,6 +1765,7 @@ xfs_fs_free_cached_objects(
 	struct super_block	*sb,
 	struct shrink_control	*sc)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1768 \n"); 
 	return xfs_reclaim_inodes_nr(XFS_M(sb), sc->nr_to_scan);
 }
 
@@ -1916,6 +1955,7 @@ xfs_init_zones(void)
 STATIC void
 xfs_destroy_zones(void)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 1958 \n"); 
 	/*
 	 * Make sure all delayed rcu free are flushed before we
 	 * destroy caches.
@@ -1963,6 +2003,7 @@ xfs_init_workqueues(void)
 STATIC void
 xfs_destroy_workqueues(void)
 {
+	panic("We reached unpopular paths in fs/xfs/xfs_super.c: line 2006 \n"); 
 	destroy_workqueue(xfs_alloc_wq);
 }
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * proc_tty.c -- handles /proc/tty
  *
@@ -27,6 +28,7 @@ static struct proc_dir_entry *proc_tty_driver;
 static void show_tty_range(struct seq_file *m, struct tty_driver *p,
 	dev_t from, int num)
 {
+	panic("We reached unpopular paths in fs/proc/proc_tty.c: line 31 \n"); 
 	seq_printf(m, "%-20s ", p->driver_name ? p->driver_name : "unknown");
 	seq_printf(m, "/dev/%-8s ", p->name);
 	if (p->num > 1) {
@@ -67,6 +69,7 @@ static void show_tty_range(struct seq_file *m, struct tty_driver *p,
 
 static int show_tty_driver(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/proc_tty.c: line 72 \n"); 
 	struct tty_driver *p = list_entry(v, struct tty_driver, tty_drivers);
 	dev_t from = MKDEV(p->major, p->minor_start);
 	dev_t to = from + p->num;
@@ -104,17 +107,20 @@ static int show_tty_driver(struct seq_file *m, void *v)
 /* iterator */
 static void *t_start(struct seq_file *m, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/proc/proc_tty.c: line 110 \n"); 
 	mutex_lock(&tty_mutex);
 	return seq_list_start(&tty_drivers, *pos);
 }
 
 static void *t_next(struct seq_file *m, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in fs/proc/proc_tty.c: line 117 \n"); 
 	return seq_list_next(v, &tty_drivers, pos);
 }
 
 static void t_stop(struct seq_file *m, void *v)
 {
+	panic("We reached unpopular paths in fs/proc/proc_tty.c: line 123 \n"); 
 	mutex_unlock(&tty_mutex);
 }
 
@@ -127,6 +133,7 @@ static const struct seq_operations tty_drivers_op = {
 
 static int tty_drivers_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/proc/proc_tty.c: line 136 \n"); 
 	return seq_open(file, &tty_drivers_op);
 }
 
@@ -159,6 +166,7 @@ void proc_tty_register_driver(struct tty_driver *driver)
  */
 void proc_tty_unregister_driver(struct tty_driver *driver)
 {
+	panic("We reached unpopular paths in fs/proc/proc_tty.c: line 169 \n"); 
 	struct proc_dir_entry *ent;
 
 	ent = driver->proc_entry;

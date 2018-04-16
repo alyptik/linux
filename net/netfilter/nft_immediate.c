@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  *
@@ -27,6 +28,7 @@ static void nft_immediate_eval(const struct nft_expr *expr,
 			       struct nft_regs *regs,
 			       const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_immediate.c: line 31 \n"); 
 	const struct nft_immediate_expr *priv = nft_expr_priv(expr);
 
 	nft_data_copy(&regs->data[priv->dreg], &priv->data, priv->dlen);
@@ -41,6 +43,7 @@ static int nft_immediate_init(const struct nft_ctx *ctx,
 			      const struct nft_expr *expr,
 			      const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_immediate.c: line 46 \n"); 
 	struct nft_immediate_expr *priv = nft_expr_priv(expr);
 	struct nft_data_desc desc;
 	int err;
@@ -75,12 +78,14 @@ err1:
 static void nft_immediate_destroy(const struct nft_ctx *ctx,
 				  const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_immediate.c: line 81 \n"); 
 	const struct nft_immediate_expr *priv = nft_expr_priv(expr);
 	return nft_data_uninit(&priv->data, nft_dreg_to_type(priv->dreg));
 }
 
 static int nft_immediate_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_immediate.c: line 88 \n"); 
 	const struct nft_immediate_expr *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_IMMEDIATE_DREG, priv->dreg))
@@ -97,6 +102,7 @@ static int nft_immediate_validate(const struct nft_ctx *ctx,
 				  const struct nft_expr *expr,
 				  const struct nft_data **data)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_immediate.c: line 105 \n"); 
 	const struct nft_immediate_expr *priv = nft_expr_priv(expr);
 
 	if (priv->dreg == NFT_REG_VERDICT)
@@ -131,5 +137,6 @@ int __init nft_immediate_module_init(void)
 
 void nft_immediate_module_exit(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_immediate.c: line 140 \n"); 
 	nft_unregister_expr(&nft_imm_type);
 }

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2013 Nicira, Inc.
  *
@@ -60,6 +61,7 @@ void iptunnel_xmit(struct sock *sk, struct rtable *rt, struct sk_buff *skb,
 		   __be32 src, __be32 dst, __u8 proto,
 		   __u8 tos, __u8 ttl, __be16 df, bool xnet)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 64 \n"); 
 	int pkt_len = skb->len - skb_inner_network_offset(skb);
 	struct net *net = dev_net(rt->dst.dev);
 	struct net_device *dev = skb->dev;
@@ -98,6 +100,7 @@ EXPORT_SYMBOL_GPL(iptunnel_xmit);
 int __iptunnel_pull_header(struct sk_buff *skb, int hdr_len,
 			   __be16 inner_proto, bool raw_proto, bool xnet)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 103 \n"); 
 	if (unlikely(!pskb_may_pull(skb, hdr_len)))
 		return -ENOMEM;
 
@@ -131,6 +134,7 @@ EXPORT_SYMBOL_GPL(__iptunnel_pull_header);
 struct metadata_dst *iptunnel_metadata_reply(struct metadata_dst *md,
 					     gfp_t flags)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 137 \n"); 
 	struct metadata_dst *res;
 	struct ip_tunnel_info *dst, *src;
 
@@ -158,6 +162,7 @@ EXPORT_SYMBOL_GPL(iptunnel_metadata_reply);
 int iptunnel_handle_offloads(struct sk_buff *skb,
 			     int gso_type_mask)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 165 \n"); 
 	int err;
 
 	if (likely(!skb->encapsulation)) {
@@ -232,6 +237,7 @@ static int ip_tun_build_state(struct net_device *dev, struct nlattr *attr,
 			      unsigned int family, const void *cfg,
 			      struct lwtunnel_state **ts)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 240 \n"); 
 	struct ip_tunnel_info *tun_info;
 	struct lwtunnel_state *new_state;
 	struct nlattr *tb[LWTUNNEL_IP_MAX + 1];
@@ -278,6 +284,7 @@ static int ip_tun_build_state(struct net_device *dev, struct nlattr *attr,
 static int ip_tun_fill_encap_info(struct sk_buff *skb,
 				  struct lwtunnel_state *lwtstate)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 287 \n"); 
 	struct ip_tunnel_info *tun_info = lwt_tun_info(lwtstate);
 
 	if (nla_put_be64(skb, LWTUNNEL_IP_ID, tun_info->key.tun_id,
@@ -294,6 +301,7 @@ static int ip_tun_fill_encap_info(struct sk_buff *skb,
 
 static int ip_tun_encap_nlsize(struct lwtunnel_state *lwtstate)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 304 \n"); 
 	return nla_total_size_64bit(8)	/* LWTUNNEL_IP_ID */
 		+ nla_total_size(4)	/* LWTUNNEL_IP_DST */
 		+ nla_total_size(4)	/* LWTUNNEL_IP_SRC */
@@ -304,6 +312,7 @@ static int ip_tun_encap_nlsize(struct lwtunnel_state *lwtstate)
 
 static int ip_tun_cmp_encap(struct lwtunnel_state *a, struct lwtunnel_state *b)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 315 \n"); 
 	return memcmp(lwt_tun_info(a), lwt_tun_info(b),
 		      sizeof(struct ip_tunnel_info));
 }
@@ -329,6 +338,7 @@ static int ip6_tun_build_state(struct net_device *dev, struct nlattr *attr,
 			       unsigned int family, const void *cfg,
 			       struct lwtunnel_state **ts)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 341 \n"); 
 	struct ip_tunnel_info *tun_info;
 	struct lwtunnel_state *new_state;
 	struct nlattr *tb[LWTUNNEL_IP6_MAX + 1];
@@ -375,6 +385,7 @@ static int ip6_tun_build_state(struct net_device *dev, struct nlattr *attr,
 static int ip6_tun_fill_encap_info(struct sk_buff *skb,
 				   struct lwtunnel_state *lwtstate)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 388 \n"); 
 	struct ip_tunnel_info *tun_info = lwt_tun_info(lwtstate);
 
 	if (nla_put_be64(skb, LWTUNNEL_IP6_ID, tun_info->key.tun_id,
@@ -391,6 +402,7 @@ static int ip6_tun_fill_encap_info(struct sk_buff *skb,
 
 static int ip6_tun_encap_nlsize(struct lwtunnel_state *lwtstate)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 405 \n"); 
 	return nla_total_size_64bit(8)	/* LWTUNNEL_IP6_ID */
 		+ nla_total_size(16)	/* LWTUNNEL_IP6_DST */
 		+ nla_total_size(16)	/* LWTUNNEL_IP6_SRC */
@@ -424,12 +436,14 @@ EXPORT_SYMBOL(ip_tunnel_metadata_cnt);
 
 void ip_tunnel_need_metadata(void)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 439 \n"); 
 	static_key_slow_inc(&ip_tunnel_metadata_cnt);
 }
 EXPORT_SYMBOL_GPL(ip_tunnel_need_metadata);
 
 void ip_tunnel_unneed_metadata(void)
 {
+	panic("We reached unpopular paths in net/ipv4/ip_tunnel_core.c: line 446 \n"); 
 	static_key_slow_dec(&ip_tunnel_metadata_cnt);
 }
 EXPORT_SYMBOL_GPL(ip_tunnel_unneed_metadata);

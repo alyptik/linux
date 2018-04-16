@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	NET3:	Implementation of the ICMP protocol layer.
  *
@@ -206,11 +207,13 @@ static const struct icmp_control icmp_pointers[NR_ICMP_TYPES+1];
  */
 static struct sock *icmp_sk(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 210 \n"); 
 	return *this_cpu_ptr(net->ipv4.icmp_sk);
 }
 
 static inline struct sock *icmp_xmit_lock(struct net *net)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 216 \n"); 
 	struct sock *sk;
 
 	local_bh_disable();
@@ -229,6 +232,7 @@ static inline struct sock *icmp_xmit_lock(struct net *net)
 
 static inline void icmp_xmit_unlock(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 235 \n"); 
 	spin_unlock_bh(&sk->sk_lock.slock);
 }
 
@@ -252,6 +256,7 @@ static struct {
  */
 bool icmp_global_allow(void)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 259 \n"); 
 	u32 credit, delta, incr = 0, now = (u32)jiffies;
 	bool rc = false;
 
@@ -289,6 +294,7 @@ EXPORT_SYMBOL(icmp_global_allow);
 static bool icmpv4_xrlim_allow(struct net *net, struct rtable *rt,
 			       struct flowi4 *fl4, int type, int code)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 297 \n"); 
 	struct dst_entry *dst = &rt->dst;
 	bool rc = true;
 
@@ -327,6 +333,7 @@ out:
  */
 void icmp_out_count(struct net *net, unsigned char type)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 336 \n"); 
 	ICMPMSGOUT_INC_STATS(net, type);
 	ICMP_INC_STATS(net, ICMP_MIB_OUTMSGS);
 }
@@ -338,6 +345,7 @@ void icmp_out_count(struct net *net, unsigned char type)
 static int icmp_glue_bits(void *from, char *to, int offset, int len, int odd,
 			  struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 348 \n"); 
 	struct icmp_bxm *icmp_param = (struct icmp_bxm *)from;
 	__wsum csum;
 
@@ -355,6 +363,7 @@ static void icmp_push_reply(struct icmp_bxm *icmp_param,
 			    struct flowi4 *fl4,
 			    struct ipcm_cookie *ipc, struct rtable **rt)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 366 \n"); 
 	struct sock *sk;
 	struct sk_buff *skb;
 
@@ -388,6 +397,7 @@ static void icmp_push_reply(struct icmp_bxm *icmp_param,
 
 static void icmp_reply(struct icmp_bxm *icmp_param, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 400 \n"); 
 	struct ipcm_cookie ipc;
 	struct rtable *rt = skb_rtable(skb);
 	struct net *net = dev_net(rt->dst.dev);
@@ -464,6 +474,7 @@ static struct rtable *icmp_route_lookup(struct net *net,
 					int type, int code,
 					struct icmp_bxm *param)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 477 \n"); 
 	struct rtable *rt, *rt2;
 	struct flowi4 fl4_dec;
 	int err;
@@ -567,6 +578,7 @@ relookup_failed:
 
 void icmp_send(struct sk_buff *skb_in, int type, int code, __be32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 581 \n"); 
 	struct iphdr *iph;
 	int room;
 	struct icmp_bxm *icmp_param;
@@ -736,6 +748,7 @@ EXPORT_SYMBOL(icmp_send);
 
 static void icmp_socket_deliver(struct sk_buff *skb, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 751 \n"); 
 	const struct iphdr *iph = (const struct iphdr *) skb->data;
 	const struct net_protocol *ipprot;
 	int protocol = iph->protocol;
@@ -757,6 +770,7 @@ static void icmp_socket_deliver(struct sk_buff *skb, u32 info)
 
 static bool icmp_tag_validation(int proto)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 773 \n"); 
 	bool ok;
 
 	rcu_read_lock();
@@ -772,6 +786,7 @@ static bool icmp_tag_validation(int proto)
 
 static bool icmp_unreach(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 789 \n"); 
 	const struct iphdr *iph;
 	struct icmphdr *icmph;
 	struct net *net;
@@ -885,6 +900,7 @@ out_err:
 
 static bool icmp_redirect(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 903 \n"); 
 	if (skb->len < sizeof(struct iphdr)) {
 		__ICMP_INC_STATS(dev_net(skb->dev), ICMP_MIB_INERRORS);
 		return false;
@@ -913,6 +929,7 @@ static bool icmp_redirect(struct sk_buff *skb)
 
 static bool icmp_echo(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 932 \n"); 
 	struct net *net;
 
 	net = dev_net(skb_dst(skb)->dev);
@@ -940,6 +957,7 @@ static bool icmp_echo(struct sk_buff *skb)
  */
 static bool icmp_timestamp(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 960 \n"); 
 	struct icmp_bxm icmp_param;
 	/*
 	 *	Too short.
@@ -971,6 +989,7 @@ out_err:
 
 static bool icmp_discard(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 992 \n"); 
 	/* pretend it was a success */
 	return true;
 }
@@ -980,6 +999,7 @@ static bool icmp_discard(struct sk_buff *skb)
  */
 int icmp_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 1002 \n"); 
 	struct icmphdr *icmph;
 	struct rtable *rt = skb_rtable(skb);
 	struct net *net = dev_net(rt->dst.dev);
@@ -1069,6 +1089,7 @@ error:
 
 void icmp_err(struct sk_buff *skb, u32 info)
 {
+	panic("We reached unpopular paths in net/ipv4/icmp.c: line 1092 \n"); 
 	struct iphdr *iph = (struct iphdr *)skb->data;
 	int offset = iph->ihl<<2;
 	struct icmphdr *icmph = (struct icmphdr *)(skb->data + offset);

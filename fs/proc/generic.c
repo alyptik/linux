@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * proc/fs/generic.c --- generic routines for the proc-fs
  *
@@ -46,6 +47,7 @@ static struct proc_dir_entry *pde_subdir_first(struct proc_dir_entry *dir)
 
 static struct proc_dir_entry *pde_subdir_next(struct proc_dir_entry *dir)
 {
+	panic("We reached unpopular paths in fs/proc/generic.c: line 50 \n"); 
 	return rb_entry_safe(rb_next(&dir->subdir_node), struct proc_dir_entry,
 			     subdir_node);
 }
@@ -101,6 +103,7 @@ static bool pde_subdir_insert(struct proc_dir_entry *dir,
 
 static int proc_notify_change(struct dentry *dentry, struct iattr *iattr)
 {
+	panic("We reached unpopular paths in fs/proc/generic.c: line 106 \n"); 
 	struct inode *inode = d_inode(dentry);
 	struct proc_dir_entry *de = PDE(inode);
 	int error;
@@ -265,6 +268,7 @@ struct dentry *proc_lookup(struct inode *dir, struct dentry *dentry,
 int proc_readdir_de(struct proc_dir_entry *de, struct file *file,
 		    struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/generic.c: line 271 \n"); 
 	int i;
 
 	if (!dir_emit_dots(file, ctx))
@@ -305,6 +309,7 @@ int proc_readdir_de(struct proc_dir_entry *de, struct file *file,
 
 int proc_readdir(struct file *file, struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/generic.c: line 312 \n"); 
 	struct inode *inode = file_inode(file);
 
 	return proc_readdir_de(PDE(inode), file, ctx);
@@ -629,6 +634,7 @@ EXPORT_SYMBOL(remove_proc_subtree);
 
 void *proc_get_parent_data(const struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/proc/generic.c: line 637 \n"); 
 	struct proc_dir_entry *de = PDE(inode);
 	return de->parent->data;
 }
@@ -643,6 +649,7 @@ EXPORT_SYMBOL(proc_remove);
 
 void *PDE_DATA(const struct inode *inode)
 {
+	panic("We reached unpopular paths in fs/proc/generic.c: line 652 \n"); 
 	return __PDE_DATA(inode);
 }
 EXPORT_SYMBOL(PDE_DATA);

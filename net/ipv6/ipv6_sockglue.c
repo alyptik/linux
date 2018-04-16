@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	IPv6 BSD socket options interface
  *	Linux INET6 implementation
@@ -60,6 +61,7 @@ DEFINE_RWLOCK(ip6_ra_lock);
 
 int ip6_ra_control(struct sock *sk, int sel)
 {
+	panic("We reached unpopular paths in net/ipv6/ipv6_sockglue.c: line 64 \n"); 
 	struct ip6_ra_chain *ra, *new_ra, **rap;
 
 	/* RA packet may be delivered ONLY to IPPROTO_RAW socket */
@@ -101,6 +103,7 @@ int ip6_ra_control(struct sock *sk, int sel)
 struct ipv6_txoptions *ipv6_update_options(struct sock *sk,
 					   struct ipv6_txoptions *opt)
 {
+	panic("We reached unpopular paths in net/ipv6/ipv6_sockglue.c: line 106 \n"); 
 	if (inet_sk(sk)->is_icsk) {
 		if (opt &&
 		    !((1 << sk->sk_state) & (TCPF_LISTEN | TCPF_CLOSE)) &&

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Scatterlist Cryptographic API.
  *
@@ -53,6 +54,7 @@ EXPORT_SYMBOL_GPL(crypto_mod_put);
 
 static inline int crypto_is_test_larval(struct crypto_larval *larval)
 {
+	// [blacklist] panic("We reached unpopular paths in crypto/api.c: line 57 \n"); 
 	return larval->alg.cra_driver_name[0];
 }
 
@@ -357,6 +359,7 @@ static unsigned int crypto_ctxsize(struct crypto_alg *alg, u32 type, u32 mask)
 
 void crypto_shoot_alg(struct crypto_alg *alg)
 {
+	panic("We reached unpopular paths in crypto/api.c: line 362 \n"); 
 	down_write(&crypto_alg_sem);
 	alg->cra_flags |= CRYPTO_ALG_DYING;
 	up_write(&crypto_alg_sem);
@@ -423,6 +426,7 @@ EXPORT_SYMBOL_GPL(__crypto_alloc_tfm);
  */
 struct crypto_tfm *crypto_alloc_base(const char *alg_name, u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/api.c: line 429 \n"); 
 	struct crypto_tfm *tfm;
 	int err;
 
@@ -599,6 +603,7 @@ EXPORT_SYMBOL_GPL(crypto_destroy_tfm);
 
 int crypto_has_alg(const char *name, u32 type, u32 mask)
 {
+	panic("We reached unpopular paths in crypto/api.c: line 606 \n"); 
 	int ret = 0;
 	struct crypto_alg *alg = crypto_alg_mod_lookup(name, type, mask);
 

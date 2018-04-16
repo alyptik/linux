@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/sysfs/file.c - sysfs regular (text) file implementation
  *
@@ -82,6 +83,7 @@ static int sysfs_kf_seq_show(struct seq_file *sf, void *v)
 static ssize_t sysfs_kf_bin_read(struct kernfs_open_file *of, char *buf,
 				 size_t count, loff_t pos)
 {
+	panic("We reached unpopular paths in fs/sysfs/file.c: line 86 \n"); 
 	struct bin_attribute *battr = of->kn->priv;
 	struct kobject *kobj = of->kn->parent->priv;
 	loff_t size = file_inode(of->file)->i_size;
@@ -106,6 +108,7 @@ static ssize_t sysfs_kf_bin_read(struct kernfs_open_file *of, char *buf,
 static ssize_t sysfs_kf_read(struct kernfs_open_file *of, char *buf,
 			     size_t count, loff_t pos)
 {
+	panic("We reached unpopular paths in fs/sysfs/file.c: line 111 \n"); 
 	const struct sysfs_ops *ops = sysfs_file_ops(of->kn);
 	struct kobject *kobj = of->kn->parent->priv;
 	ssize_t len;
@@ -145,6 +148,7 @@ static ssize_t sysfs_kf_write(struct kernfs_open_file *of, char *buf,
 static ssize_t sysfs_kf_bin_write(struct kernfs_open_file *of, char *buf,
 				  size_t count, loff_t pos)
 {
+	panic("We reached unpopular paths in fs/sysfs/file.c: line 151 \n"); 
 	struct bin_attribute *battr = of->kn->priv;
 	struct kobject *kobj = of->kn->parent->priv;
 	loff_t size = file_inode(of->file)->i_size;
@@ -166,6 +170,7 @@ static ssize_t sysfs_kf_bin_write(struct kernfs_open_file *of, char *buf,
 static int sysfs_kf_bin_mmap(struct kernfs_open_file *of,
 			     struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in fs/sysfs/file.c: line 173 \n"); 
 	struct bin_attribute *battr = of->kn->priv;
 	struct kobject *kobj = of->kn->parent->priv;
 
@@ -174,6 +179,7 @@ static int sysfs_kf_bin_mmap(struct kernfs_open_file *of,
 
 void sysfs_notify(struct kobject *kobj, const char *dir, const char *attr)
 {
+	panic("We reached unpopular paths in fs/sysfs/file.c: line 182 \n"); 
 	struct kernfs_node *kn = kobj->sd, *tmp;
 
 	if (kn && dir)
@@ -359,6 +365,7 @@ EXPORT_SYMBOL_GPL(sysfs_create_files);
 int sysfs_add_file_to_group(struct kobject *kobj,
 		const struct attribute *attr, const char *group)
 {
+	panic("We reached unpopular paths in fs/sysfs/file.c: line 368 \n"); 
 	struct kernfs_node *parent;
 	int error;
 
@@ -389,6 +396,7 @@ EXPORT_SYMBOL_GPL(sysfs_add_file_to_group);
 int sysfs_chmod_file(struct kobject *kobj, const struct attribute *attr,
 		     umode_t mode)
 {
+	panic("We reached unpopular paths in fs/sysfs/file.c: line 399 \n"); 
 	struct kernfs_node *kn;
 	struct iattr newattrs;
 	int rc;
@@ -433,6 +441,7 @@ EXPORT_SYMBOL_GPL(sysfs_remove_file_ns);
  */
 bool sysfs_remove_file_self(struct kobject *kobj, const struct attribute *attr)
 {
+	panic("We reached unpopular paths in fs/sysfs/file.c: line 444 \n"); 
 	struct kernfs_node *parent = kobj->sd;
 	struct kernfs_node *kn;
 	bool ret;
@@ -449,6 +458,7 @@ bool sysfs_remove_file_self(struct kobject *kobj, const struct attribute *attr)
 
 void sysfs_remove_files(struct kobject *kobj, const struct attribute **ptr)
 {
+	panic("We reached unpopular paths in fs/sysfs/file.c: line 461 \n"); 
 	int i;
 	for (i = 0; ptr[i]; i++)
 		sysfs_remove_file(kobj, ptr[i]);
@@ -464,6 +474,7 @@ EXPORT_SYMBOL_GPL(sysfs_remove_files);
 void sysfs_remove_file_from_group(struct kobject *kobj,
 		const struct attribute *attr, const char *group)
 {
+	panic("We reached unpopular paths in fs/sysfs/file.c: line 477 \n"); 
 	struct kernfs_node *parent;
 
 	if (group) {
@@ -502,6 +513,7 @@ EXPORT_SYMBOL_GPL(sysfs_create_bin_file);
 void sysfs_remove_bin_file(struct kobject *kobj,
 			   const struct bin_attribute *attr)
 {
+	panic("We reached unpopular paths in fs/sysfs/file.c: line 516 \n"); 
 	kernfs_remove_by_name(kobj->sd, attr->attr.name);
 }
 EXPORT_SYMBOL_GPL(sysfs_remove_bin_file);

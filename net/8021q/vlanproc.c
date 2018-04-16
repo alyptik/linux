@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /******************************************************************************
  * vlanproc.c	VLAN Module. /proc filesystem interface.
  *
@@ -75,6 +76,7 @@ static const struct seq_operations vlan_seq_ops = {
 
 static int vlan_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/8021q/vlanproc.c: line 79 \n"); 
 	return seq_open_net(inode, file, &vlan_seq_ops,
 			sizeof(struct seq_net_private));
 }
@@ -93,6 +95,7 @@ static const struct file_operations vlan_fops = {
 
 static int vlandev_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/8021q/vlanproc.c: line 98 \n"); 
 	return single_open(file, vlandev_seq_show, PDE_DATA(inode));
 }
 
@@ -168,6 +171,7 @@ err:
 
 int vlan_proc_add_dev(struct net_device *vlandev)
 {
+	panic("We reached unpopular paths in net/8021q/vlanproc.c: line 174 \n"); 
 	struct vlan_dev_priv *vlan = vlan_dev_priv(vlandev);
 	struct vlan_net *vn = net_generic(dev_net(vlandev), vlan_net_id);
 
@@ -186,6 +190,7 @@ int vlan_proc_add_dev(struct net_device *vlandev)
  */
 void vlan_proc_rem_dev(struct net_device *vlandev)
 {
+	panic("We reached unpopular paths in net/8021q/vlanproc.c: line 193 \n"); 
 	/** NOTE:  This will consume the memory pointed to by dent, it seems. */
 	proc_remove(vlan_dev_priv(vlandev)->dent);
 	vlan_dev_priv(vlandev)->dent = NULL;
@@ -222,6 +227,7 @@ static void *vlan_seq_start(struct seq_file *seq, loff_t *pos)
 
 static void *vlan_seq_next(struct seq_file *seq, void *v, loff_t *pos)
 {
+	panic("We reached unpopular paths in net/8021q/vlanproc.c: line 230 \n"); 
 	struct net_device *dev;
 	struct net *net = seq_file_net(seq);
 
@@ -249,6 +255,7 @@ static void vlan_seq_stop(struct seq_file *seq, void *v)
 
 static int vlan_seq_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/8021q/vlanproc.c: line 258 \n"); 
 	struct net *net = seq_file_net(seq);
 	struct vlan_net *vn = net_generic(net, vlan_net_id);
 
@@ -274,6 +281,7 @@ static int vlan_seq_show(struct seq_file *seq, void *v)
 
 static int vlandev_seq_show(struct seq_file *seq, void *offset)
 {
+	panic("We reached unpopular paths in net/8021q/vlanproc.c: line 284 \n"); 
 	struct net_device *vlandev = (struct net_device *) seq->private;
 	const struct vlan_dev_priv *vlan = vlan_dev_priv(vlandev);
 	struct rtnl_link_stats64 temp;

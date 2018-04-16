@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * seqiv: Sequence Number IV Generator
  *
@@ -27,6 +28,7 @@ static void seqiv_free(struct crypto_instance *inst);
 
 static void seqiv_aead_encrypt_complete2(struct aead_request *req, int err)
 {
+	panic("We reached unpopular paths in crypto/seqiv.c: line 31 \n"); 
 	struct aead_request *subreq = aead_request_ctx(req);
 	struct crypto_aead *geniv;
 
@@ -46,6 +48,7 @@ out:
 static void seqiv_aead_encrypt_complete(struct crypto_async_request *base,
 					int err)
 {
+	panic("We reached unpopular paths in crypto/seqiv.c: line 51 \n"); 
 	struct aead_request *req = base->data;
 
 	seqiv_aead_encrypt_complete2(req, err);
@@ -54,6 +57,7 @@ static void seqiv_aead_encrypt_complete(struct crypto_async_request *base,
 
 static int seqiv_aead_encrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/seqiv.c: line 60 \n"); 
 	struct crypto_aead *geniv = crypto_aead_reqtfm(req);
 	struct aead_geniv_ctx *ctx = crypto_aead_ctx(geniv);
 	struct aead_request *subreq = aead_request_ctx(req);
@@ -116,6 +120,7 @@ static int seqiv_aead_encrypt(struct aead_request *req)
 
 static int seqiv_aead_decrypt(struct aead_request *req)
 {
+	panic("We reached unpopular paths in crypto/seqiv.c: line 123 \n"); 
 	struct crypto_aead *geniv = crypto_aead_reqtfm(req);
 	struct aead_geniv_ctx *ctx = crypto_aead_ctx(geniv);
 	struct aead_request *subreq = aead_request_ctx(req);
@@ -143,6 +148,7 @@ static int seqiv_aead_decrypt(struct aead_request *req)
 
 static int seqiv_aead_create(struct crypto_template *tmpl, struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/seqiv.c: line 151 \n"); 
 	struct aead_instance *inst;
 	struct crypto_aead_spawn *spawn;
 	struct aead_alg *alg;
@@ -185,6 +191,7 @@ free_inst:
 
 static int seqiv_create(struct crypto_template *tmpl, struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/seqiv.c: line 194 \n"); 
 	struct crypto_attr_type *algt;
 
 	algt = crypto_get_attr_type(tb);
@@ -199,6 +206,7 @@ static int seqiv_create(struct crypto_template *tmpl, struct rtattr **tb)
 
 static void seqiv_free(struct crypto_instance *inst)
 {
+	panic("We reached unpopular paths in crypto/seqiv.c: line 209 \n"); 
 	aead_geniv_free(aead_instance(inst));
 }
 

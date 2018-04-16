@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_snat
  *
@@ -19,6 +20,7 @@
 static unsigned int
 ebt_snat_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_snat.c: line 23 \n"); 
 	const struct ebt_nat_info *info = par->targinfo;
 
 	if (!skb_make_writable(skb, 0))
@@ -44,6 +46,7 @@ out:
 
 static int ebt_snat_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_snat.c: line 49 \n"); 
 	const struct ebt_nat_info *info = par->targinfo;
 	int tmp;
 

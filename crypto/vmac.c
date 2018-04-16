@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Modified to interface to the Linux kernel
  * Copyright (c) 2009, Intel Corporation.
@@ -237,6 +238,7 @@ static void poly_step_func(u64 *ahi, u64 *alo,
 			const u64 *kh, const u64 *kl,
 			const u64 *mh, const u64 *ml)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 241 \n"); 
 #define a0 (*(((u32 *)alo)+INDEX_LOW))
 #define a1 (*(((u32 *)alo)+INDEX_HIGH))
 #define a2 (*(((u32 *)ahi)+INDEX_LOW))
@@ -320,6 +322,7 @@ static void poly_step_func(u64 *ahi, u64 *alo,
 
 static void vhash_abort(struct vmac_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 325 \n"); 
 	ctx->polytmp[0] = ctx->polykey[0] ;
 	ctx->polytmp[1] = ctx->polykey[1] ;
 	ctx->first_block_processed = 0;
@@ -327,6 +330,7 @@ static void vhash_abort(struct vmac_ctx *ctx)
 
 static u64 l3hash(u64 p1, u64 p2, u64 k1, u64 k2, u64 len)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 333 \n"); 
 	u64 rh, rl, t, z = 0;
 
 	/* fully reduce (p1,p2)+(len,0) mod p127 */
@@ -368,6 +372,7 @@ static void vhash_update(const unsigned char *m,
 			unsigned int mbytes, /* Pos multiple of VMAC_NHBYTES */
 			struct vmac_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 375 \n"); 
 	u64 rh, rl, *mptr;
 	const u64 *kptr = (u64 *)ctx->nhkey;
 	int i;
@@ -409,6 +414,7 @@ static void vhash_update(const unsigned char *m,
 static u64 vhash(unsigned char m[], unsigned int mbytes,
 			u64 *tagl, struct vmac_ctx *ctx)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 417 \n"); 
 	u64 rh, rl, *mptr;
 	const u64 *kptr = (u64 *)ctx->nhkey;
 	int i, remaining;
@@ -462,6 +468,7 @@ static u64 vmac(unsigned char m[], unsigned int mbytes,
 			const unsigned char n[16], u64 *tagl,
 			struct vmac_ctx_t *ctx)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 471 \n"); 
 	u64 *in_n, *out_p;
 	u64 p, h;
 	int i;
@@ -486,6 +493,7 @@ static u64 vmac(unsigned char m[], unsigned int mbytes,
 
 static int vmac_set_key(unsigned char user_key[], struct vmac_ctx_t *ctx)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 496 \n"); 
 	u64 in[2] = {0}, out[2];
 	unsigned i;
 	int err = 0;
@@ -544,6 +552,7 @@ static int vmac_set_key(unsigned char user_key[], struct vmac_ctx_t *ctx)
 static int vmac_setkey(struct crypto_shash *parent,
 		const u8 *key, unsigned int keylen)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 555 \n"); 
 	struct vmac_ctx_t *ctx = crypto_shash_ctx(parent);
 
 	if (keylen != VMAC_KEY_LEN) {
@@ -556,12 +565,14 @@ static int vmac_setkey(struct crypto_shash *parent,
 
 static int vmac_init(struct shash_desc *pdesc)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 568 \n"); 
 	return 0;
 }
 
 static int vmac_update(struct shash_desc *pdesc, const u8 *p,
 		unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 575 \n"); 
 	struct crypto_shash *parent = pdesc->tfm;
 	struct vmac_ctx_t *ctx = crypto_shash_ctx(parent);
 	int expand;
@@ -597,6 +608,7 @@ static int vmac_update(struct shash_desc *pdesc, const u8 *p,
 
 static int vmac_final(struct shash_desc *pdesc, u8 *out)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 611 \n"); 
 	struct crypto_shash *parent = pdesc->tfm;
 	struct vmac_ctx_t *ctx = crypto_shash_ctx(parent);
 	vmac_t mac;
@@ -621,6 +633,7 @@ static int vmac_final(struct shash_desc *pdesc, u8 *out)
 
 static int vmac_init_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 636 \n"); 
 	struct crypto_cipher *cipher;
 	struct crypto_instance *inst = (void *)tfm->__crt_alg;
 	struct crypto_spawn *spawn = crypto_instance_ctx(inst);
@@ -636,12 +649,14 @@ static int vmac_init_tfm(struct crypto_tfm *tfm)
 
 static void vmac_exit_tfm(struct crypto_tfm *tfm)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 652 \n"); 
 	struct vmac_ctx_t *ctx = crypto_tfm_ctx(tfm);
 	crypto_free_cipher(ctx->child);
 }
 
 static int vmac_create(struct crypto_template *tmpl, struct rtattr **tb)
 {
+	panic("We reached unpopular paths in crypto/vmac.c: line 659 \n"); 
 	struct shash_instance *inst;
 	struct crypto_alg *alg;
 	int err;

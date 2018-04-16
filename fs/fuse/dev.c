@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
   FUSE: Filesystem in Userspace
   Copyright (C) 2001-2008  Miklos Szeredi <miklos@szeredi.hu>
@@ -27,6 +28,7 @@ static struct kmem_cache *fuse_req_cachep;
 
 static struct fuse_dev *fuse_get_dev(struct file *file)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 31 \n"); 
 	/*
 	 * Lockless access is OK, because file->private data is set
 	 * once during mount and is valid until the file is released.
@@ -38,6 +40,7 @@ static void fuse_request_init(struct fuse_req *req, struct page **pages,
 			      struct fuse_page_desc *page_descs,
 			      unsigned npages)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 43 \n"); 
 	memset(req, 0, sizeof(*req));
 	memset(pages, 0, sizeof(*pages) * npages);
 	memset(page_descs, 0, sizeof(*page_descs) * npages);
@@ -53,6 +56,7 @@ static void fuse_request_init(struct fuse_req *req, struct page **pages,
 
 static struct fuse_req *__fuse_request_alloc(unsigned npages, gfp_t flags)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 59 \n"); 
 	struct fuse_req *req = kmem_cache_alloc(fuse_req_cachep, flags);
 	if (req) {
 		struct page **pages;
@@ -81,17 +85,20 @@ static struct fuse_req *__fuse_request_alloc(unsigned npages, gfp_t flags)
 
 struct fuse_req *fuse_request_alloc(unsigned npages)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 88 \n"); 
 	return __fuse_request_alloc(npages, GFP_KERNEL);
 }
 EXPORT_SYMBOL_GPL(fuse_request_alloc);
 
 struct fuse_req *fuse_request_alloc_nofs(unsigned npages)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 95 \n"); 
 	return __fuse_request_alloc(npages, GFP_NOFS);
 }
 
 void fuse_request_free(struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 101 \n"); 
 	if (req->pages != req->inline_pages) {
 		kfree(req->pages);
 		kfree(req->page_descs);
@@ -101,18 +108,21 @@ void fuse_request_free(struct fuse_req *req)
 
 void __fuse_get_request(struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 111 \n"); 
 	atomic_inc(&req->count);
 }
 
 /* Must be called with > 1 refcount */
 static void __fuse_put_request(struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 118 \n"); 
 	BUG_ON(atomic_read(&req->count) < 2);
 	atomic_dec(&req->count);
 }
 
 static void fuse_req_init_context(struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 125 \n"); 
 	req->in.h.uid = from_kuid_munged(&init_user_ns, current_fsuid());
 	req->in.h.gid = from_kgid_munged(&init_user_ns, current_fsgid());
 	req->in.h.pid = current->pid;
@@ -120,6 +130,7 @@ static void fuse_req_init_context(struct fuse_req *req)
 
 void fuse_set_initialized(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 133 \n"); 
 	/* Make sure stores before this are seen on another CPU */
 	smp_wmb();
 	fc->initialized = 1;
@@ -127,12 +138,14 @@ void fuse_set_initialized(struct fuse_conn *fc)
 
 static bool fuse_block_alloc(struct fuse_conn *fc, bool for_background)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 141 \n"); 
 	return !fc->initialized || (for_background && fc->blocked);
 }
 
 static struct fuse_req *__fuse_get_req(struct fuse_conn *fc, unsigned npages,
 				       bool for_background)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 148 \n"); 
 	struct fuse_req *req;
 	int err;
 	atomic_inc(&fc->num_waiting);
@@ -176,6 +189,7 @@ static struct fuse_req *__fuse_get_req(struct fuse_conn *fc, unsigned npages,
 
 struct fuse_req *fuse_get_req(struct fuse_conn *fc, unsigned npages)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 192 \n"); 
 	return __fuse_get_req(fc, npages, false);
 }
 EXPORT_SYMBOL_GPL(fuse_get_req);
@@ -183,6 +197,7 @@ EXPORT_SYMBOL_GPL(fuse_get_req);
 struct fuse_req *fuse_get_req_for_background(struct fuse_conn *fc,
 					     unsigned npages)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 200 \n"); 
 	return __fuse_get_req(fc, npages, true);
 }
 EXPORT_SYMBOL_GPL(fuse_get_req_for_background);
@@ -195,6 +210,7 @@ EXPORT_SYMBOL_GPL(fuse_get_req_for_background);
 static struct fuse_req *get_reserved_req(struct fuse_conn *fc,
 					 struct file *file)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 213 \n"); 
 	struct fuse_req *req = NULL;
 	struct fuse_file *ff = file->private_data;
 
@@ -217,6 +233,7 @@ static struct fuse_req *get_reserved_req(struct fuse_conn *fc,
  */
 static void put_reserved_req(struct fuse_conn *fc, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 236 \n"); 
 	struct file *file = req->stolen_file;
 	struct fuse_file *ff = file->private_data;
 
@@ -245,6 +262,7 @@ static void put_reserved_req(struct fuse_conn *fc, struct fuse_req *req)
 struct fuse_req *fuse_get_req_nofail_nopages(struct fuse_conn *fc,
 					     struct file *file)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 265 \n"); 
 	struct fuse_req *req;
 
 	atomic_inc(&fc->num_waiting);
@@ -263,6 +281,7 @@ struct fuse_req *fuse_get_req_nofail_nopages(struct fuse_conn *fc,
 
 void fuse_put_request(struct fuse_conn *fc, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 284 \n"); 
 	if (atomic_dec_and_test(&req->count)) {
 		if (test_bit(FR_BACKGROUND, &req->flags)) {
 			/*
@@ -290,6 +309,7 @@ EXPORT_SYMBOL_GPL(fuse_put_request);
 
 static unsigned len_args(unsigned numargs, struct fuse_arg *args)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 312 \n"); 
 	unsigned nbytes = 0;
 	unsigned i;
 
@@ -301,11 +321,13 @@ static unsigned len_args(unsigned numargs, struct fuse_arg *args)
 
 static u64 fuse_get_unique(struct fuse_iqueue *fiq)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 324 \n"); 
 	return ++fiq->reqctr;
 }
 
 static void queue_request(struct fuse_iqueue *fiq, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 330 \n"); 
 	req->in.h.len = sizeof(struct fuse_in_header) +
 		len_args(req->in.numargs, (struct fuse_arg *) req->in.args);
 	list_add_tail(&req->list, &fiq->pending);
@@ -316,6 +338,7 @@ static void queue_request(struct fuse_iqueue *fiq, struct fuse_req *req)
 void fuse_queue_forget(struct fuse_conn *fc, struct fuse_forget_link *forget,
 		       u64 nodeid, u64 nlookup)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 341 \n"); 
 	struct fuse_iqueue *fiq = &fc->iq;
 
 	forget->forget_one.nodeid = nodeid;
@@ -335,6 +358,7 @@ void fuse_queue_forget(struct fuse_conn *fc, struct fuse_forget_link *forget,
 
 static void flush_bg_queue(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 361 \n"); 
 	while (fc->active_background < fc->max_background &&
 	       !list_empty(&fc->bg_queue)) {
 		struct fuse_req *req;
@@ -360,6 +384,7 @@ static void flush_bg_queue(struct fuse_conn *fc)
  */
 static void request_end(struct fuse_conn *fc, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 387 \n"); 
 	struct fuse_iqueue *fiq = &fc->iq;
 
 	if (test_and_set_bit(FR_FINISHED, &req->flags))
@@ -398,6 +423,7 @@ static void request_end(struct fuse_conn *fc, struct fuse_req *req)
 
 static void queue_interrupt(struct fuse_iqueue *fiq, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 426 \n"); 
 	spin_lock(&fiq->waitq.lock);
 	if (test_bit(FR_FINISHED, &req->flags)) {
 		spin_unlock(&fiq->waitq.lock);
@@ -413,6 +439,7 @@ static void queue_interrupt(struct fuse_iqueue *fiq, struct fuse_req *req)
 
 static void request_wait_answer(struct fuse_conn *fc, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 442 \n"); 
 	struct fuse_iqueue *fiq = &fc->iq;
 	int err;
 
@@ -458,6 +485,7 @@ static void request_wait_answer(struct fuse_conn *fc, struct fuse_req *req)
 
 static void __fuse_request_send(struct fuse_conn *fc, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 488 \n"); 
 	struct fuse_iqueue *fiq = &fc->iq;
 
 	BUG_ON(test_bit(FR_BACKGROUND, &req->flags));
@@ -481,6 +509,7 @@ static void __fuse_request_send(struct fuse_conn *fc, struct fuse_req *req)
 
 void fuse_request_send(struct fuse_conn *fc, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 512 \n"); 
 	__set_bit(FR_ISREPLY, &req->flags);
 	if (!test_bit(FR_WAITING, &req->flags)) {
 		__set_bit(FR_WAITING, &req->flags);
@@ -492,6 +521,7 @@ EXPORT_SYMBOL_GPL(fuse_request_send);
 
 static void fuse_adjust_compat(struct fuse_conn *fc, struct fuse_args *args)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 524 \n"); 
 	if (fc->minor < 4 && args->in.h.opcode == FUSE_STATFS)
 		args->out.args[0].size = FUSE_COMPAT_STATFS_SIZE;
 
@@ -525,6 +555,7 @@ static void fuse_adjust_compat(struct fuse_conn *fc, struct fuse_args *args)
 
 ssize_t fuse_simple_request(struct fuse_conn *fc, struct fuse_args *args)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 558 \n"); 
 	struct fuse_req *req;
 	ssize_t ret;
 
@@ -563,6 +594,7 @@ ssize_t fuse_simple_request(struct fuse_conn *fc, struct fuse_args *args)
 void fuse_request_send_background_locked(struct fuse_conn *fc,
 					 struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 597 \n"); 
 	BUG_ON(!test_bit(FR_BACKGROUND, &req->flags));
 	if (!test_bit(FR_WAITING, &req->flags)) {
 		__set_bit(FR_WAITING, &req->flags);
@@ -583,6 +615,7 @@ void fuse_request_send_background_locked(struct fuse_conn *fc,
 
 void fuse_request_send_background(struct fuse_conn *fc, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 618 \n"); 
 	BUG_ON(!req->end);
 	spin_lock(&fc->lock);
 	if (fc->connected) {
@@ -600,6 +633,7 @@ EXPORT_SYMBOL_GPL(fuse_request_send_background);
 static int fuse_request_send_notify_reply(struct fuse_conn *fc,
 					  struct fuse_req *req, u64 unique)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 636 \n"); 
 	int err = -ENODEV;
 	struct fuse_iqueue *fiq = &fc->iq;
 
@@ -617,6 +651,7 @@ static int fuse_request_send_notify_reply(struct fuse_conn *fc,
 
 void fuse_force_forget(struct file *file, u64 nodeid)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 654 \n"); 
 	struct inode *inode = file_inode(file);
 	struct fuse_conn *fc = get_fuse_conn(inode);
 	struct fuse_req *req;
@@ -643,6 +678,7 @@ void fuse_force_forget(struct file *file, u64 nodeid)
  */
 static int lock_request(struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 681 \n"); 
 	int err = 0;
 	if (req) {
 		spin_lock(&req->waitq.lock);
@@ -661,6 +697,7 @@ static int lock_request(struct fuse_req *req)
  */
 static int unlock_request(struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 700 \n"); 
 	int err = 0;
 	if (req) {
 		spin_lock(&req->waitq.lock);
@@ -690,6 +727,7 @@ struct fuse_copy_state {
 static void fuse_copy_init(struct fuse_copy_state *cs, int write,
 			   struct iov_iter *iter)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 730 \n"); 
 	memset(cs, 0, sizeof(*cs));
 	cs->write = write;
 	cs->iter = iter;
@@ -698,6 +736,7 @@ static void fuse_copy_init(struct fuse_copy_state *cs, int write,
 /* Unmap and put previous page of userspace buffer */
 static void fuse_copy_finish(struct fuse_copy_state *cs)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 739 \n"); 
 	if (cs->currbuf) {
 		struct pipe_buffer *buf = cs->currbuf;
 
@@ -720,6 +759,7 @@ static void fuse_copy_finish(struct fuse_copy_state *cs)
  */
 static int fuse_copy_fill(struct fuse_copy_state *cs)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 762 \n"); 
 	struct page *page;
 	int err;
 
@@ -780,6 +820,7 @@ static int fuse_copy_fill(struct fuse_copy_state *cs)
 /* Do as much copy to/from userspace buffer as we can */
 static int fuse_copy_do(struct fuse_copy_state *cs, void **val, unsigned *size)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 823 \n"); 
 	unsigned ncpy = min(*size, cs->len);
 	if (val) {
 		void *pgaddr = kmap_atomic(cs->pg);
@@ -801,6 +842,7 @@ static int fuse_copy_do(struct fuse_copy_state *cs, void **val, unsigned *size)
 
 static int fuse_check_page(struct page *page)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 845 \n"); 
 	if (page_mapcount(page) ||
 	    page->mapping != NULL ||
 	    page_count(page) != 1 ||
@@ -820,6 +862,7 @@ static int fuse_check_page(struct page *page)
 
 static int fuse_try_move_page(struct fuse_copy_state *cs, struct page **pagep)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 865 \n"); 
 	int err;
 	struct page *oldpage = *pagep;
 	struct page *newpage;
@@ -917,6 +960,7 @@ out_fallback:
 static int fuse_ref_page(struct fuse_copy_state *cs, struct page *page,
 			 unsigned offset, unsigned count)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 963 \n"); 
 	struct pipe_buffer *buf;
 	int err;
 
@@ -949,6 +993,7 @@ static int fuse_ref_page(struct fuse_copy_state *cs, struct page *page,
 static int fuse_copy_page(struct fuse_copy_state *cs, struct page **pagep,
 			  unsigned offset, unsigned count, int zeroing)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 996 \n"); 
 	int err;
 	struct page *page = *pagep;
 
@@ -987,6 +1032,7 @@ static int fuse_copy_page(struct fuse_copy_state *cs, struct page **pagep,
 static int fuse_copy_pages(struct fuse_copy_state *cs, unsigned nbytes,
 			   int zeroing)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1035 \n"); 
 	unsigned i;
 	struct fuse_req *req = cs->req;
 
@@ -1008,6 +1054,7 @@ static int fuse_copy_pages(struct fuse_copy_state *cs, unsigned nbytes,
 /* Copy a single argument in the request to/from userspace buffer */
 static int fuse_copy_one(struct fuse_copy_state *cs, void *val, unsigned size)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1057 \n"); 
 	while (size) {
 		if (!cs->len) {
 			int err = fuse_copy_fill(cs);
@@ -1024,6 +1071,7 @@ static int fuse_copy_args(struct fuse_copy_state *cs, unsigned numargs,
 			  unsigned argpages, struct fuse_arg *args,
 			  int zeroing)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1074 \n"); 
 	int err = 0;
 	unsigned i;
 
@@ -1039,11 +1087,13 @@ static int fuse_copy_args(struct fuse_copy_state *cs, unsigned numargs,
 
 static int forget_pending(struct fuse_iqueue *fiq)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1090 \n"); 
 	return fiq->forget_list_head.next != NULL;
 }
 
 static int request_pending(struct fuse_iqueue *fiq)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1096 \n"); 
 	return !list_empty(&fiq->pending) || !list_empty(&fiq->interrupts) ||
 		forget_pending(fiq);
 }
@@ -1091,6 +1141,7 @@ static struct fuse_forget_link *dequeue_forget(struct fuse_iqueue *fiq,
 					       unsigned max,
 					       unsigned *countp)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1144 \n"); 
 	struct fuse_forget_link *head = fiq->forget_list_head.next;
 	struct fuse_forget_link **newhead = &head;
 	unsigned count;
@@ -1214,6 +1265,7 @@ __releases(fiq->waitq.lock)
 static ssize_t fuse_dev_do_read(struct fuse_dev *fud, struct file *file,
 				struct fuse_copy_state *cs, size_t nbytes)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1268 \n"); 
 	ssize_t err;
 	struct fuse_conn *fc = fud->fc;
 	struct fuse_iqueue *fiq = &fc->iq;
@@ -1315,6 +1367,7 @@ out_end:
 
 static int fuse_dev_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1370 \n"); 
 	/*
 	 * The fuse device's file's private_data is used to hold
 	 * the fuse_conn(ection) when it is mounted, and is used to
@@ -1326,6 +1379,7 @@ static int fuse_dev_open(struct inode *inode, struct file *file)
 
 static ssize_t fuse_dev_read(struct kiocb *iocb, struct iov_iter *to)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1382 \n"); 
 	struct fuse_copy_state cs;
 	struct file *file = iocb->ki_filp;
 	struct fuse_dev *fud = fuse_get_dev(file);
@@ -1345,6 +1399,7 @@ static ssize_t fuse_dev_splice_read(struct file *in, loff_t *ppos,
 				    struct pipe_inode_info *pipe,
 				    size_t len, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1402 \n"); 
 	int total, ret;
 	int page_nr = 0;
 	struct pipe_buffer *bufs;
@@ -1394,6 +1449,7 @@ out:
 static int fuse_notify_poll(struct fuse_conn *fc, unsigned int size,
 			    struct fuse_copy_state *cs)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1452 \n"); 
 	struct fuse_notify_poll_wakeup_out outarg;
 	int err = -EINVAL;
 
@@ -1415,6 +1471,7 @@ err:
 static int fuse_notify_inval_inode(struct fuse_conn *fc, unsigned int size,
 				   struct fuse_copy_state *cs)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1474 \n"); 
 	struct fuse_notify_inval_inode_out outarg;
 	int err = -EINVAL;
 
@@ -1443,6 +1500,7 @@ err:
 static int fuse_notify_inval_entry(struct fuse_conn *fc, unsigned int size,
 				   struct fuse_copy_state *cs)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1503 \n"); 
 	struct fuse_notify_inval_entry_out outarg;
 	int err = -ENOMEM;
 	char *buf;
@@ -1493,6 +1551,7 @@ err:
 static int fuse_notify_delete(struct fuse_conn *fc, unsigned int size,
 			      struct fuse_copy_state *cs)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1554 \n"); 
 	struct fuse_notify_delete_out outarg;
 	int err = -ENOMEM;
 	char *buf;
@@ -1544,6 +1603,7 @@ err:
 static int fuse_notify_store(struct fuse_conn *fc, unsigned int size,
 			     struct fuse_copy_state *cs)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1606 \n"); 
 	struct fuse_notify_store_out outarg;
 	struct inode *inode;
 	struct address_space *mapping;
@@ -1629,12 +1689,14 @@ out_finish:
 
 static void fuse_retrieve_end(struct fuse_conn *fc, struct fuse_req *req)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1692 \n"); 
 	release_pages(req->pages, req->num_pages, false);
 }
 
 static int fuse_retrieve(struct fuse_conn *fc, struct inode *inode,
 			 struct fuse_notify_retrieve_out *outarg)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1699 \n"); 
 	int err;
 	struct address_space *mapping = inode->i_mapping;
 	struct fuse_req *req;
@@ -1704,6 +1766,7 @@ static int fuse_retrieve(struct fuse_conn *fc, struct inode *inode,
 static int fuse_notify_retrieve(struct fuse_conn *fc, unsigned int size,
 				struct fuse_copy_state *cs)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1769 \n"); 
 	struct fuse_notify_retrieve_out outarg;
 	struct inode *inode;
 	int err;
@@ -1741,6 +1804,7 @@ copy_finish:
 static int fuse_notify(struct fuse_conn *fc, enum fuse_notify_code code,
 		       unsigned int size, struct fuse_copy_state *cs)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1807 \n"); 
 	/* Don't try to move pages (yet) */
 	cs->move_pages = 0;
 
@@ -1772,6 +1836,7 @@ static int fuse_notify(struct fuse_conn *fc, enum fuse_notify_code code,
 /* Look up request on processing list by unique ID */
 static struct fuse_req *request_find(struct fuse_pqueue *fpq, u64 unique)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1839 \n"); 
 	struct fuse_req *req;
 
 	list_for_each_entry(req, &fpq->processing, list) {
@@ -1784,6 +1849,7 @@ static struct fuse_req *request_find(struct fuse_pqueue *fpq, u64 unique)
 static int copy_out_args(struct fuse_copy_state *cs, struct fuse_out *out,
 			 unsigned nbytes)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1852 \n"); 
 	unsigned reqsize = sizeof(struct fuse_out_header);
 
 	if (out->h.error)
@@ -1814,6 +1880,7 @@ static int copy_out_args(struct fuse_copy_state *cs, struct fuse_out *out,
 static ssize_t fuse_dev_do_write(struct fuse_dev *fud,
 				 struct fuse_copy_state *cs, size_t nbytes)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1883 \n"); 
 	int err;
 	struct fuse_conn *fc = fud->fc;
 	struct fuse_pqueue *fpq = &fud->pq;
@@ -1905,6 +1972,7 @@ static ssize_t fuse_dev_do_write(struct fuse_dev *fud,
 
 static ssize_t fuse_dev_write(struct kiocb *iocb, struct iov_iter *from)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1975 \n"); 
 	struct fuse_copy_state cs;
 	struct fuse_dev *fud = fuse_get_dev(iocb->ki_filp);
 
@@ -1923,6 +1991,7 @@ static ssize_t fuse_dev_splice_write(struct pipe_inode_info *pipe,
 				     struct file *out, loff_t *ppos,
 				     size_t len, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 1994 \n"); 
 	unsigned nbuf;
 	unsigned idx;
 	struct pipe_buffer *bufs;
@@ -1999,6 +2068,7 @@ out:
 
 static unsigned fuse_dev_poll(struct file *file, poll_table *wait)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 2071 \n"); 
 	unsigned mask = POLLOUT | POLLWRNORM;
 	struct fuse_iqueue *fiq;
 	struct fuse_dev *fud = fuse_get_dev(file);
@@ -2026,6 +2096,7 @@ static unsigned fuse_dev_poll(struct file *file, poll_table *wait)
  */
 static void end_requests(struct fuse_conn *fc, struct list_head *head)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 2099 \n"); 
 	while (!list_empty(head)) {
 		struct fuse_req *req;
 		req = list_entry(head->next, struct fuse_req, list);
@@ -2038,6 +2109,7 @@ static void end_requests(struct fuse_conn *fc, struct list_head *head)
 
 static void end_polls(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 2112 \n"); 
 	struct rb_node *p;
 
 	p = rb_first(&fc->polled_files);
@@ -2071,6 +2143,7 @@ static void end_polls(struct fuse_conn *fc)
  */
 void fuse_abort_conn(struct fuse_conn *fc)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 2146 \n"); 
 	struct fuse_iqueue *fiq = &fc->iq;
 
 	spin_lock(&fc->lock);
@@ -2133,6 +2206,7 @@ EXPORT_SYMBOL_GPL(fuse_abort_conn);
 
 int fuse_dev_release(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 2209 \n"); 
 	struct fuse_dev *fud = fuse_get_dev(file);
 
 	if (fud) {
@@ -2154,6 +2228,7 @@ EXPORT_SYMBOL_GPL(fuse_dev_release);
 
 static int fuse_dev_fasync(int fd, struct file *file, int on)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 2231 \n"); 
 	struct fuse_dev *fud = fuse_get_dev(file);
 
 	if (!fud)
@@ -2183,6 +2258,7 @@ static int fuse_device_clone(struct fuse_conn *fc, struct file *new)
 static long fuse_dev_ioctl(struct file *file, unsigned int cmd,
 			   unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 2261 \n"); 
 	int err = -ENOTTY;
 
 	if (cmd == FUSE_DEV_IOC_CLONE) {
@@ -2261,6 +2337,7 @@ int __init fuse_dev_init(void)
 
 void fuse_dev_cleanup(void)
 {
+	panic("We reached unpopular paths in fs/fuse/dev.c: line 2340 \n"); 
 	misc_deregister(&fuse_miscdevice);
 	kmem_cache_destroy(fuse_req_cachep);
 }

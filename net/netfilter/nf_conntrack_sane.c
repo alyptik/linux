@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* SANE connection tracking helper
  * (SANE = Scanner Access Now Easy)
  * For documentation about the SANE network protocol see
@@ -65,6 +66,7 @@ static int help(struct sk_buff *skb,
 		struct nf_conn *ct,
 		enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sane.c: line 69 \n"); 
 	unsigned int dataoff, datalen;
 	const struct tcphdr *th;
 	struct tcphdr _tcph;
@@ -176,6 +178,7 @@ static const struct nf_conntrack_expect_policy sane_exp_policy = {
 /* don't make this __exit, since it's called from __init ! */
 static void nf_conntrack_sane_fini(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_sane.c: line 181 \n"); 
 	nf_conntrack_helpers_unregister(sane, ports_c * 2);
 	kfree(sane_buffer);
 }

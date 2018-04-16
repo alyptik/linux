@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* x_tables module for setting the IPv4/IPv6 DSCP field, Version 1.8
  *
  * (C) 2002 by Harald Welte <laforge@netfilter.org>
@@ -30,6 +31,7 @@ MODULE_ALIAS("ip6t_TOS");
 static unsigned int
 dscp_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_DSCP.c: line 34 \n"); 
 	const struct xt_DSCP_info *dinfo = par->targinfo;
 	u_int8_t dscp = ipv4_get_dsfield(ip_hdr(skb)) >> XT_DSCP_SHIFT;
 
@@ -48,6 +50,7 @@ dscp_tg(struct sk_buff *skb, const struct xt_action_param *par)
 static unsigned int
 dscp_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_DSCP.c: line 53 \n"); 
 	const struct xt_DSCP_info *dinfo = par->targinfo;
 	u_int8_t dscp = ipv6_get_dsfield(ipv6_hdr(skb)) >> XT_DSCP_SHIFT;
 
@@ -64,6 +67,7 @@ dscp_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int dscp_tg_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_DSCP.c: line 70 \n"); 
 	const struct xt_DSCP_info *info = par->targinfo;
 
 	if (info->dscp > XT_DSCP_MAX) {
@@ -76,6 +80,7 @@ static int dscp_tg_check(const struct xt_tgchk_param *par)
 static unsigned int
 tos_tg(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_DSCP.c: line 83 \n"); 
 	const struct xt_tos_target_info *info = par->targinfo;
 	struct iphdr *iph = ip_hdr(skb);
 	u_int8_t orig, nv;
@@ -96,6 +101,7 @@ tos_tg(struct sk_buff *skb, const struct xt_action_param *par)
 static unsigned int
 tos_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_DSCP.c: line 104 \n"); 
 	const struct xt_tos_target_info *info = par->targinfo;
 	struct ipv6hdr *iph = ipv6_hdr(skb);
 	u_int8_t orig, nv;

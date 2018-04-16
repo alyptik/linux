@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * 	NET3	Protocol independent device support routines.
  *
@@ -205,11 +206,13 @@ static inline struct hlist_head *dev_name_hash(struct net *net, const char *name
 
 static inline struct hlist_head *dev_index_hash(struct net *net, int ifindex)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/dev.c: line 209 \n"); 
 	return &net->dev_index_head[ifindex & (NETDEV_HASHENTRIES - 1)];
 }
 
 static inline void rps_lock(struct softnet_data *sd)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/dev.c: line 215 \n"); 
 #ifdef CONFIG_RPS
 	spin_lock(&sd->input_pkt_queue.lock);
 #endif
@@ -217,6 +220,7 @@ static inline void rps_lock(struct softnet_data *sd)
 
 static inline void rps_unlock(struct softnet_data *sd)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/dev.c: line 223 \n"); 
 #ifdef CONFIG_RPS
 	spin_unlock(&sd->input_pkt_queue.lock);
 #endif
@@ -346,9 +350,11 @@ static inline void netdev_set_addr_lockdep_class(struct net_device *dev)
 static inline void netdev_set_xmit_lockdep_class(spinlock_t *lock,
 						 unsigned short dev_type)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/dev.c: line 353 \n"); 
 }
 static inline void netdev_set_addr_lockdep_class(struct net_device *dev)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/dev.c: line 357 \n"); 
 }
 #endif
 
@@ -453,6 +459,7 @@ EXPORT_SYMBOL(__dev_remove_pack);
  */
 void dev_remove_pack(struct packet_type *pt)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 462 \n"); 
 	__dev_remove_pack(pt);
 
 	synchronize_net();
@@ -501,6 +508,7 @@ EXPORT_SYMBOL(dev_add_offload);
  */
 static void __dev_remove_offload(struct packet_offload *po)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 511 \n"); 
 	struct list_head *head = &offload_base;
 	struct packet_offload *po1;
 
@@ -532,6 +540,7 @@ out:
  */
 void dev_remove_offload(struct packet_offload *po)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 543 \n"); 
 	__dev_remove_offload(po);
 
 	synchronize_net();
@@ -558,6 +567,7 @@ static struct netdev_boot_setup dev_boot_setup[NETDEV_BOOT_SETUP_MAX];
  */
 static int netdev_boot_setup_add(char *name, struct ifmap *map)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 570 \n"); 
 	struct netdev_boot_setup *s;
 	int i;
 
@@ -585,6 +595,7 @@ static int netdev_boot_setup_add(char *name, struct ifmap *map)
  */
 int netdev_boot_setup_check(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 598 \n"); 
 	struct netdev_boot_setup *s = dev_boot_setup;
 	int i;
 
@@ -697,6 +708,7 @@ EXPORT_SYMBOL(dev_get_iflink);
  */
 int dev_fill_metadata_dst(struct net_device *dev, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 711 \n"); 
 	struct ip_tunnel_info *info;
 
 	if (!dev->netdev_ops  || !dev->netdev_ops->ndo_fill_metadata_dst)
@@ -776,6 +788,7 @@ EXPORT_SYMBOL(dev_get_by_name_rcu);
 
 struct net_device *dev_get_by_name(struct net *net, const char *name)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 791 \n"); 
 	struct net_device *dev;
 
 	rcu_read_lock();
@@ -873,6 +886,7 @@ EXPORT_SYMBOL(dev_get_by_index);
  */
 int netdev_get_name(struct net *net, char *name, int ifindex)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 889 \n"); 
 	struct net_device *dev;
 	unsigned int seq;
 
@@ -912,6 +926,7 @@ retry:
 struct net_device *dev_getbyhwaddr_rcu(struct net *net, unsigned short type,
 				       const char *ha)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 929 \n"); 
 	struct net_device *dev;
 
 	for_each_netdev_rcu(net, dev)
@@ -925,6 +940,7 @@ EXPORT_SYMBOL(dev_getbyhwaddr_rcu);
 
 struct net_device *__dev_getfirstbyhwtype(struct net *net, unsigned short type)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 943 \n"); 
 	struct net_device *dev;
 
 	ASSERT_RTNL();
@@ -938,6 +954,7 @@ EXPORT_SYMBOL(__dev_getfirstbyhwtype);
 
 struct net_device *dev_getfirstbyhwtype(struct net *net, unsigned short type)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 957 \n"); 
 	struct net_device *dev, *ret = NULL;
 
 	rcu_read_lock();
@@ -966,6 +983,7 @@ EXPORT_SYMBOL(dev_getfirstbyhwtype);
 struct net_device *__dev_get_by_flags(struct net *net, unsigned short if_flags,
 				      unsigned short mask)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 986 \n"); 
 	struct net_device *dev, *ret;
 
 	ASSERT_RTNL();
@@ -1089,6 +1107,7 @@ static int __dev_alloc_name(struct net *net, const char *name, char *buf)
 
 int dev_alloc_name(struct net_device *dev, const char *name)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 1110 \n"); 
 	char buf[IFNAMSIZ];
 	struct net *net;
 	int ret;
@@ -1233,6 +1252,7 @@ rollback:
  */
 int dev_set_alias(struct net_device *dev, const char *alias, size_t len)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 1255 \n"); 
 	char *new_ifalias;
 
 	ASSERT_RTNL();
@@ -1302,6 +1322,7 @@ EXPORT_SYMBOL(netdev_state_change);
  */
 void netdev_notify_peers(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 1325 \n"); 
 	rtnl_lock();
 	call_netdevice_notifiers(NETDEV_NOTIFY_PEERS, dev);
 	call_netdevice_notifiers(NETDEV_RESEND_IGMP, dev);
@@ -1366,6 +1387,7 @@ static int __dev_open(struct net_device *dev)
  */
 int dev_open(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 1390 \n"); 
 	int ret;
 
 	if (dev->flags & IFF_UP)
@@ -1603,6 +1625,7 @@ EXPORT_SYMBOL(register_netdevice_notifier);
 
 int unregister_netdevice_notifier(struct notifier_block *nb)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 1628 \n"); 
 	struct net_device *dev;
 	struct net *net;
 	int err;
@@ -1756,6 +1779,7 @@ EXPORT_SYMBOL(net_disable_timestamp);
 
 static inline void net_timestamp_set(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 1782 \n"); 
 	skb->tstamp.tv64 = 0;
 	if (static_key_false(&netstamp_needed))
 		__net_timestamp(skb);
@@ -1855,6 +1879,7 @@ static inline void deliver_ptype_list_skb(struct sk_buff *skb,
 
 static inline bool skb_loop_sk(struct packet_type *ptype, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 1882 \n"); 
 	if (!ptype->af_packet_priv || !skb->sk)
 		return false;
 
@@ -1873,6 +1898,7 @@ static inline bool skb_loop_sk(struct packet_type *ptype, struct sk_buff *skb)
 
 void dev_queue_xmit_nit(struct sk_buff *skb, struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 1901 \n"); 
 	struct packet_type *ptype;
 	struct sk_buff *skb2 = NULL;
 	struct packet_type *pt_prev = NULL;
@@ -1945,6 +1971,7 @@ EXPORT_SYMBOL_GPL(dev_queue_xmit_nit);
  */
 static void netif_setup_tc(struct net_device *dev, unsigned int txq)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 1974 \n"); 
 	int i;
 	struct netdev_tc_txq *tc = &dev->tc_to_txq[0];
 
@@ -2270,6 +2297,7 @@ EXPORT_SYMBOL(netif_set_real_num_rx_queues);
  */
 int netif_get_num_default_rss_queues(void)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2300 \n"); 
 	return is_kdump_kernel() ?
 		1 : min_t(int, DEFAULT_MAX_NUM_RSS_QUEUES, num_online_cpus());
 }
@@ -2302,6 +2330,7 @@ struct dev_kfree_skb_cb {
 
 static struct dev_kfree_skb_cb *get_kfree_skb_cb(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2333 \n"); 
 	return (struct dev_kfree_skb_cb *)skb->cb;
 }
 
@@ -2354,6 +2383,7 @@ EXPORT_SYMBOL(netif_tx_wake_queue);
 
 void __dev_kfree_skb_irq(struct sk_buff *skb, enum skb_free_reason reason)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2386 \n"); 
 	unsigned long flags;
 
 	if (unlikely(!skb))
@@ -2392,6 +2422,7 @@ EXPORT_SYMBOL(__dev_kfree_skb_any);
  */
 void netif_device_detach(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2425 \n"); 
 	if (test_and_clear_bit(__LINK_STATE_PRESENT, &dev->state) &&
 	    netif_running(dev)) {
 		netif_tx_stop_all_queues(dev);
@@ -2407,6 +2438,7 @@ EXPORT_SYMBOL(netif_device_detach);
  */
 void netif_device_attach(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2441 \n"); 
 	if (!test_and_set_bit(__LINK_STATE_PRESENT, &dev->state) &&
 	    netif_running(dev)) {
 		netif_tx_wake_all_queues(dev);
@@ -2422,6 +2454,7 @@ EXPORT_SYMBOL(netif_device_attach);
 u16 __skb_tx_hash(const struct net_device *dev, struct sk_buff *skb,
 		  unsigned int num_tx_queues)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2457 \n"); 
 	u32 hash;
 	u16 qoffset = 0;
 	u16 qcount = num_tx_queues;
@@ -2445,6 +2478,7 @@ EXPORT_SYMBOL(__skb_tx_hash);
 
 static void skb_warn_bad_offload(const struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2481 \n"); 
 	static const netdev_features_t null_features;
 	struct net_device *dev = skb->dev;
 	const char *name = "";
@@ -2540,6 +2574,7 @@ bool __skb_csum_offload_chk(struct sk_buff *skb,
 			    bool *csum_encapped,
 			    bool csum_help)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2577 \n"); 
 	struct iphdr *iph;
 	struct ipv6hdr *ipv6;
 	void *nhdr;
@@ -2675,6 +2710,7 @@ __be16 skb_network_protocol(struct sk_buff *skb, int *depth)
 struct sk_buff *skb_mac_gso_segment(struct sk_buff *skb,
 				    netdev_features_t features)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2713 \n"); 
 	struct sk_buff *segs = ERR_PTR(-EPROTONOSUPPORT);
 	struct packet_offload *ptype;
 	int vlan_depth = skb->mac_len;
@@ -2705,6 +2741,7 @@ EXPORT_SYMBOL(skb_mac_gso_segment);
  */
 static inline bool skb_needs_check(struct sk_buff *skb, bool tx_path)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2744 \n"); 
 	if (tx_path)
 		return skb->ip_summed != CHECKSUM_PARTIAL &&
 		       skb->ip_summed != CHECKSUM_UNNECESSARY;
@@ -2728,6 +2765,7 @@ static inline bool skb_needs_check(struct sk_buff *skb, bool tx_path)
 struct sk_buff *__skb_gso_segment(struct sk_buff *skb,
 				  netdev_features_t features, bool tx_path)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2768 \n"); 
 	struct sk_buff *segs;
 
 	if (unlikely(skb_needs_check(skb, tx_path))) {
@@ -2789,6 +2827,7 @@ EXPORT_SYMBOL(netdev_rx_csum_fault);
 
 static int illegal_highdma(struct net_device *dev, struct sk_buff *skb)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/dev.c: line 2830 \n"); 
 #ifdef CONFIG_HIGHMEM
 	int i;
 	if (!(dev->features & NETIF_F_HIGHDMA)) {
@@ -2833,6 +2872,7 @@ static netdev_features_t net_mpls_features(struct sk_buff *skb,
 					   netdev_features_t features,
 					   __be16 type)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2875 \n"); 
 	return features;
 }
 #endif
@@ -2868,6 +2908,7 @@ static netdev_features_t dflt_features_check(const struct sk_buff *skb,
 					     struct net_device *dev,
 					     netdev_features_t features)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 2911 \n"); 
 	return vlan_features_check(skb, features);
 }
 
@@ -3197,6 +3238,7 @@ EXPORT_SYMBOL(xmit_recursion);
  */
 int dev_loopback_xmit(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 3241 \n"); 
 	skb_reset_mac_header(skb);
 	__skb_pull(skb, skb_network_offset(skb));
 	skb->pkt_type = PACKET_LOOPBACK;
@@ -3253,6 +3295,7 @@ sch_handle_egress(struct sk_buff *skb, int *ret, struct net_device *dev)
 
 static inline int get_xps_queue(struct net_device *dev, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 3298 \n"); 
 #ifdef CONFIG_XPS
 	struct xps_dev_maps *dev_maps;
 	struct xps_map *map;
@@ -3283,6 +3326,7 @@ static inline int get_xps_queue(struct net_device *dev, struct sk_buff *skb)
 
 static u16 __netdev_pick_tx(struct net_device *dev, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 3329 \n"); 
 	struct sock *sk = skb->sk;
 	int queue_index = sk_tx_queue_get(sk);
 
@@ -3472,6 +3516,7 @@ EXPORT_SYMBOL(dev_queue_xmit);
 
 int dev_queue_xmit_accel(struct sk_buff *skb, void *accel_priv)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 3519 \n"); 
 	return __dev_queue_xmit(skb, accel_priv);
 }
 EXPORT_SYMBOL(dev_queue_xmit_accel);
@@ -3872,6 +3917,7 @@ EXPORT_SYMBOL(netif_rx);
 
 int netif_rx_ni(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 3920 \n"); 
 	int err;
 
 	trace_netif_rx_ni_entry(skb);
@@ -3956,6 +4002,7 @@ static inline struct sk_buff *
 sch_handle_ingress(struct sk_buff *skb, struct packet_type **pt_prev, int *ret,
 		   struct net_device *orig_dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 4005 \n"); 
 #ifdef CONFIG_NET_CLS_ACT
 	struct tcf_proto *cl = rcu_dereference_bh(skb->dev->ingress_cl_list);
 	struct tcf_result cl_res;
@@ -4015,6 +4062,7 @@ sch_handle_ingress(struct sk_buff *skb, struct packet_type **pt_prev, int *ret,
  */
 bool netdev_is_rx_handler_busy(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 4065 \n"); 
 	ASSERT_RTNL();
 	return dev && rtnl_dereference(dev->rx_handler);
 }
@@ -4079,6 +4127,7 @@ EXPORT_SYMBOL_GPL(netdev_rx_handler_unregister);
  */
 static bool skb_pfmemalloc_protocol(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 4130 \n"); 
 	switch (skb->protocol) {
 	case htons(ETH_P_ARP):
 	case htons(ETH_P_IP):
@@ -4094,6 +4143,7 @@ static bool skb_pfmemalloc_protocol(struct sk_buff *skb)
 static inline int nf_ingress(struct sk_buff *skb, struct packet_type **pt_prev,
 			     int *ret, struct net_device *orig_dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 4146 \n"); 
 #ifdef CONFIG_NETFILTER_INGRESS
 	if (nf_hook_ingress_active(skb)) {
 		int ingress_retval;
@@ -4506,6 +4556,7 @@ static void skb_gro_reset_offset(struct sk_buff *skb)
 
 static void gro_pull_from_frag0(struct sk_buff *skb, int grow)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 4559 \n"); 
 	struct skb_shared_info *pinfo = skb_shinfo(skb);
 
 	BUG_ON(skb->end - skb->tail < grow);
@@ -4637,6 +4688,7 @@ normal:
 
 struct packet_offload *gro_find_receive_by_type(__be16 type)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 4691 \n"); 
 	struct list_head *offload_head = &offload_base;
 	struct packet_offload *ptype;
 
@@ -4651,6 +4703,7 @@ EXPORT_SYMBOL(gro_find_receive_by_type);
 
 struct packet_offload *gro_find_complete_by_type(__be16 type)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 4706 \n"); 
 	struct list_head *offload_head = &offload_base;
 	struct packet_offload *ptype;
 
@@ -4709,6 +4762,7 @@ EXPORT_SYMBOL(napi_gro_receive);
 
 static void napi_reuse_skb(struct napi_struct *napi, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 4765 \n"); 
 	if (unlikely(skb->pfmemalloc)) {
 		consume_skb(skb);
 		return;
@@ -4728,6 +4782,7 @@ static void napi_reuse_skb(struct napi_struct *napi, struct sk_buff *skb)
 
 struct sk_buff *napi_get_frags(struct napi_struct *napi)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 4785 \n"); 
 	struct sk_buff *skb = napi->skb;
 
 	if (!skb) {
@@ -4745,6 +4800,7 @@ static gro_result_t napi_frags_finish(struct napi_struct *napi,
 				      struct sk_buff *skb,
 				      gro_result_t ret)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 4803 \n"); 
 	switch (ret) {
 	case GRO_NORMAL:
 	case GRO_HELD:
@@ -4778,6 +4834,7 @@ static gro_result_t napi_frags_finish(struct napi_struct *napi,
  */
 static struct sk_buff *napi_frags_skb(struct napi_struct *napi)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 4837 \n"); 
 	struct sk_buff *skb = napi->skb;
 	const struct ethhdr *eth;
 	unsigned int hlen = sizeof(*eth);
@@ -4815,6 +4872,7 @@ static struct sk_buff *napi_frags_skb(struct napi_struct *napi)
 
 gro_result_t napi_gro_frags(struct napi_struct *napi)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 4875 \n"); 
 	struct sk_buff *skb = napi_frags_skb(napi);
 
 	if (!skb)
@@ -4881,6 +4939,7 @@ static void net_rps_action_and_irq_enable(struct softnet_data *sd)
 
 static bool sd_has_rps_ipi_waiting(struct softnet_data *sd)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/dev.c: line 4942 \n"); 
 #ifdef CONFIG_RPS
 	return sd->rps_ipi_list != NULL;
 #else
@@ -4965,12 +5024,14 @@ EXPORT_SYMBOL(__napi_schedule);
  */
 void __napi_schedule_irqoff(struct napi_struct *n)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5027 \n"); 
 	____napi_schedule(this_cpu_ptr(&softnet_data), n);
 }
 EXPORT_SYMBOL(__napi_schedule_irqoff);
 
 void __napi_complete(struct napi_struct *n)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5034 \n"); 
 	BUG_ON(!test_bit(NAPI_STATE_SCHED, &n->state));
 
 	list_del_init(&n->poll_list);
@@ -5125,6 +5186,7 @@ EXPORT_SYMBOL_GPL(napi_hash_del);
 
 static enum hrtimer_restart napi_watchdog(struct hrtimer *timer)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5189 \n"); 
 	struct napi_struct *napi;
 
 	napi = container_of(timer, struct napi_struct, timer);
@@ -5161,6 +5223,7 @@ EXPORT_SYMBOL(netif_napi_add);
 
 void napi_disable(struct napi_struct *n)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5226 \n"); 
 	might_sleep();
 	set_bit(NAPI_STATE_DISABLE, &n->state);
 
@@ -5339,6 +5402,7 @@ static struct netdev_adjacent *__netdev_find_adj(struct net_device *adj_dev,
 bool netdev_has_upper_dev(struct net_device *dev,
 			  struct net_device *upper_dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5405 \n"); 
 	ASSERT_RTNL();
 
 	return __netdev_find_adj(upper_dev, &dev->all_adj_list.upper);
@@ -5386,6 +5450,7 @@ EXPORT_SYMBOL(netdev_master_upper_dev_get);
 
 void *netdev_adjacent_get_private(struct list_head *adj_list)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5453 \n"); 
 	struct netdev_adjacent *adj;
 
 	adj = list_entry(adj_list, struct netdev_adjacent, list);
@@ -5431,6 +5496,7 @@ EXPORT_SYMBOL(netdev_upper_get_next_dev_rcu);
 struct net_device *netdev_all_upper_get_next_dev_rcu(struct net_device *dev,
 						     struct list_head **iter)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5499 \n"); 
 	struct netdev_adjacent *upper;
 
 	WARN_ON_ONCE(!rcu_read_lock_held() && !lockdep_rtnl_is_held());
@@ -5460,6 +5526,7 @@ EXPORT_SYMBOL(netdev_all_upper_get_next_dev_rcu);
 void *netdev_lower_get_next_private(struct net_device *dev,
 				    struct list_head **iter)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5529 \n"); 
 	struct netdev_adjacent *lower;
 
 	lower = list_entry(*iter, struct netdev_adjacent, list);
@@ -5486,6 +5553,7 @@ EXPORT_SYMBOL(netdev_lower_get_next_private);
 void *netdev_lower_get_next_private_rcu(struct net_device *dev,
 					struct list_head **iter)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5556 \n"); 
 	struct netdev_adjacent *lower;
 
 	WARN_ON_ONCE(!rcu_read_lock_held());
@@ -5539,6 +5607,7 @@ EXPORT_SYMBOL(netdev_lower_get_next);
  */
 struct net_device *netdev_all_lower_get_next(struct net_device *dev, struct list_head **iter)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5610 \n"); 
 	struct netdev_adjacent *lower;
 
 	lower = list_entry(*iter, struct netdev_adjacent, list);
@@ -5564,6 +5633,7 @@ EXPORT_SYMBOL(netdev_all_lower_get_next);
 struct net_device *netdev_all_lower_get_next_rcu(struct net_device *dev,
 						 struct list_head **iter)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5636 \n"); 
 	struct netdev_adjacent *lower;
 
 	lower = list_entry_rcu((*iter)->next, struct netdev_adjacent, list);
@@ -5588,6 +5658,7 @@ EXPORT_SYMBOL(netdev_all_lower_get_next_rcu);
  */
 void *netdev_lower_get_first_private_rcu(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5661 \n"); 
 	struct netdev_adjacent *lower;
 
 	lower = list_first_or_null_rcu(&dev->adj_list.lower,
@@ -5607,6 +5678,7 @@ EXPORT_SYMBOL(netdev_lower_get_first_private_rcu);
  */
 struct net_device *netdev_master_upper_dev_get_rcu(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 5681 \n"); 
 	struct netdev_adjacent *upper;
 
 	upper = list_first_or_null_rcu(&dev->adj_list.upper,
@@ -5954,6 +6026,7 @@ rollback_mesh:
 int netdev_upper_dev_link(struct net_device *dev,
 			  struct net_device *upper_dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 6029 \n"); 
 	return __netdev_upper_dev_link(dev, upper_dev, false, NULL, NULL);
 }
 EXPORT_SYMBOL(netdev_upper_dev_link);
@@ -6037,6 +6110,7 @@ EXPORT_SYMBOL(netdev_upper_dev_unlink);
 void netdev_bonding_info_change(struct net_device *dev,
 				struct netdev_bonding_info *bonding_info)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 6113 \n"); 
 	struct netdev_notifier_bonding_info	info;
 
 	memcpy(&info.bonding_info, bonding_info,
@@ -6124,6 +6198,7 @@ void netdev_adjacent_rename_links(struct net_device *dev, char *oldname)
 void *netdev_lower_dev_get_private(struct net_device *dev,
 				   struct net_device *lower_dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 6201 \n"); 
 	struct netdev_adjacent *lower;
 
 	if (!lower_dev)
@@ -6139,6 +6214,7 @@ EXPORT_SYMBOL(netdev_lower_dev_get_private);
 
 int dev_get_nest_level(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 6217 \n"); 
 	struct net_device *lower = NULL;
 	struct list_head *iter;
 	int max_nest = -1;
@@ -6167,6 +6243,7 @@ EXPORT_SYMBOL(dev_get_nest_level);
 void netdev_lower_state_changed(struct net_device *lower_dev,
 				void *lower_state_info)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 6246 \n"); 
 	struct netdev_notifier_changelowerstate_info changelowerstate_info;
 
 	ASSERT_RTNL();
@@ -6209,6 +6286,7 @@ EXPORT_SYMBOL_GPL(netdev_default_l2upper_neigh_construct);
 void netdev_default_l2upper_neigh_destroy(struct net_device *dev,
 					  struct neighbour *n)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 6289 \n"); 
 	struct net_device *lower_dev;
 	struct list_head *iter;
 
@@ -6535,6 +6613,7 @@ EXPORT_SYMBOL(dev_change_flags);
 
 static int __dev_set_mtu(struct net_device *dev, int new_mtu)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 6616 \n"); 
 	const struct net_device_ops *ops = dev->netdev_ops;
 
 	if (ops->ndo_change_mtu)
@@ -6595,6 +6674,7 @@ EXPORT_SYMBOL(dev_set_mtu);
  */
 void dev_set_group(struct net_device *dev, int new_group)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 6677 \n"); 
 	dev->group = new_group;
 }
 EXPORT_SYMBOL(dev_set_group);
@@ -6636,6 +6716,7 @@ EXPORT_SYMBOL(dev_set_mac_address);
  */
 int dev_change_carrier(struct net_device *dev, bool new_carrier)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 6719 \n"); 
 	const struct net_device_ops *ops = dev->netdev_ops;
 
 	if (!ops->ndo_change_carrier)
@@ -6693,6 +6774,7 @@ EXPORT_SYMBOL(dev_get_phys_port_name);
  */
 int dev_change_proto_down(struct net_device *dev, bool proto_down)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 6777 \n"); 
 	const struct net_device_ops *ops = dev->netdev_ops;
 
 	if (!ops->ndo_change_proto_down)
@@ -6712,6 +6794,7 @@ EXPORT_SYMBOL(dev_change_proto_down);
  */
 int dev_change_xdp_fd(struct net_device *dev, int fd)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 6797 \n"); 
 	const struct net_device_ops *ops = dev->netdev_ops;
 	struct bpf_prog *prog = NULL;
 	struct netdev_xdp xdp = {};
@@ -6852,6 +6935,7 @@ static void rollback_registered_many(struct list_head *head)
 
 static void rollback_registered(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 6938 \n"); 
 	LIST_HEAD(single);
 
 	list_add(&dev->unreg_list, &single);
@@ -7062,6 +7146,7 @@ EXPORT_SYMBOL(netdev_update_features);
  */
 void netdev_change_features(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 7149 \n"); 
 	__netdev_update_features(dev);
 	netdev_features_change(dev);
 }
@@ -7079,6 +7164,7 @@ EXPORT_SYMBOL(netdev_change_features);
 void netif_stacked_transfer_operstate(const struct net_device *rootdev,
 					struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 7167 \n"); 
 	if (rootdev->operstate == IF_OPER_DORMANT)
 		netif_dormant_on(dev);
 	else
@@ -7133,6 +7219,7 @@ static void netdev_init_one_queue(struct net_device *dev,
 
 static void netif_free_tx_queues(struct net_device *dev)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/dev.c: line 7222 \n"); 
 	kvfree(dev->_tx);
 }
 
@@ -7161,6 +7248,7 @@ static int netif_alloc_netdev_queues(struct net_device *dev)
 
 void netif_tx_stop_all_queues(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 7251 \n"); 
 	unsigned int i;
 
 	for (i = 0; i < dev->num_tx_queues; i++) {
@@ -7339,6 +7427,7 @@ EXPORT_SYMBOL(register_netdevice);
  */
 int init_dummy_netdev(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 7430 \n"); 
 	/* Clear everything. Note we don't initialize spinlocks
 	 * are they aren't supposed to be taken by any of the
 	 * NAPI code and this dummy netdev is supposed to be
@@ -7605,6 +7694,7 @@ EXPORT_SYMBOL(dev_get_stats);
 
 struct netdev_queue *dev_ingress_queue_create(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 7697 \n"); 
 	struct netdev_queue *queue = dev_ingress_queue(dev);
 
 #ifdef CONFIG_NET_CLS_ACT
@@ -7626,6 +7716,7 @@ static const struct ethtool_ops default_ethtool_ops;
 void netdev_set_default_ethtool_ops(struct net_device *dev,
 				    const struct ethtool_ops *ops)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 7719 \n"); 
 	if (dev->ethtool_ops == &default_ethtool_ops)
 		dev->ethtool_ops = ops;
 }
@@ -7882,6 +7973,7 @@ EXPORT_SYMBOL(unregister_netdevice_many);
  */
 void unregister_netdev(struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 7976 \n"); 
 	rtnl_lock();
 	unregister_netdevice(dev);
 	rtnl_unlock();
@@ -8010,6 +8102,7 @@ static int dev_cpu_callback(struct notifier_block *nfb,
 			    unsigned long action,
 			    void *ocpu)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 8105 \n"); 
 	struct sk_buff **list_skb;
 	struct sk_buff *skb;
 	unsigned int cpu, oldcpu = (unsigned long)ocpu;
@@ -8142,6 +8235,7 @@ err_name:
  */
 const char *netdev_drivername(const struct net_device *dev)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 8238 \n"); 
 	const struct device_driver *driver;
 	const struct device *parent;
 	const char *empty = "";
@@ -8178,6 +8272,7 @@ static void __netdev_printk(const char *level, const struct net_device *dev,
 void netdev_printk(const char *level, const struct net_device *dev,
 		   const char *format, ...)
 {
+	panic("We reached unpopular paths in net/core/dev.c: line 8275 \n"); 
 	struct va_format vaf;
 	va_list args;
 
@@ -8219,6 +8314,7 @@ define_netdev_printk_level(netdev_info, KERN_INFO);
 
 static void __net_exit netdev_exit(struct net *net)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/dev.c: line 8317 \n"); 
 	kfree(net->dev_name_head);
 	kfree(net->dev_index_head);
 }

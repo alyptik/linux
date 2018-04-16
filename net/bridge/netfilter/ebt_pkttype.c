@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_pkttype
  *
@@ -15,6 +16,7 @@
 static bool
 ebt_pkttype_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_pkttype.c: line 19 \n"); 
 	const struct ebt_pkttype_info *info = par->matchinfo;
 
 	return (skb->pkt_type == info->pkt_type) ^ info->invert;
@@ -22,6 +24,7 @@ ebt_pkttype_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ebt_pkttype_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_pkttype.c: line 27 \n"); 
 	const struct ebt_pkttype_info *info = par->matchinfo;
 
 	if (info->invert != 0 && info->invert != 1)

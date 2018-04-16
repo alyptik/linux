@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/core/dev_addr_lists.c - Functions for handling net device lists
  * Copyright (c) 2010 Jiri Pirko <jpirko@redhat.com>
@@ -138,6 +139,7 @@ static int __hw_addr_sync_one(struct netdev_hw_addr_list *to_list,
 			       struct netdev_hw_addr *ha,
 			       int addr_len)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 142 \n"); 
 	int err;
 
 	err = __hw_addr_add_ex(to_list, ha->addr, addr_len, ha->type,
@@ -158,6 +160,7 @@ static void __hw_addr_unsync_one(struct netdev_hw_addr_list *to_list,
 				 struct netdev_hw_addr *ha,
 				 int addr_len)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 163 \n"); 
 	int err;
 
 	err = __hw_addr_del_ex(to_list, ha->addr, addr_len, ha->type,
@@ -173,6 +176,7 @@ static int __hw_addr_sync_multiple(struct netdev_hw_addr_list *to_list,
 				   struct netdev_hw_addr_list *from_list,
 				   int addr_len)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 179 \n"); 
 	int err = 0;
 	struct netdev_hw_addr *ha, *tmp;
 
@@ -197,6 +201,7 @@ int __hw_addr_sync(struct netdev_hw_addr_list *to_list,
 		   struct netdev_hw_addr_list *from_list,
 		   int addr_len)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 204 \n"); 
 	int err = 0;
 	struct netdev_hw_addr *ha, *tmp;
 
@@ -216,6 +221,7 @@ void __hw_addr_unsync(struct netdev_hw_addr_list *to_list,
 		      struct netdev_hw_addr_list *from_list,
 		      int addr_len)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 224 \n"); 
 	struct netdev_hw_addr *ha, *tmp;
 
 	list_for_each_entry_safe(ha, tmp, &from_list->list, list) {
@@ -244,6 +250,7 @@ int __hw_addr_sync_dev(struct netdev_hw_addr_list *list,
 		       int (*unsync)(struct net_device *,
 				     const unsigned char *))
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 253 \n"); 
 	struct netdev_hw_addr *ha, *tmp;
 	int err;
 
@@ -294,6 +301,7 @@ void __hw_addr_unsync_dev(struct netdev_hw_addr_list *list,
 			  int (*unsync)(struct net_device *,
 					const unsigned char *))
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 304 \n"); 
 	struct netdev_hw_addr *ha, *tmp;
 
 	list_for_each_entry_safe(ha, tmp, &list->list, list) {
@@ -323,6 +331,7 @@ static void __hw_addr_flush(struct netdev_hw_addr_list *list)
 
 void __hw_addr_init(struct netdev_hw_addr_list *list)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 334 \n"); 
 	INIT_LIST_HEAD(&list->list);
 	list->count = 0;
 }
@@ -397,6 +406,7 @@ EXPORT_SYMBOL(dev_addr_init);
 int dev_addr_add(struct net_device *dev, const unsigned char *addr,
 		 unsigned char addr_type)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 409 \n"); 
 	int err;
 
 	ASSERT_RTNL();
@@ -422,6 +432,7 @@ EXPORT_SYMBOL(dev_addr_add);
 int dev_addr_del(struct net_device *dev, const unsigned char *addr,
 		 unsigned char addr_type)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 435 \n"); 
 	int err;
 	struct netdev_hw_addr *ha;
 
@@ -456,6 +467,7 @@ EXPORT_SYMBOL(dev_addr_del);
  */
 int dev_uc_add_excl(struct net_device *dev, const unsigned char *addr)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 470 \n"); 
 	struct netdev_hw_addr *ha;
 	int err;
 
@@ -487,6 +499,7 @@ EXPORT_SYMBOL(dev_uc_add_excl);
  */
 int dev_uc_add(struct net_device *dev, const unsigned char *addr)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 502 \n"); 
 	int err;
 
 	netif_addr_lock_bh(dev);
@@ -536,6 +549,7 @@ EXPORT_SYMBOL(dev_uc_del);
  */
 int dev_uc_sync(struct net_device *to, struct net_device *from)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 552 \n"); 
 	int err = 0;
 
 	if (to->addr_len != from->addr_len)
@@ -566,6 +580,7 @@ EXPORT_SYMBOL(dev_uc_sync);
  */
 int dev_uc_sync_multiple(struct net_device *to, struct net_device *from)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 583 \n"); 
 	int err = 0;
 
 	if (to->addr_len != from->addr_len)
@@ -591,6 +606,7 @@ EXPORT_SYMBOL(dev_uc_sync_multiple);
  */
 void dev_uc_unsync(struct net_device *to, struct net_device *from)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 609 \n"); 
 	if (to->addr_len != from->addr_len)
 		return;
 
@@ -640,6 +656,7 @@ EXPORT_SYMBOL(dev_uc_init);
  */
 int dev_mc_add_excl(struct net_device *dev, const unsigned char *addr)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 659 \n"); 
 	struct netdev_hw_addr *ha;
 	int err;
 
@@ -697,6 +714,7 @@ EXPORT_SYMBOL(dev_mc_add);
  */
 int dev_mc_add_global(struct net_device *dev, const unsigned char *addr)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 717 \n"); 
 	return __dev_mc_add(dev, addr, true);
 }
 EXPORT_SYMBOL(dev_mc_add_global);
@@ -739,6 +757,7 @@ EXPORT_SYMBOL(dev_mc_del);
  */
 int dev_mc_del_global(struct net_device *dev, const unsigned char *addr)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 760 \n"); 
 	return __dev_mc_del(dev, addr, true);
 }
 EXPORT_SYMBOL(dev_mc_del_global);
@@ -757,6 +776,7 @@ EXPORT_SYMBOL(dev_mc_del_global);
  */
 int dev_mc_sync(struct net_device *to, struct net_device *from)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 779 \n"); 
 	int err = 0;
 
 	if (to->addr_len != from->addr_len)
@@ -787,6 +807,7 @@ EXPORT_SYMBOL(dev_mc_sync);
  */
 int dev_mc_sync_multiple(struct net_device *to, struct net_device *from)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 810 \n"); 
 	int err = 0;
 
 	if (to->addr_len != from->addr_len)
@@ -812,6 +833,7 @@ EXPORT_SYMBOL(dev_mc_sync_multiple);
  */
 void dev_mc_unsync(struct net_device *to, struct net_device *from)
 {
+	panic("We reached unpopular paths in net/core/dev_addr_lists.c: line 836 \n"); 
 	if (to->addr_len != from->addr_len)
 		return;
 

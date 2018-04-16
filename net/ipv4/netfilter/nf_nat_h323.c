@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * H.323 extension for NAT alteration.
  *
@@ -25,6 +26,7 @@ static int set_addr(struct sk_buff *skb, unsigned int protoff,
 		    unsigned char **data, int dataoff,
 		    unsigned int addroff, __be32 ip, __be16 port)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_h323.c: line 29 \n"); 
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
 	struct {
@@ -74,6 +76,7 @@ static int set_h225_addr(struct sk_buff *skb, unsigned int protoff,
 			 TransportAddress *taddr,
 			 union nf_inet_addr *addr, __be16 port)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_h323.c: line 79 \n"); 
 	return set_addr(skb, protoff, data, dataoff, taddr->ipAddress.ip,
 			addr->ip, port);
 }
@@ -84,6 +87,7 @@ static int set_h245_addr(struct sk_buff *skb, unsigned protoff,
 			 H245_TransportAddress *taddr,
 			 union nf_inet_addr *addr, __be16 port)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_h323.c: line 90 \n"); 
 	return set_addr(skb, protoff, data, dataoff,
 			taddr->unicastAddress.iPAddress.network,
 			addr->ip, port);
@@ -95,6 +99,7 @@ static int set_sig_addr(struct sk_buff *skb, struct nf_conn *ct,
 			unsigned int protoff, unsigned char **data,
 			TransportAddress *taddr, int count)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_h323.c: line 102 \n"); 
 	const struct nf_ct_h323_master *info = nfct_help_data(ct);
 	int dir = CTINFO2DIR(ctinfo);
 	int i;
@@ -148,6 +153,7 @@ static int set_ras_addr(struct sk_buff *skb, struct nf_conn *ct,
 			unsigned int protoff, unsigned char **data,
 			TransportAddress *taddr, int count)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_h323.c: line 156 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	int i;
 	__be16 port;
@@ -180,6 +186,7 @@ static int nat_rtp_rtcp(struct sk_buff *skb, struct nf_conn *ct,
 			struct nf_conntrack_expect *rtp_exp,
 			struct nf_conntrack_expect *rtcp_exp)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_h323.c: line 189 \n"); 
 	struct nf_ct_h323_master *info = nfct_help_data(ct);
 	int dir = CTINFO2DIR(ctinfo);
 	int i;
@@ -284,6 +291,7 @@ static int nat_t120(struct sk_buff *skb, struct nf_conn *ct,
 		    H245_TransportAddress *taddr, __be16 port,
 		    struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_h323.c: line 294 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	u_int16_t nated_port = ntohs(port);
 
@@ -335,6 +343,7 @@ static int nat_h245(struct sk_buff *skb, struct nf_conn *ct,
 		    TransportAddress *taddr, __be16 port,
 		    struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_h323.c: line 346 \n"); 
 	struct nf_ct_h323_master *info = nfct_help_data(ct);
 	int dir = CTINFO2DIR(ctinfo);
 	u_int16_t nated_port = ntohs(port);
@@ -426,6 +435,7 @@ static int nat_q931(struct sk_buff *skb, struct nf_conn *ct,
 		    TransportAddress *taddr, int idx,
 		    __be16 port, struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_h323.c: line 438 \n"); 
 	struct nf_ct_h323_master *info = nfct_help_data(ct);
 	int dir = CTINFO2DIR(ctinfo);
 	u_int16_t nated_port = ntohs(port);
@@ -520,6 +530,7 @@ static int nat_callforwarding(struct sk_buff *skb, struct nf_conn *ct,
 			      TransportAddress *taddr, __be16 port,
 			      struct nf_conntrack_expect *exp)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nf_nat_h323.c: line 533 \n"); 
 	int dir = CTINFO2DIR(ctinfo);
 	u_int16_t nated_port;
 

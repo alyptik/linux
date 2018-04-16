@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * (C) 2012-2013 by Pablo Neira Ayuso <pablo@netfilter.org>
  *
@@ -31,6 +32,7 @@ struct nft_xt {
 
 static void nft_xt_put(struct nft_xt *xt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 35 \n"); 
 	if (--xt->refcnt == 0) {
 		list_del(&xt->head);
 		kfree(xt);
@@ -40,6 +42,7 @@ static void nft_xt_put(struct nft_xt *xt)
 static int nft_compat_chain_validate_dependency(const char *tablename,
 						const struct nft_chain *chain)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 45 \n"); 
 	const struct nft_base_chain *basechain;
 
 	if (!tablename || !(chain->flags & NFT_BASE_CHAIN))
@@ -63,6 +66,7 @@ union nft_entry {
 static inline void
 nft_compat_set_par(struct xt_action_param *par, void *xt, const void *xt_info)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 69 \n"); 
 	par->target	= xt;
 	par->targinfo	= xt_info;
 	par->hotdrop	= false;
@@ -72,6 +76,7 @@ static void nft_target_eval_xt(const struct nft_expr *expr,
 			       struct nft_regs *regs,
 			       const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 79 \n"); 
 	void *info = nft_expr_priv(expr);
 	struct xt_target *target = expr->ops->data;
 	struct sk_buff *skb = pkt->skb;
@@ -98,6 +103,7 @@ static void nft_target_eval_bridge(const struct nft_expr *expr,
 				   struct nft_regs *regs,
 				   const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 106 \n"); 
 	void *info = nft_expr_priv(expr);
 	struct xt_target *target = expr->ops->data;
 	struct sk_buff *skb = pkt->skb;
@@ -141,6 +147,7 @@ nft_target_set_tgchk_param(struct xt_tgchk_param *par,
 			   struct xt_target *target, void *info,
 			   union nft_entry *entry, u16 proto, bool inv)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 150 \n"); 
 	par->net	= ctx->net;
 	par->table	= ctx->table->name;
 	switch (ctx->afi->family) {
@@ -180,6 +187,7 @@ nft_target_set_tgchk_param(struct xt_tgchk_param *par,
 
 static void target_compat_from_user(struct xt_target *t, void *in, void *out)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 190 \n"); 
 	int pad;
 
 	memcpy(out, in, t->targetsize);
@@ -195,6 +203,7 @@ static const struct nla_policy nft_rule_compat_policy[NFTA_RULE_COMPAT_MAX + 1] 
 
 static int nft_parse_compat(const struct nlattr *attr, u16 *proto, bool *inv)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 206 \n"); 
 	struct nlattr *tb[NFTA_RULE_COMPAT_MAX+1];
 	u32 flags;
 	int err;
@@ -221,6 +230,7 @@ static int
 nft_target_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
 		const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 233 \n"); 
 	void *info = nft_expr_priv(expr);
 	struct xt_target *target = expr->ops->data;
 	struct xt_tgchk_param par;
@@ -263,6 +273,7 @@ err:
 static void
 nft_target_destroy(const struct nft_ctx *ctx, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 276 \n"); 
 	struct xt_target *target = expr->ops->data;
 	void *info = nft_expr_priv(expr);
 	struct xt_tgdtor_param par;
@@ -280,6 +291,7 @@ nft_target_destroy(const struct nft_ctx *ctx, const struct nft_expr *expr)
 
 static int nft_target_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 294 \n"); 
 	const struct xt_target *target = expr->ops->data;
 	void *info = nft_expr_priv(expr);
 
@@ -298,6 +310,7 @@ static int nft_target_validate(const struct nft_ctx *ctx,
 			       const struct nft_expr *expr,
 			       const struct nft_data **data)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 313 \n"); 
 	struct xt_target *target = expr->ops->data;
 	unsigned int hook_mask = 0;
 	int ret;
@@ -323,6 +336,7 @@ static void nft_match_eval(const struct nft_expr *expr,
 			   struct nft_regs *regs,
 			   const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 339 \n"); 
 	void *info = nft_expr_priv(expr);
 	struct xt_match *match = expr->ops->data;
 	struct sk_buff *skb = pkt->skb;
@@ -359,6 +373,7 @@ nft_match_set_mtchk_param(struct xt_mtchk_param *par, const struct nft_ctx *ctx,
 			  struct xt_match *match, void *info,
 			  union nft_entry *entry, u16 proto, bool inv)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 376 \n"); 
 	par->net	= ctx->net;
 	par->table	= ctx->table->name;
 	switch (ctx->afi->family) {
@@ -398,6 +413,7 @@ nft_match_set_mtchk_param(struct xt_mtchk_param *par, const struct nft_ctx *ctx,
 
 static void match_compat_from_user(struct xt_match *m, void *in, void *out)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 416 \n"); 
 	int pad;
 
 	memcpy(out, in, m->matchsize);
@@ -410,6 +426,7 @@ static int
 nft_match_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
 		const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 429 \n"); 
 	void *info = nft_expr_priv(expr);
 	struct xt_match *match = expr->ops->data;
 	struct xt_mtchk_param par;
@@ -446,6 +463,7 @@ err:
 static void
 nft_match_destroy(const struct nft_ctx *ctx, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 466 \n"); 
 	struct xt_match *match = expr->ops->data;
 	void *info = nft_expr_priv(expr);
 	struct xt_mtdtor_param par;
@@ -463,6 +481,7 @@ nft_match_destroy(const struct nft_ctx *ctx, const struct nft_expr *expr)
 
 static int nft_match_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 484 \n"); 
 	void *info = nft_expr_priv(expr);
 	struct xt_match *match = expr->ops->data;
 
@@ -481,6 +500,7 @@ static int nft_match_validate(const struct nft_ctx *ctx,
 			      const struct nft_expr *expr,
 			      const struct nft_data **data)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 503 \n"); 
 	struct xt_match *match = expr->ops->data;
 	unsigned int hook_mask = 0;
 	int ret;
@@ -507,6 +527,7 @@ nfnl_compat_fill_info(struct sk_buff *skb, u32 portid, u32 seq, u32 type,
 		      int event, u16 family, const char *name,
 		      int rev, int target)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 530 \n"); 
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
 	unsigned int flags = portid ? NLM_F_MULTI : 0;
@@ -539,6 +560,7 @@ static int nfnl_compat_get(struct net *net, struct sock *nfnl,
 			   struct sk_buff *skb, const struct nlmsghdr *nlh,
 			   const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 563 \n"); 
 	int ret = 0, target;
 	struct nfgenmsg *nfmsg;
 	const char *fmt;
@@ -633,6 +655,7 @@ static struct nft_expr_type nft_match_type;
 static bool nft_match_cmp(const struct xt_match *match,
 			  const char *name, u32 rev, u32 family)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 658 \n"); 
 	return strcmp(match->name, name) == 0 && match->revision == rev &&
 	       (match->family == NFPROTO_UNSPEC || match->family == family);
 }
@@ -641,6 +664,7 @@ static const struct nft_expr_ops *
 nft_match_select_ops(const struct nft_ctx *ctx,
 		     const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 667 \n"); 
 	struct nft_xt *nft_match;
 	struct xt_match *match;
 	char *mt_name;
@@ -718,6 +742,7 @@ static struct nft_expr_type nft_target_type;
 static bool nft_target_cmp(const struct xt_target *tg,
 			   const char *name, u32 rev, u32 family)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 745 \n"); 
 	return strcmp(tg->name, name) == 0 && tg->revision == rev &&
 	       (tg->family == NFPROTO_UNSPEC || tg->family == family);
 }
@@ -726,6 +751,7 @@ static const struct nft_expr_ops *
 nft_target_select_ops(const struct nft_ctx *ctx,
 		      const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_compat.c: line 754 \n"); 
 	struct nft_xt *nft_target;
 	struct xt_target *target;
 	char *tg_name;

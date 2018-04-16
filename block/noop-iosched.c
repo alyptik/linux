@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * elevator noop
  */
@@ -15,11 +16,13 @@ struct noop_data {
 static void noop_merged_requests(struct request_queue *q, struct request *rq,
 				 struct request *next)
 {
+	panic("We reached unpopular paths in block/noop-iosched.c: line 19 \n"); 
 	list_del_init(&next->queuelist);
 }
 
 static int noop_dispatch(struct request_queue *q, int force)
 {
+	panic("We reached unpopular paths in block/noop-iosched.c: line 25 \n"); 
 	struct noop_data *nd = q->elevator->elevator_data;
 	struct request *rq;
 
@@ -34,6 +37,7 @@ static int noop_dispatch(struct request_queue *q, int force)
 
 static void noop_add_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/noop-iosched.c: line 40 \n"); 
 	struct noop_data *nd = q->elevator->elevator_data;
 
 	list_add_tail(&rq->queuelist, &nd->queue);
@@ -42,6 +46,7 @@ static void noop_add_request(struct request_queue *q, struct request *rq)
 static struct request *
 noop_former_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/noop-iosched.c: line 49 \n"); 
 	struct noop_data *nd = q->elevator->elevator_data;
 
 	if (rq->queuelist.prev == &nd->queue)
@@ -52,6 +57,7 @@ noop_former_request(struct request_queue *q, struct request *rq)
 static struct request *
 noop_latter_request(struct request_queue *q, struct request *rq)
 {
+	panic("We reached unpopular paths in block/noop-iosched.c: line 60 \n"); 
 	struct noop_data *nd = q->elevator->elevator_data;
 
 	if (rq->queuelist.next == &nd->queue)
@@ -61,6 +67,7 @@ noop_latter_request(struct request_queue *q, struct request *rq)
 
 static int noop_init_queue(struct request_queue *q, struct elevator_type *e)
 {
+	panic("We reached unpopular paths in block/noop-iosched.c: line 70 \n"); 
 	struct noop_data *nd;
 	struct elevator_queue *eq;
 
@@ -85,6 +92,7 @@ static int noop_init_queue(struct request_queue *q, struct elevator_type *e)
 
 static void noop_exit_queue(struct elevator_queue *e)
 {
+	panic("We reached unpopular paths in block/noop-iosched.c: line 95 \n"); 
 	struct noop_data *nd = e->elevator_data;
 
 	BUG_ON(!list_empty(&nd->queue));

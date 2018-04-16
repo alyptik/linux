@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/fcntl.c
  *
@@ -130,11 +131,13 @@ EXPORT_SYMBOL(f_setown);
 
 void f_delown(struct file *filp)
 {
+	panic("We reached unpopular paths in fs/fcntl.c: line 134 \n"); 
 	f_modown(filp, NULL, PIDTYPE_PID, 1);
 }
 
 pid_t f_getown(struct file *filp)
 {
+	panic("We reached unpopular paths in fs/fcntl.c: line 140 \n"); 
 	pid_t pid;
 	read_lock(&filp->f_owner.lock);
 	pid = pid_vnr(filp->f_owner.pid);
@@ -146,6 +149,7 @@ pid_t f_getown(struct file *filp)
 
 static int f_setown_ex(struct file *filp, unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/fcntl.c: line 152 \n"); 
 	struct f_owner_ex __user *owner_p = (void __user *)arg;
 	struct f_owner_ex owner;
 	struct pid *pid;
@@ -186,6 +190,7 @@ static int f_setown_ex(struct file *filp, unsigned long arg)
 
 static int f_getown_ex(struct file *filp, unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/fcntl.c: line 193 \n"); 
 	struct f_owner_ex __user *owner_p = (void __user *)arg;
 	struct f_owner_ex owner;
 	int ret = 0;
@@ -241,6 +246,7 @@ static int f_getowner_uids(struct file *filp, unsigned long arg)
 #else
 static int f_getowner_uids(struct file *filp, unsigned long arg)
 {
+	panic("We reached unpopular paths in fs/fcntl.c: line 249 \n"); 
 	return -EINVAL;
 }
 #endif
@@ -437,6 +443,7 @@ static const long band_table[NSIGPOLL] = {
 static inline int sigio_perm(struct task_struct *p,
                              struct fown_struct *fown, int sig)
 {
+	panic("We reached unpopular paths in fs/fcntl.c: line 446 \n"); 
 	const struct cred *cred;
 	int ret;
 
@@ -454,6 +461,7 @@ static void send_sigio_to_task(struct task_struct *p,
 			       struct fown_struct *fown,
 			       int fd, int reason, int group)
 {
+	panic("We reached unpopular paths in fs/fcntl.c: line 464 \n"); 
 	/*
 	 * F_SETSIG can change ->signum lockless in parallel, make
 	 * sure we read it once and use the same value throughout.
@@ -494,6 +502,7 @@ static void send_sigio_to_task(struct task_struct *p,
 
 void send_sigio(struct fown_struct *fown, int fd, int band)
 {
+	panic("We reached unpopular paths in fs/fcntl.c: line 505 \n"); 
 	struct task_struct *p;
 	enum pid_type type;
 	struct pid *pid;
@@ -523,12 +532,14 @@ void send_sigio(struct fown_struct *fown, int fd, int band)
 static void send_sigurg_to_task(struct task_struct *p,
 				struct fown_struct *fown, int group)
 {
+	panic("We reached unpopular paths in fs/fcntl.c: line 535 \n"); 
 	if (sigio_perm(p, fown, SIGURG))
 		do_send_sig_info(SIGURG, SEND_SIG_PRIV, p, group);
 }
 
 int send_sigurg(struct fown_struct *fown)
 {
+	panic("We reached unpopular paths in fs/fcntl.c: line 542 \n"); 
 	struct task_struct *p;
 	enum pid_type type;
 	struct pid *pid;
@@ -564,6 +575,7 @@ static struct kmem_cache *fasync_cache __read_mostly;
 
 static void fasync_free_rcu(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in fs/fcntl.c: line 578 \n"); 
 	kmem_cache_free(fasync_cache,
 			container_of(head, struct fasync_struct, fa_rcu));
 }
@@ -702,6 +714,7 @@ EXPORT_SYMBOL(fasync_helper);
  */
 static void kill_fasync_rcu(struct fasync_struct *fa, int sig, int band)
 {
+	panic("We reached unpopular paths in fs/fcntl.c: line 717 \n"); 
 	while (fa) {
 		struct fown_struct *fown;
 		unsigned long flags;

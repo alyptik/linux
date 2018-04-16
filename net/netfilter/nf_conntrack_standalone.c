@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2004 Netfilter Core Team <coreteam@netfilter.org>
  * (C) 2005-2012 Patrick McHardy <kaber@trash.net>
@@ -434,11 +435,13 @@ static void nf_conntrack_standalone_fini_proc(struct net *net)
 #else
 static int nf_conntrack_standalone_init_proc(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_standalone.c: line 438 \n"); 
 	return 0;
 }
 
 static void nf_conntrack_standalone_fini_proc(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_standalone.c: line 444 \n"); 
 }
 #endif /* CONFIG_NF_CONNTRACK_PROCFS */
 
@@ -574,11 +577,13 @@ static void nf_conntrack_standalone_fini_sysctl(struct net *net)
 #else
 static int nf_conntrack_standalone_init_sysctl(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_standalone.c: line 580 \n"); 
 	return 0;
 }
 
 static void nf_conntrack_standalone_fini_sysctl(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_standalone.c: line 586 \n"); 
 }
 #endif /* CONFIG_SYSCTL */
 

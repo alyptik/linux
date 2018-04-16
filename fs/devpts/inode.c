@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* -*- linux-c -*- --------------------------------------------------------- *
  *
  * linux/fs/devpts/inode.c
@@ -130,6 +131,7 @@ struct pts_fs_info {
 
 static inline struct pts_fs_info *DEVPTS_SB(struct super_block *sb)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/devpts/inode.c: line 134 \n"); 
 	return sb->s_fs_info;
 }
 
@@ -318,6 +320,7 @@ out:
 
 static void update_ptmx_mode(struct pts_fs_info *fsi)
 {
+	panic("We reached unpopular paths in fs/devpts/inode.c: line 323 \n"); 
 	struct inode *inode;
 	if (fsi->ptmx_dentry) {
 		inode = d_inode(fsi->ptmx_dentry);
@@ -327,6 +330,7 @@ static void update_ptmx_mode(struct pts_fs_info *fsi)
 
 static int devpts_remount(struct super_block *sb, int *flags, char *data)
 {
+	panic("We reached unpopular paths in fs/devpts/inode.c: line 333 \n"); 
 	int err;
 	struct pts_fs_info *fsi = DEVPTS_SB(sb);
 	struct pts_mount_opts *opts = &fsi->mount_opts;

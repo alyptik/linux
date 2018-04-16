@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NET4:	Implementation of BSD Unix domain sockets.
  *
@@ -161,6 +162,7 @@ static inline void unix_set_secdata(struct scm_cookie *scm, struct sk_buff *skb)
 
 static inline bool unix_secdata_eq(struct scm_cookie *scm, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 165 \n"); 
 	return true;
 }
 #endif /* CONFIG_SECURITY_NETWORK */
@@ -183,16 +185,19 @@ static inline unsigned int unix_hash_fold(__wsum n)
 
 static inline int unix_our_peer(struct sock *sk, struct sock *osk)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 188 \n"); 
 	return unix_peer(osk) == sk;
 }
 
 static inline int unix_may_send(struct sock *sk, struct sock *osk)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 194 \n"); 
 	return unix_peer(osk) == NULL || unix_our_peer(sk, osk);
 }
 
 static inline int unix_recvq_full(struct sock const *sk)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/unix/af_unix.c: line 200 \n"); 
 	return skb_queue_len(&sk->sk_receive_queue) > sk->sk_max_ack_backlog;
 }
 
@@ -247,6 +252,7 @@ static int unix_mkname(struct sockaddr_un *sunaddr, int len, unsigned int *hashp
 
 static void __unix_remove_socket(struct sock *sk)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/unix/af_unix.c: line 255 \n"); 
 	sk_del_node_init(sk);
 }
 
@@ -354,6 +360,7 @@ found:
 static int unix_dgram_peer_wake_relay(wait_queue_t *q, unsigned mode, int flags,
 				      void *key)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 363 \n"); 
 	struct unix_sock *u;
 	wait_queue_head_t *u_sleep;
 
@@ -373,6 +380,7 @@ static int unix_dgram_peer_wake_relay(wait_queue_t *q, unsigned mode, int flags,
 
 static int unix_dgram_peer_wake_connect(struct sock *sk, struct sock *other)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 383 \n"); 
 	struct unix_sock *u, *u_other;
 	int rc;
 
@@ -412,6 +420,7 @@ static void unix_dgram_peer_wake_disconnect(struct sock *sk,
 static void unix_dgram_peer_wake_disconnect_wakeup(struct sock *sk,
 						   struct sock *other)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 423 \n"); 
 	unix_dgram_peer_wake_disconnect(sk, other);
 	wake_up_interruptible_poll(sk_sleep(sk),
 				   POLLOUT |
@@ -425,6 +434,7 @@ static void unix_dgram_peer_wake_disconnect_wakeup(struct sock *sk,
  */
 static int unix_dgram_peer_wake_me(struct sock *sk, struct sock *other)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 437 \n"); 
 	int connected;
 
 	connected = unix_dgram_peer_wake_connect(sk, other);
@@ -465,6 +475,7 @@ static void unix_write_space(struct sock *sk)
  * may receive messages only from that peer. */
 static void unix_dgram_disconnected(struct sock *sk, struct sock *other)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 478 \n"); 
 	if (!skb_queue_empty(&sk->sk_receive_queue)) {
 		skb_queue_purge(&sk->sk_receive_queue);
 		wake_up_interruptible_all(&unix_sk(sk)->peer_wait);
@@ -659,6 +670,7 @@ static int unix_seqpacket_recvmsg(struct socket *, struct msghdr *, size_t,
 
 static int unix_set_peek_off(struct sock *sk, int val)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 673 \n"); 
 	struct unix_sock *u = unix_sk(sk);
 
 	if (mutex_lock_interruptible(&u->iolock))
@@ -1077,6 +1089,7 @@ out:
 
 static void unix_state_double_lock(struct sock *sk1, struct sock *sk2)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 1092 \n"); 
 	if (unlikely(sk1 == sk2) || !sk2) {
 		unix_state_lock(sk1);
 		return;
@@ -1092,6 +1105,7 @@ static void unix_state_double_lock(struct sock *sk1, struct sock *sk2)
 
 static void unix_state_double_unlock(struct sock *sk1, struct sock *sk2)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 1108 \n"); 
 	if (unlikely(sk1 == sk2) || !sk2) {
 		unix_state_unlock(sk1);
 		return;
@@ -1182,6 +1196,7 @@ out:
 
 static long unix_wait_for_peer(struct sock *other, long timeo)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 1199 \n"); 
 	struct unix_sock *u = unix_sk(other);
 	int sched;
 	DEFINE_WAIT(wait);
@@ -1604,6 +1619,7 @@ static int maybe_init_creds(struct scm_cookie *scm,
 			    struct socket *socket,
 			    const struct sock *other)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 1622 \n"); 
 	int err;
 	struct msghdr msg = { .msg_controllen = 0 };
 
@@ -1621,6 +1637,7 @@ static int maybe_init_creds(struct scm_cookie *scm,
 static bool unix_skb_scm_eq(struct sk_buff *skb,
 			    struct scm_cookie *scm)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 1640 \n"); 
 	const struct unix_skb_parms *u = &UNIXCB(skb);
 
 	return u->pid == scm->pid &&
@@ -1949,6 +1966,7 @@ out_err:
 static ssize_t unix_stream_sendpage(struct socket *socket, struct page *page,
 				    int offset, size_t size, int flags)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 1969 \n"); 
 	int err;
 	bool send_sigpipe = false;
 	bool init_scm = true;
@@ -2065,6 +2083,7 @@ err:
 static int unix_seqpacket_sendmsg(struct socket *sock, struct msghdr *msg,
 				  size_t len)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 2086 \n"); 
 	int err;
 	struct sock *sk = sock->sk;
 
@@ -2084,6 +2103,7 @@ static int unix_seqpacket_sendmsg(struct socket *sock, struct msghdr *msg,
 static int unix_seqpacket_recvmsg(struct socket *sock, struct msghdr *msg,
 				  size_t size, int flags)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 2106 \n"); 
 	struct sock *sk = sock->sk;
 
 	if (sk->sk_state != TCP_ESTABLISHED)
@@ -2105,6 +2125,7 @@ static void unix_copy_addr(struct msghdr *msg, struct sock *sk)
 static int unix_dgram_recvmsg(struct socket *sock, struct msghdr *msg,
 			      size_t size, int flags)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 2128 \n"); 
 	struct scm_cookie scm;
 	struct sock *sk = sock->sk;
 	struct unix_sock *u = unix_sk(sk);
@@ -2250,6 +2271,7 @@ static long unix_stream_data_wait(struct sock *sk, long timeo,
 
 static unsigned int unix_skb_len(const struct sk_buff *skb)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/unix/af_unix.c: line 2274 \n"); 
 	return skb->len - UNIXCB(skb).consumed;
 }
 
@@ -2494,6 +2516,7 @@ static int unix_stream_splice_actor(struct sk_buff *skb,
 				    int skip, int chunk,
 				    struct unix_stream_read_state *state)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 2519 \n"); 
 	return skb_splice_bits(skb, state->socket->sk,
 			       UNIXCB(skb).consumed + skip,
 			       state->pipe, chunk, state->splice_flags);
@@ -2503,6 +2526,7 @@ static ssize_t unix_stream_splice_read(struct socket *sock,  loff_t *ppos,
 				       struct pipe_inode_info *pipe,
 				       size_t size, unsigned int flags)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 2529 \n"); 
 	struct unix_stream_read_state state = {
 		.recv_actor = unix_stream_splice_actor,
 		.socket = sock,
@@ -2569,6 +2593,7 @@ static int unix_shutdown(struct socket *sock, int mode)
 
 long unix_inq_len(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 2596 \n"); 
 	struct sk_buff *skb;
 	long amount = 0;
 
@@ -2593,6 +2618,7 @@ EXPORT_SYMBOL_GPL(unix_inq_len);
 
 long unix_outq_len(struct sock *sk)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 2621 \n"); 
 	return sk_wmem_alloc_get(sk);
 }
 EXPORT_SYMBOL_GPL(unix_outq_len);
@@ -2660,6 +2686,7 @@ static unsigned int unix_poll(struct file *file, struct socket *sock, poll_table
 static unsigned int unix_dgram_poll(struct file *file, struct socket *sock,
 				    poll_table *wait)
 {
+	panic("We reached unpopular paths in net/unix/af_unix.c: line 2689 \n"); 
 	struct sock *sk = sock->sk, *other;
 	unsigned int mask, writable;
 

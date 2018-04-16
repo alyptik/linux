@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NetLabel Management Support
  *
@@ -96,6 +97,7 @@ static const struct nla_policy netlbl_mgmt_genl_policy[NLBL_MGMT_A_MAX + 1] = {
 static int netlbl_mgmt_add_common(struct genl_info *info,
 				  struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_mgmt.c: line 100 \n"); 
 	int ret_val = -EINVAL;
 	struct netlbl_domaddr_map *addrmap = NULL;
 	struct cipso_v4_doi *cipsov4 = NULL;
@@ -300,6 +302,7 @@ add_free_entry:
 static int netlbl_mgmt_listentry(struct sk_buff *skb,
 				 struct netlbl_dom_map *entry)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_mgmt.c: line 305 \n"); 
 	int ret_val = 0;
 	struct nlattr *nla_a;
 	struct nlattr *nla_b;
@@ -438,6 +441,7 @@ static int netlbl_mgmt_listentry(struct sk_buff *skb,
  */
 static int netlbl_mgmt_add(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_mgmt.c: line 444 \n"); 
 	struct netlbl_audit audit_info;
 
 	if ((!info->attrs[NLBL_MGMT_A_DOMAIN]) ||
@@ -469,6 +473,7 @@ static int netlbl_mgmt_add(struct sk_buff *skb, struct genl_info *info)
  */
 static int netlbl_mgmt_remove(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_mgmt.c: line 476 \n"); 
 	char *domain;
 	struct netlbl_audit audit_info;
 
@@ -495,6 +500,7 @@ static int netlbl_mgmt_remove(struct sk_buff *skb, struct genl_info *info)
  */
 static int netlbl_mgmt_listall_cb(struct netlbl_dom_map *entry, void *arg)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_mgmt.c: line 503 \n"); 
 	int ret_val = -ENOMEM;
 	struct netlbl_domhsh_walk_arg *cb_arg = arg;
 	void *data;
@@ -532,6 +538,7 @@ listall_cb_failure:
 static int netlbl_mgmt_listall(struct sk_buff *skb,
 			       struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_mgmt.c: line 541 \n"); 
 	struct netlbl_domhsh_walk_arg cb_arg;
 	u32 skip_bkt = cb->args[0];
 	u32 skip_chain = cb->args[1];
@@ -562,6 +569,7 @@ static int netlbl_mgmt_listall(struct sk_buff *skb,
  */
 static int netlbl_mgmt_adddef(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_mgmt.c: line 572 \n"); 
 	struct netlbl_audit audit_info;
 
 	if ((!info->attrs[NLBL_MGMT_A_PROTOCOL]) ||
@@ -592,6 +600,7 @@ static int netlbl_mgmt_adddef(struct sk_buff *skb, struct genl_info *info)
  */
 static int netlbl_mgmt_removedef(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_mgmt.c: line 603 \n"); 
 	struct netlbl_audit audit_info;
 
 	netlbl_netlink_auditinfo(skb, &audit_info);
@@ -612,6 +621,7 @@ static int netlbl_mgmt_removedef(struct sk_buff *skb, struct genl_info *info)
  */
 static int netlbl_mgmt_listdef(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_mgmt.c: line 624 \n"); 
 	int ret_val = -ENOMEM;
 	struct sk_buff *ans_skb = NULL;
 	void *data;
@@ -668,6 +678,7 @@ static int netlbl_mgmt_protocols_cb(struct sk_buff *skb,
 				    struct netlink_callback *cb,
 				    u32 protocol)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_mgmt.c: line 681 \n"); 
 	int ret_val = -ENOMEM;
 	void *data;
 
@@ -701,6 +712,7 @@ protocols_cb_failure:
 static int netlbl_mgmt_protocols(struct sk_buff *skb,
 				 struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_mgmt.c: line 715 \n"); 
 	u32 protos_sent = cb->args[0];
 
 	if (protos_sent == 0) {
@@ -744,6 +756,7 @@ protocols_return:
  */
 static int netlbl_mgmt_version(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_mgmt.c: line 759 \n"); 
 	int ret_val = -ENOMEM;
 	struct sk_buff *ans_skb = NULL;
 	void *data;

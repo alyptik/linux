@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2015 Pablo Neira Ayuso <pablo@netfilter.org>
  *
@@ -24,6 +25,7 @@ static void nft_dup_ipv4_eval(const struct nft_expr *expr,
 			      struct nft_regs *regs,
 			      const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nft_dup_ipv4.c: line 28 \n"); 
 	struct nft_dup_ipv4 *priv = nft_expr_priv(expr);
 	struct in_addr gw = {
 		.s_addr = (__force __be32)regs->data[priv->sreg_addr],
@@ -37,6 +39,7 @@ static int nft_dup_ipv4_init(const struct nft_ctx *ctx,
 			     const struct nft_expr *expr,
 			     const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nft_dup_ipv4.c: line 42 \n"); 
 	struct nft_dup_ipv4 *priv = nft_expr_priv(expr);
 	int err;
 
@@ -57,6 +60,7 @@ static int nft_dup_ipv4_init(const struct nft_ctx *ctx,
 
 static int nft_dup_ipv4_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/nft_dup_ipv4.c: line 63 \n"); 
 	struct nft_dup_ipv4 *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_DUP_SREG_ADDR, priv->sreg_addr))

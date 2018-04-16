@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Packet matching code.
  *
@@ -101,6 +102,7 @@ ip_checkentry(const struct ipt_ip *ip)
 static unsigned int
 ipt_error(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ip_tables.c: line 105 \n"); 
 	net_info_ratelimited("error: `%s'\n", (const char *)par->targinfo);
 
 	return NF_DROP;
@@ -110,6 +112,7 @@ ipt_error(struct sk_buff *skb, const struct xt_action_param *par)
 static inline struct ipt_entry *
 get_entry(const void *base, unsigned int offset)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/netfilter/ip_tables.c: line 115 \n"); 
 	return (struct ipt_entry *)(base + offset);
 }
 
@@ -127,6 +130,7 @@ static inline bool unconditional(const struct ipt_entry *e)
 static inline const struct xt_entry_target *
 ipt_get_target_c(const struct ipt_entry *e)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/ipv4/netfilter/ip_tables.c: line 133 \n"); 
 	return ipt_get_target((struct ipt_entry *)e);
 }
 
@@ -225,6 +229,7 @@ static void trace_packet(struct net *net,
 static inline
 struct ipt_entry *ipt_next_entry(const struct ipt_entry *entry)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ip_tables.c: line 232 \n"); 
 	return (void *)entry + entry->next_offset;
 }
 
@@ -1751,6 +1756,7 @@ do_ipt_get_ctl(struct sock *sk, int cmd, void __user *user, int *len)
 
 static void __ipt_unregister_table(struct net *net, struct xt_table *table)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ip_tables.c: line 1759 \n"); 
 	struct xt_table_info *private;
 	void *loc_cpu_entry;
 	struct module *table_owner = table->me;
@@ -1813,6 +1819,7 @@ out_free:
 void ipt_unregister_table(struct net *net, struct xt_table *table,
 			  const struct nf_hook_ops *ops)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ip_tables.c: line 1822 \n"); 
 	nf_unregister_net_hooks(net, ops, hweight32(table->valid_hooks));
 	__ipt_unregister_table(net, table);
 }
@@ -1823,6 +1830,7 @@ icmp_type_code_match(u_int8_t test_type, u_int8_t min_code, u_int8_t max_code,
 		     u_int8_t type, u_int8_t code,
 		     bool invert)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ip_tables.c: line 1833 \n"); 
 	return ((test_type == 0xFF) ||
 		(type == test_type && code >= min_code && code <= max_code))
 		^ invert;
@@ -1831,6 +1839,7 @@ icmp_type_code_match(u_int8_t test_type, u_int8_t min_code, u_int8_t max_code,
 static bool
 icmp_match(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ip_tables.c: line 1842 \n"); 
 	const struct icmphdr *ic;
 	struct icmphdr _icmph;
 	const struct ipt_icmp *icmpinfo = par->matchinfo;
@@ -1857,6 +1866,7 @@ icmp_match(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int icmp_checkentry(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter/ip_tables.c: line 1869 \n"); 
 	const struct ipt_icmp *icmpinfo = par->matchinfo;
 
 	/* Must specify no unknown invflags */

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * net/sched/em_ipset.c	ipset ematch
  *
@@ -22,6 +23,7 @@
 static int em_ipset_change(struct net *net, void *data, int data_len,
 			   struct tcf_ematch *em)
 {
+	panic("We reached unpopular paths in net/sched/em_ipset.c: line 26 \n"); 
 	struct xt_set_info *set = data;
 	ip_set_id_t index;
 
@@ -43,6 +45,7 @@ static int em_ipset_change(struct net *net, void *data, int data_len,
 
 static void em_ipset_destroy(struct tcf_ematch *em)
 {
+	panic("We reached unpopular paths in net/sched/em_ipset.c: line 48 \n"); 
 	const struct xt_set_info *set = (const void *) em->data;
 	if (set) {
 		ip_set_nfnl_put(em->net, set->index);
@@ -53,6 +56,7 @@ static void em_ipset_destroy(struct tcf_ematch *em)
 static int em_ipset_match(struct sk_buff *skb, struct tcf_ematch *em,
 			  struct tcf_pkt_info *info)
 {
+	panic("We reached unpopular paths in net/sched/em_ipset.c: line 59 \n"); 
 	struct ip_set_adt_opt opt;
 	struct xt_action_param acpar;
 	const struct xt_set_info *set = (const void *) em->data;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * inet fragments management
  *
@@ -55,17 +56,20 @@ EXPORT_SYMBOL(ip_frag_ecn_table);
 static unsigned int
 inet_frag_hashfn(const struct inet_frags *f, const struct inet_frag_queue *q)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 59 \n"); 
 	return f->hashfn(q) & (INETFRAGS_HASHSZ - 1);
 }
 
 static bool inet_frag_may_rebuild(struct inet_frags *f)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 65 \n"); 
 	return time_after(jiffies,
 	       f->last_rebuild_jiffies + INETFRAGS_MIN_REBUILD_INTERVAL);
 }
 
 static void inet_frag_secret_rebuild(struct inet_frags *f)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 72 \n"); 
 	int i;
 
 	write_seqlock_bh(&f->rnd_seqlock);
@@ -119,6 +123,7 @@ out:
 
 static bool inet_fragq_should_evict(const struct inet_frag_queue *q)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 126 \n"); 
 	return q->net->low_thresh == 0 ||
 	       frag_mem_limit(q->net) >= q->net->low_thresh;
 }
@@ -154,6 +159,7 @@ inet_evict_bucket(struct inet_frags *f, struct inet_frag_bucket *hb)
 
 static void inet_frag_worker(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 162 \n"); 
 	unsigned int budget = INETFRAGS_EVICT_BUCKETS;
 	unsigned int i, evicted = 0;
 	struct inet_frags *f;
@@ -181,6 +187,7 @@ static void inet_frag_worker(struct work_struct *work)
 
 static void inet_frag_schedule_worker(struct inet_frags *f)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 190 \n"); 
 	if (unlikely(!work_pending(&f->frags_work)))
 		schedule_work(&f->frags_work);
 }
@@ -211,6 +218,7 @@ EXPORT_SYMBOL(inet_frags_init);
 
 void inet_frags_fini(struct inet_frags *f)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 221 \n"); 
 	cancel_work_sync(&f->frags_work);
 	kmem_cache_destroy(f->frags_cachep);
 }
@@ -263,6 +271,7 @@ __acquires(hb->chain_lock)
 
 static inline void fq_unlink(struct inet_frag_queue *fq, struct inet_frags *f)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 274 \n"); 
 	struct inet_frag_bucket *hb;
 
 	hb = get_frag_bucket_locked(fq, f);
@@ -273,6 +282,7 @@ static inline void fq_unlink(struct inet_frag_queue *fq, struct inet_frags *f)
 
 void inet_frag_kill(struct inet_frag_queue *fq, struct inet_frags *f)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 285 \n"); 
 	if (del_timer(&fq->timer))
 		atomic_dec(&fq->refcnt);
 
@@ -285,6 +295,7 @@ EXPORT_SYMBOL(inet_frag_kill);
 
 void inet_frag_destroy(struct inet_frag_queue *q, struct inet_frags *f)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 298 \n"); 
 	struct sk_buff *fp;
 	struct netns_frags *nf;
 	unsigned int sum, sum_truesize = 0;
@@ -317,6 +328,7 @@ static struct inet_frag_queue *inet_frag_intern(struct netns_frags *nf,
 						struct inet_frags *f,
 						void *arg)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 331 \n"); 
 	struct inet_frag_bucket *hb = get_frag_bucket_locked(qp_in, f);
 	struct inet_frag_queue *qp;
 
@@ -351,6 +363,7 @@ static struct inet_frag_queue *inet_frag_alloc(struct netns_frags *nf,
 					       struct inet_frags *f,
 					       void *arg)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 366 \n"); 
 	struct inet_frag_queue *q;
 
 	if (!nf->high_thresh || frag_mem_limit(nf) > nf->high_thresh) {
@@ -377,6 +390,7 @@ static struct inet_frag_queue *inet_frag_create(struct netns_frags *nf,
 						struct inet_frags *f,
 						void *arg)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 393 \n"); 
 	struct inet_frag_queue *q;
 
 	q = inet_frag_alloc(nf, f, arg);
@@ -390,6 +404,7 @@ struct inet_frag_queue *inet_frag_find(struct netns_frags *nf,
 				       struct inet_frags *f, void *key,
 				       unsigned int hash)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 407 \n"); 
 	struct inet_frag_bucket *hb;
 	struct inet_frag_queue *q;
 	int depth = 0;
@@ -427,6 +442,7 @@ EXPORT_SYMBOL(inet_frag_find);
 void inet_frag_maybe_warn_overflow(struct inet_frag_queue *q,
 				   const char *prefix)
 {
+	panic("We reached unpopular paths in net/ipv4/inet_fragment.c: line 445 \n"); 
 	static const char msg[] = "inet_frag_find: Fragment hash bucket"
 		" list length grew over limit " __stringify(INETFRAGS_MAXDEPTH)
 		". Dropping fragment.\n";

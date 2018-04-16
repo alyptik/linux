@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * This is a module which is used for logging packets to userspace via
  * nfetlink.
@@ -95,12 +96,14 @@ static struct nfnl_log_net *nfnl_log_pernet(struct net *net)
 
 static inline u_int8_t instance_hashfn(u_int16_t group_num)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 99 \n"); 
 	return ((group_num & 0xff) % INSTANCE_BUCKETS);
 }
 
 static struct nfulnl_instance *
 __instance_lookup(struct nfnl_log_net *log, u_int16_t group_num)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 106 \n"); 
 	struct hlist_head *head;
 	struct nfulnl_instance *inst;
 
@@ -115,12 +118,14 @@ __instance_lookup(struct nfnl_log_net *log, u_int16_t group_num)
 static inline void
 instance_get(struct nfulnl_instance *inst)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 121 \n"); 
 	atomic_inc(&inst->use);
 }
 
 static struct nfulnl_instance *
 instance_lookup_get(struct nfnl_log_net *log, u_int16_t group_num)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 128 \n"); 
 	struct nfulnl_instance *inst;
 
 	rcu_read_lock_bh();
@@ -134,6 +139,7 @@ instance_lookup_get(struct nfnl_log_net *log, u_int16_t group_num)
 
 static void nfulnl_instance_free_rcu(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 142 \n"); 
 	struct nfulnl_instance *inst =
 		container_of(head, struct nfulnl_instance, rcu);
 
@@ -145,6 +151,7 @@ static void nfulnl_instance_free_rcu(struct rcu_head *head)
 static void
 instance_put(struct nfulnl_instance *inst)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 154 \n"); 
 	if (inst && atomic_dec_and_test(&inst->use))
 		call_rcu_bh(&inst->rcu, nfulnl_instance_free_rcu);
 }
@@ -155,6 +162,7 @@ static struct nfulnl_instance *
 instance_create(struct net *net, u_int16_t group_num,
 		u32 portid, struct user_namespace *user_ns)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 165 \n"); 
 	struct nfulnl_instance *inst;
 	struct nfnl_log_net *log = nfnl_log_pernet(net);
 	int err;
@@ -214,6 +222,7 @@ static void __nfulnl_flush(struct nfulnl_instance *inst);
 static void
 __instance_destroy(struct nfulnl_instance *inst)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 225 \n"); 
 	/* first pull it out of the global list */
 	hlist_del_rcu(&inst->hlist);
 
@@ -236,6 +245,7 @@ static inline void
 instance_destroy(struct nfnl_log_net *log,
 		 struct nfulnl_instance *inst)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 248 \n"); 
 	spin_lock_bh(&log->instances_lock);
 	__instance_destroy(inst);
 	spin_unlock_bh(&log->instances_lock);
@@ -245,6 +255,7 @@ static int
 nfulnl_set_mode(struct nfulnl_instance *inst, u_int8_t mode,
 		  unsigned int range)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 258 \n"); 
 	int status = 0;
 
 	spin_lock_bh(&inst->lock);
@@ -277,6 +288,7 @@ nfulnl_set_mode(struct nfulnl_instance *inst, u_int8_t mode,
 static int
 nfulnl_set_nlbufsiz(struct nfulnl_instance *inst, u_int32_t nlbufsiz)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 291 \n"); 
 	int status;
 
 	spin_lock_bh(&inst->lock);
@@ -296,6 +308,7 @@ nfulnl_set_nlbufsiz(struct nfulnl_instance *inst, u_int32_t nlbufsiz)
 static void
 nfulnl_set_timeout(struct nfulnl_instance *inst, u_int32_t timeout)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 311 \n"); 
 	spin_lock_bh(&inst->lock);
 	inst->flushtimeout = timeout;
 	spin_unlock_bh(&inst->lock);
@@ -304,6 +317,7 @@ nfulnl_set_timeout(struct nfulnl_instance *inst, u_int32_t timeout)
 static void
 nfulnl_set_qthresh(struct nfulnl_instance *inst, u_int32_t qthresh)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 320 \n"); 
 	spin_lock_bh(&inst->lock);
 	inst->qthreshold = qthresh;
 	spin_unlock_bh(&inst->lock);
@@ -312,6 +326,7 @@ nfulnl_set_qthresh(struct nfulnl_instance *inst, u_int32_t qthresh)
 static int
 nfulnl_set_flags(struct nfulnl_instance *inst, u_int16_t flags)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 329 \n"); 
 	spin_lock_bh(&inst->lock);
 	inst->flags = flags;
 	spin_unlock_bh(&inst->lock);
@@ -323,6 +338,7 @@ static struct sk_buff *
 nfulnl_alloc_skb(struct net *net, u32 peer_portid, unsigned int inst_size,
 		 unsigned int pkt_size)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 341 \n"); 
 	struct sk_buff *skb;
 	unsigned int n;
 
@@ -346,6 +362,7 @@ nfulnl_alloc_skb(struct net *net, u32 peer_portid, unsigned int inst_size,
 static void
 __nfulnl_send(struct nfulnl_instance *inst)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 365 \n"); 
 	if (inst->qlen > 1) {
 		struct nlmsghdr *nlh = nlmsg_put(inst->skb, 0, 0,
 						 NLMSG_DONE,
@@ -367,6 +384,7 @@ out:
 static void
 __nfulnl_flush(struct nfulnl_instance *inst)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 387 \n"); 
 	/* timer holds a reference */
 	if (del_timer(&inst->timer))
 		instance_put(inst);
@@ -377,6 +395,7 @@ __nfulnl_flush(struct nfulnl_instance *inst)
 static void
 nfulnl_timer(unsigned long data)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 398 \n"); 
 	struct nfulnl_instance *inst = (struct nfulnl_instance *)data;
 
 	spin_lock_bh(&inst->lock);
@@ -401,6 +420,7 @@ __build_packet_message(struct nfnl_log_net *log,
 			const struct nfnl_ct_hook *nfnl_ct,
 			struct nf_conn *ct, enum ip_conntrack_info ctinfo)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 423 \n"); 
 	struct nfulnl_msg_packet_hdr pmsg;
 	struct nlmsghdr *nlh;
 	struct nfgenmsg *nfmsg;
@@ -626,6 +646,7 @@ nfulnl_log_packet(struct net *net,
 		  const struct nf_loginfo *li_user,
 		  const char *prefix)
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 649 \n"); 
 	size_t size;
 	unsigned int data_len;
 	struct nfulnl_instance *inst;
@@ -795,6 +816,7 @@ static int nfulnl_recv_unsupp(struct net *net, struct sock *ctnl,
 			      struct sk_buff *skb, const struct nlmsghdr *nlh,
 			      const struct nlattr * const nfqa[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 819 \n"); 
 	return -ENOTSUPP;
 }
 
@@ -818,6 +840,7 @@ static int nfulnl_recv_config(struct net *net, struct sock *ctnl,
 			      struct sk_buff *skb, const struct nlmsghdr *nlh,
 			      const struct nlattr * const nfula[])
 {
+	panic("We reached unpopular paths in net/netfilter/nfnetlink_log.c: line 843 \n"); 
 	struct nfgenmsg *nfmsg = nlmsg_data(nlh);
 	u_int16_t group_num = ntohs(nfmsg->res_id);
 	struct nfulnl_instance *inst;

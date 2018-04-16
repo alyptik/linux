@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2014 Patrick McHardy <kaber@trash.net>
  *
@@ -21,6 +22,7 @@ static void nft_reject_inet_eval(const struct nft_expr *expr,
 				 struct nft_regs *regs,
 				 const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_reject_inet.c: line 25 \n"); 
 	struct nft_reject *priv = nft_expr_priv(expr);
 
 	switch (pkt->pf) {
@@ -65,6 +67,7 @@ static int nft_reject_inet_init(const struct nft_ctx *ctx,
 				const struct nft_expr *expr,
 				const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_reject_inet.c: line 70 \n"); 
 	struct nft_reject *priv = nft_expr_priv(expr);
 	int icmp_code, err;
 
@@ -100,6 +103,7 @@ static int nft_reject_inet_init(const struct nft_ctx *ctx,
 static int nft_reject_inet_dump(struct sk_buff *skb,
 				const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_reject_inet.c: line 106 \n"); 
 	const struct nft_reject *priv = nft_expr_priv(expr);
 
 	if (nla_put_be32(skb, NFTA_REJECT_TYPE, htonl(priv->type)))

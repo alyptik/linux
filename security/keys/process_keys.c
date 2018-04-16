@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Manage a process's keyrings
  *
  * Copyright (C) 2004-2005, 2008 Red Hat, Inc. All Rights Reserved.
@@ -159,6 +160,7 @@ int install_thread_keyring_to_cred(struct cred *new)
  */
 static int install_thread_keyring(void)
 {
+	panic("We reached unpopular paths in security/keys/process_keys.c: line 163 \n"); 
 	struct cred *new;
 	int ret;
 
@@ -206,6 +208,7 @@ int install_process_keyring_to_cred(struct cred *new)
  */
 static int install_process_keyring(void)
 {
+	panic("We reached unpopular paths in security/keys/process_keys.c: line 211 \n"); 
 	struct cred *new;
 	int ret;
 
@@ -270,6 +273,7 @@ int install_session_keyring_to_cred(struct cred *cred, struct key *keyring)
  */
 static int install_session_keyring(struct key *keyring)
 {
+	panic("We reached unpopular paths in security/keys/process_keys.c: line 276 \n"); 
 	struct cred *new;
 	int ret;
 
@@ -841,6 +845,7 @@ error:
  */
 void key_change_session_keyring(struct callback_head *twork)
 {
+	panic("We reached unpopular paths in security/keys/process_keys.c: line 848 \n"); 
 	const struct cred *old = current_cred();
 	struct cred *new = container_of(twork, struct cred, rcu);
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008, Intel Corporation.
  *
@@ -35,6 +36,7 @@ static struct tc_action_ops act_skbedit_ops;
 static int tcf_skbedit(struct sk_buff *skb, const struct tc_action *a,
 		       struct tcf_result *res)
 {
+	panic("We reached unpopular paths in net/sched/act_skbedit.c: line 39 \n"); 
 	struct tcf_skbedit *d = to_skbedit(a);
 
 	spin_lock(&d->tcf_lock);
@@ -67,6 +69,7 @@ static int tcf_skbedit_init(struct net *net, struct nlattr *nla,
 			    struct nlattr *est, struct tc_action **a,
 			    int ovr, int bind)
 {
+	panic("We reached unpopular paths in net/sched/act_skbedit.c: line 72 \n"); 
 	struct tc_action_net *tn = net_generic(net, skbedit_net_id);
 	struct nlattr *tb[TCA_SKBEDIT_MAX + 1];
 	struct tc_skbedit *parm;
@@ -158,6 +161,7 @@ static int tcf_skbedit_init(struct net *net, struct nlattr *nla,
 static int tcf_skbedit_dump(struct sk_buff *skb, struct tc_action *a,
 			    int bind, int ref)
 {
+	panic("We reached unpopular paths in net/sched/act_skbedit.c: line 164 \n"); 
 	unsigned char *b = skb_tail_pointer(skb);
 	struct tcf_skbedit *d = to_skbedit(a);
 	struct tc_skbedit opt = {
@@ -197,6 +201,7 @@ static int tcf_skbedit_walker(struct net *net, struct sk_buff *skb,
 			      struct netlink_callback *cb, int type,
 			      const struct tc_action_ops *ops)
 {
+	panic("We reached unpopular paths in net/sched/act_skbedit.c: line 204 \n"); 
 	struct tc_action_net *tn = net_generic(net, skbedit_net_id);
 
 	return tcf_generic_walker(tn, skb, cb, type, ops);
@@ -204,6 +209,7 @@ static int tcf_skbedit_walker(struct net *net, struct sk_buff *skb,
 
 static int tcf_skbedit_search(struct net *net, struct tc_action **a, u32 index)
 {
+	panic("We reached unpopular paths in net/sched/act_skbedit.c: line 212 \n"); 
 	struct tc_action_net *tn = net_generic(net, skbedit_net_id);
 
 	return tcf_hash_search(tn, a, index);

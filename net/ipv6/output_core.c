@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPv6 library code, needed by static components when full IPv6 support is
  * not configured or static.  These functions are needed by GSO/GRO implementation.
@@ -14,6 +15,7 @@ static u32 __ipv6_select_ident(struct net *net, u32 hashrnd,
 			       const struct in6_addr *dst,
 			       const struct in6_addr *src)
 {
+	panic("We reached unpopular paths in net/ipv6/output_core.c: line 18 \n"); 
 	u32 hash, id;
 
 	hash = __ipv6_addr_jhash(dst, hashrnd);
@@ -41,6 +43,7 @@ static u32 __ipv6_select_ident(struct net *net, u32 hashrnd,
  */
 void ipv6_proxy_select_ident(struct net *net, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/output_core.c: line 46 \n"); 
 	static u32 ip6_proxy_idents_hashrnd __read_mostly;
 	struct in6_addr buf[2];
 	struct in6_addr *addrs;
@@ -66,6 +69,7 @@ __be32 ipv6_select_ident(struct net *net,
 			 const struct in6_addr *daddr,
 			 const struct in6_addr *saddr)
 {
+	panic("We reached unpopular paths in net/ipv6/output_core.c: line 72 \n"); 
 	static u32 ip6_idents_hashrnd __read_mostly;
 	u32 id;
 
@@ -78,6 +82,7 @@ EXPORT_SYMBOL(ipv6_select_ident);
 
 int ip6_find_1stfragopt(struct sk_buff *skb, u8 **nexthdr)
 {
+	panic("We reached unpopular paths in net/ipv6/output_core.c: line 85 \n"); 
 	unsigned int offset = sizeof(struct ipv6hdr);
 	unsigned int packet_len = skb_tail_pointer(skb) -
 		skb_network_header(skb);

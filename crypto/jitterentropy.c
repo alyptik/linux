@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Non-physical true random number generator based on timing jitter --
  * Jitter RNG standalone code.
@@ -258,6 +259,7 @@ static __u64 jent_fold_time(struct rand_data *ec, __u64 time,
  */
 static unsigned int jent_memaccess(struct rand_data *ec, __u64 loop_cnt)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy.c: line 262 \n"); 
 	unsigned char *tmpval = NULL;
 	unsigned int wrap = 0;
 	__u64 i = 0;
@@ -318,6 +320,7 @@ static unsigned int jent_memaccess(struct rand_data *ec, __u64 loop_cnt)
  */
 static void jent_stuck(struct rand_data *ec, __u64 current_delta)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy.c: line 323 \n"); 
 	__s64 delta2 = ec->last_delta - current_delta;
 	__s64 delta3 = delta2 - ec->last_delta2;
 
@@ -345,6 +348,7 @@ static void jent_stuck(struct rand_data *ec, __u64 current_delta)
  */
 static __u64 jent_measure_jitter(struct rand_data *ec)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy.c: line 351 \n"); 
 	__u64 time = 0;
 	__u64 data = 0;
 	__u64 current_delta = 0;
@@ -388,6 +392,7 @@ static __u64 jent_measure_jitter(struct rand_data *ec)
  */
 static __u64 jent_unbiased_bit(struct rand_data *entropy_collector)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy.c: line 395 \n"); 
 	do {
 		__u64 a = jent_measure_jitter(entropy_collector);
 		__u64 b = jent_measure_jitter(entropy_collector);
@@ -420,6 +425,7 @@ static __u64 jent_unbiased_bit(struct rand_data *entropy_collector)
  */
 static void jent_stir_pool(struct rand_data *entropy_collector)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy.c: line 428 \n"); 
 	/*
 	 * to shut up GCC on 32 bit, we have to initialize the 64 variable
 	 * with two 32 bit variables
@@ -474,6 +480,7 @@ static void jent_stir_pool(struct rand_data *entropy_collector)
  */
 static void jent_gen_entropy(struct rand_data *ec)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy.c: line 483 \n"); 
 	unsigned int k = 0;
 
 	/* priming of the ->prev_time value */
@@ -544,6 +551,7 @@ static void jent_gen_entropy(struct rand_data *ec)
  */
 static void jent_fips_test(struct rand_data *ec)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy.c: line 554 \n"); 
 	if (!jent_fips_enabled())
 		return;
 
@@ -584,6 +592,7 @@ static void jent_fips_test(struct rand_data *ec)
 int jent_read_entropy(struct rand_data *ec, unsigned char *data,
 		      unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy.c: line 595 \n"); 
 	unsigned char *p = data;
 
 	if (!ec)
@@ -614,6 +623,7 @@ int jent_read_entropy(struct rand_data *ec, unsigned char *data,
 struct rand_data *jent_entropy_collector_alloc(unsigned int osr,
 					       unsigned int flags)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy.c: line 626 \n"); 
 	struct rand_data *entropy_collector;
 
 	entropy_collector = jent_zalloc(sizeof(struct rand_data));
@@ -653,6 +663,7 @@ struct rand_data *jent_entropy_collector_alloc(unsigned int osr,
 
 void jent_entropy_collector_free(struct rand_data *entropy_collector)
 {
+	panic("We reached unpopular paths in crypto/jitterentropy.c: line 666 \n"); 
 	jent_zfree(entropy_collector->mem);
 	entropy_collector->mem = NULL;
 	jent_zfree(entropy_collector);

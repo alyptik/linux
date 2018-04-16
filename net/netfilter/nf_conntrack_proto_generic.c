@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* (C) 1999-2001 Paul `Rusty' Russell
  * (C) 2002-2004 Netfilter Core Team <coreteam@netfilter.org>
  *
@@ -16,6 +17,7 @@ static unsigned int nf_ct_generic_timeout __read_mostly = 600*HZ;
 
 static bool nf_generic_should_process(u8 proto)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_generic.c: line 20 \n"); 
 	switch (proto) {
 #ifdef CONFIG_NF_CT_PROTO_SCTP_MODULE
 	case IPPROTO_SCTP:
@@ -40,6 +42,7 @@ static bool nf_generic_should_process(u8 proto)
 
 static inline struct nf_generic_net *generic_pernet(struct net *net)
 {
+// [blacklist] 	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_generic.c: line 45 \n"); 
 	return &net->ct.nf_ct_proto.generic;
 }
 
@@ -47,6 +50,7 @@ static bool generic_pkt_to_tuple(const struct sk_buff *skb,
 				 unsigned int dataoff,
 				 struct net *net, struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_generic.c: line 53 \n"); 
 	tuple->src.u.all = 0;
 	tuple->dst.u.all = 0;
 
@@ -56,6 +60,7 @@ static bool generic_pkt_to_tuple(const struct sk_buff *skb,
 static bool generic_invert_tuple(struct nf_conntrack_tuple *tuple,
 				 const struct nf_conntrack_tuple *orig)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_generic.c: line 63 \n"); 
 	tuple->src.u.all = 0;
 	tuple->dst.u.all = 0;
 
@@ -66,10 +71,12 @@ static bool generic_invert_tuple(struct nf_conntrack_tuple *tuple,
 static void generic_print_tuple(struct seq_file *s,
 				const struct nf_conntrack_tuple *tuple)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_generic.c: line 74 \n"); 
 }
 
 static unsigned int *generic_get_timeouts(struct net *net)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_generic.c: line 79 \n"); 
 	return &(generic_pernet(net)->timeout);
 }
 
@@ -82,6 +89,7 @@ static int generic_packet(struct nf_conn *ct,
 			  unsigned int hooknum,
 			  unsigned int *timeout)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_generic.c: line 92 \n"); 
 	nf_ct_refresh_acct(ct, ctinfo, skb, *timeout);
 	return NF_ACCEPT;
 }
@@ -90,6 +98,7 @@ static int generic_packet(struct nf_conn *ct,
 static bool generic_new(struct nf_conn *ct, const struct sk_buff *skb,
 			unsigned int dataoff, unsigned int *timeouts)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_conntrack_proto_generic.c: line 101 \n"); 
 	bool ret;
 
 	ret = nf_generic_should_process(nf_ct_protonum(ct));

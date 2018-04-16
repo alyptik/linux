@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2008-2009 Patrick McHardy <kaber@trash.net>
  *
@@ -28,6 +29,7 @@ static void nft_cmp_eval(const struct nft_expr *expr,
 			 struct nft_regs *regs,
 			 const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_cmp.c: line 32 \n"); 
 	const struct nft_cmp_expr *priv = nft_expr_priv(expr);
 	int d;
 
@@ -71,6 +73,7 @@ static const struct nla_policy nft_cmp_policy[NFTA_CMP_MAX + 1] = {
 static int nft_cmp_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
 			const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_cmp.c: line 76 \n"); 
 	struct nft_cmp_expr *priv = nft_expr_priv(expr);
 	struct nft_data_desc desc;
 	int err;
@@ -94,6 +97,7 @@ static int nft_cmp_init(const struct nft_ctx *ctx, const struct nft_expr *expr,
 
 static int nft_cmp_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_cmp.c: line 100 \n"); 
 	const struct nft_cmp_expr *priv = nft_expr_priv(expr);
 
 	if (nft_dump_register(skb, NFTA_CMP_SREG, priv->sreg))
@@ -123,6 +127,7 @@ static int nft_cmp_fast_init(const struct nft_ctx *ctx,
 			     const struct nft_expr *expr,
 			     const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_cmp.c: line 130 \n"); 
 	struct nft_cmp_fast_expr *priv = nft_expr_priv(expr);
 	struct nft_data_desc desc;
 	struct nft_data data;
@@ -148,6 +153,7 @@ static int nft_cmp_fast_init(const struct nft_ctx *ctx,
 
 static int nft_cmp_fast_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_cmp.c: line 156 \n"); 
 	const struct nft_cmp_fast_expr *priv = nft_expr_priv(expr);
 	struct nft_data data;
 
@@ -177,6 +183,7 @@ const struct nft_expr_ops nft_cmp_fast_ops = {
 static const struct nft_expr_ops *
 nft_cmp_select_ops(const struct nft_ctx *ctx, const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_cmp.c: line 186 \n"); 
 	struct nft_data_desc desc;
 	struct nft_data data;
 	enum nft_cmp_ops op;
@@ -226,5 +233,6 @@ int __init nft_cmp_module_init(void)
 
 void nft_cmp_module_exit(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_cmp.c: line 236 \n"); 
 	nft_unregister_expr(&nft_cmp_type);
 }

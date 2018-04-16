@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Functions related to setting various queue properties from drivers
  */

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  linux/fs/vfat/namei.c
  *
@@ -23,12 +24,14 @@
 
 static inline unsigned long vfat_d_version(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 27 \n"); 
 	return (unsigned long) dentry->d_fsdata;
 }
 
 static inline void vfat_d_version_set(struct dentry *dentry,
 				      unsigned long version)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 34 \n"); 
 	dentry->d_fsdata = (void *) version;
 }
 
@@ -42,6 +45,7 @@ static inline void vfat_d_version_set(struct dentry *dentry,
  */
 static int vfat_revalidate_shortname(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 48 \n"); 
 	int ret = 1;
 	spin_lock(&dentry->d_lock);
 	if (vfat_d_version(dentry) != d_inode(dentry->d_parent)->i_version)
@@ -52,6 +56,7 @@ static int vfat_revalidate_shortname(struct dentry *dentry)
 
 static int vfat_revalidate(struct dentry *dentry, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 59 \n"); 
 	if (flags & LOOKUP_RCU)
 		return -ECHILD;
 
@@ -63,6 +68,7 @@ static int vfat_revalidate(struct dentry *dentry, unsigned int flags)
 
 static int vfat_revalidate_ci(struct dentry *dentry, unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 71 \n"); 
 	if (flags & LOOKUP_RCU)
 		return -ECHILD;
 
@@ -100,6 +106,7 @@ static int vfat_revalidate_ci(struct dentry *dentry, unsigned int flags)
 /* returns the length of a struct qstr, ignoring trailing dots */
 static unsigned int __vfat_striptail_len(unsigned int len, const char *name)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 109 \n"); 
 	while (len && name[len - 1] == '.')
 		len--;
 	return len;
@@ -107,6 +114,7 @@ static unsigned int __vfat_striptail_len(unsigned int len, const char *name)
 
 static unsigned int vfat_striptail_len(const struct qstr *qstr)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 117 \n"); 
 	return __vfat_striptail_len(qstr->len, qstr->name);
 }
 
@@ -118,6 +126,7 @@ static unsigned int vfat_striptail_len(const struct qstr *qstr)
  */
 static int vfat_hash(const struct dentry *dentry, struct qstr *qstr)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 129 \n"); 
 	qstr->hash = full_name_hash(dentry, qstr->name, vfat_striptail_len(qstr));
 	return 0;
 }
@@ -130,6 +139,7 @@ static int vfat_hash(const struct dentry *dentry, struct qstr *qstr)
  */
 static int vfat_hashi(const struct dentry *dentry, struct qstr *qstr)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 142 \n"); 
 	struct nls_table *t = MSDOS_SB(dentry->d_sb)->nls_io;
 	const unsigned char *name;
 	unsigned int len;
@@ -152,6 +162,7 @@ static int vfat_hashi(const struct dentry *dentry, struct qstr *qstr)
 static int vfat_cmpi(const struct dentry *dentry,
 		unsigned int len, const char *str, const struct qstr *name)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 165 \n"); 
 	struct nls_table *t = MSDOS_SB(dentry->d_sb)->nls_io;
 	unsigned int alen, blen;
 
@@ -171,6 +182,7 @@ static int vfat_cmpi(const struct dentry *dentry,
 static int vfat_cmp(const struct dentry *dentry,
 		unsigned int len, const char *str, const struct qstr *name)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 185 \n"); 
 	unsigned int alen, blen;
 
 	/* A filename cannot end in '.' or we treat it like it has none */
@@ -199,6 +211,7 @@ static const struct dentry_operations vfat_dentry_ops = {
 
 static inline wchar_t vfat_bad_char(wchar_t w)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 214 \n"); 
 	return (w < 0x0020)
 	    || (w == '*') || (w == '?') || (w == '<') || (w == '>')
 	    || (w == '|') || (w == '"') || (w == ':') || (w == '/')
@@ -207,17 +220,20 @@ static inline wchar_t vfat_bad_char(wchar_t w)
 
 static inline wchar_t vfat_replace_char(wchar_t w)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 223 \n"); 
 	return (w == '[') || (w == ']') || (w == ';') || (w == ',')
 	    || (w == '+') || (w == '=');
 }
 
 static wchar_t vfat_skip_char(wchar_t w)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 230 \n"); 
 	return (w == '.') || (w == ' ');
 }
 
 static inline int vfat_is_used_badchars(const wchar_t *s, int len)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 236 \n"); 
 	int i;
 
 	for (i = 0; i < len; i++)
@@ -232,6 +248,7 @@ static inline int vfat_is_used_badchars(const wchar_t *s, int len)
 
 static int vfat_find_form(struct inode *dir, unsigned char *name)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 251 \n"); 
 	struct fat_slot_info sinfo;
 	int err = fat_scan(dir, name, &sinfo);
 	if (err)
@@ -275,6 +292,7 @@ static inline int to_shortname_char(struct nls_table *nls,
 				    unsigned char *buf, int buf_size,
 				    wchar_t *src, struct shortname_info *info)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 295 \n"); 
 	int len;
 
 	if (vfat_skip_char(*src)) {
@@ -325,6 +343,7 @@ static int vfat_create_shortname(struct inode *dir, struct nls_table *nls,
 				 wchar_t *uname, int ulen,
 				 unsigned char *name_res, unsigned char *lcase)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 346 \n"); 
 	struct fat_mount_options *opts = &MSDOS_SB(dir->i_sb)->options;
 	wchar_t *ip, *ext_start, *end, *name_start;
 	unsigned char base[9], ext[4], buf[5], *p;
@@ -509,6 +528,7 @@ xlate_to_uni(const unsigned char *name, int len, unsigned char *outname,
 	     int *longlen, int *outlen, int escape, int utf8,
 	     struct nls_table *nls)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 531 \n"); 
 	const unsigned char *ip;
 	unsigned char nc;
 	unsigned char *op;
@@ -591,6 +611,7 @@ static int vfat_build_slots(struct inode *dir, const unsigned char *name,
 			    struct timespec *ts,
 			    struct msdos_dir_slot *slots, int *nr_slots)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 614 \n"); 
 	struct msdos_sb_info *sbi = MSDOS_SB(dir->i_sb);
 	struct fat_mount_options *opts = &sbi->options;
 	struct msdos_dir_slot *ps;
@@ -667,6 +688,7 @@ static int vfat_add_entry(struct inode *dir, const struct qstr *qname,
 			  int is_dir, int cluster, struct timespec *ts,
 			  struct fat_slot_info *sinfo)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 691 \n"); 
 	struct msdos_dir_slot *slots;
 	unsigned int len;
 	int err, nr_slots;
@@ -702,6 +724,7 @@ cleanup:
 static int vfat_find(struct inode *dir, const struct qstr *qname,
 		     struct fat_slot_info *sinfo)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 727 \n"); 
 	unsigned int len = vfat_striptail_len(qname);
 	if (len == 0)
 		return -ENOENT;
@@ -714,12 +737,14 @@ static int vfat_find(struct inode *dir, const struct qstr *qname,
  */
 static int vfat_d_anon_disconn(struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 740 \n"); 
 	return IS_ROOT(dentry) && (dentry->d_flags & DCACHE_DISCONNECTED);
 }
 
 static struct dentry *vfat_lookup(struct inode *dir, struct dentry *dentry,
 				  unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 747 \n"); 
 	struct super_block *sb = dir->i_sb;
 	struct fat_slot_info sinfo;
 	struct inode *inode;
@@ -780,6 +805,7 @@ error:
 static int vfat_create(struct inode *dir, struct dentry *dentry, umode_t mode,
 		       bool excl)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 808 \n"); 
 	struct super_block *sb = dir->i_sb;
 	struct inode *inode;
 	struct fat_slot_info sinfo;
@@ -812,6 +838,7 @@ out:
 
 static int vfat_rmdir(struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 841 \n"); 
 	struct inode *inode = d_inode(dentry);
 	struct super_block *sb = dir->i_sb;
 	struct fat_slot_info sinfo;
@@ -843,6 +870,7 @@ out:
 
 static int vfat_unlink(struct inode *dir, struct dentry *dentry)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 873 \n"); 
 	struct inode *inode = d_inode(dentry);
 	struct super_block *sb = dir->i_sb;
 	struct fat_slot_info sinfo;
@@ -869,6 +897,7 @@ out:
 
 static int vfat_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 900 \n"); 
 	struct super_block *sb = dir->i_sb;
 	struct inode *inode;
 	struct fat_slot_info sinfo;
@@ -917,6 +946,7 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
 		       struct inode *new_dir, struct dentry *new_dentry,
 		       unsigned int flags)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 949 \n"); 
 	struct buffer_head *dotdot_bh;
 	struct msdos_dir_entry *dotdot_de;
 	struct inode *old_inode, *new_inode;
@@ -1058,6 +1088,7 @@ static const struct inode_operations vfat_dir_inode_operations = {
 
 static void setup(struct super_block *sb)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 1091 \n"); 
 	MSDOS_SB(sb)->dir_ops = &vfat_dir_inode_operations;
 	if (MSDOS_SB(sb)->options.name_check != 's')
 		sb->s_d_op = &vfat_ci_dentry_ops;
@@ -1067,6 +1098,7 @@ static void setup(struct super_block *sb)
 
 static int vfat_fill_super(struct super_block *sb, void *data, int silent)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 1101 \n"); 
 	return fat_fill_super(sb, data, silent, 1, setup);
 }
 
@@ -1074,6 +1106,7 @@ static struct dentry *vfat_mount(struct file_system_type *fs_type,
 		       int flags, const char *dev_name,
 		       void *data)
 {
+	panic("We reached unpopular paths in fs/fat/namei_vfat.c: line 1109 \n"); 
 	return mount_bdev(fs_type, flags, dev_name, data, vfat_fill_super);
 }
 

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /* Authentication token and access key management internal defs
  *
  * Copyright (C) 2003-5, 2007 Red Hat, Inc. All Rights Reserved.
@@ -207,6 +208,7 @@ extern struct key *key_get_instantiation_authkey(key_serial_t target_id);
  */
 static inline bool key_is_dead(const struct key *key, time_t limit)
 {
+	panic("We reached unpopular paths in security/keys/internal.h: line 211 \n"); 
 	return
 		key->flags & ((1 << KEY_FLAG_DEAD) |
 			      (1 << KEY_FLAG_INVALIDATED)) ||
@@ -254,6 +256,7 @@ extern unsigned persistent_keyring_expiry;
 #else
 static inline long keyctl_get_persistent(uid_t uid, key_serial_t destring)
 {
+	panic("We reached unpopular paths in security/keys/internal.h: line 259 \n"); 
 	return -EOPNOTSUPP;
 }
 #endif

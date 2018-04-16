@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -62,6 +63,7 @@ EXPORT_SYMBOL(inet6_add_offload);
 
 int inet6_del_offload(const struct net_offload *prot, unsigned char protocol)
 {
+	panic("We reached unpopular paths in net/ipv6/protocol.c: line 66 \n"); 
 	int ret;
 
 	ret = (cmpxchg((const struct net_offload **)&inet6_offloads[protocol],

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * /proc/sys support
  */
@@ -27,17 +28,20 @@ struct ctl_table sysctl_mount_point[] = {
 
 static bool is_empty_dir(struct ctl_table_header *head)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/proc/proc_sysctl.c: line 31 \n"); 
 	return head->ctl_table[0].child == sysctl_mount_point;
 }
 
 static void set_empty_dir(struct ctl_dir *dir)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/proc/proc_sysctl.c: line 37 \n"); 
 	dir->header.ctl_table[0].child = sysctl_mount_point;
 }
 
 static void clear_empty_dir(struct ctl_dir *dir)
 
 {
+	panic("We reached unpopular paths in fs/proc/proc_sysctl.c: line 44 \n"); 
 	dir->header.ctl_table[0].child = NULL;
 }
 
@@ -78,6 +82,7 @@ static void put_links(struct ctl_table_header *header);
 
 static void sysctl_print_dir(struct ctl_dir *dir)
 {
+	panic("We reached unpopular paths in fs/proc/proc_sysctl.c: line 85 \n"); 
 	if (dir->header.parent)
 		sysctl_print_dir(dir->header.parent);
 	pr_cont("%s/", dir->header.ctl_table[0].procname);
@@ -346,6 +351,7 @@ static struct ctl_table *lookup_entry(struct ctl_table_header **phead,
 
 static struct ctl_node *first_usable_entry(struct rb_node *node)
 {
+	panic("We reached unpopular paths in fs/proc/proc_sysctl.c: line 354 \n"); 
 	struct ctl_node *ctl_node;
 
 	for (;node; node = rb_next(node)) {
@@ -359,6 +365,7 @@ static struct ctl_node *first_usable_entry(struct rb_node *node)
 static void first_entry(struct ctl_dir *dir,
 	struct ctl_table_header **phead, struct ctl_table **pentry)
 {
+	panic("We reached unpopular paths in fs/proc/proc_sysctl.c: line 368 \n"); 
 	struct ctl_table_header *head = NULL;
 	struct ctl_table *entry = NULL;
 	struct ctl_node *ctl_node;
@@ -376,6 +383,7 @@ static void first_entry(struct ctl_dir *dir,
 
 static void next_entry(struct ctl_table_header **phead, struct ctl_table **pentry)
 {
+	panic("We reached unpopular paths in fs/proc/proc_sysctl.c: line 386 \n"); 
 	struct ctl_table_header *head = *phead;
 	struct ctl_table *entry = *pentry;
 	struct ctl_node *ctl_node = &head->node[entry - head->ctl_table];
@@ -620,6 +628,7 @@ static bool proc_sys_fill_cache(struct file *file,
 				struct ctl_table_header *head,
 				struct ctl_table *table)
 {
+	panic("We reached unpopular paths in fs/proc/proc_sysctl.c: line 631 \n"); 
 	struct dentry *child, *dir = file->f_path.dentry;
 	struct inode *inode;
 	struct qstr qname;
@@ -659,6 +668,7 @@ static bool proc_sys_link_fill_cache(struct file *file,
 				    struct ctl_table_header *head,
 				    struct ctl_table *table)
 {
+	panic("We reached unpopular paths in fs/proc/proc_sysctl.c: line 671 \n"); 
 	bool ret = true;
 	head = sysctl_head_grab(head);
 
@@ -679,6 +689,7 @@ static int scan(struct ctl_table_header *head, struct ctl_table *table,
 		unsigned long *pos, struct file *file,
 		struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/proc_sysctl.c: line 692 \n"); 
 	bool res;
 
 	if ((*pos)++ < ctx->pos)
@@ -697,6 +708,7 @@ static int scan(struct ctl_table_header *head, struct ctl_table *table,
 
 static int proc_sys_readdir(struct file *file, struct dir_context *ctx)
 {
+	panic("We reached unpopular paths in fs/proc/proc_sysctl.c: line 711 \n"); 
 	struct ctl_table_header *head = grab_header(file_inode(file));
 	struct ctl_table_header *h = NULL;
 	struct ctl_table *entry;
@@ -1017,6 +1029,7 @@ static int sysctl_follow_link(struct ctl_table_header **phead,
 
 static int sysctl_err(const char *path, struct ctl_table *table, char *fmt, ...)
 {
+	panic("We reached unpopular paths in fs/proc/proc_sysctl.c: line 1032 \n"); 
 	struct va_format vaf;
 	va_list args;
 

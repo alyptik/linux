@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  ebt_stp
  *
@@ -43,6 +44,7 @@ struct stp_config_pdu {
 static bool ebt_filter_config(const struct ebt_stp_info *info,
 			      const struct stp_config_pdu *stpc)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_stp.c: line 47 \n"); 
 	const struct ebt_stp_config_info *c;
 	u16 v16;
 	u32 v32;
@@ -119,6 +121,7 @@ static bool ebt_filter_config(const struct ebt_stp_info *info,
 static bool
 ebt_stp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_stp.c: line 124 \n"); 
 	const struct ebt_stp_info *info = par->matchinfo;
 	const struct stp_header *sp;
 	struct stp_header _stph;
@@ -152,6 +155,7 @@ ebt_stp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int ebt_stp_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/bridge/netfilter/ebt_stp.c: line 158 \n"); 
 	const struct ebt_stp_info *info = par->matchinfo;
 	const u8 bridge_ula[6] = {0x01, 0x80, 0xc2, 0x00, 0x00, 0x00};
 	const u8 msk[6] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};

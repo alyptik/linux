@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 #include <linux/module.h>
 #include <linux/skbuff.h>
@@ -26,6 +27,7 @@ match_flags(const struct xt_sctp_flag_info *flag_info,
 	    u_int8_t chunktype,
 	    u_int8_t chunkflags)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_sctp.c: line 30 \n"); 
 	int i;
 
 	for (i = 0; i < flag_count; i++)
@@ -41,6 +43,7 @@ match_packet(const struct sk_buff *skb,
 	     const struct xt_sctp_info *info,
 	     bool *hotdrop)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_sctp.c: line 46 \n"); 
 	u_int32_t chunkmapcopy[256 / sizeof (u_int32_t)];
 	const sctp_chunkhdr_t *sch;
 	sctp_chunkhdr_t _sch;
@@ -117,6 +120,7 @@ match_packet(const struct sk_buff *skb,
 static bool
 sctp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_sctp.c: line 123 \n"); 
 	const struct xt_sctp_info *info = par->matchinfo;
 	const sctp_sctphdr_t *sh;
 	sctp_sctphdr_t _sh;
@@ -147,6 +151,7 @@ sctp_mt(const struct sk_buff *skb, struct xt_action_param *par)
 
 static int sctp_mt_check(const struct xt_mtchk_param *par)
 {
+	panic("We reached unpopular paths in net/netfilter/xt_sctp.c: line 154 \n"); 
 	const struct xt_sctp_info *info = par->matchinfo;
 
 	if (info->flags & ~XT_SCTP_VALID_FLAGS)

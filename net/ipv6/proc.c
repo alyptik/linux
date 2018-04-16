@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * INET		An implementation of the TCP/IP protocol suite for the LINUX
  *		operating system.  INET is implemented using the  BSD Socket
@@ -37,6 +38,7 @@
 
 static int sockstat6_seq_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/ipv6/proc.c: line 41 \n"); 
 	struct net *net = seq->private;
 	unsigned int frag_mem = ip6_frag_mem(net);
 
@@ -54,6 +56,7 @@ static int sockstat6_seq_show(struct seq_file *seq, void *v)
 
 static int sockstat6_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/ipv6/proc.c: line 59 \n"); 
 	return single_open_net(inode, file, sockstat6_seq_show);
 }
 
@@ -158,6 +161,7 @@ static const struct snmp_mib snmp6_udplite6_list[] = {
 
 static void snmp6_seq_show_icmpv6msg(struct seq_file *seq, atomic_long_t *smib)
 {
+	panic("We reached unpopular paths in net/ipv6/proc.c: line 164 \n"); 
 	char name[32];
 	int i;
 
@@ -228,6 +232,7 @@ static void snmp6_seq_show_item64(struct seq_file *seq, void __percpu *mib,
 
 static int snmp6_seq_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/ipv6/proc.c: line 235 \n"); 
 	struct net *net = (struct net *)seq->private;
 
 	snmp6_seq_show_item64(seq, net->mib.ipv6_statistics,
@@ -244,6 +249,7 @@ static int snmp6_seq_show(struct seq_file *seq, void *v)
 
 static int snmp6_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/ipv6/proc.c: line 252 \n"); 
 	return single_open_net(inode, file, snmp6_seq_show);
 }
 
@@ -257,6 +263,7 @@ static const struct file_operations snmp6_seq_fops = {
 
 static int snmp6_dev_seq_show(struct seq_file *seq, void *v)
 {
+	panic("We reached unpopular paths in net/ipv6/proc.c: line 266 \n"); 
 	struct inet6_dev *idev = (struct inet6_dev *)seq->private;
 
 	seq_printf(seq, "%-32s\t%u\n", "ifIndex", idev->dev->ifindex);
@@ -270,6 +277,7 @@ static int snmp6_dev_seq_show(struct seq_file *seq, void *v)
 
 static int snmp6_dev_seq_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in net/ipv6/proc.c: line 280 \n"); 
 	return single_open(file, snmp6_dev_seq_show, PDE_DATA(inode));
 }
 
@@ -355,6 +363,7 @@ int __init ipv6_misc_proc_init(void)
 
 void ipv6_misc_proc_exit(void)
 {
+	panic("We reached unpopular paths in net/ipv6/proc.c: line 366 \n"); 
 	unregister_pernet_subsys(&ipv6_proc_ops);
 }
 

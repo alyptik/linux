@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2012-2014 Patrick McHardy <kaber@trash.net>
  *
@@ -18,6 +19,7 @@
 
 static void nft_inet_hook_ops_init(struct nf_hook_ops *ops, unsigned int n)
 {
+	panic("We reached unpopular paths in net/netfilter/nf_tables_inet.c: line 22 \n"); 
 	struct nft_af_info *afi;
 
 	if (n == 1)

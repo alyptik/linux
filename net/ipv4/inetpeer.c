@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *		INETPEER - A storage for permanent information about peers
  *
@@ -86,6 +87,7 @@ int inet_peer_maxttl __read_mostly = 10 * 60 * HZ;	/* usual time to live: 10 min
 
 static void inetpeer_gc_worker(struct work_struct *work)
 {
+	panic("We reached unpopular paths in net/ipv4/inetpeer.c: line 90 \n"); 
 	struct inet_peer *p, *n, *c;
 	struct list_head list;
 
@@ -195,6 +197,7 @@ void __init inet_initpeers(void)
 static struct inet_peer *lookup_rcu(const struct inetpeer_addr *daddr,
 				    struct inet_peer_base *base)
 {
+	panic("We reached unpopular paths in net/ipv4/inetpeer.c: line 200 \n"); 
 	struct inet_peer *u = rcu_dereference(base->root);
 	int count = 0;
 
@@ -328,6 +331,7 @@ do {								\
 
 static void inetpeer_free_rcu(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/ipv4/inetpeer.c: line 334 \n"); 
 	kmem_cache_free(peer_cachep, container_of(head, struct inet_peer, rcu));
 }
 
@@ -404,6 +408,7 @@ struct inet_peer *inet_getpeer(struct inet_peer_base *base,
 			       const struct inetpeer_addr *daddr,
 			       int create)
 {
+	panic("We reached unpopular paths in net/ipv4/inetpeer.c: line 411 \n"); 
 	struct inet_peer __rcu **stack[PEER_MAXDEPTH], ***stackptr;
 	struct inet_peer *p;
 	unsigned int sequence;
@@ -466,6 +471,7 @@ EXPORT_SYMBOL_GPL(inet_getpeer);
 
 void inet_putpeer(struct inet_peer *p)
 {
+	panic("We reached unpopular paths in net/ipv4/inetpeer.c: line 474 \n"); 
 	p->dtime = (__u32)jiffies;
 	smp_mb__before_atomic();
 	atomic_dec(&p->refcnt);
@@ -492,6 +498,7 @@ EXPORT_SYMBOL_GPL(inet_putpeer);
 #define XRLIM_BURST_FACTOR 6
 bool inet_peer_xrlim_allow(struct inet_peer *peer, int timeout)
 {
+	panic("We reached unpopular paths in net/ipv4/inetpeer.c: line 501 \n"); 
 	unsigned long now, token;
 	bool rc = false;
 
@@ -515,6 +522,7 @@ EXPORT_SYMBOL(inet_peer_xrlim_allow);
 
 static void inetpeer_inval_rcu(struct rcu_head *head)
 {
+	panic("We reached unpopular paths in net/ipv4/inetpeer.c: line 525 \n"); 
 	struct inet_peer *p = container_of(head, struct inet_peer, gc_rcu);
 
 	spin_lock_bh(&gc_lock);

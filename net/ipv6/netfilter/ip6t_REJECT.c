@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IP6 tables REJECT target module
  * Linux INET6 implementation
@@ -38,6 +39,7 @@ MODULE_LICENSE("GPL");
 static unsigned int
 reject_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_REJECT.c: line 42 \n"); 
 	const struct ip6t_reject_info *reject = par->targinfo;
 	struct net *net = par->net;
 
@@ -76,6 +78,7 @@ reject_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 
 static int reject_tg6_check(const struct xt_tgchk_param *par)
 {
+	panic("We reached unpopular paths in net/ipv6/netfilter/ip6t_REJECT.c: line 81 \n"); 
 	const struct ip6t_reject_info *rejinfo = par->targinfo;
 	const struct ip6t_entry *e = par->entryinfo;
 

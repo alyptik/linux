@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Common Block IO controller cgroup interface
  *
@@ -63,6 +64,7 @@ static bool blkcg_policy_enabled(struct request_queue *q,
  */
 static void blkg_free(struct blkcg_gq *blkg)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 67 \n"); 
 	int i;
 
 	if (!blkg)
@@ -142,6 +144,7 @@ err_free:
 struct blkcg_gq *blkg_lookup_slowpath(struct blkcg *blkcg,
 				      struct request_queue *q, bool update_hint)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 147 \n"); 
 	struct blkcg_gq *blkg;
 
 	/*
@@ -270,6 +273,7 @@ err_free_blkg:
 struct blkcg_gq *blkg_lookup_create(struct blkcg *blkcg,
 				    struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 276 \n"); 
 	struct blkcg_gq *blkg;
 
 	WARN_ON_ONCE(!rcu_read_lock_held());
@@ -307,6 +311,7 @@ struct blkcg_gq *blkg_lookup_create(struct blkcg *blkcg,
 
 static void blkg_destroy(struct blkcg_gq *blkg)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 314 \n"); 
 	struct blkcg *blkcg = blkg->blkcg;
 	struct blkcg_gq *parent = blkg->parent;
 	int i;
@@ -359,6 +364,7 @@ static void blkg_destroy(struct blkcg_gq *blkg)
  */
 static void blkg_destroy_all(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 367 \n"); 
 	struct blkcg_gq *blkg, *n;
 
 	lockdep_assert_held(q->queue_lock);
@@ -385,6 +391,7 @@ static void blkg_destroy_all(struct request_queue *q)
  */
 void __blkg_release_rcu(struct rcu_head *rcu_head)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 394 \n"); 
 	struct blkcg_gq *blkg = container_of(rcu_head, struct blkcg_gq, rcu_head);
 
 	/* release the blkcg and parent blkg refs this blkg has been holding */
@@ -405,6 +412,7 @@ EXPORT_SYMBOL_GPL(__blkg_release_rcu);
 struct request_list *__blk_queue_next_rl(struct request_list *rl,
 					 struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 415 \n"); 
 	struct list_head *ent;
 	struct blkcg_gq *blkg;
 
@@ -436,6 +444,7 @@ struct request_list *__blk_queue_next_rl(struct request_list *rl,
 static int blkcg_reset_stats(struct cgroup_subsys_state *css,
 			     struct cftype *cftype, u64 val)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 447 \n"); 
 	struct blkcg *blkcg = css_to_blkcg(css);
 	struct blkcg_gq *blkg;
 	int i;
@@ -467,6 +476,7 @@ static int blkcg_reset_stats(struct cgroup_subsys_state *css,
 
 const char *blkg_dev_name(struct blkcg_gq *blkg)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 479 \n"); 
 	/* some drivers (floppy) instantiate a queue w/o disk registered */
 	if (blkg->q->backing_dev_info.dev)
 		return dev_name(blkg->q->backing_dev_info.dev);
@@ -498,6 +508,7 @@ void blkcg_print_blkgs(struct seq_file *sf, struct blkcg *blkcg,
 		       const struct blkcg_policy *pol, int data,
 		       bool show_total)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 511 \n"); 
 	struct blkcg_gq *blkg;
 	u64 total = 0;
 
@@ -525,6 +536,7 @@ EXPORT_SYMBOL_GPL(blkcg_print_blkgs);
  */
 u64 __blkg_prfill_u64(struct seq_file *sf, struct blkg_policy_data *pd, u64 v)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 539 \n"); 
 	const char *dname = blkg_dev_name(pd->blkg);
 
 	if (!dname)
@@ -546,6 +558,7 @@ EXPORT_SYMBOL_GPL(__blkg_prfill_u64);
 u64 __blkg_prfill_rwstat(struct seq_file *sf, struct blkg_policy_data *pd,
 			 const struct blkg_rwstat *rwstat)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 561 \n"); 
 	static const char *rwstr[] = {
 		[BLKG_RWSTAT_READ]	= "Read",
 		[BLKG_RWSTAT_WRITE]	= "Write",
@@ -580,6 +593,7 @@ EXPORT_SYMBOL_GPL(__blkg_prfill_rwstat);
  */
 u64 blkg_prfill_stat(struct seq_file *sf, struct blkg_policy_data *pd, int off)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 596 \n"); 
 	return __blkg_prfill_u64(sf, pd, blkg_stat_read((void *)pd + off));
 }
 EXPORT_SYMBOL_GPL(blkg_prfill_stat);
@@ -595,6 +609,7 @@ EXPORT_SYMBOL_GPL(blkg_prfill_stat);
 u64 blkg_prfill_rwstat(struct seq_file *sf, struct blkg_policy_data *pd,
 		       int off)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 612 \n"); 
 	struct blkg_rwstat rwstat = blkg_rwstat_read((void *)pd + off);
 
 	return __blkg_prfill_rwstat(sf, pd, &rwstat);
@@ -604,6 +619,7 @@ EXPORT_SYMBOL_GPL(blkg_prfill_rwstat);
 static u64 blkg_prfill_rwstat_field(struct seq_file *sf,
 				    struct blkg_policy_data *pd, int off)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 622 \n"); 
 	struct blkg_rwstat rwstat = blkg_rwstat_read((void *)pd->blkg + off);
 
 	return __blkg_prfill_rwstat(sf, pd, &rwstat);
@@ -619,6 +635,7 @@ static u64 blkg_prfill_rwstat_field(struct seq_file *sf,
  */
 int blkg_print_stat_bytes(struct seq_file *sf, void *v)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 638 \n"); 
 	blkcg_print_blkgs(sf, css_to_blkcg(seq_css(sf)),
 			  blkg_prfill_rwstat_field, (void *)seq_cft(sf)->private,
 			  offsetof(struct blkcg_gq, stat_bytes), true);
@@ -636,6 +653,7 @@ EXPORT_SYMBOL_GPL(blkg_print_stat_bytes);
  */
 int blkg_print_stat_ios(struct seq_file *sf, void *v)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 656 \n"); 
 	blkcg_print_blkgs(sf, css_to_blkcg(seq_css(sf)),
 			  blkg_prfill_rwstat_field, (void *)seq_cft(sf)->private,
 			  offsetof(struct blkcg_gq, stat_ios), true);
@@ -647,6 +665,7 @@ static u64 blkg_prfill_rwstat_field_recursive(struct seq_file *sf,
 					      struct blkg_policy_data *pd,
 					      int off)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 668 \n"); 
 	struct blkg_rwstat rwstat = blkg_rwstat_recursive_sum(pd->blkg,
 							      NULL, off);
 	return __blkg_prfill_rwstat(sf, pd, &rwstat);
@@ -659,6 +678,7 @@ static u64 blkg_prfill_rwstat_field_recursive(struct seq_file *sf,
  */
 int blkg_print_stat_bytes_recursive(struct seq_file *sf, void *v)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 681 \n"); 
 	blkcg_print_blkgs(sf, css_to_blkcg(seq_css(sf)),
 			  blkg_prfill_rwstat_field_recursive,
 			  (void *)seq_cft(sf)->private,
@@ -674,6 +694,7 @@ EXPORT_SYMBOL_GPL(blkg_print_stat_bytes_recursive);
  */
 int blkg_print_stat_ios_recursive(struct seq_file *sf, void *v)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 697 \n"); 
 	blkcg_print_blkgs(sf, css_to_blkcg(seq_css(sf)),
 			  blkg_prfill_rwstat_field_recursive,
 			  (void *)seq_cft(sf)->private,
@@ -698,6 +719,7 @@ EXPORT_SYMBOL_GPL(blkg_print_stat_ios_recursive);
 u64 blkg_stat_recursive_sum(struct blkcg_gq *blkg,
 			    struct blkcg_policy *pol, int off)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 722 \n"); 
 	struct blkcg_gq *pos_blkg;
 	struct cgroup_subsys_state *pos_css;
 	u64 sum = 0;
@@ -740,6 +762,7 @@ EXPORT_SYMBOL_GPL(blkg_stat_recursive_sum);
 struct blkg_rwstat blkg_rwstat_recursive_sum(struct blkcg_gq *blkg,
 					     struct blkcg_policy *pol, int off)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 765 \n"); 
 	struct blkcg_gq *pos_blkg;
 	struct cgroup_subsys_state *pos_css;
 	struct blkg_rwstat sum = { };
@@ -868,6 +891,7 @@ EXPORT_SYMBOL_GPL(blkg_conf_finish);
 
 static int blkcg_print_stat(struct seq_file *sf, void *v)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 894 \n"); 
 	struct blkcg *blkcg = css_to_blkcg(seq_css(sf));
 	struct blkcg_gq *blkg;
 
@@ -1103,6 +1127,7 @@ int blkcg_init_queue(struct request_queue *q)
  */
 void blkcg_drain_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 1130 \n"); 
 	lockdep_assert_held(q->queue_lock);
 
 	/*
@@ -1123,6 +1148,7 @@ void blkcg_drain_queue(struct request_queue *q)
  */
 void blkcg_exit_queue(struct request_queue *q)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 1151 \n"); 
 	spin_lock_irq(q->queue_lock);
 	blkg_destroy_all(q);
 	spin_unlock_irq(q->queue_lock);
@@ -1278,6 +1304,7 @@ EXPORT_SYMBOL_GPL(blkcg_activate_policy);
 void blkcg_deactivate_policy(struct request_queue *q,
 			     const struct blkcg_policy *pol)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 1307 \n"); 
 	struct blkcg_gq *blkg;
 
 	if (!blkcg_policy_enabled(q, pol))
@@ -1387,6 +1414,7 @@ EXPORT_SYMBOL_GPL(blkcg_policy_register);
  */
 void blkcg_policy_unregister(struct blkcg_policy *pol)
 {
+	panic("We reached unpopular paths in block/blk-cgroup.c: line 1417 \n"); 
 	struct blkcg *blkcg;
 
 	mutex_lock(&blkcg_pol_register_mutex);

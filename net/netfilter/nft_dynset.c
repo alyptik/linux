@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Copyright (c) 2015 Patrick McHardy <kaber@trash.net>
  *
@@ -31,6 +32,7 @@ struct nft_dynset {
 static void *nft_dynset_new(struct nft_set *set, const struct nft_expr *expr,
 			    struct nft_regs *regs)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_dynset.c: line 35 \n"); 
 	const struct nft_dynset *priv = nft_expr_priv(expr);
 	struct nft_set_ext *ext;
 	u64 timeout;
@@ -66,6 +68,7 @@ static void nft_dynset_eval(const struct nft_expr *expr,
 			    struct nft_regs *regs,
 			    const struct nft_pktinfo *pkt)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_dynset.c: line 71 \n"); 
 	const struct nft_dynset *priv = nft_expr_priv(expr);
 	struct nft_set *set = priv->set;
 	const struct nft_set_ext *ext;
@@ -112,6 +115,7 @@ static int nft_dynset_init(const struct nft_ctx *ctx,
 			   const struct nft_expr *expr,
 			   const struct nlattr * const tb[])
 {
+	panic("We reached unpopular paths in net/netfilter/nft_dynset.c: line 118 \n"); 
 	struct nft_dynset *priv = nft_expr_priv(expr);
 	u8 genmask = nft_genmask_next(ctx->net);
 	struct nft_set *set;
@@ -233,6 +237,7 @@ err1:
 static void nft_dynset_destroy(const struct nft_ctx *ctx,
 			       const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_dynset.c: line 240 \n"); 
 	struct nft_dynset *priv = nft_expr_priv(expr);
 
 	nf_tables_unbind_set(ctx, priv->set, &priv->binding);
@@ -242,6 +247,7 @@ static void nft_dynset_destroy(const struct nft_ctx *ctx,
 
 static int nft_dynset_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_dynset.c: line 250 \n"); 
 	const struct nft_dynset *priv = nft_expr_priv(expr);
 	u32 flags = priv->invert ? NFT_DYNSET_F_INV : 0;
 
@@ -293,5 +299,6 @@ int __init nft_dynset_module_init(void)
 
 void nft_dynset_module_exit(void)
 {
+	panic("We reached unpopular paths in net/netfilter/nft_dynset.c: line 302 \n"); 
 	nft_unregister_expr(&nft_dynset_type);
 }

@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * NetLabel Unlabeled Support
  *
@@ -166,6 +167,7 @@ static const struct nla_policy netlbl_unlabel_genl_policy[NLBL_UNLABEL_A_MAX + 1
  */
 static void netlbl_unlhsh_free_iface(struct rcu_head *entry)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 170 \n"); 
 	struct netlbl_unlhsh_iface *iface;
 	struct netlbl_af4list *iter4;
 	struct netlbl_af4list *tmp4;
@@ -252,6 +254,7 @@ static int netlbl_unlhsh_add_addr4(struct netlbl_unlhsh_iface *iface,
 				   const struct in_addr *mask,
 				   u32 secid)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 257 \n"); 
 	int ret_val;
 	struct netlbl_unlhsh_addr4 *entry;
 
@@ -330,6 +333,7 @@ static int netlbl_unlhsh_add_addr6(struct netlbl_unlhsh_iface *iface,
  */
 static struct netlbl_unlhsh_iface *netlbl_unlhsh_add_iface(int ifindex)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 336 \n"); 
 	u32 bkt;
 	struct netlbl_unlhsh_iface *iface;
 
@@ -388,6 +392,7 @@ int netlbl_unlhsh_add(struct net *net,
 		      u32 secid,
 		      struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 395 \n"); 
 	int ret_val;
 	int ifindex;
 	struct net_device *dev;
@@ -488,6 +493,7 @@ static int netlbl_unlhsh_remove_addr4(struct net *net,
 				      const struct in_addr *mask,
 				      struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 496 \n"); 
 	struct netlbl_af4list *list_entry;
 	struct netlbl_unlhsh_addr4 *entry;
 	struct audit_buffer *audit_buf;
@@ -604,6 +610,7 @@ static int netlbl_unlhsh_remove_addr6(struct net *net,
  */
 static void netlbl_unlhsh_condremove_iface(struct netlbl_unlhsh_iface *iface)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 613 \n"); 
 	struct netlbl_af4list *iter4;
 #if IS_ENABLED(CONFIG_IPV6)
 	struct netlbl_af6list *iter6;
@@ -651,6 +658,7 @@ int netlbl_unlhsh_remove(struct net *net,
 			 u32 addr_len,
 			 struct netlbl_audit *audit_info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 661 \n"); 
 	int ret_val;
 	struct net_device *dev;
 	struct netlbl_unlhsh_iface *iface;
@@ -785,6 +793,7 @@ static int netlbl_unlabel_addrinfo_get(struct genl_info *info,
 				       void **mask,
 				       u32 *len)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 796 \n"); 
 	u32 addr_len;
 
 	if (info->attrs[NLBL_UNLABEL_A_IPV4ADDR]) {
@@ -826,6 +835,7 @@ static int netlbl_unlabel_addrinfo_get(struct genl_info *info,
  */
 static int netlbl_unlabel_accept(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 838 \n"); 
 	u8 value;
 	struct netlbl_audit audit_info;
 
@@ -853,6 +863,7 @@ static int netlbl_unlabel_accept(struct sk_buff *skb, struct genl_info *info)
  */
 static int netlbl_unlabel_list(struct sk_buff *skb, struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 866 \n"); 
 	int ret_val = -EINVAL;
 	struct sk_buff *ans_skb;
 	void *data;
@@ -895,6 +906,7 @@ list_failure:
 static int netlbl_unlabel_staticadd(struct sk_buff *skb,
 				    struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 909 \n"); 
 	int ret_val;
 	char *dev_name;
 	void *addr;
@@ -947,6 +959,7 @@ static int netlbl_unlabel_staticadd(struct sk_buff *skb,
 static int netlbl_unlabel_staticadddef(struct sk_buff *skb,
 				       struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 962 \n"); 
 	int ret_val;
 	void *addr;
 	void *mask;
@@ -996,6 +1009,7 @@ static int netlbl_unlabel_staticadddef(struct sk_buff *skb,
 static int netlbl_unlabel_staticremove(struct sk_buff *skb,
 				       struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 1012 \n"); 
 	int ret_val;
 	char *dev_name;
 	void *addr;
@@ -1038,6 +1052,7 @@ static int netlbl_unlabel_staticremove(struct sk_buff *skb,
 static int netlbl_unlabel_staticremovedef(struct sk_buff *skb,
 					  struct genl_info *info)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 1055 \n"); 
 	int ret_val;
 	void *addr;
 	void *mask;
@@ -1086,6 +1101,7 @@ static int netlbl_unlabel_staticlist_gen(u32 cmd,
 				       const struct netlbl_unlhsh_addr6 *addr6,
 				       void *arg)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 1104 \n"); 
 	int ret_val = -ENOMEM;
 	struct netlbl_unlhsh_walk_arg *cb_arg = arg;
 	struct net_device *dev;
@@ -1181,6 +1197,7 @@ list_cb_failure:
 static int netlbl_unlabel_staticlist(struct sk_buff *skb,
 				     struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 1200 \n"); 
 	struct netlbl_unlhsh_walk_arg cb_arg;
 	u32 skip_bkt = cb->args[0];
 	u32 skip_chain = cb->args[1];
@@ -1264,6 +1281,7 @@ unlabel_staticlist_return:
 static int netlbl_unlabel_staticlistdef(struct sk_buff *skb,
 					struct netlink_callback *cb)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 1284 \n"); 
 	struct netlbl_unlhsh_walk_arg cb_arg;
 	struct netlbl_unlhsh_iface *iface;
 	u32 iter_addr4 = 0, iter_addr6 = 0;
@@ -1461,6 +1479,7 @@ int netlbl_unlabel_getattr(const struct sk_buff *skb,
 			   u16 family,
 			   struct netlbl_lsm_secattr *secattr)
 {
+	panic("We reached unpopular paths in net/netlabel/netlabel_unlabeled.c: line 1482 \n"); 
 	struct netlbl_unlhsh_iface *iface;
 
 	rcu_read_lock();

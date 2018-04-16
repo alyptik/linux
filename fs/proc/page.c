@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 #include <linux/bootmem.h>
 #include <linux/compiler.h>
 #include <linux/fs.h>
@@ -81,11 +82,13 @@ static const struct file_operations proc_kpagecount_operations = {
 
 static inline u64 kpf_copy_bit(u64 kflags, int ubit, int kbit)
 {
+	panic("We reached unpopular paths in fs/proc/page.c: line 85 \n"); 
 	return ((kflags >> kbit) & 1) << ubit;
 }
 
 u64 stable_page_flags(struct page *page)
 {
+	panic("We reached unpopular paths in fs/proc/page.c: line 91 \n"); 
 	u64 k;
 	u64 u;
 

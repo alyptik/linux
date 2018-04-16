@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *	Extension Header handling for IPv6
  *	Linux INET6 implementation
@@ -71,6 +72,7 @@ struct tlvtype_proc {
 
 static bool ip6_tlvopt_unknown(struct sk_buff *skb, int optoff)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 75 \n"); 
 	switch ((skb_network_header(skb)[optoff] & 0xC0) >> 6) {
 	case 0: /* ignore */
 		return true;
@@ -97,6 +99,7 @@ static bool ip6_tlvopt_unknown(struct sk_buff *skb, int optoff)
 
 static bool ip6_parse_tlv(const struct tlvtype_proc *procs, struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 102 \n"); 
 	const struct tlvtype_proc *curr;
 	const unsigned char *nh = skb_network_header(skb);
 	int off = skb_network_header_len(skb);
@@ -250,6 +253,7 @@ static const struct tlvtype_proc tlvprocdestopt_lst[] = {
 
 static int ipv6_destopt_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 256 \n"); 
 	struct inet6_skb_parm *opt = IP6CB(skb);
 #if IS_ENABLED(CONFIG_IPV6_MIP6)
 	__u16 dstbuf;
@@ -293,6 +297,7 @@ static int ipv6_destopt_rcv(struct sk_buff *skb)
 /* called with rcu_read_lock() */
 static int ipv6_rthdr_rcv(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 300 \n"); 
 	struct inet6_skb_parm *opt = IP6CB(skb);
 	struct in6_addr *addr = NULL;
 	struct in6_addr daddr;
@@ -519,6 +524,7 @@ out_rthdr:
 
 void ipv6_exthdrs_exit(void)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 527 \n"); 
 	inet6_del_protocol(&nodata_protocol, IPPROTO_NONE);
 	inet6_del_protocol(&destopt_protocol, IPPROTO_DSTOPTS);
 	inet6_del_protocol(&rthdr_protocol, IPPROTO_ROUTING);
@@ -533,11 +539,13 @@ void ipv6_exthdrs_exit(void)
  */
 static inline struct inet6_dev *ipv6_skb_idev(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 542 \n"); 
 	return skb_dst(skb) ? ip6_dst_idev(skb_dst(skb)) : __in6_dev_get(skb->dev);
 }
 
 static inline struct net *ipv6_skb_net(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 548 \n"); 
 	return skb_dst(skb) ? dev_net(skb_dst(skb)->dev) : dev_net(skb->dev);
 }
 
@@ -545,6 +553,7 @@ static inline struct net *ipv6_skb_net(struct sk_buff *skb)
 
 static bool ipv6_hop_ra(struct sk_buff *skb, int optoff)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 556 \n"); 
 	const unsigned char *nh = skb_network_header(skb);
 
 	if (nh[optoff + 1] == 2) {
@@ -562,6 +571,7 @@ static bool ipv6_hop_ra(struct sk_buff *skb, int optoff)
 
 static bool ipv6_hop_jumbo(struct sk_buff *skb, int optoff)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 574 \n"); 
 	const unsigned char *nh = skb_network_header(skb);
 	struct net *net = ipv6_skb_net(skb);
 	u32 pkt_len;
@@ -608,6 +618,7 @@ drop:
 
 static bool ipv6_hop_calipso(struct sk_buff *skb, int optoff)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 621 \n"); 
 	const unsigned char *nh = skb_network_header(skb);
 
 	if (nh[optoff + 1] < 8)
@@ -644,6 +655,7 @@ static const struct tlvtype_proc tlvprochopopt_lst[] = {
 
 int ipv6_parse_hopopts(struct sk_buff *skb)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 658 \n"); 
 	struct inet6_skb_parm *opt = IP6CB(skb);
 
 	/*
@@ -683,6 +695,7 @@ static void ipv6_push_rthdr(struct sk_buff *skb, u8 *proto,
 			    struct ipv6_rt_hdr *opt,
 			    struct in6_addr **addr_p)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 698 \n"); 
 	struct rt0_hdr *phdr, *ihdr;
 	int hops;
 
@@ -706,6 +719,7 @@ static void ipv6_push_rthdr(struct sk_buff *skb, u8 *proto,
 
 static void ipv6_push_exthdr(struct sk_buff *skb, u8 *proto, u8 type, struct ipv6_opt_hdr *opt)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 722 \n"); 
 	struct ipv6_opt_hdr *h = (struct ipv6_opt_hdr *)skb_push(skb, ipv6_optlen(opt));
 
 	memcpy(h, opt, ipv6_optlen(opt));
@@ -717,6 +731,7 @@ void ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
 			  u8 *proto,
 			  struct in6_addr **daddr)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 734 \n"); 
 	if (opt->srcrt) {
 		ipv6_push_rthdr(skb, proto, opt->srcrt, daddr);
 		/*
@@ -733,6 +748,7 @@ EXPORT_SYMBOL(ipv6_push_nfrag_opts);
 
 void ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt, u8 *proto)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 751 \n"); 
 	if (opt->dst1opt)
 		ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst1opt);
 }
@@ -740,6 +756,7 @@ void ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt, u8 *pr
 struct ipv6_txoptions *
 ipv6_dup_options(struct sock *sk, struct ipv6_txoptions *opt)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 759 \n"); 
 	struct ipv6_txoptions *opt2;
 
 	opt2 = sock_kmalloc(sk, opt->tot_len, GFP_ATOMIC);
@@ -895,6 +912,7 @@ ipv6_renew_options_kern(struct sock *sk, struct ipv6_txoptions *opt,
 			int newtype, struct ipv6_opt_hdr *newopt,
 			int newoptlen)
 {
+	panic("We reached unpopular paths in net/ipv6/exthdrs.c: line 915 \n"); 
 	struct ipv6_txoptions *ret_val;
 	const mm_segment_t old_fs = get_fs();
 

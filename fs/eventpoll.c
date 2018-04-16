@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  *  fs/eventpoll.c (Efficient event retrieval implementation)
  *  Copyright (C) 2001,...,2009	 Davide Libenzi
@@ -316,6 +317,7 @@ static const struct file_operations eventpoll_fops;
 
 static inline int is_file_epoll(struct file *f)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/eventpoll.c: line 320 \n"); 
 	return f->f_op == &eventpoll_fops;
 }
 
@@ -323,6 +325,7 @@ static inline int is_file_epoll(struct file *f)
 static inline void ep_set_ffd(struct epoll_filefd *ffd,
 			      struct file *file, int fd)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/eventpoll.c: line 328 \n"); 
 	ffd->file = file;
 	ffd->fd = fd;
 }
@@ -338,35 +341,41 @@ static inline int ep_cmp_ffd(struct epoll_filefd *p1,
 /* Tells us if the item is currently linked */
 static inline int ep_is_linked(struct list_head *p)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/eventpoll.c: line 344 \n"); 
 	return !list_empty(p);
 }
 
 static inline struct eppoll_entry *ep_pwq_from_wait(wait_queue_t *p)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 350 \n"); 
 	return container_of(p, struct eppoll_entry, wait);
 }
 
 /* Get the "struct epitem" from a wait queue pointer */
 static inline struct epitem *ep_item_from_wait(wait_queue_t *p)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/eventpoll.c: line 357 \n"); 
 	return container_of(p, struct eppoll_entry, wait)->base;
 }
 
 /* Get the "struct epitem" from an epoll queue wrapper */
 static inline struct epitem *ep_item_from_epqueue(poll_table *p)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/eventpoll.c: line 364 \n"); 
 	return container_of(p, struct ep_pqueue, pt)->epi;
 }
 
 /* Tells if the epoll_ctl(2) operation needs an event copy from userspace */
 static inline int ep_op_has_event(int op)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/eventpoll.c: line 371 \n"); 
 	return op != EPOLL_CTL_DEL;
 }
 
 /* Initialize the poll safe wake up structure */
 static void ep_nested_calls_init(struct nested_calls *ncalls)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/eventpoll.c: line 378 \n"); 
 	INIT_LIST_HEAD(&ncalls->tasks_call_list);
 	spin_lock_init(&ncalls->lock);
 }
@@ -404,6 +413,7 @@ static int ep_call_nested(struct nested_calls *ncalls, int max_nests,
 			  int (*nproc)(void *, void *, int), void *priv,
 			  void *cookie, void *ctx)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 416 \n"); 
 	int error, call_nests = 0;
 	unsigned long flags;
 	struct list_head *lsthead = &ncalls->tasks_call_list;
@@ -487,12 +497,14 @@ static inline void ep_wake_up_nested(wait_queue_head_t *wqueue,
 static inline void ep_wake_up_nested(wait_queue_head_t *wqueue,
 				     unsigned long events, int subclass)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 500 \n"); 
 	wake_up_poll(wqueue, events);
 }
 #endif
 
 static int ep_poll_wakeup_proc(void *priv, void *cookie, int call_nests)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 507 \n"); 
 	ep_wake_up_nested((wait_queue_head_t *) cookie, POLLIN,
 			  1 + call_nests);
 	return 0;
@@ -510,6 +522,7 @@ static int ep_poll_wakeup_proc(void *priv, void *cookie, int call_nests)
  */
 static void ep_poll_safewake(wait_queue_head_t *wq)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 525 \n"); 
 	int this_cpu = get_cpu();
 
 	ep_call_nested(&poll_safewake_ncalls, EP_MAX_NESTS,
@@ -557,6 +570,7 @@ static void ep_unregister_pollwait(struct eventpoll *ep, struct epitem *epi)
 /* call only when ep->mtx is held */
 static inline struct wakeup_source *ep_wakeup_source(struct epitem *epi)
 {
+// [blacklist] 	panic("We reached unpopular paths in fs/eventpoll.c: line 573 \n"); 
 	return rcu_dereference_check(epi->ws, lockdep_is_held(&epi->ep->mtx));
 }
 
@@ -571,6 +585,7 @@ static inline void ep_pm_stay_awake(struct epitem *epi)
 
 static inline bool ep_has_wakeup_source(struct epitem *epi)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 588 \n"); 
 	return rcu_access_pointer(epi->ws) ? true : false;
 }
 
@@ -813,6 +828,7 @@ static inline unsigned int ep_item_poll(struct epitem *epi, poll_table *pt)
 static int ep_read_events_proc(struct eventpoll *ep, struct list_head *head,
 			       void *priv)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 831 \n"); 
 	struct epitem *epi, *tmp;
 	poll_table pt;
 
@@ -845,6 +861,7 @@ struct readyevents_arg {
 
 static int ep_poll_readyevents_proc(void *priv, void *cookie, int call_nests)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 864 \n"); 
 	struct readyevents_arg *arg = priv;
 
 	return ep_scan_ready_list(arg->ep, ep_read_events_proc, NULL,
@@ -853,6 +870,7 @@ static int ep_poll_readyevents_proc(void *priv, void *cookie, int call_nests)
 
 static unsigned int ep_eventpoll_poll(struct file *file, poll_table *wait)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 873 \n"); 
 	int pollflags;
 	struct eventpoll *ep = file->private_data;
 	struct readyevents_arg arg;
@@ -1181,6 +1199,7 @@ static int path_count[PATH_ARR_SIZE];
 
 static int path_count_inc(int nests)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 1202 \n"); 
 	/* Allow an arbitrary number of depth 1 paths */
 	if (nests == 0)
 		return 0;
@@ -1192,6 +1211,7 @@ static int path_count_inc(int nests)
 
 static void path_count_init(void)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 1214 \n"); 
 	int i;
 
 	for (i = 0; i < PATH_ARR_SIZE; i++)
@@ -1200,6 +1220,7 @@ static void path_count_init(void)
 
 static int reverse_path_check_proc(void *priv, void *cookie, int call_nests)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 1223 \n"); 
 	int error = 0;
 	struct file *file = priv;
 	struct file *child_file;
@@ -1245,6 +1266,7 @@ static int reverse_path_check_proc(void *priv, void *cookie, int call_nests)
  */
 static int reverse_path_check(void)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 1269 \n"); 
 	int error = 0;
 	struct file *current_file;
 
@@ -1262,6 +1284,7 @@ static int reverse_path_check(void)
 
 static int ep_create_wakeup_source(struct epitem *epi)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 1287 \n"); 
 	const char *name;
 	struct wakeup_source *ws;
 
@@ -1430,6 +1453,7 @@ error_create_wakeup_source:
  */
 static int ep_modify(struct eventpoll *ep, struct epitem *epi, struct epoll_event *event)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 1456 \n"); 
 	int pwake = 0;
 	unsigned int revents;
 	poll_table pt;
@@ -1717,6 +1741,7 @@ check_events:
  */
 static int ep_loop_check_proc(void *priv, void *cookie, int call_nests)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 1744 \n"); 
 	int error = 0;
 	struct file *file = priv;
 	struct eventpoll *ep = file->private_data;
@@ -1770,6 +1795,7 @@ static int ep_loop_check_proc(void *priv, void *cookie, int call_nests)
  */
 static int ep_loop_check(struct eventpoll *ep, struct file *file)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 1798 \n"); 
 	int ret;
 	struct eventpoll *ep_cur, *ep_next;
 
@@ -1786,6 +1812,7 @@ static int ep_loop_check(struct eventpoll *ep, struct file *file)
 
 static void clear_tfile_check_list(void)
 {
+	panic("We reached unpopular paths in fs/eventpoll.c: line 1815 \n"); 
 	struct file *file;
 
 	/* first clear the tfile_check_list */

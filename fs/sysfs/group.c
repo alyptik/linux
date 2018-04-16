@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * fs/sysfs/group.c - Operations for adding/removing multiple files at once.
  *
@@ -211,6 +212,7 @@ EXPORT_SYMBOL_GPL(sysfs_create_groups);
 int sysfs_update_group(struct kobject *kobj,
 		       const struct attribute_group *grp)
 {
+	panic("We reached unpopular paths in fs/sysfs/group.c: line 215 \n"); 
 	return internal_create_group(kobj, 1, grp);
 }
 EXPORT_SYMBOL_GPL(sysfs_update_group);
@@ -333,6 +335,7 @@ EXPORT_SYMBOL_GPL(sysfs_unmerge_group);
 int sysfs_add_link_to_group(struct kobject *kobj, const char *group_name,
 			    struct kobject *target, const char *link_name)
 {
+	panic("We reached unpopular paths in fs/sysfs/group.c: line 338 \n"); 
 	struct kernfs_node *parent;
 	int error = 0;
 
@@ -356,6 +359,7 @@ EXPORT_SYMBOL_GPL(sysfs_add_link_to_group);
 void sysfs_remove_link_from_group(struct kobject *kobj, const char *group_name,
 				  const char *link_name)
 {
+	panic("We reached unpopular paths in fs/sysfs/group.c: line 362 \n"); 
 	struct kernfs_node *parent;
 
 	parent = kernfs_find_and_get(kobj->sd, group_name);
@@ -377,6 +381,7 @@ int __compat_only_sysfs_link_entry_to_kobj(struct kobject *kobj,
 				      struct kobject *target_kobj,
 				      const char *target_name)
 {
+	panic("We reached unpopular paths in fs/sysfs/group.c: line 384 \n"); 
 	struct kernfs_node *target;
 	struct kernfs_node *entry;
 	struct kernfs_node *link;

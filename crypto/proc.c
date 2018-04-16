@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Scatterlist Cryptographic API.
  *
@@ -24,22 +25,26 @@
 
 static void *c_start(struct seq_file *m, loff_t *pos)
 {
+	panic("We reached unpopular paths in crypto/proc.c: line 28 \n"); 
 	down_read(&crypto_alg_sem);
 	return seq_list_start(&crypto_alg_list, *pos);
 }
 
 static void *c_next(struct seq_file *m, void *p, loff_t *pos)
 {
+	panic("We reached unpopular paths in crypto/proc.c: line 35 \n"); 
 	return seq_list_next(p, &crypto_alg_list, pos);
 }
 
 static void c_stop(struct seq_file *m, void *p)
 {
+	panic("We reached unpopular paths in crypto/proc.c: line 41 \n"); 
 	up_read(&crypto_alg_sem);
 }
 
 static int c_show(struct seq_file *m, void *p)
 {
+	panic("We reached unpopular paths in crypto/proc.c: line 47 \n"); 
 	struct crypto_alg *alg = list_entry(p, struct crypto_alg, cra_list);
 	
 	seq_printf(m, "name         : %s\n", alg->cra_name);
@@ -96,6 +101,7 @@ static const struct seq_operations crypto_seq_ops = {
 
 static int crypto_info_open(struct inode *inode, struct file *file)
 {
+	panic("We reached unpopular paths in crypto/proc.c: line 104 \n"); 
 	return seq_open(file, &crypto_seq_ops);
 }
         

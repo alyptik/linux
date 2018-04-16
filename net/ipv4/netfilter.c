@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * IPv4 specific functions of netfilter core
  *
@@ -19,6 +20,7 @@
 /* route_me_harder function, used by iptable_nat, iptable_mangle + ip_queue */
 int ip_route_me_harder(struct net *net, struct sk_buff *skb, unsigned int addr_type)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter.c: line 23 \n"); 
 	const struct iphdr *iph = ip_hdr(skb);
 	struct rtable *rt;
 	struct flowi4 fl4 = {};
@@ -95,6 +97,7 @@ struct ip_rt_info {
 static void nf_ip_saveroute(const struct sk_buff *skb,
 			    struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter.c: line 100 \n"); 
 	struct ip_rt_info *rt_info = nf_queue_entry_reroute(entry);
 
 	if (entry->state.hook == NF_INET_LOCAL_OUT) {
@@ -110,6 +113,7 @@ static void nf_ip_saveroute(const struct sk_buff *skb,
 static int nf_ip_reroute(struct net *net, struct sk_buff *skb,
 			 const struct nf_queue_entry *entry)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter.c: line 116 \n"); 
 	const struct ip_rt_info *rt_info = nf_queue_entry_reroute(entry);
 
 	if (entry->state.hook == NF_INET_LOCAL_OUT) {
@@ -159,6 +163,7 @@ static __sum16 nf_ip_checksum_partial(struct sk_buff *skb, unsigned int hook,
 				      unsigned int dataoff, unsigned int len,
 				      u_int8_t protocol)
 {
+	panic("We reached unpopular paths in net/ipv4/netfilter.c: line 166 \n"); 
 	const struct iphdr *iph = ip_hdr(skb);
 	__sum16 csum = 0;
 

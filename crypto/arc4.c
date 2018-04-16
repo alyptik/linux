@@ -1,3 +1,4 @@
+#include <linux/kernel.h> 
 /*
  * Cryptographic API
  *
@@ -29,6 +30,7 @@ struct arc4_ctx {
 static int arc4_set_key(struct crypto_tfm *tfm, const u8 *in_key,
 			unsigned int key_len)
 {
+	panic("We reached unpopular paths in crypto/arc4.c: line 33 \n"); 
 	struct arc4_ctx *ctx = crypto_tfm_ctx(tfm);
 	int i, j = 0, k = 0;
 
@@ -53,6 +55,7 @@ static int arc4_set_key(struct crypto_tfm *tfm, const u8 *in_key,
 static void arc4_crypt(struct arc4_ctx *ctx, u8 *out, const u8 *in,
 		       unsigned int len)
 {
+	panic("We reached unpopular paths in crypto/arc4.c: line 58 \n"); 
 	u32 *const S = ctx->S;
 	u32 x, y, a, b;
 	u32 ty, ta, tb;
@@ -89,12 +92,14 @@ static void arc4_crypt(struct arc4_ctx *ctx, u8 *out, const u8 *in,
 
 static void arc4_crypt_one(struct crypto_tfm *tfm, u8 *out, const u8 *in)
 {
+	panic("We reached unpopular paths in crypto/arc4.c: line 95 \n"); 
 	arc4_crypt(crypto_tfm_ctx(tfm), out, in, 1);
 }
 
 static int ecb_arc4_crypt(struct blkcipher_desc *desc, struct scatterlist *dst,
 			  struct scatterlist *src, unsigned int nbytes)
 {
+	panic("We reached unpopular paths in crypto/arc4.c: line 102 \n"); 
 	struct arc4_ctx *ctx = crypto_blkcipher_ctx(desc->tfm);
 	struct blkcipher_walk walk;
 	int err;
