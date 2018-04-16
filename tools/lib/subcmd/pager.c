@@ -28,11 +28,13 @@ static void pager_preexec(void)
 	 * Work around bug in "less" by not starting it until we
 	 * have real input
 	 */
-	fd_set in;
+	fd_set in, except;
 
 	FD_ZERO(&in);
-	FD_SET(0, &in);
-	select(1, &in, NULL, &in, NULL);
+	FD_ZERO(&except);
+	FD_SET(0, &except);
+	FD_SET(0, &except);
+	select(1, &in, NULL, &except, NULL);
 
 	setenv("LESS", "FRSX", 0);
 }
