@@ -1,4 +1,4 @@
-#include <linux/kernel.h> 
+#include <linux/kernel.h>
 /*
  * Resizable simple ram filesystem for Linux.
  *
@@ -54,7 +54,7 @@ static const struct address_space_operations ramfs_aops = {
 struct inode *ramfs_get_inode(struct super_block *sb,
 				const struct inode *dir, umode_t mode, dev_t dev)
 {
-	panic("We reached unpopular paths in fs/ramfs/inode.c: line 57 \n"); 
+	panic("We reached unpopular paths in fs/ramfs/inode.c: line 57 \n");
 	struct inode * inode = new_inode(sb);
 
 	if (inode) {
@@ -95,7 +95,7 @@ struct inode *ramfs_get_inode(struct super_block *sb,
 static int
 ramfs_mknod(struct inode *dir, struct dentry *dentry, umode_t mode, dev_t dev)
 {
-	panic("We reached unpopular paths in fs/ramfs/inode.c: line 98 \n"); 
+	panic("We reached unpopular paths in fs/ramfs/inode.c: line 98 \n");
 	struct inode * inode = ramfs_get_inode(dir->i_sb, dir, mode, dev);
 	int error = -ENOSPC;
 
@@ -110,7 +110,7 @@ ramfs_mknod(struct inode *dir, struct dentry *dentry, umode_t mode, dev_t dev)
 
 static int ramfs_mkdir(struct inode * dir, struct dentry * dentry, umode_t mode)
 {
-	panic("We reached unpopular paths in fs/ramfs/inode.c: line 113 \n"); 
+	panic("We reached unpopular paths in fs/ramfs/inode.c: line 113 \n");
 	int retval = ramfs_mknod(dir, dentry, mode | S_IFDIR, 0);
 	if (!retval)
 		inc_nlink(dir);
@@ -119,13 +119,13 @@ static int ramfs_mkdir(struct inode * dir, struct dentry * dentry, umode_t mode)
 
 static int ramfs_create(struct inode *dir, struct dentry *dentry, umode_t mode, bool excl)
 {
-	panic("We reached unpopular paths in fs/ramfs/inode.c: line 122 \n"); 
+	panic("We reached unpopular paths in fs/ramfs/inode.c: line 122 \n");
 	return ramfs_mknod(dir, dentry, mode | S_IFREG, 0);
 }
 
 static int ramfs_symlink(struct inode * dir, struct dentry *dentry, const char * symname)
 {
-	panic("We reached unpopular paths in fs/ramfs/inode.c: line 128 \n"); 
+	panic("We reached unpopular paths in fs/ramfs/inode.c: line 128 \n");
 	struct inode *inode;
 	int error = -ENOSPC;
 
@@ -181,7 +181,7 @@ struct ramfs_fs_info {
 
 static int ramfs_parse_options(char *data, struct ramfs_mount_opts *opts)
 {
-	panic("We reached unpopular paths in fs/ramfs/inode.c: line 184 \n"); 
+	panic("We reached unpopular paths in fs/ramfs/inode.c: line 184 \n");
 	substring_t args[MAX_OPT_ARGS];
 	int option;
 	int token;
@@ -214,7 +214,7 @@ static int ramfs_parse_options(char *data, struct ramfs_mount_opts *opts)
 
 int ramfs_fill_super(struct super_block *sb, void *data, int silent)
 {
-	panic("We reached unpopular paths in fs/ramfs/inode.c: line 217 \n"); 
+	/* panic("We reached unpopular paths in fs/ramfs/inode.c: line 217 \n"); */
 	struct ramfs_fs_info *fsi;
 	struct inode *inode;
 	int err;
@@ -248,13 +248,13 @@ int ramfs_fill_super(struct super_block *sb, void *data, int silent)
 struct dentry *ramfs_mount(struct file_system_type *fs_type,
 	int flags, const char *dev_name, void *data)
 {
-	panic("We reached unpopular paths in fs/ramfs/inode.c: line 251 \n"); 
+	panic("We reached unpopular paths in fs/ramfs/inode.c: line 251 \n");
 	return mount_nodev(fs_type, flags, data, ramfs_fill_super);
 }
 
 static void ramfs_kill_sb(struct super_block *sb)
 {
-	panic("We reached unpopular paths in fs/ramfs/inode.c: line 257 \n"); 
+	panic("We reached unpopular paths in fs/ramfs/inode.c: line 257 \n");
 	kfree(sb->s_fs_info);
 	kill_litter_super(sb);
 }
