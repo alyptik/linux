@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *	linux/mm/filemap.c
  *
@@ -345,6 +346,7 @@ EXPORT_SYMBOL(delete_from_page_cache);
 
 int filemap_check_errors(struct address_space *mapping)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 349 \n");
 	int ret = 0;
 	/* Check for outstanding write errors */
 	if (test_bit(AS_ENOSPC, &mapping->flags) &&
@@ -395,11 +397,13 @@ int __filemap_fdatawrite_range(struct address_space *mapping, loff_t start,
 static inline int __filemap_fdatawrite(struct address_space *mapping,
 	int sync_mode)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 400 \n");
 	return __filemap_fdatawrite_range(mapping, 0, LLONG_MAX, sync_mode);
 }
 
 int filemap_fdatawrite(struct address_space *mapping)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 406 \n");
 	return __filemap_fdatawrite(mapping, WB_SYNC_ALL);
 }
 EXPORT_SYMBOL(filemap_fdatawrite);
@@ -407,6 +411,7 @@ EXPORT_SYMBOL(filemap_fdatawrite);
 int filemap_fdatawrite_range(struct address_space *mapping, loff_t start,
 				loff_t end)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 414 \n");
 	return __filemap_fdatawrite_range(mapping, start, end, WB_SYNC_ALL);
 }
 EXPORT_SYMBOL(filemap_fdatawrite_range);
@@ -420,6 +425,7 @@ EXPORT_SYMBOL(filemap_fdatawrite_range);
  */
 int filemap_flush(struct address_space *mapping)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 428 \n");
 	return __filemap_fdatawrite(mapping, WB_SYNC_NONE);
 }
 EXPORT_SYMBOL(filemap_flush);
@@ -427,6 +433,7 @@ EXPORT_SYMBOL(filemap_flush);
 static int __filemap_fdatawait_range(struct address_space *mapping,
 				     loff_t start_byte, loff_t end_byte)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 436 \n");
 	pgoff_t index = start_byte >> PAGE_SHIFT;
 	pgoff_t end = end_byte >> PAGE_SHIFT;
 	struct pagevec pvec;
@@ -478,6 +485,7 @@ out:
 int filemap_fdatawait_range(struct address_space *mapping, loff_t start_byte,
 			    loff_t end_byte)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 488 \n");
 	int ret, ret2;
 
 	ret = __filemap_fdatawait_range(mapping, start_byte, end_byte);
@@ -503,6 +511,7 @@ EXPORT_SYMBOL(filemap_fdatawait_range);
  */
 void filemap_fdatawait_keep_errors(struct address_space *mapping)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 514 \n");
 	loff_t i_size = i_size_read(mapping->host);
 
 	if (i_size == 0)
@@ -525,6 +534,7 @@ void filemap_fdatawait_keep_errors(struct address_space *mapping)
  */
 int filemap_fdatawait(struct address_space *mapping)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 537 \n");
 	loff_t i_size = i_size_read(mapping->host);
 
 	if (i_size == 0)
@@ -536,6 +546,7 @@ EXPORT_SYMBOL(filemap_fdatawait);
 
 int filemap_write_and_wait(struct address_space *mapping)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 549 \n");
 	int err = 0;
 
 	if ((!dax_mapping(mapping) && mapping->nrpages) ||
@@ -573,6 +584,7 @@ EXPORT_SYMBOL(filemap_write_and_wait);
 int filemap_write_and_wait_range(struct address_space *mapping,
 				 loff_t lstart, loff_t lend)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 587 \n");
 	int err = 0;
 
 	if ((!dax_mapping(mapping) && mapping->nrpages) ||
@@ -720,6 +732,7 @@ err_insert:
 int add_to_page_cache_locked(struct page *page, struct address_space *mapping,
 		pgoff_t offset, gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 735 \n");
 	return __add_to_page_cache_locked(page, mapping, offset,
 					  gfp_mask, NULL);
 }
@@ -796,6 +809,7 @@ EXPORT_SYMBOL(page_waitqueue);
 
 void wait_on_page_bit(struct page *page, int bit_nr)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 812 \n");
 	DEFINE_WAIT_BIT(wait, &page->flags, bit_nr);
 
 	if (test_bit(bit_nr, &page->flags))
@@ -806,6 +820,7 @@ EXPORT_SYMBOL(wait_on_page_bit);
 
 int wait_on_page_bit_killable(struct page *page, int bit_nr)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 823 \n");
 	DEFINE_WAIT_BIT(wait, &page->flags, bit_nr);
 
 	if (!test_bit(bit_nr, &page->flags))
@@ -818,6 +833,7 @@ int wait_on_page_bit_killable(struct page *page, int bit_nr)
 int wait_on_page_bit_killable_timeout(struct page *page,
 				       int bit_nr, unsigned long timeout)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 836 \n");
 	DEFINE_WAIT_BIT(wait, &page->flags, bit_nr);
 
 	wait.key.timeout = jiffies + timeout;
@@ -837,6 +853,7 @@ EXPORT_SYMBOL_GPL(wait_on_page_bit_killable_timeout);
  */
 void add_page_wait_queue(struct page *page, wait_queue_t *waiter)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 856 \n");
 	wait_queue_head_t *q = page_waitqueue(page);
 	unsigned long flags;
 
@@ -874,6 +891,7 @@ EXPORT_SYMBOL(unlock_page);
  */
 void end_page_writeback(struct page *page)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 894 \n");
 	/*
 	 * TestClearPageReclaim could be used here but it is an atomic
 	 * operation and overkill in this particular case. Failing to
@@ -900,6 +918,7 @@ EXPORT_SYMBOL(end_page_writeback);
  */
 void page_endio(struct page *page, bool is_write, int err)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 921 \n");
 	if (!is_write) {
 		if (!err) {
 			SetPageUptodate(page);
@@ -928,6 +947,7 @@ EXPORT_SYMBOL_GPL(page_endio);
  */
 void __lock_page(struct page *page)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 950 \n");
 	struct page *page_head = compound_head(page);
 	DEFINE_WAIT_BIT(wait, &page_head->flags, PG_locked);
 
@@ -938,6 +958,7 @@ EXPORT_SYMBOL(__lock_page);
 
 int __lock_page_killable(struct page *page)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 961 \n");
 	struct page *page_head = compound_head(page);
 	DEFINE_WAIT_BIT(wait, &page_head->flags, PG_locked);
 
@@ -960,6 +981,7 @@ EXPORT_SYMBOL_GPL(__lock_page_killable);
 int __lock_page_or_retry(struct page *page, struct mm_struct *mm,
 			 unsigned int flags)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 984 \n");
 	if (flags & FAULT_FLAG_ALLOW_RETRY) {
 		/*
 		 * CAUTION! In this case, mmap_sem is not released
@@ -1013,6 +1035,7 @@ int __lock_page_or_retry(struct page *page, struct mm_struct *mm,
 pgoff_t page_cache_next_hole(struct address_space *mapping,
 			     pgoff_t index, unsigned long max_scan)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 1038 \n");
 	unsigned long i;
 
 	for (i = 0; i < max_scan; i++) {
@@ -1054,6 +1077,7 @@ EXPORT_SYMBOL(page_cache_next_hole);
 pgoff_t page_cache_prev_hole(struct address_space *mapping,
 			     pgoff_t index, unsigned long max_scan)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 1080 \n");
 	unsigned long i;
 
 	for (i = 0; i < max_scan; i++) {
@@ -1359,6 +1383,7 @@ export:
 unsigned find_get_pages(struct address_space *mapping, pgoff_t start,
 			    unsigned int nr_pages, struct page **pages)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 1386 \n");
 	struct radix_tree_iter iter;
 	void **slot;
 	unsigned ret = 0;
@@ -1427,6 +1452,7 @@ repeat:
 unsigned find_get_pages_contig(struct address_space *mapping, pgoff_t index,
 			       unsigned int nr_pages, struct page **pages)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 1455 \n");
 	struct radix_tree_iter iter;
 	void **slot;
 	unsigned int ret = 0;
@@ -1505,6 +1531,7 @@ EXPORT_SYMBOL(find_get_pages_contig);
 unsigned find_get_pages_tag(struct address_space *mapping, pgoff_t *index,
 			int tag, unsigned int nr_pages, struct page **pages)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 1534 \n");
 	struct radix_tree_iter iter;
 	void **slot;
 	unsigned ret = 0;
@@ -1586,6 +1613,7 @@ unsigned find_get_entries_tag(struct address_space *mapping, pgoff_t start,
 			int tag, unsigned int nr_entries,
 			struct page **entries, pgoff_t *indices)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 1616 \n");
 	void **slot;
 	unsigned int ret = 0;
 	struct radix_tree_iter iter;
@@ -1659,6 +1687,7 @@ EXPORT_SYMBOL(find_get_entries_tag);
 static void shrink_readahead_size_eio(struct file *filp,
 					struct file_ra_state *ra)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 1690 \n");
 	ra->ra_pages /= 4;
 }
 
@@ -1678,6 +1707,7 @@ static void shrink_readahead_size_eio(struct file *filp,
 static ssize_t do_generic_file_read(struct file *filp, loff_t *ppos,
 		struct iov_iter *iter, ssize_t written)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 1710 \n");
 	struct address_space *mapping = filp->f_mapping;
 	struct inode *inode = mapping->host;
 	struct file_ra_state *ra = &filp->f_ra;
@@ -1928,6 +1958,7 @@ out:
 ssize_t
 generic_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 1961 \n");
 	struct file *file = iocb->ki_filp;
 	ssize_t retval = 0;
 	size_t count = iov_iter_count(iter);
@@ -2363,10 +2394,12 @@ int generic_file_readonly_mmap(struct file *file, struct vm_area_struct *vma)
 #else
 int generic_file_mmap(struct file * file, struct vm_area_struct * vma)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 2397 \n");
 	return -ENOSYS;
 }
 int generic_file_readonly_mmap(struct file * file, struct vm_area_struct * vma)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 2402 \n");
 	return -ENOSYS;
 }
 #endif /* CONFIG_MMU */
@@ -2376,6 +2409,7 @@ EXPORT_SYMBOL(generic_file_readonly_mmap);
 
 static struct page *wait_on_page_read(struct page *page)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 2412 \n");
 	if (!IS_ERR(page)) {
 		wait_on_page_locked(page);
 		if (!PageUptodate(page)) {
@@ -2392,6 +2426,7 @@ static struct page *do_read_cache_page(struct address_space *mapping,
 				void *data,
 				gfp_t gfp)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 2429 \n");
 	struct page *page;
 	int err;
 repeat:
@@ -2498,6 +2533,7 @@ struct page *read_cache_page(struct address_space *mapping,
 				int (*filler)(void *, struct page *),
 				void *data)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 2536 \n");
 	return do_read_cache_page(mapping, index, filler, data, mapping_gfp_mask(mapping));
 }
 EXPORT_SYMBOL(read_cache_page);
@@ -2517,6 +2553,7 @@ struct page *read_cache_page_gfp(struct address_space *mapping,
 				pgoff_t index,
 				gfp_t gfp)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 2556 \n");
 	filler_t *filler = (filler_t *)mapping->a_ops->readpage;
 
 	return do_read_cache_page(mapping, index, filler, NULL, gfp);
@@ -2583,6 +2620,7 @@ int pagecache_write_begin(struct file *file, struct address_space *mapping,
 				loff_t pos, unsigned len, unsigned flags,
 				struct page **pagep, void **fsdata)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 2623 \n");
 	const struct address_space_operations *aops = mapping->a_ops;
 
 	return aops->write_begin(file, mapping, pos, len, flags,
@@ -2594,6 +2632,7 @@ int pagecache_write_end(struct file *file, struct address_space *mapping,
 				loff_t pos, unsigned len, unsigned copied,
 				struct page *page, void *fsdata)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 2635 \n");
 	const struct address_space_operations *aops = mapping->a_ops;
 
 	return aops->write_end(file, mapping, pos, len, copied, page, fsdata);
@@ -2603,6 +2642,7 @@ EXPORT_SYMBOL(pagecache_write_end);
 ssize_t
 generic_file_direct_write(struct kiocb *iocb, struct iov_iter *from)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 2645 \n");
 	struct file	*file = iocb->ki_filp;
 	struct address_space *mapping = file->f_mapping;
 	struct inode	*inode = mapping->host;
@@ -2676,6 +2716,7 @@ EXPORT_SYMBOL(generic_file_direct_write);
 struct page *grab_cache_page_write_begin(struct address_space *mapping,
 					pgoff_t index, unsigned flags)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 2719 \n");
 	struct page *page;
 	int fgp_flags = FGP_LOCK|FGP_WRITE|FGP_CREAT;
 
@@ -2919,6 +2960,7 @@ EXPORT_SYMBOL(generic_file_write_iter);
  */
 int try_to_release_page(struct page *page, gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in mm/filemap.c: line 2963 \n");
 	struct address_space * const mapping = page->mapping;
 
 	BUG_ON(!PageLocked(page));

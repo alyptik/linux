@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * Memory merging support.
  *
@@ -281,6 +282,7 @@ static void __init ksm_slab_free(void)
 
 static inline struct rmap_item *alloc_rmap_item(void)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 285 \n");
 	struct rmap_item *rmap_item;
 
 	rmap_item = kmem_cache_zalloc(rmap_item_cache, GFP_KERNEL |
@@ -292,6 +294,7 @@ static inline struct rmap_item *alloc_rmap_item(void)
 
 static inline void free_rmap_item(struct rmap_item *rmap_item)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 297 \n");
 	ksm_rmap_items--;
 	rmap_item->mm = NULL;	/* debug safety */
 	kmem_cache_free(rmap_item_cache, rmap_item);
@@ -299,6 +302,7 @@ static inline void free_rmap_item(struct rmap_item *rmap_item)
 
 static inline struct stable_node *alloc_stable_node(void)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 305 \n");
 	/*
 	 * The allocation can take too long with GFP_KERNEL when memory is under
 	 * pressure, which may lead to hung task warnings.  Adding __GFP_HIGH
@@ -309,11 +313,13 @@ static inline struct stable_node *alloc_stable_node(void)
 
 static inline void free_stable_node(struct stable_node *stable_node)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 316 \n");
 	kmem_cache_free(stable_node_cache, stable_node);
 }
 
 static inline struct mm_slot *alloc_mm_slot(void)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 322 \n");
 	if (!mm_slot_cache)	/* initialization failed */
 		return NULL;
 	return kmem_cache_zalloc(mm_slot_cache, GFP_KERNEL);
@@ -321,11 +327,13 @@ static inline struct mm_slot *alloc_mm_slot(void)
 
 static inline void free_mm_slot(struct mm_slot *mm_slot)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 330 \n");
 	kmem_cache_free(mm_slot_cache, mm_slot);
 }
 
 static struct mm_slot *get_mm_slot(struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 336 \n");
 	struct mm_slot *slot;
 
 	hash_for_each_possible(mm_slots_hash, slot, link, (unsigned long)mm)
@@ -338,6 +346,7 @@ static struct mm_slot *get_mm_slot(struct mm_struct *mm)
 static void insert_to_mm_slots_hash(struct mm_struct *mm,
 				    struct mm_slot *mm_slot)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 349 \n");
 	mm_slot->mm = mm;
 	hash_add(mm_slots_hash, &mm_slot->link, (unsigned long)mm);
 }
@@ -352,6 +361,7 @@ static void insert_to_mm_slots_hash(struct mm_struct *mm,
  */
 static inline bool ksm_test_exit(struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 364 \n");
 	return atomic_read(&mm->mm_users) == 0;
 }
 
@@ -372,6 +382,7 @@ static inline bool ksm_test_exit(struct mm_struct *mm)
  */
 static int break_ksm(struct vm_area_struct *vma, unsigned long addr)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 385 \n");
 	struct page *page;
 	int ret = 0;
 
@@ -422,6 +433,7 @@ static int break_ksm(struct vm_area_struct *vma, unsigned long addr)
 static struct vm_area_struct *find_mergeable_vma(struct mm_struct *mm,
 		unsigned long addr)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 436 \n");
 	struct vm_area_struct *vma;
 	if (ksm_test_exit(mm))
 		return NULL;
@@ -435,6 +447,7 @@ static struct vm_area_struct *find_mergeable_vma(struct mm_struct *mm,
 
 static void break_cow(struct rmap_item *rmap_item)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 450 \n");
 	struct mm_struct *mm = rmap_item->mm;
 	unsigned long addr = rmap_item->address;
 	struct vm_area_struct *vma;
@@ -454,6 +467,7 @@ static void break_cow(struct rmap_item *rmap_item)
 
 static struct page *get_mergeable_page(struct rmap_item *rmap_item)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 470 \n");
 	struct mm_struct *mm = rmap_item->mm;
 	unsigned long addr = rmap_item->address;
 	struct vm_area_struct *vma;
@@ -487,11 +501,13 @@ out:
  */
 static inline int get_kpfn_nid(unsigned long kpfn)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 504 \n");
 	return ksm_merge_across_nodes ? 0 : NUMA(pfn_to_nid(kpfn));
 }
 
 static void remove_node_from_stable_tree(struct stable_node *stable_node)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 510 \n");
 	struct rmap_item *rmap_item;
 
 	hlist_for_each_entry(rmap_item, &stable_node->hlist, hlist) {
@@ -533,6 +549,7 @@ static void remove_node_from_stable_tree(struct stable_node *stable_node)
  */
 static struct page *get_ksm_page(struct stable_node *stable_node, bool lock_it)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 552 \n");
 	struct page *page;
 	void *expected_mapping;
 	unsigned long kpfn;
@@ -610,6 +627,7 @@ stale:
  */
 static void remove_rmap_item_from_tree(struct rmap_item *rmap_item)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 630 \n");
 	if (rmap_item->address & STABLE_FLAG) {
 		struct stable_node *stable_node;
 		struct page *page;
@@ -655,6 +673,7 @@ out:
 static void remove_trailing_rmap_items(struct mm_slot *mm_slot,
 				       struct rmap_item **rmap_list)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 676 \n");
 	while (*rmap_list) {
 		struct rmap_item *rmap_item = *rmap_list;
 		*rmap_list = rmap_item->rmap_list;
@@ -679,6 +698,7 @@ static void remove_trailing_rmap_items(struct mm_slot *mm_slot,
 static int unmerge_ksm_pages(struct vm_area_struct *vma,
 			     unsigned long start, unsigned long end)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 701 \n");
 	unsigned long addr;
 	int err = 0;
 
@@ -821,6 +841,7 @@ error:
 
 static u32 calc_checksum(struct page *page)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 844 \n");
 	u32 checksum;
 	void *addr = kmap_atomic(page);
 	checksum = jhash2(addr, PAGE_SIZE / 4, 17);
@@ -830,6 +851,7 @@ static u32 calc_checksum(struct page *page)
 
 static int memcmp_pages(struct page *page1, struct page *page2)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 854 \n");
 	char *addr1, *addr2;
 	int ret;
 
@@ -843,12 +865,14 @@ static int memcmp_pages(struct page *page1, struct page *page2)
 
 static inline int pages_identical(struct page *page1, struct page *page2)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 868 \n");
 	return !memcmp_pages(page1, page2);
 }
 
 static int write_protect_page(struct vm_area_struct *vma, struct page *page,
 			      pte_t *orig_pte)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 875 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	unsigned long addr;
 	pte_t *ptep;
@@ -923,6 +947,7 @@ out:
 static int replace_page(struct vm_area_struct *vma, struct page *page,
 			struct page *kpage, pte_t orig_pte)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 950 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	pmd_t *pmd;
 	pte_t *ptep;
@@ -982,6 +1007,7 @@ out:
 static int try_to_merge_one_page(struct vm_area_struct *vma,
 				 struct page *page, struct page *kpage)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1010 \n");
 	pte_t orig_pte = __pte(0);
 	int err = -EFAULT;
 
@@ -1057,6 +1083,7 @@ out:
 static int try_to_merge_with_ksm_page(struct rmap_item *rmap_item,
 				      struct page *page, struct page *kpage)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1086 \n");
 	struct mm_struct *mm = rmap_item->mm;
 	struct vm_area_struct *vma;
 	int err = -EFAULT;
@@ -1096,6 +1123,7 @@ static struct page *try_to_merge_two_pages(struct rmap_item *rmap_item,
 					   struct rmap_item *tree_rmap_item,
 					   struct page *tree_page)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1126 \n");
 	int err;
 
 	err = try_to_merge_with_ksm_page(rmap_item, page, NULL);
@@ -1123,6 +1151,7 @@ static struct page *try_to_merge_two_pages(struct rmap_item *rmap_item,
  */
 static struct page *stable_tree_search(struct page *page)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1154 \n");
 	int nid;
 	struct rb_root *root;
 	struct rb_node **new;
@@ -1233,6 +1262,7 @@ replace:
  */
 static struct stable_node *stable_tree_insert(struct page *kpage)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1265 \n");
 	int nid;
 	unsigned long kpfn;
 	struct rb_root *root;
@@ -1318,6 +1348,7 @@ struct rmap_item *unstable_tree_search_insert(struct rmap_item *rmap_item,
 					      struct page *page,
 					      struct page **tree_pagep)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1351 \n");
 	struct rb_node **new;
 	struct rb_root *root;
 	struct rb_node *parent = NULL;
@@ -1388,6 +1419,7 @@ struct rmap_item *unstable_tree_search_insert(struct rmap_item *rmap_item,
 static void stable_tree_append(struct rmap_item *rmap_item,
 			       struct stable_node *stable_node)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1422 \n");
 	rmap_item->head = stable_node;
 	rmap_item->address |= STABLE_FLAG;
 	hlist_add_head(&rmap_item->hlist, &stable_node->hlist);
@@ -1409,6 +1441,7 @@ static void stable_tree_append(struct rmap_item *rmap_item,
  */
 static void cmp_and_merge_page(struct page *page, struct rmap_item *rmap_item)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1444 \n");
 	struct rmap_item *tree_rmap_item;
 	struct page *tree_page = NULL;
 	struct stable_node *stable_node;
@@ -1503,6 +1536,7 @@ static struct rmap_item *get_next_rmap_item(struct mm_slot *mm_slot,
 					    struct rmap_item **rmap_list,
 					    unsigned long addr)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1539 \n");
 	struct rmap_item *rmap_item;
 
 	while (*rmap_list) {
@@ -1529,6 +1563,7 @@ static struct rmap_item *get_next_rmap_item(struct mm_slot *mm_slot,
 
 static struct rmap_item *scan_get_next_rmap_item(struct page **page)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1566 \n");
 	struct mm_struct *mm;
 	struct mm_slot *slot;
 	struct vm_area_struct *vma;
@@ -1691,6 +1726,7 @@ next_mm:
  */
 static void ksm_do_scan(unsigned int scan_npages)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1729 \n");
 	struct rmap_item *rmap_item;
 	struct page *uninitialized_var(page);
 
@@ -1783,6 +1819,7 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
 
 int __ksm_enter(struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1822 \n");
 	struct mm_slot *mm_slot;
 	int needs_wakeup;
 
@@ -1822,6 +1859,7 @@ int __ksm_enter(struct mm_struct *mm)
 
 void __ksm_exit(struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1862 \n");
 	struct mm_slot *mm_slot;
 	int easy_to_free = 0;
 
@@ -1861,6 +1899,7 @@ void __ksm_exit(struct mm_struct *mm)
 struct page *ksm_might_need_to_copy(struct page *page,
 			struct vm_area_struct *vma, unsigned long address)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1902 \n");
 	struct anon_vma *anon_vma = page_anon_vma(page);
 	struct page *new_page;
 
@@ -1891,6 +1930,7 @@ struct page *ksm_might_need_to_copy(struct page *page,
 
 int rmap_walk_ksm(struct page *page, struct rmap_walk_control *rwc)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 1933 \n");
 	struct stable_node *stable_node;
 	struct rmap_item *rmap_item;
 	int ret = SWAP_AGAIN;
@@ -2066,6 +2106,7 @@ static int ksm_memory_callback(struct notifier_block *self,
 #else
 static void wait_while_offlining(void)
 {
+	panic("We reached unpopular paths in mm/ksm.c: line 2109 \n");
 }
 #endif /* CONFIG_MEMORY_HOTREMOVE */
 

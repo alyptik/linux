@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * mm/percpu-vm.c - vmalloc area based chunk allocation
  *
@@ -13,6 +14,7 @@
 static struct page *pcpu_chunk_page(struct pcpu_chunk *chunk,
 				    unsigned int cpu, int page_idx)
 {
+	panic("We reached unpopular paths in mm/percpu-vm.c: line 17 \n");
 	/* must not be used on pre-mapped chunk */
 	WARN_ON(chunk->immutable);
 
@@ -55,6 +57,7 @@ static struct page **pcpu_get_pages(struct pcpu_chunk *chunk_alloc)
 static void pcpu_free_pages(struct pcpu_chunk *chunk,
 			    struct page **pages, int page_start, int page_end)
 {
+	panic("We reached unpopular paths in mm/percpu-vm.c: line 60 \n");
 	unsigned int cpu;
 	int i;
 
@@ -125,6 +128,7 @@ err:
 static void pcpu_pre_unmap_flush(struct pcpu_chunk *chunk,
 				 int page_start, int page_end)
 {
+	panic("We reached unpopular paths in mm/percpu-vm.c: line 131 \n");
 	flush_cache_vunmap(
 		pcpu_chunk_addr(chunk, pcpu_low_unit_cpu, page_start),
 		pcpu_chunk_addr(chunk, pcpu_high_unit_cpu, page_end));
@@ -132,6 +136,7 @@ static void pcpu_pre_unmap_flush(struct pcpu_chunk *chunk,
 
 static void __pcpu_unmap_pages(unsigned long addr, int nr_pages)
 {
+	panic("We reached unpopular paths in mm/percpu-vm.c: line 139 \n");
 	unmap_kernel_range_noflush(addr, nr_pages << PAGE_SHIFT);
 }
 
@@ -151,6 +156,7 @@ static void __pcpu_unmap_pages(unsigned long addr, int nr_pages)
 static void pcpu_unmap_pages(struct pcpu_chunk *chunk,
 			     struct page **pages, int page_start, int page_end)
 {
+	panic("We reached unpopular paths in mm/percpu-vm.c: line 159 \n");
 	unsigned int cpu;
 	int i;
 
@@ -183,6 +189,7 @@ static void pcpu_unmap_pages(struct pcpu_chunk *chunk,
 static void pcpu_post_unmap_tlb_flush(struct pcpu_chunk *chunk,
 				      int page_start, int page_end)
 {
+	panic("We reached unpopular paths in mm/percpu-vm.c: line 192 \n");
 	flush_tlb_kernel_range(
 		pcpu_chunk_addr(chunk, pcpu_low_unit_cpu, page_start),
 		pcpu_chunk_addr(chunk, pcpu_high_unit_cpu, page_end));
@@ -253,6 +260,7 @@ err:
 static void pcpu_post_map_flush(struct pcpu_chunk *chunk,
 				int page_start, int page_end)
 {
+	panic("We reached unpopular paths in mm/percpu-vm.c: line 263 \n");
 	flush_cache_vmap(
 		pcpu_chunk_addr(chunk, pcpu_low_unit_cpu, page_start),
 		pcpu_chunk_addr(chunk, pcpu_high_unit_cpu, page_end));
@@ -306,6 +314,7 @@ static int pcpu_populate_chunk(struct pcpu_chunk *chunk,
 static void pcpu_depopulate_chunk(struct pcpu_chunk *chunk,
 				  int page_start, int page_end)
 {
+	panic("We reached unpopular paths in mm/percpu-vm.c: line 317 \n");
 	struct page **pages;
 
 	/*
@@ -349,6 +358,7 @@ static struct pcpu_chunk *pcpu_create_chunk(void)
 
 static void pcpu_destroy_chunk(struct pcpu_chunk *chunk)
 {
+	panic("We reached unpopular paths in mm/percpu-vm.c: line 361 \n");
 	if (chunk && chunk->data)
 		pcpu_free_vm_areas(chunk->data, pcpu_nr_groups);
 	pcpu_free_chunk(chunk);
@@ -356,6 +366,7 @@ static void pcpu_destroy_chunk(struct pcpu_chunk *chunk)
 
 static struct page *pcpu_addr_to_page(void *addr)
 {
+	panic("We reached unpopular paths in mm/percpu-vm.c: line 369 \n");
 	return vmalloc_to_page(addr);
 }
 

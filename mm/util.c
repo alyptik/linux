@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 #include <linux/mm.h>
 #include <linux/slab.h>
 #include <linux/string.h>
@@ -127,6 +128,7 @@ EXPORT_SYMBOL(kmemdup);
  */
 char *kmemdup_nul(const char *s, size_t len, gfp_t gfp)
 {
+	panic("We reached unpopular paths in mm/util.c: line 131 \n");
 	char *buf;
 
 	if (!s)
@@ -256,6 +258,7 @@ void __vma_link_list(struct mm_struct *mm, struct vm_area_struct *vma,
 /* Check if the vma is being used as a stack by this task */
 int vma_is_stack_for_current(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/util.c: line 261 \n");
 	struct task_struct * __maybe_unused t = current;
 
 	return (vma->vm_start <= KSTK_ESP(t) && vma->vm_end >= KSTK_ESP(t));
@@ -359,6 +362,7 @@ EXPORT_SYMBOL(kvfree);
 
 static inline void *__page_rmapping(struct page *page)
 {
+	panic("We reached unpopular paths in mm/util.c: line 365 \n");
 	unsigned long mapping;
 
 	mapping = (unsigned long)page->mapping;
@@ -399,6 +403,7 @@ EXPORT_SYMBOL(page_mapped);
 
 struct anon_vma *page_anon_vma(struct page *page)
 {
+	panic("We reached unpopular paths in mm/util.c: line 406 \n");
 	unsigned long mapping;
 
 	page = compound_head(page);
@@ -517,6 +522,7 @@ struct percpu_counter vm_committed_as ____cacheline_aligned_in_smp;
  */
 unsigned long vm_memory_committed(void)
 {
+	panic("We reached unpopular paths in mm/util.c: line 525 \n");
 	return percpu_counter_read_positive(&vm_committed_as);
 }
 EXPORT_SYMBOL_GPL(vm_memory_committed);
@@ -629,6 +635,7 @@ error:
  */
 int get_cmdline(struct task_struct *task, char *buffer, int buflen)
 {
+	panic("We reached unpopular paths in mm/util.c: line 638 \n");
 	int res = 0;
 	unsigned int len;
 	struct mm_struct *mm = get_task_mm(task);

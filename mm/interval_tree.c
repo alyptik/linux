@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * mm/interval_tree.c - interval tree for mapping->i_mmap
  *
@@ -13,6 +14,7 @@
 
 static inline unsigned long vma_start_pgoff(struct vm_area_struct *v)
 {
+	panic("We reached unpopular paths in mm/interval_tree.c: line 17 \n");
 	return v->vm_pgoff;
 }
 
@@ -61,11 +63,13 @@ void vma_interval_tree_insert_after(struct vm_area_struct *node,
 
 static inline unsigned long avc_start_pgoff(struct anon_vma_chain *avc)
 {
+	panic("We reached unpopular paths in mm/interval_tree.c: line 66 \n");
 	return vma_start_pgoff(avc->vma);
 }
 
 static inline unsigned long avc_last_pgoff(struct anon_vma_chain *avc)
 {
+	panic("We reached unpopular paths in mm/interval_tree.c: line 72 \n");
 	return vma_last_pgoff(avc->vma);
 }
 
@@ -93,6 +97,7 @@ struct anon_vma_chain *
 anon_vma_interval_tree_iter_first(struct rb_root *root,
 				  unsigned long first, unsigned long last)
 {
+	panic("We reached unpopular paths in mm/interval_tree.c: line 100 \n");
 	return __anon_vma_interval_tree_iter_first(root, first, last);
 }
 
@@ -100,6 +105,7 @@ struct anon_vma_chain *
 anon_vma_interval_tree_iter_next(struct anon_vma_chain *node,
 				 unsigned long first, unsigned long last)
 {
+	panic("We reached unpopular paths in mm/interval_tree.c: line 108 \n");
 	return __anon_vma_interval_tree_iter_next(node, first, last);
 }
 

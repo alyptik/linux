@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * mm/truncate.c - code for taking down pages from address_spaces
  *
@@ -27,6 +28,7 @@
 static void clear_exceptional_entry(struct address_space *mapping,
 				    pgoff_t index, void *entry)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 31 \n");
 	struct radix_tree_node *node;
 	void **slot;
 
@@ -88,6 +90,7 @@ unlock:
 void do_invalidatepage(struct page *page, unsigned int offset,
 		       unsigned int length)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 93 \n");
 	void (*invalidatepage)(struct page *, unsigned int, unsigned int);
 
 	invalidatepage = page->mapping->a_ops->invalidatepage;
@@ -140,6 +143,7 @@ truncate_complete_page(struct address_space *mapping, struct page *page)
 static int
 invalidate_complete_page(struct address_space *mapping, struct page *page)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 146 \n");
 	int ret;
 
 	if (page->mapping != mapping)
@@ -172,6 +176,7 @@ int truncate_inode_page(struct address_space *mapping, struct page *page)
  */
 int generic_error_remove_page(struct address_space *mapping, struct page *page)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 179 \n");
 	if (!mapping)
 		return -EINVAL;
 	/*
@@ -192,6 +197,7 @@ EXPORT_SYMBOL(generic_error_remove_page);
  */
 int invalidate_inode_page(struct page *page)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 200 \n");
 	struct address_space *mapping = page_mapping(page);
 	if (!mapping)
 		return 0;
@@ -229,6 +235,7 @@ int invalidate_inode_page(struct page *page)
 void truncate_inode_pages_range(struct address_space *mapping,
 				loff_t lstart, loff_t lend)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 238 \n");
 	pgoff_t		start;		/* inclusive */
 	pgoff_t		end;		/* exclusive */
 	unsigned int	partial_start;	/* inclusive */
@@ -398,6 +405,7 @@ EXPORT_SYMBOL(truncate_inode_pages_range);
  */
 void truncate_inode_pages(struct address_space *mapping, loff_t lstart)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 408 \n");
 	truncate_inode_pages_range(mapping, lstart, (loff_t)-1);
 }
 EXPORT_SYMBOL(truncate_inode_pages);
@@ -465,6 +473,7 @@ EXPORT_SYMBOL(truncate_inode_pages_final);
 unsigned long invalidate_mapping_pages(struct address_space *mapping,
 		pgoff_t start, pgoff_t end)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 476 \n");
 	pgoff_t indices[PAGEVEC_SIZE];
 	struct pagevec pvec;
 	pgoff_t index = start;
@@ -535,6 +544,7 @@ EXPORT_SYMBOL(invalidate_mapping_pages);
 static int
 invalidate_complete_page2(struct address_space *mapping, struct page *page)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 547 \n");
 	unsigned long flags;
 
 	if (page->mapping != mapping)
@@ -563,6 +573,7 @@ failed:
 
 static int do_launder_page(struct address_space *mapping, struct page *page)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 576 \n");
 	if (!PageDirty(page))
 		return 0;
 	if (page->mapping != mapping || mapping->a_ops->launder_page == NULL)
@@ -584,6 +595,7 @@ static int do_launder_page(struct address_space *mapping, struct page *page)
 int invalidate_inode_pages2_range(struct address_space *mapping,
 				  pgoff_t start, pgoff_t end)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 598 \n");
 	pgoff_t indices[PAGEVEC_SIZE];
 	struct pagevec pvec;
 	pgoff_t index;
@@ -669,6 +681,7 @@ EXPORT_SYMBOL_GPL(invalidate_inode_pages2_range);
  */
 int invalidate_inode_pages2(struct address_space *mapping)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 684 \n");
 	return invalidate_inode_pages2_range(mapping, 0, -1);
 }
 EXPORT_SYMBOL_GPL(invalidate_inode_pages2);
@@ -690,6 +703,7 @@ EXPORT_SYMBOL_GPL(invalidate_inode_pages2);
  */
 void truncate_pagecache(struct inode *inode, loff_t newsize)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 706 \n");
 	struct address_space *mapping = inode->i_mapping;
 	loff_t holebegin = round_up(newsize, PAGE_SIZE);
 
@@ -723,6 +737,7 @@ EXPORT_SYMBOL(truncate_pagecache);
  */
 void truncate_setsize(struct inode *inode, loff_t newsize)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 740 \n");
 	loff_t oldsize = inode->i_size;
 
 	i_size_write(inode, newsize);
@@ -753,6 +768,7 @@ EXPORT_SYMBOL(truncate_setsize);
  */
 void pagecache_isize_extended(struct inode *inode, loff_t from, loff_t to)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 771 \n");
 	int bsize = i_blocksize(inode);
 	loff_t rounded_from;
 	struct page *page;
@@ -798,6 +814,7 @@ EXPORT_SYMBOL(pagecache_isize_extended);
  */
 void truncate_pagecache_range(struct inode *inode, loff_t lstart, loff_t lend)
 {
+	panic("We reached unpopular paths in mm/truncate.c: line 817 \n");
 	struct address_space *mapping = inode->i_mapping;
 	loff_t unmap_start = round_up(lstart, PAGE_SIZE);
 	loff_t unmap_end = round_down(1 + lend, PAGE_SIZE) - 1;

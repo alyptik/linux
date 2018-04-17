@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * mm/mmap.c
  *
@@ -521,6 +522,7 @@ static int find_vma_links(struct mm_struct *mm, unsigned long addr,
 static unsigned long count_vma_pages_range(struct mm_struct *mm,
 		unsigned long addr, unsigned long end)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 525 \n");
 	unsigned long nr_pages = 0;
 	struct vm_area_struct *vma;
 
@@ -1762,6 +1764,7 @@ unacct_error:
 
 unsigned long unmapped_area(struct vm_unmapped_area_info *info)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 1767 \n");
 	/*
 	 * We implement the search by looking for an rbtree node that
 	 * immediately follows a suitable gap. That is,
@@ -1978,6 +1981,7 @@ unsigned long
 arch_get_unmapped_area(struct file *filp, unsigned long addr,
 		unsigned long len, unsigned long pgoff, unsigned long flags)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 1984 \n");
 	struct mm_struct *mm = current->mm;
 	struct vm_area_struct *vma, *prev;
 	struct vm_unmapped_area_info info;
@@ -2016,6 +2020,7 @@ arch_get_unmapped_area_topdown(struct file *filp, const unsigned long addr0,
 			  const unsigned long len, const unsigned long pgoff,
 			  const unsigned long flags)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 2023 \n");
 	struct vm_area_struct *vma, *prev;
 	struct mm_struct *mm = current->mm;
 	unsigned long addr = addr0;
@@ -2831,6 +2836,7 @@ out:
 
 static inline void verify_mm_writelocked(struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 2839 \n");
 #ifdef CONFIG_DEBUG_VM
 	if (unlikely(down_read_trylock(&mm->mmap_sem))) {
 		WARN_ON(1);
@@ -3161,11 +3167,13 @@ static void special_mapping_close(struct vm_area_struct *vma)
 
 static const char *special_mapping_name(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 3170 \n");
 	return ((struct vm_special_mapping *)vma->vm_private_data)->name;
 }
 
 static int special_mapping_mremap(struct vm_area_struct *new_vma)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 3176 \n");
 	struct vm_special_mapping *sm = new_vma->vm_private_data;
 
 	if (sm->mremap)
@@ -3257,6 +3265,7 @@ out:
 bool vma_is_special_mapping(const struct vm_area_struct *vma,
 	const struct vm_special_mapping *sm)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 3268 \n");
 	return vma->vm_private_data == sm &&
 		(vma->vm_ops == &special_mapping_vmops ||
 		 vma->vm_ops == &legacy_special_mapping_vmops);
@@ -3284,6 +3293,7 @@ int install_special_mapping(struct mm_struct *mm,
 			    unsigned long addr, unsigned long len,
 			    unsigned long vm_flags, struct page **pages)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 3296 \n");
 	struct vm_area_struct *vma = __install_special_mapping(
 		mm, addr, len, vm_flags, (void *)pages,
 		&legacy_special_mapping_vmops);
@@ -3295,6 +3305,7 @@ static DEFINE_MUTEX(mm_all_locks_mutex);
 
 static void vm_lock_anon_vma(struct mm_struct *mm, struct anon_vma *anon_vma)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 3308 \n");
 	if (!test_bit(0, (unsigned long *) &anon_vma->root->rb_root.rb_node)) {
 		/*
 		 * The LSB of head.next can't change from under us
@@ -3318,6 +3329,7 @@ static void vm_lock_anon_vma(struct mm_struct *mm, struct anon_vma *anon_vma)
 
 static void vm_lock_mapping(struct mm_struct *mm, struct address_space *mapping)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 3332 \n");
 	if (!test_bit(AS_MM_ALL_LOCKS, &mapping->flags)) {
 		/*
 		 * AS_MM_ALL_LOCKS can't change from under us because
@@ -3373,6 +3385,7 @@ static void vm_lock_mapping(struct mm_struct *mm, struct address_space *mapping)
  */
 int mm_take_all_locks(struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 3388 \n");
 	struct vm_area_struct *vma;
 	struct anon_vma_chain *avc;
 
@@ -3413,6 +3426,7 @@ out_unlock:
 
 static void vm_unlock_anon_vma(struct anon_vma *anon_vma)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 3429 \n");
 	if (test_bit(0, (unsigned long *) &anon_vma->root->rb_root.rb_node)) {
 		/*
 		 * The LSB of head.next can't change to 0 from under
@@ -3435,6 +3449,7 @@ static void vm_unlock_anon_vma(struct anon_vma *anon_vma)
 
 static void vm_unlock_mapping(struct address_space *mapping)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 3452 \n");
 	if (test_bit(AS_MM_ALL_LOCKS, &mapping->flags)) {
 		/*
 		 * AS_MM_ALL_LOCKS can't change to 0 from under us
@@ -3453,6 +3468,7 @@ static void vm_unlock_mapping(struct address_space *mapping)
  */
 void mm_drop_all_locks(struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 3471 \n");
 	struct vm_area_struct *vma;
 	struct anon_vma_chain *avc;
 
@@ -3544,6 +3560,7 @@ subsys_initcall(init_admin_reserve);
 static int reserve_mem_notifier(struct notifier_block *nb,
 			     unsigned long action, void *data)
 {
+	panic("We reached unpopular paths in mm/mmap.c: line 3563 \n");
 	unsigned long tmp, free_kbytes;
 
 	switch (action) {

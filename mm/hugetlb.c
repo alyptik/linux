@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * Generic hugetlb support.
  * (C) Nadia Yvette Chambers, April 2004
@@ -71,6 +72,7 @@ static int hugetlb_acct_memory(struct hstate *h, long delta);
 
 static inline void unlock_or_release_subpool(struct hugepage_subpool *spool)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 75 \n");
 	bool free = (spool->count == 0) && (spool->used_hpages == 0);
 
 	spin_unlock(&spool->lock);
@@ -89,6 +91,7 @@ static inline void unlock_or_release_subpool(struct hugepage_subpool *spool)
 struct hugepage_subpool *hugepage_new_subpool(struct hstate *h, long max_hpages,
 						long min_hpages)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 94 \n");
 	struct hugepage_subpool *spool;
 
 	spool = kzalloc(sizeof(*spool), GFP_KERNEL);
@@ -112,6 +115,7 @@ struct hugepage_subpool *hugepage_new_subpool(struct hstate *h, long max_hpages,
 
 void hugepage_put_subpool(struct hugepage_subpool *spool)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 118 \n");
 	spin_lock(&spool->lock);
 	BUG_ON(!spool->count);
 	spool->count--;
@@ -129,6 +133,7 @@ void hugepage_put_subpool(struct hugepage_subpool *spool)
 static long hugepage_subpool_get_pages(struct hugepage_subpool *spool,
 				      long delta)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 136 \n");
 	long ret = delta;
 
 	if (!spool)
@@ -174,6 +179,7 @@ unlock_ret:
 static long hugepage_subpool_put_pages(struct hugepage_subpool *spool,
 				       long delta)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 182 \n");
 	long ret = delta;
 
 	if (!spool)
@@ -207,11 +213,13 @@ static long hugepage_subpool_put_pages(struct hugepage_subpool *spool,
 
 static inline struct hugepage_subpool *subpool_inode(struct inode *inode)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 216 \n");
 	return HUGETLBFS_SB(inode->i_sb)->spool;
 }
 
 static inline struct hugepage_subpool *subpool_vma(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 222 \n");
 	return subpool_inode(file_inode(vma->vm_file));
 }
 
@@ -256,6 +264,7 @@ struct file_region {
  */
 static long region_add(struct resv_map *resv, long f, long t)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 267 \n");
 	struct list_head *head = &resv->regions;
 	struct file_region *rg, *nrg, *trg;
 	long add = 0;
@@ -352,6 +361,7 @@ out_locked:
  */
 static long region_chg(struct resv_map *resv, long f, long t)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 364 \n");
 	struct list_head *head = &resv->regions;
 	struct file_region *rg, *nrg = NULL;
 	long chg = 0;
@@ -457,6 +467,7 @@ out_nrg:
  */
 static void region_abort(struct resv_map *resv, long f, long t)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 470 \n");
 	spin_lock(&resv->lock);
 	VM_BUG_ON(!resv->region_cache_count);
 	resv->adds_in_progress--;
@@ -479,6 +490,7 @@ static void region_abort(struct resv_map *resv, long f, long t)
  */
 static long region_del(struct resv_map *resv, long f, long t)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 493 \n");
 	struct list_head *head = &resv->regions;
 	struct file_region *rg, *trg;
 	struct file_region *nrg = NULL;
@@ -569,6 +581,7 @@ retry:
  */
 void hugetlb_fix_reserve_counts(struct inode *inode)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 584 \n");
 	struct hugepage_subpool *spool = subpool_inode(inode);
 	long rsv_adjust;
 
@@ -586,6 +599,7 @@ void hugetlb_fix_reserve_counts(struct inode *inode)
  */
 static long region_count(struct resv_map *resv, long f, long t)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 602 \n");
 	struct list_head *head = &resv->regions;
 	struct file_region *rg;
 	long chg = 0;
@@ -618,6 +632,7 @@ static long region_count(struct resv_map *resv, long f, long t)
 static pgoff_t vma_hugecache_offset(struct hstate *h,
 			struct vm_area_struct *vma, unsigned long address)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 635 \n");
 	return ((address - vma->vm_start) >> huge_page_shift(h)) +
 			(vma->vm_pgoff >> huge_page_order(h));
 }
@@ -625,6 +640,7 @@ static pgoff_t vma_hugecache_offset(struct hstate *h,
 pgoff_t linear_hugepage_index(struct vm_area_struct *vma,
 				     unsigned long address)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 643 \n");
 	return vma_hugecache_offset(hstate_vma(vma), vma, address);
 }
 EXPORT_SYMBOL_GPL(linear_hugepage_index);
@@ -635,6 +651,7 @@ EXPORT_SYMBOL_GPL(linear_hugepage_index);
  */
 unsigned long vma_kernel_pagesize(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 654 \n");
 	struct hstate *hstate;
 
 	if (!is_vm_hugetlb_page(vma))
@@ -655,6 +672,7 @@ EXPORT_SYMBOL_GPL(vma_kernel_pagesize);
 #ifndef vma_mmu_pagesize
 unsigned long vma_mmu_pagesize(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 675 \n");
 	return vma_kernel_pagesize(vma);
 }
 #endif
@@ -689,17 +707,20 @@ unsigned long vma_mmu_pagesize(struct vm_area_struct *vma)
  */
 static unsigned long get_vma_private_data(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 710 \n");
 	return (unsigned long)vma->vm_private_data;
 }
 
 static void set_vma_private_data(struct vm_area_struct *vma,
 							unsigned long value)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 717 \n");
 	vma->vm_private_data = (void *)value;
 }
 
 struct resv_map *resv_map_alloc(void)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 723 \n");
 	struct resv_map *resv_map = kmalloc(sizeof(*resv_map), GFP_KERNEL);
 	struct file_region *rg = kmalloc(sizeof(*rg), GFP_KERNEL);
 
@@ -724,6 +745,7 @@ struct resv_map *resv_map_alloc(void)
 
 void resv_map_release(struct kref *ref)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 748 \n");
 	struct resv_map *resv_map = container_of(ref, struct resv_map, refs);
 	struct list_head *head = &resv_map->region_cache;
 	struct file_region *rg, *trg;
@@ -744,11 +766,13 @@ void resv_map_release(struct kref *ref)
 
 static inline struct resv_map *inode_resv_map(struct inode *inode)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 769 \n");
 	return inode->i_mapping->private_data;
 }
 
 static struct resv_map *vma_resv_map(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 775 \n");
 	VM_BUG_ON_VMA(!is_vm_hugetlb_page(vma), vma);
 	if (vma->vm_flags & VM_MAYSHARE) {
 		struct address_space *mapping = vma->vm_file->f_mapping;
@@ -764,6 +788,7 @@ static struct resv_map *vma_resv_map(struct vm_area_struct *vma)
 
 static void set_vma_resv_map(struct vm_area_struct *vma, struct resv_map *map)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 791 \n");
 	VM_BUG_ON_VMA(!is_vm_hugetlb_page(vma), vma);
 	VM_BUG_ON_VMA(vma->vm_flags & VM_MAYSHARE, vma);
 
@@ -773,6 +798,7 @@ static void set_vma_resv_map(struct vm_area_struct *vma, struct resv_map *map)
 
 static void set_vma_resv_flags(struct vm_area_struct *vma, unsigned long flags)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 801 \n");
 	VM_BUG_ON_VMA(!is_vm_hugetlb_page(vma), vma);
 	VM_BUG_ON_VMA(vma->vm_flags & VM_MAYSHARE, vma);
 
@@ -781,6 +807,7 @@ static void set_vma_resv_flags(struct vm_area_struct *vma, unsigned long flags)
 
 static int is_vma_resv_set(struct vm_area_struct *vma, unsigned long flag)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 810 \n");
 	VM_BUG_ON_VMA(!is_vm_hugetlb_page(vma), vma);
 
 	return (get_vma_private_data(vma) & flag) != 0;
@@ -789,6 +816,7 @@ static int is_vma_resv_set(struct vm_area_struct *vma, unsigned long flag)
 /* Reset counters to 0 and clear all HPAGE_RESV_* flags */
 void reset_vma_resv_huge_pages(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 819 \n");
 	VM_BUG_ON_VMA(!is_vm_hugetlb_page(vma), vma);
 	if (!(vma->vm_flags & VM_MAYSHARE))
 		vma->vm_private_data = (void *)0;
@@ -797,6 +825,7 @@ void reset_vma_resv_huge_pages(struct vm_area_struct *vma)
 /* Returns true if the VMA has associated reserve pages */
 static bool vma_has_reserves(struct vm_area_struct *vma, long chg)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 828 \n");
 	if (vma->vm_flags & VM_NORESERVE) {
 		/*
 		 * This address is already reserved by other process(chg == 0),
@@ -859,6 +888,7 @@ static bool vma_has_reserves(struct vm_area_struct *vma, long chg)
 
 static void enqueue_huge_page(struct hstate *h, struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 891 \n");
 	int nid = page_to_nid(page);
 	list_move(&page->lru, &h->hugepage_freelists[nid]);
 	h->free_huge_pages++;
@@ -867,6 +897,7 @@ static void enqueue_huge_page(struct hstate *h, struct page *page)
 
 static struct page *dequeue_huge_page_node(struct hstate *h, int nid)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 900 \n");
 	struct page *page;
 
 	list_for_each_entry(page, &h->hugepage_freelists[nid], lru)
@@ -888,6 +919,7 @@ static struct page *dequeue_huge_page_node(struct hstate *h, int nid)
 /* Movability of hugepages depends on migration support. */
 static inline gfp_t htlb_alloc_mask(struct hstate *h)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 922 \n");
 	if (hugepages_treat_as_movable || hugepage_migration_supported(h))
 		return GFP_HIGHUSER_MOVABLE;
 	else
@@ -899,6 +931,7 @@ static struct page *dequeue_huge_page_vma(struct hstate *h,
 				unsigned long address, int avoid_reserve,
 				long chg)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 934 \n");
 	struct page *page = NULL;
 	struct mempolicy *mpol;
 	nodemask_t *nodemask;
@@ -960,6 +993,7 @@ err:
  */
 static int next_node_allowed(int nid, nodemask_t *nodes_allowed)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 996 \n");
 	nid = next_node_in(nid, *nodes_allowed);
 	VM_BUG_ON(nid >= MAX_NUMNODES);
 
@@ -968,6 +1002,7 @@ static int next_node_allowed(int nid, nodemask_t *nodes_allowed)
 
 static int get_valid_node_allowed(int nid, nodemask_t *nodes_allowed)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1005 \n");
 	if (!node_isset(nid, *nodes_allowed))
 		nid = next_node_allowed(nid, nodes_allowed);
 	return nid;
@@ -982,6 +1017,7 @@ static int get_valid_node_allowed(int nid, nodemask_t *nodes_allowed)
 static int hstate_next_node_to_alloc(struct hstate *h,
 					nodemask_t *nodes_allowed)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1020 \n");
 	int nid;
 
 	VM_BUG_ON(!nodes_allowed);
@@ -1000,6 +1036,7 @@ static int hstate_next_node_to_alloc(struct hstate *h,
  */
 static int hstate_next_node_to_free(struct hstate *h, nodemask_t *nodes_allowed)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1039 \n");
 	int nid;
 
 	VM_BUG_ON(!nodes_allowed);
@@ -1167,6 +1204,7 @@ static inline int alloc_fresh_gigantic_page(struct hstate *h,
 
 static void update_and_free_page(struct hstate *h, struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1207 \n");
 	int i;
 
 	if (hstate_is_gigantic(h) && !gigantic_page_supported())
@@ -1210,6 +1248,7 @@ struct hstate *size_to_hstate(unsigned long size)
  */
 bool page_huge_active(struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1251 \n");
 	VM_BUG_ON_PAGE(!PageHuge(page), page);
 	return PageHead(page) && PagePrivate(&page[1]);
 }
@@ -1217,18 +1256,21 @@ bool page_huge_active(struct page *page)
 /* never called for tail page */
 static void set_page_huge_active(struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1259 \n");
 	VM_BUG_ON_PAGE(!PageHeadHuge(page), page);
 	SetPagePrivate(&page[1]);
 }
 
 static void clear_page_huge_active(struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1266 \n");
 	VM_BUG_ON_PAGE(!PageHeadHuge(page), page);
 	ClearPagePrivate(&page[1]);
 }
 
 void free_huge_page(struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1273 \n");
 	/*
 	 * Can't pass hstate in here because it is called from the
 	 * compound page destructor.
@@ -1276,6 +1318,7 @@ void free_huge_page(struct page *page)
 
 static void prep_new_huge_page(struct hstate *h, struct page *page, int nid)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1321 \n");
 	INIT_LIST_HEAD(&page->lru);
 	set_compound_page_dtor(page, HUGETLB_PAGE_DTOR);
 	spin_lock(&hugetlb_lock);
@@ -1288,6 +1331,7 @@ static void prep_new_huge_page(struct hstate *h, struct page *page, int nid)
 
 static void prep_compound_gigantic_page(struct page *page, unsigned int order)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1334 \n");
 	int i;
 	int nr_pages = 1 << order;
 	struct page *p = page + 1;
@@ -1337,6 +1381,7 @@ EXPORT_SYMBOL_GPL(PageHuge);
  */
 int PageHeadHuge(struct page *page_head)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1384 \n");
 	if (!PageHead(page_head))
 		return 0;
 
@@ -1345,6 +1390,7 @@ int PageHeadHuge(struct page *page_head)
 
 pgoff_t __basepage_index(struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1393 \n");
 	struct page *page_head = compound_head(page);
 	pgoff_t index = page_index(page_head);
 	unsigned long compound_idx;
@@ -1362,6 +1408,7 @@ pgoff_t __basepage_index(struct page *page)
 
 static struct page *alloc_fresh_huge_page_node(struct hstate *h, int nid)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1411 \n");
 	struct page *page;
 
 	page = __alloc_pages_node(nid,
@@ -1377,6 +1424,7 @@ static struct page *alloc_fresh_huge_page_node(struct hstate *h, int nid)
 
 static int alloc_fresh_huge_page(struct hstate *h, nodemask_t *nodes_allowed)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1427 \n");
 	struct page *page;
 	int nr_nodes, node;
 	int ret = 0;
@@ -1406,6 +1454,7 @@ static int alloc_fresh_huge_page(struct hstate *h, nodemask_t *nodes_allowed)
 static int free_pool_huge_page(struct hstate *h, nodemask_t *nodes_allowed,
 							 bool acct_surplus)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1457 \n");
 	int nr_nodes, node;
 	int ret = 0;
 
@@ -1443,6 +1492,7 @@ static int free_pool_huge_page(struct hstate *h, nodemask_t *nodes_allowed,
  */
 static int dissolve_free_huge_page(struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1495 \n");
 	int rc = 0;
 
 	spin_lock(&hugetlb_lock);
@@ -1475,6 +1525,7 @@ out:
  */
 int dissolve_free_huge_pages(unsigned long start_pfn, unsigned long end_pfn)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1528 \n");
 	unsigned long pfn;
 	struct page *page;
 	int rc = 0;
@@ -1506,6 +1557,7 @@ int dissolve_free_huge_pages(unsigned long start_pfn, unsigned long end_pfn)
 static struct page *__hugetlb_alloc_buddy_huge_page(struct hstate *h,
 		struct vm_area_struct *vma, unsigned long addr, int nid)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1560 \n");
 	int order = huge_page_order(h);
 	gfp_t gfp = htlb_alloc_mask(h)|__GFP_COMP|__GFP_REPEAT|__GFP_NOWARN;
 	unsigned int cpuset_mems_cookie;
@@ -1571,6 +1623,7 @@ static struct page *__hugetlb_alloc_buddy_huge_page(struct hstate *h,
 static struct page *__alloc_buddy_huge_page(struct hstate *h,
 		struct vm_area_struct *vma, unsigned long addr, int nid)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1626 \n");
 	struct page *page;
 	unsigned int r_nid;
 
@@ -1651,6 +1704,7 @@ static struct page *__alloc_buddy_huge_page(struct hstate *h,
 static
 struct page *__alloc_buddy_huge_page_no_mpol(struct hstate *h, int nid)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1707 \n");
 	unsigned long addr = -1;
 
 	return __alloc_buddy_huge_page(h, NULL, addr, nid);
@@ -1663,6 +1717,7 @@ static
 struct page *__alloc_buddy_huge_page_with_mpol(struct hstate *h,
 		struct vm_area_struct *vma, unsigned long addr)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1720 \n");
 	return __alloc_buddy_huge_page(h, vma, addr, NUMA_NO_NODE);
 }
 
@@ -1673,6 +1728,7 @@ struct page *__alloc_buddy_huge_page_with_mpol(struct hstate *h,
  */
 struct page *alloc_huge_page_node(struct hstate *h, int nid)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1731 \n");
 	struct page *page = NULL;
 
 	spin_lock(&hugetlb_lock);
@@ -1692,6 +1748,7 @@ struct page *alloc_huge_page_node(struct hstate *h, int nid)
  */
 static int gather_surplus_pages(struct hstate *h, int delta)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1751 \n");
 	struct list_head surplus_list;
 	struct page *page, *tmp;
 	int ret, i;
@@ -1789,6 +1846,7 @@ free:
 static void return_unused_surplus_pages(struct hstate *h,
 					unsigned long unused_resv_pages)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1849 \n");
 	unsigned long nr_pages;
 
 	/* Cannot return gigantic pages currently */
@@ -1861,6 +1919,7 @@ static long __vma_reservation_common(struct hstate *h,
 				struct vm_area_struct *vma, unsigned long addr,
 				enum vma_resv_mode mode)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1922 \n");
 	struct resv_map *resv;
 	pgoff_t idx;
 	long ret;
@@ -1921,24 +1980,28 @@ static long __vma_reservation_common(struct hstate *h,
 static long vma_needs_reservation(struct hstate *h,
 			struct vm_area_struct *vma, unsigned long addr)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1983 \n");
 	return __vma_reservation_common(h, vma, addr, VMA_NEEDS_RESV);
 }
 
 static long vma_commit_reservation(struct hstate *h,
 			struct vm_area_struct *vma, unsigned long addr)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1990 \n");
 	return __vma_reservation_common(h, vma, addr, VMA_COMMIT_RESV);
 }
 
 static void vma_end_reservation(struct hstate *h,
 			struct vm_area_struct *vma, unsigned long addr)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 1997 \n");
 	(void)__vma_reservation_common(h, vma, addr, VMA_END_RESV);
 }
 
 static long vma_add_reservation(struct hstate *h,
 			struct vm_area_struct *vma, unsigned long addr)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2004 \n");
 	return __vma_reservation_common(h, vma, addr, VMA_ADD_RESV);
 }
 
@@ -1957,6 +2020,7 @@ static void restore_reserve_on_error(struct hstate *h,
 			struct vm_area_struct *vma, unsigned long address,
 			struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2023 \n");
 	if (unlikely(PagePrivate(page))) {
 		long rc = vma_needs_reservation(h, vma, address);
 
@@ -1989,6 +2053,7 @@ static void restore_reserve_on_error(struct hstate *h,
 struct page *alloc_huge_page(struct vm_area_struct *vma,
 				    unsigned long addr, int avoid_reserve)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2056 \n");
 	struct hugepage_subpool *spool = subpool_vma(vma);
 	struct hstate *h = hstate_vma(vma);
 	struct page *page;
@@ -2097,6 +2162,7 @@ out_subpool_put:
 struct page *alloc_huge_page_noerr(struct vm_area_struct *vma,
 				unsigned long addr, int avoid_reserve)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2165 \n");
 	struct page *page = alloc_huge_page(vma, addr, avoid_reserve);
 	if (IS_ERR(page))
 		page = NULL;
@@ -2255,6 +2321,7 @@ static void try_to_free_low(struct hstate *h, unsigned long count,
 static inline void try_to_free_low(struct hstate *h, unsigned long count,
 						nodemask_t *nodes_allowed)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2324 \n");
 }
 #endif
 
@@ -2266,6 +2333,7 @@ static inline void try_to_free_low(struct hstate *h, unsigned long count,
 static int adjust_pool_surplus(struct hstate *h, nodemask_t *nodes_allowed,
 				int delta)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2336 \n");
 	int nr_nodes, node;
 
 	VM_BUG_ON(delta != -1 && delta != 1);
@@ -2294,6 +2362,7 @@ found:
 static unsigned long set_max_huge_pages(struct hstate *h, unsigned long count,
 						nodemask_t *nodes_allowed)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2365 \n");
 	unsigned long min_count, ret;
 
 	if (hstate_is_gigantic(h) && !gigantic_page_supported())
@@ -2387,6 +2456,7 @@ static struct hstate *kobj_to_node_hstate(struct kobject *kobj, int *nidp);
 
 static struct hstate *kobj_to_hstate(struct kobject *kobj, int *nidp)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2459 \n");
 	int i;
 
 	for (i = 0; i < HUGE_MAX_HSTATE; i++)
@@ -2402,6 +2472,7 @@ static struct hstate *kobj_to_hstate(struct kobject *kobj, int *nidp)
 static ssize_t nr_hugepages_show_common(struct kobject *kobj,
 					struct kobj_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2475 \n");
 	struct hstate *h;
 	unsigned long nr_huge_pages;
 	int nid;
@@ -2419,6 +2490,7 @@ static ssize_t __nr_hugepages_store_common(bool obey_mempolicy,
 					   struct hstate *h, int nid,
 					   unsigned long count, size_t len)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2493 \n");
 	int err;
 	NODEMASK_ALLOC(nodemask_t, nodes_allowed, GFP_KERNEL | __GFP_NORETRY);
 
@@ -2461,6 +2533,7 @@ static ssize_t nr_hugepages_store_common(bool obey_mempolicy,
 					 struct kobject *kobj, const char *buf,
 					 size_t len)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2536 \n");
 	struct hstate *h;
 	unsigned long count;
 	int nid;
@@ -2477,12 +2550,14 @@ static ssize_t nr_hugepages_store_common(bool obey_mempolicy,
 static ssize_t nr_hugepages_show(struct kobject *kobj,
 				       struct kobj_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2553 \n");
 	return nr_hugepages_show_common(kobj, attr, buf);
 }
 
 static ssize_t nr_hugepages_store(struct kobject *kobj,
 	       struct kobj_attribute *attr, const char *buf, size_t len)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2560 \n");
 	return nr_hugepages_store_common(false, kobj, buf, len);
 }
 HSTATE_ATTR(nr_hugepages);
@@ -2511,6 +2586,7 @@ HSTATE_ATTR(nr_hugepages_mempolicy);
 static ssize_t nr_overcommit_hugepages_show(struct kobject *kobj,
 					struct kobj_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2589 \n");
 	struct hstate *h = kobj_to_hstate(kobj, NULL);
 	return sprintf(buf, "%lu\n", h->nr_overcommit_huge_pages);
 }
@@ -2518,6 +2594,7 @@ static ssize_t nr_overcommit_hugepages_show(struct kobject *kobj,
 static ssize_t nr_overcommit_hugepages_store(struct kobject *kobj,
 		struct kobj_attribute *attr, const char *buf, size_t count)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2597 \n");
 	int err;
 	unsigned long input;
 	struct hstate *h = kobj_to_hstate(kobj, NULL);
@@ -2540,6 +2617,7 @@ HSTATE_ATTR(nr_overcommit_hugepages);
 static ssize_t free_hugepages_show(struct kobject *kobj,
 					struct kobj_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2620 \n");
 	struct hstate *h;
 	unsigned long free_huge_pages;
 	int nid;
@@ -2557,6 +2635,7 @@ HSTATE_ATTR_RO(free_hugepages);
 static ssize_t resv_hugepages_show(struct kobject *kobj,
 					struct kobj_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2638 \n");
 	struct hstate *h = kobj_to_hstate(kobj, NULL);
 	return sprintf(buf, "%lu\n", h->resv_huge_pages);
 }
@@ -2565,6 +2644,7 @@ HSTATE_ATTR_RO(resv_hugepages);
 static ssize_t surplus_hugepages_show(struct kobject *kobj,
 					struct kobj_attribute *attr, char *buf)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2647 \n");
 	struct hstate *h;
 	unsigned long surplus_huge_pages;
 	int nid;
@@ -2764,6 +2844,7 @@ static void __init hugetlb_register_all_nodes(void)
 
 static struct hstate *kobj_to_node_hstate(struct kobject *kobj, int *nidp)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2847 \n");
 	BUG();
 	if (nidp)
 		*nidp = -1;
@@ -2776,6 +2857,7 @@ static void hugetlb_register_all_nodes(void) { }
 
 static int __init hugetlb_init(void)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2860 \n");
 	int i;
 
 	if (!hugepages_supported())
@@ -2899,6 +2981,7 @@ __setup("default_hugepagesz=", hugetlb_default_setup);
 
 static unsigned int cpuset_mems_nr(unsigned int *array)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 2984 \n");
 	int node;
 	unsigned int nr = 0;
 
@@ -3003,6 +3086,7 @@ void hugetlb_report_meminfo(struct seq_file *m)
 
 int hugetlb_report_node_meminfo(int nid, char *buf)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3089 \n");
 	struct hstate *h = &default_hstate;
 	if (!hugepages_supported())
 		return 0;
@@ -3017,6 +3101,7 @@ int hugetlb_report_node_meminfo(int nid, char *buf)
 
 void hugetlb_show_meminfo(void)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3104 \n");
 	struct hstate *h;
 	int nid;
 
@@ -3052,6 +3137,7 @@ unsigned long hugetlb_total_pages(void)
 
 static int hugetlb_acct_memory(struct hstate *h, long delta)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3140 \n");
 	int ret = -ENOMEM;
 
 	spin_lock(&hugetlb_lock);
@@ -3093,6 +3179,7 @@ out:
 
 static void hugetlb_vm_op_open(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3182 \n");
 	struct resv_map *resv = vma_resv_map(vma);
 
 	/*
@@ -3109,6 +3196,7 @@ static void hugetlb_vm_op_open(struct vm_area_struct *vma)
 
 static void hugetlb_vm_op_close(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3199 \n");
 	struct hstate *h = hstate_vma(vma);
 	struct resv_map *resv = vma_resv_map(vma);
 	struct hugepage_subpool *spool = subpool_vma(vma);
@@ -3137,6 +3225,7 @@ static void hugetlb_vm_op_close(struct vm_area_struct *vma)
 
 static int hugetlb_vm_op_split(struct vm_area_struct *vma, unsigned long addr)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3228 \n");
 	if (addr & ~(huge_page_mask(hstate_vma(vma))))
 		return -EINVAL;
 	return 0;
@@ -3150,6 +3239,7 @@ static int hugetlb_vm_op_split(struct vm_area_struct *vma, unsigned long addr)
  */
 static int hugetlb_vm_op_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3242 \n");
 	BUG();
 	return 0;
 }
@@ -3164,6 +3254,7 @@ const struct vm_operations_struct hugetlb_vm_ops = {
 static pte_t make_huge_pte(struct vm_area_struct *vma, struct page *page,
 				int writable)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3257 \n");
 	pte_t entry;
 
 	if (writable) {
@@ -3183,6 +3274,7 @@ static pte_t make_huge_pte(struct vm_area_struct *vma, struct page *page,
 static void set_huge_ptep_writable(struct vm_area_struct *vma,
 				   unsigned long address, pte_t *ptep)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3277 \n");
 	pte_t entry;
 
 	entry = huge_pte_mkwrite(huge_pte_mkdirty(huge_ptep_get(ptep)));
@@ -3192,6 +3284,7 @@ static void set_huge_ptep_writable(struct vm_area_struct *vma,
 
 static int is_hugetlb_entry_migration(pte_t pte)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3287 \n");
 	swp_entry_t swp;
 
 	if (huge_pte_none(pte) || pte_present(pte))
@@ -3205,6 +3298,7 @@ static int is_hugetlb_entry_migration(pte_t pte)
 
 static int is_hugetlb_entry_hwpoisoned(pte_t pte)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3301 \n");
 	swp_entry_t swp;
 
 	if (huge_pte_none(pte) || pte_present(pte))
@@ -3219,6 +3313,7 @@ static int is_hugetlb_entry_hwpoisoned(pte_t pte)
 int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
 			    struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3316 \n");
 	pte_t *src_pte, *dst_pte, entry;
 	struct page *ptepage;
 	unsigned long addr;
@@ -3298,6 +3393,7 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
 			    unsigned long start, unsigned long end,
 			    struct page *ref_page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3396 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	unsigned long address;
 	pte_t *ptep;
@@ -3386,6 +3482,7 @@ void __unmap_hugepage_range_final(struct mmu_gather *tlb,
 			  struct vm_area_struct *vma, unsigned long start,
 			  unsigned long end, struct page *ref_page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3485 \n");
 	__unmap_hugepage_range(tlb, vma, start, end, ref_page);
 
 	/*
@@ -3404,6 +3501,7 @@ void __unmap_hugepage_range_final(struct mmu_gather *tlb,
 void unmap_hugepage_range(struct vm_area_struct *vma, unsigned long start,
 			  unsigned long end, struct page *ref_page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3504 \n");
 	struct mm_struct *mm;
 	struct mmu_gather tlb;
 
@@ -3423,6 +3521,7 @@ void unmap_hugepage_range(struct vm_area_struct *vma, unsigned long start,
 static void unmap_ref_private(struct mm_struct *mm, struct vm_area_struct *vma,
 			      struct page *page, unsigned long address)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3524 \n");
 	struct hstate *h = hstate_vma(vma);
 	struct vm_area_struct *iter_vma;
 	struct address_space *mapping;
@@ -3480,6 +3579,7 @@ static int hugetlb_cow(struct mm_struct *mm, struct vm_area_struct *vma,
 		       unsigned long address, pte_t *ptep,
 		       struct page *pagecache_page, spinlock_t *ptl)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3582 \n");
 	pte_t pte;
 	struct hstate *h = hstate_vma(vma);
 	struct page *old_page, *new_page;
@@ -3604,6 +3704,7 @@ out_release_old:
 static struct page *hugetlbfs_pagecache_page(struct hstate *h,
 			struct vm_area_struct *vma, unsigned long address)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3707 \n");
 	struct address_space *mapping;
 	pgoff_t idx;
 
@@ -3620,6 +3721,7 @@ static struct page *hugetlbfs_pagecache_page(struct hstate *h,
 static bool hugetlbfs_pagecache_present(struct hstate *h,
 			struct vm_area_struct *vma, unsigned long address)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3724 \n");
 	struct address_space *mapping;
 	pgoff_t idx;
 	struct page *page;
@@ -3636,6 +3738,7 @@ static bool hugetlbfs_pagecache_present(struct hstate *h,
 int huge_add_to_page_cache(struct page *page, struct address_space *mapping,
 			   pgoff_t idx)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3741 \n");
 	struct inode *inode = mapping->host;
 	struct hstate *h = hstate_inode(inode);
 	int err = add_to_page_cache(page, mapping, idx, GFP_KERNEL);
@@ -3654,6 +3757,7 @@ static int hugetlb_no_page(struct mm_struct *mm, struct vm_area_struct *vma,
 			   struct address_space *mapping, pgoff_t idx,
 			   unsigned long address, pte_t *ptep, unsigned int flags)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3760 \n");
 	struct hstate *h = hstate_vma(vma);
 	int ret = VM_FAULT_SIGBUS;
 	int anon_rmap = 0;
@@ -3810,6 +3914,7 @@ u32 hugetlb_fault_mutex_hash(struct hstate *h, struct mm_struct *mm,
 			    struct address_space *mapping,
 			    pgoff_t idx, unsigned long address)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3917 \n");
 	return 0;
 }
 #endif
@@ -3817,6 +3922,7 @@ u32 hugetlb_fault_mutex_hash(struct hstate *h, struct mm_struct *mm,
 int hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
 			unsigned long address, unsigned int flags)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 3925 \n");
 	pte_t *ptep, entry;
 	spinlock_t *ptl;
 	int ret;
@@ -3957,6 +4063,7 @@ long follow_hugetlb_page(struct mm_struct *mm, struct vm_area_struct *vma,
 			 unsigned long *position, unsigned long *nr_pages,
 			 long i, unsigned int flags)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 4066 \n");
 	unsigned long pfn_offset;
 	unsigned long vaddr = *position;
 	unsigned long remainder = *nr_pages;
@@ -4072,6 +4179,7 @@ same_page:
 unsigned long hugetlb_change_protection(struct vm_area_struct *vma,
 		unsigned long address, unsigned long end, pgprot_t newprot)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 4182 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	unsigned long start = address;
 	pte_t *ptep;
@@ -4142,6 +4250,7 @@ int hugetlb_reserve_pages(struct inode *inode,
 					struct vm_area_struct *vma,
 					vm_flags_t vm_flags)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 4253 \n");
 	long ret, chg;
 	struct hstate *h = hstate_inode(inode);
 	struct hugepage_subpool *spool = subpool_inode(inode);
@@ -4246,6 +4355,7 @@ out_err:
 long hugetlb_unreserve_pages(struct inode *inode, long start, long end,
 								long freed)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 4358 \n");
 	struct hstate *h = hstate_inode(inode);
 	struct resv_map *resv_map = inode_resv_map(inode);
 	long chg = 0;
@@ -4406,11 +4516,13 @@ int huge_pmd_unshare(struct mm_struct *mm, unsigned long *addr, pte_t *ptep)
 #else /* !CONFIG_ARCH_WANT_HUGE_PMD_SHARE */
 pte_t *huge_pmd_share(struct mm_struct *mm, unsigned long addr, pud_t *pud)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 4519 \n");
 	return NULL;
 }
 
 int huge_pmd_unshare(struct mm_struct *mm, unsigned long *addr, pte_t *ptep)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 4525 \n");
 	return 0;
 }
 #define want_pmd_share()	(0)
@@ -4556,6 +4668,7 @@ int dequeue_hwpoisoned_huge_page(struct page *hpage)
 
 bool isolate_huge_page(struct page *page, struct list_head *list)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 4671 \n");
 	bool ret = true;
 
 	VM_BUG_ON_PAGE(!PageHead(page), page);
@@ -4573,6 +4686,7 @@ unlock:
 
 void putback_active_hugepage(struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb.c: line 4689 \n");
 	VM_BUG_ON_PAGE(!PageHead(page), page);
 	spin_lock(&hugetlb_lock);
 	set_page_huge_active(page);

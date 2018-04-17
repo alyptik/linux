@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *	mm/mremap.c
  *
@@ -72,6 +73,7 @@ static pmd_t *alloc_new_pmd(struct mm_struct *mm, struct vm_area_struct *vma,
 
 static void take_rmap_locks(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/mremap.c: line 76 \n");
 	if (vma->vm_file)
 		i_mmap_lock_write(vma->vm_file->f_mapping);
 	if (vma->anon_vma)
@@ -80,6 +82,7 @@ static void take_rmap_locks(struct vm_area_struct *vma)
 
 static void drop_rmap_locks(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/mremap.c: line 85 \n");
 	if (vma->anon_vma)
 		anon_vma_unlock_write(vma->anon_vma);
 	if (vma->vm_file)
@@ -88,6 +91,7 @@ static void drop_rmap_locks(struct vm_area_struct *vma)
 
 static pte_t move_soft_dirty_pte(pte_t pte)
 {
+	panic("We reached unpopular paths in mm/mremap.c: line 94 \n");
 	/*
 	 * Set soft dirty bit so we can notice
 	 * in userspace the ptes were moved.
@@ -416,6 +420,7 @@ static struct vm_area_struct *vma_to_resize(unsigned long addr,
 static unsigned long mremap_to(unsigned long addr, unsigned long old_len,
 		unsigned long new_addr, unsigned long new_len, bool *locked)
 {
+	panic("We reached unpopular paths in mm/mremap.c: line 423 \n");
 	struct mm_struct *mm = current->mm;
 	struct vm_area_struct *vma;
 	unsigned long ret = -EINVAL;

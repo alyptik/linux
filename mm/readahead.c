@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * mm/readahead.c - address_space-level file readahead.
  *
@@ -44,6 +45,7 @@ EXPORT_SYMBOL_GPL(file_ra_state_init);
 static void read_cache_pages_invalidate_page(struct address_space *mapping,
 					     struct page *page)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 48 \n");
 	if (page_has_private(page)) {
 		if (!trylock_page(page))
 			BUG();
@@ -61,6 +63,7 @@ static void read_cache_pages_invalidate_page(struct address_space *mapping,
 static void read_cache_pages_invalidate_pages(struct address_space *mapping,
 					      struct list_head *pages)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 66 \n");
 	struct page *victim;
 
 	while (!list_empty(pages)) {
@@ -83,6 +86,7 @@ static void read_cache_pages_invalidate_pages(struct address_space *mapping,
 int read_cache_pages(struct address_space *mapping, struct list_head *pages,
 			int (*filler)(void *, struct page *), void *data)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 89 \n");
 	struct page *page;
 	int ret = 0;
 
@@ -111,6 +115,7 @@ EXPORT_SYMBOL(read_cache_pages);
 static int read_pages(struct address_space *mapping, struct file *filp,
 		struct list_head *pages, unsigned int nr_pages, gfp_t gfp)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 118 \n");
 	struct blk_plug plug;
 	unsigned page_idx;
 	int ret;
@@ -151,6 +156,7 @@ int __do_page_cache_readahead(struct address_space *mapping, struct file *filp,
 			pgoff_t offset, unsigned long nr_to_read,
 			unsigned long lookahead_size)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 159 \n");
 	struct inode *inode = mapping->host;
 	struct page *page;
 	unsigned long end_index;	/* The last page we want to read */
@@ -209,6 +215,7 @@ out:
 int force_page_cache_readahead(struct address_space *mapping, struct file *filp,
 		pgoff_t offset, unsigned long nr_to_read)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 218 \n");
 	if (unlikely(!mapping->a_ops->readpage && !mapping->a_ops->readpages))
 		return -EINVAL;
 
@@ -239,6 +246,7 @@ int force_page_cache_readahead(struct address_space *mapping, struct file *filp,
  */
 static unsigned long get_init_ra_size(unsigned long size, unsigned long max)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 249 \n");
 	unsigned long newsize = roundup_pow_of_two(size);
 
 	if (newsize <= max / 32)
@@ -258,6 +266,7 @@ static unsigned long get_init_ra_size(unsigned long size, unsigned long max)
 static unsigned long get_next_ra_size(struct file_ra_state *ra,
 						unsigned long max)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 269 \n");
 	unsigned long cur = ra->size;
 	unsigned long newsize;
 
@@ -317,6 +326,7 @@ static unsigned long get_next_ra_size(struct file_ra_state *ra,
 static pgoff_t count_history_pages(struct address_space *mapping,
 				   pgoff_t offset, unsigned long max)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 329 \n");
 	pgoff_t head;
 
 	rcu_read_lock();
@@ -335,6 +345,7 @@ static int try_context_readahead(struct address_space *mapping,
 				 unsigned long req_size,
 				 unsigned long max)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 348 \n");
 	pgoff_t size;
 
 	size = count_history_pages(mapping, offset, max);
@@ -369,6 +380,7 @@ ondemand_readahead(struct address_space *mapping,
 		   bool hit_readahead_marker, pgoff_t offset,
 		   unsigned long req_size)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 383 \n");
 	unsigned long max = ra->ra_pages;
 	pgoff_t prev_offset;
 
@@ -479,6 +491,7 @@ void page_cache_sync_readahead(struct address_space *mapping,
 			       struct file_ra_state *ra, struct file *filp,
 			       pgoff_t offset, unsigned long req_size)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 494 \n");
 	/* no read-ahead */
 	if (!ra->ra_pages)
 		return;
@@ -515,6 +528,7 @@ page_cache_async_readahead(struct address_space *mapping,
 			   struct page *page, pgoff_t offset,
 			   unsigned long req_size)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 531 \n");
 	/* no read-ahead */
 	if (!ra->ra_pages)
 		return;
@@ -542,6 +556,7 @@ static ssize_t
 do_readahead(struct address_space *mapping, struct file *filp,
 	     pgoff_t index, unsigned long nr)
 {
+	panic("We reached unpopular paths in mm/readahead.c: line 559 \n");
 	if (!mapping || !mapping->a_ops)
 		return -EINVAL;
 

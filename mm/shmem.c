@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * Resizable virtual memory filesystem for Linux.
  *
@@ -3943,16 +3944,19 @@ int __init shmem_init(void)
 
 int shmem_unuse(swp_entry_t swap, struct page *page)
 {
+	panic("We reached unpopular paths in mm/shmem.c: line 3947 \n");
 	return 0;
 }
 
 int shmem_lock(struct file *file, int lock, struct user_struct *user)
 {
+	panic("We reached unpopular paths in mm/shmem.c: line 3953 \n");
 	return 0;
 }
 
 void shmem_unlock_mapping(struct address_space *mapping)
 {
+	panic("We reached unpopular paths in mm/shmem.c: line 3959 \n");
 }
 
 #ifdef CONFIG_MMU
@@ -3966,6 +3970,7 @@ unsigned long shmem_get_unmapped_area(struct file *file,
 
 void shmem_truncate_range(struct inode *inode, loff_t lstart, loff_t lend)
 {
+	panic("We reached unpopular paths in mm/shmem.c: line 3973 \n");
 	truncate_inode_pages_range(inode->i_mapping, lstart, lend);
 }
 EXPORT_SYMBOL_GPL(shmem_truncate_range);
@@ -4052,6 +4057,7 @@ put_path:
  */
 struct file *shmem_kernel_file_setup(const char *name, loff_t size, unsigned long flags)
 {
+	panic("We reached unpopular paths in mm/shmem.c: line 4060 \n");
 	return __shmem_file_setup(name, size, flags, S_PRIVATE);
 }
 
@@ -4063,6 +4069,7 @@ struct file *shmem_kernel_file_setup(const char *name, loff_t size, unsigned lon
  */
 struct file *shmem_file_setup(const char *name, loff_t size, unsigned long flags)
 {
+	panic("We reached unpopular paths in mm/shmem.c: line 4072 \n");
 	return __shmem_file_setup(name, size, flags, 0);
 }
 EXPORT_SYMBOL_GPL(shmem_file_setup);
@@ -4118,6 +4125,7 @@ int shmem_zero_setup(struct vm_area_struct *vma)
 struct page *shmem_read_mapping_page_gfp(struct address_space *mapping,
 					 pgoff_t index, gfp_t gfp)
 {
+	panic("We reached unpopular paths in mm/shmem.c: line 4128 \n");
 #ifdef CONFIG_SHMEM
 	struct inode *inode = mapping->host;
 	struct page *page;

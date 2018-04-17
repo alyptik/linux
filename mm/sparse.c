@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * sparse memory mappings.
  */
@@ -55,6 +56,7 @@ static void set_section_nid(unsigned long section_nr, int nid)
 #else /* !NODE_NOT_IN_PAGE_FLAGS */
 static inline void set_section_nid(unsigned long section_nr, int nid)
 {
+	panic("We reached unpopular paths in mm/sparse.c: line 59 \n");
 }
 #endif
 
@@ -96,6 +98,7 @@ static int __meminit sparse_index_init(unsigned long section_nr, int nid)
 #else /* !SPARSEMEM_EXTREME */
 static inline int sparse_index_init(unsigned long section_nr, int nid)
 {
+	panic("We reached unpopular paths in mm/sparse.c: line 101 \n");
 	return 0;
 }
 #endif
@@ -122,6 +125,7 @@ int __section_nr(struct mem_section* ms)
 #else
 int __section_nr(struct mem_section* ms)
 {
+	panic("We reached unpopular paths in mm/sparse.c: line 128 \n");
 	return (int)(ms - mem_section[0]);
 }
 #endif
@@ -134,11 +138,13 @@ int __section_nr(struct mem_section* ms)
  */
 static inline unsigned long sparse_encode_early_nid(int nid)
 {
+	panic("We reached unpopular paths in mm/sparse.c: line 141 \n");
 	return (nid << SECTION_NID_SHIFT);
 }
 
 static inline int sparse_early_nid(struct mem_section *section)
 {
+	panic("We reached unpopular paths in mm/sparse.c: line 147 \n");
 	return (section->section_mem_map >> SECTION_NID_SHIFT);
 }
 
@@ -218,6 +224,7 @@ unsigned long __init node_memmap_size_bytes(int nid, unsigned long start_pfn,
  */
 static unsigned long sparse_encode_mem_map(struct page *mem_map, unsigned long pnum)
 {
+	panic("We reached unpopular paths in mm/sparse.c: line 227 \n");
 	return (unsigned long)(mem_map - (section_nr_to_pfn(pnum)));
 }
 
@@ -226,6 +233,7 @@ static unsigned long sparse_encode_mem_map(struct page *mem_map, unsigned long p
  */
 struct page *sparse_decode_mem_map(unsigned long coded_mem_map, unsigned long pnum)
 {
+	panic("We reached unpopular paths in mm/sparse.c: line 236 \n");
 	/* mask off the extra low bits of information */
 	coded_mem_map &= SECTION_MAP_MASK;
 	return ((struct page *)coded_mem_map) + section_nr_to_pfn(pnum);
@@ -248,6 +256,7 @@ static int __meminit sparse_init_one_section(struct mem_section *ms,
 
 unsigned long usemap_size(void)
 {
+	panic("We reached unpopular paths in mm/sparse.c: line 259 \n");
 	unsigned long size_bytes;
 	size_bytes = roundup(SECTION_BLOCKFLAGS_BITS, 8) / 8;
 	size_bytes = roundup(size_bytes, sizeof(unsigned long));

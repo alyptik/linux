@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *  linux/mm/memory.c
  *
@@ -178,6 +179,7 @@ static void check_sync_rss_stat(struct task_struct *task)
 
 static void check_sync_rss_stat(struct task_struct *task)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 182 \n");
 }
 
 #endif /* SPLIT_RSS_COUNTING */
@@ -652,6 +654,7 @@ static inline void add_mm_rss_vec(struct mm_struct *mm, int *rss)
 static void print_bad_pte(struct vm_area_struct *vma, unsigned long addr,
 			  pte_t pte, struct page *page)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 657 \n");
 	pgd_t *pgd = pgd_offset(vma->vm_mm, addr);
 	pud_t *pud = pud_offset(pgd, addr);
 	pmd_t *pmd = pmd_offset(pud, addr);
@@ -1414,6 +1417,7 @@ void zap_page_range(struct vm_area_struct *vma, unsigned long start,
 static void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
 		unsigned long size, struct zap_details *details)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1420 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	struct mmu_gather tlb;
 	unsigned long end = address + size;
@@ -1442,6 +1446,7 @@ static void zap_page_range_single(struct vm_area_struct *vma, unsigned long addr
 int zap_vma_ptes(struct vm_area_struct *vma, unsigned long address,
 		unsigned long size)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1449 \n");
 	if (address < vma->vm_start || address + size > vma->vm_end ||
 	    		!(vma->vm_flags & VM_PFNMAP))
 		return -1;
@@ -1475,6 +1480,7 @@ pte_t *__get_locked_pte(struct mm_struct *mm, unsigned long addr,
 static int insert_page(struct vm_area_struct *vma, unsigned long addr,
 			struct page *page, pgprot_t prot)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1483 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	int retval;
 	pte_t *pte;
@@ -1537,6 +1543,7 @@ out:
 int vm_insert_page(struct vm_area_struct *vma, unsigned long addr,
 			struct page *page)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1546 \n");
 	if (addr < vma->vm_start || addr >= vma->vm_end)
 		return -EFAULT;
 	if (!page_count(page))
@@ -1650,6 +1657,7 @@ EXPORT_SYMBOL(vm_insert_pfn_prot);
 int vm_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
 			pfn_t pfn)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1660 \n");
 	pgprot_t pgprot = vma->vm_page_prot;
 
 	BUG_ON(!(vma->vm_flags & VM_MIXEDMAP));
@@ -1690,6 +1698,7 @@ static int remap_pte_range(struct mm_struct *mm, pmd_t *pmd,
 			unsigned long addr, unsigned long end,
 			unsigned long pfn, pgprot_t prot)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1701 \n");
 	pte_t *pte;
 	spinlock_t *ptl;
 
@@ -1711,6 +1720,7 @@ static inline int remap_pmd_range(struct mm_struct *mm, pud_t *pud,
 			unsigned long addr, unsigned long end,
 			unsigned long pfn, pgprot_t prot)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1723 \n");
 	pmd_t *pmd;
 	unsigned long next;
 
@@ -1732,6 +1742,7 @@ static inline int remap_pud_range(struct mm_struct *mm, pgd_t *pgd,
 			unsigned long addr, unsigned long end,
 			unsigned long pfn, pgprot_t prot)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1745 \n");
 	pud_t *pud;
 	unsigned long next;
 
@@ -1761,6 +1772,7 @@ static inline int remap_pud_range(struct mm_struct *mm, pgd_t *pgd,
 int remap_pfn_range(struct vm_area_struct *vma, unsigned long addr,
 		    unsigned long pfn, unsigned long size, pgprot_t prot)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1775 \n");
 	pgd_t *pgd;
 	unsigned long next;
 	unsigned long end = addr + PAGE_ALIGN(size);
@@ -1832,6 +1844,7 @@ EXPORT_SYMBOL(remap_pfn_range);
  */
 int vm_iomap_memory(struct vm_area_struct *vma, phys_addr_t start, unsigned long len)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1847 \n");
 	unsigned long vm_len, pfn, pages;
 
 	/* Check that the physical memory area passed in looks valid */
@@ -1868,6 +1881,7 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
 				     unsigned long addr, unsigned long end,
 				     pte_fn_t fn, void *data)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1884 \n");
 	pte_t *pte;
 	int err;
 	pgtable_t token;
@@ -1902,6 +1916,7 @@ static int apply_to_pmd_range(struct mm_struct *mm, pud_t *pud,
 				     unsigned long addr, unsigned long end,
 				     pte_fn_t fn, void *data)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1919 \n");
 	pmd_t *pmd;
 	unsigned long next;
 	int err;
@@ -1924,6 +1939,7 @@ static int apply_to_pud_range(struct mm_struct *mm, pgd_t *pgd,
 				     unsigned long addr, unsigned long end,
 				     pte_fn_t fn, void *data)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1942 \n");
 	pud_t *pud;
 	unsigned long next;
 	int err;
@@ -1947,6 +1963,7 @@ static int apply_to_pud_range(struct mm_struct *mm, pgd_t *pgd,
 int apply_to_page_range(struct mm_struct *mm, unsigned long addr,
 			unsigned long size, pte_fn_t fn, void *data)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1966 \n");
 	pgd_t *pgd;
 	unsigned long next;
 	unsigned long end = addr + size;
@@ -1978,6 +1995,7 @@ EXPORT_SYMBOL_GPL(apply_to_page_range);
 static inline int pte_unmap_same(struct mm_struct *mm, pmd_t *pmd,
 				pte_t *page_table, pte_t orig_pte)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 1998 \n");
 	int same = 1;
 #if defined(CONFIG_SMP) || defined(CONFIG_PREEMPT)
 	if (sizeof(pte_t) > sizeof(unsigned long)) {
@@ -2042,6 +2060,7 @@ static gfp_t __get_fault_gfp_mask(struct vm_area_struct *vma)
 static int do_page_mkwrite(struct vm_area_struct *vma, struct page *page,
 	       unsigned long address)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 2063 \n");
 	struct vm_fault vmf;
 	int ret;
 
@@ -2274,6 +2293,7 @@ oom:
  */
 static int wp_pfn_shared(struct fault_env *fe,  pte_t orig_pte)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 2296 \n");
 	struct vm_area_struct *vma = fe->vma;
 
 	if (vma->vm_ops && vma->vm_ops->pfn_mkwrite) {
@@ -2437,12 +2457,14 @@ static void unmap_mapping_range_vma(struct vm_area_struct *vma,
 		unsigned long start_addr, unsigned long end_addr,
 		struct zap_details *details)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 2460 \n");
 	zap_page_range_single(vma, start_addr, end_addr - start_addr, details);
 }
 
 static inline void unmap_mapping_range_tree(struct rb_root *root,
 					    struct zap_details *details)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 2467 \n");
 	struct vm_area_struct *vma;
 	pgoff_t vba, vea, zba, zea;
 
@@ -2520,6 +2542,7 @@ EXPORT_SYMBOL(unmap_mapping_range);
  */
 int do_swap_page(struct fault_env *fe, pte_t orig_pte)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 2545 \n");
 	struct vm_area_struct *vma = fe->vma;
 	struct page *page, *swapcache;
 	struct mem_cgroup *memcg;
@@ -2964,6 +2987,7 @@ out:
 #else
 static int do_set_pmd(struct fault_env *fe, struct page *page)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 2990 \n");
 	BUILD_BUG();
 	return 0;
 }
@@ -3316,6 +3340,7 @@ static int numa_migrate_prep(struct page *page, struct vm_area_struct *vma,
 				unsigned long addr, int page_nid,
 				int *flags)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 3343 \n");
 	get_page(page);
 
 	count_vm_numa_event(NUMA_HINT_FAULTS);
@@ -3329,6 +3354,7 @@ static int numa_migrate_prep(struct page *page, struct vm_area_struct *vma,
 
 static int do_numa_page(struct fault_env *fe, pte_t pte)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 3357 \n");
 	struct vm_area_struct *vma = fe->vma;
 	struct page *page = NULL;
 	int page_nid = -1;
@@ -3444,6 +3470,7 @@ static int wp_huge_pmd(struct fault_env *fe, pmd_t orig_pmd)
 
 static inline bool vma_is_accessible(struct vm_area_struct *vma)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 3473 \n");
 	return vma->vm_flags & (VM_READ | VM_EXEC | VM_WRITE);
 }
 
@@ -3730,6 +3757,7 @@ int __pmd_alloc(struct mm_struct *mm, pud_t *pud, unsigned long address)
 static int __follow_pte(struct mm_struct *mm, unsigned long address,
 		pte_t **ptepp, spinlock_t **ptlp)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 3760 \n");
 	pgd_t *pgd;
 	pud_t *pud;
 	pmd_t *pmd;
@@ -3768,6 +3796,7 @@ out:
 static inline int follow_pte(struct mm_struct *mm, unsigned long address,
 			     pte_t **ptepp, spinlock_t **ptlp)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 3799 \n");
 	int res;
 
 	/* (void) is needed to make gcc happy */
@@ -3789,6 +3818,7 @@ static inline int follow_pte(struct mm_struct *mm, unsigned long address,
 int follow_pfn(struct vm_area_struct *vma, unsigned long address,
 	unsigned long *pfn)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 3821 \n");
 	int ret = -EINVAL;
 	spinlock_t *ptl;
 	pte_t *ptep;
@@ -3864,6 +3894,7 @@ EXPORT_SYMBOL_GPL(generic_access_phys);
 int __access_remote_vm(struct task_struct *tsk, struct mm_struct *mm,
 		unsigned long addr, void *buf, int len, unsigned int gup_flags)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 3897 \n");
 	struct vm_area_struct *vma;
 	void *old_buf = buf;
 	int write = gup_flags & FOLL_WRITE;
@@ -3935,6 +3966,7 @@ int __access_remote_vm(struct task_struct *tsk, struct mm_struct *mm,
 int access_remote_vm(struct mm_struct *mm, unsigned long addr,
 		void *buf, int len, unsigned int gup_flags)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 3969 \n");
 	return __access_remote_vm(NULL, mm, addr, buf, len, gup_flags);
 }
 
@@ -3946,6 +3978,7 @@ int access_remote_vm(struct mm_struct *mm, unsigned long addr,
 int access_process_vm(struct task_struct *tsk, unsigned long addr,
 		void *buf, int len, unsigned int gup_flags)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 3981 \n");
 	struct mm_struct *mm;
 	int ret;
 
@@ -3965,6 +3998,7 @@ int access_process_vm(struct task_struct *tsk, unsigned long addr,
  */
 void print_vma_addr(char *prefix, unsigned long ip)
 {
+	panic("We reached unpopular paths in mm/memory.c: line 4001 \n");
 	struct mm_struct *mm = current->mm;
 	struct vm_area_struct *vma;
 

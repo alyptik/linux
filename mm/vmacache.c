@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * Copyright (C) 2014 Davidlohr Bueso.
  */
@@ -15,6 +16,7 @@
  */
 void vmacache_flush_all(struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/vmacache.c: line 19 \n");
 	struct task_struct *g, *p;
 
 	count_vm_vmacache_event(VMACACHE_FULL_FLUSHES);
@@ -113,6 +115,7 @@ struct vm_area_struct *vmacache_find_exact(struct mm_struct *mm,
 					   unsigned long start,
 					   unsigned long end)
 {
+	panic("We reached unpopular paths in mm/vmacache.c: line 118 \n");
 	int i;
 
 	count_vm_vmacache_event(VMACACHE_FIND_CALLS);

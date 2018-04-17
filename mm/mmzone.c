@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * linux/mm/mmzone.c
  *
@@ -44,6 +45,7 @@ struct zone *next_zone(struct zone *zone)
 
 static inline int zref_in_nodemask(struct zoneref *zref, nodemask_t *nodes)
 {
+	panic("We reached unpopular paths in mm/mmzone.c: line 48 \n");
 #ifdef CONFIG_NUMA
 	return node_isset(zonelist_node_idx(zref), *nodes);
 #else

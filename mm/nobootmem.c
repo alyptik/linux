@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *  bootmem - A boot-time physical memory allocator and configurator
  *

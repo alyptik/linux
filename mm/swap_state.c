@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *  linux/mm/swap_state.c
  *
@@ -65,6 +66,7 @@ static atomic_t swapin_readahead_hits = ATOMIC_INIT(4);
 
 void show_swap_cache_info(void)
 {
+	panic("We reached unpopular paths in mm/swap_state.c: line 69 \n");
 	printk("%lu pages in swap cache\n", total_swapcache_pages());
 	printk("Swap cache stats: add %lu, delete %lu, find %lu/%lu\n",
 		swap_cache_info.add_total, swap_cache_info.del_total,
@@ -80,6 +82,7 @@ void show_swap_cache_info(void)
  */
 int __add_to_swap_cache(struct page *page, swp_entry_t entry)
 {
+	panic("We reached unpopular paths in mm/swap_state.c: line 85 \n");
 	int error;
 	struct address_space *address_space;
 
@@ -120,6 +123,7 @@ int __add_to_swap_cache(struct page *page, swp_entry_t entry)
 
 int add_to_swap_cache(struct page *page, swp_entry_t entry, gfp_t gfp_mask)
 {
+	panic("We reached unpopular paths in mm/swap_state.c: line 126 \n");
 	int error;
 
 	error = radix_tree_maybe_preload(gfp_mask);
@@ -136,6 +140,7 @@ int add_to_swap_cache(struct page *page, swp_entry_t entry, gfp_t gfp_mask)
  */
 void __delete_from_swap_cache(struct page *page)
 {
+	panic("We reached unpopular paths in mm/swap_state.c: line 143 \n");
 	swp_entry_t entry;
 	struct address_space *address_space;
 
@@ -162,6 +167,7 @@ void __delete_from_swap_cache(struct page *page)
  */
 int add_to_swap(struct page *page, struct list_head *list)
 {
+	panic("We reached unpopular paths in mm/swap_state.c: line 170 \n");
 	swp_entry_t entry;
 	int err;
 
@@ -217,6 +223,7 @@ int add_to_swap(struct page *page, struct list_head *list)
  */
 void delete_from_swap_cache(struct page *page)
 {
+	panic("We reached unpopular paths in mm/swap_state.c: line 226 \n");
 	swp_entry_t entry;
 	struct address_space *address_space;
 
@@ -281,6 +288,7 @@ void free_pages_and_swap_cache(struct page **pages, int nr)
  */
 struct page * lookup_swap_cache(swp_entry_t entry)
 {
+	panic("We reached unpopular paths in mm/swap_state.c: line 291 \n");
 	struct page *page;
 
 	page = find_get_page(swap_address_space(entry), swp_offset(entry));
@@ -299,6 +307,7 @@ struct page *__read_swap_cache_async(swp_entry_t entry, gfp_t gfp_mask,
 			struct vm_area_struct *vma, unsigned long addr,
 			bool *new_page_allocated)
 {
+	panic("We reached unpopular paths in mm/swap_state.c: line 310 \n");
 	struct page *found_page, *new_page = NULL;
 	struct address_space *swapper_space = swap_address_space(entry);
 	int err;
@@ -395,6 +404,7 @@ struct page *__read_swap_cache_async(swp_entry_t entry, gfp_t gfp_mask,
 struct page *read_swap_cache_async(swp_entry_t entry, gfp_t gfp_mask,
 			struct vm_area_struct *vma, unsigned long addr)
 {
+	panic("We reached unpopular paths in mm/swap_state.c: line 407 \n");
 	bool page_was_allocated;
 	struct page *retpage = __read_swap_cache_async(entry, gfp_mask,
 			vma, addr, &page_was_allocated);
@@ -407,6 +417,7 @@ struct page *read_swap_cache_async(swp_entry_t entry, gfp_t gfp_mask,
 
 static unsigned long swapin_nr_pages(unsigned long offset)
 {
+	panic("We reached unpopular paths in mm/swap_state.c: line 420 \n");
 	static unsigned long prev_offset;
 	unsigned int pages, max_pages, last_ra;
 	static atomic_t last_readahead_pages;
@@ -471,6 +482,7 @@ static unsigned long swapin_nr_pages(unsigned long offset)
 struct page *swapin_readahead(swp_entry_t entry, gfp_t gfp_mask,
 			struct vm_area_struct *vma, unsigned long addr)
 {
+	panic("We reached unpopular paths in mm/swap_state.c: line 485 \n");
 	struct page *page;
 	unsigned long entry_offset = swp_offset(entry);
 	unsigned long offset = entry_offset;

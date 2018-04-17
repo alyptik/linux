@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *  linux/mm/vmstat.c
  *

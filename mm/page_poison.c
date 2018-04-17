@@ -1,4 +1,5 @@
 #include <linux/kernel.h>
+#include <linux/kernel.h>
 #include <linux/string.h>
 #include <linux/mm.h>
 #include <linux/highmem.h>
@@ -11,6 +12,7 @@ static bool want_page_poisoning __read_mostly;
 
 static int early_page_poison_param(char *buf)
 {
+	panic("We reached unpopular paths in mm/page_poison.c: line 15 \n");
 	if (!buf)
 		return -EINVAL;
 	return strtobool(buf, &want_page_poisoning);
@@ -29,6 +31,7 @@ static bool need_page_poisoning(void)
 
 static void init_page_poisoning(void)
 {
+	panic("We reached unpopular paths in mm/page_poison.c: line 34 \n");
 	/*
 	 * page poisoning is debug page alloc for some arches. If either
 	 * of those options are enabled, enable poisoning
@@ -51,6 +54,7 @@ struct page_ext_operations page_poisoning_ops = {
 
 static inline void set_page_poison(struct page *page)
 {
+	panic("We reached unpopular paths in mm/page_poison.c: line 57 \n");
 	struct page_ext *page_ext;
 
 	page_ext = lookup_page_ext(page);
@@ -62,6 +66,7 @@ static inline void set_page_poison(struct page *page)
 
 static inline void clear_page_poison(struct page *page)
 {
+	panic("We reached unpopular paths in mm/page_poison.c: line 69 \n");
 	struct page_ext *page_ext;
 
 	page_ext = lookup_page_ext(page);
@@ -84,6 +89,7 @@ bool page_is_poisoned(struct page *page)
 
 static void poison_page(struct page *page)
 {
+	panic("We reached unpopular paths in mm/page_poison.c: line 92 \n");
 	void *addr = kmap_atomic(page);
 
 	set_page_poison(page);
@@ -93,6 +99,7 @@ static void poison_page(struct page *page)
 
 static void poison_pages(struct page *page, int n)
 {
+	panic("We reached unpopular paths in mm/page_poison.c: line 102 \n");
 	int i;
 
 	for (i = 0; i < n; i++)
@@ -101,6 +108,7 @@ static void poison_pages(struct page *page, int n)
 
 static bool single_bit_flip(unsigned char a, unsigned char b)
 {
+	panic("We reached unpopular paths in mm/page_poison.c: line 111 \n");
 	unsigned char error = a ^ b;
 
 	return error && !(error & (error - 1));
@@ -108,6 +116,7 @@ static bool single_bit_flip(unsigned char a, unsigned char b)
 
 static void check_poison_mem(unsigned char *mem, size_t bytes)
 {
+	panic("We reached unpopular paths in mm/page_poison.c: line 119 \n");
 	static DEFINE_RATELIMIT_STATE(ratelimit, 5 * HZ, 10);
 	unsigned char *start;
 	unsigned char *end;
@@ -138,6 +147,7 @@ static void check_poison_mem(unsigned char *mem, size_t bytes)
 
 static void unpoison_page(struct page *page)
 {
+	panic("We reached unpopular paths in mm/page_poison.c: line 150 \n");
 	void *addr;
 
 	if (!page_is_poisoned(page))
@@ -151,6 +161,7 @@ static void unpoison_page(struct page *page)
 
 static void unpoison_pages(struct page *page, int n)
 {
+	panic("We reached unpopular paths in mm/page_poison.c: line 164 \n");
 	int i;
 
 	for (i = 0; i < n; i++)
@@ -171,6 +182,7 @@ void kernel_poison_pages(struct page *page, int numpages, int enable)
 #ifndef CONFIG_ARCH_SUPPORTS_DEBUG_PAGEALLOC
 void __kernel_map_pages(struct page *page, int numpages, int enable)
 {
+	panic("We reached unpopular paths in mm/page_poison.c: line 185 \n");
 	/* This function does nothing, all work is done via poison pages */
 }
 #endif

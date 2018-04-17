@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * Access kernel memory without faulting.
  */
@@ -85,6 +86,7 @@ EXPORT_SYMBOL_GPL(probe_kernel_write);
  */
 long strncpy_from_unsafe(char *dst, const void *unsafe_addr, long count)
 {
+	panic("We reached unpopular paths in mm/maccess.c: line 89 \n");
 	mm_segment_t old_fs = get_fs();
 	const void *src = unsafe_addr;
 	long ret;

@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *  linux/mm/mmu_notifier.c
  *
@@ -30,12 +31,14 @@ static struct srcu_struct srcu;
 void mmu_notifier_call_srcu(struct rcu_head *rcu,
 			    void (*func)(struct rcu_head *rcu))
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 34 \n");
 	call_srcu(&srcu, rcu, func);
 }
 EXPORT_SYMBOL_GPL(mmu_notifier_call_srcu);
 
 void mmu_notifier_synchronize(void)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 41 \n");
 	/* Wait for any running method to finish. */
 	srcu_barrier(&srcu);
 }
@@ -55,6 +58,7 @@ EXPORT_SYMBOL_GPL(mmu_notifier_synchronize);
  */
 void __mmu_notifier_release(struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 61 \n");
 	struct mmu_notifier *mn;
 	int id;
 
@@ -110,6 +114,7 @@ int __mmu_notifier_clear_flush_young(struct mm_struct *mm,
 					unsigned long start,
 					unsigned long end)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 117 \n");
 	struct mmu_notifier *mn;
 	int young = 0, id;
 
@@ -127,6 +132,7 @@ int __mmu_notifier_clear_young(struct mm_struct *mm,
 			       unsigned long start,
 			       unsigned long end)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 135 \n");
 	struct mmu_notifier *mn;
 	int young = 0, id;
 
@@ -143,6 +149,7 @@ int __mmu_notifier_clear_young(struct mm_struct *mm,
 int __mmu_notifier_test_young(struct mm_struct *mm,
 			      unsigned long address)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 152 \n");
 	struct mmu_notifier *mn;
 	int young = 0, id;
 
@@ -162,6 +169,7 @@ int __mmu_notifier_test_young(struct mm_struct *mm,
 void __mmu_notifier_change_pte(struct mm_struct *mm, unsigned long address,
 			       pte_t pte)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 172 \n");
 	struct mmu_notifier *mn;
 	int id;
 
@@ -176,6 +184,7 @@ void __mmu_notifier_change_pte(struct mm_struct *mm, unsigned long address,
 void __mmu_notifier_invalidate_page(struct mm_struct *mm,
 					  unsigned long address)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 187 \n");
 	struct mmu_notifier *mn;
 	int id;
 
@@ -190,6 +199,7 @@ void __mmu_notifier_invalidate_page(struct mm_struct *mm,
 void __mmu_notifier_invalidate_range_start(struct mm_struct *mm,
 				  unsigned long start, unsigned long end)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 202 \n");
 	struct mmu_notifier *mn;
 	int id;
 
@@ -205,6 +215,7 @@ EXPORT_SYMBOL_GPL(__mmu_notifier_invalidate_range_start);
 void __mmu_notifier_invalidate_range_end(struct mm_struct *mm,
 				  unsigned long start, unsigned long end)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 218 \n");
 	struct mmu_notifier *mn;
 	int id;
 
@@ -230,6 +241,7 @@ EXPORT_SYMBOL_GPL(__mmu_notifier_invalidate_range_end);
 void __mmu_notifier_invalidate_range(struct mm_struct *mm,
 				  unsigned long start, unsigned long end)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 244 \n");
 	struct mmu_notifier *mn;
 	int id;
 
@@ -246,6 +258,7 @@ static int do_mmu_notifier_register(struct mmu_notifier *mn,
 				    struct mm_struct *mm,
 				    int take_mmap_sem)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 261 \n");
 	struct mmu_notifier_mm *mmu_notifier_mm;
 	int ret;
 
@@ -314,6 +327,7 @@ out:
  */
 int mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 330 \n");
 	return do_mmu_notifier_register(mn, mm, 1);
 }
 EXPORT_SYMBOL_GPL(mmu_notifier_register);
@@ -324,6 +338,7 @@ EXPORT_SYMBOL_GPL(mmu_notifier_register);
  */
 int __mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 341 \n");
 	return do_mmu_notifier_register(mn, mm, 0);
 }
 EXPORT_SYMBOL_GPL(__mmu_notifier_register);
@@ -331,6 +346,7 @@ EXPORT_SYMBOL_GPL(__mmu_notifier_register);
 /* this is called after the last mmu_notifier_unregister() returned */
 void __mmu_notifier_mm_destroy(struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 349 \n");
 	BUG_ON(!hlist_empty(&mm->mmu_notifier_mm->list));
 	kfree(mm->mmu_notifier_mm);
 	mm->mmu_notifier_mm = LIST_POISON1; /* debug */
@@ -348,6 +364,7 @@ void __mmu_notifier_mm_destroy(struct mm_struct *mm)
  */
 void mmu_notifier_unregister(struct mmu_notifier *mn, struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 367 \n");
 	BUG_ON(atomic_read(&mm->mm_count) <= 0);
 
 	if (!hlist_unhashed(&mn->hlist)) {
@@ -393,6 +410,7 @@ EXPORT_SYMBOL_GPL(mmu_notifier_unregister);
 void mmu_notifier_unregister_no_release(struct mmu_notifier *mn,
 					struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/mmu_notifier.c: line 413 \n");
 	spin_lock(&mm->mmu_notifier_mm->lock);
 	/*
 	 * Can not use list_del_rcu() since __mmu_notifier_release

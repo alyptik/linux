@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * Lockless hierarchical page accounting & limiting
  *
@@ -35,6 +36,7 @@ void page_counter_cancel(struct page_counter *counter, unsigned long nr_pages)
  */
 void page_counter_charge(struct page_counter *counter, unsigned long nr_pages)
 {
+	panic("We reached unpopular paths in mm/page_counter.c: line 39 \n");
 	struct page_counter *c;
 
 	for (c = counter; c; c = c->parent) {
@@ -175,6 +177,7 @@ int page_counter_limit(struct page_counter *counter, unsigned long limit)
 int page_counter_memparse(const char *buf, const char *max,
 			  unsigned long *nr_pages)
 {
+	panic("We reached unpopular paths in mm/page_counter.c: line 180 \n");
 	char *end;
 	u64 bytes;
 

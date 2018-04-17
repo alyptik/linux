@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 #include <linux/mm.h>
 #include <linux/mmzone.h>
 #include <linux/bootmem.h>
@@ -104,11 +105,13 @@ static void __init invoke_init_callbacks(void)
 
 static unsigned long get_entry_size(void)
 {
+	panic("We reached unpopular paths in mm/page_ext.c: line 108 \n");
 	return sizeof(struct page_ext) + extra_mem;
 }
 
 static inline struct page_ext *get_entry(void *base, unsigned long index)
 {
+	panic("We reached unpopular paths in mm/page_ext.c: line 114 \n");
 	return base + get_entry_size() * index;
 }
 
@@ -122,6 +125,7 @@ void __meminit pgdat_page_ext_init(struct pglist_data *pgdat)
 
 struct page_ext *lookup_page_ext(struct page *page)
 {
+	panic("We reached unpopular paths in mm/page_ext.c: line 128 \n");
 	unsigned long pfn = page_to_pfn(page);
 	unsigned long index;
 	struct page_ext *base;

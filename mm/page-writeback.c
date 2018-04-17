@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * mm/page-writeback.c
  *
@@ -221,27 +222,32 @@ static void wb_min_max_ratio(struct bdi_writeback *wb,
 
 static bool mdtc_valid(struct dirty_throttle_control *dtc)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 225 \n");
 	return false;
 }
 
 static struct wb_domain *dtc_dom(struct dirty_throttle_control *dtc)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 231 \n");
 	return &global_wb_domain;
 }
 
 static struct dirty_throttle_control *mdtc_gdtc(struct dirty_throttle_control *mdtc)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 237 \n");
 	return NULL;
 }
 
 static struct fprop_local_percpu *wb_memcg_completions(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 243 \n");
 	return NULL;
 }
 
 static void wb_min_max_ratio(struct bdi_writeback *wb,
 			     unsigned long *minp, unsigned long *maxp)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 250 \n");
 	*minp = wb->bdi->min_ratio;
 	*maxp = wb->bdi->max_ratio;
 }
@@ -275,6 +281,7 @@ static void wb_min_max_ratio(struct bdi_writeback *wb,
  */
 static unsigned long node_dirtyable_memory(struct pglist_data *pgdat)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 284 \n");
 	unsigned long nr_pages = 0;
 	int z;
 
@@ -302,6 +309,7 @@ static unsigned long node_dirtyable_memory(struct pglist_data *pgdat)
 
 static unsigned long highmem_dirtyable_memory(unsigned long total)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 312 \n");
 #ifdef CONFIG_HIGHMEM
 	int node;
 	unsigned long x = 0;
@@ -475,6 +483,7 @@ void global_dirty_limits(unsigned long *pbackground, unsigned long *pdirty)
  */
 static unsigned long node_dirty_limit(struct pglist_data *pgdat)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 486 \n");
 	unsigned long node_memory = node_dirtyable_memory(pgdat);
 	struct task_struct *tsk = current;
 	unsigned long dirty;
@@ -500,6 +509,7 @@ static unsigned long node_dirty_limit(struct pglist_data *pgdat)
  */
 bool node_dirty_ok(struct pglist_data *pgdat)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 512 \n");
 	unsigned long limit = node_dirty_limit(pgdat);
 	unsigned long nr_pages = 0;
 
@@ -566,6 +576,7 @@ int dirty_bytes_handler(struct ctl_table *table, int write,
 
 static unsigned long wp_next_time(unsigned long cur_time)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 579 \n");
 	cur_time += VM_COMPLETIONS_PERIOD_LEN;
 	/* 0 has a special meaning... */
 	if (!cur_time)
@@ -577,6 +588,7 @@ static void wb_domain_writeout_inc(struct wb_domain *dom,
 				   struct fprop_local_percpu *completions,
 				   unsigned int max_prop_frac)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 591 \n");
 	__fprop_inc_percpu_max(&dom->completions, completions,
 			       max_prop_frac);
 	/* First event after period switching was turned off? */
@@ -598,6 +610,7 @@ static void wb_domain_writeout_inc(struct wb_domain *dom,
  */
 static inline void __wb_writeout_inc(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 613 \n");
 	struct wb_domain *cgdom;
 
 	__inc_wb_stat(wb, WB_WRITTEN);
@@ -612,6 +625,7 @@ static inline void __wb_writeout_inc(struct bdi_writeback *wb)
 
 void wb_writeout_inc(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 628 \n");
 	unsigned long flags;
 
 	local_irq_save(flags);
@@ -626,6 +640,7 @@ EXPORT_SYMBOL_GPL(wb_writeout_inc);
  */
 static void writeout_period(unsigned long t)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 643 \n");
 	struct wb_domain *dom = (void *)t;
 	int miss_periods = (jiffies - dom->period_time) /
 						 VM_COMPLETIONS_PERIOD_LEN;
@@ -675,6 +690,7 @@ static unsigned int bdi_min_ratio;
 
 int bdi_set_min_ratio(struct backing_dev_info *bdi, unsigned int min_ratio)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 693 \n");
 	int ret = 0;
 
 	spin_lock_bh(&bdi_lock);
@@ -696,6 +712,7 @@ int bdi_set_min_ratio(struct backing_dev_info *bdi, unsigned int min_ratio)
 
 int bdi_set_max_ratio(struct backing_dev_info *bdi, unsigned max_ratio)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 715 \n");
 	int ret = 0;
 
 	if (max_ratio > 100)
@@ -717,12 +734,14 @@ EXPORT_SYMBOL(bdi_set_max_ratio);
 static unsigned long dirty_freerun_ceiling(unsigned long thresh,
 					   unsigned long bg_thresh)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 737 \n");
 	return (thresh + bg_thresh) / 2;
 }
 
 static unsigned long hard_dirty_limit(struct wb_domain *dom,
 				      unsigned long thresh)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 744 \n");
 	return max(thresh, dom->dirty_limit);
 }
 
@@ -733,6 +752,7 @@ static unsigned long hard_dirty_limit(struct wb_domain *dom,
 static void mdtc_calc_avail(struct dirty_throttle_control *mdtc,
 			    unsigned long filepages, unsigned long headroom)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 755 \n");
 	struct dirty_throttle_control *gdtc = mdtc_gdtc(mdtc);
 	unsigned long clean = filepages - min(filepages, mdtc->dirty);
 	unsigned long global_clean = gdtc->avail - min(gdtc->avail, gdtc->dirty);
@@ -764,6 +784,7 @@ static void mdtc_calc_avail(struct dirty_throttle_control *mdtc,
  */
 static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 787 \n");
 	struct wb_domain *dom = dtc_dom(dtc);
 	unsigned long thresh = dtc->thresh;
 	u64 wb_thresh;
@@ -791,6 +812,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc)
 
 unsigned long wb_calc_thresh(struct bdi_writeback *wb, unsigned long thresh)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 815 \n");
 	struct dirty_throttle_control gdtc = { GDTC_INIT(wb),
 					       .thresh = thresh };
 	return __wb_calc_thresh(&gdtc);
@@ -814,6 +836,7 @@ static long long pos_ratio_polynom(unsigned long setpoint,
 					  unsigned long dirty,
 					  unsigned long limit)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 839 \n");
 	long long pos_ratio;
 	long x;
 
@@ -904,6 +927,7 @@ static long long pos_ratio_polynom(unsigned long setpoint,
  */
 static void wb_position_ratio(struct dirty_throttle_control *dtc)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 930 \n");
 	struct bdi_writeback *wb = dtc->wb;
 	unsigned long write_bw = wb->avg_write_bandwidth;
 	unsigned long freerun = dirty_freerun_ceiling(dtc->thresh, dtc->bg_thresh);
@@ -1085,6 +1109,7 @@ static void wb_update_write_bandwidth(struct bdi_writeback *wb,
 				      unsigned long elapsed,
 				      unsigned long written)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 1112 \n");
 	const unsigned long period = roundup_pow_of_two(3 * HZ);
 	unsigned long avg = wb->avg_write_bandwidth;
 	unsigned long old = wb->write_bandwidth;
@@ -1133,6 +1158,7 @@ out:
 
 static void update_dirty_limit(struct dirty_throttle_control *dtc)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 1161 \n");
 	struct wb_domain *dom = dtc_dom(dtc);
 	unsigned long thresh = dtc->thresh;
 	unsigned long limit = dom->dirty_limit;
@@ -1163,6 +1189,7 @@ update:
 static void domain_update_bandwidth(struct dirty_throttle_control *dtc,
 				    unsigned long now)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 1192 \n");
 	struct wb_domain *dom = dtc_dom(dtc);
 
 	/*
@@ -1189,6 +1216,7 @@ static void wb_update_dirty_ratelimit(struct dirty_throttle_control *dtc,
 				      unsigned long dirtied,
 				      unsigned long elapsed)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 1219 \n");
 	struct bdi_writeback *wb = dtc->wb;
 	unsigned long dirty = dtc->dirty;
 	unsigned long freerun = dirty_freerun_ceiling(dtc->thresh, dtc->bg_thresh);
@@ -1348,6 +1376,7 @@ static void __wb_update_bandwidth(struct dirty_throttle_control *gdtc,
 				  unsigned long start_time,
 				  bool update_ratelimit)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 1379 \n");
 	struct bdi_writeback *wb = gdtc->wb;
 	unsigned long now = jiffies;
 	unsigned long elapsed = now - wb->bw_time_stamp;
@@ -1395,6 +1424,7 @@ snapshot:
 
 void wb_update_bandwidth(struct bdi_writeback *wb, unsigned long start_time)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 1427 \n");
 	struct dirty_throttle_control gdtc = { GDTC_INIT(wb) };
 
 	__wb_update_bandwidth(&gdtc, NULL, start_time, false);
@@ -1411,6 +1441,7 @@ void wb_update_bandwidth(struct bdi_writeback *wb, unsigned long start_time)
 static unsigned long dirty_poll_interval(unsigned long dirty,
 					 unsigned long thresh)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 1444 \n");
 	if (thresh > dirty)
 		return 1UL << (ilog2(thresh - dirty) >> 1);
 
@@ -1420,6 +1451,7 @@ static unsigned long dirty_poll_interval(unsigned long dirty,
 static unsigned long wb_max_pause(struct bdi_writeback *wb,
 				  unsigned long wb_dirty)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 1454 \n");
 	unsigned long bw = wb->avg_write_bandwidth;
 	unsigned long t;
 
@@ -1442,6 +1474,7 @@ static long wb_min_pause(struct bdi_writeback *wb,
 			 unsigned long dirty_ratelimit,
 			 int *nr_dirtied_pause)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 1477 \n");
 	long hi = ilog2(wb->avg_write_bandwidth);
 	long lo = ilog2(wb->dirty_ratelimit);
 	long t;		/* target pause */
@@ -1513,6 +1546,7 @@ static long wb_min_pause(struct bdi_writeback *wb,
 
 static inline void wb_dirty_limits(struct dirty_throttle_control *dtc)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 1549 \n");
 	struct bdi_writeback *wb = dtc->wb;
 	unsigned long wb_reclaimable;
 
@@ -1563,6 +1597,7 @@ static void balance_dirty_pages(struct address_space *mapping,
 				struct bdi_writeback *wb,
 				unsigned long pages_dirtied)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 1600 \n");
 	struct dirty_throttle_control gdtc_stor = { GDTC_INIT(wb) };
 	struct dirty_throttle_control mdtc_stor = { MDTC_INIT(wb, &gdtc_stor) };
 	struct dirty_throttle_control * const gdtc = &gdtc_stor;
@@ -1924,6 +1959,7 @@ EXPORT_SYMBOL(balance_dirty_pages_ratelimited);
  */
 bool wb_over_bg_thresh(struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 1962 \n");
 	struct dirty_throttle_control gdtc_stor = { GDTC_INIT(wb) };
 	struct dirty_throttle_control mdtc_stor = { MDTC_INIT(wb, &gdtc_stor) };
 	struct dirty_throttle_control * const gdtc = &gdtc_stor;
@@ -2104,6 +2140,7 @@ void __init page_writeback_init(void)
 void tag_pages_for_writeback(struct address_space *mapping,
 			     pgoff_t start, pgoff_t end)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2143 \n");
 #define WRITEBACK_TAG_BATCH 4096
 	unsigned long tagged;
 
@@ -2146,6 +2183,7 @@ int write_cache_pages(struct address_space *mapping,
 		      struct writeback_control *wbc, writepage_t writepage,
 		      void *data)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2186 \n");
 	int ret = 0;
 	int done = 0;
 	struct pagevec pvec;
@@ -2305,6 +2343,7 @@ EXPORT_SYMBOL(write_cache_pages);
 static int __writepage(struct page *page, struct writeback_control *wbc,
 		       void *data)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2346 \n");
 	struct address_space *mapping = data;
 	int ret = mapping->a_ops->writepage(page, wbc);
 	mapping_set_error(mapping, ret);
@@ -2322,6 +2361,7 @@ static int __writepage(struct page *page, struct writeback_control *wbc,
 int generic_writepages(struct address_space *mapping,
 		       struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2364 \n");
 	struct blk_plug plug;
 	int ret;
 
@@ -2339,6 +2379,7 @@ EXPORT_SYMBOL(generic_writepages);
 
 int do_writepages(struct address_space *mapping, struct writeback_control *wbc)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2382 \n");
 	int ret;
 
 	if (wbc->nr_to_write <= 0)
@@ -2361,6 +2402,7 @@ int do_writepages(struct address_space *mapping, struct writeback_control *wbc)
  */
 int write_one_page(struct page *page, int wait)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2405 \n");
 	struct address_space *mapping = page->mapping;
 	int ret = 0;
 	struct writeback_control wbc = {
@@ -2408,6 +2450,7 @@ int __set_page_dirty_no_writeback(struct page *page)
  */
 void account_page_dirtied(struct page *page, struct address_space *mapping)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2453 \n");
 	struct inode *inode = mapping->host;
 
 	trace_writeback_dirty_page(page, mapping);
@@ -2439,6 +2482,7 @@ EXPORT_SYMBOL(account_page_dirtied);
 void account_page_cleaned(struct page *page, struct address_space *mapping,
 			  struct bdi_writeback *wb)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2485 \n");
 	if (mapping_cap_account_dirty(mapping)) {
 		mem_cgroup_dec_page_stat(page, MEM_CGROUP_STAT_DIRTY);
 		dec_node_page_state(page, NR_FILE_DIRTY);
@@ -2462,6 +2506,7 @@ void account_page_cleaned(struct page *page, struct address_space *mapping,
  */
 int __set_page_dirty_nobuffers(struct page *page)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2509 \n");
 	lock_page_memcg(page);
 	if (!TestSetPageDirty(page)) {
 		struct address_space *mapping = page_mapping(page);
@@ -2501,6 +2546,7 @@ EXPORT_SYMBOL(__set_page_dirty_nobuffers);
  */
 void account_page_redirty(struct page *page)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2549 \n");
 	struct address_space *mapping = page->mapping;
 
 	if (mapping && mapping_cap_account_dirty(mapping)) {
@@ -2524,6 +2570,7 @@ EXPORT_SYMBOL(account_page_redirty);
  */
 int redirty_page_for_writepage(struct writeback_control *wbc, struct page *page)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2573 \n");
 	int ret;
 
 	wbc->pages_skipped++;
@@ -2589,6 +2636,7 @@ EXPORT_SYMBOL(set_page_dirty);
  */
 int set_page_dirty_lock(struct page *page)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2639 \n");
 	int ret;
 
 	lock_page(page);
@@ -2650,6 +2698,7 @@ EXPORT_SYMBOL(cancel_dirty_page);
  */
 int clear_page_dirty_for_io(struct page *page)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2701 \n");
 	struct address_space *mapping = page_mapping(page);
 	int ret = 0;
 
@@ -2712,6 +2761,7 @@ EXPORT_SYMBOL(clear_page_dirty_for_io);
 
 int test_clear_page_writeback(struct page *page)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2764 \n");
 	struct address_space *mapping = page_mapping(page);
 	int ret;
 
@@ -2755,6 +2805,7 @@ int test_clear_page_writeback(struct page *page)
 
 int __test_set_page_writeback(struct page *page, bool keep_write)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2808 \n");
 	struct address_space *mapping = page_mapping(page);
 	int ret;
 
@@ -2815,6 +2866,7 @@ EXPORT_SYMBOL(__test_set_page_writeback);
  */
 int mapping_tagged(struct address_space *mapping, int tag)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2869 \n");
 	return radix_tree_tagged(&mapping->page_tree, tag);
 }
 EXPORT_SYMBOL(mapping_tagged);
@@ -2829,6 +2881,7 @@ EXPORT_SYMBOL(mapping_tagged);
  */
 void wait_for_stable_page(struct page *page)
 {
+	panic("We reached unpopular paths in mm/page-writeback.c: line 2884 \n");
 	if (bdi_cap_stable_pages_required(inode_to_bdi(page->mapping->host)))
 		wait_on_page_writeback(page);
 }

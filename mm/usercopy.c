@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * This implements the various checks for CONFIG_HARDENED_USERCOPY*,
  * which are designed to protect kernel memory from needless exposure
@@ -64,6 +65,7 @@ static noinline int check_stack_object(const void *obj, unsigned long len)
 static void report_usercopy(const void *ptr, unsigned long len,
 			    bool to_user, const char *type)
 {
+	panic("We reached unpopular paths in mm/usercopy.c: line 68 \n");
 	pr_emerg("kernel memory %s attempt detected %s %p (%s) (%lu bytes)\n",
 		to_user ? "exposure" : "overwrite",
 		to_user ? "from" : "to", ptr, type ? : "unknown", len);
@@ -79,6 +81,7 @@ static void report_usercopy(const void *ptr, unsigned long len,
 static bool overlaps(const void *ptr, unsigned long n, unsigned long low,
 		     unsigned long high)
 {
+	panic("We reached unpopular paths in mm/usercopy.c: line 84 \n");
 	unsigned long check_low = (uintptr_t)ptr;
 	unsigned long check_high = check_low + n;
 
@@ -138,6 +141,7 @@ static inline const char *check_bogus_address(const void *ptr, unsigned long n)
 static inline const char *check_page_span(const void *ptr, unsigned long n,
 					  struct page *page, bool to_user)
 {
+	panic("We reached unpopular paths in mm/usercopy.c: line 144 \n");
 #ifdef CONFIG_HARDENED_USERCOPY_PAGESPAN
 	const void *end = ptr + n - 1;
 	struct page *endpage;

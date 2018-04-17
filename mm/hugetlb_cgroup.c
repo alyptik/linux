@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *
  * Copyright IBM Corporation, 2012
@@ -36,23 +37,27 @@ static struct hugetlb_cgroup *root_h_cgroup __read_mostly;
 static inline
 struct hugetlb_cgroup *hugetlb_cgroup_from_css(struct cgroup_subsys_state *s)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 40 \n");
 	return s ? container_of(s, struct hugetlb_cgroup, css) : NULL;
 }
 
 static inline
 struct hugetlb_cgroup *hugetlb_cgroup_from_task(struct task_struct *task)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 47 \n");
 	return hugetlb_cgroup_from_css(task_css(task, hugetlb_cgrp_id));
 }
 
 static inline bool hugetlb_cgroup_is_root(struct hugetlb_cgroup *h_cg)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 53 \n");
 	return (h_cg == root_h_cgroup);
 }
 
 static inline struct hugetlb_cgroup *
 parent_hugetlb_cgroup(struct hugetlb_cgroup *h_cg)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 60 \n");
 	return hugetlb_cgroup_from_css(h_cg->css.parent);
 }
 
@@ -125,6 +130,7 @@ static void hugetlb_cgroup_css_free(struct cgroup_subsys_state *css)
 static void hugetlb_cgroup_move_parent(int idx, struct hugetlb_cgroup *h_cg,
 				       struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 133 \n");
 	unsigned int nr_pages;
 	struct page_counter *counter;
 	struct hugetlb_cgroup *page_hcg;
@@ -181,6 +187,7 @@ static void hugetlb_cgroup_css_offline(struct cgroup_subsys_state *css)
 int hugetlb_cgroup_charge_cgroup(int idx, unsigned long nr_pages,
 				 struct hugetlb_cgroup **ptr)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 190 \n");
 	int ret = 0;
 	struct page_counter *counter;
 	struct hugetlb_cgroup *h_cg = NULL;
@@ -215,6 +222,7 @@ void hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
 				  struct hugetlb_cgroup *h_cg,
 				  struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 225 \n");
 	if (hugetlb_cgroup_disabled() || !h_cg)
 		return;
 
@@ -228,6 +236,7 @@ void hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
 void hugetlb_cgroup_uncharge_page(int idx, unsigned long nr_pages,
 				  struct page *page)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 239 \n");
 	struct hugetlb_cgroup *h_cg;
 
 	if (hugetlb_cgroup_disabled())
@@ -244,6 +253,7 @@ void hugetlb_cgroup_uncharge_page(int idx, unsigned long nr_pages,
 void hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
 				    struct hugetlb_cgroup *h_cg)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 256 \n");
 	if (hugetlb_cgroup_disabled() || !h_cg)
 		return;
 
@@ -264,6 +274,7 @@ enum {
 static u64 hugetlb_cgroup_read_u64(struct cgroup_subsys_state *css,
 				   struct cftype *cft)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 277 \n");
 	struct page_counter *counter;
 	struct hugetlb_cgroup *h_cg = hugetlb_cgroup_from_css(css);
 
@@ -288,6 +299,7 @@ static DEFINE_MUTEX(hugetlb_limit_mutex);
 static ssize_t hugetlb_cgroup_write(struct kernfs_open_file *of,
 				    char *buf, size_t nbytes, loff_t off)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 302 \n");
 	int ret, idx;
 	unsigned long nr_pages;
 	struct hugetlb_cgroup *h_cg = hugetlb_cgroup_from_css(of_css(of));
@@ -319,6 +331,7 @@ static ssize_t hugetlb_cgroup_write(struct kernfs_open_file *of,
 static ssize_t hugetlb_cgroup_reset(struct kernfs_open_file *of,
 				    char *buf, size_t nbytes, loff_t off)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 334 \n");
 	int ret = 0;
 	struct page_counter *counter;
 	struct hugetlb_cgroup *h_cg = hugetlb_cgroup_from_css(of_css(of));
@@ -415,6 +428,7 @@ void __init hugetlb_cgroup_file_init(void)
  */
 void hugetlb_cgroup_migrate(struct page *oldhpage, struct page *newhpage)
 {
+	panic("We reached unpopular paths in mm/hugetlb_cgroup.c: line 431 \n");
 	struct hugetlb_cgroup *h_cg;
 	struct hstate *h = page_hstate(oldhpage);
 

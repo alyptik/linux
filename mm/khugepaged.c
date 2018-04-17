@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
 #include <linux/mm.h>
@@ -391,6 +392,7 @@ static void insert_to_mm_slots_hash(struct mm_struct *mm,
 
 static inline int khugepaged_test_exit(struct mm_struct *mm)
 {
+	panic("We reached unpopular paths in mm/khugepaged.c: line 395 \n");
 	return atomic_read(&mm->mm_users) == 0;
 }
 
@@ -489,6 +491,7 @@ static void release_pte_page(struct page *page)
 
 static void release_pte_pages(pte_t *pte, pte_t *_pte)
 {
+	panic("We reached unpopular paths in mm/khugepaged.c: line 494 \n");
 	while (--_pte >= pte) {
 		pte_t pteval = *_pte;
 		if (!pte_none(pteval) && !is_zero_pfn(pte_pfn(pteval)))
@@ -659,6 +662,7 @@ static void __collapse_huge_page_copy(pte_t *pte, struct page *page,
 
 static void khugepaged_alloc_sleep(void)
 {
+	panic("We reached unpopular paths in mm/khugepaged.c: line 665 \n");
 	DEFINE_WAIT(wait);
 
 	add_wait_queue(&khugepaged_wait, &wait);
@@ -671,6 +675,7 @@ static int khugepaged_node_load[MAX_NUMNODES];
 
 static bool khugepaged_scan_abort(int nid)
 {
+	panic("We reached unpopular paths in mm/khugepaged.c: line 678 \n");
 	int i;
 
 	/*
@@ -761,6 +766,7 @@ khugepaged_alloc_page(struct page **hpage, gfp_t gfp, int node)
 #else
 static int khugepaged_find_target_node(void)
 {
+	panic("We reached unpopular paths in mm/khugepaged.c: line 769 \n");
 	return 0;
 }
 
@@ -809,6 +815,7 @@ static bool khugepaged_prealloc_page(struct page **hpage, bool *wait)
 static struct page *
 khugepaged_alloc_page(struct page **hpage, gfp_t gfp, int node)
 {
+	panic("We reached unpopular paths in mm/khugepaged.c: line 818 \n");
 	VM_BUG_ON(!*hpage);
 
 	return  *hpage;
@@ -1645,6 +1652,7 @@ static void khugepaged_scan_shmem(struct mm_struct *mm,
 		struct address_space *mapping,
 		pgoff_t start, struct page **hpage)
 {
+	panic("We reached unpopular paths in mm/khugepaged.c: line 1655 \n");
 	BUILD_BUG();
 }
 #endif

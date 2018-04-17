@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *  linux/mm/vmscan.c
  *
@@ -185,11 +186,13 @@ static bool sane_reclaim(struct scan_control *sc)
 #else
 static bool global_reclaim(struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 189 \n");
 	return true;
 }
 
 static bool sane_reclaim(struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 195 \n");
 	return true;
 }
 #endif
@@ -201,6 +204,7 @@ static bool sane_reclaim(struct scan_control *sc)
  */
 unsigned long zone_reclaimable_pages(struct zone *zone)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 207 \n");
 	unsigned long nr;
 
 	nr = zone_page_state_snapshot(zone, NR_ZONE_INACTIVE_FILE) +
@@ -214,6 +218,7 @@ unsigned long zone_reclaimable_pages(struct zone *zone)
 
 unsigned long pgdat_reclaimable_pages(struct pglist_data *pgdat)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 221 \n");
 	unsigned long nr;
 
 	nr = node_page_state_snapshot(pgdat, NR_ACTIVE_FILE) +
@@ -230,6 +235,7 @@ unsigned long pgdat_reclaimable_pages(struct pglist_data *pgdat)
 
 bool pgdat_reclaimable(struct pglist_data *pgdat)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 238 \n");
 	return node_page_state_snapshot(pgdat, NR_PAGES_SCANNED) <
 		pgdat_reclaimable_pages(pgdat) * 6;
 }
@@ -242,6 +248,7 @@ bool pgdat_reclaimable(struct pglist_data *pgdat)
  */
 unsigned long lruvec_lru_size(struct lruvec *lruvec, enum lru_list lru, int zone_idx)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 251 \n");
 	unsigned long lru_size;
 	int zid;
 
@@ -312,6 +319,7 @@ static unsigned long do_shrink_slab(struct shrink_control *shrinkctl,
 				    unsigned long nr_scanned,
 				    unsigned long nr_eligible)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 322 \n");
 	unsigned long freed = 0;
 	unsigned long long delta;
 	long total_scan;
@@ -459,6 +467,7 @@ static unsigned long shrink_slab(gfp_t gfp_mask, int nid,
 				 unsigned long nr_scanned,
 				 unsigned long nr_eligible)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 470 \n");
 	struct shrinker *shrinker;
 	unsigned long freed = 0;
 
@@ -509,6 +518,7 @@ out:
 
 void drop_slab_node(int nid)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 521 \n");
 	unsigned long freed;
 
 	do {
@@ -524,6 +534,7 @@ void drop_slab_node(int nid)
 
 void drop_slab(void)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 537 \n");
 	int nid;
 
 	for_each_online_node(nid)
@@ -532,6 +543,7 @@ void drop_slab(void)
 
 static inline int is_page_cache_freeable(struct page *page)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 546 \n");
 	/*
 	 * A freeable page cache page is referenced only by the caller
 	 * that isolated the page, the page cache radix tree and
@@ -542,6 +554,7 @@ static inline int is_page_cache_freeable(struct page *page)
 
 static int may_write_to_inode(struct inode *inode, struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 557 \n");
 	if (current->flags & PF_SWAPWRITE)
 		return 1;
 	if (!inode_write_congested(inode))
@@ -566,6 +579,7 @@ static int may_write_to_inode(struct inode *inode, struct scan_control *sc)
 static void handle_write_error(struct address_space *mapping,
 				struct page *page, int error)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 582 \n");
 	lock_page(page);
 	if (page_mapping(page) == mapping)
 		mapping_set_error(mapping, error);
@@ -591,6 +605,7 @@ typedef enum {
 static pageout_t pageout(struct page *page, struct address_space *mapping,
 			 struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 608 \n");
 	/*
 	 * If the page is dirty, only perform writeback if that write
 	 * will be non-blocking.  To prevent this allocation from being
@@ -666,6 +681,7 @@ static pageout_t pageout(struct page *page, struct address_space *mapping,
 static int __remove_mapping(struct address_space *mapping, struct page *page,
 			    bool reclaimed)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 684 \n");
 	unsigned long flags;
 
 	BUG_ON(!PageLocked(page));
@@ -757,6 +773,7 @@ cannot_free:
  */
 int remove_mapping(struct address_space *mapping, struct page *page)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 776 \n");
 	if (__remove_mapping(mapping, page, false)) {
 		/*
 		 * Unfreezing the refcount with 1 rather than 2 effectively
@@ -851,6 +868,7 @@ enum page_references {
 static enum page_references page_check_references(struct page *page,
 						  struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 871 \n");
 	int referenced_ptes, referenced_page;
 	unsigned long vm_flags;
 
@@ -907,6 +925,7 @@ static enum page_references page_check_references(struct page *page,
 static void page_check_dirty_writeback(struct page *page,
 				       bool *dirty, bool *writeback)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 928 \n");
 	struct address_space *mapping;
 
 	/*
@@ -946,6 +965,7 @@ static unsigned long shrink_page_list(struct list_head *page_list,
 				      unsigned long *ret_nr_immediate,
 				      bool force_reclaim)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 968 \n");
 	LIST_HEAD(ret_pages);
 	LIST_HEAD(free_pages);
 	int pgactivate = 0;
@@ -1307,6 +1327,7 @@ keep:
 unsigned long reclaim_clean_pages_from_list(struct zone *zone,
 					    struct list_head *page_list)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 1330 \n");
 	struct scan_control sc = {
 		.gfp_mask = GFP_KERNEL,
 		.priority = DEF_PRIORITY,
@@ -1344,6 +1365,7 @@ unsigned long reclaim_clean_pages_from_list(struct zone *zone,
  */
 int __isolate_lru_page(struct page *page, isolate_mode_t mode)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 1368 \n");
 	int ret = -EINVAL;
 
 	/* Only take pages on the LRU. */
@@ -1453,6 +1475,7 @@ static unsigned long isolate_lru_pages(unsigned long nr_to_scan,
 		unsigned long *nr_scanned, struct scan_control *sc,
 		isolate_mode_t mode, enum lru_list lru)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 1478 \n");
 	struct list_head *src = &lruvec->lists[lru];
 	unsigned long nr_taken = 0;
 	unsigned long nr_zone_taken[MAX_NR_ZONES] = { 0 };
@@ -1594,6 +1617,7 @@ int isolate_lru_page(struct page *page)
 static int too_many_isolated(struct pglist_data *pgdat, int file,
 		struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 1620 \n");
 	unsigned long inactive, isolated;
 
 	if (current_is_kswapd())
@@ -1684,6 +1708,7 @@ putback_inactive_pages(struct lruvec *lruvec, struct list_head *page_list)
  */
 static int current_may_throttle(void)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 1711 \n");
 	return !(current->flags & PF_LESS_THROTTLE) ||
 		current->backing_dev_info == NULL ||
 		bdi_write_congested(current->backing_dev_info);
@@ -1692,6 +1717,7 @@ static int current_may_throttle(void)
 static bool inactive_reclaimable_pages(struct lruvec *lruvec,
 				struct scan_control *sc, enum lru_list lru)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 1720 \n");
 	int zid;
 	struct zone *zone;
 	int file = is_file_lru(lru);
@@ -1882,6 +1908,7 @@ static void move_active_pages_to_lru(struct lruvec *lruvec,
 				     struct list_head *pages_to_free,
 				     enum lru_list lru)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 1911 \n");
 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
 	unsigned long pgmoved = 0;
 	struct page *page;
@@ -1923,6 +1950,7 @@ static void shrink_active_list(unsigned long nr_to_scan,
 			       struct scan_control *sc,
 			       enum lru_list lru)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 1953 \n");
 	unsigned long nr_taken;
 	unsigned long nr_scanned;
 	unsigned long vm_flags;
@@ -2047,6 +2075,7 @@ static void shrink_active_list(unsigned long nr_to_scan,
 static bool inactive_list_is_low(struct lruvec *lruvec, bool file,
 						struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 2078 \n");
 	unsigned long inactive_ratio;
 	unsigned long inactive, active;
 	enum lru_list inactive_lru = file * LRU_FILE;
@@ -2075,6 +2104,7 @@ static bool inactive_list_is_low(struct lruvec *lruvec, bool file,
 static unsigned long shrink_list(enum lru_list lru, unsigned long nr_to_scan,
 				 struct lruvec *lruvec, struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 2107 \n");
 	if (is_active_lru(lru)) {
 		if (inactive_list_is_low(lruvec, is_file_lru(lru), sc))
 			shrink_active_list(nr_to_scan, lruvec, sc, lru);
@@ -2104,6 +2134,7 @@ static void get_scan_count(struct lruvec *lruvec, struct mem_cgroup *memcg,
 			   struct scan_control *sc, unsigned long *nr,
 			   unsigned long *lru_pages)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 2137 \n");
 	int swappiness = mem_cgroup_swappiness(memcg);
 	struct zone_reclaim_stat *reclaim_stat = &lruvec->reclaim_stat;
 	u64 fraction[2];
@@ -2324,6 +2355,7 @@ out:
 static void shrink_node_memcg(struct pglist_data *pgdat, struct mem_cgroup *memcg,
 			      struct scan_control *sc, unsigned long *lru_pages)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 2358 \n");
 	struct lruvec *lruvec = mem_cgroup_lruvec(pgdat, memcg);
 	unsigned long nr[NR_LRU_LISTS];
 	unsigned long targets[NR_LRU_LISTS];
@@ -2440,6 +2472,7 @@ static void shrink_node_memcg(struct pglist_data *pgdat, struct mem_cgroup *memc
 /* Use reclaim/compaction for costly allocs or under memory pressure */
 static bool in_reclaim_compaction(struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 2475 \n");
 	if (IS_ENABLED(CONFIG_COMPACTION) && sc->order &&
 			(sc->order > PAGE_ALLOC_COSTLY_ORDER ||
 			 sc->priority < DEF_PRIORITY - 2))
@@ -2460,6 +2493,7 @@ static inline bool should_continue_reclaim(struct pglist_data *pgdat,
 					unsigned long nr_scanned,
 					struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 2496 \n");
 	unsigned long pages_for_compaction;
 	unsigned long inactive_lru_pages;
 	int z;
@@ -2523,6 +2557,7 @@ static inline bool should_continue_reclaim(struct pglist_data *pgdat,
 
 static bool shrink_node(pg_data_t *pgdat, struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 2560 \n");
 	struct reclaim_state *reclaim_state = current->reclaim_state;
 	unsigned long nr_reclaimed, nr_scanned;
 	bool reclaimable = false;
@@ -2628,6 +2663,7 @@ static bool shrink_node(pg_data_t *pgdat, struct scan_control *sc)
  */
 static inline bool compaction_ready(struct zone *zone, struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 2666 \n");
 	unsigned long watermark;
 	enum compact_result suitable;
 
@@ -2663,6 +2699,7 @@ static inline bool compaction_ready(struct zone *zone, struct scan_control *sc)
  */
 static void shrink_zones(struct zonelist *zonelist, struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 2702 \n");
 	struct zoneref *z;
 	struct zone *zone;
 	unsigned long nr_soft_reclaimed;
@@ -2765,6 +2802,7 @@ static void shrink_zones(struct zonelist *zonelist, struct scan_control *sc)
 static unsigned long do_try_to_free_pages(struct zonelist *zonelist,
 					  struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 2805 \n");
 	int initial_priority = sc->priority;
 	unsigned long total_scanned = 0;
 	unsigned long writeback_threshold;
@@ -2830,6 +2868,7 @@ retry:
 
 static bool allow_direct_reclaim(pg_data_t *pgdat)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 2871 \n");
 	struct zone *zone;
 	unsigned long pfmemalloc_reserve = 0;
 	unsigned long free_pages = 0;
@@ -2877,6 +2916,7 @@ static bool allow_direct_reclaim(pg_data_t *pgdat)
 static bool throttle_direct_reclaim(gfp_t gfp_mask, struct zonelist *zonelist,
 					nodemask_t *nodemask)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 2919 \n");
 	struct zoneref *z;
 	struct zone *zone;
 	pg_data_t *pgdat = NULL;
@@ -2961,6 +3001,7 @@ out:
 unsigned long try_to_free_pages(struct zonelist *zonelist, int order,
 				gfp_t gfp_mask, nodemask_t *nodemask)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 3004 \n");
 	unsigned long nr_reclaimed;
 	struct scan_control sc = {
 		.nr_to_reclaim = SWAP_CLUSTER_MAX,
@@ -3081,6 +3122,7 @@ unsigned long try_to_free_mem_cgroup_pages(struct mem_cgroup *memcg,
 static void age_active_anon(struct pglist_data *pgdat,
 				struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 3125 \n");
 	struct mem_cgroup *memcg;
 
 	if (!total_swap_pages)
@@ -3169,6 +3211,7 @@ static bool prepare_kswapd_sleep(pg_data_t *pgdat, int order, int classzone_idx)
 static bool kswapd_shrink_node(pg_data_t *pgdat,
 			       struct scan_control *sc)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 3214 \n");
 	struct zone *zone;
 	int z;
 
@@ -3216,6 +3259,7 @@ static bool kswapd_shrink_node(pg_data_t *pgdat,
  */
 static int balance_pgdat(pg_data_t *pgdat, int order, int classzone_idx)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 3262 \n");
 	int i;
 	unsigned long nr_soft_reclaimed;
 	unsigned long nr_soft_scanned;
@@ -3516,6 +3560,7 @@ kswapd_try_sleep:
  */
 void wakeup_kswapd(struct zone *zone, int order, enum zone_type classzone_idx)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 3563 \n");
 	pg_data_t *pgdat;
 	int z;
 
@@ -3596,6 +3641,7 @@ unsigned long shrink_all_memory(unsigned long nr_to_reclaim)
 static int cpu_callback(struct notifier_block *nfb, unsigned long action,
 			void *hcpu)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 3644 \n");
 	int nid;
 
 	if (action == CPU_ONLINE || action == CPU_ONLINE_FROZEN) {
@@ -3642,6 +3688,7 @@ int kswapd_run(int nid)
  */
 void kswapd_stop(int nid)
 {
+	panic("We reached unpopular paths in mm/vmscan.c: line 3691 \n");
 	struct task_struct *kswapd = NODE_DATA(nid)->kswapd;
 
 	if (kswapd) {

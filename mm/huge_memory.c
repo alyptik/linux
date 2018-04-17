@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *  Copyright (C) 2009  Red Hat, Inc.
  *
@@ -118,6 +119,7 @@ void mm_put_huge_zero_page(struct mm_struct *mm)
 static unsigned long shrink_huge_zero_page_count(struct shrinker *shrink,
 					struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 122 \n");
 	/* we can free zero page only if last reference remains */
 	return atomic_read(&huge_zero_refcount) == 1 ? HPAGE_PMD_NR : 0;
 }
@@ -125,6 +127,7 @@ static unsigned long shrink_huge_zero_page_count(struct shrinker *shrink,
 static unsigned long shrink_huge_zero_page_scan(struct shrinker *shrink,
 				       struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 130 \n");
 	if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) == 1) {
 		struct page *zero_page = xchg(&huge_zero_page, NULL);
 		BUG_ON(zero_page == NULL);
@@ -360,11 +363,13 @@ static void __init hugepage_exit_sysfs(struct kobject *hugepage_kobj)
 #else
 static inline int hugepage_init_sysfs(struct kobject **hugepage_kobj)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 366 \n");
 	return 0;
 }
 
 static inline void hugepage_exit_sysfs(struct kobject *hugepage_kobj)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 372 \n");
 }
 #endif /* CONFIG_SYSFS */
 
@@ -471,6 +476,7 @@ pmd_t maybe_pmd_mkwrite(pmd_t pmd, struct vm_area_struct *vma)
 
 static inline struct list_head *page_deferred_list(struct page *page)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 479 \n");
 	/*
 	 * ->lru in the tail pages is occupied by compound_head.
 	 * Let's use ->mapping + ->index in the second tail page as list_head.
@@ -492,6 +498,7 @@ void prep_transhuge_page(struct page *page)
 unsigned long __thp_get_unmapped_area(struct file *filp, unsigned long len,
 		loff_t off, unsigned long flags, unsigned long size)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 501 \n");
 	unsigned long addr;
 	loff_t off_end = off + len;
 	loff_t off_align = round_up(off, size);
@@ -516,6 +523,7 @@ unsigned long __thp_get_unmapped_area(struct file *filp, unsigned long len,
 unsigned long thp_get_unmapped_area(struct file *filp, unsigned long addr,
 		unsigned long len, unsigned long pgoff, unsigned long flags)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 526 \n");
 	loff_t off = (loff_t)pgoff << PAGE_SHIFT;
 
 	if (addr)
@@ -703,6 +711,7 @@ int do_huge_pmd_anonymous_page(struct fault_env *fe)
 static void insert_pfn_pmd(struct vm_area_struct *vma, unsigned long addr,
 		pmd_t *pmd, pfn_t pfn, pgprot_t prot, bool write)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 714 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	pmd_t entry;
 	spinlock_t *ptl;
@@ -723,6 +732,7 @@ static void insert_pfn_pmd(struct vm_area_struct *vma, unsigned long addr,
 int vmf_insert_pfn_pmd(struct vm_area_struct *vma, unsigned long addr,
 			pmd_t *pmd, pfn_t pfn, bool write)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 735 \n");
 	pgprot_t pgprot = vma->vm_page_prot;
 	/*
 	 * If we had pmd_special, we could avoid all these restrictions,
@@ -747,6 +757,7 @@ EXPORT_SYMBOL_GPL(vmf_insert_pfn_pmd);
 static void touch_pmd(struct vm_area_struct *vma, unsigned long addr,
 		pmd_t *pmd, int flags)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 760 \n");
 	pmd_t _pmd;
 
 	_pmd = pmd_mkyoung(*pmd);
@@ -760,6 +771,7 @@ static void touch_pmd(struct vm_area_struct *vma, unsigned long addr,
 struct page *follow_devmap_pmd(struct vm_area_struct *vma, unsigned long addr,
 		pmd_t *pmd, int flags)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 774 \n");
 	unsigned long pfn = pmd_pfn(*pmd);
 	struct mm_struct *mm = vma->vm_mm;
 	struct dev_pagemap *pgmap;
@@ -871,6 +883,7 @@ out:
 
 void huge_pmd_set_accessed(struct fault_env *fe, pmd_t orig_pmd)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 886 \n");
 	pmd_t entry;
 	unsigned long haddr;
 	bool write = fe->flags & FAULT_FLAG_WRITE;
@@ -893,6 +906,7 @@ unlock:
 static int do_huge_pmd_wp_page_fallback(struct fault_env *fe, pmd_t orig_pmd,
 		struct page *page)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 909 \n");
 	struct vm_area_struct *vma = fe->vma;
 	unsigned long haddr = fe->address & HPAGE_PMD_MASK;
 	struct mem_cgroup *memcg;
@@ -1125,6 +1139,7 @@ out_unlock:
  */
 static inline bool can_follow_write_pmd(pmd_t pmd, unsigned int flags)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 1142 \n");
 	return pmd_write(pmd) ||
 	       ((flags & FOLL_FORCE) && (flags & FOLL_COW) && pmd_dirty(pmd));
 }
@@ -1134,6 +1149,7 @@ struct page *follow_trans_huge_pmd(struct vm_area_struct *vma,
 				   pmd_t *pmd,
 				   unsigned int flags)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 1152 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	struct page *page = NULL;
 
@@ -1200,6 +1216,7 @@ out:
 /* NUMA hinting page fault entry point for trans huge pmds */
 int do_huge_pmd_numa_page(struct fault_env *fe, pmd_t pmd)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 1219 \n");
 	struct vm_area_struct *vma = fe->vma;
 	struct anon_vma *anon_vma = NULL;
 	struct page *page;
@@ -1335,6 +1352,7 @@ out:
 bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
 		pmd_t *pmd, unsigned long addr, unsigned long next)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 1355 \n");
 	spinlock_t *ptl;
 	pmd_t orig_pmd;
 	struct page *page;
@@ -1507,6 +1525,7 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
 int change_huge_pmd(struct vm_area_struct *vma, pmd_t *pmd,
 		unsigned long addr, pgprot_t newprot, int prot_numa)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 1528 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	spinlock_t *ptl;
 	pmd_t entry;
@@ -1594,6 +1613,7 @@ spinlock_t *__pmd_trans_huge_lock(pmd_t *pmd, struct vm_area_struct *vma)
 static void __split_huge_zero_page_pmd(struct vm_area_struct *vma,
 		unsigned long haddr, pmd_t *pmd)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 1616 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	pgtable_t pgtable;
 	pmd_t _pmd;
@@ -1840,6 +1860,7 @@ void vma_adjust_trans_huge(struct vm_area_struct *vma,
 
 static void freeze_page(struct page *page)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 1863 \n");
 	enum ttu_flags ttu_flags = TTU_IGNORE_MLOCK | TTU_IGNORE_ACCESS |
 		TTU_RMAP_LOCKED;
 	int i, ret;
@@ -1863,6 +1884,7 @@ static void freeze_page(struct page *page)
 
 static void unfreeze_page(struct page *page)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 1887 \n");
 	int i;
 
 	for (i = 0; i < HPAGE_PMD_NR; i++)
@@ -1872,6 +1894,7 @@ static void unfreeze_page(struct page *page)
 static void __split_huge_page_tail(struct page *head, int tail,
 		struct lruvec *lruvec, struct list_head *list)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 1897 \n");
 	struct page *page_tail = head + tail;
 
 	VM_BUG_ON_PAGE(atomic_read(&page_tail->_mapcount) != -1, page_tail);
@@ -1932,6 +1955,7 @@ static void __split_huge_page_tail(struct page *head, int tail,
 static void __split_huge_page(struct page *page, struct list_head *list,
 		unsigned long flags)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 1958 \n");
 	struct page *head = compound_head(page);
 	struct zone *zone = page_zone(head);
 	struct lruvec *lruvec;
@@ -1991,6 +2015,7 @@ static void __split_huge_page(struct page *page, struct list_head *list,
 
 int total_mapcount(struct page *page)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 2018 \n");
 	int i, compound, ret;
 
 	VM_BUG_ON_PAGE(PageTail(page), page);
@@ -2091,6 +2116,7 @@ int page_trans_huge_mapcount(struct page *page, int *total_mapcount)
  */
 int split_huge_page_to_list(struct page *page, struct list_head *list)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 2119 \n");
 	struct page *head = compound_head(page);
 	struct pglist_data *pgdata = NODE_DATA(page_to_nid(head));
 	struct anon_vma *anon_vma = NULL;
@@ -2247,6 +2273,7 @@ void deferred_split_huge_page(struct page *page)
 static unsigned long deferred_split_count(struct shrinker *shrink,
 		struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 2276 \n");
 	struct pglist_data *pgdata = NODE_DATA(sc->nid);
 	return ACCESS_ONCE(pgdata->split_queue_len);
 }
@@ -2254,6 +2281,7 @@ static unsigned long deferred_split_count(struct shrinker *shrink,
 static unsigned long deferred_split_scan(struct shrinker *shrink,
 		struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in mm/huge_memory.c: line 2284 \n");
 	struct pglist_data *pgdata = NODE_DATA(sc->nid);
 	unsigned long flags;
 	LIST_HEAD(list), *pos, *next;

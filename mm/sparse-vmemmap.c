@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * Virtual Memory Map support
  *

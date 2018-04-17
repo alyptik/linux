@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *  linux/mm/oom_kill.c
  * 
@@ -95,6 +96,7 @@ static bool has_intersects_mems_allowed(struct task_struct *start,
 static bool has_intersects_mems_allowed(struct task_struct *tsk,
 					const nodemask_t *mask)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 99 \n");
 	return true;
 }
 #endif /* CONFIG_NUMA */
@@ -130,11 +132,13 @@ found:
  */
 static inline bool is_sysrq_oom(struct oom_control *oc)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 135 \n");
 	return oc->order == -1;
 }
 
 static inline bool is_memcg_oom(struct oom_control *oc)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 141 \n");
 	return oc->memcg != NULL;
 }
 
@@ -142,6 +146,7 @@ static inline bool is_memcg_oom(struct oom_control *oc)
 static bool oom_unkillable_task(struct task_struct *p,
 		struct mem_cgroup *memcg, const nodemask_t *nodemask)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 149 \n");
 	if (is_global_init(p))
 		return true;
 	if (p->flags & PF_KTHREAD)
@@ -170,6 +175,7 @@ static bool oom_unkillable_task(struct task_struct *p,
 unsigned long oom_badness(struct task_struct *p, struct mem_cgroup *memcg,
 			  const nodemask_t *nodemask, unsigned long totalpages)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 178 \n");
 	long points;
 	long adj;
 
@@ -231,6 +237,7 @@ enum oom_constraint {
  */
 static enum oom_constraint constrained_alloc(struct oom_control *oc)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 240 \n");
 	struct zone *zone;
 	struct zoneref *z;
 	enum zone_type high_zoneidx = gfp_zone(oc->gfp_mask);
@@ -288,6 +295,7 @@ static enum oom_constraint constrained_alloc(struct oom_control *oc)
 
 static int oom_evaluate_task(struct task_struct *task, void *arg)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 298 \n");
 	struct oom_control *oc = arg;
 	unsigned long points;
 
@@ -343,6 +351,7 @@ abort:
  */
 static void select_bad_process(struct oom_control *oc)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 354 \n");
 	if (is_memcg_oom(oc))
 		mem_cgroup_scan_tasks(oc->memcg, oom_evaluate_task, oc);
 	else {
@@ -371,6 +380,7 @@ static void select_bad_process(struct oom_control *oc)
  */
 static void dump_tasks(struct mem_cgroup *memcg, const nodemask_t *nodemask)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 383 \n");
 	struct task_struct *p;
 	struct task_struct *task;
 
@@ -404,6 +414,7 @@ static void dump_tasks(struct mem_cgroup *memcg, const nodemask_t *nodemask)
 
 static void dump_header(struct oom_control *oc, struct task_struct *p)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 417 \n");
 	nodemask_t *nm = (oc->nodemask) ? oc->nodemask : &cpuset_current_mems_allowed;
 
 	pr_warn("%s invoked oom-killer: gfp_mask=%#x(%pGg), nodemask=%*pbl, order=%d, oom_score_adj=%hd\n",
@@ -653,6 +664,7 @@ subsys_initcall(oom_init)
 #else
 static inline void wake_oom_reaper(struct task_struct *tsk)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 667 \n");
 }
 #endif /* CONFIG_MMU */
 
@@ -668,6 +680,7 @@ static inline void wake_oom_reaper(struct task_struct *tsk)
  */
 static void mark_oom_victim(struct task_struct *tsk)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 683 \n");
 	struct mm_struct *mm = tsk->mm;
 
 	WARN_ON(oom_killer_disabled);
@@ -694,6 +707,7 @@ static void mark_oom_victim(struct task_struct *tsk)
  */
 void exit_oom_victim(void)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 710 \n");
 	clear_thread_flag(TIF_MEMDIE);
 
 	if (!atomic_dec_return(&oom_victims))
@@ -705,6 +719,7 @@ void exit_oom_victim(void)
  */
 void oom_killer_enable(void)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 722 \n");
 	oom_killer_disabled = false;
 }
 
@@ -725,6 +740,7 @@ void oom_killer_enable(void)
  */
 bool oom_killer_disable(signed long timeout)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 743 \n");
 	signed long ret;
 
 	/*
@@ -748,6 +764,7 @@ bool oom_killer_disable(signed long timeout)
 
 static inline bool __task_will_free_mem(struct task_struct *task)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 767 \n");
 	struct signal_struct *sig = task->signal;
 
 	/*
@@ -776,6 +793,7 @@ static inline bool __task_will_free_mem(struct task_struct *task)
  */
 static bool task_will_free_mem(struct task_struct *task)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 796 \n");
 	struct mm_struct *mm = task->mm;
 	struct task_struct *p;
 	bool ret = true;
@@ -823,6 +841,7 @@ static bool task_will_free_mem(struct task_struct *task)
 
 static void oom_kill_process(struct oom_control *oc, const char *message)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 844 \n");
 	struct task_struct *p = oc->chosen;
 	unsigned int points = oc->chosen_points;
 	struct task_struct *victim = p;
@@ -956,6 +975,7 @@ static void oom_kill_process(struct oom_control *oc, const char *message)
 static void check_panic_on_oom(struct oom_control *oc,
 			       enum oom_constraint constraint)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 978 \n");
 	if (likely(!sysctl_panic_on_oom))
 		return;
 	if (sysctl_panic_on_oom != 2) {
@@ -979,12 +999,14 @@ static BLOCKING_NOTIFIER_HEAD(oom_notify_list);
 
 int register_oom_notifier(struct notifier_block *nb)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 1002 \n");
 	return blocking_notifier_chain_register(&oom_notify_list, nb);
 }
 EXPORT_SYMBOL_GPL(register_oom_notifier);
 
 int unregister_oom_notifier(struct notifier_block *nb)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 1009 \n");
 	return blocking_notifier_chain_unregister(&oom_notify_list, nb);
 }
 EXPORT_SYMBOL_GPL(unregister_oom_notifier);
@@ -1000,6 +1022,7 @@ EXPORT_SYMBOL_GPL(unregister_oom_notifier);
  */
 bool out_of_memory(struct oom_control *oc)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 1025 \n");
 	unsigned long freed = 0;
 	enum oom_constraint constraint = CONSTRAINT_NONE;
 
@@ -1076,6 +1099,7 @@ bool out_of_memory(struct oom_control *oc)
  */
 void pagefault_out_of_memory(void)
 {
+	panic("We reached unpopular paths in mm/oom_kill.c: line 1102 \n");
 	struct oom_control oc = {
 		.zonelist = NULL,
 		.nodemask = NULL,

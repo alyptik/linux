@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *	linux/mm/madvise.c
  *
@@ -226,6 +227,7 @@ static long madvise_willneed(struct vm_area_struct *vma,
 			     struct vm_area_struct **prev,
 			     unsigned long start, unsigned long end)
 {
+	panic("We reached unpopular paths in mm/madvise.c: line 230 \n");
 	struct file *file = vma->vm_file;
 
 	*prev = vma;
@@ -263,6 +265,7 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
 				unsigned long end, struct mm_walk *walk)
 
 {
+	panic("We reached unpopular paths in mm/madvise.c: line 268 \n");
 	struct mmu_gather *tlb = walk->private;
 	struct mm_struct *mm = tlb->mm;
 	struct vm_area_struct *vma = walk->vma;
@@ -396,6 +399,7 @@ static void madvise_free_page_range(struct mmu_gather *tlb,
 			     struct vm_area_struct *vma,
 			     unsigned long addr, unsigned long end)
 {
+	panic("We reached unpopular paths in mm/madvise.c: line 402 \n");
 	struct mm_walk free_walk = {
 		.pmd_entry = madvise_free_pte_range,
 		.mm = vma->vm_mm,
@@ -410,6 +414,7 @@ static void madvise_free_page_range(struct mmu_gather *tlb,
 static int madvise_free_single_vma(struct vm_area_struct *vma,
 			unsigned long start_addr, unsigned long end_addr)
 {
+	panic("We reached unpopular paths in mm/madvise.c: line 417 \n");
 	unsigned long start, end;
 	struct mm_struct *mm = vma->vm_mm;
 	struct mmu_gather tlb;
@@ -444,6 +449,7 @@ static long madvise_free(struct vm_area_struct *vma,
 			     struct vm_area_struct **prev,
 			     unsigned long start, unsigned long end)
 {
+	panic("We reached unpopular paths in mm/madvise.c: line 452 \n");
 	*prev = vma;
 	return madvise_free_single_vma(vma, start, end);
 }
@@ -487,6 +493,7 @@ static long madvise_remove(struct vm_area_struct *vma,
 				struct vm_area_struct **prev,
 				unsigned long start, unsigned long end)
 {
+	panic("We reached unpopular paths in mm/madvise.c: line 496 \n");
 	loff_t offset;
 	int error;
 	struct file *f;

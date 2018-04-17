@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * Workingset detection
  *
@@ -169,6 +170,7 @@ static unsigned int bucket_order __read_mostly;
 
 static void *pack_shadow(int memcgid, pg_data_t *pgdat, unsigned long eviction)
 {
+	panic("We reached unpopular paths in mm/workingset.c: line 173 \n");
 	eviction >>= bucket_order;
 	eviction = (eviction << MEM_CGROUP_ID_SHIFT) | memcgid;
 	eviction = (eviction << NODES_SHIFT) | pgdat->node_id;
@@ -180,6 +182,7 @@ static void *pack_shadow(int memcgid, pg_data_t *pgdat, unsigned long eviction)
 static void unpack_shadow(void *shadow, int *memcgidp, pg_data_t **pgdat,
 			  unsigned long *evictionp)
 {
+	panic("We reached unpopular paths in mm/workingset.c: line 185 \n");
 	unsigned long entry = (unsigned long)shadow;
 	int memcgid, nid;
 
@@ -204,6 +207,7 @@ static void unpack_shadow(void *shadow, int *memcgidp, pg_data_t **pgdat,
  */
 void *workingset_eviction(struct address_space *mapping, struct page *page)
 {
+	panic("We reached unpopular paths in mm/workingset.c: line 210 \n");
 	struct mem_cgroup *memcg = page_memcg(page);
 	struct pglist_data *pgdat = page_pgdat(page);
 	int memcgid = mem_cgroup_id(memcg);
@@ -231,6 +235,7 @@ void *workingset_eviction(struct address_space *mapping, struct page *page)
  */
 bool workingset_refault(void *shadow)
 {
+	panic("We reached unpopular paths in mm/workingset.c: line 238 \n");
 	unsigned long refault_distance;
 	unsigned long active_file;
 	struct mem_cgroup *memcg;
@@ -339,6 +344,7 @@ struct list_lru workingset_shadow_nodes;
 static unsigned long count_shadow_nodes(struct shrinker *shrinker,
 					struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in mm/workingset.c: line 347 \n");
 	unsigned long shadow_nodes;
 	unsigned long max_nodes;
 	unsigned long pages;
@@ -383,6 +389,7 @@ static enum lru_status shadow_lru_isolate(struct list_head *item,
 					  spinlock_t *lru_lock,
 					  void *arg)
 {
+	panic("We reached unpopular paths in mm/workingset.c: line 392 \n");
 	struct address_space *mapping;
 	struct radix_tree_node *node;
 	unsigned int i;
@@ -448,6 +455,7 @@ out:
 static unsigned long scan_shadow_nodes(struct shrinker *shrinker,
 				       struct shrink_control *sc)
 {
+	panic("We reached unpopular paths in mm/workingset.c: line 458 \n");
 	unsigned long ret;
 
 	/* list_lru lock nests inside IRQ-safe mapping->tree_lock */

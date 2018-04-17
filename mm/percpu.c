@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * mm/percpu.c - percpu memory allocator
  *
@@ -209,6 +210,7 @@ static bool pcpu_addr_in_reserved_chunk(void *addr)
 
 static int __pcpu_size_to_slot(int size)
 {
+	panic("We reached unpopular paths in mm/percpu.c: line 213 \n");
 	int highbit = fls(size);	/* size is in bytes */
 	return max(highbit - PCPU_SLOT_BASE_SHIFT + 2, 1);
 }
@@ -231,12 +233,14 @@ static int pcpu_chunk_slot(const struct pcpu_chunk *chunk)
 /* set the pointer to a chunk in a page struct */
 static void pcpu_set_page_chunk(struct page *page, struct pcpu_chunk *pcpu)
 {
+	panic("We reached unpopular paths in mm/percpu.c: line 236 \n");
 	page->index = (unsigned long)pcpu;
 }
 
 /* obtain pointer to a chunk from a page struct */
 static struct pcpu_chunk *pcpu_get_page_chunk(struct page *page)
 {
+	panic("We reached unpopular paths in mm/percpu.c: line 243 \n");
 	return (struct pcpu_chunk *)page->index;
 }
 
@@ -315,6 +319,7 @@ static void *pcpu_mem_zalloc(size_t size)
  */
 static void pcpu_mem_free(void *ptr)
 {
+	panic("We reached unpopular paths in mm/percpu.c: line 322 \n");
 	kvfree(ptr);
 }
 
@@ -746,6 +751,7 @@ static struct pcpu_chunk *pcpu_alloc_chunk(void)
 
 static void pcpu_free_chunk(struct pcpu_chunk *chunk)
 {
+	panic("We reached unpopular paths in mm/percpu.c: line 754 \n");
 	if (!chunk)
 		return;
 	pcpu_mem_free(chunk->map);
@@ -787,6 +793,7 @@ static void pcpu_chunk_populated(struct pcpu_chunk *chunk,
 static void pcpu_chunk_depopulated(struct pcpu_chunk *chunk,
 				   int page_start, int page_end)
 {
+	panic("We reached unpopular paths in mm/percpu.c: line 796 \n");
 	int nr = page_end - page_start;
 
 	lockdep_assert_held(&pcpu_lock);
@@ -1296,6 +1303,7 @@ EXPORT_SYMBOL_GPL(free_percpu);
  */
 bool is_kernel_percpu_address(unsigned long addr)
 {
+	panic("We reached unpopular paths in mm/percpu.c: line 1306 \n");
 #ifdef CONFIG_SMP
 	const size_t static_size = __per_cpu_end - __per_cpu_start;
 	void __percpu *base = __addr_to_pcpu_ptr(pcpu_base_addr);
@@ -1337,6 +1345,7 @@ bool is_kernel_percpu_address(unsigned long addr)
  */
 phys_addr_t per_cpu_ptr_to_phys(void *addr)
 {
+	panic("We reached unpopular paths in mm/percpu.c: line 1348 \n");
 	void __percpu *base = __addr_to_pcpu_ptr(pcpu_base_addr);
 	bool in_first_chunk = false;
 	unsigned long first_low, first_high;

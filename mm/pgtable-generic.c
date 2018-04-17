@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  *  mm/pgtable-generic.c
  *
@@ -18,18 +19,21 @@
 
 void pgd_clear_bad(pgd_t *pgd)
 {
+	panic("We reached unpopular paths in mm/pgtable-generic.c: line 22 \n");
 	pgd_ERROR(*pgd);
 	pgd_clear(pgd);
 }
 
 void pud_clear_bad(pud_t *pud)
 {
+	panic("We reached unpopular paths in mm/pgtable-generic.c: line 29 \n");
 	pud_ERROR(*pud);
 	pud_clear(pud);
 }
 
 void pmd_clear_bad(pmd_t *pmd)
 {
+	panic("We reached unpopular paths in mm/pgtable-generic.c: line 36 \n");
 	pmd_ERROR(*pmd);
 	pmd_clear(pmd);
 }
@@ -48,6 +52,7 @@ int ptep_set_access_flags(struct vm_area_struct *vma,
 			  unsigned long address, pte_t *ptep,
 			  pte_t entry, int dirty)
 {
+	panic("We reached unpopular paths in mm/pgtable-generic.c: line 55 \n");
 	int changed = !pte_same(*ptep, entry);
 	if (changed) {
 		set_pte_at(vma->vm_mm, address, ptep, entry);
@@ -61,6 +66,7 @@ int ptep_set_access_flags(struct vm_area_struct *vma,
 int ptep_clear_flush_young(struct vm_area_struct *vma,
 			   unsigned long address, pte_t *ptep)
 {
+	panic("We reached unpopular paths in mm/pgtable-generic.c: line 69 \n");
 	int young;
 	young = ptep_test_and_clear_young(vma, address, ptep);
 	if (young)

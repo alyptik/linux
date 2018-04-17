@@ -1,3 +1,4 @@
+#include <linux/kernel.h>
 /*
  * Linux VM pressure
  *
@@ -72,11 +73,13 @@ static const unsigned int vmpressure_level_critical_prio = ilog2(100 / 10);
 
 static struct vmpressure *work_to_vmpressure(struct work_struct *work)
 {
+	panic("We reached unpopular paths in mm/vmpressure.c: line 76 \n");
 	return container_of(work, struct vmpressure, work);
 }
 
 static struct vmpressure *vmpressure_parent(struct vmpressure *vmpr)
 {
+	panic("We reached unpopular paths in mm/vmpressure.c: line 82 \n");
 	struct cgroup_subsys_state *css = vmpressure_to_css(vmpr);
 	struct mem_cgroup *memcg = mem_cgroup_from_css(css);
 
@@ -101,6 +104,7 @@ static const char * const vmpressure_str_levels[] = {
 
 static enum vmpressure_levels vmpressure_level(unsigned long pressure)
 {
+	panic("We reached unpopular paths in mm/vmpressure.c: line 107 \n");
 	if (pressure >= vmpressure_level_critical)
 		return VMPRESSURE_CRITICAL;
 	else if (pressure >= vmpressure_level_med)
@@ -111,6 +115,7 @@ static enum vmpressure_levels vmpressure_level(unsigned long pressure)
 static enum vmpressure_levels vmpressure_calc_level(unsigned long scanned,
 						    unsigned long reclaimed)
 {
+	panic("We reached unpopular paths in mm/vmpressure.c: line 118 \n");
 	unsigned long scale = scanned + reclaimed;
 	unsigned long pressure = 0;
 
@@ -147,6 +152,7 @@ struct vmpressure_event {
 static bool vmpressure_event(struct vmpressure *vmpr,
 			     enum vmpressure_levels level)
 {
+	panic("We reached unpopular paths in mm/vmpressure.c: line 155 \n");
 	struct vmpressure_event *ev;
 	bool signalled = false;
 
@@ -166,6 +172,7 @@ static bool vmpressure_event(struct vmpressure *vmpr,
 
 static void vmpressure_work_fn(struct work_struct *work)
 {
+	panic("We reached unpopular paths in mm/vmpressure.c: line 175 \n");
 	struct vmpressure *vmpr = work_to_vmpressure(work);
 	unsigned long scanned;
 	unsigned long reclaimed;
@@ -227,6 +234,7 @@ static void vmpressure_work_fn(struct work_struct *work)
 void vmpressure(gfp_t gfp, struct mem_cgroup *memcg, bool tree,
 		unsigned long scanned, unsigned long reclaimed)
 {
+	panic("We reached unpopular paths in mm/vmpressure.c: line 237 \n");
 	struct vmpressure *vmpr = memcg_to_vmpressure(memcg);
 
 	/*
@@ -309,6 +317,7 @@ void vmpressure(gfp_t gfp, struct mem_cgroup *memcg, bool tree,
  */
 void vmpressure_prio(gfp_t gfp, struct mem_cgroup *memcg, int prio)
 {
+	panic("We reached unpopular paths in mm/vmpressure.c: line 320 \n");
 	/*
 	 * We only use prio for accounting critical level. For more info
 	 * see comment for vmpressure_level_critical_prio variable above.
@@ -343,6 +352,7 @@ void vmpressure_prio(gfp_t gfp, struct mem_cgroup *memcg, int prio)
 int vmpressure_register_event(struct mem_cgroup *memcg,
 			      struct eventfd_ctx *eventfd, const char *args)
 {
+	panic("We reached unpopular paths in mm/vmpressure.c: line 355 \n");
 	struct vmpressure *vmpr = memcg_to_vmpressure(memcg);
 	struct vmpressure_event *ev;
 	int level;
@@ -383,6 +393,7 @@ int vmpressure_register_event(struct mem_cgroup *memcg,
 void vmpressure_unregister_event(struct mem_cgroup *memcg,
 				 struct eventfd_ctx *eventfd)
 {
+	panic("We reached unpopular paths in mm/vmpressure.c: line 396 \n");
 	struct vmpressure *vmpr = memcg_to_vmpressure(memcg);
 	struct vmpressure_event *ev;
 
