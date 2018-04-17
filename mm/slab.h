@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 #ifndef MM_SLAB_H
 #define MM_SLAB_H
 /*
@@ -288,52 +287,44 @@ extern void slab_init_memcg_params(struct kmem_cache *);
 
 static inline bool is_root_cache(struct kmem_cache *s)
 {
-	panic("We reached unpopular paths in mm/slab.h: line 291 \n");
 	return true;
 }
 
 static inline bool slab_equal_or_root(struct kmem_cache *s,
 				      struct kmem_cache *p)
 {
-	panic("We reached unpopular paths in mm/slab.h: line 298 \n");
 	return true;
 }
 
 static inline const char *cache_name(struct kmem_cache *s)
 {
-	panic("We reached unpopular paths in mm/slab.h: line 304 \n");
 	return s->name;
 }
 
 static inline struct kmem_cache *
 cache_from_memcg_idx(struct kmem_cache *s, int idx)
 {
-	panic("We reached unpopular paths in mm/slab.h: line 311 \n");
 	return NULL;
 }
 
 static inline struct kmem_cache *memcg_root_cache(struct kmem_cache *s)
 {
-	panic("We reached unpopular paths in mm/slab.h: line 317 \n");
 	return s;
 }
 
 static inline int memcg_charge_slab(struct page *page, gfp_t gfp, int order,
 				    struct kmem_cache *s)
 {
-	panic("We reached unpopular paths in mm/slab.h: line 324 \n");
 	return 0;
 }
 
 static inline void memcg_uncharge_slab(struct page *page, int order,
 				       struct kmem_cache *s)
 {
-	panic("We reached unpopular paths in mm/slab.h: line 331 \n");
 }
 
 static inline void slab_init_memcg_params(struct kmem_cache *s)
 {
-	panic("We reached unpopular paths in mm/slab.h: line 336 \n");
 }
 #endif /* CONFIG_MEMCG && !CONFIG_SLOB */
 
@@ -366,7 +357,6 @@ static inline struct kmem_cache *cache_from_obj(struct kmem_cache *s, void *x)
 
 static inline size_t slab_ksize(const struct kmem_cache *s)
 {
-	panic("We reached unpopular paths in mm/slab.h: line 369 \n");
 #ifndef CONFIG_SLUB
 	return s->object_size;
 
@@ -466,7 +456,6 @@ struct kmem_cache_node {
 
 static inline struct kmem_cache_node *get_node(struct kmem_cache *s, int node)
 {
-	panic("We reached unpopular paths in mm/slab.h: line 469 \n");
 	return s->node[node];
 }
 
@@ -495,7 +484,6 @@ void cache_random_seq_destroy(struct kmem_cache *cachep);
 static inline int cache_random_seq_create(struct kmem_cache *cachep,
 					unsigned int count, gfp_t gfp)
 {
-	panic("We reached unpopular paths in mm/slab.h: line 498 \n");
 	return 0;
 }
 static inline void cache_random_seq_destroy(struct kmem_cache *cachep) { }

@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  * linux/mm/slab.c
  * Written by Mark Hemment, 1996/97.
@@ -395,7 +394,6 @@ static bool slab_max_order_set __initdata;
 
 static inline struct kmem_cache *virt_to_cache(const void *obj)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 398 \n");
 	struct page *page = virt_to_head_page(obj);
 	return page->slab_cache;
 }
@@ -403,7 +401,6 @@ static inline struct kmem_cache *virt_to_cache(const void *obj)
 static inline void *index_to_obj(struct kmem_cache *cache, struct page *page,
 				 unsigned int idx)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 406 \n");
 	return page->s_mem + cache->size * idx;
 }
 
@@ -434,7 +431,6 @@ static DEFINE_PER_CPU(struct delayed_work, slab_reap_work);
 
 static inline struct array_cache *cpu_cache_get(struct kmem_cache *cachep)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 437 \n");
 	return this_cpu_ptr(cachep->cpu_cache);
 }
 
@@ -570,7 +566,6 @@ static void start_cpu_timer(int cpu)
 
 static void init_arraycache(struct array_cache *ac, int limit, int batch)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 573 \n");
 	/*
 	 * The array_cache structures contain pointers to free object.
 	 * However, when such objects are allocated or transferred to another
@@ -590,7 +585,6 @@ static void init_arraycache(struct array_cache *ac, int limit, int batch)
 static struct array_cache *alloc_arraycache(int node, int entries,
 					    int batchcount, gfp_t gfp)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 593 \n");
 	size_t memsize = sizeof(void *) * entries + sizeof(struct array_cache);
 	struct array_cache *ac = NULL;
 
@@ -625,7 +619,6 @@ static noinline void cache_free_pfmemalloc(struct kmem_cache *cachep,
 static int transfer_objects(struct array_cache *to,
 		struct array_cache *from, unsigned int max)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 628 \n");
 	/* Figure out how many entries to transfer */
 	int nr = min3(from->avail, max, to->limit - to->avail);
 
@@ -648,38 +641,32 @@ static int transfer_objects(struct array_cache *to,
 static inline struct alien_cache **alloc_alien_cache(int node,
 						int limit, gfp_t gfp)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 651 \n");
 	return NULL;
 }
 
 static inline void free_alien_cache(struct alien_cache **ac_ptr)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 657 \n");
 }
 
 static inline int cache_free_alien(struct kmem_cache *cachep, void *objp)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 662 \n");
 	return 0;
 }
 
 static inline void *alternate_node_alloc(struct kmem_cache *cachep,
 		gfp_t flags)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 669 \n");
 	return NULL;
 }
 
 static inline void *____cache_alloc_node(struct kmem_cache *cachep,
 		 gfp_t flags, int nodeid)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 676 \n");
 	return NULL;
 }
 
 static inline gfp_t gfp_exact_node(gfp_t flags)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 682 \n");
 	return flags & ~__GFP_NOFAIL;
 }
 
@@ -1130,7 +1117,6 @@ static int slab_online_cpu(unsigned int cpu)
 
 static int slab_offline_cpu(unsigned int cpu)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 1133 \n");
 	/*
 	 * Shutdown cache reaper. Note that the slab_mutex is held so
 	 * that if cache_reap() is invoked it cannot do anything
@@ -1741,7 +1727,6 @@ static void slab_destroy_debugcheck(struct kmem_cache *cachep,
 static void slab_destroy_debugcheck(struct kmem_cache *cachep,
 						struct page *page)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 1744 \n");
 }
 #endif
 
@@ -2431,20 +2416,17 @@ static void *alloc_slabmgmt(struct kmem_cache *cachep,
 
 static inline freelist_idx_t get_free_obj(struct page *page, unsigned int idx)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 2434 \n");
 	return ((freelist_idx_t *)page->freelist)[idx];
 }
 
 static inline void set_free_obj(struct page *page,
 					unsigned int idx, freelist_idx_t val)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 2441 \n");
 	((freelist_idx_t *)(page->freelist))[idx] = val;
 }
 
 static void cache_init_objs_debug(struct kmem_cache *cachep, struct page *page)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 2447 \n");
 #if DEBUG
 	int i;
 
@@ -2593,7 +2575,6 @@ static bool shuffle_freelist(struct kmem_cache *cachep, struct page *page)
 static inline bool shuffle_freelist(struct kmem_cache *cachep,
 				struct page *page)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 2596 \n");
 	return false;
 }
 #endif /* CONFIG_SLAB_FREELIST_RANDOM */
@@ -2677,7 +2658,6 @@ static void slab_put_obj(struct kmem_cache *cachep,
 static void slab_map_pages(struct kmem_cache *cache, struct page *page,
 			   void *freelist)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 2680 \n");
 	page->slab_cache = cache;
 	page->freelist = freelist;
 }
@@ -2866,7 +2846,6 @@ static void *cache_free_debugcheck(struct kmem_cache *cachep, void *objp,
 static inline void fixup_objfreelist_debug(struct kmem_cache *cachep,
 						void **list)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 2869 \n");
 #if DEBUG
 	void *next = *list;
 	void *objp;
@@ -3528,7 +3507,6 @@ free_done:
 static inline void __cache_free(struct kmem_cache *cachep, void *objp,
 				unsigned long caller)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 3531 \n");
 	/* Put the object into the quarantine, don't touch it for now. */
 	if (kasan_slab_free(cachep, objp))
 		return;
@@ -3609,7 +3587,6 @@ cache_alloc_debugcheck_after_bulk(struct kmem_cache *s, gfp_t flags,
 int kmem_cache_alloc_bulk(struct kmem_cache *s, gfp_t flags, size_t size,
 			  void **p)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 3612 \n");
 	size_t i;
 
 	s = slab_pre_alloc_hook(s, flags);
@@ -3800,7 +3777,6 @@ EXPORT_SYMBOL(kmem_cache_free);
 
 void kmem_cache_free_bulk(struct kmem_cache *orig_s, size_t size, void **p)
 {
-	panic("We reached unpopular paths in mm/slab.c: line 3803 \n");
 	struct kmem_cache *s;
 	size_t i;
 

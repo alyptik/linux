@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  *  linux/mm/mempool.c
  *
@@ -97,17 +96,14 @@ static void poison_element(mempool_t *pool, void *element)
 #else /* CONFIG_DEBUG_SLAB || CONFIG_SLUB_DEBUG_ON */
 static inline void check_element(mempool_t *pool, void *element)
 {
-	panic("We reached unpopular paths in mm/mempool.c: line 100 \n");
 }
 static inline void poison_element(mempool_t *pool, void *element)
 {
-	panic("We reached unpopular paths in mm/mempool.c: line 104 \n");
 }
 #endif /* CONFIG_DEBUG_SLAB || CONFIG_SLUB_DEBUG_ON */
 
 static void kasan_poison_element(mempool_t *pool, void *element)
 {
-	panic("We reached unpopular paths in mm/mempool.c: line 110 \n");
 	if (pool->alloc == mempool_alloc_slab || pool->alloc == mempool_kmalloc)
 		kasan_poison_kfree(element);
 	if (pool->alloc == mempool_alloc_pages)
@@ -116,7 +112,6 @@ static void kasan_poison_element(mempool_t *pool, void *element)
 
 static void kasan_unpoison_element(mempool_t *pool, void *element, gfp_t flags)
 {
-	panic("We reached unpopular paths in mm/mempool.c: line 119 \n");
 	if (pool->alloc == mempool_alloc_slab || pool->alloc == mempool_kmalloc)
 		kasan_unpoison_slab(element);
 	if (pool->alloc == mempool_alloc_pages)
@@ -133,7 +128,6 @@ static void add_element(mempool_t *pool, void *element)
 
 static void *remove_element(mempool_t *pool, gfp_t flags)
 {
-	panic("We reached unpopular paths in mm/mempool.c: line 136 \n");
 	void *element = pool->elements[--pool->curr_nr];
 
 	BUG_ON(pool->curr_nr < 0);
@@ -152,7 +146,6 @@ static void *remove_element(mempool_t *pool, gfp_t flags)
  */
 void mempool_destroy(mempool_t *pool)
 {
-	panic("We reached unpopular paths in mm/mempool.c: line 155 \n");
 	if (unlikely(!pool))
 		return;
 
@@ -243,7 +236,6 @@ EXPORT_SYMBOL(mempool_create_node);
  */
 int mempool_resize(mempool_t *pool, int new_min_nr)
 {
-	panic("We reached unpopular paths in mm/mempool.c: line 246 \n");
 	void *element;
 	void **new_elements;
 	unsigned long flags;
@@ -471,7 +463,6 @@ EXPORT_SYMBOL(mempool_free_slab);
  */
 void *mempool_kmalloc(gfp_t gfp_mask, void *pool_data)
 {
-	panic("We reached unpopular paths in mm/mempool.c: line 474 \n");
 	size_t size = (size_t)pool_data;
 	return kmalloc(size, gfp_mask);
 }
@@ -479,7 +470,6 @@ EXPORT_SYMBOL(mempool_kmalloc);
 
 void mempool_kfree(void *element, void *pool_data)
 {
-	panic("We reached unpopular paths in mm/mempool.c: line 482 \n");
 	kfree(element);
 }
 EXPORT_SYMBOL(mempool_kfree);
@@ -490,7 +480,6 @@ EXPORT_SYMBOL(mempool_kfree);
  */
 void *mempool_alloc_pages(gfp_t gfp_mask, void *pool_data)
 {
-	panic("We reached unpopular paths in mm/mempool.c: line 493 \n");
 	int order = (int)(long)pool_data;
 	return alloc_pages(gfp_mask, order);
 }
@@ -498,7 +487,6 @@ EXPORT_SYMBOL(mempool_alloc_pages);
 
 void mempool_free_pages(void *element, void *pool_data)
 {
-	panic("We reached unpopular paths in mm/mempool.c: line 501 \n");
 	int order = (int)(long)pool_data;
 	__free_pages(element, order);
 }

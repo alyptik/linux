@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /* internal.h: mm/ internal definitions
  *
  * Copyright (C) 2004 Red Hat, Inc. All Rights Reserved.
@@ -57,7 +56,6 @@ extern int __do_page_cache_readahead(struct address_space *mapping,
 static inline unsigned long ra_submit(struct file_ra_state *ra,
 		struct address_space *mapping, struct file *filp)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 60 \n");
 	return __do_page_cache_readahead(mapping, filp,
 					ra->start, ra->size, ra->async_size);
 }
@@ -68,7 +66,6 @@ static inline unsigned long ra_submit(struct file_ra_state *ra,
  */
 static inline void set_page_refcounted(struct page *page)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 71 \n");
 	VM_BUG_ON_PAGE(PageTail(page), page);
 	VM_BUG_ON_PAGE(page_ref_count(page), page);
 	set_page_count(page, 1);
@@ -142,7 +139,6 @@ struct alloc_context {
 static inline unsigned long
 __find_buddy_index(unsigned long page_idx, unsigned int order)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 145 \n");
 	return page_idx ^ (1 << order);
 }
 
@@ -152,7 +148,6 @@ extern struct page *__pageblock_pfn_to_page(unsigned long start_pfn,
 static inline struct page *pageblock_pfn_to_page(unsigned long start_pfn,
 				unsigned long end_pfn, struct zone *zone)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 155 \n");
 	if (zone->contiguous)
 		return pfn_to_page(start_pfn);
 
@@ -221,7 +216,6 @@ int find_suitable_fallback(struct free_area *area, unsigned int order,
  */
 static inline unsigned int page_order(struct page *page)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 224 \n");
 	/* PageBuddy() must be checked by the caller */
 	return page_private(page);
 }
@@ -241,7 +235,6 @@ static inline unsigned int page_order(struct page *page)
 
 static inline bool is_cow_mapping(vm_flags_t flags)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 244 \n");
 	return (flags & (VM_SHARED | VM_MAYWRITE)) == VM_MAYWRITE;
 }
 
@@ -254,7 +247,6 @@ static inline bool is_cow_mapping(vm_flags_t flags)
  */
 static inline bool is_exec_mapping(vm_flags_t flags)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 257 \n");
 	return (flags & (VM_EXEC | VM_WRITE | VM_STACK)) == VM_EXEC;
 }
 
@@ -266,7 +258,6 @@ static inline bool is_exec_mapping(vm_flags_t flags)
  */
 static inline bool is_stack_mapping(vm_flags_t flags)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 269 \n");
 	return (flags & VM_STACK) == VM_STACK;
 }
 
@@ -275,7 +266,6 @@ static inline bool is_stack_mapping(vm_flags_t flags)
  */
 static inline bool is_data_mapping(vm_flags_t flags)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 278 \n");
 	return (flags & (VM_WRITE | VM_SHARED | VM_STACK)) == VM_WRITE;
 }
 
@@ -364,7 +354,6 @@ static inline void mlock_migrate_page(struct page *new, struct page *old) { }
  */
 static inline struct page *mem_map_offset(struct page *base, int offset)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 367 \n");
 	if (unlikely(offset >= MAX_ORDER_NR_PAGES))
 		return nth_page(base, offset);
 	return base + offset;
@@ -377,7 +366,6 @@ static inline struct page *mem_map_offset(struct page *base, int offset)
 static inline struct page *mem_map_next(struct page *iter,
 						struct page *base, int offset)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 380 \n");
 	if (unlikely((offset & (MAX_ORDER_NR_PAGES - 1)) == 0)) {
 		unsigned long pfn = page_to_pfn(base) + offset;
 		if (!pfn_valid(pfn))
@@ -427,17 +415,14 @@ extern void mminit_verify_zonelist(void);
 static inline void mminit_dprintk(enum mminit_level level,
 				const char *prefix, const char *fmt, ...)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 430 \n");
 }
 
 static inline void mminit_verify_pageflags_layout(void)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 435 \n");
 }
 
 static inline void mminit_verify_zonelist(void)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 440 \n");
 }
 #endif /* CONFIG_DEBUG_MEMORY_INIT */
 
@@ -449,7 +434,6 @@ extern void mminit_validate_memmodel_limits(unsigned long *start_pfn,
 static inline void mminit_validate_memmodel_limits(unsigned long *start_pfn,
 				unsigned long *end_pfn)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 452 \n");
 }
 #endif /* CONFIG_SPARSEMEM */
 
@@ -498,15 +482,12 @@ void flush_tlb_batched_pending(struct mm_struct *mm);
 #else
 static inline void try_to_unmap_flush(void)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 501 \n");
 }
 static inline void try_to_unmap_flush_dirty(void)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 505 \n");
 }
 static inline void flush_tlb_batched_pending(struct mm_struct *mm)
 {
-	panic("We reached unpopular paths in mm/internal.h: line 509 \n");
 }
 #endif /* CONFIG_ARCH_WANT_BATCHED_UNMAP_TLB_FLUSH */
 

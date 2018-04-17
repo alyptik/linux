@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  *  mm/mprotect.c
  *

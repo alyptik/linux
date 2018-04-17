@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  * Copyright (c) 2013 Red Hat, Inc. and Parallels Inc. All rights reserved.
  * Authors: David Chinner and Glauber Costa
@@ -33,12 +32,10 @@ static void list_lru_unregister(struct list_lru *lru)
 #else
 static void list_lru_register(struct list_lru *lru)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 36 \n");
 }
 
 static void list_lru_unregister(struct list_lru *lru)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 41 \n");
 }
 #endif /* CONFIG_MEMCG && !CONFIG_SLOB */
 
@@ -93,21 +90,18 @@ list_lru_from_kmem(struct list_lru_node *nlru, void *ptr)
 #else
 static inline bool list_lru_memcg_aware(struct list_lru *lru)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 96 \n");
 	return false;
 }
 
 static inline struct list_lru_one *
 list_lru_from_memcg_idx(struct list_lru_node *nlru, int idx)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 103 \n");
 	return &nlru->lru;
 }
 
 static inline struct list_lru_one *
 list_lru_from_kmem(struct list_lru_node *nlru, void *ptr)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 110 \n");
 	return &nlru->lru;
 }
 #endif /* CONFIG_MEMCG && !CONFIG_SLOB */
@@ -154,7 +148,6 @@ EXPORT_SYMBOL_GPL(list_lru_del);
 
 void list_lru_isolate(struct list_lru_one *list, struct list_head *item)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 157 \n");
 	list_del_init(item);
 	list->nr_items--;
 }
@@ -163,7 +156,6 @@ EXPORT_SYMBOL_GPL(list_lru_isolate);
 void list_lru_isolate_move(struct list_lru_one *list, struct list_head *item,
 			   struct list_head *head)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 166 \n");
 	list_move(item, head);
 	list->nr_items--;
 }
@@ -172,7 +164,6 @@ EXPORT_SYMBOL_GPL(list_lru_isolate_move);
 static unsigned long __list_lru_count_one(struct list_lru *lru,
 					  int nid, int memcg_idx)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 175 \n");
 	struct list_lru_node *nlru = &lru->node[nid];
 	struct list_lru_one *l;
 	unsigned long count;
@@ -188,7 +179,6 @@ static unsigned long __list_lru_count_one(struct list_lru *lru,
 unsigned long list_lru_count_one(struct list_lru *lru,
 				 int nid, struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 191 \n");
 	return __list_lru_count_one(lru, nid, memcg_cache_id(memcg));
 }
 EXPORT_SYMBOL_GPL(list_lru_count_one);
@@ -268,7 +258,6 @@ list_lru_walk_one(struct list_lru *lru, int nid, struct mem_cgroup *memcg,
 		  list_lru_walk_cb isolate, void *cb_arg,
 		  unsigned long *nr_to_walk)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 271 \n");
 	return __list_lru_walk_one(lru, nid, memcg_cache_id(memcg),
 				   isolate, cb_arg, nr_to_walk);
 }
@@ -297,7 +286,6 @@ EXPORT_SYMBOL_GPL(list_lru_walk_node);
 
 static void init_one_lru(struct list_lru_one *l)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 300 \n");
 	INIT_LIST_HEAD(&l->list);
 	l->nr_items = 0;
 }
@@ -533,13 +521,11 @@ void memcg_drain_all_list_lrus(int src_idx, int dst_idx)
 #else
 static int memcg_init_list_lru(struct list_lru *lru, bool memcg_aware)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 536 \n");
 	return 0;
 }
 
 static void memcg_destroy_list_lru(struct list_lru *lru)
 {
-	panic("We reached unpopular paths in mm/list_lru.c: line 542 \n");
 }
 #endif /* CONFIG_MEMCG && !CONFIG_SLOB */
 

@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  *  linux/mm/page_alloc.c
  *
@@ -136,13 +135,11 @@ gfp_t gfp_allowed_mask __read_mostly = GFP_BOOT_MASK;
  */
 static inline int get_pcppage_migratetype(struct page *page)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 139 \n");
 	return page->index;
 }
 
 static inline void set_pcppage_migratetype(struct page *page, int migratetype)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 145 \n");
 	page->index = migratetype;
 }
 
@@ -355,12 +352,10 @@ static inline bool update_defer_init(pg_data_t *pgdat,
 #else
 static inline void reset_deferred_meminit(pg_data_t *pgdat)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 358 \n");
 }
 
 static inline bool early_page_uninitialised(unsigned long pfn)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 363 \n");
 	return false;
 }
 
@@ -368,7 +363,6 @@ static inline bool update_defer_init(pg_data_t *pgdat,
 				unsigned long pfn, unsigned long zone_end,
 				unsigned long *nr_initialised)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 371 \n");
 	return true;
 }
 #endif
@@ -386,7 +380,6 @@ static inline unsigned long *get_pageblock_bitmap(struct page *page,
 
 static inline int pfn_to_bitidx(struct page *page, unsigned long pfn)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 389 \n");
 #ifdef CONFIG_SPARSEMEM
 	pfn &= (PAGES_PER_SECTION-1);
 	return (pfn >> pageblock_order) * NR_PAGEBLOCK_BITS;
@@ -428,7 +421,6 @@ unsigned long get_pfnblock_flags_mask(struct page *page, unsigned long pfn,
 					unsigned long end_bitidx,
 					unsigned long mask)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 431 \n");
 	return __get_pfnblock_flags_mask(page, pfn, end_bitidx, mask);
 }
 
@@ -534,7 +526,6 @@ static int bad_range(struct zone *zone, struct page *page)
 #else
 static inline int bad_range(struct zone *zone, struct page *page)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 537 \n");
 	return 0;
 }
 #endif
@@ -542,7 +533,6 @@ static inline int bad_range(struct zone *zone, struct page *page)
 static void bad_page(struct page *page, const char *reason,
 		unsigned long bad_flags)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 545 \n");
 	static unsigned long resume;
 	static unsigned long nr_shown;
 	static unsigned long nr_unshown;
@@ -731,14 +721,12 @@ static inline void clear_page_guard(struct zone *zone, struct page *page,
 
 static inline void set_page_order(struct page *page, unsigned int order)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 734 \n");
 	set_page_private(page, order);
 	__SetPageBuddy(page);
 }
 
 static inline void rmv_page_order(struct page *page)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 741 \n");
 	__ClearPageBuddy(page);
 	set_page_private(page, 0);
 }
@@ -939,7 +927,6 @@ static inline bool page_expected_state(struct page *page,
 
 static void free_pages_check_bad(struct page *page)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 942 \n");
 	const char *bad_reason;
 	unsigned long bad_flags;
 
@@ -975,7 +962,6 @@ static inline int free_pages_check(struct page *page)
 
 static int free_tail_pages_check(struct page *head_page, struct page *page)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 978 \n");
 	int ret = 1;
 
 	/*
@@ -1240,7 +1226,6 @@ static void init_reserved_page(unsigned long pfn)
 #else
 static inline void init_reserved_page(unsigned long pfn)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 1243 \n");
 }
 #endif /* CONFIG_DEFERRED_STRUCT_PAGE_INIT */
 
@@ -1431,7 +1416,6 @@ void set_zone_contiguous(struct zone *zone)
 
 void clear_zone_contiguous(struct zone *zone)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 1434 \n");
 	zone->contiguous = false;
 }
 
@@ -1695,7 +1679,6 @@ static inline void expand(struct zone *zone, struct page *page,
 
 static void check_new_page_bad(struct page *page)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 1698 \n");
 	const char *bad_reason = NULL;
 	unsigned long bad_flags = 0;
 
@@ -1759,7 +1742,6 @@ static bool check_pcp_refill(struct page *page)
 }
 static bool check_new_pcp(struct page *page)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 1762 \n");
 	return false;
 }
 #endif /* CONFIG_DEBUG_VM */
@@ -1890,7 +1872,6 @@ int move_freepages(struct zone *zone,
 			  struct page *start_page, struct page *end_page,
 			  int migratetype)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 1893 \n");
 	struct page *page;
 	unsigned int order;
 	int pages_moved = 0;
@@ -1933,7 +1914,6 @@ int move_freepages(struct zone *zone,
 int move_freepages_block(struct zone *zone, struct page *page,
 				int migratetype)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 1936 \n");
 	unsigned long start_pfn, end_pfn;
 	struct page *start_page, *end_page;
 
@@ -2067,7 +2047,6 @@ int find_suitable_fallback(struct free_area *area, unsigned int order,
 static void reserve_highatomic_pageblock(struct page *page, struct zone *zone,
 				unsigned int alloc_order)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 2070 \n");
 	int mt;
 	unsigned long max_managed, flags;
 
@@ -2106,7 +2085,6 @@ out_unlock:
  */
 static void unreserve_highatomic_pageblock(const struct alloc_context *ac)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 2109 \n");
 	struct zonelist *zonelist = ac->zonelist;
 	unsigned long flags;
 	struct zoneref *z;
@@ -2326,7 +2304,6 @@ void drain_zone_pages(struct zone *zone, struct per_cpu_pages *pcp)
  */
 static void drain_pages_zone(unsigned int cpu, struct zone *zone)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 2329 \n");
 	unsigned long flags;
 	struct per_cpu_pageset *pset;
 	struct per_cpu_pages *pcp;
@@ -2351,7 +2328,6 @@ static void drain_pages_zone(unsigned int cpu, struct zone *zone)
  */
 static void drain_pages(unsigned int cpu)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 2354 \n");
 	struct zone *zone;
 
 	for_each_populated_zone(zone) {
@@ -2367,7 +2343,6 @@ static void drain_pages(unsigned int cpu)
  */
 void drain_local_pages(struct zone *zone)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 2370 \n");
 	int cpu = smp_processor_id();
 
 	if (zone)
@@ -2389,7 +2364,6 @@ void drain_local_pages(struct zone *zone)
  */
 void drain_all_pages(struct zone *zone)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 2392 \n");
 	int cpu;
 
 	/*
@@ -2568,7 +2542,6 @@ EXPORT_SYMBOL_GPL(split_page);
 
 int __isolate_free_page(struct page *page, unsigned int order)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 2571 \n");
 	unsigned long watermark;
 	struct zone *zone;
 	int mt;
@@ -2623,7 +2596,6 @@ int __isolate_free_page(struct page *page, unsigned int order)
 static inline void zone_statistics(struct zone *preferred_zone, struct zone *z,
 								gfp_t flags)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 2626 \n");
 #ifdef CONFIG_NUMA
 	enum zone_stat_item local_stat = NUMA_LOCAL;
 
@@ -2788,7 +2760,6 @@ late_initcall(fail_page_alloc_debugfs);
 
 static inline bool should_fail_alloc_page(gfp_t gfp_mask, unsigned int order)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 2791 \n");
 	return false;
 }
 
@@ -2871,7 +2842,6 @@ bool __zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
 bool zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
 		      int classzone_idx, unsigned int alloc_flags)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 2874 \n");
 	return __zone_watermark_ok(z, order, mark, classzone_idx, alloc_flags,
 					zone_page_state(z, NR_FREE_PAGES));
 }
@@ -2923,7 +2893,6 @@ static bool zone_allows_reclaim(struct zone *local_zone, struct zone *zone)
 #else	/* CONFIG_NUMA */
 static bool zone_allows_reclaim(struct zone *local_zone, struct zone *zone)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 2926 \n");
 	return true;
 }
 #endif	/* CONFIG_NUMA */
@@ -3040,7 +3009,6 @@ try_this_zone:
  */
 static inline bool should_suppress_show_mem(void)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 3043 \n");
 	bool ret = false;
 
 #if NODES_SHIFT > 8
@@ -3055,7 +3023,6 @@ static DEFINE_RATELIMIT_STATE(nopage_rs,
 
 void warn_alloc(gfp_t gfp_mask, const char *fmt, ...)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 3058 \n");
 	unsigned int filter = SHOW_MEM_FILTER_NODES;
 	struct va_format vaf;
 	va_list args;
@@ -3095,7 +3062,6 @@ static inline struct page *
 __alloc_pages_may_oom(gfp_t gfp_mask, unsigned int order,
 	const struct alloc_context *ac, unsigned long *did_some_progress)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 3098 \n");
 	struct oom_control oc = {
 		.zonelist = ac->zonelist,
 		.nodemask = ac->nodemask,
@@ -3294,7 +3260,6 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
 		unsigned int alloc_flags, const struct alloc_context *ac,
 		enum compact_priority prio, enum compact_result *compact_result)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 3297 \n");
 	*compact_result = COMPACT_SKIPPED;
 	return NULL;
 }
@@ -3305,7 +3270,6 @@ should_compact_retry(struct alloc_context *ac, unsigned int order, int alloc_fla
 		     enum compact_priority *compact_priority,
 		     int *compaction_retries)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 3308 \n");
 	struct zone *zone;
 	struct zoneref *z;
 
@@ -3333,7 +3297,6 @@ static int
 __perform_reclaim(gfp_t gfp_mask, unsigned int order,
 					const struct alloc_context *ac)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 3336 \n");
 	struct reclaim_state reclaim_state;
 	int progress;
 
@@ -3364,7 +3327,6 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask, unsigned int order,
 		unsigned int alloc_flags, const struct alloc_context *ac,
 		unsigned long *did_some_progress)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 3367 \n");
 	struct page *page = NULL;
 	bool drained = false;
 
@@ -3392,7 +3354,6 @@ retry:
 
 static void wake_all_kswapds(unsigned int order, const struct alloc_context *ac)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 3395 \n");
 	struct zoneref *z;
 	struct zone *zone;
 	pg_data_t *last_pgdat = NULL;
@@ -3408,7 +3369,6 @@ static void wake_all_kswapds(unsigned int order, const struct alloc_context *ac)
 static inline unsigned int
 gfp_to_alloc_flags(gfp_t gfp_mask)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 3411 \n");
 	unsigned int alloc_flags = ALLOC_WMARK_MIN | ALLOC_CPUSET;
 
 	/* __GFP_HIGH is assumed to be the same as ALLOC_HIGH to save a branch. */
@@ -3446,7 +3406,6 @@ gfp_to_alloc_flags(gfp_t gfp_mask)
 
 bool gfp_pfmemalloc_allowed(gfp_t gfp_mask)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 3449 \n");
 	if (unlikely(gfp_mask & __GFP_NOMEMALLOC))
 		return false;
 
@@ -3478,7 +3437,6 @@ should_reclaim_retry(gfp_t gfp_mask, unsigned order,
 		     struct alloc_context *ac, int alloc_flags,
 		     bool did_some_progress, int *no_progress_loops)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 3481 \n");
 	struct zone *zone;
 	struct zoneref *z;
 
@@ -3564,7 +3522,6 @@ static inline struct page *
 __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
 						struct alloc_context *ac)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 3567 \n");
 	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
 	struct page *page = NULL;
 	unsigned int alloc_flags;
@@ -4122,7 +4079,6 @@ void * __meminit alloc_pages_exact_nid(int nid, size_t size, gfp_t gfp_mask)
  */
 void free_pages_exact(void *virt, size_t size)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 4125 \n");
 	unsigned long addr = (unsigned long)virt;
 	unsigned long end = addr + PAGE_ALIGN(size);
 
@@ -4187,7 +4143,6 @@ unsigned long nr_free_pagecache_pages(void)
 
 static inline void show_node(struct zone *zone)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 4190 \n");
 	if (IS_ENABLED(CONFIG_NUMA))
 		printk("Node %d ", zone_to_nid(zone));
 }
@@ -4287,7 +4242,6 @@ void si_meminfo_node(struct sysinfo *val, int nid)
  */
 bool skip_free_areas_node(unsigned int flags, int nid)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 4290 \n");
 	bool ret = false;
 	unsigned int cpuset_mems_cookie;
 
@@ -4306,7 +4260,6 @@ out:
 
 static void show_migration_types(unsigned char type)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 4309 \n");
 	static const char types[MIGRATE_TYPES] = {
 		[MIGRATE_UNMOVABLE]	= 'U',
 		[MIGRATE_MOVABLE]	= 'M',
@@ -4343,7 +4296,6 @@ static void show_migration_types(unsigned char type)
  */
 void show_free_areas(unsigned int filter)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 4346 \n");
 	unsigned long free_pcp = 0;
 	int cpu;
 	struct zone *zone;
@@ -4911,7 +4863,6 @@ static void setup_min_slab_ratio(void);
 
 static void set_zonelist_order(void)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 4914 \n");
 	current_zonelist_order = ZONELIST_ORDER_ZONE;
 }
 
@@ -5254,7 +5205,6 @@ static int zone_batchsize(struct zone *zone)
 static void pageset_update(struct per_cpu_pages *pcp, unsigned long high,
 		unsigned long batch)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 5257 \n");
        /* start with a fail safe value for batch */
 	pcp->batch = 1;
 	smp_wmb();
@@ -5298,7 +5248,6 @@ static void setup_pageset(struct per_cpu_pageset *p, unsigned long batch)
 static void pageset_set_high(struct per_cpu_pageset *p,
 				unsigned long high)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 5301 \n");
 	unsigned long batch = max(1UL, high / 4);
 	if ((high / 4) > (PAGE_SHIFT * 8))
 		batch = PAGE_SHIFT * 8;
@@ -6604,7 +6553,6 @@ void __init free_area_init(unsigned long *zones_size)
 static int page_alloc_cpu_notify(struct notifier_block *self,
 				 unsigned long action, void *hcpu)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 6607 \n");
 	int cpu = (unsigned long)hcpu;
 
 	if (action == CPU_DEAD || action == CPU_DEAD_FROZEN) {
@@ -7127,7 +7075,6 @@ void *__init alloc_large_system_hash(const char *tablename,
 bool has_unmovable_pages(struct zone *zone, struct page *page, int count,
 			 bool skip_hwpoisoned_pages)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 7130 \n");
 	unsigned long pfn, iter, found;
 	int mt;
 
@@ -7202,7 +7149,6 @@ bool has_unmovable_pages(struct zone *zone, struct page *page, int count,
 
 bool is_pageblock_removable_nolock(struct page *page)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 7205 \n");
 	struct zone *zone;
 	unsigned long pfn;
 
@@ -7466,7 +7412,6 @@ void __meminit zone_pcp_update(struct zone *zone)
 
 void zone_pcp_reset(struct zone *zone)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 7469 \n");
 	unsigned long flags;
 	int cpu;
 	struct per_cpu_pageset *pset;
@@ -7542,7 +7487,6 @@ __offline_isolated_pages(unsigned long start_pfn, unsigned long end_pfn)
 
 bool is_free_buddy_page(struct page *page)
 {
-	panic("We reached unpopular paths in mm/page_alloc.c: line 7545 \n");
 	struct zone *zone = page_zone(page);
 	unsigned long pfn = page_to_pfn(page);
 	unsigned long flags;

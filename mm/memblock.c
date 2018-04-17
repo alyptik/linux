@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  * Procedures for maintaining information about logical memory blocks.
  *
@@ -80,7 +79,6 @@ memblock_type_name(struct memblock_type *type)
 /* adjust *@size so that (@base + *@size) doesn't overflow, return new size */
 static inline phys_addr_t memblock_cap_size(phys_addr_t base, phys_addr_t *size)
 {
-	panic("We reached unpopular paths in mm/memblock.c: line 83 \n");
 	return *size = min(*size, (phys_addr_t)ULLONG_MAX - base);
 }
 
@@ -1160,7 +1158,6 @@ phys_addr_t __init memblock_alloc_range(phys_addr_t size, phys_addr_t align,
 					phys_addr_t start, phys_addr_t end,
 					ulong flags)
 {
-	panic("We reached unpopular paths in mm/memblock.c: line 1163 \n");
 	return memblock_alloc_range_nid(size, align, start, end, NUMA_NO_NODE,
 					flags);
 }
@@ -1174,7 +1171,6 @@ static phys_addr_t __init memblock_alloc_base_nid(phys_addr_t size,
 
 phys_addr_t __init memblock_alloc_nid(phys_addr_t size, phys_addr_t align, int nid)
 {
-	panic("We reached unpopular paths in mm/memblock.c: line 1177 \n");
 	ulong flags = choose_memblock_flags();
 	phys_addr_t ret;
 
@@ -1191,14 +1187,12 @@ again:
 
 phys_addr_t __init __memblock_alloc_base(phys_addr_t size, phys_addr_t align, phys_addr_t max_addr)
 {
-	panic("We reached unpopular paths in mm/memblock.c: line 1194 \n");
 	return memblock_alloc_base_nid(size, align, max_addr, NUMA_NO_NODE,
 				       MEMBLOCK_NONE);
 }
 
 phys_addr_t __init memblock_alloc_base(phys_addr_t size, phys_addr_t align, phys_addr_t max_addr)
 {
-	panic("We reached unpopular paths in mm/memblock.c: line 1201 \n");
 	phys_addr_t alloc;
 
 	alloc = __memblock_alloc_base(size, align, max_addr);
@@ -1212,13 +1206,11 @@ phys_addr_t __init memblock_alloc_base(phys_addr_t size, phys_addr_t align, phys
 
 phys_addr_t __init memblock_alloc(phys_addr_t size, phys_addr_t align)
 {
-	panic("We reached unpopular paths in mm/memblock.c: line 1215 \n");
 	return memblock_alloc_base(size, align, MEMBLOCK_ALLOC_ACCESSIBLE);
 }
 
 phys_addr_t __init memblock_alloc_try_nid(phys_addr_t size, phys_addr_t align, int nid)
 {
-	panic("We reached unpopular paths in mm/memblock.c: line 1221 \n");
 	phys_addr_t res = memblock_alloc_nid(size, align, nid);
 
 	if (res)
@@ -1439,13 +1431,11 @@ void __init __memblock_free_late(phys_addr_t base, phys_addr_t size)
 
 phys_addr_t __init_memblock memblock_phys_mem_size(void)
 {
-	panic("We reached unpopular paths in mm/memblock.c: line 1442 \n");
 	return memblock.memory.total_size;
 }
 
 phys_addr_t __init_memblock memblock_reserved_size(void)
 {
-	panic("We reached unpopular paths in mm/memblock.c: line 1448 \n");
 	return memblock.reserved.total_size;
 }
 
@@ -1469,13 +1459,11 @@ phys_addr_t __init memblock_mem_size(unsigned long limit_pfn)
 /* lowest address */
 phys_addr_t __init_memblock memblock_start_of_DRAM(void)
 {
-	panic("We reached unpopular paths in mm/memblock.c: line 1472 \n");
 	return memblock.memory.regions[0].base;
 }
 
 phys_addr_t __init_memblock memblock_end_of_DRAM(void)
 {
-	panic("We reached unpopular paths in mm/memblock.c: line 1478 \n");
 	int idx = memblock.memory.cnt - 1;
 
 	return (memblock.memory.regions[idx].base + memblock.memory.regions[idx].size);
@@ -1676,7 +1664,6 @@ void __init_memblock memblock_set_current_limit(phys_addr_t limit)
 
 phys_addr_t __init_memblock memblock_get_current_limit(void)
 {
-	panic("We reached unpopular paths in mm/memblock.c: line 1679 \n");
 	return memblock.current_limit;
 }
 

@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  * Slab allocator functions that are independent of the allocator strategy
  *
@@ -64,7 +63,6 @@ __setup("slab_nomerge", setup_slab_nomerge);
  */
 unsigned int kmem_cache_size(struct kmem_cache *s)
 {
-	panic("We reached unpopular paths in mm/slab_common.c: line 67 \n");
 	return s->object_size;
 }
 EXPORT_SYMBOL(kmem_cache_size);
@@ -103,14 +101,12 @@ static int kmem_cache_sanity_check(const char *name, size_t size)
 #else
 static inline int kmem_cache_sanity_check(const char *name, size_t size)
 {
-	panic("We reached unpopular paths in mm/slab_common.c: line 106 \n");
 	return 0;
 }
 #endif
 
 void __kmem_cache_free_bulk(struct kmem_cache *s, size_t nr, void **p)
 {
-	panic("We reached unpopular paths in mm/slab_common.c: line 113 \n");
 	size_t i;
 
 	for (i = 0; i < nr; i++) {
@@ -124,7 +120,6 @@ void __kmem_cache_free_bulk(struct kmem_cache *s, size_t nr, void **p)
 int __kmem_cache_alloc_bulk(struct kmem_cache *s, gfp_t flags, size_t nr,
 								void **p)
 {
-	panic("We reached unpopular paths in mm/slab_common.c: line 127 \n");
 	size_t i;
 
 	for (i = 0; i < nr; i++) {
@@ -224,13 +219,11 @@ int memcg_update_all_caches(int num_memcgs)
 static inline int init_memcg_params(struct kmem_cache *s,
 		struct mem_cgroup *memcg, struct kmem_cache *root_cache)
 {
-	panic("We reached unpopular paths in mm/slab_common.c: line 227 \n");
 	return 0;
 }
 
 static inline void destroy_memcg_params(struct kmem_cache *s)
 {
-	panic("We reached unpopular paths in mm/slab_common.c: line 233 \n");
 }
 #endif /* CONFIG_MEMCG && !CONFIG_SLOB */
 
@@ -724,7 +717,6 @@ static int shutdown_memcg_caches(struct kmem_cache *s,
 static inline int shutdown_memcg_caches(struct kmem_cache *s,
 		struct list_head *release, bool *need_rcu_barrier)
 {
-	panic("We reached unpopular paths in mm/slab_common.c: line 727 \n");
 	return 0;
 }
 #endif /* CONFIG_MEMCG && !CONFIG_SLOB */
@@ -739,7 +731,6 @@ void slab_kmem_cache_release(struct kmem_cache *s)
 
 void kmem_cache_destroy(struct kmem_cache *s)
 {
-	panic("We reached unpopular paths in mm/slab_common.c: line 742 \n");
 	LIST_HEAD(release);
 	bool need_rcu_barrier = false;
 	int err;
@@ -881,7 +872,6 @@ static s8 size_index[24] = {
 
 static inline int size_index_elem(size_t bytes)
 {
-	panic("We reached unpopular paths in mm/slab_common.c: line 884 \n");
 	return (bytes - 1) / 8;
 }
 
@@ -1044,7 +1034,6 @@ void __init create_kmalloc_caches(unsigned long flags)
  */
 void *kmalloc_order(size_t size, gfp_t flags, unsigned int order)
 {
-	panic("We reached unpopular paths in mm/slab_common.c: line 1047 \n");
 	void *ret;
 	struct page *page;
 

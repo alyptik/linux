@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  *  linux/mm/vmalloc.c
  *
@@ -208,7 +207,6 @@ static int vmap_page_range_noflush(unsigned long start, unsigned long end,
 static int vmap_page_range(unsigned long start, unsigned long end,
 			   pgprot_t prot, struct page **pages)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 211 \n");
 	int ret;
 
 	ret = vmap_page_range_noflush(start, end, prot, pages);
@@ -280,7 +278,6 @@ EXPORT_SYMBOL(vmalloc_to_page);
  */
 unsigned long vmalloc_to_pfn(const void *vmalloc_addr)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 283 \n");
 	return page_to_pfn(vmalloc_to_page(vmalloc_addr));
 }
 EXPORT_SYMBOL(vmalloc_to_pfn);
@@ -504,14 +501,12 @@ overflow:
 
 int register_vmap_purge_notifier(struct notifier_block *nb)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 507 \n");
 	return blocking_notifier_chain_register(&vmap_notify_list, nb);
 }
 EXPORT_SYMBOL_GPL(register_vmap_purge_notifier);
 
 int unregister_vmap_purge_notifier(struct notifier_block *nb)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 514 \n");
 	return blocking_notifier_chain_unregister(&vmap_notify_list, nb);
 }
 EXPORT_SYMBOL_GPL(unregister_vmap_purge_notifier);
@@ -556,7 +551,6 @@ static void __free_vmap_area(struct vmap_area *va)
  */
 static void free_vmap_area(struct vmap_area *va)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 559 \n");
 	spin_lock(&vmap_area_lock);
 	__free_vmap_area(va);
 	spin_unlock(&vmap_area_lock);
@@ -572,7 +566,6 @@ static void unmap_vmap_area(struct vmap_area *va)
 
 static void vmap_debug_free_range(unsigned long start, unsigned long end)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 575 \n");
 	/*
 	 * Unmap page tables and force a TLB flush immediately if pagealloc
 	 * debugging is enabled.  This catches use after free bugs similarly to
@@ -627,7 +620,6 @@ static void purge_fragmented_blocks_allcpus(void);
  */
 void set_iounmap_nonlazy(void)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 630 \n");
 	atomic_set(&vmap_lazy_nr, lazy_max_pages()+1);
 }
 
@@ -704,7 +696,6 @@ static void try_purge_vmap_area_lazy(void)
  */
 static void purge_vmap_area_lazy(void)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 707 \n");
 	unsigned long start = ULONG_MAX, end = 0;
 
 	__purge_vmap_area_lazy(&start, &end, 1, 0);
@@ -744,7 +735,6 @@ static void free_unmap_vmap_area_noflush(struct vmap_area *va)
  */
 static void free_unmap_vmap_area(struct vmap_area *va)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 747 \n");
 	flush_cache_vunmap(va->va_start, va->va_end);
 	free_unmap_vmap_area_noflush(va);
 }
@@ -762,7 +752,6 @@ static struct vmap_area *find_vmap_area(unsigned long addr)
 
 static void free_unmap_vmap_area_addr(unsigned long addr)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 765 \n");
 	struct vmap_area *va;
 
 	va = find_vmap_area(addr);
@@ -838,7 +827,6 @@ static RADIX_TREE(vmap_block_tree, GFP_ATOMIC);
 
 static unsigned long addr_to_vb_idx(unsigned long addr)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 841 \n");
 	addr -= VMALLOC_START & ~(VMAP_BLOCK_SIZE-1);
 	addr /= VMAP_BLOCK_SIZE;
 	return addr;
@@ -846,7 +834,6 @@ static unsigned long addr_to_vb_idx(unsigned long addr)
 
 static void *vmap_block_vaddr(unsigned long va_start, unsigned long pages_off)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 849 \n");
 	unsigned long addr;
 
 	addr = va_start + (pages_off << PAGE_SHIFT);
@@ -864,7 +851,6 @@ static void *vmap_block_vaddr(unsigned long va_start, unsigned long pages_off)
  */
 static void *new_vmap_block(unsigned int order, gfp_t gfp_mask)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 867 \n");
 	struct vmap_block_queue *vbq;
 	struct vmap_block *vb;
 	struct vmap_area *va;
@@ -923,7 +909,6 @@ static void *new_vmap_block(unsigned int order, gfp_t gfp_mask)
 
 static void free_vmap_block(struct vmap_block *vb)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 926 \n");
 	struct vmap_block *tmp;
 	unsigned long vb_idx;
 
@@ -982,7 +967,6 @@ static void purge_fragmented_blocks_allcpus(void)
 
 static void *vb_alloc(unsigned long size, gfp_t gfp_mask)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 985 \n");
 	struct vmap_block_queue *vbq;
 	struct vmap_block *vb;
 	void *vaddr = NULL;
@@ -1036,7 +1020,6 @@ static void *vb_alloc(unsigned long size, gfp_t gfp_mask)
 
 static void vb_free(const void *addr, unsigned long size)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1039 \n");
 	unsigned long offset;
 	unsigned long vb_idx;
 	unsigned int order;
@@ -1132,7 +1115,6 @@ EXPORT_SYMBOL_GPL(vm_unmap_aliases);
  */
 void vm_unmap_ram(const void *mem, unsigned int count)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1135 \n");
 	unsigned long size = (unsigned long)count << PAGE_SHIFT;
 	unsigned long addr = (unsigned long)mem;
 
@@ -1168,7 +1150,6 @@ EXPORT_SYMBOL(vm_unmap_ram);
  */
 void *vm_map_ram(struct page **pages, unsigned int count, int node, pgprot_t prot)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1171 \n");
 	unsigned long size = (unsigned long)count << PAGE_SHIFT;
 	unsigned long addr;
 	void *mem;
@@ -1322,7 +1303,6 @@ int map_kernel_range_noflush(unsigned long addr, unsigned long size,
  */
 void unmap_kernel_range_noflush(unsigned long addr, unsigned long size)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1325 \n");
 	vunmap_page_range(addr, addr + size);
 }
 EXPORT_SYMBOL_GPL(unmap_kernel_range_noflush);
@@ -1337,7 +1317,6 @@ EXPORT_SYMBOL_GPL(unmap_kernel_range_noflush);
  */
 void unmap_kernel_range(unsigned long addr, unsigned long size)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1340 \n");
 	unsigned long end = addr + size;
 
 	flush_cache_vunmap(addr, end);
@@ -1373,7 +1352,6 @@ static void setup_vmalloc_vm(struct vm_struct *vm, struct vmap_area *va,
 
 static void clear_vm_uninitialized_flag(struct vm_struct *vm)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1376 \n");
 	/*
 	 * Before removing VM_UNINITIALIZED,
 	 * we should make sure that vm has proper values.
@@ -1420,7 +1398,6 @@ static struct vm_struct *__get_vm_area_node(unsigned long size,
 struct vm_struct *__get_vm_area(unsigned long size, unsigned long flags,
 				unsigned long start, unsigned long end)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1423 \n");
 	return __get_vm_area_node(size, 1, flags, start, end, NUMA_NO_NODE,
 				  GFP_KERNEL, __builtin_return_address(0));
 }
@@ -1430,7 +1407,6 @@ struct vm_struct *__get_vm_area_caller(unsigned long size, unsigned long flags,
 				       unsigned long start, unsigned long end,
 				       const void *caller)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1433 \n");
 	return __get_vm_area_node(size, 1, flags, start, end, NUMA_NO_NODE,
 				  GFP_KERNEL, caller);
 }
@@ -1446,7 +1422,6 @@ struct vm_struct *__get_vm_area_caller(unsigned long size, unsigned long flags,
  */
 struct vm_struct *get_vm_area(unsigned long size, unsigned long flags)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1449 \n");
 	return __get_vm_area_node(size, 1, flags, VMALLOC_START, VMALLOC_END,
 				  NUMA_NO_NODE, GFP_KERNEL,
 				  __builtin_return_address(0));
@@ -1588,7 +1563,6 @@ EXPORT_SYMBOL(vfree);
  */
 void vunmap(const void *addr)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1591 \n");
 	BUG_ON(in_interrupt());
 	might_sleep();
 	if (addr)
@@ -1609,7 +1583,6 @@ EXPORT_SYMBOL(vunmap);
 void *vmap(struct page **pages, unsigned int count,
 		unsigned long flags, pgprot_t prot)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1612 \n");
 	struct vm_struct *area;
 	unsigned long size;		/* In bytes */
 
@@ -1828,7 +1801,6 @@ EXPORT_SYMBOL(vzalloc);
  */
 void *vmalloc_user(unsigned long size)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1831 \n");
 	struct vm_struct *area;
 	void *ret;
 
@@ -1857,7 +1829,6 @@ EXPORT_SYMBOL(vmalloc_user);
  */
 void *vmalloc_node(unsigned long size, int node)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1860 \n");
 	return __vmalloc_node(size, 1, GFP_KERNEL | __GFP_HIGHMEM, PAGE_KERNEL,
 					node, __builtin_return_address(0));
 }
@@ -1877,7 +1848,6 @@ EXPORT_SYMBOL(vmalloc_node);
  */
 void *vzalloc_node(unsigned long size, int node)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1880 \n");
 	return __vmalloc_node_flags(size, node,
 			 GFP_KERNEL | __GFP_HIGHMEM | __GFP_ZERO);
 }
@@ -1901,7 +1871,6 @@ EXPORT_SYMBOL(vzalloc_node);
 
 void *vmalloc_exec(unsigned long size)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1904 \n");
 	return __vmalloc_node(size, 1, GFP_KERNEL | __GFP_HIGHMEM, PAGE_KERNEL_EXEC,
 			      NUMA_NO_NODE, __builtin_return_address(0));
 }
@@ -1923,7 +1892,6 @@ void *vmalloc_exec(unsigned long size)
  */
 void *vmalloc_32(unsigned long size)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1926 \n");
 	return __vmalloc_node(size, 1, GFP_VMALLOC32, PAGE_KERNEL,
 			      NUMA_NO_NODE, __builtin_return_address(0));
 }
@@ -1938,7 +1906,6 @@ EXPORT_SYMBOL(vmalloc_32);
  */
 void *vmalloc_32_user(unsigned long size)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1941 \n");
 	struct vm_struct *area;
 	void *ret;
 
@@ -1959,7 +1926,6 @@ EXPORT_SYMBOL(vmalloc_32_user);
 
 static int aligned_vread(char *buf, char *addr, unsigned long count)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 1962 \n");
 	struct page *p;
 	int copied = 0;
 
@@ -1999,7 +1965,6 @@ static int aligned_vread(char *buf, char *addr, unsigned long count)
 
 static int aligned_vwrite(char *buf, char *addr, unsigned long count)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 2002 \n");
 	struct page *p;
 	int copied = 0;
 
@@ -2063,7 +2028,6 @@ static int aligned_vwrite(char *buf, char *addr, unsigned long count)
 
 long vread(char *buf, char *addr, unsigned long count)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 2066 \n");
 	struct vmap_area *va;
 	struct vm_struct *vm;
 	char *vaddr, *buf_start = buf;
@@ -2145,7 +2109,6 @@ finished:
 
 long vwrite(char *buf, char *addr, unsigned long count)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 2148 \n");
 	struct vmap_area *va;
 	struct vm_struct *vm;
 	char *vaddr;
@@ -2213,7 +2176,6 @@ finished:
 int remap_vmalloc_range_partial(struct vm_area_struct *vma, unsigned long uaddr,
 				void *kaddr, unsigned long size)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 2216 \n");
 	struct vm_struct *area;
 
 	size = PAGE_ALIGN(size);
@@ -2267,7 +2229,6 @@ EXPORT_SYMBOL(remap_vmalloc_range_partial);
 int remap_vmalloc_range(struct vm_area_struct *vma, void *addr,
 						unsigned long pgoff)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 2270 \n");
 	return remap_vmalloc_range_partial(vma, vma->vm_start,
 					   addr + (pgoff << PAGE_SHIFT),
 					   vma->vm_end - vma->vm_start);
@@ -2285,7 +2246,6 @@ void __weak vmalloc_sync_all(void)
 
 static int f(pte_t *pte, pgtable_t table, unsigned long addr, void *data)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 2288 \n");
 	pte_t ***p = data;
 
 	if (p) {
@@ -2311,7 +2271,6 @@ static int f(pte_t *pte, pgtable_t table, unsigned long addr, void *data)
  */
 struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 2314 \n");
 	struct vm_struct *area;
 
 	area = get_vm_area_caller(size, VM_IOREMAP,
@@ -2335,7 +2294,6 @@ EXPORT_SYMBOL_GPL(alloc_vm_area);
 
 void free_vm_area(struct vm_struct *area)
 {
-	panic("We reached unpopular paths in mm/vmalloc.c: line 2338 \n");
 	struct vm_struct *ret;
 	ret = remove_vm_area(area->addr);
 	BUG_ON(ret != area);

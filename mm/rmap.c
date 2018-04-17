@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  * mm/rmap.c - physical to virtual reverse mappings
  *
@@ -461,7 +460,6 @@ void __init anon_vma_init(void)
  */
 struct anon_vma *page_get_anon_vma(struct page *page)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 464 \n");
 	struct anon_vma *anon_vma = NULL;
 	unsigned long anon_mapping;
 
@@ -505,7 +503,6 @@ out:
  */
 struct anon_vma *page_lock_anon_vma_read(struct page *page)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 508 \n");
 	struct anon_vma *anon_vma = NULL;
 	struct anon_vma *root_anon_vma;
 	unsigned long anon_mapping;
@@ -568,7 +565,6 @@ out:
 
 void page_unlock_anon_vma_read(struct anon_vma *anon_vma)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 571 \n");
 	anon_vma_unlock_read(anon_vma);
 }
 
@@ -687,12 +683,10 @@ void flush_tlb_batched_pending(struct mm_struct *mm)
 static void set_tlb_ubc_flush_pending(struct mm_struct *mm,
 		struct page *page, bool writable)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 690 \n");
 }
 
 static bool should_defer_flush(struct mm_struct *mm, enum ttu_flags flags)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 695 \n");
 	return false;
 }
 #endif /* CONFIG_ARCH_WANT_BATCHED_UNMAP_TLB_FLUSH */
@@ -703,7 +697,6 @@ static bool should_defer_flush(struct mm_struct *mm, enum ttu_flags flags)
  */
 unsigned long page_address_in_vma(struct page *page, struct vm_area_struct *vma)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 706 \n");
 	unsigned long address;
 	if (PageAnon(page)) {
 		struct anon_vma *page__anon_vma = page_anon_vma(page);
@@ -766,7 +759,6 @@ out:
 pte_t *__page_check_address(struct page *page, struct mm_struct *mm,
 			  unsigned long address, spinlock_t **ptlp, int sync)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 769 \n");
 	pmd_t *pmd;
 	pte_t *pte;
 	spinlock_t *ptl;
@@ -814,7 +806,6 @@ check:
  */
 int page_mapped_in_vma(struct page *page, struct vm_area_struct *vma)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 817 \n");
 	unsigned long address;
 	pte_t *pte;
 	spinlock_t *ptl;
@@ -932,7 +923,6 @@ struct page_referenced_arg {
 static int page_referenced_one(struct page *page, struct vm_area_struct *vma,
 			unsigned long address, void *arg)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 935 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	struct page_referenced_arg *pra = arg;
 	pmd_t *pmd;
@@ -992,7 +982,6 @@ static int page_referenced_one(struct page *page, struct vm_area_struct *vma,
 
 static bool invalid_page_referenced_vma(struct vm_area_struct *vma, void *arg)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 995 \n");
 	struct page_referenced_arg *pra = arg;
 	struct mem_cgroup *memcg = pra->memcg;
 
@@ -1017,7 +1006,6 @@ int page_referenced(struct page *page,
 		    struct mem_cgroup *memcg,
 		    unsigned long *vm_flags)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1020 \n");
 	int ret;
 	int we_locked = 0;
 	struct page_referenced_arg pra = {
@@ -1064,7 +1052,6 @@ int page_referenced(struct page *page,
 static int page_mkclean_one(struct page *page, struct vm_area_struct *vma,
 			    unsigned long address, void *arg)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1067 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	pte_t *pte;
 	spinlock_t *ptl;
@@ -1098,7 +1085,6 @@ out:
 
 static bool invalid_mkclean_vma(struct vm_area_struct *vma, void *arg)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1101 \n");
 	if (vma->vm_flags & VM_SHARED)
 		return false;
 
@@ -1107,7 +1093,6 @@ static bool invalid_mkclean_vma(struct vm_area_struct *vma, void *arg)
 
 int page_mkclean(struct page *page)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1110 \n");
 	int cleaned = 0;
 	struct address_space *mapping;
 	struct rmap_walk_control rwc = {
@@ -1198,7 +1183,6 @@ static void __page_set_anon_rmap(struct page *page,
 static void __page_check_anon_rmap(struct page *page,
 	struct vm_area_struct *vma, unsigned long address)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1201 \n");
 #ifdef CONFIG_DEBUG_VM
 	/*
 	 * The page's anon-rmap details (mapping and index) are guaranteed to
@@ -1232,7 +1216,6 @@ static void __page_check_anon_rmap(struct page *page,
 void page_add_anon_rmap(struct page *page,
 	struct vm_area_struct *vma, unsigned long address, bool compound)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1235 \n");
 	do_page_add_anon_rmap(page, vma, address, compound ? RMAP_COMPOUND : 0);
 }
 
@@ -1244,7 +1227,6 @@ void page_add_anon_rmap(struct page *page,
 void do_page_add_anon_rmap(struct page *page,
 	struct vm_area_struct *vma, unsigned long address, int flags)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1247 \n");
 	bool compound = flags & RMAP_COMPOUND;
 	bool first;
 
@@ -1489,7 +1471,6 @@ struct rmap_private {
 static int try_to_unmap_one(struct page *page, struct vm_area_struct *vma,
 		     unsigned long address, void *arg)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1492 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	pte_t *pte;
 	pte_t pteval;
@@ -1659,13 +1640,11 @@ bool is_vma_temporary_stack(struct vm_area_struct *vma)
 
 static bool invalid_migration_vma(struct vm_area_struct *vma, void *arg)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1662 \n");
 	return is_vma_temporary_stack(vma);
 }
 
 static int page_mapcount_is_zero(struct page *page)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1668 \n");
 	return !page_mapcount(page);
 }
 
@@ -1685,7 +1664,6 @@ static int page_mapcount_is_zero(struct page *page)
  */
 int try_to_unmap(struct page *page, enum ttu_flags flags)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1688 \n");
 	int ret;
 	struct rmap_private rp = {
 		.flags = flags,
@@ -1725,7 +1703,6 @@ int try_to_unmap(struct page *page, enum ttu_flags flags)
 
 static int page_not_mapped(struct page *page)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1728 \n");
 	return !page_mapped(page);
 };
 
@@ -1746,7 +1723,6 @@ static int page_not_mapped(struct page *page)
  */
 int try_to_munlock(struct page *page)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1749 \n");
 	int ret;
 	struct rmap_private rp = {
 		.flags = TTU_MUNLOCK,
@@ -1779,7 +1755,6 @@ void __put_anon_vma(struct anon_vma *anon_vma)
 static struct anon_vma *rmap_walk_anon_lock(struct page *page,
 					struct rmap_walk_control *rwc)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1782 \n");
 	struct anon_vma *anon_vma;
 
 	if (rwc->anon_lock)
@@ -1816,7 +1791,6 @@ static struct anon_vma *rmap_walk_anon_lock(struct page *page,
 static int rmap_walk_anon(struct page *page, struct rmap_walk_control *rwc,
 		bool locked)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1819 \n");
 	struct anon_vma *anon_vma;
 	pgoff_t pgoff;
 	struct anon_vma_chain *avc;
@@ -1870,7 +1844,6 @@ static int rmap_walk_anon(struct page *page, struct rmap_walk_control *rwc,
 static int rmap_walk_file(struct page *page, struct rmap_walk_control *rwc,
 		bool locked)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1873 \n");
 	struct address_space *mapping = page_mapping(page);
 	pgoff_t pgoff;
 	struct vm_area_struct *vma;
@@ -1913,7 +1886,6 @@ done:
 
 int rmap_walk(struct page *page, struct rmap_walk_control *rwc)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1916 \n");
 	if (unlikely(PageKsm(page)))
 		return rmap_walk_ksm(page, rwc);
 	else if (PageAnon(page))
@@ -1925,7 +1897,6 @@ int rmap_walk(struct page *page, struct rmap_walk_control *rwc)
 /* Like rmap_walk, but caller holds relevant rmap lock */
 int rmap_walk_locked(struct page *page, struct rmap_walk_control *rwc)
 {
-	panic("We reached unpopular paths in mm/rmap.c: line 1928 \n");
 	/* no ksm support for now */
 	VM_BUG_ON_PAGE(PageKsm(page), page);
 	if (PageAnon(page))

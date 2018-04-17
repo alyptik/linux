@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  *  linux/mm/swap.c
  *
@@ -113,7 +112,6 @@ EXPORT_SYMBOL(__put_page);
  */
 void put_pages_list(struct list_head *pages)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 116 \n");
 	while (!list_empty(pages)) {
 		struct page *victim;
 
@@ -140,7 +138,6 @@ EXPORT_SYMBOL(put_pages_list);
 int get_kernel_pages(const struct kvec *kiov, int nr_segs, int write,
 		struct page **pages)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 143 \n");
 	int seg;
 
 	for (seg = 0; seg < nr_segs; seg++) {
@@ -168,7 +165,6 @@ EXPORT_SYMBOL_GPL(get_kernel_pages);
  */
 int get_kernel_page(unsigned long start, int write, struct page **pages)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 171 \n");
 	const struct kvec kiov = {
 		.iov_base = (void *)start,
 		.iov_len = PAGE_SIZE
@@ -210,7 +206,6 @@ static void pagevec_lru_move_fn(struct pagevec *pvec,
 static void pagevec_move_tail_fn(struct page *page, struct lruvec *lruvec,
 				 void *arg)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 213 \n");
 	int *pgmoved = arg;
 
 	if (PageLRU(page) && !PageActive(page) && !PageUnevictable(page)) {
@@ -226,7 +221,6 @@ static void pagevec_move_tail_fn(struct page *page, struct lruvec *lruvec,
  */
 static void pagevec_move_tail(struct pagevec *pvec)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 229 \n");
 	int pgmoved = 0;
 
 	pagevec_lru_move_fn(pvec, pagevec_move_tail_fn, &pgmoved);
@@ -240,7 +234,6 @@ static void pagevec_move_tail(struct pagevec *pvec)
  */
 void rotate_reclaimable_page(struct page *page)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 243 \n");
 	if (!PageLocked(page) && !PageDirty(page) && !PageActive(page) &&
 	    !PageUnevictable(page) && PageLRU(page)) {
 		struct pagevec *pvec;
@@ -313,18 +306,15 @@ void activate_page(struct page *page)
 #else
 static inline void activate_page_drain(int cpu)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 316 \n");
 }
 
 static bool need_activate_page_drain(int cpu)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 321 \n");
 	return false;
 }
 
 void activate_page(struct page *page)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 327 \n");
 	struct zone *zone = page_zone(page);
 
 	page = compound_head(page);
@@ -421,7 +411,6 @@ void lru_cache_add_anon(struct page *page)
 
 void lru_cache_add_file(struct page *page)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 424 \n");
 	if (PageActive(page))
 		ClearPageActive(page);
 	__lru_cache_add(page);
@@ -456,7 +445,6 @@ void lru_cache_add(struct page *page)
  */
 void add_page_to_unevictable_list(struct page *page)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 459 \n");
 	struct pglist_data *pgdat = page_pgdat(page);
 	struct lruvec *lruvec;
 
@@ -527,7 +515,6 @@ void lru_cache_add_active_or_unevictable(struct page *page,
 static void lru_deactivate_file_fn(struct page *page, struct lruvec *lruvec,
 			      void *arg)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 530 \n");
 	int lru, file;
 	bool active;
 
@@ -575,7 +562,6 @@ static void lru_deactivate_file_fn(struct page *page, struct lruvec *lruvec,
 static void lru_deactivate_fn(struct page *page, struct lruvec *lruvec,
 			    void *arg)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 578 \n");
 	if (PageLRU(page) && PageActive(page) && !PageUnevictable(page)) {
 		int file = page_is_file_cache(page);
 		int lru = page_lru_base_type(page);
@@ -633,7 +619,6 @@ void lru_add_drain_cpu(int cpu)
  */
 void deactivate_file_page(struct page *page)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 636 \n");
 	/*
 	 * In a workload with many unevictable page such as mprotect,
 	 * unevictable page deactivation for accelerating reclaim is pointless.
@@ -660,7 +645,6 @@ void deactivate_file_page(struct page *page)
  */
 void deactivate_page(struct page *page)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 663 \n");
 	if (PageLRU(page) && PageActive(page) && !PageUnevictable(page)) {
 		struct pagevec *pvec = &get_cpu_var(lru_deactivate_pvecs);
 
@@ -679,7 +663,6 @@ void lru_add_drain(void)
 
 static void lru_add_drain_per_cpu(struct work_struct *dummy)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 682 \n");
 	lru_add_drain();
 }
 
@@ -705,7 +688,6 @@ early_initcall(lru_init);
 
 void lru_add_drain_all(void)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 708 \n");
 	static DEFINE_MUTEX(lock);
 	static struct cpumask has_work;
 	int cpu;
@@ -922,7 +904,6 @@ unsigned pagevec_lookup_entries(struct pagevec *pvec,
 				pgoff_t start, unsigned nr_pages,
 				pgoff_t *indices)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 925 \n");
 	pvec->nr = find_get_entries(mapping, start, nr_pages,
 				    pvec->pages, indices);
 	return pagevec_count(pvec);
@@ -968,7 +949,6 @@ void pagevec_remove_exceptionals(struct pagevec *pvec)
 unsigned pagevec_lookup(struct pagevec *pvec, struct address_space *mapping,
 		pgoff_t start, unsigned nr_pages)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 971 \n");
 	pvec->nr = find_get_pages(mapping, start, nr_pages, pvec->pages);
 	return pagevec_count(pvec);
 }
@@ -977,7 +957,6 @@ EXPORT_SYMBOL(pagevec_lookup);
 unsigned pagevec_lookup_tag(struct pagevec *pvec, struct address_space *mapping,
 		pgoff_t *index, int tag, unsigned nr_pages)
 {
-	panic("We reached unpopular paths in mm/swap.c: line 980 \n");
 	pvec->nr = find_get_pages_tag(mapping, index, tag,
 					nr_pages, pvec->pages);
 	return pagevec_count(pvec);

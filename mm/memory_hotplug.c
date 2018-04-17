@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  *  linux/mm/memory_hotplug.c
  *
@@ -127,7 +126,6 @@ void put_online_mems(void)
 
 void mem_hotplug_begin(void)
 {
-	panic("We reached unpopular paths in mm/memory_hotplug.c: line 130 \n");
 	mem_hotplug.active_writer = current;
 
 	memhp_lock_acquire();
@@ -143,7 +141,6 @@ void mem_hotplug_begin(void)
 
 void mem_hotplug_done(void)
 {
-	panic("We reached unpopular paths in mm/memory_hotplug.c: line 146 \n");
 	mem_hotplug.active_writer = NULL;
 	mutex_unlock(&mem_hotplug.lock);
 	memhp_lock_release();
@@ -152,7 +149,6 @@ void mem_hotplug_done(void)
 /* add this memory to iomem resource */
 static struct resource *register_memory_resource(u64 start, u64 size)
 {
-	panic("We reached unpopular paths in mm/memory_hotplug.c: line 155 \n");
 	struct resource *res;
 	res = kzalloc(sizeof(struct resource), GFP_KERNEL);
 	if (!res)
@@ -172,7 +168,6 @@ static struct resource *register_memory_resource(u64 start, u64 size)
 
 static void release_memory_resource(struct resource *res)
 {
-	panic("We reached unpopular paths in mm/memory_hotplug.c: line 175 \n");
 	if (!res)
 		return;
 	release_resource(res);
@@ -1183,7 +1178,6 @@ failed_addition:
 
 static void reset_node_present_pages(pg_data_t *pgdat)
 {
-	panic("We reached unpopular paths in mm/memory_hotplug.c: line 1186 \n");
 	struct zone *z;
 
 	for (z = pgdat->node_zones; z < pgdat->node_zones + MAX_NR_ZONES; z++)
@@ -1248,7 +1242,6 @@ static pg_data_t __ref *hotadd_new_pgdat(int nid, u64 start)
 
 static void rollback_node_hotadd(int nid, pg_data_t *pgdat)
 {
-	panic("We reached unpopular paths in mm/memory_hotplug.c: line 1251 \n");
 	arch_refresh_nodedata(nid, NULL);
 	free_percpu(pgdat->per_cpu_nodestats);
 	arch_free_nodedata(pgdat);
@@ -1263,7 +1256,6 @@ static void rollback_node_hotadd(int nid, pg_data_t *pgdat)
  */
 int try_online_node(int nid)
 {
-	panic("We reached unpopular paths in mm/memory_hotplug.c: line 1266 \n");
 	pg_data_t	*pgdat;
 	int	ret;
 
@@ -1294,7 +1286,6 @@ out:
 
 static int check_hotplug_memory_range(u64 start, u64 size)
 {
-	panic("We reached unpopular paths in mm/memory_hotplug.c: line 1297 \n");
 	u64 start_pfn = PFN_DOWN(start);
 	u64 nr_pages = size >> PAGE_SHIFT;
 
@@ -1317,7 +1308,6 @@ static int check_hotplug_memory_range(u64 start, u64 size)
  */
 static int should_add_memory_movable(int nid, u64 start, u64 size)
 {
-	panic("We reached unpopular paths in mm/memory_hotplug.c: line 1320 \n");
 	unsigned long start_pfn = start >> PAGE_SHIFT;
 	pg_data_t *pgdat = NODE_DATA(nid);
 	struct zone *movable_zone = pgdat->node_zones + ZONE_MOVABLE;
@@ -1334,7 +1324,6 @@ static int should_add_memory_movable(int nid, u64 start, u64 size)
 int zone_for_memory(int nid, u64 start, u64 size, int zone_default,
 		bool for_device)
 {
-	panic("We reached unpopular paths in mm/memory_hotplug.c: line 1337 \n");
 #ifdef CONFIG_ZONE_DEVICE
 	if (for_device)
 		return ZONE_DEVICE;
@@ -1347,7 +1336,6 @@ int zone_for_memory(int nid, u64 start, u64 size, int zone_default,
 
 static int online_memory_block(struct memory_block *mem, void *arg)
 {
-	panic("We reached unpopular paths in mm/memory_hotplug.c: line 1350 \n");
 	return memory_block_change_state(mem, MEM_ONLINE, MEM_OFFLINE);
 }
 
@@ -2041,7 +2029,6 @@ int offline_pages(unsigned long start_pfn, unsigned long nr_pages)
 int walk_memory_range(unsigned long start_pfn, unsigned long end_pfn,
 		void *arg, int (*func)(struct memory_block *, void *))
 {
-	panic("We reached unpopular paths in mm/memory_hotplug.c: line 2044 \n");
 	struct memory_block *mem = NULL;
 	struct mem_section *section;
 	unsigned long pfn, section_nr;

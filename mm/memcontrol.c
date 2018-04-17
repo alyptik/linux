@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /* memcontrol.c - Memory Controller
  *
  * Copyright IBM Corporation, 2007
@@ -251,7 +250,6 @@ enum res_type {
 /* Some nice accessors for the vmpressure. */
 struct vmpressure *memcg_to_vmpressure(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 254 \n");
 	if (!memcg)
 		memcg = root_mem_cgroup;
 	return &memcg->vmpressure;
@@ -259,13 +257,11 @@ struct vmpressure *memcg_to_vmpressure(struct mem_cgroup *memcg)
 
 struct cgroup_subsys_state *vmpressure_to_css(struct vmpressure *vmpr)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 262 \n");
 	return &container_of(vmpr, struct mem_cgroup, vmpressure)->css;
 }
 
 static inline bool mem_cgroup_is_root(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 268 \n");
 	return (memcg == root_mem_cgroup);
 }
 
@@ -336,7 +332,6 @@ EXPORT_SYMBOL(memcg_kmem_enabled_key);
  */
 struct cgroup_subsys_state *mem_cgroup_css_from_page(struct page *page)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 339 \n");
 	struct mem_cgroup *memcg;
 
 	memcg = page->mem_cgroup;
@@ -362,7 +357,6 @@ struct cgroup_subsys_state *mem_cgroup_css_from_page(struct page *page)
  */
 ino_t page_cgroup_ino(struct page *page)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 365 \n");
 	struct mem_cgroup *memcg;
 	unsigned long ino = 0;
 
@@ -379,7 +373,6 @@ ino_t page_cgroup_ino(struct page *page)
 static struct mem_cgroup_per_node *
 mem_cgroup_page_nodeinfo(struct mem_cgroup *memcg, struct page *page)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 382 \n");
 	int nid = page_to_nid(page);
 
 	return memcg->nodeinfo[nid];
@@ -388,14 +381,12 @@ mem_cgroup_page_nodeinfo(struct mem_cgroup *memcg, struct page *page)
 static struct mem_cgroup_tree_per_node *
 soft_limit_tree_node(int nid)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 391 \n");
 	return soft_limit_tree.rb_tree_per_node[nid];
 }
 
 static struct mem_cgroup_tree_per_node *
 soft_limit_tree_from_page(struct page *page)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 398 \n");
 	int nid = page_to_nid(page);
 
 	return soft_limit_tree.rb_tree_per_node[nid];
@@ -405,7 +396,6 @@ static void __mem_cgroup_insert_exceeded(struct mem_cgroup_per_node *mz,
 					 struct mem_cgroup_tree_per_node *mctz,
 					 unsigned long new_usage_in_excess)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 408 \n");
 	struct rb_node **p = &mctz->rb_root.rb_node;
 	struct rb_node *parent = NULL;
 	struct mem_cgroup_per_node *mz_node;
@@ -519,7 +509,6 @@ static void mem_cgroup_remove_from_trees(struct mem_cgroup *memcg)
 static struct mem_cgroup_per_node *
 __mem_cgroup_largest_soft_limit_node(struct mem_cgroup_tree_per_node *mctz)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 522 \n");
 	struct rb_node *rightmost = NULL;
 	struct mem_cgroup_per_node *mz;
 
@@ -546,7 +535,6 @@ done:
 static struct mem_cgroup_per_node *
 mem_cgroup_largest_soft_limit_node(struct mem_cgroup_tree_per_node *mctz)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 549 \n");
 	struct mem_cgroup_per_node *mz;
 
 	spin_lock_irq(&mctz->lock);
@@ -579,7 +567,6 @@ mem_cgroup_largest_soft_limit_node(struct mem_cgroup_tree_per_node *mctz)
 static unsigned long
 mem_cgroup_read_stat(struct mem_cgroup *memcg, enum mem_cgroup_stat_index idx)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 582 \n");
 	long val = 0;
 	int cpu;
 
@@ -598,7 +585,6 @@ mem_cgroup_read_stat(struct mem_cgroup *memcg, enum mem_cgroup_stat_index idx)
 static unsigned long mem_cgroup_read_events(struct mem_cgroup *memcg,
 					    enum mem_cgroup_events_index idx)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 601 \n");
 	unsigned long val = 0;
 	int cpu;
 
@@ -642,7 +628,6 @@ static void mem_cgroup_charge_statistics(struct mem_cgroup *memcg,
 unsigned long mem_cgroup_node_nr_lru_pages(struct mem_cgroup *memcg,
 					   int nid, unsigned int lru_mask)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 645 \n");
 	struct lruvec *lruvec = mem_cgroup_lruvec(NODE_DATA(nid), memcg);
 	unsigned long nr = 0;
 	enum lru_list lru;
@@ -660,7 +645,6 @@ unsigned long mem_cgroup_node_nr_lru_pages(struct mem_cgroup *memcg,
 static unsigned long mem_cgroup_nr_lru_pages(struct mem_cgroup *memcg,
 			unsigned int lru_mask)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 663 \n");
 	unsigned long nr = 0;
 	int nid;
 
@@ -783,7 +767,6 @@ struct mem_cgroup *mem_cgroup_iter(struct mem_cgroup *root,
 				   struct mem_cgroup *prev,
 				   struct mem_cgroup_reclaim_cookie *reclaim)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 786 \n");
 	struct mem_cgroup_reclaim_iter *uninitialized_var(iter);
 	struct cgroup_subsys_state *css = NULL;
 	struct mem_cgroup *memcg = NULL;
@@ -898,7 +881,6 @@ out:
 void mem_cgroup_iter_break(struct mem_cgroup *root,
 			   struct mem_cgroup *prev)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 901 \n");
 	if (!root)
 		root = root_mem_cgroup;
 	if (prev && prev != root)
@@ -956,7 +938,6 @@ static void invalidate_reclaim_iterators(struct mem_cgroup *dead_memcg)
 int mem_cgroup_scan_tasks(struct mem_cgroup *memcg,
 			  int (*fn)(struct task_struct *, void *), void *arg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 959 \n");
 	struct mem_cgroup *iter;
 	int ret = 0;
 
@@ -1060,7 +1041,6 @@ void mem_cgroup_update_lru_size(struct lruvec *lruvec, enum lru_list lru,
 
 bool task_in_mem_cgroup(struct task_struct *task, struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1063 \n");
 	struct mem_cgroup *task_memcg;
 	struct task_struct *p;
 	bool ret;
@@ -1094,7 +1074,6 @@ bool task_in_mem_cgroup(struct task_struct *task, struct mem_cgroup *memcg)
  */
 static unsigned long mem_cgroup_margin(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1097 \n");
 	unsigned long margin = 0;
 	unsigned long count;
 	unsigned long limit;
@@ -1125,7 +1104,6 @@ static unsigned long mem_cgroup_margin(struct mem_cgroup *memcg)
  */
 static bool mem_cgroup_under_move(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1128 \n");
 	struct mem_cgroup *from;
 	struct mem_cgroup *to;
 	bool ret = false;
@@ -1148,7 +1126,6 @@ unlock:
 
 static bool mem_cgroup_wait_acct_move(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1151 \n");
 	if (mc.moving_task && current != mc.moving_task) {
 		if (mem_cgroup_under_move(memcg)) {
 			DEFINE_WAIT(wait);
@@ -1174,7 +1151,6 @@ static bool mem_cgroup_wait_acct_move(struct mem_cgroup *memcg)
  */
 void mem_cgroup_print_oom_info(struct mem_cgroup *memcg, struct task_struct *p)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1177 \n");
 	struct mem_cgroup *iter;
 	unsigned int i;
 
@@ -1229,7 +1205,6 @@ void mem_cgroup_print_oom_info(struct mem_cgroup *memcg, struct task_struct *p)
  */
 static int mem_cgroup_count_children(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1232 \n");
 	int num = 0;
 	struct mem_cgroup *iter;
 
@@ -1243,7 +1218,6 @@ static int mem_cgroup_count_children(struct mem_cgroup *memcg)
  */
 unsigned long mem_cgroup_get_limit(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1246 \n");
 	unsigned long limit;
 
 	limit = memcg->memory.limit;
@@ -1262,7 +1236,6 @@ unsigned long mem_cgroup_get_limit(struct mem_cgroup *memcg)
 static bool mem_cgroup_out_of_memory(struct mem_cgroup *memcg, gfp_t gfp_mask,
 				     int order)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1265 \n");
 	struct oom_control oc = {
 		.zonelist = NULL,
 		.nodemask = NULL,
@@ -1368,7 +1341,6 @@ int mem_cgroup_select_victim_node(struct mem_cgroup *memcg)
 #else
 int mem_cgroup_select_victim_node(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1371 \n");
 	return 0;
 }
 #endif
@@ -1378,7 +1350,6 @@ static int mem_cgroup_soft_reclaim(struct mem_cgroup *root_memcg,
 				   gfp_t gfp_mask,
 				   unsigned long *total_scanned)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1381 \n");
 	struct mem_cgroup *victim = NULL;
 	int total = 0;
 	int loop = 0;
@@ -1439,7 +1410,6 @@ static DEFINE_SPINLOCK(memcg_oom_lock);
  */
 static bool mem_cgroup_oom_trylock(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1442 \n");
 	struct mem_cgroup *iter, *failed = NULL;
 
 	spin_lock(&memcg_oom_lock);
@@ -1479,7 +1449,6 @@ static bool mem_cgroup_oom_trylock(struct mem_cgroup *memcg)
 
 static void mem_cgroup_oom_unlock(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1482 \n");
 	struct mem_cgroup *iter;
 
 	spin_lock(&memcg_oom_lock);
@@ -1491,7 +1460,6 @@ static void mem_cgroup_oom_unlock(struct mem_cgroup *memcg)
 
 static void mem_cgroup_mark_under_oom(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1494 \n");
 	struct mem_cgroup *iter;
 
 	spin_lock(&memcg_oom_lock);
@@ -1502,7 +1470,6 @@ static void mem_cgroup_mark_under_oom(struct mem_cgroup *memcg)
 
 static void mem_cgroup_unmark_under_oom(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1505 \n");
 	struct mem_cgroup *iter;
 
 	/*
@@ -1526,7 +1493,6 @@ struct oom_wait_info {
 static int memcg_oom_wake_function(wait_queue_t *wait,
 	unsigned mode, int sync, void *arg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1529 \n");
 	struct mem_cgroup *wake_memcg = (struct mem_cgroup *)arg;
 	struct mem_cgroup *oom_wait_memcg;
 	struct oom_wait_info *oom_wait_info;
@@ -1556,7 +1522,6 @@ static void memcg_oom_recover(struct mem_cgroup *memcg)
 
 static void mem_cgroup_oom(struct mem_cgroup *memcg, gfp_t mask, int order)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1559 \n");
 	if (!current->memcg_may_oom)
 		return;
 	/*
@@ -1598,7 +1563,6 @@ static void mem_cgroup_oom(struct mem_cgroup *memcg, gfp_t mask, int order)
  */
 bool mem_cgroup_oom_synchronize(bool handle)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1601 \n");
 	struct mem_cgroup *memcg = current->memcg_in_oom;
 	struct oom_wait_info owait;
 	bool locked;
@@ -1785,7 +1749,6 @@ static void drain_stock(struct memcg_stock_pcp *stock)
 
 static void drain_local_stock(struct work_struct *dummy)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1788 \n");
 	struct memcg_stock_pcp *stock;
 	unsigned long flags;
 
@@ -1825,7 +1788,6 @@ static void refill_stock(struct mem_cgroup *memcg, unsigned int nr_pages)
  */
 static void drain_all_stock(struct mem_cgroup *root_memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1828 \n");
 	int cpu, curcpu;
 
 	/* If someone's already draining, avoid adding running more workers. */
@@ -1859,7 +1821,6 @@ static int memcg_cpu_hotplug_callback(struct notifier_block *nb,
 					unsigned long action,
 					void *hcpu)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1862 \n");
 	int cpu = (unsigned long)hcpu;
 	struct memcg_stock_pcp *stock;
 
@@ -1878,7 +1839,6 @@ static void reclaim_high(struct mem_cgroup *memcg,
 			 unsigned int nr_pages,
 			 gfp_t gfp_mask)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1881 \n");
 	do {
 		if (page_counter_read(&memcg->memory) <= memcg->high)
 			continue;
@@ -1889,7 +1849,6 @@ static void reclaim_high(struct mem_cgroup *memcg,
 
 static void high_work_func(struct work_struct *work)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 1892 \n");
 	struct mem_cgroup *memcg;
 
 	memcg = container_of(work, struct mem_cgroup, high_work);
@@ -2081,7 +2040,6 @@ static void cancel_charge(struct mem_cgroup *memcg, unsigned int nr_pages)
 
 static void lock_page_lru(struct page *page, int *isolated)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2084 \n");
 	struct zone *zone = page_zone(page);
 
 	spin_lock_irq(zone_lru_lock(zone));
@@ -2098,7 +2056,6 @@ static void lock_page_lru(struct page *page, int *isolated)
 
 static void unlock_page_lru(struct page *page, int isolated)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2101 \n");
 	struct zone *zone = page_zone(page);
 
 	if (isolated) {
@@ -2477,7 +2434,6 @@ static int mem_cgroup_move_swap_account(swp_entry_t entry,
 static inline int mem_cgroup_move_swap_account(swp_entry_t entry,
 				struct mem_cgroup *from, struct mem_cgroup *to)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2480 \n");
 	return -EINVAL;
 }
 #endif
@@ -2487,7 +2443,6 @@ static DEFINE_MUTEX(memcg_limit_mutex);
 static int mem_cgroup_resize_limit(struct mem_cgroup *memcg,
 				   unsigned long limit)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2490 \n");
 	unsigned long curusage;
 	unsigned long oldusage;
 	bool enlarge = false;
@@ -2543,7 +2498,6 @@ static int mem_cgroup_resize_limit(struct mem_cgroup *memcg,
 static int mem_cgroup_resize_memsw_limit(struct mem_cgroup *memcg,
 					 unsigned long limit)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2546 \n");
 	unsigned long curusage;
 	unsigned long oldusage;
 	bool enlarge = false;
@@ -2596,7 +2550,6 @@ unsigned long mem_cgroup_soft_limit_reclaim(pg_data_t *pgdat, int order,
 					    gfp_t gfp_mask,
 					    unsigned long *total_scanned)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2599 \n");
 	unsigned long nr_reclaimed = 0;
 	struct mem_cgroup_per_node *mz, *next_mz = NULL;
 	unsigned long reclaimed;
@@ -2699,7 +2652,6 @@ static inline bool memcg_has_children(struct mem_cgroup *memcg)
  */
 static int mem_cgroup_force_empty(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2702 \n");
 	int nr_retries = MEM_CGROUP_RECLAIM_RETRIES;
 
 	/* we call try-to-free pages for make this cgroup empty */
@@ -2728,7 +2680,6 @@ static ssize_t mem_cgroup_force_empty_write(struct kernfs_open_file *of,
 					    char *buf, size_t nbytes,
 					    loff_t off)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2731 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(of_css(of));
 
 	if (mem_cgroup_is_root(memcg))
@@ -2739,7 +2690,6 @@ static ssize_t mem_cgroup_force_empty_write(struct kernfs_open_file *of,
 static u64 mem_cgroup_hierarchy_read(struct cgroup_subsys_state *css,
 				     struct cftype *cft)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2742 \n");
 	return mem_cgroup_from_css(css)->use_hierarchy;
 }
 
@@ -2775,7 +2725,6 @@ static int mem_cgroup_hierarchy_write(struct cgroup_subsys_state *css,
 
 static void tree_stat(struct mem_cgroup *memcg, unsigned long *stat)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2778 \n");
 	struct mem_cgroup *iter;
 	int i;
 
@@ -2789,7 +2738,6 @@ static void tree_stat(struct mem_cgroup *memcg, unsigned long *stat)
 
 static void tree_events(struct mem_cgroup *memcg, unsigned long *events)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2792 \n");
 	struct mem_cgroup *iter;
 	int i;
 
@@ -2803,7 +2751,6 @@ static void tree_events(struct mem_cgroup *memcg, unsigned long *events)
 
 static unsigned long mem_cgroup_usage(struct mem_cgroup *memcg, bool swap)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2806 \n");
 	unsigned long val = 0;
 
 	if (mem_cgroup_is_root(memcg)) {
@@ -2838,7 +2785,6 @@ enum {
 static u64 mem_cgroup_read_u64(struct cgroup_subsys_state *css,
 			       struct cftype *cft)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2841 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(css);
 	struct page_counter *counter;
 
@@ -2983,7 +2929,6 @@ static void memcg_free_kmem(struct mem_cgroup *memcg)
 static int memcg_update_kmem_limit(struct mem_cgroup *memcg,
 				   unsigned long limit)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2986 \n");
 	int ret;
 
 	mutex_lock(&memcg_limit_mutex);
@@ -2994,7 +2939,6 @@ static int memcg_update_kmem_limit(struct mem_cgroup *memcg,
 
 static int memcg_update_tcp_limit(struct mem_cgroup *memcg, unsigned long limit)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 2997 \n");
 	int ret;
 
 	mutex_lock(&memcg_limit_mutex);
@@ -3035,7 +2979,6 @@ out:
 static ssize_t mem_cgroup_write(struct kernfs_open_file *of,
 				char *buf, size_t nbytes, loff_t off)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3038 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(of_css(of));
 	unsigned long nr_pages;
 	int ret;
@@ -3077,7 +3020,6 @@ static ssize_t mem_cgroup_write(struct kernfs_open_file *of,
 static ssize_t mem_cgroup_reset(struct kernfs_open_file *of, char *buf,
 				size_t nbytes, loff_t off)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3080 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(of_css(of));
 	struct page_counter *counter;
 
@@ -3115,7 +3057,6 @@ static ssize_t mem_cgroup_reset(struct kernfs_open_file *of, char *buf,
 static u64 mem_cgroup_move_charge_read(struct cgroup_subsys_state *css,
 					struct cftype *cft)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3118 \n");
 	return mem_cgroup_from_css(css)->move_charge_at_immigrate;
 }
 
@@ -3141,7 +3082,6 @@ static int mem_cgroup_move_charge_write(struct cgroup_subsys_state *css,
 static int mem_cgroup_move_charge_write(struct cgroup_subsys_state *css,
 					struct cftype *cft, u64 val)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3144 \n");
 	return -ENOSYS;
 }
 #endif
@@ -3199,7 +3139,6 @@ static int memcg_numa_stat_show(struct seq_file *m, void *v)
 
 static int memcg_stat_show(struct seq_file *m, void *v)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3202 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(seq_css(m));
 	unsigned long memory, memsw;
 	struct mem_cgroup *mi;
@@ -3295,7 +3234,6 @@ static int memcg_stat_show(struct seq_file *m, void *v)
 static u64 mem_cgroup_swappiness_read(struct cgroup_subsys_state *css,
 				      struct cftype *cft)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3298 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(css);
 
 	return mem_cgroup_swappiness(memcg);
@@ -3304,7 +3242,6 @@ static u64 mem_cgroup_swappiness_read(struct cgroup_subsys_state *css,
 static int mem_cgroup_swappiness_write(struct cgroup_subsys_state *css,
 				       struct cftype *cft, u64 val)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3307 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(css);
 
 	if (val > 100)
@@ -3382,7 +3319,6 @@ static void mem_cgroup_threshold(struct mem_cgroup *memcg)
 
 static int compare_thresholds(const void *a, const void *b)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3385 \n");
 	const struct mem_cgroup_threshold *_a = a;
 	const struct mem_cgroup_threshold *_b = b;
 
@@ -3397,7 +3333,6 @@ static int compare_thresholds(const void *a, const void *b)
 
 static int mem_cgroup_oom_notify_cb(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3400 \n");
 	struct mem_cgroup_eventfd_list *ev;
 
 	spin_lock(&memcg_oom_lock);
@@ -3411,7 +3346,6 @@ static int mem_cgroup_oom_notify_cb(struct mem_cgroup *memcg)
 
 static void mem_cgroup_oom_notify(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3414 \n");
 	struct mem_cgroup *iter;
 
 	for_each_mem_cgroup_tree(iter, memcg)
@@ -3421,7 +3355,6 @@ static void mem_cgroup_oom_notify(struct mem_cgroup *memcg)
 static int __mem_cgroup_usage_register_event(struct mem_cgroup *memcg,
 	struct eventfd_ctx *eventfd, const char *args, enum res_type type)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3424 \n");
 	struct mem_cgroup_thresholds *thresholds;
 	struct mem_cgroup_threshold_ary *new;
 	unsigned long threshold;
@@ -3504,21 +3437,18 @@ unlock:
 static int mem_cgroup_usage_register_event(struct mem_cgroup *memcg,
 	struct eventfd_ctx *eventfd, const char *args)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3507 \n");
 	return __mem_cgroup_usage_register_event(memcg, eventfd, args, _MEM);
 }
 
 static int memsw_cgroup_usage_register_event(struct mem_cgroup *memcg,
 	struct eventfd_ctx *eventfd, const char *args)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3514 \n");
 	return __mem_cgroup_usage_register_event(memcg, eventfd, args, _MEMSWAP);
 }
 
 static void __mem_cgroup_usage_unregister_event(struct mem_cgroup *memcg,
 	struct eventfd_ctx *eventfd, enum res_type type)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3521 \n");
 	struct mem_cgroup_thresholds *thresholds;
 	struct mem_cgroup_threshold_ary *new;
 	unsigned long usage;
@@ -3598,14 +3528,12 @@ unlock:
 static void mem_cgroup_usage_unregister_event(struct mem_cgroup *memcg,
 	struct eventfd_ctx *eventfd)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3601 \n");
 	return __mem_cgroup_usage_unregister_event(memcg, eventfd, _MEM);
 }
 
 static void memsw_cgroup_usage_unregister_event(struct mem_cgroup *memcg,
 	struct eventfd_ctx *eventfd)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3608 \n");
 	return __mem_cgroup_usage_unregister_event(memcg, eventfd, _MEMSWAP);
 }
 
@@ -3650,7 +3578,6 @@ static void mem_cgroup_oom_unregister_event(struct mem_cgroup *memcg,
 
 static int mem_cgroup_oom_control_read(struct seq_file *sf, void *v)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3653 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(seq_css(sf));
 
 	seq_printf(sf, "oom_kill_disable %d\n", memcg->oom_kill_disable);
@@ -3661,7 +3588,6 @@ static int mem_cgroup_oom_control_read(struct seq_file *sf, void *v)
 static int mem_cgroup_oom_control_write(struct cgroup_subsys_state *css,
 	struct cftype *cft, u64 val)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3664 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(css);
 
 	/* cannot set to root cgroup and only 0 and 1 are allowed */
@@ -3753,18 +3679,15 @@ void mem_cgroup_wb_stats(struct bdi_writeback *wb, unsigned long *pfilepages,
 
 static int memcg_wb_domain_init(struct mem_cgroup *memcg, gfp_t gfp)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3756 \n");
 	return 0;
 }
 
 static void memcg_wb_domain_exit(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3762 \n");
 }
 
 static void memcg_wb_domain_size_changed(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3767 \n");
 }
 
 #endif	/* CONFIG_CGROUP_WRITEBACK */
@@ -3813,7 +3736,6 @@ static void memcg_event_remove(struct work_struct *work)
 static int memcg_event_wake(wait_queue_t *wait, unsigned mode,
 			    int sync, void *key)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 3816 \n");
 	struct mem_cgroup_event *event =
 		container_of(wait, struct mem_cgroup_event, wait);
 	struct mem_cgroup *memcg = event->memcg;
@@ -4152,7 +4074,6 @@ static DEFINE_IDR(mem_cgroup_idr);
 
 static void mem_cgroup_id_get_many(struct mem_cgroup *memcg, unsigned int n)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 4155 \n");
 	VM_BUG_ON(atomic_read(&memcg->id.ref) <= 0);
 	atomic_add(n, &memcg->id.ref);
 }
@@ -4171,7 +4092,6 @@ static void mem_cgroup_id_put_many(struct mem_cgroup *memcg, unsigned int n)
 
 static inline void mem_cgroup_id_get(struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 4174 \n");
 	mem_cgroup_id_get_many(memcg, 1);
 }
 
@@ -4188,7 +4108,6 @@ static inline void mem_cgroup_id_put(struct mem_cgroup *memcg)
  */
 struct mem_cgroup *mem_cgroup_from_id(unsigned short id)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 4191 \n");
 	WARN_ON_ONCE(!rcu_read_lock_held());
 	return idr_find(&mem_cgroup_idr, id);
 }
@@ -4222,7 +4141,6 @@ static int alloc_mem_cgroup_per_node_info(struct mem_cgroup *memcg, int node)
 
 static void free_mem_cgroup_per_node_info(struct mem_cgroup *memcg, int node)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 4225 \n");
 	kfree(memcg->nodeinfo[node]);
 }
 
@@ -5086,16 +5004,13 @@ static void mem_cgroup_move_task(void)
 #else	/* !CONFIG_MMU */
 static int mem_cgroup_can_attach(struct cgroup_taskset *tset)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5089 \n");
 	return 0;
 }
 static void mem_cgroup_cancel_attach(struct cgroup_taskset *tset)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5094 \n");
 }
 static void mem_cgroup_move_task(void)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5098 \n");
 }
 #endif
 
@@ -5120,7 +5035,6 @@ static void mem_cgroup_bind(struct cgroup_subsys_state *root_css)
 static u64 memory_current_read(struct cgroup_subsys_state *css,
 			       struct cftype *cft)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5123 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(css);
 
 	return (u64)page_counter_read(&memcg->memory) * PAGE_SIZE;
@@ -5128,7 +5042,6 @@ static u64 memory_current_read(struct cgroup_subsys_state *css,
 
 static int memory_low_show(struct seq_file *m, void *v)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5131 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(seq_css(m));
 	unsigned long low = READ_ONCE(memcg->low);
 
@@ -5143,7 +5056,6 @@ static int memory_low_show(struct seq_file *m, void *v)
 static ssize_t memory_low_write(struct kernfs_open_file *of,
 				char *buf, size_t nbytes, loff_t off)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5146 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(of_css(of));
 	unsigned long low;
 	int err;
@@ -5160,7 +5072,6 @@ static ssize_t memory_low_write(struct kernfs_open_file *of,
 
 static int memory_high_show(struct seq_file *m, void *v)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5163 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(seq_css(m));
 	unsigned long high = READ_ONCE(memcg->high);
 
@@ -5175,7 +5086,6 @@ static int memory_high_show(struct seq_file *m, void *v)
 static ssize_t memory_high_write(struct kernfs_open_file *of,
 				 char *buf, size_t nbytes, loff_t off)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5178 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(of_css(of));
 	unsigned long nr_pages;
 	unsigned long high;
@@ -5199,7 +5109,6 @@ static ssize_t memory_high_write(struct kernfs_open_file *of,
 
 static int memory_max_show(struct seq_file *m, void *v)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5202 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(seq_css(m));
 	unsigned long max = READ_ONCE(memcg->memory.limit);
 
@@ -5214,7 +5123,6 @@ static int memory_max_show(struct seq_file *m, void *v)
 static ssize_t memory_max_write(struct kernfs_open_file *of,
 				char *buf, size_t nbytes, loff_t off)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5217 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(of_css(of));
 	unsigned int nr_reclaims = MEM_CGROUP_RECLAIM_RETRIES;
 	bool drained = false;
@@ -5263,7 +5171,6 @@ static ssize_t memory_max_write(struct kernfs_open_file *of,
 
 static int memory_events_show(struct seq_file *m, void *v)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5266 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(seq_css(m));
 
 	seq_printf(m, "low %lu\n", mem_cgroup_read_events(memcg, MEMCG_LOW));
@@ -5276,7 +5183,6 @@ static int memory_events_show(struct seq_file *m, void *v)
 
 static int memory_stat_show(struct seq_file *m, void *v)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5279 \n");
 	struct mem_cgroup *memcg = mem_cgroup_from_css(seq_css(m));
 	unsigned long stat[MEMCG_NR_STAT];
 	unsigned long events[MEMCG_NR_EVENTS];
@@ -5404,7 +5310,6 @@ struct cgroup_subsys memory_cgrp_subsys = {
  */
 bool mem_cgroup_low(struct mem_cgroup *root, struct mem_cgroup *memcg)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5407 \n");
 	if (mem_cgroup_disabled())
 		return false;
 
@@ -5720,7 +5625,6 @@ void mem_cgroup_uncharge_list(struct list_head *page_list)
  */
 void mem_cgroup_migrate(struct page *oldpage, struct page *newpage)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5723 \n");
 	struct mem_cgroup *memcg;
 	unsigned int nr_pages;
 	bool compound;
@@ -5814,7 +5718,6 @@ void mem_cgroup_sk_free(struct sock *sk)
  */
 bool mem_cgroup_charge_skmem(struct mem_cgroup *memcg, unsigned int nr_pages)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5817 \n");
 	gfp_t gfp_mask = GFP_KERNEL;
 
 	if (!cgroup_subsys_on_dfl(memory_cgrp_subsys)) {
@@ -5849,7 +5752,6 @@ bool mem_cgroup_charge_skmem(struct mem_cgroup *memcg, unsigned int nr_pages)
  */
 void mem_cgroup_uncharge_skmem(struct mem_cgroup *memcg, unsigned int nr_pages)
 {
-	panic("We reached unpopular paths in mm/memcontrol.c: line 5852 \n");
 	if (!cgroup_subsys_on_dfl(memory_cgrp_subsys)) {
 		page_counter_uncharge(&memcg->tcpmem, nr_pages);
 		return;

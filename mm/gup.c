@@ -1,5 +1,4 @@
 #include <linux/kernel.h>
-#include <linux/kernel.h>
 #include <linux/errno.h>
 #include <linux/err.h>
 #include <linux/spinlock.h>
@@ -40,7 +39,6 @@ static struct page *no_page_table(struct vm_area_struct *vma,
 static int follow_pfn_pte(struct vm_area_struct *vma, unsigned long address,
 		pte_t *pte, unsigned int flags)
 {
-	panic("We reached unpopular paths in mm/gup.c: line 43 \n");
 	/* No page to get reference */
 	if (flags & FOLL_GET)
 		return -EFAULT;
@@ -318,7 +316,6 @@ static int get_gate_page(struct mm_struct *mm, unsigned long address,
 		unsigned int gup_flags, struct vm_area_struct **vma,
 		struct page **page)
 {
-	panic("We reached unpopular paths in mm/gup.c: line 321 \n");
 	pgd_t *pgd;
 	pud_t *pud;
 	pmd_t *pmd;
@@ -632,7 +629,6 @@ next_page:
 
 bool vma_permits_fault(struct vm_area_struct *vma, unsigned int fault_flags)
 {
-	panic("We reached unpopular paths in mm/gup.c: line 635 \n");
 	bool write   = !!(fault_flags & FAULT_FLAG_WRITE);
 	bool foreign = !!(fault_flags & FAULT_FLAG_REMOTE);
 	vm_flags_t vm_flags = write ? VM_WRITE : VM_READ;
@@ -687,7 +683,6 @@ int fixup_user_fault(struct task_struct *tsk, struct mm_struct *mm,
 		     unsigned long address, unsigned int fault_flags,
 		     bool *unlocked)
 {
-	panic("We reached unpopular paths in mm/gup.c: line 690 \n");
 	struct vm_area_struct *vma;
 	int ret, major = 0;
 
@@ -850,7 +845,6 @@ long get_user_pages_locked(unsigned long start, unsigned long nr_pages,
 			   unsigned int gup_flags, struct page **pages,
 			   int *locked)
 {
-	panic("We reached unpopular paths in mm/gup.c: line 853 \n");
 	return __get_user_pages_locked(current, current->mm, start, nr_pages,
 				       pages, NULL, locked, true,
 				       gup_flags | FOLL_TOUCH);
@@ -871,7 +865,6 @@ __always_inline long __get_user_pages_unlocked(struct task_struct *tsk, struct m
 					       unsigned long start, unsigned long nr_pages,
 					       struct page **pages, unsigned int gup_flags)
 {
-	panic("We reached unpopular paths in mm/gup.c: line 874 \n");
 	long ret;
 	int locked = 1;
 
@@ -904,7 +897,6 @@ EXPORT_SYMBOL(__get_user_pages_unlocked);
 long get_user_pages_unlocked(unsigned long start, unsigned long nr_pages,
 			     struct page **pages, unsigned int gup_flags)
 {
-	panic("We reached unpopular paths in mm/gup.c: line 907 \n");
 	return __get_user_pages_unlocked(current, current->mm, start, nr_pages,
 					 pages, gup_flags | FOLL_TOUCH);
 }
@@ -984,7 +976,6 @@ long get_user_pages(unsigned long start, unsigned long nr_pages,
 		unsigned int gup_flags, struct page **pages,
 		struct vm_area_struct **vmas)
 {
-	panic("We reached unpopular paths in mm/gup.c: line 987 \n");
 	return __get_user_pages_locked(current, current->mm, start, nr_pages,
 				       pages, vmas, NULL, false,
 				       gup_flags | FOLL_TOUCH);
@@ -1077,7 +1068,6 @@ EXPORT_SYMBOL(get_user_pages_longterm);
 long populate_vma_page_range(struct vm_area_struct *vma,
 		unsigned long start, unsigned long end, int *nonblocking)
 {
-	panic("We reached unpopular paths in mm/gup.c: line 1080 \n");
 	struct mm_struct *mm = vma->vm_mm;
 	unsigned long nr_pages = (end - start) / PAGE_SIZE;
 	int gup_flags;
@@ -1123,7 +1113,6 @@ long populate_vma_page_range(struct vm_area_struct *vma,
  */
 int __mm_populate(unsigned long start, unsigned long len, int ignore_errors)
 {
-	panic("We reached unpopular paths in mm/gup.c: line 1126 \n");
 	struct mm_struct *mm = current->mm;
 	unsigned long end, nstart, nend;
 	struct vm_area_struct *vma = NULL;

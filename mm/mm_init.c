@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  * mm_init.c - Memory initialisation verification and debugging
  *

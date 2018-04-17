@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  * Provide common bits of early_ioremap() support for architectures needing
  * temporary mappings during boot before ioremap() is available.

@@ -1,4 +1,3 @@
-#include <linux/kernel.h>
 /*
  *  linux/mm/swapfile.c
  *
@@ -95,7 +94,6 @@ static atomic_t proc_poll_event = ATOMIC_INIT(0);
 
 static inline unsigned char swap_count(unsigned char ent)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 98 \n");
 	return ent & ~SWAP_HAS_CACHE;	/* may include SWAP_HAS_CONT flag */
 }
 
@@ -103,7 +101,6 @@ static inline unsigned char swap_count(unsigned char ent)
 static int
 __try_to_reclaim_swap(struct swap_info_struct *si, unsigned long offset)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 106 \n");
 	swp_entry_t entry = swp_entry(si->type, offset);
 	struct page *page;
 	int ret = 0;
@@ -132,7 +129,6 @@ __try_to_reclaim_swap(struct swap_info_struct *si, unsigned long offset)
  */
 static int discard_swap(struct swap_info_struct *si)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 135 \n");
 	struct swap_extent *se;
 	sector_t start_block;
 	sector_t nr_blocks;
@@ -171,7 +167,6 @@ static int discard_swap(struct swap_info_struct *si)
 static void discard_swap_cluster(struct swap_info_struct *si,
 				 pgoff_t start_page, pgoff_t nr_pages)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 174 \n");
 	struct swap_extent *se = si->curr_swap_extent;
 	int found_extent = 0;
 
@@ -207,86 +202,73 @@ static void discard_swap_cluster(struct swap_info_struct *si,
 static inline void cluster_set_flag(struct swap_cluster_info *info,
 	unsigned int flag)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 210 \n");
 	info->flags = flag;
 }
 
 static inline unsigned int cluster_count(struct swap_cluster_info *info)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 216 \n");
 	return info->data;
 }
 
 static inline void cluster_set_count(struct swap_cluster_info *info,
 				     unsigned int c)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 223 \n");
 	info->data = c;
 }
 
 static inline void cluster_set_count_flag(struct swap_cluster_info *info,
 					 unsigned int c, unsigned int f)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 230 \n");
 	info->flags = f;
 	info->data = c;
 }
 
 static inline unsigned int cluster_next(struct swap_cluster_info *info)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 237 \n");
 	return info->data;
 }
 
 static inline void cluster_set_next(struct swap_cluster_info *info,
 				    unsigned int n)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 244 \n");
 	info->data = n;
 }
 
 static inline void cluster_set_next_flag(struct swap_cluster_info *info,
 					 unsigned int n, unsigned int f)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 251 \n");
 	info->flags = f;
 	info->data = n;
 }
 
 static inline bool cluster_is_free(struct swap_cluster_info *info)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 258 \n");
 	return info->flags & CLUSTER_FLAG_FREE;
 }
 
 static inline bool cluster_is_null(struct swap_cluster_info *info)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 264 \n");
 	return info->flags & CLUSTER_FLAG_NEXT_NULL;
 }
 
 static inline void cluster_set_null(struct swap_cluster_info *info)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 270 \n");
 	info->flags = CLUSTER_FLAG_NEXT_NULL;
 	info->data = 0;
 }
 
 static inline bool cluster_list_empty(struct swap_cluster_list *list)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 277 \n");
 	return cluster_is_null(&list->head);
 }
 
 static inline unsigned int cluster_list_first(struct swap_cluster_list *list)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 283 \n");
 	return cluster_next(&list->head);
 }
 
 static void cluster_list_init(struct swap_cluster_list *list)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 289 \n");
 	cluster_set_null(&list->head);
 	cluster_set_null(&list->tail);
 }
@@ -295,7 +277,6 @@ static void cluster_list_add_tail(struct swap_cluster_list *list,
 				  struct swap_cluster_info *ci,
 				  unsigned int idx)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 298 \n");
 	if (cluster_list_empty(list)) {
 		cluster_set_next_flag(&list->head, idx, 0);
 		cluster_set_next_flag(&list->tail, idx, 0);
@@ -310,7 +291,6 @@ static void cluster_list_add_tail(struct swap_cluster_list *list,
 static unsigned int cluster_list_del_first(struct swap_cluster_list *list,
 					   struct swap_cluster_info *ci)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 313 \n");
 	unsigned int idx;
 
 	idx = cluster_next(&list->head);
@@ -328,7 +308,6 @@ static unsigned int cluster_list_del_first(struct swap_cluster_list *list,
 static void swap_cluster_schedule_discard(struct swap_info_struct *si,
 		unsigned int idx)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 331 \n");
 	/*
 	 * If scan_swap_map() can't find a free cluster, it will check
 	 * si->swap_map directly. To make sure the discarding cluster isn't
@@ -349,7 +328,6 @@ static void swap_cluster_schedule_discard(struct swap_info_struct *si,
 */
 static void swap_do_scheduled_discard(struct swap_info_struct *si)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 352 \n");
 	struct swap_cluster_info *info;
 	unsigned int idx;
 
@@ -372,7 +350,6 @@ static void swap_do_scheduled_discard(struct swap_info_struct *si)
 
 static void swap_discard_work(struct work_struct *work)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 375 \n");
 	struct swap_info_struct *si;
 
 	si = container_of(work, struct swap_info_struct, discard_work);
@@ -389,7 +366,6 @@ static void swap_discard_work(struct work_struct *work)
 static void inc_cluster_info_page(struct swap_info_struct *p,
 	struct swap_cluster_info *cluster_info, unsigned long page_nr)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 392 \n");
 	unsigned long idx = page_nr / SWAPFILE_CLUSTER;
 
 	if (!cluster_info)
@@ -413,7 +389,6 @@ static void inc_cluster_info_page(struct swap_info_struct *p,
 static void dec_cluster_info_page(struct swap_info_struct *p,
 	struct swap_cluster_info *cluster_info, unsigned long page_nr)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 416 \n");
 	unsigned long idx = page_nr / SWAPFILE_CLUSTER;
 
 	if (!cluster_info)
@@ -448,7 +423,6 @@ static bool
 scan_swap_map_ssd_cluster_conflict(struct swap_info_struct *si,
 	unsigned long offset)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 451 \n");
 	struct percpu_cluster *percpu_cluster;
 	bool conflict;
 
@@ -472,7 +446,6 @@ scan_swap_map_ssd_cluster_conflict(struct swap_info_struct *si,
 static void scan_swap_map_try_ssd_cluster(struct swap_info_struct *si,
 	unsigned long *offset, unsigned long *scan_base)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 475 \n");
 	struct percpu_cluster *cluster;
 	bool found_free;
 	unsigned long tmp;
@@ -523,7 +496,6 @@ new_cluster:
 static unsigned long scan_swap_map(struct swap_info_struct *si,
 				   unsigned char usage)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 526 \n");
 	unsigned long offset;
 	unsigned long scan_base;
 	unsigned long last_in_cluster = 0;
@@ -675,7 +647,6 @@ no_page:
 
 swp_entry_t get_swap_page(void)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 678 \n");
 	struct swap_info_struct *si, *next;
 	pgoff_t offset;
 
@@ -741,7 +712,6 @@ noswap:
 /* The only caller of this function is now suspend routine */
 swp_entry_t get_swap_page_of_type(int type)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 744 \n");
 	struct swap_info_struct *si;
 	pgoff_t offset;
 
@@ -763,7 +733,6 @@ swp_entry_t get_swap_page_of_type(int type)
 
 static struct swap_info_struct *swap_info_get(swp_entry_t entry)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 766 \n");
 	struct swap_info_struct *p;
 	unsigned long offset, type;
 
@@ -801,7 +770,6 @@ out:
 static unsigned char swap_entry_free(struct swap_info_struct *p,
 				     swp_entry_t entry, unsigned char usage)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 804 \n");
 	unsigned long offset = swp_offset(entry);
 	unsigned char count;
 	unsigned char has_cache;
@@ -870,7 +838,6 @@ static unsigned char swap_entry_free(struct swap_info_struct *p,
  */
 void swap_free(swp_entry_t entry)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 873 \n");
 	struct swap_info_struct *p;
 
 	p = swap_info_get(entry);
@@ -885,7 +852,6 @@ void swap_free(swp_entry_t entry)
  */
 void swapcache_free(swp_entry_t entry)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 888 \n");
 	struct swap_info_struct *p;
 
 	p = swap_info_get(entry);
@@ -902,7 +868,6 @@ void swapcache_free(swp_entry_t entry)
  */
 int page_swapcount(struct page *page)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 905 \n");
 	int count = 0;
 	struct swap_info_struct *p;
 	swp_entry_t entry;
@@ -922,7 +887,6 @@ int page_swapcount(struct page *page)
  */
 int swp_swapcount(swp_entry_t entry)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 925 \n");
 	int count, tmp_count, n;
 	struct swap_info_struct *p;
 	struct page *page;
@@ -1007,7 +971,6 @@ out:
  */
 int try_to_free_swap(struct page *page)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1010 \n");
 	VM_BUG_ON_PAGE(!PageLocked(page), page);
 
 	if (!PageSwapCache(page))
@@ -1046,7 +1009,6 @@ int try_to_free_swap(struct page *page)
  */
 int free_swap_and_cache(swp_entry_t entry)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1049 \n");
 	struct swap_info_struct *p;
 	struct page *page = NULL;
 
@@ -1176,7 +1138,6 @@ unsigned int count_swap_pages(int type, int free)
 
 static inline int pte_same_as_swp(pte_t pte, pte_t swp_pte)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1179 \n");
 	return pte_same(pte_swp_clear_soft_dirty(pte), swp_pte);
 }
 
@@ -1188,7 +1149,6 @@ static inline int pte_same_as_swp(pte_t pte, pte_t swp_pte)
 static int unuse_pte(struct vm_area_struct *vma, pmd_t *pmd,
 		unsigned long addr, swp_entry_t entry, struct page *page)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1191 \n");
 	struct page *swapcache;
 	struct mem_cgroup *memcg;
 	spinlock_t *ptl;
@@ -1246,7 +1206,6 @@ static int unuse_pte_range(struct vm_area_struct *vma, pmd_t *pmd,
 				unsigned long addr, unsigned long end,
 				swp_entry_t entry, struct page *page)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1249 \n");
 	pte_t swp_pte = swp_entry_to_pte(entry);
 	pte_t *pte;
 	int ret = 0;
@@ -1283,7 +1242,6 @@ static inline int unuse_pmd_range(struct vm_area_struct *vma, pud_t *pud,
 				unsigned long addr, unsigned long end,
 				swp_entry_t entry, struct page *page)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1286 \n");
 	pmd_t *pmd;
 	unsigned long next;
 	int ret;
@@ -1304,7 +1262,6 @@ static inline int unuse_pud_range(struct vm_area_struct *vma, pgd_t *pgd,
 				unsigned long addr, unsigned long end,
 				swp_entry_t entry, struct page *page)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1307 \n");
 	pud_t *pud;
 	unsigned long next;
 	int ret;
@@ -1324,7 +1281,6 @@ static inline int unuse_pud_range(struct vm_area_struct *vma, pgd_t *pgd,
 static int unuse_vma(struct vm_area_struct *vma,
 				swp_entry_t entry, struct page *page)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1327 \n");
 	pgd_t *pgd;
 	unsigned long addr, end, next;
 	int ret;
@@ -1355,7 +1311,6 @@ static int unuse_vma(struct vm_area_struct *vma,
 static int unuse_mm(struct mm_struct *mm,
 				swp_entry_t entry, struct page *page)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1358 \n");
 	struct vm_area_struct *vma;
 	int ret = 0;
 
@@ -1385,7 +1340,6 @@ static int unuse_mm(struct mm_struct *mm,
 static unsigned int find_next_to_unuse(struct swap_info_struct *si,
 					unsigned int prev, bool frontswap)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1388 \n");
 	unsigned int max = si->max;
 	unsigned int i = prev;
 	unsigned char count;
@@ -1434,7 +1388,6 @@ static unsigned int find_next_to_unuse(struct swap_info_struct *si,
 int try_to_unuse(unsigned int type, bool frontswap,
 		 unsigned long pages_to_unuse)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1437 \n");
 	struct swap_info_struct *si = swap_info[type];
 	struct mm_struct *start_mm;
 	volatile unsigned char *swap_map; /* swap_map is accessed without
@@ -1663,7 +1616,6 @@ int try_to_unuse(unsigned int type, bool frontswap,
  */
 static void drain_mmlist(void)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1666 \n");
 	struct list_head *p, *next;
 	unsigned int type;
 
@@ -1684,7 +1636,6 @@ static void drain_mmlist(void)
  */
 static sector_t map_swap_entry(swp_entry_t entry, struct block_device **bdev)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1687 \n");
 	struct swap_info_struct *sis;
 	struct swap_extent *start_se;
 	struct swap_extent *se;
@@ -1713,7 +1664,6 @@ static sector_t map_swap_entry(swp_entry_t entry, struct block_device **bdev)
  */
 sector_t map_swap_page(struct page *page, struct block_device **bdev)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1716 \n");
 	swp_entry_t entry;
 	entry.val = page_private(page);
 	return map_swap_entry(entry, bdev);
@@ -1724,7 +1674,6 @@ sector_t map_swap_page(struct page *page, struct block_device **bdev)
  */
 static void destroy_swap_extents(struct swap_info_struct *sis)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1727 \n");
 	while (!list_empty(&sis->first_swap_extent.list)) {
 		struct swap_extent *se;
 
@@ -1753,7 +1702,6 @@ int
 add_swap_extent(struct swap_info_struct *sis, unsigned long start_page,
 		unsigned long nr_pages, sector_t start_block)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1756 \n");
 	struct swap_extent *se;
 	struct swap_extent *new_se;
 	struct list_head *lh;
@@ -1823,7 +1771,6 @@ add_swap_extent(struct swap_info_struct *sis, unsigned long start_page,
  */
 static int setup_swap_extents(struct swap_info_struct *sis, sector_t *span)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1826 \n");
 	struct file *swap_file = sis->swap_file;
 	struct address_space *mapping = swap_file->f_mapping;
 	struct inode *inode = mapping->host;
@@ -1852,7 +1799,6 @@ static void _enable_swap_info(struct swap_info_struct *p, int prio,
 				unsigned char *swap_map,
 				struct swap_cluster_info *cluster_info)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1855 \n");
 	if (prio >= 0)
 		p->prio = prio;
 	else
@@ -1891,7 +1837,6 @@ static void enable_swap_info(struct swap_info_struct *p, int prio,
 				struct swap_cluster_info *cluster_info,
 				unsigned long *frontswap_map)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1894 \n");
 	frontswap_init(p->type, frontswap_map);
 	spin_lock(&swap_lock);
 	spin_lock(&p->lock);
@@ -1902,7 +1847,6 @@ static void enable_swap_info(struct swap_info_struct *p, int prio,
 
 static void reinsert_swap_info(struct swap_info_struct *p)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 1905 \n");
 	spin_lock(&swap_lock);
 	spin_lock(&p->lock);
 	_enable_swap_info(p, p->prio, p->swap_map, p->cluster_info);
@@ -2202,7 +2146,6 @@ late_initcall(max_swapfiles_check);
 
 static struct swap_info_struct *alloc_swap_info(void)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2205 \n");
 	struct swap_info_struct *p;
 	unsigned int type;
 
@@ -2250,7 +2193,6 @@ static struct swap_info_struct *alloc_swap_info(void)
 
 static int claim_swapfile(struct swap_info_struct *p, struct inode *inode)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2253 \n");
 	int error;
 
 	if (S_ISBLK(inode->i_mode)) {
@@ -2281,7 +2223,6 @@ static unsigned long read_swap_header(struct swap_info_struct *p,
 					union swap_header *swap_header,
 					struct inode *inode)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2284 \n");
 	int i;
 	unsigned long maxpages;
 	unsigned long swapfilepages;
@@ -2365,7 +2306,6 @@ static int setup_swap_map_and_extents(struct swap_info_struct *p,
 					unsigned long maxpages,
 					sector_t *span)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2368 \n");
 	int i;
 	unsigned int nr_good_pages;
 	int nr_extents;
@@ -2437,7 +2377,6 @@ static int setup_swap_map_and_extents(struct swap_info_struct *p,
  */
 static bool swap_discardable(struct swap_info_struct *si)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2440 \n");
 	struct request_queue *q = bdev_get_queue(si->bdev);
 
 	if (!q || !blk_queue_discard(q))
@@ -2688,7 +2627,6 @@ void si_swapinfo(struct sysinfo *val)
  */
 static int __swap_duplicate(swp_entry_t entry, unsigned char usage)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2691 \n");
 	struct swap_info_struct *p;
 	unsigned long offset, type;
 	unsigned char count;
@@ -2764,7 +2702,6 @@ bad_file:
  */
 void swap_shmem_alloc(swp_entry_t entry)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2767 \n");
 	__swap_duplicate(entry, SWAP_MAP_SHMEM);
 }
 
@@ -2777,7 +2714,6 @@ void swap_shmem_alloc(swp_entry_t entry)
  */
 int swap_duplicate(swp_entry_t entry)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2780 \n");
 	int err = 0;
 
 	while (!err && __swap_duplicate(entry, 1) == -ENOMEM)
@@ -2795,13 +2731,11 @@ int swap_duplicate(swp_entry_t entry)
  */
 int swapcache_prepare(swp_entry_t entry)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2798 \n");
 	return __swap_duplicate(entry, SWAP_HAS_CACHE);
 }
 
 struct swap_info_struct *page_swap_info(struct page *page)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2804 \n");
 	swp_entry_t swap = { .val = page_private(page) };
 	return swap_info[swp_type(swap)];
 }
@@ -2811,7 +2745,6 @@ struct swap_info_struct *page_swap_info(struct page *page)
  */
 struct address_space *__page_file_mapping(struct page *page)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2814 \n");
 	VM_BUG_ON_PAGE(!PageSwapCache(page), page);
 	return page_swap_info(page)->swap_file->f_mapping;
 }
@@ -2819,7 +2752,6 @@ EXPORT_SYMBOL_GPL(__page_file_mapping);
 
 pgoff_t __page_file_index(struct page *page)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2822 \n");
 	swp_entry_t swap = { .val = page_private(page) };
 	VM_BUG_ON_PAGE(!PageSwapCache(page), page);
 	return swp_offset(swap);
@@ -2843,7 +2775,6 @@ EXPORT_SYMBOL_GPL(__page_file_index);
  */
 int add_swap_count_continuation(swp_entry_t entry, gfp_t gfp_mask)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2846 \n");
 	struct swap_info_struct *si;
 	struct page *head;
 	struct page *page;
@@ -2946,7 +2877,6 @@ outer:
 static bool swap_count_continued(struct swap_info_struct *si,
 				 pgoff_t offset, unsigned char count)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 2949 \n");
 	struct page *head;
 	struct page *page;
 	unsigned char *map;
@@ -3027,7 +2957,6 @@ init_map:		*map = 0;		/* we didn't zero the page */
  */
 static void free_swap_count_continuations(struct swap_info_struct *si)
 {
-	panic("We reached unpopular paths in mm/swapfile.c: line 3030 \n");
 	pgoff_t offset;
 
 	for (offset = 0; offset < si->max; offset += PAGE_SIZE) {
