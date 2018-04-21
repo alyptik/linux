@@ -1225,6 +1225,15 @@ __do_page_fault(struct pt_regs *regs, unsigned long error_code,
 	tsk = current;
 	mm = tsk->mm;
 
+	/*
+	 * If we're in an interrupt, have no user context or are running
+	 * in a region with pagefaults disabled then we must not take the fault
+	 */
+	if (unlikely(faulthandler_disabled() || !mm)) {
+		bad_area(regs, error_code, address, NULL);
+		return;
+	}
+
 	prefetchw(&mm->mmap_sem);
 
 	if (unlikely(kmmio_fault(regs, address)))
@@ -1273,15 +1282,6 @@ __do_page_fault(struct pt_regs *regs, unsigned long error_code,
 		pgtable_bad(regs, error_code, address);
 
 	if (unlikely(smap_violation(error_code, regs))) {
-		bad_area_nosemaphore(regs, error_code, address, NULL);
-		return;
-	}
-
-	/*
-	 * If we're in an interrupt, have no user context or are running
-	 * in a region with pagefaults disabled then we must not take the fault
-	 */
-	if (unlikely(faulthandler_disabled() || !mm)) {
 		bad_area_nosemaphore(regs, error_code, address, NULL);
 		return;
 	}
