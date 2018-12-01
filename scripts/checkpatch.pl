@@ -105,11 +105,12 @@ Options:
                              is all off)
   --test-only=WORD           report only warnings/errors containing WORD
                              literally
-  --fix                      EXPERIMENTAL - may create horrible results
-                             If correctable single-line errors exist, create
-                             "<inputfile>.EXPERIMENTAL-checkpatch-fixes"
-                             with potential errors corrected to the preferred
-                             checkpatch style
+  --fix[=OUTPUTFILE]         EXPERIMENTAL - may create horrible results
+                             If correctable single-line errors exist, write
+                             a "fixed" patch with potential errors corrected
+                             to the preferred checkpatch style to OUTPUTFILE.
+                             If no OUTPUTFILE is specified the default is
+                             "<inputfile>.EXPERIMENTAL-checkpatch-fixes".
   --fix-inplace              EXPERIMENTAL - may create horrible results
                              Is the same as --fix, but overwrites the input
                              file.  It's your fault if there's no backup or git
@@ -217,7 +218,7 @@ GetOptions(
 	'summary!'	=> \$summary,
 	'mailback!'	=> \$mailback,
 	'summary-file!'	=> \$summary_file,
-	'fix!'		=> \$fix,
+	'fix=s'		=> \$fix,
 	'fix-inplace!'	=> \$fix_inplace,
 	'ignore-perl-version!' => \$ignore_perl_version,
 	'debug=s'	=> \%debug,
@@ -236,7 +237,7 @@ help(0) if ($help);
 
 list_types(0) if ($list_types);
 
-$fix = 1 if ($fix_inplace);
+$fix = "1" if (!$fix and $fix_inplace);
 $check_orig = $check;
 
 my $exit = 0;
